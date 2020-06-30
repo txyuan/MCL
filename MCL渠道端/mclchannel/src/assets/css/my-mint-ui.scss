@@ -1,0 +1,375 @@
+@import "base.scss";
+
+//header 样式
+.mint-header{
+  background: #ffffff;
+  color: $color40;
+  height: 43px;
+  font-size: 18px;
+  line-height: normal
+}
+
+//返回按钮
+.mintui-back{
+  font-size: 20px;
+}
+
+//个人中心
+.person{
+  a.mint-cell{
+    margin-bottom: 0.05rem;
+  }
+}
+a.mint-cell{
+  .mint-cell-wrapper{
+    background: #ffffff;
+  }
+  .mint-cell-text{
+    font-size: 16px;
+  }
+}
+
+.mint-cell-allow-right::after{
+  width: 8px;
+  height: 8px;
+}
+
+.mint-cell-label{
+  font-size: 13px;
+  color: $color60;
+}
+
+//个人资料
+.person_data .mint-cell{
+
+  .mint-cell-text{
+    color: $color40;
+    padding-left: 10px;
+  }
+  .mint-cell-value{
+    color: $color40;
+    margin-right: 35px;
+  }
+	
+}
+.person_data .person_juese .mint-cell{
+		.mint-cell-value{
+		  margin-right: 10px;
+		}
+	}
+//编辑地址性别
+.sex .mint-cell-title{
+  width: 105px;
+  flex: none;
+}
+.sex .mint-cell-value{
+  color: initial;
+}
+
+//底部的tabbar 导航
+#tabbar{
+  .mint-tab-item-label{
+    color: $color60;
+  }
+  .mint-tabbar > .mint-tab-item.is-selected{
+    background: none;
+  }
+  .mint-tabbar{
+    background: #fff;
+    border-top: 1px solid $boderE0;
+    padding: 6px 0;
+  }
+  .mint-tab-container-item{
+    padding-top: 0.05rem;
+  }
+}
+
+//navbar 样式
+#navbar{
+  .mint-navbar{
+    display: flex;
+    justify-content: space-around;
+    height: 0.44rem;
+  }
+  .mint-navbar .mint-tab-item{
+    flex: none;
+    padding: 0;
+  }
+  .mint-navbar p{
+    font-size: 0.15rem !important;
+    line-height: 0.44rem;
+  }
+  .mint-navbar .mint-tab-item.is-selected{
+    border-bottom: 2px solid $themeColor;
+    color: $themeColor;
+    margin-bottom: 0;
+  }
+}
+
+//addadress
+.add_cont input[type=text]{
+  border: 0 !important;
+}
+.add_cont textarea{
+  height: 0.45rem;
+}
+textarea.mint-field-core{
+  resize: none;
+  font-family: "Helvetica Neue", "Helvetica", "STHeiTi", "sans-serif";
+}
+//去掉mint-cell-title的宽度
+.mint-field.width .mint-cell-title{
+   width: auto;
+}
+.inputFont.mint-field .mint-field-core{
+  font-size: 0.13rem;
+  line-height: 0.4;
+}
+
+
+//进度条
+.progress .mt-progress-runway{
+  border-radius: 5px;
+  height: 0.1rem;
+}
+.progress .mt-progress-progress{
+  border-radius: 5px 0 0 5px;
+  height: 0.1rem;
+  background-color: #FF1E41;
+}
+//详情
+.title_review .mint-cell-title{
+  flex: 0;
+}
+.title_review .mint-cell-value{
+  width: 100%;
+  display: block;
+}
+.title_review p{
+  width: 100%;
+  font-size: 0.16rem;
+}
+.title_review .review{
+  color: #202020;
+  padding-top: 0.11rem;
+}
+.title_review .lucky{
+  font-size: 0.15rem;
+  line-height: 0.24rem;
+}
+.lucky label{
+  color: #FB0033;
+}
+//本期参与情况
+.in_list{
+  height: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+.in_list .mint-cell-wrapper{
+  margin-top: 0.03rem;
+}
+.in_list img{
+  height: 0.36rem;
+  width: 0.36rem;
+  float: left;
+  margin-right: 3%;
+}
+.in_list .mint-cell-text{
+  padding-top: 0.03rem;
+  float: left;
+  width: 80%;
+}
+.in_list .mint-cell-label{
+  float: left;
+}
+.in_icon{
+  color: #313131;
+  font-size: 0.16rem;
+}
+.in_icon i{
+  font-style: normal;
+  color: #FB0033;
+}
+//佣金提现
+.put_form input[type=text]{
+  border: none;
+}
+.put_fom {
+  border-bottom: 1px solid #E0E0E0;
+}
+
+//购物车去掉padding
+.product-list .mint-cell-wrapper{
+  padding: 0;
+}
+//证联支付
+.zl_card input[type=text]{
+  border: none;
+}
+//签到背景图
+.sign_header .mint-header{
+  background: none;
+  color: #fff;
+}
+.sign_header .mint-button-text{
+  font-size: 0.15rem;
+}
+//评论
+.com_coment .mint-navbar{
+  width: 60%;
+  margin-left: 22%;
+}
+.com_coment .mint-navbar .mint-tab-item.is-selected{
+  color: #404040;
+  border-bottom: 3px solid #FF1E41;
+}
+.com_coment .mint-navbar .mint-tab-item{
+  color: #404040;
+  margin: 0 0.12rem;
+}
+.com_coment .mint-navbar .mint-tab{
+  padding: 0.12rem 0.12rem;
+  color: #404040;
+  margin: 0 0.12rem;
+}
+.com_coment .mint-navbar .mint-tab-item p{
+  font-size: 0.18rem;
+}
+.mint-tab p{
+  color: #404040;
+  font-size: 0.18rem;
+}
+.com_return{
+  position: fixed;
+  background: #fff;
+  border: none;
+  top: 0.08rem;
+  left: 2%;
+}
+.com_return.mint-button--default{
+  box-shadow: 0 0 0 #fff;
+}
+
+
+.page-infinite-desc {
+  text-align: center;
+  color: #666;
+  padding-bottom: 5px;
+  border-bottom: solid 1px #eee;
+}
+.page-infinite-listitem {
+  height: 50px;
+  line-height: 50px;
+  border-bottom: solid 1px #eee;
+  text-align: center;
+}
+.page-infinite-listitem:first-child {
+  border-top: solid 1px #eee;
+}
+.page-infinite-wrapper {
+  margin-top: -1px;
+  overflow: scroll;
+}
+.page-infinite-loading {
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+  font-size: 12px;
+}
+.page-infinite-loading div {
+  display: inline-block;
+  vertical-align: middle;
+  //margin-right: 5px;
+}
+
+.width100 .mint-cell-value {
+  width: 100%;
+}
+//加载中样式
+.mint-indicator-wrapper{
+  z-index: 10;
+}
+
+.username-root .btn button{
+  height: 0.44rem;
+  font-size: 0.16rem;
+}
+
+
+.edit_pass .mint-field .mint-cell-title{
+  width: 88px;
+}
+
+.mint-msgbox-confirm{
+  color: #FF3D3D;
+}
+.mint-msgbox-confirm:active{
+  color: #FF3D3D;
+}
+
+.mint-msgbox .mint-msgbox-header{
+  display: none;
+}
+
+.real_name_root.padding-header .mint-cell-value{
+  flex: 2;
+}
+.real_name_root.padding-header .mint-cell-value.is-link{
+  margin-left: -22px;
+}
+
+//选择城市
+.choseabc .mint-indexlist-content{
+  margin-right: 0 !important;
+  height: auto !important;
+ }
+.choseabc .mint-indexlist-nav{
+  background: none;
+  border-left: none;
+  display: none;
+}
+
+.shopny .mint-header-button.is-left{
+  padding-left: 20px;
+  background: url("https://resource.jtsc.club/dingwei@2x.png") no-repeat left center;
+  background-size: 16px;
+}
+
+
+.mint-indicator-wrapper{
+  z-index: 999;
+}
+.mint-msgbox-wrapper,.mint-msgbox,.mint-actionsheet,.mint-popup,.mint-popup-city,.mint-popup-bottom{
+  z-index: 99999999 !important;
+}
+.v-modal{
+  z-index: 9999999 !important;
+}
+
+.myassets .mint-header{
+	background: #fff;
+}
+// 购物卡
+.borderpay a.mint-cell .mint-cell-text{
+	font-size: 0.18rem;
+}
+.borderpay .mint-cell-label{
+	margin-top: 0.1rem !important;
+}
+.borderpay a.mint-cell.borderBottom{
+	padding: 0.1rem 0;
+}
+
+
+.scdd.borderpay a.mint-cell.borderBottom{
+	padding: 0.06rem 0 !important;
+}
+
+
+.mint-indicator{
+	display: none !important;
+}
+
+.alert_cont input[type=text]{
+	border: none;
+}
