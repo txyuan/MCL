@@ -373,3 +373,9 @@ textarea.mint-field-core{
 .alert_cont input[type=text]{
 	border: none;
 }
+
+
+.mint-msgbox-content{
+	max-height: calc(100vh - 100px) !important;
+	overflow-y: auto !important;
+}

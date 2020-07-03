@@ -43,36 +43,6 @@
 							<p class="row">邀请好友</p>
 						</div>
 					</router-link>
-					<a href="javascript:;">
-						<!-- @click="isrealname" -->
-						<div class="cell">
-							<div class="row">
-								<img src="@/assets/images/ylyrenz.png" style="width: 0.25rem;height: 0.25rem;" alt="">
-							</div>
-							<p class="row">实名认证</p>
-						</div>
-					</a>
-					<!-- </router-link> -->
-				</div>
-
-				<div class="middle-cell">
-					<router-link :to="'/consultation'">
-						<div class="cell">
-							<div class="row">
-								<img src="@/assets/images/wodeyue@2x.png" style="width: 0.25rem;height: 0.25rem;" alt="">
-							</div>
-							<p class="row">我的余额</p>
-						</div>
-					</router-link>
-
-					<router-link :to="'/bankCard'">
-						<div class="cell">
-							<div class="row">
-								<img src="@/assets/images/kahaoguanli@2x.png" style="width: 0.25rem;height: 0.25rem;" alt="">
-							</div>
-							<p class="row">卡号管理</p>
-						</div>
-					</router-link>
 					<router-link :to="'/personalreceivingadress'">
 						<div class="cell">
 							<div class="row">
@@ -81,6 +51,38 @@
 							<p class="row">收货地址</p>
 						</div>
 					</router-link>
+					<!-- <a href="javascript:;">
+						
+						<div class="cell">
+							<div class="row">
+								<img src="@/assets/images/ylyrenz.png" style="width: 0.25rem;height: 0.25rem;" alt="">
+							</div>
+							<p class="row">实名认证</p>
+						</div>
+					</a> -->
+					<!-- @click="isrealname" -->
+					<!-- </router-link> -->
+				</div>
+
+				<div class="middle-cell">
+					<!-- <router-link :to="'/consultation'">
+						<div class="cell">
+							<div class="row">
+								<img src="@/assets/images/wodeyue@2x.png" style="width: 0.25rem;height: 0.25rem;" alt="">
+							</div>
+							<p class="row">我的余额</p>
+						</div>
+					</router-link> -->
+
+					<!-- <router-link :to="'/bankCard'">
+						<div class="cell">
+							<div class="row">
+								<img src="@/assets/images/kahaoguanli@2x.png" style="width: 0.25rem;height: 0.25rem;" alt="">
+							</div>
+							<p class="row">卡号管理</p>
+						</div>
+					</router-link> -->
+					
 
 					<router-link :to="'/capital'">
 						<div class="cell">
@@ -90,8 +92,6 @@
 							<p class="row">资金记录</p>
 						</div>
 					</router-link>
-				</div>
-				<div class="middle-cell">
 					<router-link :to="'/shopcar'">
 						<div class="cell">
 							<div class="row">
@@ -116,15 +116,8 @@
 							<p class="row">默认模块</p>
 						</div>
 					</router-link>
-					<router-link to="" style="visibility: hidden;">
-						<div class="cell">
-							<div class="row">
-								<img src="@/assets/images/hezbf.png" style="width: 0.25rem;height: 0.25rem;" alt="">
-							</div>
-							<p class="row">默认模块</p>
-						</div>
-					</router-link>
 				</div>
+				
 			</div>
 			<div class="person_shouyi">
 				<h3>资产管理</h3>

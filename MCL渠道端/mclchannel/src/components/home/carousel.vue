@@ -12,7 +12,7 @@
     export default {
         name: "carousel",
         data:()=>({
-          list:[{goodsImage: require('@/assets/images/banner.png'), goodsId:"",goodsName:""}]
+          list:[{goodsImage: require('@/assets/images/banner2.jpg'), goodsId:"",goodsName:""}]
         }),
         methods:{
           // banner(){

@@ -56,6 +56,9 @@ const goodAt = () => import(/* webpackChunkName: "goodAt" */ '@/components/perso
 const searchhz = () => import(/* webpackChunkName: "searchhz" */ '@/components/home/searchhz/index.vue')  //搜索患者
 const appDown = () => import(/* webpackChunkName: "appDown" */ '@/components/sharePage/appDown.vue') //app下载页面
 const myTeam = () => import(/* webpackChunkName: "myTeam" */ '@/components/personal/myTeam/index.vue') //我的邀请
+
+const caseUpload = () => import(/* webpackChunkName: "caseUpload" */ '@/components/home/caseUpload/index.vue')  //患者  历史病例
+const physicians = () => import(/* webpackChunkName: "physicians" */ '@/components/personal/realName/physicians.vue') //历史病例--查看报告
 //导入页面
 
 Vue.use(Router)
@@ -119,6 +122,9 @@ const router = new Router({
 		{ path:"/searchhz", name:"searchhz", component: searchhz },
 		{ path:"/appDown", name:"appDown", component: appDown},
 		{ path:"/myTeam", name:"myTeam", component: myTeam},
+		
+		{ path:"/caseUpload", name:"caseUpload", component: caseUpload},
+		{ path:"/physicians", name:"physicians", component: physicians},
 	],
 	scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {

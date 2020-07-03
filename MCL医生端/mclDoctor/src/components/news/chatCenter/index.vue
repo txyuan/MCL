@@ -39,7 +39,7 @@
 							<div class="row">
 								<img src="@/assets/images/dangan.png" style="width: 0.25rem;height: 0.25rem;" alt="">
 							</div>
-							<p class="row">病例档案</p>
+							<p class="row">健康档案</p>
 						</div>
 					</router-link>
 
@@ -102,6 +102,40 @@
 						</div>
 					</router-link>
 				</div>
+				<div class="middle-cell">
+					<router-link :to="'/caseUpload?skey='+hzskey">
+						<div class="cell">
+							<div class="row">
+								<img src="@/assets/images/bllsc.png" style="width: 0.25rem;height: 0.25rem;" alt="">
+							</div>
+							<p class="row">病例档案</p>
+						</div>
+					</router-link>
+					<router-link :to="'/nutrition?skey='+hzskey" style="visibility: hidden;">
+						<div class="cell">
+							<div class="row">
+								<img src="@/assets/images/yingycf.png" style="width: 0.25rem;height: 0.25rem;" alt="">
+							</div>
+							<p class="row">营养处方</p>
+						</div>
+					</router-link>
+					<router-link :to="'/sport?skey='+hzskey" style="visibility: hidden;">
+						<div class="cell">
+							<div class="row">
+								<img src="@/assets/images/yundcf.png" style="width: 0.25rem;height: 0.25rem;" alt="">
+							</div>
+							<p class="row">运动处方</p>
+						</div>
+					</router-link>
+					<router-link :to="'/prescript?skey='+hzskey" style="visibility: hidden;">
+						<div class="cell">
+							<div class="row">
+								<img src="@/assets/images/xinlcf.png" style="width: 0.25rem;height: 0.25rem;" alt="">
+							</div>
+							<p class="row">心理处方</p>
+						</div>
+					</router-link>
+				</div>
 			</div>
 			<div class="chat_ddt">
 				<div class="chat_top">
@@ -152,66 +186,66 @@
 </template>
 
 <script>
-	import loadMore from "@/components/common/loadMore.vue";  //加载更多组件
-	export default {
-		name: "index",
-		data: () => ({
-			inform:{},
-			hzskey:'',  //患者key
-			list:[],
-			param:{
-				patientskey:'',
-				pagecount:0,
-				pagesize:10
-			}
-		}),
-		methods: {
-			noedel(){
-				this.$router.push('/chatSet?skey='+this.hzskey);
-			},
-			// 获取患者信息
-			getinform(){
-				let url = "UserInterface/doctor/PatientEssentialInfo.ashx";
-				let param = {
-					patientskey:this.hzskey
-				}
-				this.$post(url, param).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					this.inform=data;
-				})
-			},
-			getList(success) {
-				let url = "UserInterface/channel/PatientReviewRecordInfo.ashx";
-				if (this.param.pagecount == 1) {
-					this.list = [];
-				}
-				this.$post(url, this.param).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					this.allmoney=data.totalservicecharge;
-					let modelList = data.data;
-					this.list = [...this.list, ...modelList]
-					//加载更多组件触发回调
-					if (success) {
-						success(modelList, this.list)
-					}
-				})
-			}
-		},
-		mounted(){
-			this.getinform();
-		},
-		created() {
-			this.hzskey = this.$route.query.skey;
-			this.param.patientskey = this.$route.query.skey;
-		},
-		components: {
-			loadMore
-		}
-	}
+import loadMore from '@/components/common/loadMore.vue' // 加载更多组件
+export default {
+  name: 'index',
+  data: () => ({
+    inform: {},
+    hzskey: '', // 患者key
+    list: [],
+    param: {
+      patientskey: '',
+      pagecount: 0,
+      pagesize: 10
+    }
+  }),
+  methods: {
+    noedel () {
+      this.$router.push('/chatSet?skey=' + this.hzskey)
+    },
+    // 获取患者信息
+    getinform () {
+      let url = 'UserInterface/doctor/PatientEssentialInfo.ashx'
+      let param = {
+        patientskey: this.hzskey
+      }
+      this.$post(url, param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.inform = data
+      })
+    },
+    getList (success) {
+      let url = 'UserInterface/channel/PatientReviewRecordInfo.ashx'
+      if (this.param.pagecount == 1) {
+        this.list = []
+      }
+      this.$post(url, this.param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.allmoney = data.totalservicecharge
+        let modelList = data.data
+        this.list = [...this.list, ...modelList]
+        // 加载更多组件触发回调
+        if (success) {
+          success(modelList, this.list)
+        }
+      })
+    }
+  },
+  mounted () {
+    this.getinform()
+  },
+  created () {
+    this.hzskey = this.$route.query.skey
+    this.param.patientskey = this.$route.query.skey
+  },
+  components: {
+    loadMore
+  }
+}
 </script>
 <style>
 

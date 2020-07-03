@@ -57,7 +57,7 @@
 				</div>
 				<i>{{responseData.pgsgaremarks}}</i>
 			</div>
-			<div class="nut_list" v-show="responseData.mnasfShow">
+			<!-- <div class="nut_list" v-show="responseData.mnasfShow">
 				<div class="nut_li">
 					<h2>
 						<span>营养评估</span>
@@ -69,17 +69,26 @@
 					<label>{{responseData.mnasfresult}}</label>
 				</div>
 				<i>{{responseData.mnasfremarks}}</i>
-			</div>
+			</div> -->
 			<div class="nut_list">
 				<div class="nut_li">
 					<h2>
 						<span>膳食摄入评估</span>
 					</h2>
-					<p>
-						<u>评估结果：{{responseData.detectionresult}}</u>
+					<p class="dsuv_eveall">
+						<!-- <label>能量分配：</label> -->
+						<span>
+							<i>总能量: {{responseData.foodEnergy}}</i>
+							<i>碳水化合物:{{responseData.protein}}</i>
+							<i>总脂肪:{{responseData.fat}}</i>
+							<i>蛋白质:{{responseData.carbohydrate}}</i>
+						</span>
 					</p>
+					<!-- <p>
+						<u>评估结果：{{responseData.detectionresult}}</u>
+					</p> -->
 				</div>
-				<i>营养建议：{{responseData.nutritionsuggestion}}</i>
+				<!-- <i>营养建议：{{responseData.nutritionsuggestion}}</i> -->
 			</div>
 			<p class="rightdate">筛查日期：{{datasj.screening_date}}</p>
 		</div>
@@ -143,6 +152,30 @@
 </script>
 
 <style scoped lang="scss">
+	.dsuv_eveall{
+		overflow: hidden;
+		font-size: 0.14rem;
+		margin-top: 0.04rem;
+		label{
+			float: left;
+			display: block;
+			font-weight: 600;
+			color: #333;
+		}
+		span{
+			width: 75%;
+			display: block;
+			float: left;
+			color: #666;
+			i{
+				font-style: normal;
+				display: block;
+				margin-top: 0.04rem;
+				margin-left: 0.06rem;
+				padding: 0 !important;
+			}
+		}
+	}
 	.headty_inform{
 		width: 100%;
 		p{

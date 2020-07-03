@@ -48,7 +48,14 @@
 				<div class="home_inform">
 					<router-link to="/newsList">
 						<img src="../../assets/images/jintt.png" />
-						<ul>
+						<ul v-if="newList.length==1" style="padding-top: 0.14rem;">
+							<li v-for="(item, index) in newList" :key="index">
+								<span></span>
+								<p>{{item.remarks}}</p>
+								<label>{{item.time}}</label>
+							</li>
+						</ul>
+						<ul v-else>
 							<li v-for="(item, index) in newList" :key="index">
 								<span></span>
 								<p>{{item.remarks}}</p>
@@ -98,7 +105,7 @@
 					</div>
 					<div class="home_my">
 						<div class="home_li" @click="qdyetz">
-							<span>{{performanceinfo.communityperformance}}</span>
+							<span>{{performanceinfo.personalperformance}}</span>
 							<p>渠道业绩</p>
 						</div>
 						<div class="home_li" @click="qdyetz2">
@@ -106,7 +113,7 @@
 							<p>医生业绩</p>
 						</div>
 						<div class="home_li" @click="qdyetz3">
-							<span>{{performanceinfo.personalperformance}}</span>
+							<span>{{performanceinfo.communityperformance}}</span>
 							<p>员工业绩</p>
 						</div>
 					</div>
@@ -165,201 +172,201 @@
 </template>
 
 <script>
-	import carousel from "./carousel.vue";
-	import loadMore from "@/components/common/loadMore.vue"; //加载更多组件
-	export default {
-		name: "home",
-		data: () => ({
-			//佣金信息
-			commissionsinfo: {
-				teamcommissions: "", //个人
-				communitycommission: "", //员工
-				patientcommission: "", //渠道
-			},
-			//业绩信息
-			performanceinfo: {
-				personalperformance: "", //员工
-				teamperformance: "", //医生
-				communityperformance: "", //渠道
-			},
-			//用户管理
-			usermanageinfo: {
-				doctorcount: "", //新增医生
-				communitycommission: "", //新增渠道
-				usermanageinfo: "", //新增患者
-				usertotalcount: "", //累计用户
-			},
-			//用户信息
-			userInfo: {
-				userInfo: "",
-				ContactName: "",
-			},
-			//新闻
-			newList: [],
-			//产品推荐
-			param: {
-				"saleorder": "", //0，销量降序;1，销量升序
-				"priceOrder": "", //0，价格降序;1，价格升序
-				"pagesize": 10,
-				"pagecount": 0,
-				"secondSubjectType": ""
-			},
-			list: [],
-			params: {
-				"UserName": "",
-				"UserAddress": "请选择省、市、区"
-			},
-			checkValue:1
-		}),
-		methods: {
-			//citypicker的确定回调
-			cityPickerChange(values) {
-				let cityValue = [values[0].name, values[1].name, values[2].name].toString();
-				this.params.UserAddress = cityValue;
-			},
-			//打开citypicker
-			openCityPicker() {
-				this.$refs.cityPicker.show();
-			},
-			// 是否填写个人信息
-			isgetInfo() {
-				let url = "UserInterface/channel/ChannelInfoCheck.ashx";
-				this.$post(url).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					this.checkValue=data.checkValue;
-				})
-			},
-			postInfo() {
-				if(this.params.UserName==''){
-					this.$Toast('请输入您的真实姓名');
-				}
-				if((this.params.UserUserAddressName=='')||(this.params.UserUserAddressName=='请选择省、市、区')){
-					this.$Toast('请选择省、市、区');
-				}
-				let url = "UserInterface/channel/SetChannelInfo.ashx";
-				let param={
-					name:this.params.UserName,
-					address:this.params.UserAddress
-				};
-				this.$post(url,param).then((data) => {
-					this.$Toast(data.rspdesc);
-					if (data.rspcode != 1) {
-						return;
-					}
-					this.checkValue=1
-				})
-			},
-			//获取用户信息
-			getInfo() {
-				let url = "UserInterface/channel/ChannelHomePageInfo.ashx";
-				this.$post(url).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					//用户管理
-					let usermanageinfo = data.user;
-					this.usermanageinfo.doctorcount = usermanageinfo.doctorcount; //新增医生
-					this.usermanageinfo.communitycommission = usermanageinfo.channelcount; //新增渠道
-					this.usermanageinfo.usermanageinfo = usermanageinfo.patientcount; //新增患者
-					this.usermanageinfo.usertotalcount = usermanageinfo.usertotalcount; //累计用户
+import carousel from './carousel.vue'
+import loadMore from '@/components/common/loadMore.vue' // 加载更多组件
+export default {
+  name: 'home',
+  data: () => ({
+    // 佣金信息
+    commissionsinfo: {
+      teamcommissions: '', // 个人
+      communitycommission: '', // 员工
+      patientcommission: '' // 渠道
+    },
+    // 业绩信息
+    performanceinfo: {
+      personalperformance: '', // 员工
+      teamperformance: '', // 医生
+      communityperformance: '' // 渠道
+    },
+    // 用户管理
+    usermanageinfo: {
+      doctorcount: '', // 新增医生
+      communitycommission: '', // 新增渠道
+      usermanageinfo: '', // 新增患者
+      usertotalcount: '' // 累计用户
+    },
+    // 用户信息
+    userInfo: {
+      userInfo: '',
+      ContactName: ''
+    },
+    // 新闻
+    newList: [],
+    // 产品推荐
+    param: {
+      'saleorder': '', // 0，销量降序;1，销量升序
+      'priceOrder': '', // 0，价格降序;1，价格升序
+      'pagesize': 10,
+      'pagecount': 0,
+      'secondSubjectType': ''
+    },
+    list: [],
+    params: {
+      'UserName': '',
+      'UserAddress': '请选择省、市、区'
+    },
+    checkValue: 1
+  }),
+  methods: {
+    // citypicker的确定回调
+    cityPickerChange (values) {
+      let cityValue = [values[0].name, values[1].name, values[2].name].toString()
+      this.params.UserAddress = cityValue
+    },
+    // 打开citypicker
+    openCityPicker () {
+      this.$refs.cityPicker.show()
+    },
+    // 是否填写个人信息
+    isgetInfo () {
+      let url = 'UserInterface/channel/ChannelInfoCheck.ashx'
+      this.$post(url).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.checkValue = data.checkValue
+      })
+    },
+    postInfo () {
+      if (this.params.UserName == '') {
+        this.$Toast('请输入您的真实姓名')
+      }
+      if ((this.params.UserUserAddressName == '') || (this.params.UserUserAddressName == '请选择省、市、区')) {
+        this.$Toast('请选择省、市、区')
+      }
+      let url = 'UserInterface/channel/SetChannelInfo.ashx'
+      let param = {
+        name: this.params.UserName,
+        address: this.params.UserAddress
+      }
+      this.$post(url, param).then((data) => {
+        this.$Toast(data.rspdesc)
+        if (data.rspcode != 1) {
+          return
+        }
+        this.checkValue = 1
+      })
+    },
+    // 获取用户信息
+    getInfo () {
+      let url = 'UserInterface/channel/ChannelHomePageInfo.ashx'
+      this.$post(url).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        // 用户管理
+        let usermanageinfo = data.user
+        this.usermanageinfo.doctorcount = usermanageinfo.doctorcount // 新增医生
+        this.usermanageinfo.communitycommission = usermanageinfo.channelcount // 新增渠道
+        this.usermanageinfo.usermanageinfo = usermanageinfo.patientcount // 新增患者
+        this.usermanageinfo.usertotalcount = usermanageinfo.usertotalcount // 累计用户
 
-					//我的业绩
-					let performanceinfo = data.achievement;
-					this.performanceinfo.personalperformance = performanceinfo.personalperformance; //员工
-					this.performanceinfo.teamperformance = performanceinfo.teamperformance; //医生
-					this.performanceinfo.communityperformance = performanceinfo.communityperformance; //渠道
+        // 我的业绩
+        let performanceinfo = data.achievement
+        this.performanceinfo.personalperformance = performanceinfo.personalperformance // 员工
+        this.performanceinfo.teamperformance = performanceinfo.teamperformance // 医生
+        this.performanceinfo.communityperformance = performanceinfo.communityperformance // 渠道
 
-					//我的收益
-					let commissionsinfo = data.data;
-					this.commissionsinfo.teamcommissions = commissionsinfo.teamcommissions; //个人
-					this.commissionsinfo.communitycommission = commissionsinfo.communitycommissio; //员工
-					this.commissionsinfo.patientcommission = commissionsinfo.patientcommission; //渠道
-				})
-			},
-			//获取新闻
-			getNews() {
-				let url = "UserInterface/channel/ChannelHomePageHeadlineInfo.ashx";
-				this.$post(url).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					this.newList = data.data;
-				})
-			},
-			//商品列表
-			getList(success) {
-				let url = "UserInterface/GetProductList.ashx";
-				if (this.param.pagecount == 1) {
-					this.list = [];
-				}
-				this.$post(url, this.param).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					let modelList = data.goodsList;
-					this.list = [...this.list, ...modelList]
-					//加载更多组件触发回调
-					if (success) {
-						success(modelList, this.list)
-					}
-				})
-			},
-			//个人信息
-			information() {
-				let url = "UserInterface/GetUserShowInfo.ashx";
-				this.$post(url).then((data) => {
-					let model = data.data;
-					this.userInfo = model;
-				})
-			},
-			qdyetz(){
-				this.$router.push('/personal_achievement?type=1');
-			},
-			qdyetz2(){
-				this.$router.push('/personal_achievement?type=2');
-			},
-			qdyetz3(){
-				this.$router.push('/personal_achievement?type=3');
-			},
-			myshytz(){
-				this.$router.push('/personal_commission?type=1');
-			},
-			myshytz2(){
-				this.$router.push('/personal_commission?type=2');
-			},
-			myshytz3(){
-				this.$router.push('/personal_commission?type=3');
-			},
-		},
-		beforeRouteLeave(to, from, next) {
-			//			// 导航离开该组件的对应路由时调用
-			//			let keepAlive = (to.name == "classdetail") ? true : false;
-			//			this.$route.meta.keepAlive = keepAlive;
-			next()
-		},
-		mounted() {
-			this.isgetInfo();
-			this.getInfo(); //获取用户信息
-			this.getNews(); //获取新闻
-			this.information(); //个人信息
-		},
-		components: {
-			carousel,
-			loadMore,
-			cityPicker: () => import( /* webpackChunkName: "cityData" */ "../common/cityPicker.vue")
-		},
-		created() {
-			// 			if(localStorage.userInfo){
-			// 				this.UserKey=JSON.parse( localStorage.userInfo).UserKey;
-			// 				this.SessionId=JSON.parse( localStorage.userInfo).SessionId;
-			// 			}else{
-			// 				this.$router.push('/login');
-			// 			}
-			// this.information();
-		}
-	}
+        // 我的收益
+        let commissionsinfo = data.data
+        this.commissionsinfo.teamcommissions = commissionsinfo.teamcommissions // 个人
+        this.commissionsinfo.communitycommission = commissionsinfo.communitycommissio // 员工
+        this.commissionsinfo.patientcommission = commissionsinfo.patientcommission // 渠道
+      })
+    },
+    // 获取新闻
+    getNews () {
+      let url = 'UserInterface/channel/ChannelHomePageHeadlineInfo.ashx'
+      this.$post(url).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.newList = data.data
+      })
+    },
+    // 商品列表
+    getList (success) {
+      let url = 'UserInterface/GetProductList.ashx'
+      if (this.param.pagecount == 1) {
+        this.list = []
+      }
+      this.$post(url, this.param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        let modelList = data.goodsList
+        this.list = [...this.list, ...modelList]
+        // 加载更多组件触发回调
+        if (success) {
+          success(modelList, this.list)
+        }
+      })
+    },
+    // 个人信息
+    information () {
+      let url = 'UserInterface/GetUserShowInfo.ashx'
+      this.$post(url).then((data) => {
+        let model = data.data
+        this.userInfo = model
+      })
+    },
+    qdyetz () {
+      this.$router.push('/personal_achievement?type=1')
+    },
+    qdyetz2 () {
+      this.$router.push('/personal_achievement?type=2')
+    },
+    qdyetz3 () {
+      this.$router.push('/personal_achievement?type=3')
+    },
+    myshytz () {
+      this.$router.push('/personal_commission?type=1')
+    },
+    myshytz2 () {
+      this.$router.push('/personal_commission?type=2')
+    },
+    myshytz3 () {
+      this.$router.push('/personal_commission?type=3')
+    }
+  },
+  beforeRouteLeave (to, from, next) {
+    //			// 导航离开该组件的对应路由时调用
+    //			let keepAlive = (to.name == "classdetail") ? true : false;
+    //			this.$route.meta.keepAlive = keepAlive;
+    next()
+  },
+  mounted () {
+    this.isgetInfo()
+    this.getInfo() // 获取用户信息
+    this.getNews() // 获取新闻
+    this.information() // 个人信息
+  },
+  components: {
+    carousel,
+    loadMore,
+    cityPicker: () => import(/* webpackChunkName: "cityData" */ '../common/cityPicker.vue')
+  },
+  created () {
+    // 			if(localStorage.userInfo){
+    // 				this.UserKey=JSON.parse( localStorage.userInfo).UserKey;
+    // 				this.SessionId=JSON.parse( localStorage.userInfo).SessionId;
+    // 			}else{
+    // 				this.$router.push('/login');
+    // 			}
+    // this.information();
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -429,7 +436,7 @@
 				}
 
 				p {
-					width: 60%;
+					width: 48%;
 					font-size: 0.13rem;
 					color: #333;
 					float: left;
@@ -443,8 +450,8 @@
 					display: block;
 					font-size: 0.13rem;
 					color: #636768;
-					float: left;
-					margin-left: 0.14rem;
+					float: right;
+					// margin-left: 0.12rem;
 				}
 			}
 		}
