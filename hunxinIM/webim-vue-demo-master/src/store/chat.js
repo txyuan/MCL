@@ -171,11 +171,12 @@ const Chat = {
 							type: "contactUserList",
 							black: payload
 						});
+						console.log('***********')
 					}
 				});
 			}
 			catch(e){
-				console.log("error", e);
+				console.log("error", e, '=========');
 			}
 		},
 		onGetGroupUserList: function(context, payload){
@@ -251,6 +252,7 @@ const Chat = {
 			if(chatType === "group" || chatType === "chatroom"){
 				msgObj.setGroup("groupchat");
 			}
+			console.log(msgObj.body)
 			WebIM.conn.send(msgObj.body);
 		},
 		sendImgMessage: function(context, payload){
