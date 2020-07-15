@@ -44,8 +44,8 @@
 				<div class="newImg" v-else>
 					<img :src="param.practisingimg" alt="">
 				</div>
-				<input v-if="anios==1" type="file" accept="image/*" name="uploadedFile" @click="changes('A')" ref="idCardAFile">
-				<input v-else type="file" accept="image/*" name="uploadedFile" @change="change($event,'A')" ref="idCardAFile">
+				<!-- <input v-if="anios==1" type="file" accept="image/*" name="uploadedFile" @click="changes('A')" ref="idCardAFile"> -->
+				<input type="file" accept="image/*" name="uploadedFile" @change="change($event,'A')" ref="idCardAFile">
 			</div>
 			<div class="img text-center" style="margin-bottom: 10px">
 				<div class="defaultImg" v-if="isShowDefalutIdCardB">
@@ -55,8 +55,8 @@
 				<div class="newImg" v-else>
 					<img :src="param.workcardimg" alt="">
 				</div>
-				<input v-if="anios==1" type="file" accept="image/*" @click="changes('B')" ref="idCardBFile">
-				<input v-else type="file" accept="image/*" @change="change($event,'B')" ref="idCardBFile">
+				<!-- <input v-if="anios==1" type="file" accept="image/*" @click="changes('B')" ref="idCardBFile"> -->
+				<input type="file" accept="image/*" @change="change($event,'B')" ref="idCardBFile">
 			</div>
 			<div class="img text-center" style="margin-bottom: 10px">
 				<div class="defaultImg" v-if="isShowDefalutIdCardC">
@@ -66,8 +66,8 @@
 				<div class="newImg" v-else>
 					<img :src="param.qualificationsimg" alt="">
 				</div>
-				<input v-if="anios==1" type="file" accept="image/*" name="uploadedFile" @click="changes('C')" ref="idCardAFile">
-				<input v-else type="file" accept="image/*" name="uploadedFile" @change="change($event,'C')" ref="idCardAFile">
+				<!-- <input v-if="anios==1" type="file" accept="image/*" name="uploadedFile" @click="changes('C')" ref="idCardAFile"> -->
+				<input type="file" accept="image/*" name="uploadedFile" @change="change($event,'C')" ref="idCardAFile">
 			</div>
 			<div class="img text-center">
 				<div class="defaultImg" v-if="isShowDefalutIdCardD">
@@ -77,8 +77,8 @@
 				<div class="newImg" v-else>
 					<img :src="param.professionalimg" alt="">
 				</div>
-				<input v-if="anios==1" type="file" accept="image/*" @click="changes('D')" ref="idCardBFile">
-				<input v-else type="file" accept="image/*" @change="change($event,'D')" ref="idCardBFile">
+				<!-- <input v-if="anios==1" type="file" accept="image/*" @click="changes('D')" ref="idCardBFile"> -->
+				<input type="file" accept="image/*" @change="change($event,'D')" ref="idCardBFile">
 				<!-- <input v-if="anios==3" type="file" accept="image/*" @click="changes('D')" ref="idCardBFile">
 			<input v-else type="file" accept="image/*" @change="change($event,'D')" ref="idCardBFile"> -->
 			</div>

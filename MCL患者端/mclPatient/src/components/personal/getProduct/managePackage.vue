@@ -48,7 +48,7 @@
 									<span class="themeRed">¥ {{item.orderMoney}}</span>
 								</div>
 								<div class="btn-group">
-									<div v-if="item.state  == '4'" style="overflow: hidden;">
+									<div v-if="item.state  == '3'" style="overflow: hidden;">
 										<div class="f-btn ok laood" style="float: left;" @click="delmoy(item,3)">
 											<span>删除订单</span>
 										</div>

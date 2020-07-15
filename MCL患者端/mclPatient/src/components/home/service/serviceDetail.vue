@@ -20,6 +20,7 @@
 			<p>{{responseData.goodsName}}</p>
 			<div class="detile_money">
 				<span>{{responseData.marketPrice}}</span>
+				<span style="font-size: 0.14rem; color: #999999; text-decoration: line-through;margin-top: 0.02rem;margin-left: 0.1rem">原价：{{responseData.price}}</span>
 				<label>销量：{{responseData.hasBuyCount}}</label>
 				<div class="clear"></div>
 			</div>

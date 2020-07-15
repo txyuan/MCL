@@ -54,7 +54,7 @@
 														<p>简易膳食调查</p>
 														<!-- <span class="borderBottom"></span> -->
 													</div>
-													<p class="des font12">扫脸测量是否存在压力隐患</p>
+													<p class="des font12">评估一下您每天的饮食是否达到要求</p>
 												</div>
 											</div>
 										</router-link>

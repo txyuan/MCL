@@ -256,7 +256,7 @@ const router = new Router({
 				{ path:"selfTest", name:"selfTest", component: selfTest},
 				{ path:"community", name:"community", component: community},
 				{ path:"service", name:"service", component: service},
-				{ path:"mesage", name:"mesage", component: mesage},
+				{ path:"mesage", name:"mesage", component: mesage, meta: {keepAlive: true}},
         { path:"personal", name:"personal", component: personal }
       ]
     },

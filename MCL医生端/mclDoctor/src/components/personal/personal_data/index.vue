@@ -9,8 +9,7 @@
 		</mt-header>
 
 		<div class="person_data marginTop5" style="padding: 45px 0 0.6rem 0;">
-			<input type="file" v-if="anios==1" accept="image/*" @click="changes()" ref="userImg" style="display: none">
-			<input type="file" v-else accept="image/*" @change="change($event)" ref="userImg" style="display: none">
+			<input type="file" accept="image/*" @change="change($event)" ref="userImg" style="display: none">
 			<mt-cell title="头像" is-link @click.native="actionsheetToggle('show')">
 				<span><img slot="icon" :src="repData.ImgUrl" style="width:0.3rem;height:0.3rem;border-radius: 15px"></span>
 			</mt-cell>
