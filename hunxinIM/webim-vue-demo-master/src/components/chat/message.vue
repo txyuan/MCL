@@ -87,14 +87,14 @@
 
              <div v-if="item.bySelf?true:false" class="status">{{status[item.status]}}</div> 
           </span>
-          <el-dropdown-menu slot="dropdown" >
+          <!-- <el-dropdown-menu slot="dropdown" >
             <el-dropdown-item command="a" :disabled="!item.bySelf">撤回</el-dropdown-item>
           </el-dropdown-menu>
           </el-dropdown>
 
           <a-menu slot="overlay" >
               <a-menu-item  key="1" @click="handleCommand(item)">撤回</a-menu-item>
-          </a-menu>
+          </a-menu> -->
         </a-dropdown>
 
         <!-- 聊天时间 -->
@@ -112,7 +112,7 @@
         <!-- 上传图片组件 -->
         <UpLoadImage :type="this.type" :chatId="activedKey[type]" />
         <!-- 上传文件组件 -->
-        <UpLoadFile :type="this.type" :chatId="activedKey[type]" />
+        <!-- <UpLoadFile :type="this.type" :chatId="activedKey[type]" /> -->
 
         <!-- 发送语音 -->
         <!--<RecordAudio v-show="isHttps" />
@@ -316,6 +316,7 @@ export default {
 
         if (!this.msgList) {
           this.getHistoryMessage({ name: key.name, isGroup: false });
+          console.log(0)
         }
       } else if (this.type === "chatroom") {
         const me = this;
@@ -345,6 +346,13 @@ export default {
         if (msgs.length === 0) {
           me.$data.loadText = "已无更多数据";
         }
+        me.$nextTick(() => {
+          setTimeout(() => {
+            const dom = me.$refs.msgContent;
+            if (!dom) return;
+            dom.scrollTop = 0;
+          }, 200);
+        })
       };
       let name = "";
       let isGroup = false;

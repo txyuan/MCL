@@ -61,6 +61,7 @@ WebIM.conn.listen({
 			msg: message.data,
 			bySelf: false,
 			from: message.from,
+			time: new Date().getTime(),
 			mid: message.id
 		});
 		type === 'chat' && ack(message);
@@ -94,6 +95,7 @@ WebIM.conn.listen({
 			msg: message.url,
 			bySelf: false,
 			type: "img",
+			time: new Date().getTime(),
 			from: message.from
 		});
 		type === 'chat' && ack(message);

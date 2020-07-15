@@ -27,7 +27,7 @@
 				</div>
 			</div>
 			<div style="position: absolute; top: 2.3rem; bottom:53px; width: 100%; border: none;">
-				<iframe :src="`${KFURL}/contact?username=${repData.ContactPhone}`" width="100%" style="height: 100%; border: none;"></iframe>
+				<iframe :src="`${KFURL}/contact?username=${repData.ContactPhone}&userkey=${userkey}`" width="100%" style="height: 100%; border: none;"></iframe>
 			</div>
 		</div>
 		<div class="mess_alet" v-if="docinf1">
@@ -81,6 +81,7 @@ export default {
     Position: '', // 职位
     ServicePatient: '', // 专属服务对象
     repData: {},
+    userkey: '',
     rdata: {}
   }),
   methods: {
@@ -140,6 +141,7 @@ export default {
     this.information()
     this.getupshop()
     this.getthisnf()
+    this.userkey = JSON.parse(localStorage.getItem('userInfo')).UserKey
   }
 }
 </script>

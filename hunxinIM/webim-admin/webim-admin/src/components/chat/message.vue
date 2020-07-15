@@ -113,7 +113,7 @@
         <!-- 上传图片组件 -->
         <UpLoadImage :type="this.type" :chatId="activedKey[type]" />
         <!-- 上传文件组件 -->
-        <UpLoadFile :type="this.type" :chatId="activedKey[type]" />
+        <!-- <UpLoadFile :type="this.type" :chatId="activedKey[type]" /> -->
 
         <!-- 发送语音 -->
         <!--<RecordAudio v-show="isHttps" />
@@ -343,6 +343,13 @@ export default {
         if (msgs.length === 0) {
           me.$data.loadText = "已无更多数据";
         }
+        me.$nextTick(() => {
+          setTimeout(() => {
+            const dom = me.$refs.msgContent;
+            if (!dom) return;
+            dom.scrollTop = 0;
+          }, 200);
+        })
       };
       let name = "";
       let isGroup = false;
