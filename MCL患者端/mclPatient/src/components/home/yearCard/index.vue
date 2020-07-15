@@ -16,11 +16,11 @@
             <p class="DName font14">{{Position}}</p>
           </div>
           <div class="item">
-            <img :src="doctorDefaultPic" alt class="touxiang" />
+            <img src="@/assets/images/mclGW.jpg" alt class="touxiang" />
             <p class="DName font14">MCL专家团</p>
           </div>
           <div class="item">
-            <img :src="doctorDefaultPic" alt class="touxiang" />
+            <img src="@/assets/images/mclZJ.jpg" alt class="touxiang" />
             <p class="DName font14">MCL专属顾问</p>
           </div>
         </div>

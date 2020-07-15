@@ -50,7 +50,7 @@
 			<div class="title2 bg-white">常喝茶为：</div>
 			<mt-checklist :options="diettabooRadioss.option" v-model="diettabooRadioss.value"></mt-checklist>
 			<div class="title2 yellow bg-white">5.饮食习惯</div>
-			<mt-radio :options="diettabooRadiodyy.option" v-model="param.check_21"></mt-radio>
+			<mt-checklist :options="diettabooRadiodyy.option" v-model="diettabooRadiodyy.value"></mt-checklist>
 			<div class="title2 bg-white">
 				最爱吃的食物<input type="text" class="line-input" v-model="param.check_22">，按照之前能吃的最大量，
 				现在能吃<input type="tel" class="line-input" v-model="param.check_23">两.
@@ -109,173 +109,192 @@
 </template>
 
 <script>
-	export default {
-		name: "gauge_life",
-		data: () => ({
-			diettabooRadiolists: {
-				option: ['是','否'],
-				value: '',
-				radiolist: true
-			},
-			diettabooRadio:{
-				option: ['吸烟者','戒烟者','戒烟成功者','不吸烟者'],
-				value: '',
-				radiolist: true
-			},
-			diettabooRadiodd:{
-				option: ['白酒','蒸酒','啤酒','米酒','果酒'],
-				value: '',
-				radiolist: true
-			},
-			diettabooRadiodyy:{
-				option: ['荤素均衡','荤食为主','嗜盐','嗜油','嗜糖'],
-				value: '',
-				radiolist: true
-			},
-			diettabooRadioyd:{
-				option: ['几乎不运动','偶尔运动','经常运动','每天运动'],
-				value: '',
-				radiolist: true
-			},
-			diettabooRadioy1:{
-				option: ['没有（1分）','有点（2分）','相当（3分）','非常（4分）'],
-				value: '',
-				radiolist: true
-			},
-			diettabooRadiolb:{
-				option: ['散步','跑步','球类运动','体操/舞蹈','家务','农活'],
-				value: '',
-				radiolist: true
-			},
-			diettabooRadioyw:{
-				option: ['有','无'],
-				value: '',
-				radiolist: true
-			},
-			diettabooRadioysy:{
-				option: ['无','小于3小时','3~5小时','大于5小时'],
-				value: '',
-				radiolist: true
-			},
-			diettabooRadiopb:{
-				option: ['无','配偶','子女','父母','保姆','医务人士'],
-				value: '',
-				radiolist: true
-			},
-			diettabooRadiops:{
-				option: ['每天','一周5，6次','一周3，4次','一周少于3次'],
-				value: '',
-				radiolist: true
-			},
-			diettabooRadiosmt:{
-				option: ['小于7小时','7-8小时','大于8小时'],
-				value: '',
-				radiolist: true
-			},
-			diettabooRadiostzk:{
-				option: ['没有（1分）','有点（2分）','相当（3分）','非常（4分）'],
-				value: '',
-				radiolist: true
-			},
-			diettabooRadiorpj:{
-				option: ['非常差（1分）','一般差（2分）','差（3分）','正常（4分）','好（5分）','一般好（6分）','非常好（7分）'],
-				value: '',
-				radiolist: true
-			},
-			diettabooRadioss:{
-				option: [
-					{label: '绿茶', value: "17"}, 
-					{label: '红茶', value: "18"}, 
-					{label: '普洱茶', value: "19"}, 
-					{label: '其他', value: "20"}
-				],
-				value: [],
-				checklist: true
-			},
-			param:{
-				skey:'',
-				check_01:'',
-				check_02:'',
-				check_03:'',
-				check_04:'',
-				check_05:'',
-				check_06:'',
-				check_07:'',
-				check_08:'',
-				check_09:'',
-				check_10:'',
-				check_11:'',
-				check_12:'',
-				check_13:'',
-				check_14:'',
-				check_15:'',
-				check_16:'',
-				check_21:'',
-				check_22:'',
-				check_23:'',
-				check_24:'',
-				check_25:'',
-				check_26:'',
-				check_27:'',
-				check_28:'',
-				check_29:'',
-				check_30:'',
-				check_31:'',
-				check_32:'',
-				check_33:'',
-				check_34:'',
-				check_35:'',
-				check_36:'',
-				check_37:'',
-				check_38:'',
-				check_39:'',
-				check_40:''
-			}
-		}),
-		watch: {
-			//
-			'diettabooRadioss.value': {
-				handler: function(list) {
-					//重置
-					this.diettabooRadioss.option.forEach((item)=>{
-						this.param[`check_${item.value}`] = "0";
-					})
-					//选中项
-					list.forEach((item)=>{
-						this.param[`check_${item}`] = "1";
-					})
-				},
-				deep: true
-			},
-		},
-		methods:{
-			getSkey(){
-				let url = "UserInterface/GenerateItmekey.ashx";
-				this.$post(url).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					this.param.skey=data.itmekey;
-				})
-			},
-			//提交
-			submit() {
-				let url = "UserInterface/PatientLifeSurveyInsert.ashx";
-				this.$post(url, this.param).then((data) => {
-					if (data.rspcode != 1) {
-						this.$Toast(data.rspdesc)
-						return;
-					}
-					this.$Toast("保存成功")
-					//查看报告
-					// this.$router.push("/nutrition");
-				})
-			},
-		},
-		mounted(){
-			this.getSkey();
-		}
-	}
+export default {
+  name: 'gauge_life',
+  data: () => ({
+    diettabooRadiolists: {
+      option: ['是', '否'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadio: {
+      option: ['吸烟者', '戒烟者', '戒烟成功者', '不吸烟者'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadiodd: {
+      option: ['白酒', '蒸酒', '啤酒', '米酒', '果酒'],
+      value: '',
+      radiolist: true
+    },
+
+    diettabooRadioyd: {
+      option: ['几乎不运动', '偶尔运动', '经常运动', '每天运动'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadioy1: {
+      option: ['没有（1分）', '有点（2分）', '相当（3分）', '非常（4分）'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadiolb: {
+      option: ['散步', '跑步', '球类运动', '体操/舞蹈', '家务', '农活'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadioyw: {
+      option: ['有', '无'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadioysy: {
+      option: ['无', '小于3小时', '3~5小时', '大于5小时'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadiopb: {
+      option: ['无', '配偶', '子女', '父母', '保姆', '医务人士'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadiops: {
+      option: ['每天', '一周5，6次', '一周3，4次', '一周少于3次'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadiosmt: {
+      option: ['小于7小时', '7-8小时', '大于8小时'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadiostzk: {
+      option: ['没有（1分）', '有点（2分）', '相当（3分）', '非常（4分）'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadiorpj: {
+      option: ['非常差（1分）', '一般差（2分）', '差（3分）', '正常（4分）', '好（5分）', '一般好（6分）', '非常好（7分）'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadiodyy: {
+	  option: [
+		  {label: '荤素均衡', value: '21'},
+		  {label: '荤食为主', value: '41'},
+		  {label: '嗜盐', value: '42'},
+		  {label: '嗜油', value: '43'},
+		  {label: '嗜糖', value: '44'}
+	  ],
+	  value: [],
+	  checklist: true
+    },
+    diettabooRadioss: {
+      option: [
+        {label: '绿茶', value: '17'},
+        {label: '红茶', value: '18'},
+        {label: '普洱茶', value: '19'},
+        {label: '其他', value: '20'}
+      ],
+      value: [],
+      checklist: true
+    },
+    param: {
+      skey: '',
+      check_01: '',
+      check_02: '',
+      check_03: '',
+      check_04: '',
+      check_05: '',
+      check_06: '',
+      check_07: '',
+      check_08: '',
+      check_09: '',
+      check_10: '',
+      check_11: '',
+      check_12: '',
+      check_13: '',
+      check_14: '',
+      check_15: '',
+      check_16: '',
+      check_22: '',
+      check_23: '',
+      check_24: '',
+      check_25: '',
+      check_26: '',
+      check_27: '',
+      check_28: '',
+      check_29: '',
+      check_30: '',
+      check_31: '',
+      check_32: '',
+      check_33: '',
+      check_34: '',
+      check_35: '',
+      check_36: '',
+      check_37: '',
+      check_38: '',
+      check_39: '',
+      check_40: ''
+    }
+  }),
+  watch: {
+    //
+    'diettabooRadioss.value': {
+      handler: function (list) {
+        // 重置
+        this.diettabooRadioss.option.forEach((item) => {
+          this.param[`check_${item.value}`] = '0'
+        })
+        // 选中项
+        list.forEach((item) => {
+          this.param[`check_${item}`] = '1'
+        })
+      },
+      deep: true
+    },
+    'diettabooRadiodyy.value': {
+	  handler: function (list) {
+	    // 重置
+	    this.diettabooRadiodyy.option.forEach((item) => {
+	      this.param[`check_${item.value}`] = '0'
+	    })
+	    // 选中项
+	    list.forEach((item) => {
+	      this.param[`check_${item}`] = '1'
+	    })
+	  },
+	  deep: true
+    }
+  },
+  methods: {
+    getSkey () {
+      let url = 'UserInterface/GenerateItmekey.ashx'
+      this.$post(url).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.param.skey = data.itmekey
+      })
+    },
+    // 提交
+    submit () {
+      let url = 'UserInterface/PatientLifeSurveyInsert.ashx'
+      this.$post(url, this.param).then((data) => {
+        if (data.rspcode != 1) {
+          this.$Toast(data.rspdesc)
+          return
+        }
+        this.$Toast('保存成功')
+        // 查看报告
+        // this.$router.push("/nutrition");
+      })
+    }
+  },
+  mounted () {
+    this.getSkey()
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -285,7 +304,7 @@
 		padding: 5px 10px;
 		font-size: 16px;
 	}
-	
+
 	.title2 {
 		margin-top: 0px;
 		font-size: 14px;
