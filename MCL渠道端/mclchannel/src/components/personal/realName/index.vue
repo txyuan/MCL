@@ -17,8 +17,7 @@
             <div class="newImg" v-else>
               <img :src="param.idcardjust" alt="">
             </div>
-            <input v-if="anios==1" type="file" accept="image/*" name="uploadedFile" @click="changes('A')" ref="idCardAFile">
-            <input v-else type="file" accept="image/*" name="uploadedFile" @change="change($event,'A')" ref="idCardAFile">
+            <input type="file" accept="image/*" name="uploadedFile" @change="change($event,'A')" ref="idCardAFile">
           </div>
           <div class="img text-center" style="margin-bottom: 10px">
             <div class="defaultImg" v-if="isShowDefalutIdCardB">
@@ -28,8 +27,7 @@
             <div class="newImg" v-else>
               <img :src="param.idcardback" alt="" >
             </div>
-            <input v-if="anios==1" type="file" accept="image/*" @click="changes('B')" ref="idCardBFile">
-            <input v-else type="file" accept="image/*" @change="change($event,'B')" ref="idCardBFile">
+            <input type="file" accept="image/*" @change="change($event,'B')" ref="idCardBFile">
           </div>
 					<div class="img text-center">
 					  <div class="defaultImg" v-if="isShowDefalutIdCardC">
@@ -39,8 +37,7 @@
 					  <div class="newImg" v-else>
 					    <img :src="param.idcardgs" alt="" >
 					  </div>
-					  <input v-if="anios==1" type="file" accept="image/*" @click="changes('C')" ref="idCardCFile">
-					  <input v-else type="file" accept="image/*" @change="change($event,'C')" ref="idCardCFile">
+					  <input type="file" accept="image/*" @change="change($event,'C')" ref="idCardCFile">
 					</div>
         </div>
         <div class="form" style="margin-top: 0.06rem">

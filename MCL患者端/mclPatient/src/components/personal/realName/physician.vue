@@ -26,32 +26,31 @@
 			</div>
 		</div>
 		<div class="img_wrap" v-if="showButton">
-			<div class="tits">检查报告一 </div>
+			<div class="tits">血常规检验报告单 </div>
 			<div class="img text-center" style="margin-bottom: 10px">
 				<div class="defaultImg" v-if="isShowDefalutIdCardA">
 					<img :src="idCardA" alt="">
-					<p>上传检查报告一</p>
+					<p>上传血常规检验报告单</p>
 				</div>
 				<div class="newImg" v-else>
 					<img :src="param.inspectpre" alt="">
 				</div>
 				<div v-if="pageState != 'edit'">
-					<input v-if="anios==1" type="file" accept="image/*" name="uploadedFile" @click="changes('A')" ref="idCardAFile">
-					<input v-else type="file" accept="image/*" name="uploadedFile" @change="change($event,'A')" ref="idCardAFile">
+					<input type="file" accept="image/*" name="uploadedFile" @change="change($event,'A')" ref="idCardAFile">
 				</div>
 			</div>
-			<div class="tits">检查报告二 </div>
+			<div class="tits">肝肾功检验报告单 </div>
 			<div class="img text-center" style="margin-bottom: 10px">
 				<div class="defaultImg" v-if="isShowDefalutIdCardB">
 					<img :src="idCardB" alt="" id="bb">
-					<p>上传检查报告二</p>
+					<p>上传肝肾功检验报告单</p>
 				</div>
 				<div class="newImg" v-else>
 					<img :src="param.leavehospitalpre" alt="">
 				</div>
 				<div v-if="pageState != 'edit'">
-					<input v-if="anios==1" type="file" accept="image/*" @click="changes('B')" ref="idCardBFile">
-					<input v-else type="file" accept="image/*" @change="change($event,'B')" ref="idCardBFile">
+					<!-- <input v-if="anios==1" type="file" accept="image/*" @click="changes('B')" ref="idCardBFile"> -->
+					<input type="file" accept="image/*" @change="change($event,'B')" ref="idCardBFile">
 				</div>
 			</div>
 			<div class="tits">出院报告 </div>
@@ -64,38 +63,35 @@
 					<img :src="param.imageinfo" alt="">
 				</div>
 				<div v-if="pageState != 'edit'">
-					<input v-if="anios==1" type="file" accept="image/*" name="uploadedFile" @click="changes('C')" ref="idCardAFile">
-					<input v-else type="file" accept="image/*" name="uploadedFile" @change="change($event,'C')" ref="idCardAFile">
+					<input type="file" accept="image/*" name="uploadedFile" @change="change($event,'C')" ref="idCardAFile">
 				</div>
 			</div>
 		</div>
 		<div class="img_wrap eyepic" v-else>
-			<div class="tits">检查报告一</div>
+			<div class="tits">血常规检验报告单</div>
 			<div class="img text-center" style="margin-bottom: 10px">
 				<div class="defaultImg" v-if="isShowDefalutIdCardA">
 					<img :src="idCardA" alt="">
-					<p>上传检查报告一</p>
+					<p>上传血常规检验报告单</p>
 				</div>
 				<div class="newImg" v-else>
 					<img :src="param.inspectpre" alt="">
 				</div>
 				<div v-if="pageState != 'edit'">
-					<input v-if="anios==1" type="file" accept="image/*" name="uploadedFile" @click="changes('A')" ref="idCardAFile">
-					<input v-else type="file" accept="image/*" name="uploadedFile" @change="change($event,'A')" ref="idCardAFile">
+					<input type="file" accept="image/*" name="uploadedFile" @change="change($event,'A')" ref="idCardAFile">
 				</div>
 			</div>
-			<div class="tits">检查报告二 </div>
+			<div class="tits">肝肾功检验报告单 </div>
 			<div class="img text-center" style="margin-bottom: 10px">
 				<div class="defaultImg" v-if="isShowDefalutIdCardB">
 					<img :src="idCardB" alt="" id="bb">
-					<p>上传检查报告二</p>
+					<p>上传肝肾功检验报告单</p>
 				</div>
 				<div class="newImg" v-else>
 					<img :src="param.leavehospitalpre" alt="">
 				</div>
 				<div v-if="pageState != 'edit'">
-					<input v-if="anios==1" type="file" accept="image/*" @click="changes('B')" ref="idCardBFile">
-					<input v-else type="file" accept="image/*" @change="change($event,'B')" ref="idCardBFile">
+					<input type="file" accept="image/*" @change="change($event,'B')" ref="idCardBFile">
 				</div>
 			</div>
 			<div class="tits">出院报告 </div>
@@ -108,8 +104,7 @@
 					<img :src="param.imageinfo" alt="">
 				</div>
 				<div v-if="pageState != 'edit'">
-					<input v-if="anios==1" type="file" accept="image/*" name="uploadedFile" @click="changes('C')" ref="idCardAFile">
-					<input v-else type="file" accept="image/*" name="uploadedFile" @change="change($event,'C')" ref="idCardAFile">
+					<input type="file" accept="image/*" name="uploadedFile" @change="change($event,'C')" ref="idCardAFile">
 				</div>
 			</div>
 		</div>

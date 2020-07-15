@@ -13,7 +13,9 @@
 		  <span v-if="param.sex == '男'">男</span>
 		  <span v-if="param.sex == '女'">女</span>
 		</mt-cell>
-		<mt-field label="年龄" placeholder="请输入年龄" class="borderBottom" v-model.trim="param.age"></mt-field>
+		<mt-cell title="出生日期" is-link @click.native="openTimePicker('param.birth')" class="borderBottom">
+		  <span>{{param.birth || '请选择出生日期'}}</span>
+		</mt-cell>
 		<mt-field label="身高" placeholder="请输入身高(cm)" class="borderBottom" v-model.trim="param.height" @change="doBMI"></mt-field>
 		<mt-field label="体重" placeholder="请输入体重(kg)" class="borderBottom" v-model.trim="param.weight" @change="doBMI"></mt-field>
 		<mt-field label="BMI"  placeholder="BMI" class="borderBottom" :readonly="true" v-model.trim="param.bmi"></mt-field>
@@ -147,9 +149,14 @@
 		<mt-datetime-picker
 			ref="DatetimePicker"
 			type="date"
+			:startDate="new Date(new Date().setFullYear(new Date().getFullYear() - 90))"
+			:endDate="new Date(new Date().setFullYear(new Date().getFullYear() + 3))"
 			:value="new Date()"
+			year-format="{value} 年"
+			month-format="{value} 月"
+			date-format="{value} 日"
 			@confirm="confirmDatetime">
-		</mt-datetime-picker>	
+		</mt-datetime-picker>
 	</div>
 	
 </template>
@@ -238,7 +245,7 @@
 			param:{
 				name:"",  //姓名
 				sex: "男",  //姓名
-				age: "",  //年龄
+				birth: "",  //出生日期
 				height: "",  //身高
 				weight: "",  //体重
 				bmi: "",  //BMI

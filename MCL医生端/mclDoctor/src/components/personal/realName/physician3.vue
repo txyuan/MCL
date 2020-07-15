@@ -44,8 +44,8 @@
 				<div class="newImg" v-else>
 					<img :src="param.practisingimg" alt="">
 				</div>
-				<input v-if="anios==1" type="file" accept="image/*" name="uploadedFile" @click="changes('A')" ref="idCardAFile">
-				<input v-else type="file" accept="image/*" name="uploadedFile" @change="change($event,'A')" ref="idCardAFile">
+				<!-- <input v-if="anios==1" type="file" accept="image/*" name="uploadedFile" @click="changes('A')" ref="idCardAFile"> -->
+				<input type="file" accept="image/*" name="uploadedFile" @change="change($event,'A')" ref="idCardAFile">
 			</div>
 			<!-- <div class="img text-center" style="margin-bottom: 10px">
 				<div class="defaultImg" v-if="isShowDefalutIdCardB">
