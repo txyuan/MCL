@@ -196,499 +196,505 @@
 </template>
 
 <script>
-	import axios from 'axios'
-	export default {
-		name: "addmedicat",
-		data: () => ({
-			handler: function(e) {
-				e.preventDefault()
-			},
-			//图片加号
-			photoAdd: true,
-			consumption: '',
-			photoList: [{
-					key: "img1",
-					src: "",
-					show: false
-				},
-				{
-					key: "img2",
-					src: "",
-					show: false
-				},
-				{
-					key: "img3",
-					src: "",
-					show: false
-				},
-			],
-			current1: -1,
-			current2: -1,
-			current3: -1,
-			current4: -1,
-			current5: -1,
-			current6: -1,
-			list1: [{
-					names: '饭前'
-				},
-				{
-					names: '饭后'
-				}
-			],
-			lista: [{
-					names: '口服'
-				},
-				{
-					names: '吸入'
-				},
-				{
-					names: '注射'
-				}
-			],
-			listb: [{
-					names: '是'
-				},
-				{
-					names: '否'
-				}
-			],
-			listc: [{
-					names: '有'
-				},
-				{
-					names: '无'
-				}
-			],
-			popupVisible: false, //是否显示药量
-			sexSlots: [{
-				flex: 1,
-				values: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-					'11', '12', '13', '14', '15', '16', '17', '18'
-				],
-				className: 'slot1',
-				textAlign: 'center'
-			}],
-			popupVisibles: false, //是否显示剂量
-			sexSlotses: [{
-				flex: 1,
-				values: ['粒', '颗', '片', '支'],
-				className: 'slot1',
-				textAlign: 'center'
-			}],
-			popupVisibles1: false, //第一次
-			popupVisibles2: false, //第2次
-			popupVisibles3: false, //第3次
-			sexSlotses1: [{
-				flex: 1,
-				values: ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00',
-					'12:00',
-					'13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'
-				],
-				className: 'slot1',
-				textAlign: 'center'
-			}],
-			sexSlotses2: [{
-				flex: 1,
-				values: ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00',
-					'12:00',
-					'13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'
-				],
-				className: 'slot1',
-				textAlign: 'center'
-			}],
-			sexSlotses3: [{
-				flex: 1,
-				values: ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00',
-					'12:00',
-					'13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'
-				],
-				className: 'slot1',
-				textAlign: 'center'
-			}],
-			param: {
-				drug_name: "",
-				pic1: "",
-				pic2: "",
-				pic3: "",
-				consumption: "0",
-				dose: "粒",
-				first_time: "0:00",
-				first_result: "饭前",
-				second_time: "0:00",
-				second_result: "饭前",
-				third_time: "0:00",
-				third_result: "饭前",
-				medication_method: "口服",
-				doctor_advice: "是",
-				side_effects: "有",
-				side_effects_result: "",
-				dietary_attention: ""
-			},
-			aletShow: false
-		}),
-		methods: {
-			closeTouch() {
-				document.getElementsByTagName('body')[0].addEventListener('touchmove', this.handler, {
-					passive: false
-				}) //阻止默认事件
-			},
-			openTouch() {
-				document.getElementsByTagName('body')[0].removeEventListener('touchmove', this.handler, {
-					passive: false
-				}) //打开默认事件
-			},
-			visbleChange(val) {
-				// console.log(val)
-				// if (val) {
-					this.closeTouch()
-				// } else {
-				// 	this.openTouch()
-				// }
-			},
-			//显示每日药量picker
-			pickerToggle(state) {
-				this.openTouch()
-				if (state == "show") {
-					this.popupVisible = true;
-				}
-				if (state == "hide") {
-					this.popupVisible = false;
-				}
-			},
-			editUserInfo() {
-				this.openTouch()
-				const {
-					sexPicker
-				} = this.$refs;
-				let sex = sexPicker.getSlotValue(0);
-				this.param.consumption = sex;
-				this.pickerToggle('hide');
-			},
-			//显示剂量picker
-			pickerToggles(state) {
-				this.openTouch()
-				if (state == "show") {
-					this.popupVisibles = true;
-				}
-				if (state == "hide") {
-					this.popupVisibles = false;
-				}
-			},
-			editUserInfos() {
-				this.openTouch()
-				const {
-					sexPickers
-				} = this.$refs;
-				let sex = sexPickers.getSlotValue(0);
-				this.param.dose = sex;
-				this.pickerToggles('hide');
-			},
-			//第一次picker
-			pickerToggles1(state) {
-				this.openTouch()
-				if (state == "show") {
-					this.popupVisibles1 = true;
-				}
-				if (state == "hide") {
-					this.popupVisibles1 = false;
-				}
-			},
-			editUserInfos1() {
-				this.openTouch()
-				const {
-					sexPickers1
-				} = this.$refs;
-				let sex = sexPickers1.getSlotValue(0);
-				this.param.first_time = sex;
-				this.pickerToggles1('hide');
-			},
-			//第二次picker
-			pickerToggles2(state) {
-				this.openTouch()
-				if (state == "show") {
-					this.popupVisibles2 = true;
-				}
-				if (state == "hide") {
-					this.popupVisibles2 = false;
-				}
-			},
-			editUserInfos2() {
-				this.openTouch()
-				const {
-					sexPickers2
-				} = this.$refs;
-				let sex = sexPickers2.getSlotValue(0);
-				this.param.second_time = sex;
-				this.pickerToggles2('hide');
-			},
-			//第三次picker
-			pickerToggles3(state) {
-				this.openTouch()
-				if (state == "show") {
-					this.popupVisibles3 = true;
-				}
-				if (state == "hide") {
-					this.popupVisibles3 = false;
-				}
-			},
-			editUserInfos3() {
-				this.openTouch()
-				const {
-					sexPickers3
-				} = this.$refs;
-				let sex = sexPickers3.getSlotValue(0);
-				this.param.third_time = sex;
-				this.pickerToggles3('hide');
-			},
-			change($event) {
-				var $file = $event.target;
-				var file = $file.files[0]; //获取File对象
-				var URL = window.URL || window.webkitURL;
-				var imageURL = URL.createObjectURL(file);
-				this.photoList.push({
-					file: JSON.parse(JSON.stringify(file)),
-					src: imageURL
-				});
-				$file.value = "";
-			},
-			// addPhoto() {
-			// 	return this.$refs.file.click()
-			// },
-			// delPhoto(index) {
-			// 	this.photoList.splice(index, 1)
-			// },
-			//上传图片
-			//增加图片按钮
-			addPhoto() {
-				if (this.$root.isWeiXin() || /(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-					//微信 和  Ios 
-					return this.$refs.file.click()
-				} else if (/(Android)/i.test(navigator.userAgent)) {
-					//Android终端	
-					window.back.clickOnAndroidSelectPhoto();
-				}
-			},
-			//ios端 上传文件
-			iosUpload(e) {
-				let file = e.target.files[0];
-				let url = URL.createObjectURL(file);
-				let config = {
-					headers: {
-						'Content-Type': 'multipart/form-data'
-					}
-				}; //添加请求头
-				let params = new FormData(); //创建form对象
-				params.append('uploadedFile', file); //通过append向form对象添加数据
-				axios.post('UserInterface/UploadFile.ashx', params, config).then(response => {
-					if (response.data.rspcode != 1) {
-						return;
-					}
-					let responseUrl = response.data.url;
+import axios from 'axios'
+export default {
+  name: 'addmedicat',
+  data: () => ({
+    handler: function (e) {
+      e.preventDefault()
+    },
+    // 图片加号
+    photoAdd: true,
+    consumption: '',
+    photoList: [{
+      key: 'img1',
+      src: '',
+      show: false
+    },
+    {
+      key: 'img2',
+      src: '',
+      show: false
+    },
+    {
+      key: 'img3',
+      src: '',
+      show: false
+    }
+    ],
+    current1: -1,
+    current2: -1,
+    current3: -1,
+    current4: -1,
+    current5: -1,
+    current6: -1,
+    list1: [{
+      names: '饭前'
+    },
+    {
+      names: '饭后'
+    }
+    ],
+    lista: [{
+      names: '口服'
+    },
+    {
+      names: '吸入'
+    },
+    {
+      names: '注射'
+    }
+    ],
+    listb: [{
+      names: '是'
+    },
+    {
+      names: '否'
+    }
+    ],
+    listc: [{
+      names: '有'
+    },
+    {
+      names: '无'
+    }
+    ],
+    popupVisible: false, // 是否显示药量
+    sexSlots: [{
+      flex: 1,
+      values: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+        '11', '12', '13', '14', '15', '16', '17', '18'
+      ],
+      className: 'slot1',
+      textAlign: 'center'
+    }],
+    popupVisibles: false, // 是否显示剂量
+    sexSlotses: [{
+      flex: 1,
+      values: ['粒', '颗', '片', '支'],
+      className: 'slot1',
+      textAlign: 'center'
+    }],
+    popupVisibles1: false, // 第一次
+    popupVisibles2: false, // 第2次
+    popupVisibles3: false, // 第3次
+    sexSlotses1: [{
+      flex: 1,
+      values: ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00',
+        '12:00',
+        '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'
+      ],
+      className: 'slot1',
+      textAlign: 'center'
+    }],
+    sexSlotses2: [{
+      flex: 1,
+      values: ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00',
+        '12:00',
+        '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'
+      ],
+      className: 'slot1',
+      textAlign: 'center'
+    }],
+    sexSlotses3: [{
+      flex: 1,
+      values: ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00',
+        '12:00',
+        '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'
+      ],
+      className: 'slot1',
+      textAlign: 'center'
+    }],
+    param: {
+      drug_name: '',
+      pic1: '',
+      pic2: '',
+      pic3: '',
+      consumption: '0',
+      dose: '粒',
+      first_time: '0:00',
+      first_result: '饭前',
+      second_time: '0:00',
+      second_result: '饭前',
+      third_time: '0:00',
+      third_result: '饭前',
+      medication_method: '口服',
+      doctor_advice: '是',
+      side_effects: '有',
+      side_effects_result: '',
+      dietary_attention: ''
+    },
+    aletShow: false
+  }),
+  methods: {
+    closeTouch () {
+      document.getElementsByTagName('body')[0].addEventListener('touchmove', this.handler, {
+        passive: false
+      }) // 阻止默认事件
+    },
+    openTouch () {
+      document.getElementsByTagName('body')[0].removeEventListener('touchmove', this.handler, {
+        passive: false
+      }) // 打开默认事件
+    },
+    visbleChange (val) {
+      // console.log(val)
+      // if (val) {
+      this.closeTouch()
+      // } else {
+      // 	this.openTouch()
+      // }
+    },
+    // 显示每日药量picker
+    pickerToggle (state) {
+      if (state == 'show') {
+		  this.closeTouch()
+        this.popupVisible = true
+      }
+      if (state == 'hide') {
+		  this.openTouch()
+        this.popupVisible = false
+      }
+    },
+    editUserInfo () {
+      this.openTouch()
+      const {
+        sexPicker
+      } = this.$refs
+      let sex = sexPicker.getSlotValue(0)
+      this.param.consumption = sex
+      this.pickerToggle('hide')
+    },
+    // 显示剂量picker
+    pickerToggles (state) {
+      if (state == 'show') {
+		  this.closeTouch()
+        this.popupVisibles = true
+      }
+      if (state == 'hide') {
+		  this.openTouch()
+        this.popupVisibles = false
+      }
+    },
+    editUserInfos () {
+      this.openTouch()
+      const {
+        sexPickers
+      } = this.$refs
+      let sex = sexPickers.getSlotValue(0)
+      this.param.dose = sex
+      this.pickerToggles('hide')
+    },
+    // 第一次picker
+    pickerToggles1 (state) {
+      if (state == 'show') {
+		  this.closeTouch()
+        this.popupVisibles1 = true
+      }
+      if (state == 'hide') {
+		  this.openTouch()
+        this.popupVisibles1 = false
+      }
+    },
+    editUserInfos1 () {
+      this.openTouch()
+      const {
+        sexPickers1
+      } = this.$refs
+      let sex = sexPickers1.getSlotValue(0)
+      this.param.first_time = sex
+      this.pickerToggles1('hide')
+    },
+    // 第二次picker
+    pickerToggles2 (state) {
+      if (state == 'show') {
+		  this.closeTouch()
+        this.popupVisibles2 = true
+      }
+      if (state == 'hide') {
+		  this.openTouch()
+        this.popupVisibles2 = false
+      }
+    },
+    editUserInfos2 () {
+      this.openTouch()
+      const {
+        sexPickers2
+      } = this.$refs
+      let sex = sexPickers2.getSlotValue(0)
+      this.param.second_time = sex
+      this.pickerToggles2('hide')
+    },
+    // 第三次picker
+    pickerToggles3 (state) {
+      if (state == 'show') {
+		  this.closeTouch()
+        this.popupVisibles3 = true
+      }
+      if (state == 'hide') {
+		  this.openTouch()
+        this.popupVisibles3 = false
+      }
+    },
+    editUserInfos3 () {
+      this.openTouch()
+      const {
+        sexPickers3
+      } = this.$refs
+      let sex = sexPickers3.getSlotValue(0)
+      this.param.third_time = sex
+      this.pickerToggles3('hide')
+    },
+    change ($event) {
+      var $file = $event.target
+      var file = $file.files[0] // 获取File对象
+      var URL = window.URL || window.webkitURL
+      var imageURL = URL.createObjectURL(file)
+      this.photoList.push({
+        file: JSON.parse(JSON.stringify(file)),
+        src: imageURL
+      })
+      $file.value = ''
+    },
+    // addPhoto() {
+    // 	return this.$refs.file.click()
+    // },
+    // delPhoto(index) {
+    // 	this.photoList.splice(index, 1)
+    // },
+    // 上传图片
+    // 增加图片按钮
+    addPhoto () {
+      if (this.$root.isWeiXin() || /(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        // 微信 和  Ios
+        return this.$refs.file.click()
+      } else if (/(Android)/i.test(navigator.userAgent)) {
+        // Android终端
+        window.back.clickOnAndroidSelectPhoto()
+      }
+    },
+    // ios端 上传文件
+    iosUpload (e) {
+      let file = e.target.files[0]
+      let url = URL.createObjectURL(file)
+      let config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      } // 添加请求头
+      let params = new FormData() // 创建form对象
+      params.append('uploadedFile', file) // 通过append向form对象添加数据
+      axios.post('UserInterface/UploadFile.ashx', params, config).then(response => {
+        if (response.data.rspcode != 1) {
+          return
+        }
+        let responseUrl = response.data.url
 
+        // 设置图片地址
+        for (let i = 0; i < this.photoList.length; i++) {
+          const item = this.photoList[i]
+          if (item.src == '') {
+            item.src = responseUrl
+            item.show = true
+            break
+          }
+        }
+        // 是否显示增加图片按钮
+        let len = 0
+        for (let i = 0; i < this.photoList.length; i++) {
+          const item = this.photoList[i]
+          if (item.src != '') {
+            len += 1
+          }
+        }
+        if (len == this.photoList.length) {
+          this.photoAdd = false
+        }
+      })
+    },
+    // android端 上传文件（被app主动调起的回调函数）
+    androidUpload (stream) {
+      let url = 'UserInterface/UploadPhotos.ashx'
+      this.$post(url, {
+        BinaryStream: stream
+      }).then((data) => {
+        if (data.rspcode == 0) {
+          return
+        }
+        let responseUrl = responseUrl
 
-					//设置图片地址
-					for (let i = 0; i < this.photoList.length; i++) {
-						const item = this.photoList[i]
-						if (item.src == "") {
-							item.src = responseUrl;
-							item.show = true;
-							break;
-						}
-					}
-					//是否显示增加图片按钮
-					let len = 0;
-					for (let i = 0; i < this.photoList.length; i++) {
-						const item = this.photoList[i]
-						if (item.src != "") {
-							len += 1
-						}
-					}
-					if (len == this.photoList.length) {
-						this.photoAdd = false;
-					}
-				})
-			},
-			//android端 上传文件（被app主动调起的回调函数）
-			androidUpload(stream) {
-				let url = "UserInterface/UploadPhotos.ashx";
-				this.$post(url, {
-					BinaryStream: stream
-				}).then((data) => {
-					if (data.rspcode == 0) {
-						return;
-					}
-					let responseUrl = responseUrl;
-
-
-					//设置图片地址
-					for (let i = 0; i < this.photoList.length; i++) {
-						const item = this.photoList[i]
-						if (item.src == "") {
-							item.src = responseUrl;
-							item.show = true;
-							break;
-						}
-					}
-					//是否显示增加图片按钮
-					let len = 0;
-					for (let i = 0; i < this.photoList.length; i++) {
-						const item = this.photoList[i]
-						if (item.src != "") {
-							len += 1
-						}
-					}
-					if (len == this.photoList.length) {
-						this.photoAdd = false;
-					}
-				})
-			},
-			// 删除图片
-			delPhoto(index) {
-				//删除图片数据
-				this.photoList[index].show = false;
-				this.photoList[index].src = "";
-				//显示图片新增按钮
-				this.photoAdd = true;
-			},
-			// 增加接口
-			setpost() {
-				if (this.param.drug_name == "") {
-					this.$Toast('请输入药品名称');
-					return;
-				}
-				this.param.pic1 = this.photoList[0].src;
-				this.param.pic2 = this.photoList[1].src;
-				this.param.pic3 = this.photoList[2].src;
-				let url = "UserInterface/curve/MedicationSurvey.ashx";
-				this.$post(url, this.param).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					this.aletShow = true;
-					// this.$MessageBox.defaults = { ok: "添加", cancel: "确定" };
-					// this.$MessageBox.confirm('上传成功，是否继续添加用药记录').then(action => {
-					// 	this.param.drug_name = "";
-					// 	this.param.pic1 = "";
-					// 	this.param.pic2 = "";
-					// 	this.param.pic3 = "";
-					// 	this.param.consumption = "0";
-					// 	this.param.dose = "粒";
-					// 	this.param.first_time = "0:00";
-					// 	this.param.first_result = "饭前";
-					// 	this.param.second_time = "0:00";
-					// 	this.param.second_result = "饭前";
-					// 	this.param.third_time = "0:00";
-					// 	this.param.third_result = "饭前";
-					// 	this.param.medication_method = "口服";
-					// 	this.param.doctor_advice = "是";
-					// 	this.param.side_effects = "有";
-					// 	this.param.side_effects_result = "";
-					// 	this.param.dietary_attention = "";
-					// 	this.photoList[0].src='';
-					// 	this.photoList[1].src='';
-					// 	this.photoList[2].src='';
-					// 	this.delPhoto(0);
-					// 	this.delPhoto(1);
-					// 	this.delPhoto(2);
-					// 	this.current1=0;
-					// 	this.current2=0;
-					// 	this.current3=0;
-					// 	this.current4=0;
-					// 	this.current5=0;
-					// 	this.current6=0;
-					// }).catch(err => {
-					// 	this.$router.back();
-					// });
-				})
-			},
-			alalet() {
-				this.param.drug_name = "";
-				this.param.pic1 = "";
-				this.param.pic2 = "";
-				this.param.pic3 = "";
-				this.param.consumption = "0";
-				this.param.dose = "粒";
-				this.param.first_time = "0:00";
-				this.param.first_result = "饭前";
-				this.param.second_time = "0:00";
-				this.param.second_result = "饭前";
-				this.param.third_time = "0:00";
-				this.param.third_result = "饭前";
-				this.param.medication_method = "口服";
-				this.param.doctor_advice = "是";
-				this.param.side_effects = "有";
-				this.param.side_effects_result = "";
-				this.param.dietary_attention = "";
-				this.photoList[0].src = '';
-				this.photoList[1].src = '';
-				this.photoList[2].src = '';
-				this.delPhoto(0);
-				this.delPhoto(1);
-				this.delPhoto(2);
-				this.current1 = -1;
-				this.current2 = -1;
-				this.current3 = -1;
-				this.current4 = -1;
-				this.current5 = -1;
-				this.current6 = -1;
-				this.aletShow = false;
-			},
-			noalal() {
-				this.aletShow = false;
-				this.$router.back();
-			},
-			getdefalt1(index) {
-				this.current1 = index;
-				if (index == 0) {
-					this.param.first_result = "饭前";
-				} else {
-					this.param.first_result = "饭后";
-				}
-			},
-			getdefalt2(index) {
-				this.current2 = index;
-				if (index == 0) {
-					this.param.second_result = "饭前";
-				} else {
-					this.param.second_result = "饭后";
-				}
-			},
-			getdefalt3(index) {
-				this.current3 = index;
-				if (index == 0) {
-					this.param.third_result = "饭前";
-				} else {
-					this.param.third_result = "饭后";
-				}
-			},
-			getdefalt4(index) {
-				this.current4 = index;
-				if (index == 0) {
-					this.param.medication_method = "口服";
-				} else if (index == 1) {
-					this.param.medication_method = "吸入";
-				} else {
-					this.param.medication_method = "注射";
-				}
-			},
-			getdefalt5(index) {
-				this.current5 = index;
-				if (index == 0) {
-					this.param.doctor_advice = "是";
-				} else {
-					this.param.doctor_advice = "否";
-				}
-			},
-			getdefalt6(index) {
-				this.current6 = index;
-				if (index == 0) {
-					this.param.side_effects = "有";
-				} else {
-					this.param.side_effects = "无";
-				}
-			}
-		},
-	}
+        // 设置图片地址
+        for (let i = 0; i < this.photoList.length; i++) {
+          const item = this.photoList[i]
+          if (item.src == '') {
+            item.src = responseUrl
+            item.show = true
+            break
+          }
+        }
+        // 是否显示增加图片按钮
+        let len = 0
+        for (let i = 0; i < this.photoList.length; i++) {
+          const item = this.photoList[i]
+          if (item.src != '') {
+            len += 1
+          }
+        }
+        if (len == this.photoList.length) {
+          this.photoAdd = false
+        }
+      })
+    },
+    // 删除图片
+    delPhoto (index) {
+      // 删除图片数据
+      this.photoList[index].show = false
+      this.photoList[index].src = ''
+      // 显示图片新增按钮
+      this.photoAdd = true
+    },
+    // 增加接口
+    setpost () {
+      if (this.param.drug_name == '') {
+        this.$Toast('请输入药品名称')
+        return
+      }
+      this.param.pic1 = this.photoList[0].src
+      this.param.pic2 = this.photoList[1].src
+      this.param.pic3 = this.photoList[2].src
+      let url = 'UserInterface/curve/MedicationSurvey.ashx'
+      this.$post(url, this.param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.aletShow = true
+        // this.$MessageBox.defaults = { ok: "添加", cancel: "确定" };
+        // this.$MessageBox.confirm('上传成功，是否继续添加用药记录').then(action => {
+        // 	this.param.drug_name = "";
+        // 	this.param.pic1 = "";
+        // 	this.param.pic2 = "";
+        // 	this.param.pic3 = "";
+        // 	this.param.consumption = "0";
+        // 	this.param.dose = "粒";
+        // 	this.param.first_time = "0:00";
+        // 	this.param.first_result = "饭前";
+        // 	this.param.second_time = "0:00";
+        // 	this.param.second_result = "饭前";
+        // 	this.param.third_time = "0:00";
+        // 	this.param.third_result = "饭前";
+        // 	this.param.medication_method = "口服";
+        // 	this.param.doctor_advice = "是";
+        // 	this.param.side_effects = "有";
+        // 	this.param.side_effects_result = "";
+        // 	this.param.dietary_attention = "";
+        // 	this.photoList[0].src='';
+        // 	this.photoList[1].src='';
+        // 	this.photoList[2].src='';
+        // 	this.delPhoto(0);
+        // 	this.delPhoto(1);
+        // 	this.delPhoto(2);
+        // 	this.current1=0;
+        // 	this.current2=0;
+        // 	this.current3=0;
+        // 	this.current4=0;
+        // 	this.current5=0;
+        // 	this.current6=0;
+        // }).catch(err => {
+        // 	this.$router.back();
+        // });
+      })
+    },
+    alalet () {
+      this.param.drug_name = ''
+      this.param.pic1 = ''
+      this.param.pic2 = ''
+      this.param.pic3 = ''
+      this.param.consumption = '0'
+      this.param.dose = '粒'
+      this.param.first_time = '0:00'
+      this.param.first_result = '饭前'
+      this.param.second_time = '0:00'
+      this.param.second_result = '饭前'
+      this.param.third_time = '0:00'
+      this.param.third_result = '饭前'
+      this.param.medication_method = '口服'
+      this.param.doctor_advice = '是'
+      this.param.side_effects = '有'
+      this.param.side_effects_result = ''
+      this.param.dietary_attention = ''
+      this.photoList[0].src = ''
+      this.photoList[1].src = ''
+      this.photoList[2].src = ''
+      this.delPhoto(0)
+      this.delPhoto(1)
+      this.delPhoto(2)
+      this.current1 = -1
+      this.current2 = -1
+      this.current3 = -1
+      this.current4 = -1
+      this.current5 = -1
+      this.current6 = -1
+      this.aletShow = false
+    },
+    noalal () {
+      this.aletShow = false
+      this.$router.back()
+    },
+    getdefalt1 (index) {
+      this.current1 = index
+      if (index == 0) {
+        this.param.first_result = '饭前'
+      } else {
+        this.param.first_result = '饭后'
+      }
+    },
+    getdefalt2 (index) {
+      this.current2 = index
+      if (index == 0) {
+        this.param.second_result = '饭前'
+      } else {
+        this.param.second_result = '饭后'
+      }
+    },
+    getdefalt3 (index) {
+      this.current3 = index
+      if (index == 0) {
+        this.param.third_result = '饭前'
+      } else {
+        this.param.third_result = '饭后'
+      }
+    },
+    getdefalt4 (index) {
+      this.current4 = index
+      if (index == 0) {
+        this.param.medication_method = '口服'
+      } else if (index == 1) {
+        this.param.medication_method = '吸入'
+      } else {
+        this.param.medication_method = '注射'
+      }
+    },
+    getdefalt5 (index) {
+      this.current5 = index
+      if (index == 0) {
+        this.param.doctor_advice = '是'
+      } else {
+        this.param.doctor_advice = '否'
+      }
+    },
+    getdefalt6 (index) {
+      this.current6 = index
+      if (index == 0) {
+        this.param.side_effects = '有'
+      } else {
+        this.param.side_effects = '无'
+      }
+    }
+  },
+  mounted () {
+	  this.openTouch()
+  }
+}
 </script>
 
 <style scoped lang="scss">
