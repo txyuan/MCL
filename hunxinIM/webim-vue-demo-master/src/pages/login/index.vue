@@ -1,7 +1,7 @@
 
 <template>
   <el-container>
-	<div class="login">
+	<div class="login" v-if="false">
 		<div class="login-panel">
 			<div class="logo">Web IM</div>
 			<van-cell-group>
@@ -31,15 +31,24 @@ export default{
 	data(){
 		return {
 			username: "",
-			password: "",
+			password: "111111",
 			nickname: ""
 		};
 	},
 	mounted: function(){
 		const path = this.isRegister ? "/register" : "/login";
-    
 		if(path !== location.pathname){
-			this.$router.push(path);
+			//this.$router.push(path);
+		}
+
+		// 从连接后边截取 username和userkey
+		// 自动登录
+		const username = this.$route.query.username;
+		if(username){
+			this.username = username
+			const {userkey} = this.$route.query
+			localStorage.UserKey = userkey
+			this.toLogin()
 		}
 	},
 	components: {},
@@ -55,6 +64,7 @@ export default{
 				username: this.username.toLowerCase(),
 				password: this.password
 			});
+
 		},
 		toRegister(){
 			this.onRegister({

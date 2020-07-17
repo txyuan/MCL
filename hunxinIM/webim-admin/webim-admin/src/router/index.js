@@ -16,16 +16,16 @@ export default new Router({
             path: '/',
             redirect: '/contact'
         },
-//      {
-//          path: '/login',
-//          name: 'login',
-//          component: Login
-//      },
-//      {
-//          path: '/register',
-//          name: 'login',
-//          component: Login
-//      },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
+        },
+        {
+            path: '/register',
+            name: 'login',
+            component: Login
+        },
         {
             path: '/contact/:id',
             name: 'contact',

@@ -48,7 +48,8 @@ export function uploadChatimg ( file ) {
     let config = {
         headers:{'Content-Type':'multipart/form-data'}
     };  //添加请求头
-    let url = `/UserInterface/UploadFile.ashx?UserKey=92972d82-21b0-402f-9678-6b4470817450&SessionId=4fd457f0-91ae-47c5-8b40-e4f95432742b`;
+    const UserKey = localStorage.UserKey
+    let url = `/UserInterface/UploadFile.ashx?UserKey=${UserKey}`;
     let params = new FormData(); //创建form对象
     params.append('uploadedFile',file);//通过append向form对象添加数据
     return new Promise((resolve, reject) => {

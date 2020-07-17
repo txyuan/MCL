@@ -316,7 +316,6 @@ export default {
 
         if (!this.msgList) {
           this.getHistoryMessage({ name: key.name, isGroup: false });
-          console.log(0)
         }
       } else if (this.type === "chatroom") {
         const me = this;

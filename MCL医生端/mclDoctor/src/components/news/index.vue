@@ -1,6 +1,6 @@
 <template>
 <div>
-<iframe :src="`${KFURL}/contact?username=${repData.ContactPhone}`" width="100%" style="height: calc(100vh - 55px);border: none;"></iframe>
+<iframe :src="`${KFURL}/login?username=${repData.ContactPhone}&userkey=${userkey}`" width="100%" style="height: calc(100vh - 55px);border: none;"></iframe>
 <!-- <div class="mesage-root">
 	<mt-header title="消息" fixed></mt-header>
 	<div id="body_main">
@@ -76,29 +76,31 @@
 <script>
 	import { KFURL } from '@/configURL.js'
 	import doctorDefaultPic from "@/assets/images/doctorPic.png"
-  export default {
+    export default {
 	  	name: "index",
-			data: () => ({
-				KFURL,
-				repData:{},
-				doctorDefaultPic
-			}),
-			methods: {
-				//个人信息
-				information() {
-					// this.$Indicator.loading();
-					let url = "UserInterface/GetUserShowInfo.ashx";
-					this.$post(url).then((data) => {
-						this.$Indicator.close();
-						let model = data.data;
-						this.repData = model;
-					})
-				},
+		data: () => ({
+			KFURL,
+			repData:{},
+			doctorDefaultPic,
+			userkey: '',
+		}),
+		methods: {
+			//个人信息
+			information() {
+				// this.$Indicator.loading();
+				let url = "UserInterface/GetUserShowInfo.ashx";
+				this.$post(url).then((data) => {
+					this.$Indicator.close();
+					let model = data.data;
+					this.repData = model;
+				})
 			},
-			mounted(){
-				this.information();
-			}
-  }
+		},
+		mounted(){
+			this.information();
+			this.userkey = JSON.parse(localStorage.getItem('userInfo')).UserKey
+		}
+    }
 </script>
 
 <style scoped lang="scss">

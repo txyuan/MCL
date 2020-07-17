@@ -1,6 +1,6 @@
 import WebIM from "../utils/WebIM";
 import {saveChatData, getChatData} from '@/api/app.js';
-let pageObj = {}  // 历史记录的分页
+let pageObj = {flag: false}  // 历史记录的分页
 
 // TODO 处理页面刷新无法获取到音频url
 const res = function(response){
@@ -560,62 +560,67 @@ const Chat = {
 				pagesize: 10, //每页条数
 				pagecount, //第几页
 			}
-			getChatData(data).then((response) => {
-				let msgs = response.data.list
-				pageObj[payload.name] = pagecount + 1 
-				try{
-					payload.success && payload.success(msgs);
-					if(msgs.length){
-						msgs.forEach((item) => {
-							let time = Number(item.msgTime);
-							let msg = {};
-							const bySelf = item.sender == userId;
-							if(item.msgType == 1){
-								msg = {
-									chatType: payload.isGroup ? "group" : "contact",
-									chatId: bySelf ? item.msgTo : item.sender,
-									msg: item.msgContent,
-									bySelf: bySelf,
-									time: time,
-									type: 'txt',
-									mid: item.msgKey,
-									status: "read"
-								};
-								// if(payload.isGroup){
-								// 	msg.chatId = item.to;
-								// }
-								// else{
-								// 	msg.chatId = bySelf ? item.msgTo : item.sender
-								// }
-							}
-							else if(item.msgType == 2){ // 为图片的情况
-								msg = {
-									msg: item.msgContent,
-									chatType: payload.isGroup ? "group" : "contact",
-									chatId: bySelf ? item.msgTo : item.sender,
-									bySelf: bySelf,
-									type: "img",
-									time: time,
-									mid: item.msgKey,
-									status: "read"
-								};
-								// if(payload.isGroup){
-								// 	msg.chatId = item.to;
-								// }
-								// else{
-								// 	msg.chatId = bySelf ? item.to : item.from;
-								// }
-							}
-							msg.isHistory = true;
-							context.commit("updateMsgList", msg);
-						});
-						context.commit("updateMessageStatus", { action: "readMsgs" });
+			if(pageObj.flag == true){
+				pageObj.flag = false
+				getChatData(data).then((response) => {
+					let msgs = response.data.list
+					pageObj[payload.name] = pagecount + 1 
+					pageObj.flag = true
+					try{
+						payload.success && payload.success(msgs);
+						if(msgs.length){
+							msgs.forEach((item) => {
+								let time = Number(item.msgTime);
+								let msg = {};
+								const bySelf = item.sender == userId;
+								if(item.msgType == 1){
+									msg = {
+										chatType: payload.isGroup ? "group" : "contact",
+										chatId: bySelf ? item.msgTo : item.sender,
+										msg: item.msgContent,
+										bySelf: bySelf,
+										time: time,
+										type: 'txt',
+										mid: item.msgKey,
+										status: "read"
+									};
+									// if(payload.isGroup){
+									// 	msg.chatId = item.to;
+									// }
+									// else{
+									// 	msg.chatId = bySelf ? item.msgTo : item.sender
+									// }
+								}
+								else if(item.msgType == 2){ // 为图片的情况
+									msg = {
+										msg: item.msgContent,
+										chatType: payload.isGroup ? "group" : "contact",
+										chatId: bySelf ? item.msgTo : item.sender,
+										bySelf: bySelf,
+										type: "img",
+										time: time,
+										mid: item.msgKey,
+										status: "read"
+									};
+									// if(payload.isGroup){
+									// 	msg.chatId = item.to;
+									// }
+									// else{
+									// 	msg.chatId = bySelf ? item.to : item.from;
+									// }
+								}
+								msg.isHistory = true;
+								context.commit("updateMsgList", msg);
+							});
+							context.commit("updateMessageStatus", { action: "readMsgs" });
+						}
+						
+					} catch(e){
+						console.log("error", e);
 					}
-					
-				} catch(e){
-					console.log("error", e);
-				}
-			})
+				})
+			}	
+			
 		},
 
 		recallMessage: function(context, payload){

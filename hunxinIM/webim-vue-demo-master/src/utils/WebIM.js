@@ -45,6 +45,7 @@ WebIM.conn.listen({
 		Vue.$router.push({ path: redirectUrl });
 	},
 	onClosed: function (message) {
+		
 		Vue.$router.push({ path: "/login" });
 	}, // 连接关闭回调
 	onTextMessage: function (message) {

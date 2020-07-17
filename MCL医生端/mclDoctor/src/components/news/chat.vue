@@ -8,7 +8,7 @@
 		    </div>
 		</mt-header>
 		
-		<iframe :src="`${KFURL}/contact?username=${repData.ContactPhone}`" width="100%" style="height: calc(100vh - 48px);border: none;margin-top: 43px;"></iframe>
+		<iframe :src="`${KFURL}/login?username=${repData.ContactPhone}&userkey=${userkey}`" width="100%" style="height: calc(100vh - 48px);border: none;margin-top: 43px;"></iframe>
 
 		<!-- <mt-header title="白容因" fixed>
 		    <div slot="left">
@@ -32,7 +32,8 @@
 	    name: "index",
 	    data:()=>({
 			KFURL,
-	    	repData:{}
+			repData:{},
+			userkey: '',
 	    }),
 	    methods:{
 			//个人信息
@@ -48,6 +49,7 @@
 	    },
 		mounted(){
 			this.information();
+			this.userkey = JSON.parse(localStorage.getItem('userInfo')).UserKey
 		}
 	}
 </script>

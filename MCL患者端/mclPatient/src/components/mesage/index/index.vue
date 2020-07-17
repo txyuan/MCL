@@ -27,7 +27,7 @@
 				</div>
 			</div>
 			<div style="position: absolute; top: 2.3rem; bottom:53px; width: 100%; border: none;">
-				<iframe :src="`${KFURL}/contact?username=${repData.ContactPhone}&userkey=${userkey}`" width="100%" style="height: 100%; border: none;"></iframe>
+				<iframe :src="`${KFURL}/login?username=${repData.ContactPhone}&userkey=${userkey}`" width="100%" style="height: 100%; border: none;" ref="kefuView"></iframe>
 			</div>
 		</div>
 		<div class="mess_alet" v-if="docinf1">
@@ -114,10 +114,8 @@ export default {
     },
     // 个人信息
     information () {
-      this.$Indicator.loading()
       let url = 'UserInterface/GetUserShowInfo.ashx'
       this.$post(url).then((data) => {
-        this.$Indicator.close()
         let model = data.data
         if (model) {
           this.repData = model
@@ -137,11 +135,20 @@ export default {
       })
     }
   },
+  created () {
+    this.userkey = JSON.parse(localStorage.getItem('userInfo')).UserKey
+  },
   mounted () {
+	this.$Indicator.loading()
     this.information()
     this.getupshop()
     this.getthisnf()
-    this.userkey = JSON.parse(localStorage.getItem('userInfo')).UserKey
+    this.$refs.kefuView.addEventListener('load', () => {
+      // 代码能执行到这里说明已经载入成功完毕了
+	  this.$Indicator.close()
+      this.removeEventListener('load', arguments.call, false)
+      // 这里是回调函数
+    }, false)
   }
 }
 </script>

@@ -29,6 +29,7 @@ Router.prototype.push = function push(location) {
 Vue.use(ElementUI).use(vant)
 Vue.config.productionTip = false
 
+
 /* eslint-disable no-new */
 window.Vue = new Vue({
     el: '#app',

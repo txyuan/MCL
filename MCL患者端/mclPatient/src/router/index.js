@@ -247,8 +247,8 @@ const router = new Router({
 		// { path:"/notice", name:"notice", component: notice },
     { path:"/login", name:"login", component: login },   //登录
     { path:"/noticeClause", name:"noticeClause", component: noticeClause },
-	{ path:"/noticeClause2", name:"noticeClause2", component: noticeClause2 },
-	{ path:"/noticeClause3", name:"noticeClause3", component: noticeClause3 },
+    { path:"/noticeClause2", name:"noticeClause2", component: noticeClause2 },
+    { path:"/noticeClause3", name:"noticeClause3", component: noticeClause3 },
     { path:"/wx_Entrance", name:"wx_Entrance", component: wx_Entrance,
       children:[
         { path:"home", name:"home", component: home},

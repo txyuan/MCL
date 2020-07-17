@@ -7,19 +7,14 @@
 <script>
 import WebIM from "./utils/WebIM";
 import { mapState, mapActions } from "vuex";
-    
+
 export default{
 	name: "App",
-	beforeMount(){
-
-		const username = this.$route.query.username;
-		if(username){
-			const {userkey} = this.$route.query
-			localStorage.userInfo = JSON.stringify({"userId":username,"password":"111111", "UserKey": userkey})
-		}
+	created(){
 		
+		// 非login页面。 实现自动登录功能
 		const userInfo = localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo"));
-		if(userInfo){
+		if(userInfo && this.$route.name !== 'login'){
 			const userName = userInfo.userId;
 			const password = userInfo.password;
 			const options = {
@@ -28,14 +23,9 @@ export default{
 				pwd: password,
 				appKey: WebIM.config.appkey
 			};
-			console.log(JSON.stringify(options));
 			WebIM.conn.open(options);
-			window.WebIM = WebIM;
-			// window.addEventListener("unload", function(event){
-			// 	console.log("I am the 3rd one.");
-			// 	WebIM.conn.close();
-			// });
 		}
+		
 	}
 };
     
