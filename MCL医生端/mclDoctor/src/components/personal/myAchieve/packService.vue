@@ -1,7 +1,7 @@
 <template>
 	<div class="padding-header person_data_root">
 		<div id="class_header" class="myassets">
-			<mt-header title="套餐服务收益" fixed class="borderBottom">
+			<mt-header title="套餐服务" fixed class="borderBottom">
 				<div slot="left">
 					<router-link to="/wx_Entrance/personal" style="color: initial">
 						<mt-button icon="back"></mt-button>
@@ -72,93 +72,93 @@
 </template>
 
 <script>
-	import loadMore from "@/components/common/loadMore.vue";  //加载更多组件
-	export default {
-		name: "commission",
-		data: () => ({
-			selected: "tab0",
-			price: 0, //总业绩
-			popupVisible: false, //是否显示日期picker
-			list: [],
-			param: {
-				"pagesize": 10,
-				"pagecount": 0
-			},
-			slots: [{
-				flex: 1,
-				values: ['2015', '2016', '2017', '2018', '2019', '2020','2021','2022'],
-				className: 'slot1',
-				textAlign: 'right'
-			}, {
-				divider: true,
-				content: '-',
-				className: 'slot2'
-			}, {
-				flex: 1,
-				values: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-				className: 'slot3',
-				textAlign: 'left'
-			}]
-		}),
-		methods: {
-			// 显示日期
-			filterToggleFn() {
-				this.popupVisible = true;
-			},
-			// 日期确定
-			editUserInfo() {
-				const {
-					sexPicker
-				} = this.$refs;
-				let years = sexPicker.getSlotValue(0);
-				let month = sexPicker.getSlotValue(1);
-				this.popupVisible = false;
-			},
-			// 取消日期
-			pickerToggle(state) {
-				this.popupVisible = false;
-			},
-			// 当前单价
-			getAdrLists() {
+import loadMore from '@/components/common/loadMore.vue' // 加载更多组件
+export default {
+  name: 'commission',
+  data: () => ({
+    selected: 'tab0',
+    price: 0, // 总业绩
+    popupVisible: false, // 是否显示日期picker
+    list: [],
+    param: {
+      'pagesize': 10,
+      'pagecount': 0
+    },
+    slots: [{
+      flex: 1,
+      values: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022'],
+      className: 'slot1',
+      textAlign: 'right'
+    }, {
+      divider: true,
+      content: '-',
+      className: 'slot2'
+    }, {
+      flex: 1,
+      values: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+      className: 'slot3',
+      textAlign: 'left'
+    }]
+  }),
+  methods: {
+    // 显示日期
+    filterToggleFn () {
+      this.popupVisible = true
+    },
+    // 日期确定
+    editUserInfo () {
+      const {
+        sexPicker
+      } = this.$refs
+      let years = sexPicker.getSlotValue(0)
+      let month = sexPicker.getSlotValue(1)
+      this.popupVisible = false
+    },
+    // 取消日期
+    pickerToggle (state) {
+      this.popupVisible = false
+    },
+    // 当前单价
+    getAdrLists () {
 
-			},
-			//tab切换
-			tabClick(val) {
-				this.$Indicator.loading();
-				this.param.type = val;
-				this.param.pagecount = 0;
-				this.$refs.loadMoreE.getList();
-				setTimeout(() => {
-					this.$Indicator.close()
-				}, 200)
-			},
-			// 下面流水
-			getList(success) {
-				let url = "UserInterface/doctor/GetSetMealAchievementList.ashx";
-				if (this.param.pagecount == 1) {
-					this.list = [];
-				}
-				this.$post(url, this.param).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					this.price=data.totalservicecharge;
-					let modelList = data.data;
-					this.list = [...this.list, ...modelList]
-					//加载更多组件触发回调
-					if (success) {
-						success(modelList, this.list)
-					}
-				})
-			}
-		},
-		mounted() {
-			this.getAdrLists();
-		},
-		components: {
-			loadMore
-		}
-	}
+    },
+    // tab切换
+    tabClick (val) {
+      this.$Indicator.loading()
+      this.param.type = val
+      this.param.pagecount = 0
+      this.$refs.loadMoreE.getList()
+      setTimeout(() => {
+        this.$Indicator.close()
+      }, 200)
+    },
+    // 下面流水
+    getList (success) {
+      let url = 'UserInterface/doctor/GetSetMealAchievementList.ashx'
+      if (this.param.pagecount == 1) {
+        this.list = []
+      }
+      this.$post(url, this.param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.price = data.totalservicecharge
+        let modelList = data.data
+        this.list = [...this.list, ...modelList]
+        // 加载更多组件触发回调
+        if (success) {
+          success(modelList, this.list)
+        }
+      })
+    }
+  },
+  mounted () {
+    this.getAdrLists()
+  },
+  components: {
+    loadMore
+  }
+}
 </script>
 <style scoped lang="scss">
 	@import "@/assets/css/base.scss";

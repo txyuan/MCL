@@ -16,16 +16,16 @@
 				</div>
 			</router-link>
 			<div class="person_list">
-				<mt-cell title="咨询服务收益" is-link to="/consultation" class="clickr">
+				<mt-cell title="咨询服务" is-link to="/consultation" class="clickr">
 					<img slot="icon" src="../../assets/images/wodeyongjin@2x.png" width="24" height="24">
 				</mt-cell>
-				<mt-cell title="管理服务收益" is-link to="/myAchieve" class="clickr">
+				<mt-cell title="管理服务" is-link to="/myAchieve" class="clickr">
 					<img slot="icon" src="../../assets/images/wodeyeji@2x(1).png" width="24" height="24">
 				</mt-cell>
-				<mt-cell title="零售服务收益" is-link to="/achieves" class="clickr">
+				<mt-cell title="零售服务" is-link to="/achieves" class="clickr">
 					<img slot="icon" src="../../assets/images/wodeyeji@2x(1).png" width="24" height="24">
 				</mt-cell>
-				<mt-cell title="套餐服务收益" is-link to="/packService" class="clickr">
+				<mt-cell title="套餐服务" is-link to="/packService" class="clickr">
 					<img slot="icon" src="../../assets/images/wodeyeji@2x(1).png" width="24" height="24">
 				</mt-cell>
 				<mt-cell title="邀请好友" is-link :to="`/share?title=邀请好友&UserKey=${UserKey}&SessionId=${SessionId}`" class="clickr">
@@ -46,36 +46,36 @@
 </template>
 
 <script>
-	export default {
-		name: "index",
-		data: () => ({
-			UserKey: '',
-			SessionId: '',
-			
-			repData:{}
-		}),
-		methods: {
-			//个人信息
-			information() {
-				// this.$Indicator.loading();
-				let url = "UserInterface/GetUserShowInfo.ashx";
-				this.$post(url).then((data) => {
-					this.$Indicator.close();
-					let model = data.data;
-					this.repData = model;
-				})
-			},
-		},
-		created() {
-           if(localStorage.userInfo){
-             this.UserKey=JSON.parse( localStorage.userInfo).UserKey;
-             this.SessionId=JSON.parse( localStorage.userInfo).SessionId;
-           }
-		},
-		mounted() {
-			this.information();
-		}
-	}
+export default {
+  name: 'index',
+  data: () => ({
+    UserKey: '',
+    SessionId: '',
+
+    repData: {}
+  }),
+  methods: {
+    // 个人信息
+    information () {
+      // this.$Indicator.loading();
+      let url = 'UserInterface/GetUserShowInfo.ashx'
+      this.$post(url).then((data) => {
+        this.$Indicator.close()
+        let model = data.data
+        this.repData = model
+      })
+    }
+  },
+  created () {
+    if (localStorage.userInfo) {
+      this.UserKey = JSON.parse(localStorage.userInfo).UserKey
+      this.SessionId = JSON.parse(localStorage.userInfo).SessionId
+    }
+  },
+  mounted () {
+    this.information()
+  }
+}
 </script>
 
 <style scoped lang="scss">

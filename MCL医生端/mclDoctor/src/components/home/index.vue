@@ -14,20 +14,20 @@
 					<img :src="repData.ImgUrl" />
 					<span>{{repData.Nickname}}</span>
 				</p>
-				<ul>
+				<!-- <ul>
 					<router-link to="/wx_Entrance/news" tag="li">
 						<span>{{messageNumber}}</span>
 						<label>今日消息</label>
 					</router-link>
 					<router-link to="/myTeam" tag="li">
 						<span>{{repData.patientCount}}</span>
-						<label>今日患者</label>
+						<label>今日用户</label>
 					</router-link>
 					<router-link :to="shareLink" tag="li">
 						<img src="@/assets/images/sharext.png" />
 						<label>分享</label>
 					</router-link>
-				</ul>
+				</ul> -->
 			</div>
 			<div class="home_follow">
 				<p @click="myinform">
@@ -74,130 +74,129 @@
 </template>
 
 <script>
-	import axios from 'axios';
-	export default {
-		name: "home",
-		data: () => ({
-			messageNumber: '',
-			searchz: '',
-			list:[],
-			clist:[],
-			repData:{},
-			shareLink: "/"
-		}),
-		methods: {
-			myinform(){
-				this.$router.push('/wx_Entrance/news');
-			},
-			getgroup(){
-				let url = "UserInterface/doctor/DoctorHomePageInfo.ashx";
-				this.$post(url).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					
-					for(var i=0;i<data.data.length;i++){
-						data.data[i].clists=[];
-					}
-					this.list=data.data;
-				})
-			},
-			getchildg(item){
-				if(item.clists.length!=0){
-					item.clists=[];
-					return;
-				}
-				let url = "UserInterface/doctor/GroupingPatientInfo.ashx";
-				let param={
-					groupskey:item.groupskey
-				};
-				this.$post(url,param).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					item.clists=data.data;
-				})
-			},
-			//个人信息
-			information() {
-				let url = "UserInterface/GetUserShowInfo.ashx";
-				return this.$post(url).then((data) => {
-					let model = data.data;
-					this.repData = model;
-				})
-			},
-			//获取客服的token
-			getToken: function(){
-				const {org_name, app_name, client_id, client_secret} = this.$root;
-				let url = `http://a1.easemob.com/${org_name}/${app_name}/token`;
-				let param = {
-				  "grant_type": "client_credentials",
+import axios from 'axios'
+export default {
+  name: 'home',
+  data: () => ({
+    messageNumber: '',
+    searchz: '',
+    list: [],
+    clist: [],
+    repData: {},
+    shareLink: '/'
+  }),
+  methods: {
+    myinform () {
+      this.$router.push('/wx_Entrance/news')
+    },
+    getgroup () {
+      let url = 'UserInterface/doctor/DoctorHomePageInfo.ashx'
+      this.$post(url).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+
+        for (var i = 0; i < data.data.length; i++) {
+          data.data[i].clists = []
+        }
+        this.list = data.data
+      })
+    },
+    getchildg (item) {
+      if (item.clists.length != 0) {
+        item.clists = []
+        return
+      }
+      let url = 'UserInterface/doctor/GroupingPatientInfo.ashx'
+      let param = {
+        groupskey: item.groupskey
+      }
+      this.$post(url, param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        item.clists = data.data
+      })
+    },
+    // 个人信息
+    information () {
+      let url = 'UserInterface/GetUserShowInfo.ashx'
+      return this.$post(url).then((data) => {
+        let model = data.data
+        this.repData = model
+      })
+    },
+    // 获取客服的token
+    getToken: function () {
+      const {org_name, app_name, client_id, client_secret} = this.$root
+      let url = `http://a1.easemob.com/${org_name}/${app_name}/token`
+      let param = {
+				  'grant_type': 'client_credentials',
 				  client_id,
 				  client_secret
-				}
-				const http = axios.create({
-					headers:{'Content-Type':'application/json;charset=UTF-8'}
-				})
-				http.post(url, param).then(response => {
-					this.$root.token = response.data.access_token;
-					var phone = this.repData.ContactPhone;
-					//获取未读消息条数
-					this.getMessage(phone)
-					
-				})
-			},
-			//获取客服的未读消息数
-			getMessage: function(owner_username){
-				const {org_name, app_name, token} = this.$root;
-				let url = `http://a1.easemob.com/${org_name}/${app_name}/users/${owner_username}/offline_msg_count`;
-				const http = axios.create({
-					headers:{
-						'Content-Type': 'application/json;charset=UTF-8',
-						"Authorization": `Bearer ${token}`
-					}
-				})
-				http.get(url).then(response => {
-					const data = response.data.data;
-					var i = 0
-					for(let key in data){
-						if(i == 0){
-							this.messageNumber = data[key];
-						}
-						i+=1;
-					}
-				})
-			},
-		},
-		beforeRouteLeave(to, from, next) {
-			// 导航离开该组件的对应路由时调用
-			let keepAlive = (to.name == "classdetail") ? true : false;
-			this.$route.meta.keepAlive = keepAlive;
-			next()
-		},
-		mounted() {
-			this.information().then(()=>{
-				//获取token
-				this.getToken()
-			})
-			this.getgroup();
-			if (localStorage.userInfo) {
-				let UserKey = JSON.parse(localStorage.userInfo).UserKey;
-				let SessionId = JSON.parse(localStorage.userInfo).SessionId;
-				this.shareLink = `share?title=分享&UserKey=${UserKey}&SessionId=${SessionId}`
-			}
-		},
-		components: {
+      }
+      const http = axios.create({
+        headers: {'Content-Type': 'application/json;charset=UTF-8'}
+      })
+      http.post(url, param).then(response => {
+        this.$root.token = response.data.access_token
+        var phone = this.repData.ContactPhone
+        // 获取未读消息条数
+        this.getMessage(phone)
+      })
+    },
+    // 获取客服的未读消息数
+    getMessage: function (owner_username) {
+      const {org_name, app_name, token} = this.$root
+      let url = `http://a1.easemob.com/${org_name}/${app_name}/users/${owner_username}/offline_msg_count`
+      const http = axios.create({
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      http.get(url).then(response => {
+        const data = response.data.data
+        var i = 0
+        for (let key in data) {
+          if (i == 0) {
+            this.messageNumber = data[key]
+          }
+          i += 1
+        }
+      })
+    }
+  },
+  beforeRouteLeave (to, from, next) {
+    // 导航离开该组件的对应路由时调用
+    let keepAlive = (to.name == 'classdetail')
+    this.$route.meta.keepAlive = keepAlive
+    next()
+  },
+  mounted () {
+    this.information().then(() => {
+      // 获取token
+      this.getToken()
+    })
+    this.getgroup()
+    if (localStorage.userInfo) {
+      let UserKey = JSON.parse(localStorage.userInfo).UserKey
+      let SessionId = JSON.parse(localStorage.userInfo).SessionId
+      this.shareLink = `share?title=分享&UserKey=${UserKey}&SessionId=${SessionId}`
+    }
+  },
+  components: {
 
-		},
-		created() {
-// 			if(localStorage.userInfo){
-// 				this.UserKey=JSON.parse( localStorage.userInfo).UserKey;
-// 				this.SessionId=JSON.parse( localStorage.userInfo).SessionId;
-// 			}else{
-// 				this.$router.push('/login');
-// 			}
-		}
-	}
+  },
+  created () {
+    // 			if(localStorage.userInfo){
+    // 				this.UserKey=JSON.parse( localStorage.userInfo).UserKey;
+    // 				this.SessionId=JSON.parse( localStorage.userInfo).SessionId;
+    // 			}else{
+    // 				this.$router.push('/login');
+    // 			}
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -205,7 +204,7 @@
 		// background: #fff;
 
 		.home_saerch {
-			height: 1.2rem;
+			height: 0.8rem;
 			padding: 0.2rem 0 0.06rem 0;
 			background: rgb(36,183,192);
 			.home_over{
@@ -231,13 +230,13 @@
 					float: right;
 				}
 			}
-			
+
 		}
 		.today_info{
 			width: 94%;
 			margin: 0 auto;
 			background: #fff;
-			margin-top: -0.7rem;
+			margin-top: -0.4rem;
 			box-shadow: 4px 2px 10px #ddd;
 			border-radius: 8px;
 			p{
@@ -366,7 +365,6 @@
 				}
 			}
 
-			
 		}
 
 		ul {

@@ -1,7 +1,7 @@
 <template>
 <div>
   <h3 ref="element">患者动态</h3>
-  <div class="dyna_cont">
+  <!-- <div class="dyna_cont">
 	  <div class="dyna_list">
 		  <div class="dyna_litop">
 			  <img src="../../assets/images/211铃铛@2x.png" />
@@ -19,29 +19,36 @@
 			  <u></u>
 		  </div>
 	  </div>
-  </div>
+  </div> -->
+  <img src="../../assets/images/zzjsz.png" class="dyna_zzjs" />
 </div>
 </template>
 
 <script>
-  export default {
-      name: "index",
-      data:()=>({
-		guigeSpan:"-1",  //控制点亮状态 -1为默认不点亮
-        kouweiSpan:"-1",  //控制点亮状态
-      }),
-      methods:{
-        guige:function(index){  //当点击时候点亮，同级的span标签删除Class
-			this.guigeSpan = index;
-		},
-      },
-      mounted(){
-		
-      }
+export default {
+  name: 'index',
+  data: () => ({
+    guigeSpan: '-1', // 控制点亮状态 -1为默认不点亮
+    kouweiSpan: '-1' // 控制点亮状态
+  }),
+  methods: {
+    guige: function (index) { // 当点击时候点亮，同级的span标签删除Class
+      this.guigeSpan = index
+    }
+  },
+  mounted () {
+
   }
+}
 </script>
 
 <style scoped lang="scss">
+	.dyna_zzjs{
+		width: 60%;
+		margin: 0 auto;
+		display: block;
+		padding: 0.74rem 0 63px 0;
+	}
     h3{
   	  height: 0.44rem;
   	  font-size: 0.17rem;
