@@ -1,6 +1,6 @@
 import WebIM from "../utils/WebIM";
-
-// import WebIM from "../utils/WebIM";
+import {saveChatData, getChatData} from '@/api/app.js';
+let pageObj = {}  // 历史记录的分页
 
 // TODO 处理页面刷新无法获取到音频url
 const res = function(response){
@@ -228,6 +228,7 @@ const Chat = {
 				group: "groupid",
 				chatroom: "id"
 			};
+
 			const msgObj = new WebIM.message("txt", id);
 			msgObj.set({
 				msg: message,
@@ -252,8 +253,16 @@ const Chat = {
 			if(chatType === "group" || chatType === "chatroom"){
 				msgObj.setGroup("groupchat");
 			}
-			console.log(msgObj.body)
 			WebIM.conn.send(msgObj.body);
+
+			// 发送聊天数据到自己的服务器   后加的
+			let data = {
+				sender: '', //消息发送人
+				to: chatId[jid[chatType]], //消息接收人
+				msgType: '1', //消息类型 1,文字；2,图片
+				msgContent: message, //消息内容
+			}
+			saveChatData(data)
 		},
 		sendImgMessage: function(context, payload){
 			const { chatType, chatId, roomType, file, callback } = payload;
@@ -295,6 +304,15 @@ const Chat = {
 				msgObj.setGroup("groupchat");
 			}
 			WebIM.conn.send(msgObj.body);
+			
+			// 发送聊天数据到自己的服务器   后加的
+			let data = {
+				sender: '', //消息发送人
+				to: chatId[jid[chatType]], //消息接收人
+				msgType: '2', //消息类型 1,文字；2,图片
+				msgContent: file, //消息内容
+			}
+			saveChatData(data)
 		},
 		sendFileMessage: function(context, payload){
 			const { chatType, chatId, roomType, file, callback } = payload;
@@ -422,6 +440,8 @@ const Chat = {
 		},
 
 		getHistoryMessage: function(context, payload){
+			const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+			const userId = userInfo && userInfo.userId;
 			const options = {
 				queue: payload.name,
 				isGroup: payload.isGroup,
@@ -431,8 +451,6 @@ const Chat = {
 					try{
 						payload.success && payload.success(msgs);
 						if(msgs.length){
-							const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-							const userId = userInfo && userInfo.userId;
 							msgs.forEach((item) => {
 								let time = Number(item.time);
 								let msg = {};
@@ -522,7 +540,7 @@ const Chat = {
 										msg.chatId = bySelf ? item.to : item.from;
 									}
 								}
-								msg.isHistory = true;
+								msg.isHistory = true
 								context.commit("updateMsgList", msg);
 							});
 							context.commit("updateMessageStatus", { action: "readMsgs" });
@@ -535,7 +553,72 @@ const Chat = {
 				fail: function(){ }
 			};
 			
-			WebIM.conn.fetchHistoryMessages(options);
+			// WebIM.conn.fetchHistoryMessages(options);
+
+			// 从我们自己服务读取聊天内容
+			const pagecount = pageObj[payload.name] ? pageObj[payload.name] : 1
+			let data = {
+				user: userId, //当前用户
+				otherUser: payload.name, //对方用户
+				pagesize: 10, //每页条数
+				pagecount: pagecount, //第几页
+			}
+			getChatData(data).then((response) => {
+				let msgs = response.data.list
+				pageObj[payload.name] = pagecount + 1 
+				try{
+					payload.success && payload.success(msgs);
+					if(msgs.length){
+						msgs.forEach((item) => {
+							let time = Number(item.msgTime);
+							let msg = {};
+							const bySelf = item.sender == userId;
+							if(item.msgType == 1){
+								msg = {
+									chatType: payload.isGroup ? "group" : "contact",
+									chatId: bySelf ? item.msgTo : item.sender,
+									msg: item.msgContent,
+									bySelf: bySelf,
+									time: time,
+									type: 'txt',
+									mid: item.msgKey,
+									status: "read"
+								};
+								// if(payload.isGroup){
+								// 	msg.chatId = item.to;
+								// }
+								// else{
+								// 	msg.chatId = bySelf ? item.msgTo : item.sender
+								// }
+							}
+							else if(item.msgType == 2){ // 为图片的情况
+								msg = {
+									msg: item.msgContent,
+									chatType: payload.isGroup ? "group" : "contact",
+									chatId: bySelf ? item.msgTo : item.sender,
+									bySelf: bySelf,
+									type: "img",
+									time: time,
+									mid: item.msgKey,
+									status: "read"
+								};
+								// if(payload.isGroup){
+								// 	msg.chatId = item.to;
+								// }
+								// else{
+								// 	msg.chatId = bySelf ? item.to : item.from;
+								// }
+							}
+							msg.isHistory = true;
+							context.commit("updateMsgList", msg);
+						});
+						context.commit("updateMessageStatus", { action: "readMsgs" });
+					}
+					
+				} catch(e){
+					console.log("error", e);
+				}
+			})
 		},
 
 		recallMessage: function(context, payload){

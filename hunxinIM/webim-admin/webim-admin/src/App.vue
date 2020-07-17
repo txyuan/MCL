@@ -17,7 +17,8 @@ export default{
 	beforeMount(){
 		const username = this.$route.query.username
 		if(username){
-			localStorage.userInfo = JSON.stringify({"userId":username,"password":"111111"})
+			const {userkey} = this.$route.query
+			localStorage.userInfo = JSON.stringify({"userId":username,"password":"111111", "UserKey": userkey})
 		}
 		
 		const userInfo = localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo"));

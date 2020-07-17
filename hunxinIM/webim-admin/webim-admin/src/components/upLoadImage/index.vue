@@ -1,7 +1,7 @@
 <template>
   <label for="uploadImage" @click="clickFile">
     <van-icon name="photo-o" size="20" color="rgba(0, 0, 0, 0.65)" />
-    <input type="file" class="hide" ref="imgDom" @change="pictureChange" />
+    <input type="file" class="hide" accept="image/*" ref="imgDom" @change="pictureChange" />
   </label>
 </template>
 

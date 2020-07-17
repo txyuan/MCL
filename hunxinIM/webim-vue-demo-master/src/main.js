@@ -6,7 +6,7 @@ import router from './router'
 import vant from 'vant';
 import WebIM from './utils/WebIM';
 import store from './store';
-
+import {getKeFuInfo} from './api/app.js';
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 
@@ -46,22 +46,13 @@ window.Vue = new Vue({
     methods: {
       //获取客服的账号信息
       getKeFuInfo: function(username){        
-        let url = `http://123.57.89.89:6333/UserInterface/GetCustomerServiceName.ashx`;
+        if(!username){return}
         //不存在当前客服
         if(!this.kefuMap[username]){
-          WebIM.utils.ajax({
-            url: url,
-            data:{
-              number: username
-            },
-            dataType: "json",
-            'Content-type': 'application/x-www-form-urlencoded',
-            type:"get",
-            success: (data)=> {
-              if(data.rspcode == 1){
-                this.kefuMap[username] = data.name
-                localStorage.kefuMap = JSON.stringify(this.kefuMap)
-              }
+          getKeFuInfo(username).then((data) => {
+            if(data.rspcode == 1){
+              this.kefuMap[username] = data.name
+              localStorage.kefuMap = JSON.stringify(this.kefuMap)
             }
           })
         }
