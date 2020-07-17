@@ -17,7 +17,7 @@
 					<carousel />
 				</div>
 				<!-- 用户信息 -->
-				<div class="user_info">
+				<!-- <div class="user_info">
 					<div class="user">
 						<div class="user_name">
 							<img :src="userInfo.ImgUrl" alt="" />
@@ -43,7 +43,7 @@
 							</li>
 						</ul>
 					</div>
-				</div>
+				</div> -->
 				<!-- 消息 -->
 				<div class="home_inform">
 					<router-link to="/newsList">
@@ -619,7 +619,6 @@ export default {
 	.carousel_wrap {
 		padding: 0.1rem;
 		padding-top: 0.2rem;
-		padding-bottom: 0.2rem;
 		background: rgb(36, 183, 192);
 
 		.search {

@@ -1,7 +1,7 @@
 <template>
 	<div class="padding-header">
 		<div id="class_header" class="myassets">
-			<mt-header title="咨询服务收益" fixed class="borderBottom">
+			<mt-header title="咨询服务" fixed class="borderBottom">
 				<div slot="left">
 					<router-link to="/wx_Entrance/personal" style="color: initial">
 						<mt-button icon="back"></mt-button>
@@ -39,7 +39,7 @@
 						<div class="right text-right">
 							<span>{{item.remarks}}</span>
 							<span class="mint-cell-label">{{item.nickname}}</span>
-							
+
 						</div>
 					</mt-cell>
 				</div>
@@ -55,60 +55,60 @@
 </template>
 
 <script>
-	import loadMore from "@/components/common/loadMore.vue";  //加载更多组件
-	export default {
-		name: "commission",
-		data: () => ({
-			selected: "tab0",
-			allmoney: 0, //拥有数量
-			list: [],
-			param: {
-				"pagesize": 10,
-				"pagecount": 0
-			}
-		}),
-		methods: {
-			// 当前单价
-			getAdrLists() {
+import loadMore from '@/components/common/loadMore.vue' // 加载更多组件
+export default {
+  name: 'commission',
+  data: () => ({
+    selected: 'tab0',
+    allmoney: 0, // 拥有数量
+    list: [],
+    param: {
+      'pagesize': 10,
+      'pagecount': 0
+    }
+  }),
+  methods: {
+    // 当前单价
+    getAdrLists () {
 
-			},
-			//tab切换
-			tabClick(val) {
-				this.$Indicator.loading();
-				this.param.type = val;
-				this.param.pagecount = 0;
-				this.$refs.loadMoreE.getList();
-				setTimeout(() => {
-					this.$Indicator.close()
-				}, 200)
-			},
-			// 下面流水
-			getList(success) {
-				let url = "UserInterface/doctor/ServiceChargeInfo.ashx";
-				if (this.param.pagecount == 1) {
-					this.list = [];
-				}
-				this.$post(url, this.param).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					this.allmoney=data.totalservicecharge;
-					let modelList = data.data;
-					this.list = [...this.list, ...modelList]
-					//加载更多组件触发回调
-					if (success) {
-						success(modelList, this.list)
-					}
-				})
-			}
-		},
-		mounted() {
-			this.getAdrLists();
-		},
-		components: {
-			loadMore
-		}
-	}
+    },
+    // tab切换
+    tabClick (val) {
+      this.$Indicator.loading()
+      this.param.type = val
+      this.param.pagecount = 0
+      this.$refs.loadMoreE.getList()
+      setTimeout(() => {
+        this.$Indicator.close()
+      }, 200)
+    },
+    // 下面流水
+    getList (success) {
+      let url = 'UserInterface/doctor/ServiceChargeInfo.ashx'
+      if (this.param.pagecount == 1) {
+        this.list = []
+      }
+      this.$post(url, this.param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.allmoney = data.totalservicecharge
+        let modelList = data.data
+        this.list = [...this.list, ...modelList]
+        // 加载更多组件触发回调
+        if (success) {
+          success(modelList, this.list)
+        }
+      })
+    }
+  },
+  mounted () {
+    this.getAdrLists()
+  },
+  components: {
+    loadMore
+  }
+}
 </script>
 <style scoped lang="scss">
 	@import "@/assets/css/base.scss";
