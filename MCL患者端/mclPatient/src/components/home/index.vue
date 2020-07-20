@@ -617,6 +617,7 @@
 			overflow: hidden;
 			padding-top: 0.16rem;
 			.imgtody{
+				width: 0.26rem;
 				height: 0.26rem;
 				display: block;
 				float: left;

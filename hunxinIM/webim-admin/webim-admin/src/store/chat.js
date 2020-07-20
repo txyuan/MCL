@@ -1,6 +1,6 @@
 import WebIM from "../utils/WebIM";
 import {saveChatData, getChatData} from '@/api/app.js';
-let pageObj = {flag: false}  // 历史记录的分页
+let pageObj = {flag: true}  // 历史记录的分页
 
 // TODO 处理页面刷新无法获取到音频url
 const res = function(response){

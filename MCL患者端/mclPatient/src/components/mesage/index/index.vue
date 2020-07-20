@@ -143,13 +143,15 @@ export default {
     this.information()
     this.getupshop()
     this.getthisnf()
-    this.$refs.kefuView.addEventListener('load', () => {
+    this.$refs.kefuView.onload = () => {
       // 代码能执行到这里说明已经载入成功完毕了
-	  this.$Indicator.close()
-      this.removeEventListener('load', arguments.call, false)
+	  setTimeout(() => {
+			this.$Indicator.close()
+	  }, 1000)
       // 这里是回调函数
-    }, false)
+    }
   }
+
 }
 </script>
 

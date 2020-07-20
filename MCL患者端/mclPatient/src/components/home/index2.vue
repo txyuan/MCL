@@ -64,7 +64,7 @@
 		  	  	<div class="left">
     					<div class="rowTop">
     						<img src="@/assets/images/yinshi@2x.png" class="icon"/>
-    						<span class="huiFont font14">早餐未服用</span>
+    						<span class="huiFont font14">早餐服用</span>
     					</div>
     					<div class="rowBottom font12">
     						<p class="yellow">应完成时间：<span>06:30</span> 已超时：<span>1小时20分钟</span></p>
@@ -79,7 +79,7 @@
 		  	  	<div class="left">
     					<div class="rowTop">
     						<img src="@/assets/images/yaopin@2x.png" class="icon"/>
-    						<span class="huiFont font14">ABD活性因子未服用</span>
+    						<span class="huiFont font14">ABD活性因子服用</span>
     					</div>
     					<div class="rowBottom font12">
     						<p class="yellow">应完成时间：<span>06:30</span> 已超时：<span>1小时20分钟</span></p>
@@ -100,7 +100,7 @@
     		  	<div class="left">
     					<div class="rowTop">
     						<img src="@/assets/images/yinshi@2x.png" class="icon"/>
-    						<span class="huiFont font14">早餐服用未录入（1天前）</span>
+    						<span class="huiFont font14">早餐服用录入（1天前）</span>
     					</div>
     					<div class="rowBottom font12">
     						<p class="yellow">应完成时间：<span>06:30</span> 已超时：<span>1小时20分钟</span></p>
@@ -115,7 +115,7 @@
 		  	  	<div class="left">
     					<div class="rowTop">
     						<img src="@/assets/images/yaopin@2x.png" class="icon"/>
-    						<span class="huiFont font14">ABD活性因子服用情况未录入（3天前）</span>
+    						<span class="huiFont font14">ABD活性因子服用情况录入（3天前）</span>
     					</div>
     					<div class="rowBottom font12">
     						<p class="yellow">应完成时间：<span>06:30</span> 已超时：<span>1小时20分钟</span></p>
