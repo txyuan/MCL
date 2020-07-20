@@ -86,7 +86,7 @@
         <MessageBox v-if="activeKey == 'group'" type="group" />-->
       </a-layout-sider>
 
-      <a-layout-content style="overflow: visible">
+      <a-layout-content style="overflow: visible; flex: 1;">
         <Message
           :type="activeKey"
           :broken="broken"
