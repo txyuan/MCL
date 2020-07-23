@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="fix_top">
-			<mt-header fixed title="营养筛查报告">
+			<mt-header fixed title="筛查评估报告">
 				<div slot="left">
 					<router-link to="/wx_Entrance/personal" style="color: inherit;">
 						<mt-button icon="back"></mt-button>
@@ -15,15 +15,15 @@
 				<div class="headty_mead">
 					<ol>
 						<li>姓名：{{datasj.name}}</li>
-						<li>年龄：{{datasj.age}}</li>
+						<li>年龄：{{datasj.age}}岁</li>
 						<li>性别：{{datasj.sex}}</li>
 					</ol>
 					<ul>
 						<li>临床诊断：{{datasj.clinical_diagnosis}}</li>
-						<li>身高：{{datasj.height}}</li>
-						<li>体重：{{datasj.weight}}</li>
-						<li>BMI：{{datasj.bmi}}</li>
-						<li>理想体重：{{datasj.ideal_weight}}</li>
+						<li>身高：{{datasj.height}}cm</li>
+						<li>体重：{{datasj.weight}}kg</li>
+						<li>BMI：{{Number(datasj.bmi).toFixed(1)}}</li>
+						<li>理想体重：{{datasj.ideal_weight}}kg</li>
 						<li>正常范围：{{datasj.normal_range}}</li>
 						<!-- <li>推荐摄入能量：{{datasj.normal_range}}</li>
 						<li>实际摄入能量：{{datasj.normal_range}}</li>

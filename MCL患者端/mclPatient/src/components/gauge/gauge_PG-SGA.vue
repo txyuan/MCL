@@ -19,9 +19,12 @@
 			<div class="title2 bg-white" v-show="attribute_value_01_item.show">
 				白蛋白值 <input type="tel" class="line-input" v-model="attribute_value_01_item.value"> g/L
 			</div>
-			<div class="title2 bg-white" v-show="attribute_value_02_item.show">
+			<!-- <div class="title2 bg-white" v-show="attribute_value_02_item.show">
 				您的体重<input type="tel" class="line-input" v-model="attribute_value_02_item.value"> kg
-			</div>
+			</div> -->
+      <mt-field label="您的体重" placeholder="请输入体重" class="" v-model.trim="attribute_value_02_item.value" v-show="attribute_value_02_item.show">
+				<span style="margin-left: 5px;">kg</span>
+			</mt-field>
 			<div class="borderBottom"></div>
 			<div class="title2 bg-white" style="padding-top: 0;padding-bottom: 0;min-height: 48px;line-height: 48px;">
 				在过去的2周，我的体重：
