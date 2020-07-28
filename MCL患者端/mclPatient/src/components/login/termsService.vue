@@ -230,7 +230,8 @@
 					"userphone": this.phone,
 					"vercode": this.code,
 					"userpwd": this.userpwd,
-					"role": this.role
+					"role": this.role,
+					"openid": localStorage.openId
 				}
 				this.$post(url, param).then((data) => {
 

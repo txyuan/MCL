@@ -30,15 +30,20 @@
 				在过去的2周，我的体重：
 			</div>
 			<mt-radio :options="attribute_value_03_item.option" v-model="attribute_value_03_item.value" class="radio-nowrap borderBottom"></mt-radio>
-			<div class="title2 bg-white" style="padding-top: 0;padding-bottom: 0;min-height: 48px;line-height: 48px;">
-				您是否记得1个月前的体重？
+			<div class="title2 bg-white" style="padding-top: 10px;padding-bottom: 0px;min-height: 48px;line-height: 1.5;">
+				近期（1-3月）体重是否下降大于5%？ (（原体重-现体重）/原体重 *100%)
 			</div>
-			<mt-radio :options="attribute_value_04_item.option" v-model="attribute_value_04_item.state" class="radio-nowrap"></mt-radio>
-			<mt-field label="1个月前体重" placeholder="请输入体重" class="" v-model.trim="attribute_value_04_item.value" v-show="attribute_value_04_item.show">
+			<mt-radio :options="attribute_value_06_item.option" v-model="attribute_value_06_item.state" class="radio-nowrap"></mt-radio>
+      <mt-field label="体重" placeholder="请输入体重" class="" v-model.trim="attribute_value_06_item.value" v-show="attribute_value_06_item.show">
+				<span style="margin-left: 5px;">kg</span>
+			</mt-field>
+      <mt-radio :options="attribute_value_05_item.option" v-model="attribute_value_05_item.value" class="radio-nowrap" v-show="attribute_value_06_item.show"></mt-radio>
+			<div class="borderBottom"></div>
+      <mt-field label="1个月前体重" placeholder="请输入体重" class="" v-model.trim="attribute_value_04_item.value">
 				<span style="margin-left: 5px;">kg</span>
 			</mt-field>
 			<div class="borderBottom"></div>
-			<div class="title2 bg-white" style="padding-top: 0;padding-bottom: 0;min-height: 48px;line-height: 48px;">
+			<!-- <div class="title2 bg-white" style="padding-top: 0;padding-bottom: 0;min-height: 48px;line-height: 48px;">
 				您是否记得2个月前的体重？
 			</div>
 			<mt-radio :options="attribute_value_05_item.option" v-model="attribute_value_05_item.state" class="radio-nowrap"></mt-radio>
@@ -61,7 +66,7 @@
 			<mt-field label="6个月前体重" placeholder="请输入体重" class="" v-model.trim="attribute_value_07_item.value" v-show="attribute_value_07_item.show">
 				<span style="margin-left: 5px;">kg</span>
 			</mt-field>
-			<div class="borderBottom"></div>
+			<div class="borderBottom"></div> -->
 
 			<div class="title yellow">2.进食情况</div>
 			<div class="title2 bg-white" style="padding-top: 0;padding-bottom: 0;min-height: 48px;line-height: 48px;">
@@ -182,7 +187,7 @@ export default {
       radiolist: true
     },
     attribute_value_05_item: {
-      option: ['是', '否'],
+      option: ['3个月内体重下降', '2个月内体重下降', '1个月内体重下降'],
       state: '',
       value: '',
       radiolist: true
@@ -193,12 +198,12 @@ export default {
       value: '',
       radiolist: true
     },
-    attribute_value_07_item: {
-      option: ['是', '否'],
-      state: '',
-      value: '',
-      radiolist: true
-    },
+    // attribute_value_07_item: {
+    //   option: ['是', '否'],
+    //   state: '',
+    //   value: '',
+    //   radiolist: true
+    // },
     attribute_value_08_item: {
       option: ['没变化', '比以往多', '比以往少'],
       value: '',
@@ -600,20 +605,21 @@ export default {
     },
     'attribute_value_06_item.state': function (val) {
       this.attribute_value_06_item.value = ''
+      this.attribute_value_05_item.value = ''
       if (val == '是') {
         this.attribute_value_06_item.show = true
       } else if (val == '否') {
         this.attribute_value_06_item.show = false
       }
     },
-    'attribute_value_07_item.state': function (val) {
-      this.attribute_value_07_item.value = ''
-      if (val == '是') {
-        this.attribute_value_07_item.show = true
-      } else if (val == '否') {
-        this.attribute_value_07_item.show = false
-      }
-    },
+    // 'attribute_value_07_item.state': function (val) {
+    //   this.attribute_value_07_item.value = ''
+    //   if (val == '是') {
+    //     this.attribute_value_07_item.show = true
+    //   } else if (val == '否') {
+    //     this.attribute_value_07_item.show = false
+    //   }
+    // },
     'attribute_value_17_item.value': function (valList) {
       if (valList.indexOf('疼痛') != -1) {
         this.attribute_value_30_item.show = true
@@ -633,7 +639,7 @@ export default {
     submit () {
       let param = { } // screeningskey: this.screeningskey
       // 遍历数据
-      for (let i = 1; i <= 47; i++) {
+      for (let i = 1; i <= 46; i++) {
         let index = (i < 10 ? `0${i}` : i)
         let rowData = this.$data[`attribute_value_${index}_item`]
         if (rowData) {
