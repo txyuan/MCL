@@ -49,7 +49,7 @@
 			<div class="marginTop10 yinshhi_list">
 
 				<!-- 上传图片区域 -->
-				<div class="propic">
+				<!-- <div class="propic">
 					<div class="title">
 						<div class="wrap">
 							<span class="font16">拍照上传</span>
@@ -63,7 +63,7 @@
 						<img src="@/assets/images/tianjia备份@2x.png" width="100" height="100" @click="addPhoto" class="add" v-show="photoAdd"/>
 						<input type="file" style="display: none;" accept="image/*" @change="iosUpload($event)" ref="file"/>
 					</div>
-				</div>
+				</div> -->
 
 			</div>
 
@@ -150,10 +150,10 @@
 				seatskey:'',  //提醒key
 				mealtype: '01',  //01：早餐:02：午餐:03：晚餐:04：加餐
 				foodinfo: "",     //食物信息
-				img1:"",
-				img2:"",
-				img3:"",
-				img4:"",
+				// img1:"",
+				// img2:"",
+				// img3:"",
+				// img4:"",
 			},
 			
 			//图片list
@@ -343,11 +343,11 @@
 				})
 				
 				//设置图片地址
-				const param = this.param;
-				for(let i=0; i<this.photoList.length; i++){
-					const item = this.photoList[i];
-					param[item.key] = item.src;
-				}
+				// const param = this.param;
+				// for(let i=0; i<this.photoList.length; i++){
+				// 	const item = this.photoList[i];
+				// 	param[item.key] = item.src;
+				// }
 				//设置饮食方案格式
 				this.param.foodinfo = foodinfoArr.join(";")
 				this.$post(url, this.param).then((data) => {

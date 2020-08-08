@@ -10,7 +10,7 @@
 			</mt-header>
 
 			<!-- mt-navbar -->
-			<div id="navbar" class="fix_top" style="top: 43px;">
+			<div id="navbar" class="fix_top" style="top: 43px;" v-if="$route.query.skey">
 				<mt-navbar v-model="ABflag">
 					<mt-tab-item v-for="(item,index) in navbarList" :key="index" :class="(ABflag == item.type)&&'is-selected'"
 					 @click.native="toggleType(item)">
@@ -20,7 +20,7 @@
 			</div>
 
 			<!-- 内容 -->
-			<div class="neirong">
+			<div class="neirong" v-if="$route.query.skey">
 				<!-- 今日营养 -->
 				<div class="yinshhi_list" :hidden="ABflag == 2">
 					<!-- 今日提醒 -->
@@ -253,7 +253,7 @@
 					
 				</div>
 			</div>
-
+			<empty-data v-show="!$route.query.skey" />
 		</div>
 	</div>
 </template>
@@ -520,5 +520,20 @@
 	.morning {
 		background: #FFFFFF url(../../../assets/images/eyenext.png) no-repeat 98% center !important;
 		background-size: 0.3rem !important;
+	}
+
+	.noalready{
+		padding-top: 0.4rem;
+		img{
+			width: 1.0rem;
+			margin: 0 auto;
+			display: block;
+		}
+		p{
+			text-align: center;
+			color: #666;
+			font-size: 0.14rem;
+			padding-top: 0.2rem;
+		}
 	}
 </style>

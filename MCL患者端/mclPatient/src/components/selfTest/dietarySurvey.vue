@@ -283,7 +283,7 @@
 					allProtein+= Number(resultObj.protein); //总蛋白质  
 					allFat+= Number(resultObj.fat);  //脂肪
 					allCarbohydrate+= Number(resultObj.carbohydrate);  //碳水化合物
-					foodList.push({mealtype: item.mealtype,foodname: item.foodname,foodenergy: resultObj.foodkcal,foodweight: item.foodgram});
+					foodList.push({mealtype: item.mealtype,foodname: item.foodname,foodenergy: resultObj.foodkcal,foodweight: item.foodconsumption});
 				})
 				allProtein=allProtein.toFixed(1);
 				this.allObj = {

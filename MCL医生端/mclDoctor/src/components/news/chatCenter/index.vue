@@ -69,30 +69,30 @@
 					</router-link>
 				</div>
 				<div class="middle-cell">
-					<router-link :to="'/diet?skey='+hzskey">
-						<div class="cell">
+					<div>
+						<div class="cell" @click="doLink(messageInfo.lbFlag == 0 ? `/diet` : `/diet?skey='${hzskey}`)">
 							<div class="row">
 								<img src="@/assets/images/yinscf.png" style="width: 0.25rem;height: 0.25rem;" alt="">
 							</div>
 							<p class="row">饮食处方</p>
 						</div>
-					</router-link>
-					<router-link :to="'/nutrition?skey='+hzskey">
-						<div class="cell">
+					</div>
+					<div>
+						<div class="cell" @click="doLink(messageInfo.yylbFlag == 0 ? `/nutrition` : `/nutrition?skey=${hzskey}`)">
 							<div class="row">
 								<img src="@/assets/images/yingycf.png" style="width: 0.25rem;height: 0.25rem;" alt="">
 							</div>
 							<p class="row">营养处方</p>
 						</div>
-					</router-link>
-					<router-link :to="'/sport?skey='+hzskey">
-						<div class="cell">
+					</div>
+					<div>
+						<div class="cell" @click="doLink(messageInfo.ydlbFlag == 0 ? `/sport` : `/sport?skey=${hzskey}`)">
 							<div class="row">
 								<img src="@/assets/images/yundcf.png" style="width: 0.25rem;height: 0.25rem;" alt="">
 							</div>
 							<p class="row">运动处方</p>
 						</div>
-					</router-link>
+					</div>
 					<router-link :to="'/prescript?skey='+hzskey">
 						<div class="cell">
 							<div class="row">
@@ -197,7 +197,9 @@ export default {
       patientskey: '',
       pagecount: 0,
       pagesize: 10
-    }
+    },
+    isLoad: false,
+    messageInfo: { }
   }),
   methods: {
     noedel () {
@@ -233,10 +235,30 @@ export default {
           success(modelList, this.list)
         }
       })
+    },
+    // 判断饮食处方，营养处方，运动处方
+    getMsgInfo () {
+      let url = 'UserInterface/doctor/buttonValueFlag.ashx'
+      let param = {
+        ParentsKey: this.hzskey
+      }
+      this.$post(url, param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.messageInfo = data
+        this.isLoad = true
+      })
+    },
+    doLink (url) {
+      if (this.isLoad) {
+        this.$router.push(url)
+      }
     }
   },
   mounted () {
     this.getinform()
+    this.getMsgInfo()
   },
   created () {
     this.hzskey = this.$route.query.skey

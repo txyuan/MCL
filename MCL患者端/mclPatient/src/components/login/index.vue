@@ -30,85 +30,85 @@
 </template>
 
 <script>
-	import logoImg from '@/assets/images/mclogo.png'
-	export default {
-		name: "index",
-		data: () => ({
-			phone: '',
-			code: '',
-			agrn: false,
-			logoImg: logoImg
-		}),
-		methods: {
-			//注册
-			registbtn() {
-				this.$router.push('/termsService');
-			},
-			//           agre(){
-			//             this.agrn=!this.agrn;
-			//           },
-			//登录
-			loginbtn() {
-				let myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
-				if (!myreg.test(this.phone)) {
-					this.$Toast('请输入格式正确的手机号');
-					return;
-				}
-				if (this.code == "") {
-					this.$Toast('请输入验证码');
-					return;
-				}
-				//             if(!this.agrn){
-				//               this.$Toast('请勾选阅读并同意金拓条款须知');
-				//               return;
-				//             }
-				let url = "UserInterface/UserLogin.ashx";
-				let param = {
-					"userphone": this.phone,
-					"userpassword": this.code
-				}
-				this.$post(url, param).then((data) => {
-					if (data.rspcode != 1) {
-						this.$Toast('登录失败请检查账号密码');
-						return;
-					}
-					if((data.data.userType==1)||(data.data.userType==2)||(data.data.userType==3)){
-						//存登录信息
-						localStorage.userInfo = JSON.stringify({
-							UserKey: data.data.userKey,
-							SessionId: data.data.sessionId,
-							userType: data.data.userType,
-						})
-						this.$Toast('登录成功');
-						const userinfoflag = data.data.userinfoflag;
-						//0：未录入
-						if(userinfoflag == 0){
-							this.$router.push('/wellcome');
-						};
-						//1：已录入
-						if(userinfoflag == 1){
-							if(this.$route.query.redirect){
-								this.$router.replace(this.$route.query.redirect);
-							}else{
-								this.$router.push('/wx_Entrance/home');
-							}
-						}
-					}else{
-						this.$Toast('该账号权限不匹配');
-					}
-					
-				})
-			}
-		},
-		created: function(){
-			if(localStorage.userInfo){
-				this.$router.push("/")
-			}
-		},
-		mounted: function() {
 
-		}
-	}
+import logoImg from '@/assets/images/mclogo.png'
+export default {
+  name: 'index',
+  data: () => ({
+    phone: '',
+    code: '',
+    agrn: false,
+    logoImg: logoImg
+  }),
+  methods: {
+    // 注册
+    registbtn () {
+      this.$router.push('/termsService')
+    },
+    //           agre(){
+    //             this.agrn=!this.agrn;
+    //           },
+    // 登录
+    loginbtn () {
+      let myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
+      if (!myreg.test(this.phone)) {
+        this.$Toast('请输入格式正确的手机号')
+        return
+      }
+      if (this.code == '') {
+        this.$Toast('请输入验证码')
+        return
+      }
+      //             if(!this.agrn){
+      //               this.$Toast('请勾选阅读并同意金拓条款须知');
+      //               return;
+      //             }
+      let url = 'UserInterface/UserLogin.ashx'
+      let param = {
+        'userphone': this.phone,
+        'userpassword': this.code
+      }
+      this.$post(url, param).then((data) => {
+        if (data.rspcode != 1) {
+          this.$Toast('登录失败请检查账号密码')
+          return
+        }
+        if ((data.data.userType == 1) || (data.data.userType == 2) || (data.data.userType == 3)) {
+          // 存登录信息
+          localStorage.userInfo = JSON.stringify({
+            UserKey: data.data.userKey,
+            SessionId: data.data.sessionId,
+            userType: data.data.userType
+          })
+          this.$Toast('登录成功')
+          const userinfoflag = data.data.userinfoflag
+          // 0：未录入
+          if (userinfoflag == 0) {
+            this.$router.push('/wellcome')
+          };
+          // 1：已录入
+          if (userinfoflag == 1) {
+            if (this.$route.query.redirect) {
+              this.$router.replace(this.$route.query.redirect)
+            } else {
+              this.$router.push('/wx_Entrance/home')
+            }
+          }
+        } else {
+          this.$Toast('该账号权限不匹配')
+        }
+      })
+    }
+  },
+  created: function () {
+    if (localStorage.userInfo) {
+      this.$router.push('/')
+    }
+  },
+  mounted: function () {
+
+  }
+}
 </script>
 
 <style scoped lang="scss">

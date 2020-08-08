@@ -19,21 +19,30 @@
 					</ol>
 					<ul>
 						<li>录入日期：{{datasj.createtime}}</li>
-						<li>临床诊断：{{datasj.clinical_diagnosis}}</li>
+						<!-- <li>临床诊断：{{datasj.clinical_diagnosis}}</li>
 						<li>管理诉求：{{datasj.managementAppeals}}</li>
-						<li>并发症状：{{datasj.concurrent}}</li>
+						<li>并发症状：{{datasj.concurrent}}</li> -->
 					</ul>
 				</div>
-				<!-- <p>生活调查</p>
+				
+				<div v-if="datasj.PGSGA_01!=''&&datasj.PGSGA_02!=''">
+					<p>营养评估</p>
+					<div class="headty_mead">
+						<ul>
+							<li>PG-SGA评分： {{datasj.PGSGA_01}} 分、{{datasj.PGSGA_02}}</li>
+						</ul>
+					</div>
+				</div>
+				<p>生活调查</p>
 				<div class="headty_mead">
 					<ul>
 						<li>过敏史：{{datasj.PatientLife01}}</li>
 						<li>吸烟：{{datasj.PatientLife02}}</li>
-						<li>目前为：{{datasj.PatientLife03}}</li>
+						<!-- <li>目前为：{{datasj.PatientLife03}}</li>
 						<li>在您的一生中，累积吸烟是否超过5包（20支/包）：{{datasj.PatientLife04}}</li>
-						<li>平均每周（7天）吸烟 {{datasj.PatientLife05}} 包,持续 {{datasj.PatientLife06}}年</li>
+						<li>平均每周（7天）吸烟 {{datasj.PatientLife05}} 包,持续 {{datasj.PatientLife06}}年</li> -->
 						<li>喝酒：{{datasj.PatientLife07}}</li>
-						<li>过去一年是否规律饮酒：{{datasj.PatientLife08}}</li>
+						<!-- <li>过去一年是否规律饮酒：{{datasj.PatientLife08}}</li>
 						<li>平均每周（7天）饮酒： {{datasj.PatientLife09}}次</li>
 						<li>常饮酒为：{{datasj.PatientLife10}}</li>
 						<li>啤酒 {{datasj.PatientLife11}}瓶/周； <br />
@@ -43,30 +52,22 @@
 						<li>在您过去的一年中是否经常喝茶叶茶：{{datasj.PatientLife14}}</li>
 						<li>平均每周（7天）泡茶 {{datasj.PatientLife15}}次（换一次茶叶算一次）</li>
 						<li>常喝茶为：{{datasj.PatientLife16}}</li>
-						<li>日均饮水量：{{datasj.PatientLife17}}ml</li>
+						<li>日均饮水量：{{datasj.PatientLife17}}ml</li> -->
 						<li>运动情况：{{datasj.PatientLife18}}</li>
 						<li>宗教/信仰：{{datasj.PatientLife19}}</li>
-						<li>其他爱好：{{datasj.PatientLife20}}</li>
+						<!-- <li>其他爱好：{{datasj.PatientLife20}}</li>
 						<li>手机使用时间：{{datasj.PatientLife21}}</li>
 						<li>微信使用情况：{{datasj.PatientLife22}}</li>
-						<li>亲属陪伴情况：{{datasj.PatientLife23}}</li>
+						<li>亲属陪伴情况：{{datasj.PatientLife23}}</li> -->
 						<li>睡眠时间：{{datasj.PatientLife24}}</li>
-						<li>影响睡眠的原因：{{datasj.PatientLife25}}</li>
+						<!-- <li>影响睡眠的原因：{{datasj.PatientLife25}}</li>
 						<li>之前最爱吃的食物：{{datasj.PatientLife26}}</li>
 						<li>按照之前能吃的最大量，现在能吃：{{datasj.PatientLife27}}分(%)</li>
 						<li>最近最爱吃的食物：{{datasj.PatientLife28}}</li>
-						<li>按照最近能吃的最大量，现在能吃：{{datasj.PatientLife29}}分(%)</li>
+						<li>按照最近能吃的最大量，现在能吃：{{datasj.PatientLife29}}分(%)</li> -->
 					</ul>
-				</div> -->
-				<div v-if="datasj.PGSGA_01!=''&&datasj.PGSGA_02!=''">
-					<p>营养评估</p>
-					<div class="headty_mead">
-						<ul>
-							<li>PG-SGA评分： {{datasj.PGSGA_01}} 分、{{datasj.PGSGA_02}}</li>
-						</ul>
-					</div>
 				</div>
-				<div v-if="datasj.Cardiopulmonary01!=''&&datasj.Cardiopulmonary02!=''&&datasj.Cardiopulmonary03!=''">
+				<!-- <div v-if="datasj.Cardiopulmonary01!=''&&datasj.Cardiopulmonary02!=''&&datasj.Cardiopulmonary03!=''">
 					<p>心肺测试</p>
 					<div class="headty_mead">
 						<ul>
@@ -75,10 +76,10 @@
 							<li>肺功能测试：{{datasj.Cardiopulmonary03}}</li>
 						</ul>
 					</div>
-				</div>
+				</div> -->
 				
-				<p>膳食调查</p>
-				<div v-if="(datasj.tumour_01!=null&&datasj.tumour_02!=null&&datasj.tumour_03!=null&&datasj.tumour_04!=null&&datasj.tumour_05!=null&&datasj.tumour_06!=null&&datasj.tumour_07!=null&&datasj.tumour_08!=null&&datasj.tumour_09!=null&&datasj.tumour_10!=null&&datasj.tumour_11!=null&&datasj.tumour_12!=null&&datasj.tumour_13!=null&&datasj.tumour_14!=null&&datasj.tumour_15!=null&&datasj.tumour_16!=null&&datasj.tumour_17!=null&&datasj.tumour_18!=null&&datasj.tumour_19!=null&&datasj.tumour_20!=null&&datasj.tumour_21!=null&&datasj.tumour_22!=null&&datasj.tumour_23!=null&&datasj.tumour_24!=null&&datasj.tumour_25!=null)">
+				<!-- <p>膳食调查</p> -->
+				<!-- <div v-if="(datasj.tumour_01!=null&&datasj.tumour_02!=null&&datasj.tumour_03!=null&&datasj.tumour_04!=null&&datasj.tumour_05!=null&&datasj.tumour_06!=null&&datasj.tumour_07!=null&&datasj.tumour_08!=null&&datasj.tumour_09!=null&&datasj.tumour_10!=null&&datasj.tumour_11!=null&&datasj.tumour_12!=null&&datasj.tumour_13!=null&&datasj.tumour_14!=null&&datasj.tumour_15!=null&&datasj.tumour_16!=null&&datasj.tumour_17!=null&&datasj.tumour_18!=null&&datasj.tumour_19!=null&&datasj.tumour_20!=null&&datasj.tumour_21!=null&&datasj.tumour_22!=null&&datasj.tumour_23!=null&&datasj.tumour_24!=null&&datasj.tumour_25!=null)">
 					<p>生化指标</p>
 					<div class="headty_mead">
 						<ul>
@@ -109,8 +110,8 @@
 							<li>铁蛋白： {{datasj.tumour_25}}µg/L</li>
 						</ul>
 					</div>
-				</div>
-				<div v-if="(datasj.disease_01!=null&&datasj.disease_02!=null&&datasj.disease_03!=null&&datasj.disease_04!=null&&datasj.disease_05!=null&&datasj.disease_06!=null&&datasj.disease_07!=null&&datasj.disease_08!=null&&datasj.disease_09!=null&&datasj.disease_10!=null&&datasj.disease_11!=null&&datasj.disease_12!=null&&datasj.disease_13!=null&&datasj.disease_14!=null&&datasj.disease_15!=null&&datasj.disease_16!=null&&datasj.disease_17!=null&&datasj.disease_18!=null&&datasj.disease_19!=null&&datasj.disease_20!=null&&datasj.disease_21!=null&&datasj.disease_22!=null&&datasj.disease_23!=null&&datasj.disease_24!=null&&datasj.disease_25!=null&&datasj.disease_26!=null&&datasj.disease_27!=null)">
+				</div> -->
+				<!-- <div v-if="(datasj.disease_01!=null&&datasj.disease_02!=null&&datasj.disease_03!=null&&datasj.disease_04!=null&&datasj.disease_05!=null&&datasj.disease_06!=null&&datasj.disease_07!=null&&datasj.disease_08!=null&&datasj.disease_09!=null&&datasj.disease_10!=null&&datasj.disease_11!=null&&datasj.disease_12!=null&&datasj.disease_13!=null&&datasj.disease_14!=null&&datasj.disease_15!=null&&datasj.disease_16!=null&&datasj.disease_17!=null&&datasj.disease_18!=null&&datasj.disease_19!=null&&datasj.disease_20!=null&&datasj.disease_21!=null&&datasj.disease_22!=null&&datasj.disease_23!=null&&datasj.disease_24!=null&&datasj.disease_25!=null&&datasj.disease_26!=null&&datasj.disease_27!=null)">
 					<p>生化指标</p>
 					<div class="headty_mead">
 						<ul>
@@ -143,8 +144,8 @@
 							<li>尿微量白蛋白： {{datasj.disease_27}}g/L</li>
 						</ul>
 					</div>
-				</div>
-				<div v-if="datasj.PatientMentality01!=''&&datasj.PatientMentality02!=''">
+				</div> -->
+				<!-- <div v-if="datasj.PatientMentality01!=''&&datasj.PatientMentality02!=''">
 					<p>精神状态</p>
 					<div class="headty_mead">
 						<ul>
@@ -168,15 +169,15 @@
 							<li>心理压力评分： {{datasj.Psychological01}}分</li>
 						</ul>
 					</div>
-				</div>
-				<div v-if="datasj.divQualityLife01!=''">
+				</div> -->
+				<!-- <div v-if="datasj.divQualityLife01!=''">
 					<p>生活质量</p>
 					<div class="headty_mead">
 						<ul>
 							<li>生活质量评分： {{datasj.divQualityLife01}}分</li>
 						</ul>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>

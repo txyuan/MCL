@@ -1,6 +1,6 @@
 
 // app端客服地址
-const KFURL = 'http://clics.marryhealth.cn'
+const KFURL = 'http://clics.marryhealthscience.com'
 
 // 客服端配置信息
 const KFCONFIG = {
@@ -11,10 +11,14 @@ const KFCONFIG = {
 }
 
 // 接口地址
-const BASEURL = 'http://cli.marryhealth.cn'
+const BASEURL = 'http://cli.marryhealthscience.com'
+const DOCTORURL = 'http://clidoc.marryhealthscience.com' // 医生端域名
+const CHANNELURL = 'http://clicha.marryhealthscience.com' // 渠道端域名
 
 export {
   KFURL,
   KFCONFIG,
-  BASEURL
+  BASEURL,
+  DOCTORURL,
+  CHANNELURL
 }

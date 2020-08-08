@@ -144,7 +144,7 @@
 							  <el-button size="mini" type="primary" @click="sendIframe('管理套餐订单', '/Pages/OnLinePatientManage/ManagementPackage.aspx')">管理套餐订单</el-button>
 							  <el-button size="mini" type="primary" @click="sendIframe('会员年卡订单', '/Pages/OnLinePatientManage/OnLineMemberManage.aspx')">会员年卡订单</el-button>
                 
-							  <el-button size="mini" type="primary" @click="sendIframe('膳食调查', `/Pages/PatientManage/DietarySurveyList.aspx?patient_skey=${huanzheInfo.patientkey}&headerSkey=undefined`)">饮食处方</el-button>
+							  <el-button size="mini" type="primary" @click="sendIframe('饮食记录', `/Pages/PatientManage/DietarySurveyList.aspx?patient_skey=${huanzheInfo.patientkey}&headerSkey=undefined`)">饮食记录</el-button>
 							  <el-button size="mini" type="primary" @click="sendIframe('营养处方', '/Pages/OnLinePatientManage/OnLineNutritionPlanInfo.aspx')">营养处方</el-button>
 							  <el-button size="mini" type="primary" @click="sendIframe('运动处方', '/Pages/OnLinePatientManage/OnLineMotionPlanInfo.aspx')">运动处方</el-button>
 							</el-row>

@@ -16,7 +16,7 @@
 				</div>
 			</mt-header>
 			<!-- mt-navbar -->
-			<div id="navbar" class="fix_top" style="top: 43px;">
+			<div id="navbar" class="fix_top" style="top: 43px;" v-if="$route.query.skey">
 				<mt-navbar v-model="ABflag">
 					<mt-tab-item v-for="(item,index) in navbarList" :key="`tab_${index}`" :class="(ABflag == item.type)&&'is-selected'" @click.native="toggleType(item)">
 						<p>{{item.name}}</p>
@@ -25,7 +25,7 @@
 			</div>
 
 			<!-- 内容 -->
-			<div class="neirong">
+			<div class="neirong" v-if="$route.query.skey">
 				<!-- 今日饮食 -->
 				<div class="yinshhi_list" :hidden="ABflag == 2">
 					<!-- 今日提醒 -->
@@ -439,6 +439,7 @@
 				<div class="diet_aleto" @click="ok_alert">确定</div>
 			</div>
 		</div>
+		<empty-data v-show="!$route.query.skey" />
 	</div>
 </template>
 

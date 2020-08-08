@@ -40,7 +40,7 @@ module.exports = {
     }
   },
   externals: {
-    "BMap": "BMap",
+    // "BMap": "BMap",
     Swiper: 'Swiper'
   },
   module: {

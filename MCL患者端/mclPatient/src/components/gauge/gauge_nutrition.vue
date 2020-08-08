@@ -79,7 +79,7 @@
 				option: [
 					{label: '体重丢失', value: "01"}, {label: '贫血', value: "02"}, {label: '疼痛', value: "03"}, {label: '食欲下降、厌食', value: "04"}, {label: '呼吸困难', value: "05"}, {label: '消化不良', value: "06"}, {label: '恶心、呕吐', value: "07"}, {label: '腹胀', value: "08"},
 					{label: '水肿', value: "09"}, {label: '腹泻', value: "10"}, {label: '便秘', value: "11"}, {label: '疲劳', value: "12"}, {label: '失眠', value: "13"}, {label: '白细胞减少', value: "14"}, {label: '脱发', value: "15"}, {label: '放射性肺炎', value: "16"}, {label: '骨髓抑制', value: "17"},
-					{label: '皮肤受损', value: "18"}, {label: '口干', value: "19"}, {label: '口腔黏膜炎', value: "20"}, {label: '吞咽困难', value: "21"},
+					{label: '放射性肠炎', value: "18"}, {label: '口干', value: "19"}, {label: '口腔黏膜炎', value: "20"}, {label: '吞咽困难', value: "21"},
 				],
 				value: [],
 				checklist: true

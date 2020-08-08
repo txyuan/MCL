@@ -308,7 +308,7 @@
 							<img slot="icon" :src="item.breakfast_foodImg" width="46" height="46">
 							<div slot="title" class="titleWrap">
 								<span class="mint-cell-text">{{item.breakfast_foodName}}</span>
-								<span class="mint-cell-label font12 huiFont99">{{item.breakfast_foodQuantity}}</span>
+								<span class="mint-cell-label font12 huiFont99">建议食用量：{{item.breakfast_foodQuantity}}</span>
 							</div>
 							<div class="font14 huiFont99">
 								{{item.breakfast_foodEnergy}}
@@ -357,7 +357,7 @@
 							<img slot="icon" :src="item.lunch_foodImg" width="46" height="46">
 							<div slot="title" class="titleWrap">
 								<span class="mint-cell-text">{{item.lunch_foodName}}</span>
-								<span class="mint-cell-label font12 huiFont99">{{item.lunch_foodQuantity}}</span>
+								<span class="mint-cell-label font12 huiFont99">建议食用量：{{item.lunch_foodQuantity}}</span>
 							</div>
 							<div class="font14 huiFont99">
 								{{item.lunch_foodEnergy}}
@@ -393,7 +393,7 @@
 							<img slot="icon" :src="item.dinner_foodImg" width="46" height="46">
 							<div slot="title" class="titleWrap">
 								<span class="mint-cell-text">{{item.dinner_foodName}}</span>
-								<span class="mint-cell-label font12 huiFont99">{{item.dinner_foodQuantity}}</span>
+								<span class="mint-cell-label font12 huiFont99">建议食用量：{{item.dinner_foodQuantity}}</span>
 							</div>
 							<div class="font14 huiFont99">
 								{{item.dinner_foodEnergy}}

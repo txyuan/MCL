@@ -59,246 +59,246 @@
 </template>
 
 <script>
-	import identify from '@/components/common/identify.vue'
-	import logoImg from '@/assets/images/mclogo.png'
-	export default {
-		name: "register",
-		data: () => ({
-			rphone: '',
-			phone: '',
-			code: '',
-			userpwd: '',
-			getCode: "获取验证码",
-			VerificationCode: 60,
-			isDown: false,
-			logoImg: logoImg,
-			picodes: "",
-			agrn: false,
-			// 患者分享给 患者
-			// 医生分享给 患者和医生
-			// 渠道分享给 医生，渠道，
-			roleMap: {
-				role1: "1,2",	
-				role2: "1,2",	
-				role3: "",	
-				role4: "1,2,4",	
-				role5: "4,5,8",	
-				role6: "4",	
-				role7: "4",	
-				role8: "4",	
-			},
-			roleList: [{
-					value: "",
-					name: "您的身份",
-					show: true
-				},
-				{
-					value: 1,
-					name: "患者",
-					show: true
-				},
-				{
-					value: 2,
-					name: "患者家人",
-					show: true
-				},
-				{
-					value: 3,
-					name: "路人",
-					show: true
-				},
-				{
-					value: 4,
-					name: "医生",
-					show: true
-				},
-				{
-					value: 5,
-					name: "地区渠道商",
-					show: true
-				},
-				{
-					value: 6,
-					name: "推广员工",
-					show: true
-				},
-				{
-					value: 7,
-					name: "发货员工",
-					show: true
-				},
-				{
-					value: 8,
-					name: "渠道经理",
-					show: true
-				},
-			],
-			role: ''
-		}),
-		computed: {
-			time: function() {
-				setTimeout(() => {
-					if (this.VerificationCode <= 0) {
-						this.isDown = false;
-						this.VerificationCode = 60;
-						return
-					}
-					this.VerificationCode--
-				}, 1000)
-				return `${this.VerificationCode}s后发送`
-			}
-		},
-		methods: {
-			optyuup(){
-				if((this.role==1)||(this.role==2)||(this.role==3)||(this.role=='')){
-					this.$router.push('/noticeClause');
-				}else if(this.role==4){
-					this.$router.push('/noticeClause2');
-				}else{
-					this.$router.push('/noticeClause3');
-				}
-			},
-			//验证码
-			phonet() {
-				let url = "UserInterface/UserRegeditCode.ashx";
-				let userphone = this.phone;
-				let myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
-				if (!myreg.test(this.phone)) {
-					this.$Toast('请输入格式正确的手机号');
-					return;
-				}
-				// const identify = this.$refs.identify;
-				// if ((this.picodes === "") || (this.picodes != identify.code)) {
-				// 	this.$Toast('图片验证码填写有误！');
-				// 	return;
-				// }
-				let jmnum = this.$root.getjmw(this.phone);
-				let datass = this.$root.$getCode(jmnum);
-				if (this.isDown) {
-					return;
-				}
-				this.isDown = true;
-				let param = {
-					"userphone": this.phone,
-					"ucode": encodeURI(datass)
-				};
-				this.$post(url, param).then((data) => {
-					this.$Toast(data.rspdesc);
-					if (data.rspcode != 1) {
-						return;
-					}
-				})
-			},
-			//关闭
-			closere() {
-				if (this.$route.query.form) {
-					this.$router.back()
-				} else {
-					this.$router.push('/login');
-				}
-			},
-			agre() {
-				this.agrn = !this.agrn;
-			},
-			//确定
-			loginbtn() {
+import { DOCTORURL, CHANNELURL } from '@/configURL.js'
+import identify from '@/components/common/identify.vue'
+import logoImg from '@/assets/images/mclogo.png'
 
-				let myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
-				//				if (!myreg.test(this.rphone)) {
-				//					this.$Toast('请输入格式正确的推荐人手机号');
-				//					return;
-				//				}
-				if (!myreg.test(this.phone)) {
-					this.$Toast('请输入格式正确的手机号');
-					return;
-				}
-				if (this.code == "") {
-					this.$Toast('请输入验证码');
-					return;
-				}
-				if (this.userpwd == "") {
-					this.$Toast('请输入您的密码');
-					return;
-				}
-				if (!this.agrn) {
-					this.$Toast('请勾选阅读并同意用户注册协议');
-					return;
-				}
-				let url = "UserInterface/UserRegedit.ashx";
-				let param = {
-					"rphone": this.rphone,
-					"userphone": this.phone,
-					"vercode": this.code,
-					"userpwd": this.userpwd,
-					"role": this.role,
-					"openid": localStorage.openId
-				}
-				this.$post(url, param).then((data) => {
+export default {
+  name: 'register',
+  data: () => ({
+    rphone: '',
+    phone: '',
+    code: '',
+    userpwd: '',
+    getCode: '获取验证码',
+    VerificationCode: 60,
+    isDown: false,
+    logoImg: logoImg,
+    picodes: '',
+    agrn: false,
+    // 患者分享给 患者
+    // 医生分享给 患者和医生
+    // 渠道分享给 医生，渠道，
+    roleMap: {
+      role1: '1,2',
+      role2: '1,2',
+      role3: '',
+      role4: '1,4',
+      role5: '4,5,8',
+      role6: '4',
+      role7: '4',
+      role8: '4'
+    },
+    roleList: [{
+      value: '',
+      name: '您的身份',
+      show: true
+    },
+    {
+      value: 1,
+      name: '患者',
+      show: true
+    },
+    {
+      value: 2,
+      name: '患者家人',
+      show: true
+    },
+    {
+      value: 3,
+      name: '路人',
+      show: true
+    },
+    {
+      value: 4,
+      name: '医生',
+      show: true
+    },
+    {
+      value: 5,
+      name: '地区渠道商',
+      show: true
+    },
+    {
+      value: 6,
+      name: '推广员工',
+      show: true
+    },
+    {
+      value: 7,
+      name: '发货员工',
+      show: true
+    },
+    {
+      value: 8,
+      name: '渠道经理',
+      show: true
+    }
+    ],
+    role: ''
+  }),
+  computed: {
+    time: function () {
+      setTimeout(() => {
+        if (this.VerificationCode <= 0) {
+          this.isDown = false
+          this.VerificationCode = 60
+          return
+        }
+        this.VerificationCode--
+      }, 1000)
+      return `${this.VerificationCode}s后发送`
+    }
+  },
+  methods: {
+    optyuup () {
+      if ((this.role == 1) || (this.role == 2) || (this.role == 3) || (this.role == '')) {
+        this.$router.push('/noticeClause')
+      } else if (this.role == 4) {
+        this.$router.push('/noticeClause2')
+      } else {
+        this.$router.push('/noticeClause3')
+      }
+    },
+    // 验证码
+    phonet () {
+      let url = 'UserInterface/UserRegeditCode.ashx'
+      let userphone = this.phone
+      let myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
+      if (!myreg.test(this.phone)) {
+        this.$Toast('请输入格式正确的手机号')
+        return
+      }
+      // const identify = this.$refs.identify;
+      // if ((this.picodes === "") || (this.picodes != identify.code)) {
+      // 	this.$Toast('图片验证码填写有误！');
+      // 	return;
+      // }
+      let jmnum = this.$root.getjmw(this.phone)
+      let datass = this.$root.$getCode(jmnum)
+      if (this.isDown) {
+        return
+      }
+      this.isDown = true
+      let param = {
+        'userphone': this.phone,
+        'ucode': encodeURI(datass)
+      }
+      this.$post(url, param).then((data) => {
+        this.$Toast(data.rspdesc)
+        if (data.rspcode != 1) {
 
-					if (data.rspcode != 1) {
-						this.$Toast(data.rspdesc);
-						return;
-					}
-					//存登录信息
-					this.$Toast(data.rspdesc);
-					if (this.$route.query.form) {
-						this.$router.back()
-					} else {
-						//患者端
-						if (this.role == 1 || this.role == 2 || this.role == 3) {
-							//关注微信公众号
-							this.$router.push('/wxFollowPage');
-							//医生端
-						} else if (this.role == 4) {
-							//实名认证 
-							if ((data.doctorflag == "1") || (!data.doctorflag)) {
-								location.href =`http://clidoc.marryhealth.cn/doctor/index.html#/physician1?UserKey=${data.userkey}&SessionId=${data.session_id}`;
-							}
-							//医师认证
-							if (data.doctorflag == "2") {
-								location.href =`http://clidoc.marryhealth.cn/doctor/index.html#/physician1?UserKey=${data.userkey}&SessionId=${data.session_id}`;
-							}
-						} else if (this.role == 5 || this.role == 6 || this.role == 7 || this.role == 8) {
-							//渠道端
-							location.href = 'http://clicha.marryhealth.cn/channel/index.html#/wxFollowPage'; // appDown
-						}
-					}
-				})
-			}
-		},
-		components: {
-			identify
-		},
-		mounted: function() {
-			let rphone = this.$route.query.rphone;
-			this.rphone = rphone;
-			let role = this.$route.query.role;
-			if (role) {
-				let JurisdictionRole = this.roleMap["role"+role].split(",")  //这个用户可以选择注册的角色
-				this.role = JurisdictionRole[0];
-				this.roleList.forEach((item, index) => {
-					if (JurisdictionRole.indexOf(String(item.value)) == -1) {
-						item.show = false
-					}
-				})
-			}
-		},
-		beforeRouteEnter (to, from, next) {
+        }
+      })
+    },
+    // 关闭
+    closere () {
+      if (this.$route.query.form) {
+        this.$router.back()
+      } else {
+        this.$router.push('/login')
+      }
+    },
+    agre () {
+      this.agrn = !this.agrn
+    },
+    // 确定
+    loginbtn () {
+      let myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
+      //				if (!myreg.test(this.rphone)) {
+      //					this.$Toast('请输入格式正确的推荐人手机号');
+      //					return;
+      //				}
+      if (!myreg.test(this.phone)) {
+        this.$Toast('请输入格式正确的手机号')
+        return
+      }
+      if (this.code == '') {
+        this.$Toast('请输入验证码')
+        return
+      }
+      if (this.userpwd == '') {
+        this.$Toast('请输入您的密码')
+        return
+      }
+      if (!this.agrn) {
+        this.$Toast('请勾选阅读并同意用户注册协议')
+        return
+      }
+      let url = 'UserInterface/UserRegedit.ashx'
+      let param = {
+        'rphone': this.rphone,
+        'userphone': this.phone,
+        'vercode': this.code,
+        'userpwd': this.userpwd,
+        'role': this.role,
+        'openid': localStorage.openId
+      }
+      this.$post(url, param).then((data) => {
+        if (data.rspcode != 1) {
+          this.$Toast(data.rspdesc)
+          return
+        }
+        // 存登录信息
+        this.$Toast(data.rspdesc)
+        if (this.$route.query.form) {
+          this.$router.back()
+        } else {
+          // 患者端
+          if (this.role == 1 || this.role == 2 || this.role == 3) {
+            // 关注微信公众号
+            this.$router.push('/wxFollowPage')
+            // 医生端
+          } else if (this.role == 4) {
+            // 实名认证
+            if ((data.doctorflag == '1') || (!data.doctorflag)) {
+              location.href = `${DOCTORURL}/doctor/index.html#/physician1?UserKey=${data.userkey}&SessionId=${data.session_id}`
+            }
+            // 医师认证
+            if (data.doctorflag == '2') {
+              location.href = `${DOCTORURL}/doctor/index.html#/physician1?UserKey=${data.userkey}&SessionId=${data.session_id}`
+            }
+          } else if (this.role == 5 || this.role == 6 || this.role == 7 || this.role == 8) {
+            // 渠道端
+            location.href = `${CHANNELURL}/channel/index.html#/wxFollowPage` // appDown
+          }
+        }
+      })
+    }
+  },
+  components: {
+    identify
+  },
+  mounted: function () {
+    let rphone = this.$route.query.rphone
+    this.rphone = rphone
+    let role = this.$route.query.role
+    if (role) {
+      let JurisdictionRole = this.roleMap['role' + role].split(',') // 这个用户可以选择注册的角色
+      this.role = JurisdictionRole[0]
+      this.roleList.forEach((item, index) => {
+        if (JurisdictionRole.indexOf(String(item.value)) == -1) {
+          item.show = false
+        }
+      })
+    }
+  },
+  beforeRouteEnter (to, from, next) {
 		  next(vm => {
 		    // 通过 `vm` 访问组件实例
-		    if( from.name == null  || from.name == "noticeClause"){
-		    	vm.$route.meta.keepAlive = true;
+		    if (from.name == null || from.name == 'noticeClause') {
+		    	vm.$route.meta.keepAlive = true
 		    }
-		    vm.$route.meta.keepAlive = false;
+		    vm.$route.meta.keepAlive = false
 		  })
-		},
-		beforeRouteLeave(to, from, next) {
-			// 导航离开该组件的对应路由时调用
-			let keepAlive = (to.name == "noticeClause") ? true : false;
-			this.$route.meta.keepAlive = keepAlive;
-			next()
-		},
-	}
+  },
+  beforeRouteLeave (to, from, next) {
+    // 导航离开该组件的对应路由时调用
+    let keepAlive = (to.name == 'noticeClause')
+    this.$route.meta.keepAlive = keepAlive
+    next()
+  }
+}
 </script>
 
 <style scoped lang="scss">

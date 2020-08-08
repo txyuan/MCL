@@ -542,7 +542,7 @@ export default {
       }
       height = height / 100 // 单位转换  cm到m
       const BMI = weight / (height * height) // 体重/身高的平方
-      this.param.bmi = BMI.toFixed(2)
+      this.param.bmi = BMI.toFixed(1)
     },
 
     // citypicker的确定回调

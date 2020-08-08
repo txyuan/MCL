@@ -22,7 +22,7 @@
 						<li>临床诊断：{{datasj.clinical_diagnosis}}</li>
 						<li>身高：{{datasj.height}}cm</li>
 						<li>体重：{{datasj.weight}}kg</li>
-						<li>BMI：{{Number(datasj.bmi).toFixed(1)}}</li>
+						<li>BMI：{{datasj.bmi}}</li>
 						<li>理想体重：{{datasj.ideal_weight}}kg</li>
 						<li>正常范围：{{datasj.normal_range}}</li>
 						<!-- <li>推荐摄入能量：{{datasj.normal_range}}</li>
@@ -79,9 +79,9 @@
 						<!-- <label>能量分配：</label> -->
 						<span>
 							<i>总能量: {{responseData.foodEnergy}}</i>
-							<i>碳水化合物:{{responseData.protein}}</i>
+							<i>碳水化合物:{{responseData.carbohydrate}}</i>
 							<i>总脂肪:{{responseData.fat}}</i>
-							<i>蛋白质:{{responseData.carbohydrate}}</i>
+							<i>蛋白质:{{responseData.protein}}</i>
 						</span>
 					</p>
 					<!-- <p>

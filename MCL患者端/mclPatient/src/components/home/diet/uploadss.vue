@@ -37,7 +37,6 @@
 							<i v-if="item.resultObj" style="font-style:normal">{{item.resultObj.foodkcal}}</i>
 							<i v-else style="font-style:normal">{{item.foodkcal}}</i>
 							{{item.kcalunit}}</span>
-						
 					</div>
 				</mt-cell>
 				
