@@ -16,168 +16,99 @@
 						<li>姓名：{{datasj.name}}</li>
 						<li>年龄：{{datasj.age}}</li>
 						<li>性别：{{datasj.sex}}</li>
+						<li>身高：{{datasj.height}}cm</li>
+						<li>体重：{{datasj.weight}}kg</li>
 					</ol>
 					<ul>
+						<li>婚姻状况：{{datasj.marriage}}</li>
+						<li>生活区域：{{datasj.address}}</li>
 						<li>录入日期：{{datasj.createtime}}</li>
-						<li>临床诊断：{{datasj.clinical_diagnosis}}</li>
-						<li>管理诉求：{{datasj.managementAppeals}}</li>
-						<li>并发症状：{{datasj.concurrent}}</li>
 					</ul>
 				</div>
-				<!-- <p>生活调查</p>
-				<div class="headty_mead">
-					<ul>
-						<li>过敏史：{{datasj.PatientLife01}}</li>
-						<li>吸烟：{{datasj.PatientLife02}}</li>
-						<li>目前为：{{datasj.PatientLife03}}</li>
-						<li>在您的一生中，累积吸烟是否超过5包（20支/包）：{{datasj.PatientLife04}}</li>
-						<li>平均每周（7天）吸烟 {{datasj.PatientLife05}} 包,持续 {{datasj.PatientLife06}}年</li>
-						<li>喝酒：{{datasj.PatientLife07}}</li>
-						<li>过去一年是否规律饮酒：{{datasj.PatientLife08}}</li>
-						<li>平均每周（7天）饮酒： {{datasj.PatientLife09}}次</li>
-						<li>常饮酒为：{{datasj.PatientLife10}}</li>
-						<li>啤酒 {{datasj.PatientLife11}}瓶/周； <br />
-							葡萄酒/黄酒 {{datasj.PatientLife12}}ml/周； <br />
-							高度白酒 {{datasj.PatientLife13}}两/周：
-						</li>
-						<li>在您过去的一年中是否经常喝茶叶茶：{{datasj.PatientLife14}}</li>
-						<li>平均每周（7天）泡茶 {{datasj.PatientLife15}}次（换一次茶叶算一次）</li>
-						<li>常喝茶为：{{datasj.PatientLife16}}</li>
-						<li>日均饮水量：{{datasj.PatientLife17}}ml</li>
-						<li>运动情况：{{datasj.PatientLife18}}</li>
-						<li>宗教/信仰：{{datasj.PatientLife19}}</li>
-						<li>其他爱好：{{datasj.PatientLife20}}</li>
-						<li>手机使用时间：{{datasj.PatientLife21}}</li>
-						<li>微信使用情况：{{datasj.PatientLife22}}</li>
-						<li>亲属陪伴情况：{{datasj.PatientLife23}}</li>
-						<li>睡眠时间：{{datasj.PatientLife24}}</li>
-						<li>影响睡眠的原因：{{datasj.PatientLife25}}</li>
-						<li>之前最爱吃的食物：{{datasj.PatientLife26}}</li>
-						<li>按照之前能吃的最大量，现在能吃：{{datasj.PatientLife27}}分(%)</li>
-						<li>最近最爱吃的食物：{{datasj.PatientLife28}}</li>
-						<li>按照最近能吃的最大量，现在能吃：{{datasj.PatientLife29}}分(%)</li>
-					</ul>
-				</div> -->
-				<div v-if="datasj.NRS2002_01!=''&&datasj.NRS2002_02!=''">
+				<div v-if="datasj.clinical_diagnosis && datasj.diagnosisDate && datasj.concurrent && datasj.treatment">
+					<p>疾病情况</p>
+					<div class="headty_mead">
+						<ul>
+							<li>临床诊断：{{datasj.clinical_diagnosis}}</li>
+							<li>首次诊断日期：{{datasj.diagnosisDate}}</li>
+							<li>并发症状：{{datasj.concurrent}}</li>
+							<li>已接受的治疗：{{datasj.treatment}}</li>
+							<li>目前治疗状态：
+								<template v-for="n in 17">
+									{{n < 10 ? datasj[`Disease0${n}`] : datasj[`Disease${n}`]}}
+								</template>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div v-if="datasj.height && datasj.weight && datasj.bmi && datasj.inspectDate && datasj.idealWeight">
+					<p>体格检查</p>
+					<div class="headty_mead">
+						<ul>
+							<li>身高：{{datasj.height}}cm</li>
+							<li>体重：{{datasj.weight}}kg</li>
+							<li>BMI：{{datasj.bmi}}</li>
+							<li>检查日期：{{datasj.inspectDate}}</li>
+							<li>正常范围：{{datasj.idealWeight}}</li>
+						</ul>
+					</div>
+				</div>
+				<div v-if="datasj.NRS2002_01 && datasj.NRS2002_02">
+					<p>营养筛查</p>
+					<div class="headty_mead">
+						<ul>
+							<li>NRS2002评分： {{datasj.NRS2002_01}} 分、{{datasj.NRS2002_02}}</li>
+						</ul>
+					</div>
+				</div>
+				<div v-if="datasj.PGSGA_01 && datasj.PGSGA_02">
 					<p>营养评估</p>
 					<div class="headty_mead">
 						<ul>
-							<li>PG-SGA评分： {{datasj.NRS2002_01}} 分、{{datasj.NRS2002_02}}</li>
+							<li>PG-SGA评分： {{datasj.PGSGA_01}} 分、{{datasj.PGSGA_02}}</li>
+							<li>评估日期：{{datasj.assessmentDate}}</li>
 						</ul>
 					</div>
 				</div>
-				<div v-if="datasj.Cardiopulmonary01!=''&&datasj.Cardiopulmonary02!=''&&datasj.Cardiopulmonary03!=''">
-					<p>心肺测试</p>
+				<div v-if="datasj.investigationDate && datasj.carbohydrate && datasj.energy && datasj.fat && datasj.protein">
+					<p>饮食调查</p>
 					<div class="headty_mead">
 						<ul>
-							<li>6分钟步行试验：{{datasj.Cardiopulmonary01}} 米</li>
-							<li>是否完成试验：{{datasj.Cardiopulmonary02}}</li>
-							<li>肺功能测试：{{datasj.Cardiopulmonary03}}</li>
+							<li>调查日期：{{datasj.investigationDate}}</li>
+							<li>总能量：{{datasj.carbohydrate}}Kal</li>
+							<li>碳水化合物：{{datasj.energy}}g</li>
+							<li>脂肪：{{datasj.fat}}g</li>
+							<li>蛋白质：{{datasj.protein}}g</li>
 						</ul>
 					</div>
 				</div>
-				
-				<p>膳食调查</p>
-				<div v-if="(datasj.tumour_01!=null&&datasj.tumour_02!=null&&datasj.tumour_03!=null&&datasj.tumour_04!=null&&datasj.tumour_05!=null&&datasj.tumour_06!=null&&datasj.tumour_07!=null&&datasj.tumour_08!=null&&datasj.tumour_09!=null&&datasj.tumour_10!=null&&datasj.tumour_11!=null&&datasj.tumour_12!=null&&datasj.tumour_13!=null&&datasj.tumour_14!=null&&datasj.tumour_15!=null&&datasj.tumour_16!=null&&datasj.tumour_17!=null&&datasj.tumour_18!=null&&datasj.tumour_19!=null&&datasj.tumour_20!=null&&datasj.tumour_21!=null&&datasj.tumour_22!=null&&datasj.tumour_23!=null&&datasj.tumour_24!=null&&datasj.tumour_25!=null)">
-					<p>生化指标</p>
+				<div v-if="datasj.CartesianScore_01 && datasj.CartesianScore_02">
+					<p>卡氏评分</p>
 					<div class="headty_mead">
 						<ul>
-							<li>白细胞： {{datasj.tumour_01}}*109/L</li>
-							<li>红细胞： {{datasj.tumour_02}}*1012/L</li>
-							<li>血小板： {{datasj.tumour_03}}*109/L</li>
-							<li>血红蛋白： {{datasj.tumour_04}}g/L</li>
-							<li>中性粒细胞百分比： {{datasj.tumour_05}}%</li>
-							<li>淋巴细胞： {{datasj.tumour_06}}*109/L</li>
-							<li>总蛋白： {{datasj.tumour_07}}g/L</li>
-							<li>白蛋白： {{datasj.tumour_08}}g/L</li>
-							<li>前白蛋白： {{datasj.tumour_09}}g/L</li>
-							<li>尿素氮： {{datasj.tumour_10}}mmol/L</li>
-							<li>C反应蛋白： {{datasj.tumour_11}}mg/L/li>
-							<li>尿微量白蛋白： {{datasj.tumour_12}}g/L</li>
-							<li>血糖： {{datasj.tumour_13}}mmol/L</li>
-							<li>糖化血红蛋白： {{datasj.tumour_14}}mg/dl</li>
-							<li>血清钾： {{datasj.tumour_15}}mmol/L</li>
-							<li>血清钠： {{datasj.tumour_16}}mmol/L</li>
-							<li>血清磷： {{datasj.tumour_17}}mmol/L</li>
-							<li>血清镁： {{datasj.tumour_18}}mmol/L</li>
-							<li>同型半胱氨酸： {{datasj.tumour_19}}µmol/L</li>
-							<li>球蛋白： {{datasj.tumour_20}}g/L</li>
-							<li>谷草转氨酶： {{datasj.tumour_21}}U/L</li>
-							<li>谷丙转氨酶： {{datasj.tumour_22}}U/L</li>
-							<li>总胆红素： {{datasj.tumour_23}}μmol／L</li>
-							<li>直接胆红素： {{datasj.tumour_24}}µmol/L</li>
-							<li>铁蛋白： {{datasj.tumour_25}}µg/L</li>
+							<li>卡氏评分： {{datasj.CartesianScore_01}} 分、{{datasj.CartesianScore_02}}</li>
 						</ul>
 					</div>
 				</div>
-				<div v-if="(datasj.disease_01!=null&&datasj.disease_02!=null&&datasj.disease_03!=null&&datasj.disease_04!=null&&datasj.disease_05!=null&&datasj.disease_06!=null&&datasj.disease_07!=null&&datasj.disease_08!=null&&datasj.disease_09!=null&&datasj.disease_10!=null&&datasj.disease_11!=null&&datasj.disease_12!=null&&datasj.disease_13!=null&&datasj.disease_14!=null&&datasj.disease_15!=null&&datasj.disease_16!=null&&datasj.disease_17!=null&&datasj.disease_18!=null&&datasj.disease_19!=null&&datasj.disease_20!=null&&datasj.disease_21!=null&&datasj.disease_22!=null&&datasj.disease_23!=null&&datasj.disease_24!=null&&datasj.disease_25!=null&&datasj.disease_26!=null&&datasj.disease_27!=null)">
-					<p>生化指标</p>
+				<div v-if="datasj.PatientLife01 && datasj.PatientLife02 && datasj.PatientLife03 && datasj.PatientLife04 && datasj.PatientLife05 && datasj.PatientLife06 && datasj.PatientLife07 && datasj.PatientLife08 && datasj.PatientLife09 && datasj.PatientLife10">
+					<p>生活调查</p>
 					<div class="headty_mead">
 						<ul>
-							<li>空腹血糖： {{datasj.disease_01}}mmol/L</li>
-							<li>餐后血糖： {{datasj.disease_02}}mmol/L</li>
-							<li>糖化血红蛋白（%）： {{datasj.disease_03}}mg/dl</li>
-							<li>同型半胱甘酸(Hcy)： {{datasj.disease_04}}μmoI/L</li>	
-							<li>甘油三酯： {{datasj.disease_05}}mmol/L</li>	
-							<li>总胆固醇： {{datasj.disease_06}}mmol/L</li>
-							<li>高密度脂蛋白： {{datasj.disease_07}}mmol/L</li>	
-							<li>低密度脂蛋白： {{datasj.disease_08}}mmol/L</li>	
-							<li>骨密度值：{{datasj.disease_09}}</li>
-							<li>血钙： {{datasj.disease_10}}mmol/L</li>	
-							<li>心电图ST段水平： {{datasj.disease_11}}mv</li>	
-							<li>颈动脉斑块大小：{{datasj.disease_12}}</li>
-							<li>谷丙转氨酶： {{datasj.disease_13}}U/L	</li>
-							<li>谷草转氨酶： {{datasj.disease_14}}U/L	</li>
-							<li>血清肌酐： {{datasj.disease_15}}μmoI/L</li>
-							<li>尿酸： {{datasj.disease_16}}µmol/L</li>	
-							<li>白细胞： {{datasj.disease_17}}*109/L</li>	
-							<li>红细胞： {{datasj.disease_18}}*1012/L</li>
-							<li>血红蛋白： {{datasj.disease_19}}g/L</li>	
-							<li>中性粒细胞百分比： {{datasj.disease_20}}%</li>	
-							<li>淋巴细胞： {{datasj.disease_21}}*109/L</li>
-							<li>总蛋白： {{datasj.disease_22}}g/L</li>	
-							<li>白蛋白： {{datasj.disease_23}}g/L</li>	
-							<li>前白蛋白： {{datasj.disease_24}}mg/L</li>
-							<li>尿素氮： {{datasj.disease_25}}mmol/L</li>
-							<li>C反应蛋白： {{datasj.disease_26}}mg/L	</li>
-							<li>尿微量白蛋白： {{datasj.disease_27}}g/L</li>
-						</ul>
-					</div>
-				</div>
-				<div v-if="datasj.PatientMentality01!=''&&datasj.PatientMentality02!=''">
-					<p>精神状态</p>
-					<div class="headty_mead">
-						<ul>
-							<li>精神状态评分： {{datasj.PatientMentality01}} 分、{{datasj.PatientMentality02}}</li>
-						</ul>
-					</div>
-				</div>
-				<div v-if="datasj.Emotion01!=''&&datasj.Emotion02!=''&&datasj.Emotion03!=''&&datasj.Emotion04!=''">
-					<p>焦虑/抑郁</p>
-					<div class="headty_mead">
-						<ul>
-							<li>焦虑程度评分：  {{datasj.Emotion01}}分、{{datasj.Emotion02}}</li>
-							<li>抑郁程度评分：  {{datasj.Emotion03}}分、{{datasj.Emotion04}}</li>
-						</ul>
-					</div>
-				</div>
-				<div v-if="datasj.Psychological01!=''">
-					<p>心理压力</p>
-					<div class="headty_mead">
-						<ul>
-							<li>心理压力评分： {{datasj.Psychological01}}分</li>
-						</ul>
-					</div>
-				</div>
-				<div v-if="datasj.divQualityLife01!=''">
-					<p>生活质量</p>
-					<div class="headty_mead">
-						<ul>
-							<li>生活质量评分： {{datasj.divQualityLife01}}分</li>
+							<li>食物过敏：{{datasj.PatientLife01}}</li>
+							<li>药物过敏：{{datasj.PatientLife02}}</li>
+							<li>吸烟：{{datasj.PatientLife03}}</li>
+							<li>喝酒：{{datasj.PatientLife04}}</li>
+							<li>饮食习惯：{{datasj.PatientLife05}}</li>
+							<li>最爱吃的是：{{datasj.PatientLife06}}</li>
+							<li>现在能吃多少：{{datasj.PatientLife07}}</li>
+							<li>运动情况：{{datasj.PatientLife08}}</li>
+							<li>宗教/信仰：{{datasj.PatientLife09}}</li>
+							<li>睡眠时间：{{datasj.PatientLife10}}</li>
 						</ul>
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 	</div>
 </template>
