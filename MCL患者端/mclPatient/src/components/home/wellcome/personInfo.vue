@@ -537,6 +537,11 @@ export default {
         height,
         weight
       } = this.param // 身高  体重
+      if (height < 50) {
+        this.$Toast('请输入有效的身高')
+        this.param.height = ''
+        return
+      }
       if (height == '' || weight == '') {
         return
       }

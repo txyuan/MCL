@@ -19,7 +19,6 @@
 					<ul>
 						<li>录入日期：{{datasj.createtime}}</li>
 						<li>临床诊断：{{datasj.clinical_diagnosis}}</li>
-						<!-- <li>管理诉求：{{datasj.managementAppeals}}</li> -->
 						<li>并发症状：{{datasj.concurrent}}</li>
 					</ul>
 				</div>

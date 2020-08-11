@@ -1,32 +1,34 @@
 <template>
 	<div class="mesage-root">
-		<mt-header title="消息" fixed></mt-header>
+		<mt-header title="专家团介绍" fixed @click.native="slide = !slide"></mt-header>
 		<div id="body_main">
 			<div class="page">
 				<!--卡片-->
-				<div class="card">
-					<div class="card_top">
-						<div class="item" @click="mcldoct(1)">
-							<img :src="DoctorImg" alt="" class="touxiang" />
-							<p class="DName font14">{{Position}}</p>
-						</div>
-						<div class="item" @click="mcldoct(2)">
-							<img src="@/assets/images/mclGW.jpg" alt="" class="touxiang" />
-							<p class="DName font14">MCL专家团</p>
-						</div>
-						<div class="item" @click="mcldoct(3)">
-							<img src="@/assets/images/mclZJ.jpg" alt="" class="touxiang" />
-							<p class="DName font14">MCL医生助理</p>
+				<div class="slide" :class="{'slideUp': slide}">
+					<div class="card">
+						<div class="card_top">
+							<div class="item" @click="mcldoct(1)">
+								<img :src="DoctorImg" alt="" class="touxiang" />
+								<p class="DName font14">{{Position}}</p>
+							</div>
+							<div class="item" @click="mcldoct(2)">
+								<img src="@/assets/images/mclGW.jpg" alt="" class="touxiang" />
+								<p class="DName font14">MCL专家团</p>
+							</div>
+							<div class="item" @click="mcldoct(3)">
+								<img src="@/assets/images/mclZJ.jpg" alt="" class="touxiang" />
+								<p class="DName font14">MCL医生助理</p>
+							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="my-cell font15 margin10">
+				<div class="my-cell font15 margin10 marginTop10">
 					<div class="">专属服务对象</div>
 					<div class="yellow">{{ServicePatient}}</div>
 				</div>
 			</div>
-			<div style="position: absolute; top: 2.3rem; bottom:53px; width: 100%; border: none;">
+			<div style="position: absolute;  bottom:53px; width: 100%; border: none;" :style="{top: slide ? '1rem' : '2.3rem'}">
 				<iframe :src="`${KFURL}/login?username=${repData.ContactPhone}&userkey=${userkey}`" width="100%" style="height: 100%; border: none;" ref="kefuView"></iframe>
 			</div>
 		</div>
@@ -76,6 +78,7 @@ export default {
     docinf1: false,
     docinf2: false,
     docinf3: false,
+    slide: true,
     DoctorImg: '', // 医生图片
     doctorDefaultPic, // 医生默认图片
     Position: '', // 职位
@@ -139,14 +142,14 @@ export default {
     this.userkey = JSON.parse(localStorage.getItem('userInfo')).UserKey
   },
   mounted () {
-	this.$Indicator.loading()
+    this.$Indicator.loading()
     this.information()
     this.getupshop()
     this.getthisnf()
     this.$refs.kefuView.onload = () => {
       // 代码能执行到这里说明已经载入成功完毕了
 	  setTimeout(() => {
-			this.$Indicator.close()
+        this.$Indicator.close()
 	  }, 1000)
       // 这里是回调函数
     }
@@ -205,6 +208,7 @@ export default {
 		background: #FFF;
 		border-radius: 6px;
 		margin: 0.10rem;
+		margin-bottom: 0;
 	}
 
 	.card_top {
@@ -275,4 +279,15 @@ export default {
 		text-indent: 0.2rem;
 		line-height: 1.5;
 	}
+
+  .slide{
+		transition: max-height 0.15s ease-out;
+		overflow: hidden;
+		max-height: 150px;
+  }
+	.slideUp{
+		max-height: 0px;
+		transition: max-height 0.25s ease-in;
+	}
+
 </style>

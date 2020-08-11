@@ -70,7 +70,7 @@
 				</div>
 				<div class="middle-cell">
 					<div>
-						<div class="cell" @click="doLink(messageInfo.lbFlag == 0 ? `/diet` : `/diet?skey='${hzskey}`)">
+						<div class="cell" @click="doLink(messageInfo.lbFlag == 0 ? `/diet` : `/diet?skey=${hzskey}`)">
 							<div class="row">
 								<img src="@/assets/images/yinscf.png" style="width: 0.25rem;height: 0.25rem;" alt="">
 							</div>
