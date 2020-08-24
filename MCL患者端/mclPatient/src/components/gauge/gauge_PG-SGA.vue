@@ -697,7 +697,7 @@ export default {
         // }else{
         // 	this.$router.push(`/nuteye?id=${data.screeninginfo}`);
         // }
-        let url = `/dietarySurvey?id=${data.screeninginfo}`
+        let url = `/dietarySurvey?id=${data.screeninginfo}&DietarySurveySkey=${data.DietarySurveySkey}`
         this.$router.push(url)
       })
     }

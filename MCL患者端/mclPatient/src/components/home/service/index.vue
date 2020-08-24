@@ -2,7 +2,6 @@
 	<div style="background: #f8f8f8;">
 		<div id="body_main" style="padding-bottom: 0;padding-top:45px;">
 
-			
 			<mt-header title="服务" fixed></mt-header>
 			<div class="titlebt">
 				<h3>会员卡</h3>
@@ -25,7 +24,19 @@
 			<div class="titlebt">
 				<h3>管理套餐<router-link :to="'/service2?stat=1'"><span>查看更多</span></router-link></h3>
 			</div>
-			<div class="serv_ul">
+			<!-- 商品列表  -->
+			<div class="shop_list" style="">
+				<div class="shop_li">
+					<div class="shop_go">
+							<div class="shop_goce" slot="content">
+									<div class="content bodycont clear" slot="content">
+										<productItem v-for="(item,index) in serveList" :key="item.goodsId" :item="item" detailPage="serviceDetail" />
+									</div>
+							</div>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="serv_ul">
 				<div class="serv_list" v-for="(item,index) in tclist" :key="index" @click="cometca(item)">
 					<img v-if="item.name=='头晕'" src="@/assets/images/touyun.png" />
 					<img v-else-if="item.name=='呕吐'" src="@/assets/images/outu.png" />
@@ -36,7 +47,7 @@
 					<img v-else src="@/assets/images/tuofa.png" />
 					<p>{{item.name}}</p>
 				</div>
-			</div>
+			</div> -->
 			<div class="titlebt">
 				<h3>零售商品<router-link :to="'/service2?stat=2'"><span>查看更多</span></router-link></h3>
 			</div>
@@ -44,7 +55,7 @@
 			<div class="shop_list" style="padding-bottom: 0.5rem;">
 				<div class="shop_li">
 					<div class="shop_go">
-							<div class="shop_goce" slot="content">								
+							<div class="shop_goce" slot="content">
 								<!-- 商品列表  -->
 								<!-- <loadMore :param="param" @triggerGetList="loadData" ref="loadMoreE" :isDefaultLoading="false" style="padding-bottom: 55px;">-->
 									<div class="content bodycont clear" slot="content">
@@ -54,7 +65,6 @@
 							</div>
 						<!-- </loadMore> -->
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -67,147 +77,158 @@
 </template>
 
 <script>
-	import productItem from "@/components/common/productItem.vue"; //商品
-	import loadMore from "@/components/common/loadMore.vue"; //加载更多组件
-	import productImg from "@/assets/images/lianxikefu@2x.png";
-	export default {
-		name: "home2",
-		data: () => ({
-			//navIsFixed: false,   //nav 的定位位置
-			param: {
-				"saleorder":"",//0，销量降序;1，销量升序
-				"priceOrder":"",//0，价格降序;1，价格升序
-				"pagecount": 1,
-				"pagesize": 4,
-				"secondSubjectType":"",
-				"firstSubjectType":2
-			},
-			list: [],
-			//会员
-			qixianL: [],
-			qixianActive: 0,
-			tclist:[]
-		}),
-		methods: {
-			// 管理套餐
-			getmangetc(){
-				let url = "UserInterface/GetProductCategoryList.ashx";
-				this.$post(url).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					this.getmangetctw(data.list[0].sKey)
-				})
-			},
-			getmangetctw(skkey){
-				let url = "UserInterface/GetProductCategoryList.ashx";
-				let param={
-					firstCategorysKey: skkey,
-					pagesize: 99999999,
-					pagecount: 1
-				};
-				this.$post(url,param).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					//获取前6个
-					this.tclist=data.list.splice(0,6);
-				})
-			},
-			cometca(items){
-				this.$router.push('/service2?skedf='+items.sKey+'&stat=1');
-			},
-			//触发加载更多
-			// startLoad() {
-			// 	this.param.pagecount = 0;
-			// 	this.$refs.loadMoreE.getList();
-			// },
-			// //商品列表
-			loadData() {
-				let url = "UserInterface/GetProductList.ashx";
-				this.$post(url, this.param).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					let modelList = data.goodsList;
-					this.list = modelList;
-					//加载更多组件触发回调
-				})
-			},
-			// //重置筛选条件
-			// resetParam() {
-			// 	const {
-			// 		priceOrder,
-			// 		saleorder,
-			// 		secondSubjectType,
-			// 		firstsubjecttype
-			// 	} = JSON.parse(this.paramString)
-			// 	this.param.priceOrder = priceOrder;
-			// 	this.param.saleorder = saleorder;
-			// 	this.param.secondSubjectType = secondSubjectType;
-			// 	this.param.firstsubjecttype = firstsubjecttype;
-			// },
-			// //nav 搜索条件位置切换
-			// navPositionToggle(){
-			// 	const type_block = this.$refs.type_block;
-			// 	const {y} = type_block.getBoundingClientRect();
-			// 	if(y < 45){
-			// 		this.navIsFixed = true;	
-			// 	}else{
-			// 	   this.navIsFixed = false;		
-			// 	}
-			// },
-			
-			//服务期限的点击
-			clickQx(index,items) {
-				this.qixianActive = index;
-				this.$router.push('/yearCard?skedf='+items.skey);
-			},
-			// 获取服务期限
-			getmoney() {
-				let url = "UserInterface/ServiceTermInfo.ashx";
-				this.$post(url).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					this.qixianL=data.data;
-					this.moneys=data.data[0].Price;
-					this.skey=data.data[0].skey;
-				})
-			},
-		},
-		// activated() {
-		// 	//排除第一次执行
-		// 	if (this.list.length > 0) {
-		// 		this.$refs.loadMoreE.loading = false; //打开分页
-		// 	}
-		// 	Bus.$emit("updateShop")
-		// },
-		// deactivated() {
-		// 	this.$refs.loadMoreE.loading = true; //关闭分页
-		// },
-		// beforeRouteLeave(to, from, next) {
-		// 	// 导航离开该组件的对应路由时调用
-		// 	let keepAlive = (to.name == "classdetail") ? true : false;
-		// 	this.$route.meta.keepAlive = keepAlive;
-		// 	next()
-		// },
-		mounted() {
-			this.getmoney();
-			this.getmangetc();
-			this.loadData();
-			// this.startLoad()
-			// this.paramString = JSON.stringify(this.param);
-			// window.addEventListener("scroll",this.navPositionToggle, false)
-		},
-		destroyed(){
-			// window.removeEventListener('scroll', this.navPositionToggle, false); //去除绑定
-		},
-		components: {
-			productItem,
-			// loadMore,
-		}
-	}
+import productItem from '@/components/common/productItem.vue' // 商品
+import loadMore from '@/components/common/loadMore.vue' // 加载更多组件
+import productImg from '@/assets/images/lianxikefu@2x.png'
+export default {
+  name: 'home2',
+  data: () => ({
+    // navIsFixed: false,   //nav 的定位位置
+    param: {
+      'saleorder': '', // 0，销量降序;1，销量升序
+      'priceOrder': '', // 0，价格降序;1，价格升序
+      'pagecount': 1,
+      'pagesize': 4,
+      'secondSubjectType': '',
+      'firstSubjectType': 2
+    },
+    serveList: [],
+    list: [],
+    // 会员
+    qixianL: [],
+    qixianActive: 0,
+    tclist: []
+  }),
+  methods: {
+    // 管理套餐
+    getmangetc () {
+      let url = 'UserInterface/GetProductCategoryList.ashx'
+      this.$post(url).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.getmangetctw(data.list[0].sKey)
+      })
+    },
+    getmangetctw (skkey) {
+      let url = 'UserInterface/GetProductCategoryList.ashx'
+      let param = {
+        firstCategorysKey: skkey,
+        pagesize: 99999999,
+        pagecount: 1
+      }
+      this.$post(url, param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        // 获取前6个
+        this.tclist = data.list.splice(0, 6)
+      })
+    },
+    cometca (items) {
+      this.$router.push('/service2?skedf=' + items.sKey + '&stat=1')
+    },
+    // 触发加载更多
+    // startLoad() {
+    // 	this.param.pagecount = 0;
+    // 	this.$refs.loadMoreE.getList();
+    // },
+    // //商品列表
+    loadData (firstSubjectType) {
+      let url = 'UserInterface/GetProductList.ashx'
+      this.$post(url, {
+        ...this.param,
+        pagesize: firstSubjectType === 1 ? '6' : '4',
+        firstSubjectType: firstSubjectType
+      }).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        let modelList = data.goodsList
+        if (firstSubjectType == 1) {
+          this.serveList = modelList
+        } else if (firstSubjectType == 2) {
+          this.list = modelList
+        }
+
+        // 加载更多组件触发回调
+      })
+    },
+    // //重置筛选条件
+    // resetParam() {
+    // 	const {
+    // 		priceOrder,
+    // 		saleorder,
+    // 		secondSubjectType,
+    // 		firstsubjecttype
+    // 	} = JSON.parse(this.paramString)
+    // 	this.param.priceOrder = priceOrder;
+    // 	this.param.saleorder = saleorder;
+    // 	this.param.secondSubjectType = secondSubjectType;
+    // 	this.param.firstsubjecttype = firstsubjecttype;
+    // },
+    // //nav 搜索条件位置切换
+    // navPositionToggle(){
+    // 	const type_block = this.$refs.type_block;
+    // 	const {y} = type_block.getBoundingClientRect();
+    // 	if(y < 45){
+    // 		this.navIsFixed = true;
+    // 	}else{
+    // 	   this.navIsFixed = false;
+    // 	}
+    // },
+
+    // 服务期限的点击
+    clickQx (index, items) {
+      this.qixianActive = index
+      this.$router.push('/yearCard?skedf=' + items.skey)
+    },
+    // 获取服务期限
+    getmoney () {
+      let url = 'UserInterface/ServiceTermInfo.ashx'
+      this.$post(url).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.qixianL = data.data
+        this.moneys = data.data[0].Price
+        this.skey = data.data[0].skey
+      })
+    }
+  },
+  // activated() {
+  // 	//排除第一次执行
+  // 	if (this.list.length > 0) {
+  // 		this.$refs.loadMoreE.loading = false; //打开分页
+  // 	}
+  // 	Bus.$emit("updateShop")
+  // },
+  // deactivated() {
+  // 	this.$refs.loadMoreE.loading = true; //关闭分页
+  // },
+  // beforeRouteLeave(to, from, next) {
+  // 	// 导航离开该组件的对应路由时调用
+  // 	let keepAlive = (to.name == "classdetail") ? true : false;
+  // 	this.$route.meta.keepAlive = keepAlive;
+  // 	next()
+  // },
+  mounted () {
+    this.getmoney()
+    // this.getmangetc();
+    this.loadData(1)
+    this.loadData(2)
+    // this.startLoad()
+    // this.paramString = JSON.stringify(this.param);
+    // window.addEventListener("scroll",this.navPositionToggle, false)
+  },
+  destroyed () {
+    // window.removeEventListener('scroll', this.navPositionToggle, false); //去除绑定
+  },
+  components: {
+    productItem
+    // loadMore,
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -227,7 +248,7 @@
 			line-height: 0.44rem;
 			padding: 0 4%;
 		}
-	
+
 		.content {
 			// display: flex;
 			// justify-content: space-between;
@@ -235,7 +256,7 @@
 			text-align: center;
 			overflow: hidden;
 		}
-	
+
 		li {
 			width: 50%;
 			float: left;
@@ -271,16 +292,16 @@
 				bottom: 0;
 				margin: auto;
 			}
-	
+
 			&.active .wrap{
 				background: linear-gradient(142deg, rgba(254, 241, 221, 1) 0%, rgba(254, 206, 140, 1) 100%);
 			}
-	
+
 			&.active .yuan {
 				background: url("../../../assets/images/click_select@2x.png");
 				background-size: cover;
 			}
-	
+
 			.hui {
 				margin-top: 0.05rem;
 				color: #717479;

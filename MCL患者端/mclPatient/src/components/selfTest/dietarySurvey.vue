@@ -95,7 +95,8 @@
 				</p>
 			</div>
 		</div>
-		<div class="buttons">
+		<!-- 在线营养筛查页面跳转过来才需要显示 -->
+		<div class="buttons" v-if="$route.query.id">
 		  <mt-button type="danger" class="add_btns" size="large" @click.native="save">提交保存</mt-button>
 		</div>
 		
@@ -299,7 +300,10 @@
 				//获取早中晚加的数据
 				this.getFoodData()
 				let url = "UserInterface/InsertDietarySurvey.ashx";
-				this.$post(url, this.param).then((data) => {
+				this.$post(url, {
+					...this.param,
+					DietarySurveySkey: this.$route.query.DietarySurveySkey
+				}).then((data) => {
 					this.$Toast(data.rspdesc)
 					if (data.rspcode != 1) {
 						return;

@@ -338,7 +338,11 @@
 				let url = "UserInterface/DietPlanUpdate.ashx";
 				let foodinfoArr = []; 
 				this.dietPlanInfo.forEach((item)=>{
-					const {foodname, foodkcal, foodconsumption} = item;
+					const {foodname, foodconsumption} = item;
+					let foodkcal = item.foodkcal
+					if (item.resultObj) {
+						foodkcal = item.resultObj.foodkcal
+					}
 					foodinfoArr.push(`${foodname},${foodkcal},${foodconsumption}`)		
 				})
 				

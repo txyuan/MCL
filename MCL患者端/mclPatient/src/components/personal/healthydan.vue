@@ -14,7 +14,7 @@
 				<div class="headty_mead">
 					<ol>
 						<li>姓名：{{datasj.name}}</li>
-						<li>年龄：{{datasj.age}}</li>
+						<li>年龄：{{datasj.age}}岁</li>
 						<li>性别：{{datasj.sex}}</li>
 						<li>身高：{{datasj.height}}cm</li>
 						<li>体重：{{datasj.weight}}kg</li>
@@ -25,7 +25,7 @@
 						<li>录入日期：{{datasj.createtime}}</li>
 					</ul>
 				</div>
-				<div v-if="datasj.clinical_diagnosis && datasj.diagnosisDate && datasj.concurrent && datasj.treatment">
+				<div>
 					<p>疾病情况</p>
 					<div class="headty_mead">
 						<ul>
@@ -41,19 +41,19 @@
 						</ul>
 					</div>
 				</div>
-				<div v-if="datasj.height && datasj.weight && datasj.bmi && datasj.inspectDate && datasj.idealWeight">
+				<div>
 					<p>体格检查</p>
 					<div class="headty_mead">
 						<ul>
 							<li>身高：{{datasj.height}}cm</li>
 							<li>体重：{{datasj.weight}}kg</li>
 							<li>BMI：{{datasj.bmi}}</li>
-							<li>检查日期：{{datasj.inspectDate}}</li>
 							<li>正常范围：{{datasj.idealWeight}}</li>
+							<li>检查日期：{{datasj.inspectDate}}</li>
 						</ul>
 					</div>
 				</div>
-				<div v-if="datasj.NRS2002_01 && datasj.NRS2002_02">
+				<div>
 					<p>营养筛查</p>
 					<div class="headty_mead">
 						<ul>
@@ -61,7 +61,7 @@
 						</ul>
 					</div>
 				</div>
-				<div v-if="datasj.PGSGA_01 && datasj.PGSGA_02">
+				<div>
 					<p>营养评估</p>
 					<div class="headty_mead">
 						<ul>
@@ -70,19 +70,19 @@
 						</ul>
 					</div>
 				</div>
-				<div v-if="datasj.investigationDate && datasj.carbohydrate && datasj.energy && datasj.fat && datasj.protein">
+				<div>
 					<p>饮食调查</p>
 					<div class="headty_mead">
 						<ul>
-							<li>调查日期：{{datasj.investigationDate}}</li>
 							<li>总能量：{{datasj.carbohydrate}}Kal</li>
 							<li>碳水化合物：{{datasj.energy}}g</li>
 							<li>脂肪：{{datasj.fat}}g</li>
 							<li>蛋白质：{{datasj.protein}}g</li>
+							<li>调查日期：{{datasj.investigationDate}}</li>
 						</ul>
 					</div>
 				</div>
-				<div v-if="datasj.CartesianScore_01 && datasj.CartesianScore_02">
+				<div>
 					<p>卡氏评分</p>
 					<div class="headty_mead">
 						<ul>
@@ -90,7 +90,7 @@
 						</ul>
 					</div>
 				</div>
-				<div v-if="datasj.PatientLife01 && datasj.PatientLife02 && datasj.PatientLife03 && datasj.PatientLife04 && datasj.PatientLife05 && datasj.PatientLife06 && datasj.PatientLife07 && datasj.PatientLife08 && datasj.PatientLife09 && datasj.PatientLife10">
+				<div >
 					<p>生活调查</p>
 					<div class="headty_mead">
 						<ul>

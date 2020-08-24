@@ -3,9 +3,9 @@
   	<div id="body_main" style="padding: 0;background: #eff7f9;position: relative;">
   		<img src="@/assets/images/message2.png" alt="" style="width: 100%;"/>
   		<div class="btns">
-  			<mt-button type="primary" class="button-radio" size="large" @click.native="$router.push(`/gauge_PG_SGA`)">在线营养筛查</mt-button> 
   			<mt-button type="primary" class="theme-button button-radio" size="large" @click.native="$router.push(`/wx_Entrance/home`)">好的，知道了</mt-button>
-  		</div>
+  			<mt-button type="primary" class="button-radio" size="large" @click.native="$router.push(`/gauge_PG_SGA`)">在线营养筛查</mt-button> 
+			</div>
   		
   			
   		<!--<mt-header title="营养评估简介" fixed>

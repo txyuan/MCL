@@ -13,13 +13,13 @@
 				<div class="headty_mead">
 					<ol>
 						<li>姓名：{{datasj.name}}</li>
-						<li>年龄：{{datasj.age}}</li>
+						<li>年龄：{{datasj.age}}岁</li>
 						<li>性别：{{datasj.sex}}</li>
 					</ol>
 					<ul>
-						<li>录入日期：{{datasj.createtime}}</li>
 						<li>临床诊断：{{datasj.clinical_diagnosis}}</li>
 						<li>并发症状：{{datasj.concurrent}}</li>
+            <li>录入日期：{{datasj.createtime}}</li>
 					</ul>
 				</div>
 				<p>体重及生活方式</p>
@@ -682,7 +682,7 @@ export default {
         },
         yAxis: {
           type: 'value',
-          name: '109/L'
+          name: '10^9/L'
         },
         series: [{
           data: [],
@@ -716,7 +716,7 @@ export default {
         },
         yAxis: {
           type: 'value',
-          name: '1012/L'
+          name: '10^12/L'
         },
         series: [{
           data: [],
@@ -750,7 +750,7 @@ export default {
         },
         yAxis: {
           type: 'value',
-          name: '109/L'
+          name: '10^9/L'
         },
         series: [{
           data: [],
@@ -852,7 +852,7 @@ export default {
         },
         yAxis: {
           type: 'value',
-          name: '109/L'
+          name: '10^9/L'
         },
         series: [{
           data: [],
@@ -2116,55 +2116,55 @@ export default {
         // option1.xAxis.data = timedate1;
         // myChart1.setOption(option1);
         option2.series[0].data = indicators3
-        option2.xAxis.data = timedate1
+        option2.xAxis.data = timedate2
         myChart2.setOption(option2)
         option3.series[0].data = indicators4
-        option3.xAxis.data = timedate1
+        option3.xAxis.data = timedate3
         myChart3.setOption(option3)
         option4.series[0].data = indicators5
-        option4.xAxis.data = timedate1
+        option4.xAxis.data = timedate4
         myChart4.setOption(option4)
         // option5.series[0].data = indicators6
-        // option5.xAxis.data = timedate1
+        // option5.xAxis.data = timedate5
         // myChart5.setOption(option5)
         // option6.series[0].data = indicators7
-        // option6.xAxis.data = timedate1
+        // option6.xAxis.data = timedate6
         // myChart6.setOption(option6)
         option7.series[0].data = indicators8
-        option7.xAxis.data = timedate1
+        option7.xAxis.data = timedate8
         myChart7.setOption(option7)
         option8.series[0].data = indicators9
-        option8.xAxis.data = timedate1
+        option8.xAxis.data = timedate9
         myChart8.setOption(option8)
         // option9.series[0].data = indicators10
-        // option9.xAxis.data = timedate1
+        // option9.xAxis.data = timedate10
         // myChart9.setOption(option9)
         option10.series[0].data = indicators11
-        option10.xAxis.data = timedate1
+        option10.xAxis.data = timedate11
         myChart10.setOption(option10)
         // option11.series[0].data = indicators12
-        // option11.xAxis.data = timedate1
+        // option11.xAxis.data = timedate12
         // myChart11.setOption(option11)
         option12.series[0].data = indicators13
-        option12.xAxis.data = timedate1
+        option12.xAxis.data = timedate13
         myChart12.setOption(option12)
         // option13.series[0].data = indicators14
-        // option13.xAxis.data = timedate1
+        // option13.xAxis.data = timedate14
         // myChart13.setOption(option13)
         option14.series[0].data = indicators15
-        option14.xAxis.data = timedate1
+        option14.xAxis.data = timedate15
         myChart14.setOption(option14)
         option15.series[0].data = indicators16
-        option15.xAxis.data = timedate1
+        option15.xAxis.data = timedate16
         myChart15.setOption(option15)
         // option16.series[0].data = indicators17
-        // option16.xAxis.data = timedate1
+        // option16.xAxis.data = timedate17
         // myChart16.setOption(option16)
         // option17.series[0].data = indicators18
-        // option17.xAxis.data = timedate1
+        // option17.xAxis.data = timedate18
         // myChart17.setOption(option17)
         option18.series[0].data = indicators19
-        option18.xAxis.data = timedate1
+        option18.xAxis.data = timedate19
         myChart18.setOption(option18)
       })
     },

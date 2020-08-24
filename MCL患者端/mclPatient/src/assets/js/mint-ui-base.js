@@ -36,9 +36,9 @@ Vue.prototype.$Toast = Toast
 Vue.prototype.$MessageBox = MessageBox
 
 Vue.prototype.$Indicator = Indicator;
-Vue.prototype.$Indicator.loading = function () {
+Vue.prototype.$Indicator.loading = function (text = '加载中...') {
   this.open({
-    text: '加载中...',
+    text,
     spinnerType: 'fading-circle'
   })
 }

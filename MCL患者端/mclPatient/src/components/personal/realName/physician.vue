@@ -185,7 +185,7 @@
 			popupVisibles: false, //是否显示检查日期picker
 			sexSlot: [{
 				flex: 1,
-				values: ['手术前', '手术后', '化疗前', '化疗后', '放疗前', '放疗后', '复查'],
+				values: ['初次检查', '手术前', '手术后', '化疗前', '化疗后', '放疗前', '放疗后', '复查'],
 				className: 'slot1',
 				textAlign: 'center'
 			}],
@@ -422,18 +422,23 @@
 			//提交
 			submit() {
 				const param = this.param;
-				// if (param.inspectpre == "") {
-				// 	this.$Toast("请上传有效的检查报告图片")
-				// 	return;
-				// }
+				if (param.statecode == "") {
+					this.$Toast("请选择手术状态")
+					return;
+				}
+				if (param.inspectpre == "") {
+					this.$Toast("请上传有效的血常规检验报告单")
+					return;
+				}
 				// if (param.leavehospitalpre == "") {
-				// 	this.$Toast("请上传有效的出院报告图片")
+				// 	this.$Toast("请上传有效的上传肝肾功检验报告单")
 				// 	return;
 				// }
 				// if (param.imageinfo == "") {
 				// 	this.$Toast("请输入有效的影像资料图片")
 				// 	return;
 				// }
+				this.$Indicator.loading('上传中...');
 				//设置图片地址
 				for(let i=0; i<this.photoList.length; i++){
 					const item = this.photoList[i];
@@ -441,6 +446,7 @@
 				}
 				let url = "UserInterface/cart/ReviewManagementUpdate.ashx";
 				this.$post(url, this.param).then((data) => {
+					this.$Indicator.close();
 					this.$Toast(data.rspdesc);
 					if (data.rspcode != 1) {
 						return;

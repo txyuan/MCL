@@ -81,7 +81,7 @@ export default {
     // 渠道分享给 医生，渠道，
     roleMap: {
       role1: '1,2',
-      role2: '1,2',
+      role2: '2,1',
       role3: '',
       role4: '1,4',
       role5: '4,5,8',
