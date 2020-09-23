@@ -87,7 +87,7 @@
 		  			<!-- <p class="yellow nums"> <span class="num">69.5</span> <span class="font14">公斤</span></p> -->
 	  			</div>
 	  			<!-- <div class="chizi"></div> -->
-	  			<DLRuler :value="50" :min="0" :max="300" :onChange="changeWeight"></DLRuler>
+	  			<DLRuler :value="50.0" :min="0" :max="300" :onChange="changeWeight"></DLRuler>
 	  			<mt-button type="primary" class="theme-button" style="margin-top:0.2rem;" size="large" @click="okweigt">保存</mt-button>
 	  		</div>
 	  	</div>

@@ -1,6 +1,6 @@
 <template xmlns:v-touch="http://www.w3.org/1999/xhtml">
   <div>
-    <div style="text-align: center;color: #F78335;margin-top: 11px;margin-bottom: 24px;font-size: 0.3rem;font-weight: 600;">{{numberValue}}.0<span style="font-size: 0.18rem;">公斤</span></div>
+    <div style="text-align: center;color: #F78335;margin-top: 11px;margin-bottom: 24px;font-size: 0.3rem;font-weight: 600;">{{numberValue}}<span style="font-size: 0.18rem;">公斤</span></div>
     <div class="ruler " ref="testAA" style="border: 1px solid #B5C0CD;">
       <div class="main"
            :style="{'-webkit-transform': 'translateX(' +  mainValue + 'px)', 'width': getMainWidth+'px', position: 'relative',  left: '0px'}">
@@ -107,7 +107,8 @@
           offsetKe--;
         }
         let a = Math.abs(that.mainValue) / 20.8;
-        that.numberValue = Math.round(centerValue + a);
+        // that.numberValue = Math.round(centerValue + a);
+        that.numberValue = (centerValue + a).toFixed(1);
         if(that.numberValue >= that.max){
           that.numberValue = that.max;
           that.calcInit(that.max);
