@@ -70,7 +70,7 @@
 			<div class="person_menu">
 				<h3>我的档案</h3>
 				<div class="middle-cell">
-					
+
 					<router-link :to="'/healthydan'">
 						<div class="cell">
 							<div class="row">
@@ -95,7 +95,7 @@
 							<p class="row">效果评价</p>
 						</div>
 					</router-link>
-					
+
 					<router-link :to="'/review'">
 						<div class="cell">
 							<div class="row">
@@ -104,7 +104,7 @@
 							<p class="row">复查管理</p>
 						</div>
 					</router-link>
-					
+
 					<router-link :to="'/account'">
 						<div class="cell">
 							<div class="row">
@@ -149,7 +149,7 @@
 							<p class="row">每日签到</p>
 						</div>
 					</router-link>
-					
+
 					<router-link :to="'/personalreceivingadress'">
 						<div class="cell">
 							<div class="row">
@@ -159,7 +159,7 @@
 						</div>
 					</router-link>
 
-					
+
 				</div>
 				<div class="middle-cell">
 					<router-link to="/nowmoney">
@@ -393,7 +393,7 @@
 	.person_menu {
 		background: #fff;
 		margin-bottom: 0.17rem;
-
+    padding-bottom:0.17rem;
 		h3 {
 			font-size: 0.15rem;
 			/*background: #F9D6D6;*/
