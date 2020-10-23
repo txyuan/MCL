@@ -8,7 +8,7 @@
 	          </header-back>
 	        </div>
 		  </mt-header>
-		  
+
 		  <div class="chart marginTop10">
 			<mt-cell>
 			  <img slot="icon" :src="responceData.userImg" width="46" height="46">
@@ -18,7 +18,7 @@
 			  </div>
 			</mt-cell>
 			<p class="detail font14">{{responceData.content}}</p>
-			<p class="yellow font14">查看全文</p>
+<!--			<p class="yellow font14">查看全文</p>-->
 			<ul class="showPic">
 				<li v-for="(imgItem, imgIndex) in responceData.imgList" :key="imgIndex"><img :src="imgItem.img" width="100%"/></li>
 			</ul>
@@ -27,17 +27,17 @@
 				<img src="@/assets/images/bofang@2x.png" class="play"/>
 			</div> -->
   		</div>
-		  
+
 		  <div class="chartContent marginTop10">
 		  	<div class="titlewrap">
 		  		<div class="title font16 borderBottom"><img src="@/assets/images/评论备份2@2x.png" width="18"/> 全部评论</div>
 		  	</div>
-		  	
+
 		  	<div class="chart-list">
 				<div v-if="responceData.commentList.length == 0">
 					<p class="text-center font14" style="padding-top: 0.15rem;">暂无评论</p>
 				</div>
-				
+
 				<div v-for="(item, index) in responceData.commentList" :key="index">
 					<mt-cell @click.native="clickComment(item)">
 					  <img slot="icon" :src="item.userImg" width="32" height="32">
@@ -50,7 +50,7 @@
 					  </div>
 					</mt-cell>
 					<p class="chartNei font14">{{item.userComment}}</p>
-					
+
 					<div class="huifu font14" v-if="item.commentReplyList.length>0">
 						<div class="inner">
 							<p v-for="(reply, i) in item.commentReplyList" :key="i"  @click="clickComment(reply)">
@@ -66,9 +66,9 @@
 				</div>
 			</div>
 		</div>
-		  
+
   	</div>
-  	
+
   	<div class="fix_bottom">
   		<div class="input-group">
   			<img src="@/assets/images/edit@2x.png" width="15"/>
@@ -87,7 +87,7 @@
         name: "chartDetail",
         data:()=>({
 			dynamicKey:"",  //详情key
-			
+
 			responceData:{
 				nickname: "",   //用户昵称
 				userImg:"",  //用户头像
@@ -98,12 +98,12 @@
 				praiseCount:"",  //好评数量
 				followCount:""   //关注数量
 			},
-			
+
 			isreplyStatus: false,  //是否是回复状态
 			replyKey:"",  //回复评论key
 			commentPlaceholder:"说点什么吧！",  //评论的placeholder
 			commentContent:"",  //评论的内容
-			
+
         }),
         methods:{
 			//获取页面信息
@@ -117,7 +117,7 @@
 					this.responceData = data;
 				})
 			},
-			
+
 			//点击评论事件
 			clickComment(item){
 				//回复状态
@@ -126,7 +126,7 @@
 				this.commentPlaceholder = `回复${item.userNickname}: `;
 				return this.$refs.commentInput.click();
 			},
-			
+
 			//提交评论内容
 			submitComment(){
 				if(this.commentContent == ""){
@@ -174,14 +174,14 @@
 					//清空评论
 					this.commentContent = "";
 					//回复状态
-					this.isreplyStatus = false; 
+					this.isreplyStatus = false;
 					this.replyKey = "";
 					this.commentPlaceholder = "说点什么吧！";
 					//更新详情数据
 					this.getInfo();
 				})
 			},
-			
+
 			//动态好评
 			doPraise(item){
 				const praiseStatus = (item.praiseStatus == 1 ? 0 : 1);
@@ -200,7 +200,7 @@
 					item.praiseStatus = praiseStatus;
 				})
 			},
-			
+
 			//动态关注
 			doFollow(item){
 				const followStatus = (item.followStatus == 1 ? 0 : 1);
@@ -219,7 +219,7 @@
 					item.followStatus = followStatus;
 				})
 			},
-			
+
 			//评论关注
 			doCommentFollow(item){
 				const followStatus = (item.followStatus == 1 ? 0 : 1);
@@ -236,7 +236,7 @@
 					item.followStatus = followStatus;
 				})
 			},
-			
+
         },
 		mounted: function(){
 			//页面详情key
@@ -271,7 +271,7 @@
   .content .chart:nth-of-type(2){
   	padding-top: 0;
   }
-  
+
   .education img{
   	border-radius: 5px;
   }
@@ -306,7 +306,7 @@
   		margin: auto;
   	}
   }
-  
+
   .bar>*{
   	display: inline-block;
   	float: left;
@@ -324,29 +324,29 @@
   	&>.xin.active{
   		background-image: url("../../assets/images/心备份@2x.png");
   	}
-  	
+
   	&>.pinlun{
   		background-image: url("../../assets/images/评论备份2@2x.png");
   	}
   	&>.pinlun.active{
   		background-image: url("../../assets/images/评论备份2@2x.png");
   	}
-  	
+
   	&>.xing{
   		background-image: url("../../assets/images/星星(1)@2x.png");
   	}
   	&>.xing.active{
   		background-image: url("../../assets/images/星星(1)备份@2x.png");
   	}
-  	
+
   	&>.share{
   		float: right;
   		margin-right: 0;
   		background-image: url("../../assets/images/分享备份@2x.png");
   	}
-  	
+
   }
-  
+
   .chartContent{
   	background: #FFFFFF;
   }
@@ -363,7 +363,7 @@
   		background-image: url("../../assets/images/心备份@2x.png");
   	}
   }
-  
+
   .chartNei {
   	margin-bottom: 0.10rem;
   	padding-left: 37px;
@@ -375,7 +375,7 @@
   		background: #FAFAFA;
   	}
   }
-  
+
   .fix_bottom{
   	height: 0.40rem;
   	padding: 0 0.15rem;
@@ -417,7 +417,7 @@
   	.icons span.xing.active{
   		background-image: url("../../assets/images/星星(1)备份@2x.png");
   	}
-  	
+
   }
 </style>
 
