@@ -15,9 +15,9 @@
 			  <div slot="title" class="titleWrap">
 				<span class="mint-cell-text">{{responceData.nickname}}</span>
 				<span class="mint-cell-label font12 huiFont99">{{responceData.createTime}}</span>
+          <p class="detail font14">{{responceData.content}}</p>
 			  </div>
 			</mt-cell>
-			<p class="detail font14">{{responceData.content}}</p>
 <!--			<p class="yellow font14">查看全文</p>-->
 			<ul class="showPic">
 				<li v-for="(imgItem, imgIndex) in responceData.imgList" :key="imgIndex"><img :src="imgItem.img" width="100%"/></li>
@@ -40,7 +40,7 @@
 
 				<div v-for="(item, index) in responceData.commentList" :key="index">
 					<mt-cell @click.native="clickComment(item)">
-					  <img slot="icon" :src="item.userImg" width="32" height="32">
+					  <img slot="icon" :src="item.userImg" class="headPortraits" width="32" height="32">
 					  <div slot="title" class="titleWrap">
 						<span class="mint-cell-text">{{item.userNickname}}</span>
 						<span class="mint-cell-label font12 huiFont99">{{item.commentTime}}</span>
@@ -248,11 +248,32 @@
 
 <style scoped lang="scss">
 	.titleWrap{
-  	display: inline-block;
-  	vertical-align: middle;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 50px;
+    padding-top: 2px;
+    span.mint-cell-text,span.mint-cell-label{
+    display: inline-block;
+    line-height: 23px;
+      margin-top: 0;
   }
+  }
+  .headPortrait{
+    width: 46px;
+    height: 46px;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .headPortraits{
+       width: 32px;
+       height: 32px;
+       position: absolute;
+       left: 10px;
+     }
   .titlewrap{
   	padding-left: 0.15rem;
+
   }
   .title{
   	line-height: 0.48rem;
@@ -267,7 +288,7 @@
   	padding: 0.15rem;
   }
   .education{padding-top: 0;}
-  .chart{padding-bottom: 0;}
+  .chart{ }
   .content .chart:nth-of-type(2){
   	padding-top: 0;
   }
@@ -276,17 +297,27 @@
   	border-radius: 5px;
   }
   .chart .detail{
-  	padding: 0.05rem 0;
+    padding: 0.025rem 0;
+    line-height: 20px;
+    color: #666;
   }
   .showPic{
-  	margin: 0.1rem 0;
+  	margin: 0.1rem 0 0.1rem 46px;
   	display: flex;
-  	justify-content: space-between;
-  	li{
-  		width: 31%;
-  	}
+  	justify-content: flex-start;
+    li{
+      width: 32%;
+      margin-right: 2%;
+    }
+    li:last-child{
+      margin-right: 0px;
+    }
   	img{
-  		border-radius: 5px;
+      border-radius: 5px;
+      -o-object-fit: cover;
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
   	}
   }
   .showVideo{
@@ -365,8 +396,11 @@
   }
 
   .chartNei {
-  	margin-bottom: 0.10rem;
-  	padding-left: 37px;
+    margin-bottom: 0.10rem;
+    padding-left: 50px;
+    word-break: break-word;
+    color: #666;
+    line-height: 20px;
   }
   .huifu{
   	padding-left: 37px;
@@ -399,9 +433,11 @@
   		display: inline-block;
   		background: url("../../assets/images/心@2x.png") no-repeat 0.02rem center;
   		background-size: 0.15rem;
+			padding-left: 0.22rem;
   		height: 0.15rem;
   		line-height: 0.15rem;
   		margin-top: 0.12rem;
+      color: #666;
       font-weight: 500;
   	}
   	.icons span.xin{
