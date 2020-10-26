@@ -11,7 +11,6 @@
 
 		  <div class="chart marginTop10">
 			<mt-cell>
-			  <img slot="icon" :src="responceData.userImg" width="46" height="46">
 			  <div slot="title" class="titleWrap">
 				<span class="mint-cell-text">{{responceData.nickname}}</span>
 				<span class="mint-cell-label font12 huiFont99">{{responceData.createTime}}</span>
@@ -399,10 +398,10 @@
   		display: inline-block;
   		background: url("../../assets/images/心@2x.png") no-repeat 0.02rem center;
   		background-size: 0.15rem;
-			padding-left: 0.20rem;
   		height: 0.15rem;
   		line-height: 0.15rem;
   		margin-top: 0.12rem;
+      font-weight: 500;
   	}
   	.icons span.xin{
   		margin-right: 0.15rem;

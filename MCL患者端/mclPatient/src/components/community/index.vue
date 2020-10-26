@@ -2,24 +2,24 @@
   <div class="community-root">
     <div id="body_main" style="padding-top: 88px;">
   		<mt-header title="社区" fixed> </mt-header>
-		  
+
 		  <!-- mt-navbar -->
 		  <div id="navbar" class="fix_top" style="top: 43px;">
 		    <mt-navbar v-model="ABflag">
 		      <mt-tab-item v-for="(item,index) in navbarList" :key="index" :class="(ABflag == item.type)&&'is-selected'" @click.native="toggleType(item)"><p>{{item.name}}</p></mt-tab-item>
 		    </mt-navbar>
 		  </div>
-		  
+
 		  <!-- 内容 -->
 		  <div class="neirong">
-		  	
+
 		  	<!-- 发布按钮 -->
 		  	<div class="addPublic">
 		  		<router-link to="/publish">
 		  			<img src="@/assets/images/fabu@2x.png" width="60"/>
 		  		</router-link>
 		  	</div>
-			
+
 		  	<loadMore :param="param" @triggerGetList="getList" ref="loadMore">
 		  		<div slot="content">
 					<div class="content" v-show="ABflag == 1">
@@ -29,18 +29,18 @@
 								<img src="@/assets/images/位图@2x.png" width="100%"/>
 							</div>
 						</router-link>
-						
+
 						<div class="chart marginTop10" v-for="(item, index) in dynamicList" :key="index">
 							<div class="title font16" v-if="index == 0">所有动态</div>
 							<mt-cell>
-							  <img slot="icon" :src="item.userImg" width="46" height="46">
+                <img slot="icon" :src="item.userImg"  class="headPortrait">
 							  <div slot="title" class="titleWrap">
 								<span class="mint-cell-text">{{item.nickname}}</span>
 								<span class="mint-cell-label font12 huiFont99">{{item.createTime}}</span>
+                  <router-link tag="p" :to="`/chartDetail?id=${item.sKey}`" class="yellow font14">查看全文</router-link>
+                  <p class="detail font14">{{item.content}}</p>
 							  </div>
 							</mt-cell>
-							<p class="detail font14">{{item.content}}</p>
-							<router-link tag="p" :to="`/chartDetail?id=${item.sKey}`" class="yellow font14">查看全文</router-link>
 							<ul class="showPic">
 								<li v-for="(imgItem, imgIndex) in item.imgList" :key="imgIndex"><img :src="imgItem.img" width="100%"/></li>
 							</ul>
@@ -50,13 +50,13 @@
 							</div> -->
 							<div class="bar clear">
 								<div class="xin" :class="{'active': item.followStatus == 1}" @click="doFollow(item)">{{item.followCount}}</div>
-								<div class="pinlun">{{item.commentCount}}</div>
+							 <router-link tag="div" :to="`/chartDetail?id=${item.sKey}`" class="pinlun">{{item.commentCount}}</router-link>
 								<div class="xing" :class="{'active': item.praiseStatus == 1}" @click="doPraise(item)">{{item.praiseCount}}</div>
-								<div class="share">&nbsp;</div>
+<!--								<div class="share">&nbsp;</div>-->
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="content" v-show="ABflag == 2">
 						<router-link  v-for="(item, index) in activeList" :key="index" tag="div" :to="`/activetyDetail?id=${item.acskey}`">
 							<div class="activity marginTop10">
@@ -72,9 +72,9 @@
 								</div>
 							</div>
 						</router-link>
-						
-					</div>	
-					
+
+					</div>
+
 					<div class="content" v-show="ABflag == 3">
 						<div class="activity marginTop10">
 							<div class="item margin10" v-for="(item, index) in caseList" :key="index">
@@ -89,9 +89,9 @@
 							</div>
 						</div>
 					</div>
-		  	
+
 					<div class="content" v-show="ABflag == 4">
-						
+
 						<div class="chart marginTop10" v-for="(item, index) in myDynamicList" :key="index">
 							<div class="title font16" v-if="index == 0">我的所有动态</div>
 							<mt-cell>
@@ -117,17 +117,19 @@
 							</div> -->
 							<div class="bar clear">
 								<div class="xin" :class="{'active': item.followStatus == 1}" @click="doFollow(item)">{{item.followCount}}</div>
-								<div class="pinlun">{{item.commentCount}}</div>
+
+                <router-link tag="div" :to="`/chartDetail?id=${item.sKey}`" class="pinlun">{{item.commentCount}}</router-link>
+<!--                <div class="pinlun">{{item.commentCount}}</div>-->
 								<div class="xing" :class="{'active': item.praiseStatus == 1}" @click="doPraise(item)">{{item.praiseCount}}</div>
-								<div class="share">&nbsp;</div>
+<!--								<div class="share">&nbsp;</div>-->
 							</div>
 						</div>
 					</div>
 				</div>
-			</loadMore>		
-			
+			</loadMore>
+
 		  </div>
-    </div>  	
+    </div>
   </div>
 </template>
 
@@ -251,7 +253,7 @@
 				}
 			  })
 			},
-			
+
 			//动态好评
 			doPraise(item){
 				const praiseStatus = (item.praiseStatus == 1 ? 0 : 1);
@@ -270,7 +272,7 @@
 					item.praiseStatus = praiseStatus;
 				})
 			},
-			
+
 			//动态关注
 			doFollow(item){
 				const followStatus = (item.followStatus == 1 ? 0 : 1);
@@ -289,7 +291,7 @@
 					item.followStatus = followStatus;
 				})
 			},
-			
+
 			//删除动态
 			delDynamic(item, index){
 				let param = {
@@ -315,6 +317,19 @@
   .titleWrap{
   	display: inline-block;
   	vertical-align: middle;
+    padding:2px 2px 2px 50px;
+    span.mint-cell-text,span.mint-cell-label{
+      display: inline-block;
+      line-height: 23px;
+      margin-top: 0;
+    }
+    .yellow{
+    right: 2px;
+    position: absolute;
+    top: 2px;
+    line-height: 23px;
+  }
+
   }
   .title{
   	line-height: 0.48rem;
@@ -332,19 +347,30 @@
   	padding: 0.15rem;
   }
   .education{padding-top: 0;}
-  .chart{padding-bottom: 0;}
+  .chart{
+     padding-bottom: 0;
+    .headPortrait{
+      width: 46px;
+      height: 46px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }}
   .content .chart:nth-of-type(2){
   	padding-top: 0;
   }
-  
+
   .education img{
   	border-radius: 5px;
   }
   .chart .detail{
-  	padding: 0.05rem 0;
+    padding: 0.025rem 0;
+    line-height: 21px;
+    color: #666;
+    max-height: 36px;
   }
   .showPic{
-  	margin: 0.1rem 0;
+    margin: 0.1rem 0 0.1rem 46px;
   	display: flex;
   	justify-content: flex-start;
   	li{
@@ -356,6 +382,9 @@
 	}
   	img{
   		border-radius: 5px;
+      object-fit:cover;
+      height: 100%;
+      width: 100%;
   	}
   }
   .showVideo{
@@ -375,42 +404,43 @@
   		margin: auto;
   	}
   }
-  
+
   .bar>*{
   	display: inline-block;
   	float: left;
-  	padding-left: 0.20rem;
-  	margin-right: 0.1rem;
+  	padding-left: 0.23rem;
+  	margin-right: 0.12rem;
   	background: url("../../assets/images/心@2x.png") no-repeat 0.02rem center;
   	background-size: 0.15rem;
   	font-size: 0.14rem;
+    color: #666;
   }
   .bar{
-  	padding: 0.15rem 0;
+  	padding: 0.05rem 0 0.15rem 46px;
   	&>.xin{
   		background-image: url("../../assets/images/心@2x.png");
   	}
   	&>.xin.active{
   		background-image: url("../../assets/images/心备份@2x.png");
   	}
-  	
+
   	&>.pinlun{
   		background-image: url("../../assets/images/评论备份2@2x.png");
   	}
-  	
+
   	&>.xing{
   		background-image: url("../../assets/images/星星(1)@2x.png");
   	}
   	&>.xing.active{
   		background-image: url("../../assets/images/星星(1)备份@2x.png");
   	}
-  	
+
   	&>.share{
   		float: right;
   		margin-right: 0;
   		background-image: url("../../assets/images/分享备份@2x.png");
   	}
-  	
+
   }
   /*活动*/
   .activity{
