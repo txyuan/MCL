@@ -11,6 +11,7 @@
 
 		  <div class="chart marginTop10">
 			<mt-cell>
+			  <img slot="icon" :src="responceData.userImg" class="headPortrait" width="46" height="46">
 			  <div slot="title" class="titleWrap">
 				<span class="mint-cell-text">{{responceData.nickname}}</span>
 				<span class="mint-cell-label font12 huiFont99">{{responceData.createTime}}</span>
