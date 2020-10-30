@@ -27,13 +27,17 @@
 							<span class="greens">查看报告</span>
 						</router-link>
 					</div>-->
-					
+
 					<div class="rev_list" v-for="(item,index) in list" :key="index">
-						<div class="rev_lilf">
-							<p>{{item.name}}</p>
+						<div class="rev_lilfc">
+							<div class="rev_lilf">
+								<p>{{item.name}}</p>
+							</div>
+							<label>{{item.CreateTime}}</label>
+							<span class="greens">{{item.Booking_status}}</span>
 						</div>
-						<label>{{item.CreateTime}}</label>
-						<span class="greens">{{item.Booking_status}}</span>
+
+						<div class="rev_other">{{item.other}}</div>
 					</div>
 				</div>
 			</loadMore>
@@ -42,48 +46,48 @@
 </template>
 
 <script>
-	import loadMore from "@/components/common/loadMore.vue"; //加载更多组件
-	export default {
-		name: "appointment",
-		data: () => ({
-			param: {
-				pagesize: 10,
-				pagecount: 0
-			},
-			list: [],
-		}),
-		methods: {
-			//获取列表
-			getList(success) {
-				let url = "UserInterface/getReviewthebooking.ashx";
-				this.$post(url, this.param).then((data) => {
-					if(data.rspcode != 1) {
-						return;
-					}
-					let modelList = data.data;
-					if(this.param.pagecount == 1) {
-						this.list = [...modelList];
-					} else {
-						this.list = [...this.list, ...modelList]
-					}
-					//加载更多组件触发回调
-					if(success) {
-						success(modelList, this.list)
-					}
-				})
-			},
-		},
-		components: {
-			loadMore
-		}
-	}
+import loadMore from '@/components/common/loadMore.vue' // 加载更多组件
+export default {
+  name: 'appointment',
+  data: () => ({
+    param: {
+      pagesize: 10,
+      pagecount: 0
+    },
+    list: []
+  }),
+  methods: {
+    // 获取列表
+    getList (success) {
+      let url = 'UserInterface/getReviewthebooking.ashx'
+      this.$post(url, this.param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        let modelList = data.data
+        if (this.param.pagecount == 1) {
+          this.list = [...modelList]
+        } else {
+          this.list = [...this.list, ...modelList]
+        }
+        // 加载更多组件触发回调
+        if (success) {
+          success(modelList, this.list)
+        }
+      })
+    }
+  },
+  components: {
+    loadMore
+  }
+}
 </script>
 
 <style scoped lang="scss">
 	.page_btn {
 		padding: 0.25rem;
 	}
-	
+
 	.rev_fuc {
 		width: 100%;
 		background: #fff;
@@ -99,41 +103,46 @@
 			padding: 0.13rem 3% 0.15rem 4%;
 			border-bottom: 1px solid #eee;
 			overflow: hidden;
-			.rev_lilf {
-				/*float: left;
-				width: 70%;*/
-				p {
-					color: #333333;
-					font-size: 0.14rem;
+			.rev_lilfc{
+				// width: 100%;
+				// overflow: hidden;
+				.rev_lilf {
+					/*float: left;
+					width: 70%;*/
+					p {
+						color: #333333;
+						font-size: 0.14rem;
+					}
+					label {
+						color: #666;
+						display: block;
+						margin-top: 0.06rem;
+						font-size: 0.12rem;
+					}
 				}
-				label {
-					color: #666;
+				span {
+					/*float: right;*/
+					height: 0.28rem;
+					padding: 0 0.14rem;
 					display: block;
-					margin-top: 0.06rem;
-					font-size: 0.12rem;
+					background: #F78335;
+					color: #fff;
+					line-height: 0.28rem;
+					font-size: 0.14rem;
+					border-radius: 0.14rem;
+					/*margin-top: 0.08rem;*/
+					&.greens {
+						background: #4D9C30;
+					}
+					&.bluue {
+						background: #6358F4;
+					}
 				}
 			}
-			span {
-				/*float: right;*/
-				height: 0.28rem;
-				padding: 0 0.14rem;
-				display: block;
-				background: #F78335;
-				color: #fff;
-				line-height: 0.28rem;
-				font-size: 0.14rem;
-				border-radius: 0.14rem;
-				/*margin-top: 0.08rem;*/
-				&.greens {
-					background: #4D9C30;
-				}
-				&.bluue {
-					background: #6358F4;
-				}
-			}
+
 		}
-		
-		.rev_list{
+
+		.rev_lilfc{
 			display: flex;
 			justify-content: space-between;
 			align-content: center;
@@ -141,6 +150,10 @@
 				margin-top: 0.08rem;
 			}
 		}
-		
+		.rev_other{
+			font-size: 0.13rem;
+			color: #666;
+			padding-top: 0.06rem;
+		}
 	}
 </style>

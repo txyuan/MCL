@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="fix_top">
-			<mt-header title="我的采购" class="borderBottom">
+			<mt-header title="我的订单" class="borderBottom">
 				<div slot="left">
 					<router-link to="/wx_Entrance/personal" style="color: initial;">
 						<mt-button icon="back"></mt-button>
@@ -91,203 +91,203 @@
 </template>
 
 <script>
-	import loadMore from "@/components/common/loadMore.vue"; //加载更多组件
-	import productItem from "./../myCollage/productItem.vue"; //商品列表
-	export default {
-		name: "index",
-		data: () => ({
-			// selected:"",
-			hideadress: false,
-			listadres: [],
-			isactv: 0,
-			selected: "tab-container1",
-			tabs: [{
-				name: "全部",
-				type: "-1"
-			}, {
-				name: "待发货",
-				type: "0"
-			}, {
-				name: "已发货",
-				type: "1"
-			}, {
-				name: "已收货",
-				type: "2"
-			}], //
-			filterActive: "0",
-			orderkey: '', //提货使用到的商品key
+import loadMore from '@/components/common/loadMore.vue' // 加载更多组件
+import productItem from './../myCollage/productItem.vue' // 商品列表
+export default {
+  name: 'index',
+  data: () => ({
+    // selected:"",
+    hideadress: false,
+    listadres: [],
+    isactv: 0,
+    selected: 'tab-container1',
+    tabs: [{
+      name: '全部',
+      type: '-1'
+    }, {
+      name: '待发货',
+      type: '0'
+    }, {
+      name: '已发货',
+      type: '1'
+    }, {
+      name: '已收货',
+      type: '2'
+    }], //
+    filterActive: '0',
+    orderkey: '', // 提货使用到的商品key
 
-			param: {
-				pagesize: 10,
-				pagecount: 0,
-				status: "-1",
-//				orderType: -1
-			},
-			list: [],
-		}),
-		methods: {
-			tab(val) {
-				this.$Indicator.loading();
-				this.param.status = val;
-				this.param.pagecount = 0;
-				this.$refs.loadMoreE.getList(); //触发加载更多
-				setTimeout(() => {
-					this.$Indicator.close();
-				}, 200)
-			},
-			//所得商品列表
-			shoplist(success) {
-				let url = "UserInterface/ProductOrderDetailInfoList.ashx";
-				if (this.param.pagecount == 1) {
-					this.list = [];
-				}
-				this.$post(url, this.param).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					let modelList = data.goodsList;
-					this.list = [...this.list, ...modelList]
-					//加载更多组件触发回调
-					if (success) {
-						success(modelList, this.list)
-					}
-				})
-			},
-			upshop(item) {
-				this.getAdrList();
-				this.hideadress = true;
-				this.orderkey = item.orderId;
-			},
-			okupshop() {
-				let url = "UserInterface/order/UpdateOrderAddressInfo.ashx";
-				let param = {
-					orderkey: this.orderkey,
-					addresskey: this.adreskey
-				};
-				this.$post(url, param).then((data) => {
-					if(data.rspcode != 1) {
-						this.$Toast("提货失败！");
-						return;
-					}
-					this.$Toast("提货成功！");
-					this.hideadress = false;
-					this.$Indicator.loading();
-					this.param.pagecount = 0;
-					this.$refs.loadMoreE.getList(); //触发加载更多
-					setTimeout(() => {
-						this.$Indicator.close();
-					}, 200)
-				})
-			},
-			//隐藏地址
-			hideadrs() {
-				this.hideadress = false;
-			},
-			edit(item) {
-				this.$router.push(`/personaladdadress/edit?skey=${item.sKey}`)
-			},
-			//选择地址
-			setDefaultAdr(index, skey) {
-				this.isactv = index;
-				this.adreskey = skey;
-			},
-			//获取地址列表
-			getAdrList() {
-				let url = "UserInterface/GetUserAddressList.ashx";
-				let param = {
-					"PageSize": 100,
-					"PageCount": 1,
-					"OrderBy": 0
-				};
-				this.$post(url, param).then((data) => {
-					if(data.rspcode != 1) {
-						return;
-					}
-					let modelList = data.VUserAddressInfo;
-					this.listadres = [...modelList];
-					for(var i in modelList) {
-						if(modelList[i].isDefault == 1) {
-							this.isactv = i;
-							this.adreskey = modelList[i].sKey;
-						}
-					}
-				})
-			},
-			// 取消订单
-			delmoy(item, protype) {
-				this.$Indicator.loading();
-				let url = "UserInterface/DeleteOrderInfo.ashx";
-				let param = {
-					orderskey: item.orderId
-				}
-				this.$post(url, param).then((data) => {
-					this.$Indicator.close();
-					if (data.rspcode != 1) {
-						this.$Toast(data.rspdesc);
-						return;
-					}
-					this.$Toast("删除订单成功");
-					this.tab(this.param.status);
-				})
-			},
-			//  确认收货
-			shopsh(item) {
-				this.$Indicator.loading();
-				let url = "UserInterface/order/ConfirmOrder.ashx";
-				let param = {
-					sKey: item.orderId
-				}
-				this.$post(url, param).then((data) => {
-					this.$Indicator.close();
-					if (data.rspCode != 1) {
-						this.$Toast(data.rspdesc);
-						return;
-					}
-					this.$Toast("确认收货成功");
-					this.tab(this.param.status);
-				})
-			},
-			filterToggleFn(type) {
-				var $mark = this.$refs.mark;
-				$mark.style.display = "none"
-				if(type) {
-					$mark.style.display = "block"
-				}
-			},
-			filterActiveFn(index, types) {
-				this.filterActive = index;
-				this.param.orderType = types;
-				this.$Indicator.loading();
-				this.param.pagecount = 0;
-				this.$refs.loadMoreE.getList(); //触发加载更多
-				setTimeout(() => {
-					this.$Indicator.close();
-				}, 200)
-			}
-		},
-		mounted() {
-			let type = this.$route.query.type;
-			if(type) {
-				this.filterList.forEach((item, index) => {
-					if(type == item.types) {
-						this.filterActiveFn(index, item.types)
-					}
-				})
-			}
-		},
-		beforeRouteLeave(to, from, next) {
-			//不能返回支付成功页面
-			if(to.name == "panicBuyingAreaPaySuccess") {
-				next("/wx_Entrance/personal")
-				return;
-			}
-			next()
-		},
-		components: {
-			productItem,
-			loadMore
-		}
-	}
+    param: {
+      pagesize: 10,
+      pagecount: 0,
+      status: '-1'
+      //				orderType: -1
+    },
+    list: []
+  }),
+  methods: {
+    tab (val) {
+      this.$Indicator.loading()
+      this.param.status = val
+      this.param.pagecount = 0
+      this.$refs.loadMoreE.getList() // 触发加载更多
+      setTimeout(() => {
+        this.$Indicator.close()
+      }, 200)
+    },
+    // 所得商品列表
+    shoplist (success) {
+      let url = 'UserInterface/ProductOrderDetailInfoList.ashx'
+      if (this.param.pagecount == 1) {
+        this.list = []
+      }
+      this.$post(url, this.param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        let modelList = data.goodsList
+        this.list = [...this.list, ...modelList]
+        // 加载更多组件触发回调
+        if (success) {
+          success(modelList, this.list)
+        }
+      })
+    },
+    upshop (item) {
+      this.getAdrList()
+      this.hideadress = true
+      this.orderkey = item.orderId
+    },
+    okupshop () {
+      let url = 'UserInterface/order/UpdateOrderAddressInfo.ashx'
+      let param = {
+        orderkey: this.orderkey,
+        addresskey: this.adreskey
+      }
+      this.$post(url, param).then((data) => {
+        if (data.rspcode != 1) {
+          this.$Toast('提货失败！')
+          return
+        }
+        this.$Toast('提货成功！')
+        this.hideadress = false
+        this.$Indicator.loading()
+        this.param.pagecount = 0
+        this.$refs.loadMoreE.getList() // 触发加载更多
+        setTimeout(() => {
+          this.$Indicator.close()
+        }, 200)
+      })
+    },
+    // 隐藏地址
+    hideadrs () {
+      this.hideadress = false
+    },
+    edit (item) {
+      this.$router.push(`/personaladdadress/edit?skey=${item.sKey}`)
+    },
+    // 选择地址
+    setDefaultAdr (index, skey) {
+      this.isactv = index
+      this.adreskey = skey
+    },
+    // 获取地址列表
+    getAdrList () {
+      let url = 'UserInterface/GetUserAddressList.ashx'
+      let param = {
+        'PageSize': 100,
+        'PageCount': 1,
+        'OrderBy': 0
+      }
+      this.$post(url, param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        let modelList = data.VUserAddressInfo
+        this.listadres = [...modelList]
+        for (var i in modelList) {
+          if (modelList[i].isDefault == 1) {
+            this.isactv = i
+            this.adreskey = modelList[i].sKey
+          }
+        }
+      })
+    },
+    // 取消订单
+    delmoy (item, protype) {
+      this.$Indicator.loading()
+      let url = 'UserInterface/DeleteOrderInfo.ashx'
+      let param = {
+        orderskey: item.orderId
+      }
+      this.$post(url, param).then((data) => {
+        this.$Indicator.close()
+        if (data.rspcode != 1) {
+          this.$Toast(data.rspdesc)
+          return
+        }
+        this.$Toast('删除订单成功')
+        this.tab(this.param.status)
+      })
+    },
+    //  确认收货
+    shopsh (item) {
+      this.$Indicator.loading()
+      let url = 'UserInterface/order/ConfirmOrder.ashx'
+      let param = {
+        sKey: item.orderId
+      }
+      this.$post(url, param).then((data) => {
+        this.$Indicator.close()
+        if (data.rspCode != 1) {
+          this.$Toast(data.rspdesc)
+          return
+        }
+        this.$Toast('确认收货成功')
+        this.tab(this.param.status)
+      })
+    },
+    filterToggleFn (type) {
+      var $mark = this.$refs.mark
+      $mark.style.display = 'none'
+      if (type) {
+        $mark.style.display = 'block'
+      }
+    },
+    filterActiveFn (index, types) {
+      this.filterActive = index
+      this.param.orderType = types
+      this.$Indicator.loading()
+      this.param.pagecount = 0
+      this.$refs.loadMoreE.getList() // 触发加载更多
+      setTimeout(() => {
+        this.$Indicator.close()
+      }, 200)
+    }
+  },
+  mounted () {
+    let type = this.$route.query.type
+    if (type) {
+      this.filterList.forEach((item, index) => {
+        if (type == item.types) {
+          this.filterActiveFn(index, item.types)
+        }
+      })
+    }
+  },
+  beforeRouteLeave (to, from, next) {
+    // 不能返回支付成功页面
+    if (to.name == 'panicBuyingAreaPaySuccess') {
+      next('/wx_Entrance/personal')
+      return
+    }
+    next()
+  },
+  components: {
+    productItem,
+    loadMore
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -315,7 +315,7 @@
 			border-radius: 2px;
 		}
 	}
-	
+
 	.foot {
 		margin-top: 0.08rem;
 		display: flex;
@@ -362,13 +362,13 @@
 			white-space: normal;
 		}
 	}
-	
+
 	.shaixuan {
 		height: 0.2rem;
 		width: 0.2rem;
 		margin-top: 0.08rem;
 	}
-	
+
 	.myc_adress {
 		z-index: 99999;
 		width: 100%;
@@ -378,7 +378,7 @@
 		left: 0;
 		background: rgba(000, 000, 000, 0.5);
 	}
-	
+
 	.myc_cadress {
 		width: 100%;
 		height: 4.6rem;
@@ -387,21 +387,21 @@
 		left: 0;
 		bottom: 0;
 	}
-	
+
 	.myc_chose {
 		width: 100%;
 		height: 0.44rem;
 		border-bottom: 1px solid #EEEEEE;
 		position: relative;
 	}
-	
+
 	.myc_chose p {
 		text-align: center;
 		line-height: 0.45rem;
 		font-size: 0.15rem;
 		color: #666;
 	}
-	
+
 	.myc_chose span {
 		display: block;
 		width: 0.2rem;
@@ -412,12 +412,12 @@
 		background: url("https://resource.jtsc.club/bianji_car_quxiao@2x.png") no-repeat center center;
 		background-size: 0.14rem 0.14rem;
 	}
-	
+
 	.myc_adul {
 		height: 3.4rem;
 		overflow-y: auto;
 	}
-	
+
 	.myc_adlist {
 		overflow: hidden;
 		height: 0.7rem;
@@ -425,7 +425,7 @@
 		background: url("https://resource.jtsc.club/jiantou_right_h@2x.png") no-repeat 97% center;
 		background-size: 0.24rem 0.24rem;
 	}
-	
+
 	.myc_adlist .myc_actv {
 		width: 0.44rem;
 		height: 0.7rem;
@@ -434,24 +434,24 @@
 		background: url("https://resource.jtsc.club/select@2x.png") no-repeat center center;
 		background-size: 0.18rem 0.18rem;
 	}
-	
+
 	.myc_adlist .myc_actv.myc_actve {
 		background: url("https://resource.jtsc.club/select_click@2x.png") no-repeat center center;
 		background-size: 0.18rem 0.18rem;
 	}
-	
+
 	.myc_acont p {
 		overflow: hidden;
 		font-size: 0.15rem;
 		color: #333;
 		margin-top: 0.13rem;
 	}
-	
+
 	.myc_acont p i {
 		font-style: normal;
 		margin-left: 0.1rem;
 	}
-	
+
 	.myc_acont p label {
 		width: 0.5rem;
 		height: 0.18rem;
@@ -464,11 +464,11 @@
 		display: none;
 		margin-right: 0.4rem;
 	}
-	
+
 	.myc_acont p label.mra {
 		display: block;
 	}
-	
+
 	.myc_acont u {
 		text-decoration: none;
 		font-size: 0.13rem;
@@ -476,14 +476,14 @@
 		margin-top: 0.07rem;
 		display: block;
 	}
-	
+
 	.myc_addadrs {
 		font-size: 0.15rem;
 		color: #FF3D3D;
 		text-align: center;
 		line-height: 0.36rem;
 	}
-	
+
 	.myc_okbtn {
 		width: 88%;
 		background: #FF3D3D;
@@ -500,7 +500,7 @@
 		margin-left: -44%;
 		bottom: 0.2rem;
 	}
-	
+
 	.myc_adliets {
 		width: 94%;
 		padding: 0 3%;
@@ -509,7 +509,7 @@
 		overflow: hidden;
 		font-size: 0.15rem;
 	}
-	
+
 	.myc_adliets span {
 		display: block;
 		width: 0.6rem;
@@ -519,7 +519,7 @@
 		text-align: right;
 		margin-right: 5%;
 	}
-	
+
 	.myc_adliets label {
 		display: block;
 		width: 60%;
@@ -527,7 +527,7 @@
 		line-height: 0.44rem;
 		color: #FF3D3D;
 	}
-	
+
 	.myc_adliets input {
 		display: block;
 		width: 60%;
@@ -536,11 +536,11 @@
 		height: 0.44rem;
 		font-size: 0.14rem;
 	}
-	
+
 	.myc_admarg {
 		border-top: 9px solid #FAFAFA;
 	}
-	
+
 	.myc_addadrs a {
 		color: #FF3D3D;
 	}

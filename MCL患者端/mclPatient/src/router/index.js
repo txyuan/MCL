@@ -137,6 +137,7 @@ const changeIntoB = () => import(/* webpackChunkName: "changeIntoB" */ '@/compon
 const cardsOther = () => import(/* webpackChunkName: "cardsOther" */ '@/components/personal/cardsOther/index.vue')  //购物卡转账
 const personal_data = () => import(/* webpackChunkName: "personal_data" */ '@/components/personal/personal_data/index.vue')  //个人资料
 const username = () => import(/* webpackChunkName: "username" */ '@/components/personal/username/index.vue')  //个人资料
+const heights = () => import(/* webpackChunkName: "heights" */ '@/components/personal/username/heights.vue')  //修改身高
 const personal_friend = () => import(/* webpackChunkName: "personal_friend" */ '@/components/personal/friend/index.vue')  //我的业绩
 const mysunsheet = () => import(/* webpackChunkName: "mysunsheet" */ '@/components/personal/mySunSheet/index.vue')  //我的晒单
 const sunsuccess = () => import(/* webpackChunkName: "sunsuccess" */ '@/components/personal/mySunSheet/sunSuccess.vue')  //我的晒单
@@ -384,6 +385,7 @@ const router = new Router({
 	{ path:"/cardsOther", name:"cardsOther", component: cardsOther },
     { path:"/personaldata", name:"personaldata", component: personal_data },
     { path:"/username", name:"username", component: username },
+	{ path:"/heights", name:"heights", component: heights },
     { path:"/personalfriend", name:"personalfriend", component: personal_friend },
     { path:"/mysunsheet", name:"mysunsheet", component: mysunsheet },
     { path:"/sunsuccess", name:"sunsuccess", component: sunsuccess },
