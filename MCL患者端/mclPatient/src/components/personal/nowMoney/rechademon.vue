@@ -42,79 +42,79 @@
 </template>
 
 <script>
-	export default {
-		name: "index",
-		data: () => ({
-			isActive: 0,
-			moneyc: '',
-			items: [],
-			isActivea: 0,
-			// itemsa: [
-			// 	//          { pic: require("@/assets/images/wechat_zhifu@2x.png"),pay:'微信支付',id:0},
-			// 	{
-			// 		pic: require("@/assets/images/zhifu_bao@2x.png"),
-			// 		pay: '支付宝支付',
-			// 		id: 1
-			// 	}
-			// ]
-		}),
-		methods: {
-			addClassFun: function(index, item) {
-				this.isActive = index;
-				this.moneyc = item.ValueContent;
-			},
-			// addClassFuna: function(index) {
-			// 	this.isActivea = index;
-			// },
-			//充值金额列表
-			getmoney() {
-				let url = "UserInterface/GetRechargeGradeList.ashx";
-				this.$post(url).then((data) => {
-					this.items = data.data;
-					this.moneyc = data.data[0].ValueContent;
-				})
-			},
-			//余额充值
-			getRecharge() {
-				let url = "UserInterface/IPayment/CZWPaymentRequest_vshop.ashx";
-				let param = {
-				  "RechargeAmount": this.moneyc,
-				  "OpenID": localStorage.openId
-				};
-				//最少20元
-				// if(this.moneyc < 20){
-				//   this.$Toast("充值余额不能少于20元")
-				//   return;
-				// }
-				this.$Indicator.loading();
-				//微信支付
-				this.$pay.wechatPayment(url,param,(data)=>{
-				  this.$Indicator.close()
-				  this.$Toast(data.rspdesc);
-				  this.$router.push("/wx_Entrance/personal")
-				},(data)=>{
+export default {
+  name: 'index',
+  data: () => ({
+    isActive: 0,
+    moneyc: '',
+    items: [],
+    isActivea: 0
+    // itemsa: [
+    // 	//          { pic: require("@/assets/images/wechat_zhifu@2x.png"),pay:'微信支付',id:0},
+    // 	{
+    // 		pic: require("@/assets/images/zhifu_bao@2x.png"),
+    // 		pay: '支付宝支付',
+    // 		id: 1
+    // 	}
+    // ]
+  }),
+  methods: {
+    addClassFun: function (index, item) {
+      this.isActive = index
+      this.moneyc = item.ValueContent
+    },
+    // addClassFuna: function(index) {
+    // 	this.isActivea = index;
+    // },
+    // 充值金额列表
+    getmoney () {
+      let url = 'UserInterface/GetRechargeGradeList.ashx'
+      this.$post(url).then((data) => {
+        this.items = data.data
+        this.moneyc = data.data[0].ValueContent
+      })
+    },
+    // 余额充值
+    getRecharge () {
+      let url = 'UserInterface/IPayment/CZWPaymentRequest_vshop.ashx'
+      let param = {
+        'RechargeAmount': this.moneyc,
+        'OpenID': localStorage.openId
+      }
+      // 最少20元
+      // if(this.moneyc < 20){
+      //   this.$Toast("充值余额不能少于20元")
+      //   return;
+      // }
+      this.$Indicator.loading()
+      // 微信支付
+      this.$pay.wechatPayment(url, param, (data) => {
 				  this.$Indicator.close()
 				  this.$Toast(data.rspdesc)
-				})
+				  this.$router.push('/wx_Entrance/personal')
+      }, (data) => {
+				  this.$Indicator.close()
+				  this.$Toast(data.rspdesc)
+      })
 
-				// let UserKey = JSON.parse(localStorage.userInfo).UserKey;
-				// let SessionId = JSON.parse(localStorage.userInfo).SessionId;
-				// let activePay = this.itemsa[this.isActivea]; //当前的支付方式
-				// if (activePay.id == 1) {
-				// 	window.location.href = `ctm.html?UserKey=${UserKey}&SessionId=${SessionId}&moneynum=${this.moneyc}&type=8`;
-				// } else {
-				// 	if (this.moneyc > 500) {
-				// 		this.$Toast('充值金额大于500，请使用支付宝支付');
-				// 		return;
-				// 	}
-				// 	window.location.href = `ctmd.html?UserKey=${UserKey}&SessionId=${SessionId}&moneynum=${this.moneyc}&type=9`;
-				// }
-			}
-		},
-		mounted() {
-			this.getmoney();
-		}
-	}
+      // let UserKey = JSON.parse(localStorage.userInfo).UserKey;
+      // let SessionId = JSON.parse(localStorage.userInfo).SessionId;
+      // let activePay = this.itemsa[this.isActivea]; //当前的支付方式
+      // if (activePay.id == 1) {
+      // 	window.location.href = `ctm.html?UserKey=${UserKey}&SessionId=${SessionId}&moneynum=${this.moneyc}&type=8`;
+      // } else {
+      // 	if (this.moneyc > 500) {
+      // 		this.$Toast('充值金额大于500，请使用支付宝支付');
+      // 		return;
+      // 	}
+      // 	window.location.href = `ctmd.html?UserKey=${UserKey}&SessionId=${SessionId}&moneynum=${this.moneyc}&type=9`;
+      // }
+    }
+  },
+  mounted () {
+    this.getmoney()
+  }
+}
 </script>
 
 <style scoped lang="scss">

@@ -70,7 +70,7 @@
         type="primary"
         class="theme-button button-radio"
         size="large"
-        @click="okpay"
+        @click="pay"
       >确认支付 ¥{{moneys}}</mt-button>
     </div>
   </div>
@@ -141,52 +141,77 @@ export default {
       })
     },
     // 确认支付
-    okpay () {
-      this.$MessageBox.prompt('支付密码').then(({ value, action }) => {
-        if (value == '') {
-          this.$Toast('请输入支付密码')
-          return
-        };
-        let url = 'UserInterface/UserPassword2Check.ashx'
-        let param = {
-          'password2': value
-        }
-        this.$post(url, param).then((data) => {
-          if (data.rspcode != 1) {
-            this.$Toast(data.rspdesc)
-            return
-          }
-          this.pay()
-        })
-      }, function () {})
-      setTimeout(() => {
-        let $text = document.querySelector('.mint-msgbox-wrapper .mint-msgbox-input .mint-msgbox-errormsg')
-        $text.style.visibility = 'visible'
-        $text.innerHTML = `<p style="color: #F78335; margin-top: 10px;">温馨提示：如没有支付密码，请前往<a id='twopass' style="text-decoration: underline; color: rgb(64, 116, 255);">个人中心</a>设置！</p>`
-        document.querySelector('#twopass').onclick = () => {
-          document.querySelector('.mint-msgbox-cancel').click()
-          this.$router.push('/twopass')
-        }
-      }, 0)
-    },
+    // okpay () {
+    //   this.$MessageBox.prompt('支付密码').then(({ value, action }) => {
+    //     if (value == '') {
+    //       this.$Toast('请输入支付密码')
+    //       return
+    //     };
+    //     let url = 'UserInterface/UserPassword2Check.ashx'
+    //     let param = {
+    //       'password2': value
+    //     }
+    //     this.$post(url, param).then((data) => {
+    //       if (data.rspcode != 1) {
+    //         this.$Toast(data.rspdesc)
+    //         return
+    //       }
+    //       this.pay()
+    //     })
+    //   }, function () {})
+    //   setTimeout(() => {
+    //     let $text = document.querySelector('.mint-msgbox-wrapper .mint-msgbox-input .mint-msgbox-errormsg')
+    //     $text.style.visibility = 'visible'
+    //     $text.innerHTML = `<p style="color: #F78335; margin-top: 10px;">温馨提示：如没有支付密码，请前往<a id='twopass' style="text-decoration: underline; color: rgb(64, 116, 255);">个人中心</a>设置！</p>`
+    //     document.querySelector('#twopass').onclick = () => {
+    //       document.querySelector('.mint-msgbox-cancel').click()
+    //       this.$router.push('/twopass')
+    //     }
+    //   }, 0)
+    // },
     pay () {
-      let url = 'UserInterface/IPayment/MemberPaymentRequest.ashx'
+      let url = 'UserInterface/IPayment/CZWPaymentRequest_vshop.ashx'
+      let item = this.qixianL[this.qixianActive]
       let param = {
-        serviceKey: this.skey
+        'RechargeAmount': Number(item.Price),
+        'OpenID': localStorage.openId,
+        'PaymentType': 5, // 【1：营养筛查；2：管理套餐；3：商品订单；4：活动订单；5：会员年卡】
+        'serviceKey': item.skey
       }
-      this.$post(url, param).then(data => {
+      this.$Indicator.loading()
+      // 微信支付
+      this.$pay.wechatPayment(url, param, (data) => {
+        this.$Indicator.close()
         this.$Toast(data.rspdesc)
-        if (data.rspcode != 1) {
-          return
-        }
         let redirect = this.$route.query.redirect
         if (redirect) {
           this.$router.push(`/${redirect}`)
         } else {
           this.$router.push('/vipOrder')
         }
+      }, (data) => {
+        this.$Indicator.close()
+        this.$Toast(data.rspdesc)
       })
     }
+    // pay () {
+    //   let url = 'UserInterface/IPayment/MemberPaymentRequest.ashx'
+    //   let param = {
+    //     serviceKey: this.skey
+    //   }
+    //   this.$post(url, param).then(data => {
+    //     this.$Toast(data.rspdesc)
+    //     if (data.rspcode != 1) {
+    //       return
+    //     }
+    //     let redirect = this.$route.query.redirect
+    //     if (redirect) {
+    //       this.$router.push(`/${redirect}`)
+    //     } else {
+    //       this.$router.push('/vipOrder')
+    //     }
+    //   })
+    // }
   },
   mounted () {
     this.dynamicKey = this.$route.query.skedf
