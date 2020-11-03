@@ -11,8 +11,8 @@ const KFCONFIG = {
 }
 
 // 接口地址
-// const BASEURL = 'http://cli.marryhealthscience.com'
-const BASEURL = 'http://123.57.89.89:6333'
+const BASEURL = 'http://cli.marryhealthscience.com'
+//const BASEURL = 'http://123.57.89.89:6333'
 const DOCTORURL = 'http://clidoc.marryhealthscience.com' // 医生端域名
 const CHANNELURL = 'http://clicha.marryhealthscience.com' // 渠道端域名
 

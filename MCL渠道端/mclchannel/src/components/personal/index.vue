@@ -115,6 +115,14 @@
 							<p class="row">默认模块</p>
 						</div>
 					</router-link>
+					<router-link to="" style="visibility: hidden;">
+						<div class="cell">
+							<div class="row">
+								<img src="@/assets/images/hezbf.png" style="width: 0.25rem;height: 0.25rem;" alt="">
+							</div>
+							<p class="row">默认模块</p>
+						</div>
+					</router-link>
 				</div>
 
 			</div>
