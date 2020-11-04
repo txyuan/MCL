@@ -1,6 +1,6 @@
 <template>
   <div class="symptom-root">
-    <div id="body_main" ref="homePage">
+    <div id="body_main"style="background-color: #f1f1f1; padding-bottom: 0; ">
       <mt-header fixed title="症状管理">
         <div slot="left">
           <header-back>
@@ -9,7 +9,7 @@
         </div>
       </mt-header>
 
-      <div id="page">
+      <div id="page" ref="homePage" >
 				<span v-for="(item, index) in ids" :key="index" :class="item.states==1?'active':''">
 					<label @click="openModal(item)">{{item.name}}</label>
 					<input v-if="item.states==1" :id="item.id" readonly="readonly" checked="checked" disabled="disabled"
@@ -632,7 +632,8 @@
     width: 18px;
     height: 18px;
     border: 0;
-    background-color: #787878;
+    outline: 0!important;
+    background-color: #0AC5C9;
   }
 
   input[type=radio]::after {

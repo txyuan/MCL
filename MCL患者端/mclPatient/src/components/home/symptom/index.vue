@@ -1,6 +1,6 @@
 <template>
   <div class="symptom-root">
-    <div id="body_main" ref="homePage">
+    <div id="body_main" style="background-color: #f1f1f1; padding-bottom: 0; ">
       <mt-header fixed title="症状管理">
         <div slot="left">
           <header-back>
@@ -9,7 +9,7 @@
         </div>
       </mt-header>
 
-      <div id="page">
+      <div id="page" ref="homePage" >
 				<span v-for="(item, index) in ids" :key="index">
 					<label @click="openModal(item)">{{item.name}}</label>
 					<input v-if="item.itemindex == ''" :id="item.id" type="checkbox" :name="item.id" @click="openModal(item)"
@@ -821,14 +821,17 @@
     #page {
       width: 94%;
       overflow: hidden;
-      margin: 0.1rem auto;
+      margin: 0 auto;
+      padding: 10px 0;
+      box-sizing: border-box;
+      overflow-y: scroll;
       span {
         /*display: block;*/
         /*width: 50%;*/
         /*float: left;*/
         /*margin-top: 0.1rem;*/
         display: inline-block;
-        padding: 0.085rem 0;
+        padding: 0.1rem 0;
         /*border: 1px solid #ccc;*/
         margin: 0.05rem 2%;
         /*border-radius: 20px;*/
