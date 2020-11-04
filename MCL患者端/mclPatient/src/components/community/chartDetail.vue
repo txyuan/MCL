@@ -305,7 +305,9 @@
   	margin: 0.1rem 0 0.1rem 46px;
   	display: flex;
   	justify-content: flex-start;
+  	/*justify-content: flex-start;*/
     li{
+      /*width: 32%;*/
       width: 32%;
       margin-right: 2%;
     }
