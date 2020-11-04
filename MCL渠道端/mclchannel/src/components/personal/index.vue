@@ -24,7 +24,7 @@
 							<div class="row">
 								<img src="@/assets/images/dingda.png" style="width: 0.25rem;height: 0.25rem;" alt="">
 							</div>
-							<p class="row">我的采购</p>
+							<p class="row">我的订单</p>
 						</div>
 					</router-link>
 					<router-link :to="'/myUser'">
@@ -52,7 +52,7 @@
 						</div>
 					</router-link>
 					<!-- <a href="javascript:;">
-						
+
 						<div class="cell">
 							<div class="row">
 								<img src="@/assets/images/ylyrenz.png" style="width: 0.25rem;height: 0.25rem;" alt="">
@@ -82,16 +82,15 @@
 							<p class="row">卡号管理</p>
 						</div>
 					</router-link> -->
-					
 
-					<router-link :to="'/capital'">
+					<!-- <router-link :to="'/capital'">
 						<div class="cell">
 							<div class="row">
 								<img src="@/assets/images/zijinjilu@2x.png" style="width: 0.25rem;height: 0.25rem;" alt="">
 							</div>
 							<p class="row">资金记录</p>
 						</div>
-					</router-link>
+					</router-link> -->
 					<router-link :to="'/shopcar'">
 						<div class="cell">
 							<div class="row">
@@ -116,8 +115,16 @@
 							<p class="row">默认模块</p>
 						</div>
 					</router-link>
+					<router-link to="" style="visibility: hidden;">
+						<div class="cell">
+							<div class="row">
+								<img src="@/assets/images/hezbf.png" style="width: 0.25rem;height: 0.25rem;" alt="">
+							</div>
+							<p class="row">默认模块</p>
+						</div>
+					</router-link>
 				</div>
-				
+
 			</div>
 			<div class="person_shouyi">
 				<h3>资产管理</h3>
@@ -157,136 +164,136 @@
 </template>
 
 <script>
-	export default {
-		name: "personal",
-		data: () => ({
-			UserKey: '',
-			SessionId: '',
-			
-			repData: {
-				ImgUrl: "", //头像地址
-				ContactName: "", //姓名
-				ContactPhone: "", //手机号
-				UserType: "", //用户会员类型    1.图片会员   2.vip会员   3.合伙人
-			},
-			//资产管理
-			managementData: {
-				commission: "", //佣金
-				achievement: "", //业绩
-			}
-		}),
-		methods: {
-			//个人信息
-			information() {
-				this.$Indicator.loading();
-				let url = "UserInterface/GetUserShowInfo.ashx";
-				this.$post(url).then((data) => {
-					this.$Indicator.close();
-					let model = data.data;
-					if(localStorage.userInfo){
-		                const userInfo = JSON.parse( localStorage.userInfo);
-		                model.userType = this.$root.getUserType(userInfo.UserType);
-		            }
-					this.repData = model;
-				})
-			},
-			//			//我的客服
-			//			linkf() {
-			//				this.ewmshow = true;
-			//			},
-			//			closewms() {
-			//				this.ewmshow = false;
-			//			},
-			//			//是否实名认证
-			//			isrealname() {
-			//				this.$router.push('/realName');
-			//				return;
-			//				let url = "UserInterface/RealNameAuthenticationCheck.ashx";
-			//				this.$post(url).then((data) => {
-			//					if(data.rspCode == 0) {
-			//						this.$Toast(data.rspDesc);
-			//						return;
-			//					} else if(data.rspCode == 2) {
-			//						this.$Toast(data.rspDesc);
-			//						this.$router.push('/realName');
-			//					} else {
-			//						this.$router.push('/realName');
-			//					}
-			//				})
-			//			},
-			//			//商家是否认证
-			//			merchant() {
-			//				let url = "UserInterface/BusinessUnion/BusinessAuthenticationCheck.ashx";
-			//				let param = {
-			//					flag: 1
-			//				};
-			//				this.$post(url, param).then((data) => {
-			//					if(data.rspCode == 0) {
-			//						this.$Toast(data.rspDesc);
-			//						return;
-			//					}
-			//					if(data.checkFlag == 0) {
-			//						this.$router.push('/merchantCert');
-			//					} else if(data.checkFlag == 1) {
-			//						this.$router.push('/merchantsubmit');
-			//					} else if(data.checkFlag == 2) {
-			//						this.$Toast('您已完成商家认证');
-			//					}
-			//				})
-			//			},
-			//			//商家是否认证
-			//			comanage(numb) {
-			//				let url = "UserInterface/BusinessUnion/BusinessAuthenticationCheck.ashx";
-			//				let param = {
-			//					flag: numb
-			//				};
-			//				this.$post(url, param).then((data) => {
-			//					if(data.rspCode == 0) {
-			//						this.$Toast(data.rspDesc);
-			//						return;
-			//					}
-			//					if(data.checkFlag == 0) {
-			//						this.$Toast('请先认证商家');
-			//					} else if(data.checkFlag == 1) {
-			//						this.$Toast('您的商家还处于审核状态，请您耐心等待');
-			//					} else if(data.checkFlag == 2) {
-			//						if(numb == 1) {
-			//							this.$router.push('/comManage');
-			//						} else {
-			//							this.$Toast('请先编辑商家信息');
-			//						}
-			//					} else if(data.checkFlag == 3) {
-			//						this.$router.push('/commodity');
-			//					}
-			//				})
-			//			},
+export default {
+  name: 'personal',
+  data: () => ({
+    UserKey: '',
+    SessionId: '',
 
-			//资产管理
-			getManagement() {
-				let url = "UserInterface/channel/AssetManagement.ashx";
-				this.$post(url).then((data) => {
-					const {
-						commission,
-						achievement
-					} = data;
-					this.managementData = {
-						commission, //佣金
-						achievement, //业绩
-					}
-				})
-			},
-		},
-		created() {
-           if(localStorage.userInfo){
-             this.UserKey=JSON.parse( localStorage.userInfo).UserKey;
-             this.SessionId=JSON.parse( localStorage.userInfo).SessionId;
-           }
-		},
-		mounted() {
-			this.getManagement()
-			this.information();
-		}
-	}
+    repData: {
+      ImgUrl: '', // 头像地址
+      ContactName: '', // 姓名
+      ContactPhone: '', // 手机号
+      UserType: '' // 用户会员类型    1.图片会员   2.vip会员   3.合伙人
+    },
+    // 资产管理
+    managementData: {
+      commission: '', // 佣金
+      achievement: '' // 业绩
+    }
+  }),
+  methods: {
+    // 个人信息
+    information () {
+      this.$Indicator.loading()
+      let url = 'UserInterface/GetUserShowInfo.ashx'
+      this.$post(url).then((data) => {
+        this.$Indicator.close()
+        let model = data.data
+        if (localStorage.userInfo) {
+		                const userInfo = JSON.parse(localStorage.userInfo)
+		                model.userType = this.$root.getUserType(userInfo.UserType)
+		            }
+        this.repData = model
+      })
+    },
+    //			//我的客服
+    //			linkf() {
+    //				this.ewmshow = true;
+    //			},
+    //			closewms() {
+    //				this.ewmshow = false;
+    //			},
+    //			//是否实名认证
+    //			isrealname() {
+    //				this.$router.push('/realName');
+    //				return;
+    //				let url = "UserInterface/RealNameAuthenticationCheck.ashx";
+    //				this.$post(url).then((data) => {
+    //					if(data.rspCode == 0) {
+    //						this.$Toast(data.rspDesc);
+    //						return;
+    //					} else if(data.rspCode == 2) {
+    //						this.$Toast(data.rspDesc);
+    //						this.$router.push('/realName');
+    //					} else {
+    //						this.$router.push('/realName');
+    //					}
+    //				})
+    //			},
+    //			//商家是否认证
+    //			merchant() {
+    //				let url = "UserInterface/BusinessUnion/BusinessAuthenticationCheck.ashx";
+    //				let param = {
+    //					flag: 1
+    //				};
+    //				this.$post(url, param).then((data) => {
+    //					if(data.rspCode == 0) {
+    //						this.$Toast(data.rspDesc);
+    //						return;
+    //					}
+    //					if(data.checkFlag == 0) {
+    //						this.$router.push('/merchantCert');
+    //					} else if(data.checkFlag == 1) {
+    //						this.$router.push('/merchantsubmit');
+    //					} else if(data.checkFlag == 2) {
+    //						this.$Toast('您已完成商家认证');
+    //					}
+    //				})
+    //			},
+    //			//商家是否认证
+    //			comanage(numb) {
+    //				let url = "UserInterface/BusinessUnion/BusinessAuthenticationCheck.ashx";
+    //				let param = {
+    //					flag: numb
+    //				};
+    //				this.$post(url, param).then((data) => {
+    //					if(data.rspCode == 0) {
+    //						this.$Toast(data.rspDesc);
+    //						return;
+    //					}
+    //					if(data.checkFlag == 0) {
+    //						this.$Toast('请先认证商家');
+    //					} else if(data.checkFlag == 1) {
+    //						this.$Toast('您的商家还处于审核状态，请您耐心等待');
+    //					} else if(data.checkFlag == 2) {
+    //						if(numb == 1) {
+    //							this.$router.push('/comManage');
+    //						} else {
+    //							this.$Toast('请先编辑商家信息');
+    //						}
+    //					} else if(data.checkFlag == 3) {
+    //						this.$router.push('/commodity');
+    //					}
+    //				})
+    //			},
+
+    // 资产管理
+    getManagement () {
+      let url = 'UserInterface/channel/AssetManagement.ashx'
+      this.$post(url).then((data) => {
+        const {
+          commission,
+          achievement
+        } = data
+        this.managementData = {
+          commission, // 佣金
+          achievement // 业绩
+        }
+      })
+    }
+  },
+  created () {
+    if (localStorage.userInfo) {
+      this.UserKey = JSON.parse(localStorage.userInfo).UserKey
+      this.SessionId = JSON.parse(localStorage.userInfo).SessionId
+    }
+  },
+  mounted () {
+    this.getManagement()
+    this.information()
+  }
+}
 </script>
 <style>
 
@@ -335,13 +342,13 @@
 			background-image: linear-gradient(to right, #F39645, #F46F42);
 		}
 	}
-	
+
 	.content {
 		padding-top: 43px;
 		padding-bottom: 56px;
 	}
 	/*常用功能*/
-	
+
 	.person_menu {
 		background: #fff;
 		padding-bottom: 0.06rem;
@@ -351,7 +358,7 @@
 			padding: 0.08rem 0 0.08rem 3%;
 		}
 	}
-	
+
 	//中间余额部分
 	.middle-cell {
 		background: #fff;
@@ -391,7 +398,7 @@
 			}
 		}
 	}
-	
+
 	.resetlogin {
 		padding: 0 0.1rem;
 		background: #FF1E41;
@@ -404,7 +411,7 @@
 		border-radius: 4px;
 		margin-bottom: 10px;
 	}
-	
+
 	#mark {
 		z-index: 9999999;
 		.close {
@@ -425,7 +432,7 @@
 			padding: 20px;
 		}
 	}
-	
+
 	.person_shouyi {
 		background: #fff;
 		width: 100%;
@@ -478,7 +485,7 @@
 			}
 		}
 	}
-	
+
 	.linkef {
 		width: 100%;
 		height: 100vh;

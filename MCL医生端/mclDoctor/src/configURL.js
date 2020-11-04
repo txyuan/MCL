@@ -11,7 +11,8 @@ const KFCONFIG = {
 }
 
 // 接口地址
-const BASEURL = 'http://clidoc.marryhealthscience.com'
+ const BASEURL = 'http://clidoc.marryhealthscience.com'
+//const BASEURL = 'http://123.57.89.89:6333'
 
 export {
   KFURL,

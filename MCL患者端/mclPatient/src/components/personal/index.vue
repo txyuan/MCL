@@ -158,10 +158,8 @@
 							<p class="row">我的地址</p>
 						</div>
 					</router-link>
-
-
 				</div>
-				<div class="middle-cell">
+				<!-- <div class="middle-cell">  
 					<router-link to="/nowmoney">
 						<div class="cell">
 							<div class="row">
@@ -170,7 +168,7 @@
 							<p class="row">我的余额</p>
 						</div>
 					</router-link>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<div class="linkef" v-show="ewmshow">

@@ -59,6 +59,9 @@ const myTeam = () => import(/* webpackChunkName: "myTeam" */ '@/components/perso
 
 const caseUpload = () => import(/* webpackChunkName: "caseUpload" */ '@/components/home/caseUpload/index.vue')  //患者  历史病例
 const physicians = () => import(/* webpackChunkName: "physicians" */ '@/components/personal/realName/physicians.vue') //历史病例--查看报告
+
+const appointment = () => import(/* webpackChunkName: "appointment" */ '@/components/home/appointment/index.vue')  //首页-复诊预约
+const appdetails = () => import(/* webpackChunkName: "appdetails" */ '@/components/home/appointment/appdetails.vue')  //首页-复诊预约详情
 //导入页面
 
 Vue.use(Router)
@@ -125,6 +128,8 @@ const router = new Router({
 		
 		{ path:"/caseUpload", name:"caseUpload", component: caseUpload},
 		{ path:"/physicians", name:"physicians", component: physicians},
+		{ path:"/appointment", name:"appointment", component: appointment},
+		{ path:"/appdetails", name:"appdetails", component: appdetails},
 	],
 	scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {

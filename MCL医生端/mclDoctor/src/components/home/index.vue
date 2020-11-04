@@ -43,9 +43,11 @@
 					</router-link>
 				</p>
 				<p>
-					<img src="@/assets/images/gongju.png" />
-					<span>工具箱</span>
-					<label></label>
+					<router-link to="/appointment">
+						<img src="@/assets/images/gongju.png" />
+						<span>复诊预约</span>
+						<label></label>
+					</router-link>
 				</p>
 			</div>
 		</div>
