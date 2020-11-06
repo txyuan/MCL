@@ -135,9 +135,9 @@ export default {
         this.$Indicator.close()
       }, 200)
     },
-    // 所得商品列表
+    // 所得商品列表   UserInterface/ProductOrderDetailInfoList.ashx
     shoplist (success) {
-      let url = 'UserInterface/ProductOrderDetailInfoList.ashx'
+      let url = 'UserInterface/channel/ChannelOrderDetailInfoList.ashx'
       if (this.param.pagecount == 1) {
         this.list = []
       }
