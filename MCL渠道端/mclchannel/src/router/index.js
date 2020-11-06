@@ -53,7 +53,10 @@ const shopDetails = () => import(/* webpackChunkName: "shopDetails" */ '@/compon
 // const notice = () => import(/* webpackChunkName: "notice" */ '@/components/notice/index.vue') //停运公告
 const notOpen = () => import(/* webpackChunkName: "notOpen" */ '@/components/personal/notOpen.vue') //暂未开放
 const bankCard = () => import(/* webpackChunkName: "bankCard" */ '@/components/personal/bankCard/index.vue')  //卡号管理
-const addcard = () => import(/* webpackChunkName: "addcard" */ '@/components/personal/bankCard/addcard.vue')  //添加银行卡
+const addcard = () => import(/* webpackChunkName: "addcard" */ '@/components/personal/bankCard/addcard.vue')  //添加银行卡 
+const custransfer = () => import(/* webpackChunkName: "custransfer" */ '@/components/personal/custransfer/index.vue')  //客户转让
+const customerfer = () => import(/* webpackChunkName: "customerfer" */ '@/components/personal/custransfer/customerfer.vue')  //客户转让
+
 //导入页面
 
 Vue.use(Router)
@@ -117,6 +120,8 @@ const router = new Router({
 	{ path:"/notOpen", name:"notOpen", component: notOpen},
    { path:"/bankCard", name:"bankCard", component: bankCard },
    { path:"/addcard", name:"addcard", component: addcard },
+	 { path:"/custransfer", name:"custransfer", component: custransfer },
+	 { path:"/customerfer", name:"customerfer", component: customerfer },
   ],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
