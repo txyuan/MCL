@@ -86,7 +86,7 @@
       <div class="title2 bg-white titleBtm" style="line-height: 20px; padding: 14px 15px">肿瘤家族史
       <span>(三代直系亲属有无任何恶性肿瘤) </span>
   </div>
-      <mt-radio :options="new_value_22.option" v-model="new_value_22.value" style="padding-top: 0px"></mt-radio>
+      <mt-radio :options="new_value_22.option" v-model="new_value_22.value" style="padding-top: 8px;padding-bottom: 10px"></mt-radio>
 
     </div>
     <div class="splitLine">
