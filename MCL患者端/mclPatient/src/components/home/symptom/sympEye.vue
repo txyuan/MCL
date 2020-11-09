@@ -195,7 +195,7 @@
     methods: {
       changeFixed (clientHeight) {                        //动态修改样式
         console.log(clientHeight)
-        this.$refs.homePage.style.height = clientHeight - 105 + 'px'
+        this.$refs.homePage.style.height = clientHeight - 48+ 'px'
         this.$refs.popupBody.style.height = clientHeight - 48 + 'px'
 
       },
@@ -600,7 +600,18 @@
     margin-right: 0.16rem;
     margin-left: 0.06rem;
   }
-
+  input {
+    outline-color: invert;
+    outline-style: none;
+    outline-width: 0px;
+    border: none;
+    border-style: none;
+    text-shadow: none;
+    -webkit-appearance: none;
+    -webkit-user-select: text;
+    outline-color: transparent;
+    box-shadow: none;
+  }
   input[type=radio], input[type=checkbox] {
     cursor: pointer;
     position: relative;
@@ -831,7 +842,7 @@
 
     #page {
       width: 94%;
-      overflow: hidden;
+      /*overflow: hidden;*/
       margin: 0.1rem auto;
       span {
         /*display: block;*/
