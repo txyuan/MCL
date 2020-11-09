@@ -8,7 +8,7 @@
         </div>
       </mt-header>
 
-      <mt-field placeholder="请输入身高" type="number" v-model.trim="heights" class="marginTop5"></mt-field>
+      <mt-field placeholder="请输入身高(cm)" type="number" v-model.trim="heights" class="marginTop5"></mt-field>
 
       <div class="btn">
          <mt-button type="danger" size="large" @click="userEdit">确定</mt-button>

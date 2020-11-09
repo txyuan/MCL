@@ -591,7 +591,18 @@
     margin-right: 0.1rem;
     margin-left: 0.1rem;
   }
-
+  input {
+    outline-color: invert;
+    outline-style: none;
+    outline-width: 0px;
+    border: none;
+    border-style: none;
+    text-shadow: none;
+    -webkit-appearance: none;
+    -webkit-user-select: text;
+    outline-color: transparent;
+    box-shadow: none;
+  }
   input[type=radio], input[type=checkbox] {
     cursor: pointer;
     position: relative;
