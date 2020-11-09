@@ -42,11 +42,12 @@
 						<label></label>
 					</router-link>
 				</p>
-				<p>
+				<p class="poton">
 					<router-link to="/appointment">
 						<img src="@/assets/images/gongju.png" />
 						<span>复诊预约</span>
 						<label></label>
+						<i v-if="repData.reviewtheTotal!='0'"></i>
 					</router-link>
 				</p>
 			</div>
@@ -336,6 +337,20 @@ export default {
 				&:first-child {
 					label {
 						border: none;
+					}
+				}
+
+				&.poton{
+					position: relative;
+					i{
+						display: block;
+						width: 0.06rem;
+						height: 0.06rem;
+						background: red;
+						position: absolute;
+						border-radius: 0.3rem;
+						top: 0;
+						right: 35%;
 					}
 				}
 			}
