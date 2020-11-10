@@ -1002,6 +1002,7 @@
      }
   }
 
+    font-size: 16px;
   /* 屏幕等于1440px */
   @media screen and (max-width:375px) and (min-width: 1440px)  {
     .add {
