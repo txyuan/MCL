@@ -56,8 +56,9 @@ const bankCard = () => import(/* webpackChunkName: "bankCard" */ '@/components/p
 const addcard = () => import(/* webpackChunkName: "addcard" */ '@/components/personal/bankCard/addcard.vue')  //添加银行卡 
 const custransfer = () => import(/* webpackChunkName: "custransfer" */ '@/components/personal/custransfer/index.vue')  //客户转让
 const customerfer = () => import(/* webpackChunkName: "customerfer" */ '@/components/personal/custransfer/customerfer.vue')  //客户转让
-
-//导入页面
+const staticMonth = () => import(/* webpackChunkName: "staticMonth" */ '@/components/personal/staticMonth/index.vue')  //绩效统计
+const monthDetail = () => import(/* webpackChunkName: "monthDetail" */ '@/components/personal/staticMonth/monthDetail.vue')  //绩效统计详情
+//导入页面monthDetail
 
 Vue.use(Router)
 
@@ -117,11 +118,13 @@ const router = new Router({
     { path:"/shareLink", name:"shareLink", component: shareLink},
     { path:"/appDown", name:"appDown", component: appDown},
     { path:"/shopDetails/:sKey", name:"shopDetails", component: shopDetails},
-	{ path:"/notOpen", name:"notOpen", component: notOpen},
+	  { path:"/notOpen", name:"notOpen", component: notOpen},
    { path:"/bankCard", name:"bankCard", component: bankCard },
    { path:"/addcard", name:"addcard", component: addcard },
 	 { path:"/custransfer", name:"custransfer", component: custransfer },
 	 { path:"/customerfer", name:"customerfer", component: customerfer },
+	 { path:"/staticMonth", name:"staticMonth", component: staticMonth },
+	 { path:"/monthDetail", name:"monthDetail", component: monthDetail },
   ],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {

@@ -123,7 +123,15 @@
 							<p class="row">默认模块</p>
 						</div>
 					</router-link>
-					<router-link to="" style="visibility: hidden;">
+					<router-link :to="'/staticMonth'" v-if="repData.userTypenum=='5'">
+						<div class="cell">
+							<div class="row">
+								<img src="@/assets/images/zijinjilu@2x.png" style="width: 0.25rem;height: 0.25rem;" alt="">
+							</div>
+							<p class="row">绩效统计</p>
+						</div>
+					</router-link>
+					<router-link to="" style="visibility: hidden;" v-else>
 						<div class="cell">
 							<div class="row">
 								<img src="@/assets/images/hezbf.png" style="width: 0.25rem;height: 0.25rem;" alt="">

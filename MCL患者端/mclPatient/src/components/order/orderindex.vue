@@ -55,7 +55,8 @@
 					</p> -->
 				</div>
 				<div class="price-area" style="margin: 0.08rem 0;">
-					<p class="clear price-states"><span class="float_left">支付方式：</span><span>{{paymoney}}</span>  <!-- @click="showsta()"-->
+					<p class="clear price-states"><span class="float_left">支付方式：</span><span>{{paymoney}}</span>
+						<!-- @click="showsta()"-->
 					</p>
 				</div>
 				<!-- <div class="fried_phone" style="margin-top: 0;border-top: 1px solid #eee">
@@ -95,17 +96,16 @@ export default {
   data: () => ({
     note: '',
     isShow: false, // 显示隐藏支付方式
-    payList: [
-      {
-        imgs: juanj,
-        names: '招商银行储蓄卡(0771)',
-        ptype: 2
-      },
-      {
-        imgs: w_yue,
-        names: '积分支付',
-        ptype: 1
-      }
+    payList: [{
+      imgs: juanj,
+      names: '招商银行储蓄卡(0771)',
+      ptype: 2
+    },
+    {
+      imgs: w_yue,
+      names: '积分支付',
+      ptype: 1
+    }
     ],
     isShowpay: 0,
     paymoney: '微信', // 支付方式
@@ -199,7 +199,7 @@ export default {
         'OpenID': localStorage.openId,
         'PaymentType': orderType, // 【1：营养筛查；2：管理套餐；3：商品订单；4：活动订单；5：会员年卡】
         'addressId': this.defaultAdr.addressId
-			}
+      }
       this.$Indicator.loading()
       // 微信支付
       this.$pay.wechatPayment(url, param, (data) => {
@@ -207,13 +207,13 @@ export default {
         this.$Toast(data.rspdesc)
         // 2：管理套餐
         if (param.PaymentType == 2) {
-    			this.$router.push({
+          this.$router.push({
             path: '/managePackage'
           })
         }
         // 3：商品订单
         if (param.PaymentType == 3) {
-    			this.$router.push({
+          this.$router.push({
             path: '/personalgetproduct'
           })
         }
