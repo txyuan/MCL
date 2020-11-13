@@ -4135,89 +4135,88 @@ export default {
 	#echartzmanage17,
 	#echartzmanage18,
 	#echartzmanage19,
-  {
-    margin: 0 auto;
-    min-height: 2.5rem;
-    max-height: 5rem;
-  }
+		{
+		margin: 0 0.2rem;
+		height: 1.5rem;
+	}
 
-  #echartLifes {
-    margin: 0 auto;
-    height: 3.5rem;
-  }
+	#echartLifes {
+		margin: 0 0.2rem;
+		height: 3.5rem;
+	}
 
-  .mint-header {
-    height: 48px;
-    border-bottom: 1px solid #efefef;
-  }
+	.headty_home {
+		width: 100%;
+		padding-top: 44px;
+		padding-bottom: 0.12rem;
 
-  .headty_home {
-    width: 100%;
-    padding-top: 48px;
-    padding-bottom: 0.12rem;
+		.headty_inform {
+			width: 92%;
+			margin: 0 auto;
 
-    .headty_inform {
-      width: 96%;
-      margin: 0 auto;
+			p {
+				width: 100%;
+				height: 0.36rem;
+				background: #00A2EA;
+				border-radius: 6px;
+				color: #fff;
+				font-size: 0.15rem;
+				text-align: center;
+				line-height: 0.36rem;
+				margin-top: 0.16rem;
 
-      .headty_title {
-        background: #fff;
-        border-bottom: 1px solid #dddddd;
-        margin-top: 0.125rem;
-        padding: 0.135rem 0.125rem 0.11rem 0.125rem;
+			}
 
-        p {
-          line-height: 1.1;
-          padding-left: 6px;
-          font-size: 0.155rem;
-          color: #333333;
-          border-left: 4px solid #0AC5C9;
-        }
-      }
+			.headty_mead {
+				width: 94%;
+				padding: 0.1rem 3%;
+				margin-top: 0.1rem;
+				background: #fff;
+				border-radius: 8px;
+				font-size: 0.16rem;
 
-      .headty_mead {
-        padding: 3% 3% 4% 3%;
-        background: #fff;
-        font-size: 0.14rem;
-        color: #666666;
+				ol {
+					overflow: hidden;
 
-        ul {
-          padding-left: 3%;
+					li {
+						width: 50%;
+						float: left;
+						margin-top: 0.06rem;
+					}
+				}
 
-          li {
-            padding: 0.0325rem 0;
-          }
-        }
-      }
-    }
-  }
+				ul {
+					li {
+						margin-top: 0.06rem;
+					}
+				}
+			}
+		}
+	}
 
-  .mpact_tab {
-    overflow: hidden;
-    /*margin:0.05rem auto 0.15rem auto;*/
-    text-align: center;
-    padding: 1%;
+	.mpact_tab {
+		overflow: hidden;
 
-    span {
-      padding: 0.0625rem 0;
-      background: #fff;
-      border: 1px solid #cccccc;
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
-      display: block;
-      font-size: 0.14rem;
-      width: auto;
-      margin: 1%;
-      display: inline-block;
-      width: 23%;
-      text-align: center;
-      border-radius: 6px;
+		span {
+			padding: 0 0.14rem;
+			background: #fff;
+			border: 1px solid #ddd;
+			box-sizing: border-box;
+			display: block;
+			height: 0.3rem;
+			line-height: 0.3rem;
+			font-size: 0.14rem;
+			width: auto;
+			border-radius: 0.15rem;
+			float: left;
+			margin-right: 5px;
+			margin-bottom: 5px;
 
-      &.active {
-        background: #25bcc5;
-        border-color: #1cb0b9;
-        color: #fff;
-      }
-    }
-  }
+			&.active {
+				background: #F78335;
+				border-color: #F78335;
+				color: #fff;
+			}
+		}
+	}
 </style>
