@@ -7,42 +7,47 @@
 				</header-back>
 			</div>
 		</mt-header>
-		<div class="headty_home" style="background: #f1f1f1;">
+		<div class="headty_home" style="background: #D1EEFC;">
 			<div class="headty_inform">
-        <div class="headty_title"><p>基本信息</p></div>
+				<p>基本信息</p>
 				<div class="headty_mead">
-          <ul>
+					<ol>
 						<li>姓名：{{datasj.name}}</li>
 						<li>年龄：{{datasj.age}}岁</li>
 						<li>性别：{{datasj.sex}}</li>
+					</ol>
+					<ul>
 						<li>临床诊断：{{datasj.clinical_diagnosis}}</li>
 						<li>并发症状：{{datasj.concurrent}}</li>
 						<li>录入日期：{{datasj.createtime}}</li>
 					</ul>
 				</div>
-        <div class="headty_title"><p>体重及生活方式</p></div>
+				<p>体重及生活方式</p>
 				<div class="headty_mead">
+					<div class="mpact_tab">
+						<span v-for="(item,index) in liList" @click="addClass(index)" :key="index" :class="{active:index==current}">{{item.names}}</span>
+					</div>
 					<div id="weighEchart" v-show="weigh"></div>
 					<div id="echartnengl" v-show="nengl"></div>
 					<div id="echarthaodo" v-show="haodo"></div>
 					<div id="echartsport" v-show="sport"></div>
 					<div id="echarttimes" v-show="times"></div>
-          <div class="mpact_tab">
-          <span v-for="(item,index) in liList" @click="addClass(index)" :key="index" :class="{active:index==current}">{{item.names}}</span>
-        </div>
 				</div>
-        <div class="headty_title"><p>筛查评估</p></div>
+				<p>筛查评估</p>
 				<div class="headty_mead">
+					<div class="mpact_tab">
+						<span v-for="(item,index) in eyeList" @click="eyeClass(index)" :key="index" :class="{active:index==currente}">{{item.names}}</span>
+					</div>
 					<div id="echartshaic" v-show="yingyshac"></div>
 					<div id="echartpingg" v-show="yypingg"></div>
 					<div id="echartkashi" v-show="kaspf"></div>
 					<!-- <div id="echartxlyl" v-show="xinliyl"></div> -->
-          <div class="mpact_tab">
-            <span v-for="(item,index) in eyeList" @click="eyeClass(index)" :key="index" :class="{active:index==currente}">{{item.names}}</span>
-          </div>
 				</div>
-        <div class="headty_title"><p>症状管理</p></div>
+				<p>症状管理</p>
 				<div class="headty_mead">
+					<div class="mpact_tab">
+						<span v-for="(item,index) in zmanageList" @click="zzglClass(item, index)" :key="index" :class="{active:index==currentz}">{{item.names}}</span>
+					</div>
 					<!-- <div id="echartzmanage1" v-show="zzmanage1"></div> -->
 					<!-- <div id="echartzmanage2" v-show="zzmanage2"></div> -->
 					<div id="echartzmanage3" v-show="zzmanage3"></div>
@@ -62,12 +67,12 @@
 					<!-- <div id="echartzmanage17" v-show="zzmanage17"></div> -->
 					<!-- <div id="echartzmanage18" v-show="zzmanage18"></div> -->
 					<div id="echartzmanage19" v-show="zzmanage19"></div>
-          <div class="mpact_tab">
-            <span v-for="(item,index) in zmanageList" @click="zzglClass(item, index)" :key="index" :class="{active:index==currentz}">{{item.names}}</span>
-          </div>
 				</div>
-        <div class="headty_title"><p>关键指标</p></div>
+				<p>关键指标</p>
 				<div class="headty_mead">
+					<div class="mpact_tab">
+						<span v-for="(item,index) in eyeListxb" @click="gjzbClass(index)" :key="index" :class="{active:index==currentg}">{{item.names}}</span>
+					</div>
 					<div id="echartgjzb1" v-show="guanjzb1"></div>
 					<div id="echartgjzb2" v-show="guanjzb2"></div>
 					<div id="echartgjzb3" v-show="guanjzb3"></div>
@@ -76,11 +81,8 @@
 					<div id="echartgjzb6" v-show="guanjzb6"></div>
 					<div id="echartgjzb7" v-show="guanjzb7"></div>
 					<div id="echartgjzb8" v-show="guanjzb8"></div>
-          <div class="mpact_tab">
-            <span v-for="(item,index) in eyeListxb" @click="gjzbClass(index)" :key="index" :class="{active:index==currentg}">{{item.names}}</span>
-          </div>
 				</div>
-        <div class="headty_title"><p>生活质量</p></div>
+				<p>生活质量</p>
 				<div class="headty_mead">
 					<div id="echartLifes"></div>
 				</div>
@@ -188,7 +190,7 @@ export default {
         id: 9
       },
       {
-        names: '食欲下降',
+        names: '食欲下降、厌食',
         id: 4
       }, {
         names: '吞咽困难',
@@ -308,26 +310,11 @@ export default {
     initEchart () {
       function getOption (option) {
         const {
-          title: {
-            text
-
-          },
           yAxis: {
-            name,
-            min
+            name
           }
         } = option
         var model = {
-          title: {
-            text: text,
-            top: '0',
-            left: '5',
-            textStyle: {
-              fontSize: 18,
-              fontWeight:500,
-              color: '#333',
-            },
-          },
           tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -335,69 +322,20 @@ export default {
               label: {
                 backgroundColor: '#6a7985'
               }
-            },
-            textStyle: {
-              fontWeight: 'lighter',
-              fontSize: 13
-            }
-          },
-          legend: {
-            right: '2%',
-            top: '32',
-            icon: 'circle',
-            data: ['下限值', '上限值', '实际值'],
-            itemWidth: 8,
-            textStyle: {
-              color: '#787878',
-              fontSize: 13
             }
           },
           grid: {
-            left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+            top: 40,
+            bottom: 20
           },
           xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: [],
-            axisLabel: {
-              color: '#787878',
-            },
-            axisLine: {
-              lineStyle: {
-                color: '#979797'
-              }
-            },
-            axisTick: {
-              // show: false,
-              lineStyle: {
-                color: '#979797'
-              }
-            },
-            nameTextStyle: {
-              align: 'left',
-            },
-            offset: 4
+            data: []
           },
           yAxis: {
             type: 'value',
             name: name,
-            axisLine: {
-              // show: false
-              lineStyle: {
-                color: '#979797'
-              }
-            },
-            axisTick: {
-              // show: false
-
-              alignWithLabel: true,
-              lineStyle: {
-                color: '#979797'
-              }
-            },
             axisLabel: {
               formatter: function (a, b, c) {
                 if (a >= 1000) {
@@ -406,71 +344,34 @@ export default {
                   return `${a / 10000}w`
                 }
                 return a
-              },
-              color: '#787878',
-            },
-            splitLine: {
-              show: true,
-              lineStyle: {
-                color: 'rgba(241, 240, 240, 1)'
               }
-            },
-            nameTextStyle: {
-              color: '#787878',
-              fontSize: 13,
-              align: 'center'
-            },
-            scale: true,
+            }
           },
           series: [
             {
               data: [],
-              name: '下限值',
-              type: 'line',
-              lineStyle: {
-                opacity: ' 0.8',
-                width: 1
-              },
-              symbolSize: 1
+              type: 'line'
+
             },
-            {
-              data: [],
-              name: '上限值',
-              type: 'line',
-              lineStyle: {
-                opacity: ' 0.8',
-                width: 1
-              },
-              itemStyle: {
-                borderWidth: 0.5,
-              },
-              symbolSize: 1
-            },
-            {
-              data: [],
-              name: '实际值',
-              type: 'line',
-              symbolSize: 4,
-              lineStyle: {},
-            },
+		  {
+		    data: [],
+		    type: 'line'
+		  },
+		  {
+		    data: [],
+		    type: 'line'
+		  }
           ],
-          color: ['#d17942', '#162d45', '#2cc3cc'],
+          color: ['blue', 'green', '#F78335']
         }
         return model
       }
 
       // 体重
       var option = getOption({
-        title: {
-          text: '体重'
-        },
         yAxis: {
-          name: '单位：kg',
-          min: function (value) {
-            // return value.min - 20;
-            return 0
-          },
-        },
+          name: 'kg    '
+        }
       })
       var myChart = echarts.init(document.getElementById('weighEchart'))
       myChart.setOption(option)
@@ -478,46 +379,34 @@ export default {
       // 能量
       var option1 = getOption({
         yAxis: {
-          name: '单位：Kcal'
-        },
-        title: {
-          text: '能量'
-        },
+          name: 'Kcal    '
+        }
       })
       var myChart1 = echarts.init(document.getElementById('echartnengl'))
       myChart1.setOption(option1)
-      // 脂肪
+      // 蛋白质
 
       var option2 = getOption({
         yAxis: {
-          name: '单位：g'
-        },
-        title: {
-          text: '脂肪'
-        },
+          name: 'g    '
+        }
       })
       var myChart2 = echarts.init(document.getElementById('echarthaodo'))
       myChart2.setOption(option2)
 
-      // 蛋白质
+      // 运动耗能
       var option3 = getOption({
         yAxis: {
-          name: '单位：g'
-        },
-        title: {
-          text: '蛋白质'
-        },
+          name: 'g    '
+        }
       })
       var myChart3 = echarts.init(document.getElementById('echartsport'))
       myChart3.setOption(option3)
-      // 碳水化合物
+      // 睡眠时间
       var option4 = getOption({
         yAxis: {
-          name: '单位：g'
-        },
-        title: {
-          text: '碳水化合物'
-        },
+          name: 'g    '
+        }
       })
       var myChart4 = echarts.init(document.getElementById('echarttimes'))
       myChart4.setOption(option4)
@@ -639,16 +528,6 @@ export default {
     initEchartsc () {
       // 营养筛查
       var option = {
-        title: {
-          text: '营养筛查',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -659,85 +538,31 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：分',
+          name: '分  ',
           min: 0,
-          max: 10,
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          max: 10
         },
         series: [{
           data: [],
           type: 'line',
-
+          areaStyle: {}
         }],
-        color: ['#0AC5C9']
+        color: ['#F78335']
       }
       var myChart = echarts.init(document.getElementById('echartshaic'))
       myChart.setOption(option)
       // 营养评估
       var option1 = {
-        title: {
-          text: '营养评估',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -748,68 +573,24 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：分',
+          name: '分  ',
           min: 0,
-          max: 24,
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          max: 24
         },
         series: [{
           data: [],
           type: 'line',
-
+          areaStyle: {}
         }],
         color: ['#09AC17']
       }
@@ -817,16 +598,6 @@ export default {
       myChart1.setOption(option1)
       // 卡氏评分
       var option2 = {
-        title: {
-          text: '卡氏评分',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -837,68 +608,24 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：分',
+          name: '分  ',
           min: 0,
-          max: 100,
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          max: 100
         },
         series: [{
           data: [],
           type: 'line',
-
+          areaStyle: {}
         }],
         color: ['#CB0000']
       }
@@ -921,10 +648,10 @@ export default {
       // 	series: [{
       // 			data: [],
       // 			type: 'line',
-      //
+      // 			areaStyle: {}
       // 		}
       // 	],
-      // 	color: ["#0AC5C9"]
+      // 	color: ["#F78335"]
       // };
       // var myChart3 = echarts.init(document.getElementById('echartxlyl'));
       // myChart3.setOption(option3);
@@ -1052,16 +779,6 @@ export default {
     initEchagjzb () {
       // 白细胞
       var option = {
-        title: {
-          text: '白细胞',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -1071,122 +788,38 @@ export default {
             }
           }
         },
-        legend: {
-          right: '2%',
-          top: '32',
-          icon: 'circle',
-          data: ['下限值', '上限值', '实际值'],
-          itemWidth: 8,
-          textStyle: {
-            color: '#787878',
-            fontSize: 13
-          },
-        },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：10^9/L',
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          name: '10^9/L'
         },
-        series: [
-          {
-            data: [],
-            name: '下限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '上限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            itemStyle: {
-              borderWidth: 0.5,
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '实际值',
-            type: 'line',
-            symbolSize: 4,
-            lineStyle: {},
-          },
+        series: [{
+          data: [],
+          type: 'line'
+        },
+        {
+		  data: [],
+		  type: 'line'
+        },
+        {
+		  data: [],
+		  type: 'line'
+        }
         ],
-        color: ['#d17942', '#162d45', '#0AC5C9']
+        color: ['green', 'blue', '#F78335']
       }
       var myChart = echarts.init(document.getElementById('echartgjzb1'))
       myChart.setOption(option)
       // 红细胞
       var option1 = {
-        title: {
-          text: '红细胞',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -1196,122 +829,36 @@ export default {
             }
           }
         },
-        legend: {
-          right: '2%',
-          top: '32',
-          icon: 'circle',
-          data: ['下限值', '上限值', '实际值'],
-          itemWidth: 8,
-          textStyle: {
-            color: '#787878',
-            fontSize: 13
-          },
-        },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：10^12/L',
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          name: '10^12/L'
         },
         series: [
-          {
-            data: [],
-            name: '下限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            symbolSize: 1
+          {data: [],
+			  type: 'line'
           },
           {
-            data: [],
-            name: '上限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            itemStyle: {
-              borderWidth: 0.5,
-            },
-            symbolSize: 1
+			  data: [],
+			  type: 'line'
           },
-          {
-            data: [],
-            name: '实际值',
-            type: 'line',
-            symbolSize: 4,
-            lineStyle: {},
-          },
-        ],
-        color: ['#d17942', '#162d45', '#0AC5C9']
+          {data: [],
+            type: 'line'
+          }],
+        color: ['green', 'blue', '#F78335']
       }
       var myChart1 = echarts.init(document.getElementById('echartgjzb2'))
       myChart1.setOption(option1)
       // 血小板
       var option2 = {
-        title: {
-          text: '血小板',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -1321,122 +868,36 @@ export default {
             }
           }
         },
-        legend: {
-          right: '2%',
-          top: '32',
-          icon: 'circle',
-          data: ['下限值', '上限值', '实际值'],
-          itemWidth: 8,
-          textStyle: {
-            color: '#787878',
-            fontSize: 13
-          },
-        },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：10^9/L',
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          name: '10^9/L'
         },
-        series: [
-          {
-            data: [],
-            name: '下限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '上限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            itemStyle: {
-              borderWidth: 0.5,
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '实际值',
-            type: 'line',
-            symbolSize: 4,
-            lineStyle: {},
-          },
-        ],
-        color: ['#d17942', '#162d45', '#0AC5C9']
+        series: [{data: [],
+			  type: 'line'
+        },
+        {
+			  data: [],
+			  type: 'line'
+        },
+        {
+          data: [],
+          type: 'line'
+        }],
+        color: ['green', 'blue', '#F78335']
       }
       var myChart2 = echarts.init(document.getElementById('echartgjzb3'))
       myChart2.setOption(option2)
       // 血红蛋白
       var option3 = {
-        title: {
-          text: '血红蛋白',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -1446,122 +907,35 @@ export default {
             }
           }
         },
-        legend: {
-          right: '2%',
-          top: '32',
-          icon: 'circle',
-          data: ['下限值', '上限值', '实际值'],
-          itemWidth: 8,
-          textStyle: {
-            color: '#787878',
-            fontSize: 13
-          },
-        },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：g/L',
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          name: 'g/L'
         },
-        series: [
-          {
-            data: [],
-            name: '下限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '上限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            itemStyle: {
-              borderWidth: 0.5,
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '实际值',
-            type: 'line',
-            symbolSize: 4,
-            lineStyle: {},
-          },
-        ],
-        color: ['#d17942', '#162d45', '#0AC5C9']
+        series: [{data: [],
+			  type: 'line'
+        },
+        {
+			  data: [],
+			  type: 'line'
+        }, {
+          data: [],
+          type: 'line'
+        }],
+        color: ['green', 'blue', '#F78335']
       }
       var myChart3 = echarts.init(document.getElementById('echartgjzb4'))
       myChart3.setOption(option3)
       // 白蛋白
       var option4 = {
-        title: {
-          text: '白蛋白',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -1571,122 +945,35 @@ export default {
             }
           }
         },
-        legend: {
-          right: '2%',
-          top: '32',
-          icon: 'circle',
-          data: ['下限值', '上限值', '实际值'],
-          itemWidth: 8,
-          textStyle: {
-            color: '#787878',
-            fontSize: 13
-          },
-        },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：g/L',
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          name: 'g/L'
         },
-        series: [
-          {
-            data: [],
-            name: '下限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '上限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            itemStyle: {
-              borderWidth: 0.5,
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '实际值',
-            type: 'line',
-            symbolSize: 4,
-            lineStyle: {},
-          },
-        ],
-        color: ['#d17942', '#162d45', '#0AC5C9']
+        series: [{data: [],
+			  type: 'line'
+        },
+        {
+			  data: [],
+			  type: 'line'
+        }, {
+          data: [],
+          type: 'line'
+        }],
+        color: ['green', 'blue', '#F78335']
       }
       var myChart4 = echarts.init(document.getElementById('echartgjzb5'))
       myChart4.setOption(option4)
       // 前白蛋白
       var option5 = {
-        title: {
-          text: '前白蛋白',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -1696,122 +983,35 @@ export default {
             }
           }
         },
-        legend: {
-          right: '2%',
-          top: '32',
-          icon: 'circle',
-          data: ['下限值', '上限值', '实际值'],
-          itemWidth: 8,
-          textStyle: {
-            color: '#787878',
-            fontSize: 13
-          },
-        },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：10^9/L',
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          name: '10^9/L'
         },
-        series: [
-          {
-            data: [],
-            name: '下限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '上限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            itemStyle: {
-              borderWidth: 0.5,
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '实际值',
-            type: 'line',
-            symbolSize: 4,
-            lineStyle: {},
-          },
-        ],
-        color: ['#d17942', '#162d45', '#0AC5C9']
+        series: [{data: [],
+			  type: 'line'
+        },
+        {
+			  data: [],
+			  type: 'line'
+        }, {
+          data: [],
+          type: 'line'
+        }],
+        color: ['green', 'blue', '#F78335']
       }
       var myChart5 = echarts.init(document.getElementById('echartgjzb6'))
       myChart5.setOption(option5)
       // 总蛋白
       var option6 = {
-        title: {
-          text: '总蛋白',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -1821,122 +1021,35 @@ export default {
             }
           }
         },
-        legend: {
-          right: '2%',
-          top: '32',
-          icon: 'circle',
-          data: ['下限值', '上限值', '实际值'],
-          itemWidth: 8,
-          textStyle: {
-            color: '#787878',
-            fontSize: 13
-          },
-        },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：g/L',
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          name: 'g/L'
         },
-        series: [
-          {
-            data: [],
-            name: '下限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '上限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            itemStyle: {
-              borderWidth: 0.5,
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '实际值',
-            type: 'line',
-            symbolSize: 4,
-            lineStyle: {},
-          },
-        ],
-        color: ['#d17942', '#162d45', '#0AC5C9']
+        series: [{data: [],
+			  type: 'line'
+        },
+        {
+			  data: [],
+			  type: 'line'
+        }, {
+          data: [],
+          type: 'line'
+        }],
+        color: ['green', 'blue', '#F78335']
       }
       var myChart6 = echarts.init(document.getElementById('echartgjzb7'))
       myChart6.setOption(option6)
       // 球蛋白
       var option7 = {
-        title: {
-          text: '球蛋白',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -1946,107 +1059,30 @@ export default {
             }
           }
         },
-        legend: {
-          right: '2%',
-          top: '32',
-          icon: 'circle',
-          data: ['下限值', '上限值', '实际值'],
-          itemWidth: 8,
-          textStyle: {
-            color: '#787878',
-            fontSize: 13
-          },
-        },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：g/L',
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          name: 'g/L'
         },
-        series: [
-          {
-            data: [],
-            name: '下限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '上限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            itemStyle: {
-              borderWidth: 0.5,
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '实际值',
-            type: 'line',
-            symbolSize: 4,
-            lineStyle: {},
-          },
-        ],
-        color: ['#d17942', '#162d45', '#0AC5C9']
+        series: [{data: [],
+			  type: 'line'
+        },
+        {
+			  data: [],
+			  type: 'line'
+        }, {
+          data: [],
+          type: 'line'
+        }],
+        color: ['green', 'blue', '#F78335']
       }
       var myChart7 = echarts.init(document.getElementById('echartgjzb8'))
       myChart7.setOption(option7)
@@ -2582,15 +1618,15 @@ export default {
       // 	},
       // 	yAxis: {
       // 		type: 'value',
-      // 		name: '单位：分'
+      // 		name: '分  '
       // 	},
       // 	series: [{
       // 			data: [],
       // 			type: 'line',
-      //
+      // 			areaStyle: {}
       // 		}
       // 	],
-      // 	color: ["#0AC5C9"]
+      // 	color: ["#F78335"]
       // };
       // var myChart = echarts.init(document.getElementById('echartzmanage1'));
       // myChart.setOption(option);
@@ -2620,7 +1656,7 @@ export default {
       // 	series: [{
       // 			data: [],
       // 			type: 'line',
-      //
+      // 			areaStyle: {}
       // 		}
       // 	],
       // 	color: ["#09AC17"]
@@ -2629,16 +1665,6 @@ export default {
       // myChart1.setOption(option1);
       // 疼痛
       var option2 = {
-        title: {
-          text: '疼痛',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -2649,85 +1675,31 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：分',
+          name: '分  ',
           min: 0,
-          max: 10,
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          max: 10
         },
         series: [{
           data: [],
           type: 'line',
-
+          areaStyle: {}
         }],
-        color: ['#0AC5C9']
+        color: ['#CB0000']
       }
       var myChart2 = echarts.init(document.getElementById('echartzmanage3'))
       myChart2.setOption(option2)
       // 食欲下降、厌食
       var option3 = {
-        title: {
-          text: '食欲下降',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -2738,85 +1710,31 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：分',
+          name: '分  ',
           min: 0,
-          max: 10,
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          max: 10
         },
         series: [{
           data: [],
           type: 'line',
-
+          areaStyle: {}
         }],
-        color: ['#0AC5C9']
+        color: ['#F78335']
       }
       var myChart3 = echarts.init(document.getElementById('echartzmanage4'))
       myChart3.setOption(option3)
       // 吞咽困难
       var option4 = {
-        title: {
-          text: '吞咽困难',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -2827,70 +1745,26 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：分',
+          name: '分  ',
           min: 0,
-          max: 10,
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          max: 10
         },
         series: [{
           data: [],
           type: 'line',
-
+          areaStyle: {}
         }],
-        color: ['#0AC5C9']
+        color: ['#F78335']
       }
       var myChart4 = echarts.init(document.getElementById('echartzmanage5'))
       myChart4.setOption(option4)
@@ -2911,10 +1785,10 @@ export default {
       //   series: [{
       //     data: [],
       //     type: 'line',
-      //
+      //     areaStyle: {}
       //   }
       //   ],
-      //   color: ['#0AC5C9']
+      //   color: ['#F78335']
       // }
       // var myChart5 = echarts.init(document.getElementById('echartzmanage6'))
       // myChart5.setOption(option5)
@@ -2935,25 +1809,15 @@ export default {
       //   series: [{
       //     data: [],
       //     type: 'line',
-      //
+      //     areaStyle: {}
       //   }
       //   ],
-      //   color: ['#0AC5C9']
+      //   color: ['#F78335']
       // }
       // var myChart6 = echarts.init(document.getElementById('echartzmanage7'))
       // myChart6.setOption(option6)
       // 腹胀
       var option7 = {
-        title: {
-          text: '腹胀',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -2964,85 +1828,31 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：分',
+          name: '分  ',
           min: 0,
-          max: 10,
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          max: 10
         },
         series: [{
           data: [],
           type: 'line',
-
+          areaStyle: {}
         }],
-        color: ['#0AC5C9']
+        color: ['#F78335']
       }
       var myChart7 = echarts.init(document.getElementById('echartzmanage8'))
       myChart7.setOption(option7)
       // 水肿
       var option8 = {
-        title: {
-          text: '水肿',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -3053,70 +1863,26 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：分',
+          name: '分  ',
           min: 0,
-          max: 10,
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          max: 10
         },
         series: [{
           data: [],
           type: 'line',
-
+          areaStyle: {}
         }],
-        color: ['#0AC5C9']
+        color: ['#F78335']
       }
       var myChart8 = echarts.init(document.getElementById('echartzmanage9'))
       myChart8.setOption(option8)
@@ -3137,7 +1903,7 @@ export default {
       //   series: [{
       //     data: [],
       //     type: 'line',
-      //
+      //     areaStyle: {}
       //   }
       //   ],
       //   color: ['#09AC17']
@@ -3146,16 +1912,6 @@ export default {
       // myChart9.setOption(option9)
       // 脱发
       var option10 = {
-        title: {
-          text: '脱发',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -3166,70 +1922,26 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：分',
+          name: '分  ',
           min: 0,
-          max: 10,
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          max: 10
         },
         series: [{
           data: [],
           type: 'line',
-
+          areaStyle: {}
         }],
-        color: ['#2cc3cc']
+        color: ['#CB0000']
       }
       var myChart10 = echarts.init(document.getElementById('echartzmanage11'))
       myChart10.setOption(option10)
@@ -3250,25 +1962,15 @@ export default {
       //   series: [{
       //     data: [],
       //     type: 'line',
-      //
+      //     areaStyle: {}
       //   }
       //   ],
-      //   color: ['#0AC5C9']
+      //   color: ['#F78335']
       // }
       // var myChart11 = echarts.init(document.getElementById('echartzmanage12'))
       // myChart11.setOption(option11)
       // 便秘
       var option12 = {
-        title: {
-          text: '便秘',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -3279,70 +1981,26 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：分',
+          name: '分  ',
           min: 0,
-          max: 10,
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          max: 10
         },
         series: [{
           data: [],
           type: 'line',
-
+          areaStyle: {}
         }],
-        color: ['#0AC5C9']
+        color: ['#F78335']
       }
       var myChart12 = echarts.init(document.getElementById('echartzmanage13'))
       myChart12.setOption(option12)
@@ -3363,25 +2021,15 @@ export default {
       //   series: [{
       //     data: [],
       //     type: 'line',
-      //
+      //     areaStyle: {}
       //   }
       //   ],
-      //   color: ['#0AC5C9']
+      //   color: ['#F78335']
       // }
       // var myChart13 = echarts.init(document.getElementById('echartzmanage14'))
       // myChart13.setOption(option13)
       // 口腔黏膜炎
       var option14 = {
-        title: {
-          text: '口腔黏膜炎',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -3392,85 +2040,31 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：分',
+          name: '分  ',
           min: 0,
-          max: 4,
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          max: 4
         },
         series: [{
           data: [],
           type: 'line',
-
+          areaStyle: {}
         }],
-        color: ['#0AC5C9']
+        color: ['#F78335']
       }
       var myChart14 = echarts.init(document.getElementById('echartzmanage15'))
       myChart14.setOption(option14)
       // 疲劳
       var option15 = {
-        title: {
-          text: '疲劳',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -3481,70 +2075,26 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：分',
+          name: '分  ',
           min: 0,
-          max: 10,
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          max: 10
         },
         series: [{
           data: [],
           type: 'line',
-
+          areaStyle: {}
         }],
-        color: ['#0AC5C9']
+        color: ['#F78335']
       }
       var myChart15 = echarts.init(document.getElementById('echartzmanage16'))
       myChart15.setOption(option15)
@@ -3565,10 +2115,10 @@ export default {
       //   series: [{
       //     data: [],
       //     type: 'line',
-      //
+      //     areaStyle: {}
       //   }
       //   ],
-      //   color: ['#0AC5C9']
+      //   color: ['#F78335']
       // }
       // var myChart16 = echarts.init(document.getElementById('echartzmanage17'))
       // myChart16.setOption(option16)
@@ -3589,25 +2139,15 @@ export default {
       //   series: [{
       //     data: [],
       //     type: 'line',
-      //
+      //     areaStyle: {}
       //   }
       //   ],
-      //   color: ['#0AC5C9']
+      //   color: ['#F78335']
       // }
       // var myChart17 = echarts.init(document.getElementById('echartzmanage18'))
       // myChart17.setOption(option17)
       // 腹泻
       var option18 = {
-        title: {
-          text: '腹泻',
-          top: '0%',
-          left: '5',
-          textStyle: {
-            fontSize: 18,
-            fontWeight:500,
-            color: '#333',
-          },
-        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -3618,70 +2158,26 @@ export default {
           }
         },
         grid: {
-          left: '40',
-          right: '3%',
-          bottom: '40',
-          top:'65'
+          top: 40,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
           type: 'value',
-          name: '单位：分',
+          name: '分  ',
           min: 0,
-          max: 10,
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          max: 10
         },
         series: [{
           data: [],
           type: 'line',
-
+          areaStyle: {}
         }],
-        color: ['#0AC5C9']
+        color: ['#F78335']
       }
       var myChart18 = echarts.init(document.getElementById('echartzmanage19'))
       myChart18.setOption(option18)
@@ -3868,10 +2364,8 @@ export default {
     lifeEchart () {
       var option = {
         grid: {
-          top: 130,
-          left: '40',
-          right: '3%',
-          bottom: '40',
+          top: 160,
+          bottom: 40
         },
         tooltip: {
           trigger: 'axis',
@@ -3885,70 +2379,21 @@ export default {
         legend: {
           data: ['躯体功能', '角色功能', '疲倦情况', '恶心与呕吐情况', '疼痛状况', '认知功能', '气促情况', '睡眠情况', '食欲情况', '便秘情况', '腹泻情况', '情绪功能', '社会功能',
             '经济情况', '总健康状况'
-          ],
-          icon:"roundRect",
-          itemWidth: 9,
-          itemHeight: 7,
-          textStyle: {
-            color: "#787878",
-            fontSize: 13
-          }
+          ]
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [],
-          axisLabel: {
-            color: '#787878',
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          nameTextStyle: {
-            align: 'left',
-          },
+          data: []
         },
         yAxis: {
-          type: 'value',
-          axisLine: {
-            // show: false
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          axisTick: {
-            // show: false
-
-            alignWithLabel: true,
-            lineStyle: {
-              color: '#979797'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgba(241, 240, 240, 1)'
-            }
-          },
-          nameTextStyle: {
-            color: '#787878',
-            fontSize: 13,
-            align: 'center'
-          },
+          type: 'value'
         },
         series: [{
           name: '躯体功能',
           data: [],
           type: 'line',
-
+          areaStyle: {}
         },
         {
           name: '角色功能',
@@ -4021,7 +2466,7 @@ export default {
           type: 'line'
         }
         ],
-        color: ['#2cc3cc', '#d17942', '#162d45','#c23531','#483D8B','#00BFFF', '#61a0a8', '#d48265', '#749f83','#DAA520','#ca8622','#228B22', '#A52A2A', '#546570','#5F9EA0']
+        color: ['#F78335', '#09AC17', '#CB0000']
       }
       var myChart = echarts.init(document.getElementById('echartLifes'))
       myChart.setOption(option)
