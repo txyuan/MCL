@@ -807,7 +807,7 @@
         }
 
         .confrim {
-          width: 50%; 
+          width: 50%;
           line-height: 44px;
           background-color: #0AC5C9;
           color: #FFFFFF;
