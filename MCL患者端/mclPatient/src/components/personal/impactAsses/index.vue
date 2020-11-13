@@ -900,7 +900,7 @@ export default {
           type: 'line',
 
         }],
-        color: ['#CB0000']
+        color: ['#0AC5C9']
       }
       var myChart2 = echarts.init(document.getElementById('echartkashi'))
       myChart2.setOption(option2)
