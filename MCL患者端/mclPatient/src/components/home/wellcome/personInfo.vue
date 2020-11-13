@@ -36,7 +36,7 @@
     </div>
 
     <div class="splitLine">
-      <mt-cell is-link class="sportEvaluation-wrap bdrBtm" @click.native="sportPickerToggles('show')">
+      <mt-cell is-link class="sportEvaluation-wrap borderBottom" @click.native="sportPickerToggles('show')">
         <div slot="title" class="titleWrap">
           <span class="mint-cell-text">疾病类型</span>
         </div>
@@ -44,7 +44,6 @@
           {{sportDefaultName}}
         </div>
       </mt-cell>
-
       <!--<mt-cell is-link class="borderBottom sportEvaluation-wrap" @click.native="zhenduanPickerToggles('show')">
         <div slot="title" class="titleWrap">
           <span class="mint-cell-text">临床诊断</span>
@@ -53,8 +52,7 @@
           {{zhenduanDefaultName}}
         </div>
       </mt-cell>-->
-
-      <mt-cell is-link class="sportEvaluation-wrap zddataWrap" @click.native="openTimePicker('param.new_value_1')">
+      <mt-cell is-link class="sportEvaluation-wrap zddataWrap " @click.native="openTimePicker('param.new_value_1')">
         <div slot="title" class="titleWrap">
           <span class="mint-cell-text">首次诊断日期</span>
         </div>
@@ -62,7 +60,8 @@
           {{param.new_value_1|| '请选择日期'}}
         </div>
       </mt-cell>
-      <mt-radio :options="[{label: '具体日期记不清', value: '1'}]" v-model="param.new_value_2" style="padding: 0px 15px"></mt-radio>
+      <mt-radio :options="[{label: '具体日期记不清', value: '1'}]" v-model="param.new_value_2"
+                class="dateSelection"></mt-radio>
 
     </div>
     <div class="splitLine">
@@ -84,29 +83,31 @@
     </div>
     <div class="splitLine">
       <div class="title2 bg-white titleBtm" style="line-height: 20px; padding: 14px 15px">肿瘤家族史
-      <span>(三代直系亲属有无任何恶性肿瘤) </span>
-  </div>
-      <mt-radio :options="new_value_22.option" v-model="new_value_22.value" style="padding-top: 8px;padding-bottom: 10px"></mt-radio>
+        <span>(三代直系亲属有无任何恶性肿瘤) </span>
+      </div>
+      <mt-radio :options="new_value_22.option" v-model="new_value_22.value"
+                style="padding-top: 8px;padding-bottom: 10px"></mt-radio>
 
     </div>
-    <div class="splitLine">
+    <div class="splitLine" style="padding-bottom: 0.2rem">
       <div class="title2 bg-white titleBtm">目前的治疗状态<em>(可多选)</em>
       </div>
       <mt-checklist :options="new_value_23.option" v-model="new_value_23.value" class="checklist"></mt-checklist>
-      <div class="title2 bg-white" v-show="new_value_24.show" @click="openTimePicker('new_value_24.value')">
-        准备手术时间 <input type="text" class="line-input" readonly v-model="new_value_24.value" style="width: 100px">
+      <div class="title2 bg-white splitData" v-show="new_value_24.show" @click="openTimePicker('new_value_24.value')">
+        <span>准备手术时间：</span> <input type="text" class="line-input" readonly v-model="new_value_24.value"
+                                    style="width: 100px">
       </div>
-      <div class="title2 bg-white" v-show="new_value_30.show">
-        化疗 第 <input type="tel" class="line-input" v-model="new_value_30.value"> 疗程
+      <div class="title2 bg-white splitData" v-show="new_value_30.show">
+        <span>化疗：</span> 第 <input type="tel" class="line-input" v-model="new_value_30.value"> 疗程
       </div>
-      <div class="title2 bg-white" v-show="new_value_32.show">
-        放疗 第 <input type="tel" class="line-input" v-model="new_value_32.value"> 疗程
+      <div class="title2 bg-white splitData" v-show="new_value_32.show">
+        <span>放疗：</span> 第 <input type="tel" class="line-input" v-model="new_value_32.value"> 疗程
       </div>
-      <div class="title2 bg-white" v-show="new_value_33.show">
-        靶向治疗 第 <input type="tel" class="line-input" v-model="new_value_33.value"> 疗程
+      <div class="title2 bg-white splitData" v-show="new_value_33.show">
+        <span>靶向治疗：</span> 第 <input type="tel" class="line-input" v-model="new_value_33.value"> 疗程
       </div>
-      <div class="title2 bg-white" v-show="new_value_36.show">
-        免疫治疗 第 <input type="tel" class="line-input" v-model="new_value_36.value"> 疗程
+      <div class="title2 bg-white splitData" v-show="new_value_36.show">
+        <span>免疫治疗：</span> 第 <input type="tel" class="line-input" v-model="new_value_36.value"> 疗程
       </div>
     </div>
     <div class=""></div>
@@ -730,23 +731,26 @@
 
     .splitLine {
       margin-top: 0.1rem;
+      background: #FFFFFF;
 
       .borderBottom {
         border: 0;
       }
 
       .titleBtm {
-        padding:0 25px 0 15px;
+        padding: 0 25px 0 15px;
         line-height: 48px;
         font-size: 16px;
         position: relative;
-        em{
+
+        em {
           color: #0AC5C9;
           font-style: normal;
           font-size: 14px;
           padding-left: 2px;
         }
-        span{
+
+        span {
           color: #999999;
           font-size: 14px;
           padding-left: 2px;
@@ -770,9 +774,10 @@
       .borderBottom:last-child::after {
         opacity: 0;
       }
-      .zdData{
+
+      .zdData {
         background-color: #FFFFFF;
-        padding:0 15px;
+        padding: 0 15px;
         line-height: 48px;
         font-size: 16px;
 
@@ -782,30 +787,34 @@
     .mint-popup-bottom {
       width: 100%;
     }
+
     .picker {
       .picker-toolbar {
 
       }
+
       .picker_bar {
         display: flex;
         justify-content: space-between;
         text-align: center;
         border-bottom: solid 1px #eaeaea;
-        .cancel{
+
+        .cancel {
           width: 50%;
           line-height: 44px;
           background-color: #dddddd;
           color: #666666;
         }
+
         .confrim {
-          width: 50%;
-          padding: 10px;
+          width: 50%; 
           line-height: 44px;
           background-color: #0AC5C9;
           color: #FFFFFF;
         }
       }
     }
+
     /*.picker_bar {*/
     /*  display: flex;*/
     /*  justify-content: space-between;*/
@@ -849,6 +858,17 @@
     margin-top: 0px;
     font-size: 14px;
   }
+
+  .splitData {
+    padding: 0 0.2rem 0.1rem 0.2rem;
+    color: #666666;
+    font-size: 0.14rem;
+
+    span {
+      font-size: 0.145rem;
+      color: #484848;
+    }
+  }
 </style>
 <style>
   .personInfo_root input {
@@ -858,9 +878,9 @@
   }
 
   .personInfo_root .line-input {
-    width: 50px;
+    width: 72px;
     border: none !important;
-    border-bottom: 1px solid #EEEEEE !important;
+    border-bottom: 1px solid #ddd !important;
     text-align: left;
   }
 
@@ -888,14 +908,15 @@
     padding: 0;
   }
 
-  .personInfo_root .checklist .mint-cell{
+  .personInfo_root .checklist .mint-cell {
     display: inline-block;
     padding: 0;
     border-radius: 20px;
     margin: 0 0.05rem;
     min-height: 42px;
   }
-  .personInfo_root .mint-radiolist .mint-cell{
+
+  .personInfo_root .mint-radiolist .mint-cell {
     display: inline-block;
     padding: 0;
     border-radius: 20px;
@@ -903,18 +924,20 @@
     min-width: 38%;
     min-height: 42px;
   }
+
   .personInfo_root .mint-radiolist .mint-cell .mint-cell-wrapper,
-  .personInfo_root .mint-radiolist .mint-cell .mint-cell-wrapper .mint-radiolist-label
-  {
+  .personInfo_root .mint-radiolist .mint-cell .mint-cell-wrapper .mint-radiolist-label {
     padding: 0;
   }
+
   .personInfo_root .checklist .mint-cell.active {
     background-color: #0AC5C9;
   }
 
-  .personInfo_root .mint-radiolist .mint-cell::after{
+  .personInfo_root .mint-radiolist .mint-cell::after {
 
   }
+
   .personInfo_root .mint-checklist .mint-cell::after {
     /*content: " ";*/
     /*opacity: 0.1;*/
@@ -950,7 +973,7 @@
   }
 
   .personInfo_root .mint-checklist .mint-checkbox-label {
-    margin-left:4px;
+    margin-left: 4px;
   }
 
   /*.personInfo_root .mint-radiolist .mint-radiolist-label{*/
@@ -974,37 +997,76 @@
   .personInfo_root .mint-radiolist .mint-radiolist-label .mint-radio-label {
 
   }
+
   .personInfo_root .picker .picker-toolbar {
     height: 45px;
     border: 0;
   }
-  .personInfo_root .picker .mint-datetime-action{
+
+  .personInfo_root .picker .mint-datetime-action {
     width: 50%;
     line-height: 44px;
     font-size: inherit;
   }
-  .personInfo_root .picker  .mint-datetime-cancel{
+
+  .personInfo_root .picker .mint-datetime-cancel {
     background-color: #dddddd;
     color: #666666;
   }
+
   .personInfo_root .picker .mint-datetime-confirm {
     background-color: #0AC5C9;
     color: #FFFFFF;
   }
-  @media screen and (max-width: 375px)  {
+  .personInfo_root .mint-radiolist.dateSelection {
+    padding: 0 25px 0 15px;
+    color: #787878;
+  }
+  .personInfo_root .mint-radiolist.dateSelection .mint-cell{
+    width: 100%;
+  }
+  .personInfo_root .mint-radiolist.dateSelection .mint-radio .mint-radio-core{
+    border-radius: 5px;
+    /*float: right;*/
+  }
+  .personInfo_root .mint-radiolist.dateSelection .mint-cell-title{
+    position: relative;
+
+  }
+  .personInfo_root .mint-radiolist.dateSelection .mint-radio-label{
+    margin-left: 0;
+  }
+  .personInfo_root .mint-radiolist.dateSelection .mint-radio-input:checked + .mint-radio-core::after{
+    color: #FFFFFF;
+    top: 2px;
+    left: 3px;
+    content: "\2713";
+    font-weight: bold;
+    background-color:#0AC5C9;
+  }
+  .personInfo_root .mint-radiolist.dateSelection  .mint-radio-input:checked + .mint-radio-core{
+    /*background-color: #FFFFFF;*/
+    /*border-color: #FFFFFF;*/
+  }
+  @media screen and (max-width: 375px) {
     .personInfo_root .mint-checklist .mint-cell {
       width: 48%;
       margin: 0 0 0 1%;
     }
+
     .personInfo_root .mint-radiolist .mint-cell {
-       margin: 0 1%;
-       min-width: 43%;
-     }
+      margin: 0 1%;
+      min-width: 43%;
+    }
   }
 
-    font-size: 16px;
+  .mint-radio-input:checked + .mint-radio-core, .mint-checkbox-input:checked + .mint-checkbox-core {
+    background-color: #0AC5C9;
+    border-color: #0AC5C9;
+  }
+
   /* 屏幕等于1440px */
-  @media screen and (max-width:375px) and (min-width: 1440px)  {
+  @media screen and (max-width: 375px) and (min-width: 1440px) {
     .add {
       width: 348px;
     }
