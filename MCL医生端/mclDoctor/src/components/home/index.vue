@@ -47,7 +47,7 @@
 						<img src="@/assets/images/gongju.png" />
 						<span>复诊预约</span>
 						<label></label>
-						<i v-if="repData.reviewtheTotal!='0'"></i>
+						<i v-if="ishsow"></i>
 					</router-link>
 				</p>
 			</div>
@@ -86,6 +86,7 @@ export default {
     list: [],
     clist: [],
     repData: {},
+    ishsow: false,
     shareLink: '/'
   }),
   methods: {
@@ -127,6 +128,11 @@ export default {
       return this.$post(url).then((data) => {
         let model = data.data
         this.repData = model
+        if (model.reviewtheTotal != '0') {
+          this.ishsow = true
+        } else {
+          this.ishsow = false
+        }
       })
     },
     // 获取客服的token

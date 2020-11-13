@@ -350,22 +350,16 @@ export default {
           series: [
             {
               data: [],
-              type: 'line',
-              areaStyle: {
-                color: 'blue'
-              }
+              type: 'line'
+
             },
 		  {
 		    data: [],
-		    type: 'line',
-		    areaStyle: {
-		      color: 'green'
-		    }
+		    type: 'line'
 		  },
 		  {
 		    data: [],
-		    type: 'line',
-		    areaStyle: {}
+		    type: 'line'
 		  }
           ],
           color: ['blue', 'green', '#F78335']
@@ -809,22 +803,15 @@ export default {
         },
         series: [{
           data: [],
-          type: 'line',
-          areaStyle: {
-			  color: 'green'
-		  }
+          type: 'line'
         },
         {
 		  data: [],
-		  type: 'line',
-		  areaStyle: {
-			  color: 'blue'
-		  }
+		  type: 'line'
         },
         {
 		  data: [],
-		  type: 'line',
-		  areaStyle: {}
+		  type: 'line'
         }
         ],
         color: ['green', 'blue', '#F78335']
@@ -857,23 +844,16 @@ export default {
         },
         series: [
           {data: [],
-			  type: 'line',
-			  areaStyle: {
-				  color: 'red'
-			  }
+			  type: 'line'
           },
           {
 			  data: [],
-			  type: 'line',
-			  areaStyle: {
-				  color: 'blue'
-			  }
+			  type: 'line'
           },
           {data: [],
-            type: 'line',
-            areaStyle: {}
+            type: 'line'
           }],
-        color: ['red', 'blue', '#09AC17']
+        color: ['green', 'blue', '#F78335']
       }
       var myChart1 = echarts.init(document.getElementById('echartgjzb2'))
       myChart1.setOption(option1)
@@ -902,24 +882,17 @@ export default {
           name: '10^9/L'
         },
         series: [{data: [],
-			  type: 'line',
-			  areaStyle: {
-				  color: 'green'
-			  }
+			  type: 'line'
         },
         {
 			  data: [],
-			  type: 'line',
-			  areaStyle: {
-				  color: 'blue'
-			  }
+			  type: 'line'
         },
         {
           data: [],
-          type: 'line',
-          areaStyle: {}
+          type: 'line'
         }],
-        color: ['green', 'blue', '#CB0000']
+        color: ['green', 'blue', '#F78335']
       }
       var myChart2 = echarts.init(document.getElementById('echartgjzb3'))
       myChart2.setOption(option2)
@@ -948,21 +921,14 @@ export default {
           name: 'g/L'
         },
         series: [{data: [],
-			  type: 'line',
-			  areaStyle: {
-				  color: 'green'
-			  }
+			  type: 'line'
         },
         {
 			  data: [],
-			  type: 'line',
-			  areaStyle: {
-				  color: 'blue'
-			  }
+			  type: 'line'
         }, {
           data: [],
-          type: 'line',
-          areaStyle: {}
+          type: 'line'
         }],
         color: ['green', 'blue', '#F78335']
       }
@@ -993,21 +959,14 @@ export default {
           name: 'g/L'
         },
         series: [{data: [],
-			  type: 'line',
-			  areaStyle: {
-				  color: 'green'
-			  }
+			  type: 'line'
         },
         {
 			  data: [],
-			  type: 'line',
-			  areaStyle: {
-				  color: 'blue'
-			  }
+			  type: 'line'
         }, {
           data: [],
-          type: 'line',
-          areaStyle: {}
+          type: 'line'
         }],
         color: ['green', 'blue', '#F78335']
       }
@@ -1038,21 +997,14 @@ export default {
           name: '10^9/L'
         },
         series: [{data: [],
-			  type: 'line',
-			  areaStyle: {
-				  color: 'green'
-			  }
+			  type: 'line'
         },
         {
 			  data: [],
-			  type: 'line',
-			  areaStyle: {
-				  color: 'blue'
-			  }
+			  type: 'line'
         }, {
           data: [],
-          type: 'line',
-          areaStyle: {}
+          type: 'line'
         }],
         color: ['green', 'blue', '#F78335']
       }
@@ -1083,21 +1035,14 @@ export default {
           name: 'g/L'
         },
         series: [{data: [],
-			  type: 'line',
-			  areaStyle: {
-				  color: 'green'
-			  }
+			  type: 'line'
         },
         {
 			  data: [],
-			  type: 'line',
-			  areaStyle: {
-				  color: 'blue'
-			  }
+			  type: 'line'
         }, {
           data: [],
-          type: 'line',
-          areaStyle: {}
+          type: 'line'
         }],
         color: ['green', 'blue', '#F78335']
       }
@@ -1128,21 +1073,14 @@ export default {
           name: 'g/L'
         },
         series: [{data: [],
-			  type: 'line',
-			  areaStyle: {
-				  color: 'green'
-			  }
+			  type: 'line'
         },
         {
 			  data: [],
-			  type: 'line',
-			  areaStyle: {
-				  color: 'blue'
-			  }
+			  type: 'line'
         }, {
           data: [],
-          type: 'line',
-          areaStyle: {}
+          type: 'line'
         }],
         color: ['green', 'blue', '#F78335']
       }
