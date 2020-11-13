@@ -811,7 +811,7 @@ export default {
           type: 'line',
 
         }],
-        color: ['#09AC17']
+        color: ['#0AC5C9']
       }
       var myChart1 = echarts.init(document.getElementById('echartpingg'))
       myChart1.setOption(option1)
