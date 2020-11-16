@@ -7,7 +7,7 @@
 				</header-back>
 			</div>
 		</mt-header>
-		<div class="headty_home" style="background: #D1EEFC;">
+		<div class="headty_home" style="background: #f1f1f1;">
 			<div class="headty_inform">
 				<p>基本信息</p>
 				<div class="headty_mead">

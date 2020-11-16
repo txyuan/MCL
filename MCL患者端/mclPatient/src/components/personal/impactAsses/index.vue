@@ -314,7 +314,8 @@ export default {
           },
           yAxis: {
             name,
-            min
+            min,
+            max
           }
         } = option
         var model = {
@@ -384,6 +385,8 @@ export default {
           yAxis: {
             type: 'value',
             name: name,
+            min:min,
+            max:max,
             axisLine: {
               // show: false
               lineStyle: {
@@ -466,10 +469,10 @@ export default {
         },
         yAxis: {
           name: '单位：kg',
-          min: function (value) {
-            // return value.min - 20;
-            return 0
-          },
+          min: 0,
+          max: function (value) {
+            return value.max + 6;
+          }
         },
       })
       var myChart = echarts.init(document.getElementById('weighEchart'))
@@ -1112,7 +1115,7 @@ export default {
         },
         yAxis: {
           type: 'value',
-          name: '单位：10^9/L',
+          name: '单位:10^9/L',
           axisLine: {
             // show: false
             lineStyle: {
@@ -1237,7 +1240,7 @@ export default {
         },
         yAxis: {
           type: 'value',
-          name: '单位：10^12/L',
+          name: '单位:10^12/L',
           axisLine: {
             // show: false
             lineStyle: {
@@ -1362,7 +1365,7 @@ export default {
         },
         yAxis: {
           type: 'value',
-          name: '单位：10^9/L',
+          name: '单位:10^9/L',
           axisLine: {
             // show: false
             lineStyle: {
@@ -1737,7 +1740,7 @@ export default {
         },
         yAxis: {
           type: 'value',
-          name: '单位：10^9/L',
+          name: '单位:10^9/L',
           axisLine: {
             // show: false
             lineStyle: {
@@ -4136,8 +4139,8 @@ export default {
 	#echartzmanage18,
 	#echartzmanage19,
   {
-    margin: 0 auto;
-    min-height: 2.5rem;
+    margin: 0.1rem auto 0 auto;
+    min-height: 2.75rem;
     max-height: 5rem;
   }
 
@@ -4161,28 +4164,27 @@ export default {
       margin: 0 auto;
 
       .headty_title {
-        background: #fff;
-        border-bottom: 1px solid #dddddd;
+        background: #0AC5C9;
+        border-radius: 8px 8px 0 0;
         margin-top: 0.125rem;
         padding: 0.135rem 0.125rem 0.11rem 0.125rem;
-
+        text-align: center;
         p {
           line-height: 1.1;
           padding-left: 6px;
           font-size: 0.155rem;
-          color: #333333;
-          border-left: 4px solid #0AC5C9;
+          color: #ffffff;
         }
       }
 
       .headty_mead {
-        padding: 3% 3% 4% 3%;
+        padding: 3% 2% 4% 2%;
         background: #fff;
-        font-size: 0.14rem;
+        font-size: 0.145rem;
         color: #666666;
-
+        border-radius: 0 0 8px 8px;
         ul {
-          padding-left: 3%;
+          padding:0 3%;
 
           li {
             padding: 0.0325rem 0;
@@ -4205,7 +4207,7 @@ export default {
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
       display: block;
-      font-size: 0.14rem;
+      font-size: 0.145rem;
       width: auto;
       margin: 1%;
       display: inline-block;
