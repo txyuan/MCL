@@ -275,6 +275,12 @@ export default {
     let role = this.$route.query.role
     if (role) {
       let JurisdictionRole = this.roleMap['role' + role].split(',') // 这个用户可以选择注册的角色
+      console.log(JurisdictionRole)
+	  if (role == 5) {
+		  if (rphone != 15523523851) {
+			  JurisdictionRole.splice(1, 1)
+		  }
+	  }
       this.role = JurisdictionRole[0]
       this.roleList.forEach((item, index) => {
         if (JurisdictionRole.indexOf(String(item.value)) == -1) {
