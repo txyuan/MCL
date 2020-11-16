@@ -99,7 +99,7 @@
 							<p class="row">购 &nbsp;物 &nbsp;车</p>
 						</div>
 					</router-link>
-					<router-link :to="'/staffManage'">
+					<router-link :to="'/staffManage'" v-if="(repData.userTypenum=='5')||(repData.userTypenum=='8')">
 						<div class="cell">
 							<div class="row">
 								<img src="@/assets/images/yuangongguanli@2x.png" style="width: 0.25rem;height: 0.25rem;" alt="">
@@ -107,6 +107,7 @@
 							<p class="row">员工管理</p>
 						</div>
 					</router-link>
+
 					<router-link :to="'/custransfer'" v-if="repData.userTypenum=='5'">
 						<div class="cell">
 							<div class="row">
@@ -132,6 +133,14 @@
 						</div>
 					</router-link>
 					<router-link to="" style="visibility: hidden;" v-else>
+						<div class="cell">
+							<div class="row">
+								<img src="@/assets/images/hezbf.png" style="width: 0.25rem;height: 0.25rem;" alt="">
+							</div>
+							<p class="row">默认模块</p>
+						</div>
+					</router-link>
+					<router-link to="" style="visibility: hidden;" v-if="!((repData.userTypenum=='5')||(repData.userTypenum=='8'))">
 						<div class="cell">
 							<div class="row">
 								<img src="@/assets/images/hezbf.png" style="width: 0.25rem;height: 0.25rem;" alt="">

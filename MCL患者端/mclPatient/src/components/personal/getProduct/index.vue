@@ -82,246 +82,247 @@
 </template>
 
 <script>
-	import loadMore from "@/components/common/loadMore.vue"; //加载更多组件
-	import productItem from "./../myCollage/productItem.vue"; //商品列表
-	export default {
-		name: "index",
-		data: () => ({
-			// selected:"",
-			hideadress: false,
-			listadres: [],
-			isactv: 0,
-			selected: "tab-container1",
-			tabs: [{
-				name: "全部",
-				type: "-1"
-			}, {
-				name: "待发货",
-				type: "0"
-			}, {
-				name: "已发货",
-				type: "1"
-			}, {
-				name: "已收货",
-				type: "2"
-			}], //
-			filterList: [{
-				names: "全部",
-				types: "-1"
-			}, {
-				names: "抢购商品",
-				types: "1"
-			}, {
-				names: "批发提货",
-				types: "4"
-			}, {
-				names: "零售商品",
-				types: "3"
-			}],
-			filterActive: "0",
-			param: {
-				pagesize: 10,
-				pagecount: 0,
-				status: "-1"
-			},
-			orderkey: '', //提货使用到的商品key
-			list: [{
-					orderId: 11,
-					buyTime: '2018-09-11 11:31:54',
-					orderMoney: '2000',
-					state: 1,
-					goodsName: '营养筛查检测并且营养筛查检测订单完成时间营养筛查',
-					showPrice: '2000',
-					stateText: '待收货',
-					shownum: 2
-				},
-				{
-					orderId: 11,
-					buyTime: '2018-09-11 11:31:54',
-					orderMoney: '2000',
-					state: 2,
-					goodsName: '营养筛查检测并且营养筛查检测订单完成时间营养筛查',
-					showPrice: '2000',
-					stateText: '待发货',
-					shownum: 1
-				},
-				{
-					orderId: 11,
-					buyTime: '2018-09-11 11:31:54',
-					orderMoney: '2000',
-					state: 3,
-					goodsName: '营养筛查检测并且营养筛查检测订单完成时间营养筛查',
-					showPrice: '2000',
-					stateText: '已完成',
-					shownum: 1
-				}
-			]
-		}),
-		methods: {
-			tab(val) {
-				this.$Indicator.loading();
-				this.param.status = val;
-				this.param.pagecount = 0;
-				this.$refs.loadMoreE.getList(); //触发加载更多
-				setTimeout(() => {
-					this.$Indicator.close();
-				}, 200)
-			},
-			//所得商品列表
-			shoplist(success) {
-				let url = "UserInterface/ProductOrderDetailInfoList.ashx";
-				if (this.param.pagecount == 1) {
-					this.list = [];
-				}
-				this.$post(url, this.param).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					let modelList = data.goodsList;
-					this.list = [...this.list, ...modelList]
-					//加载更多组件触发回调
-					if (success) {
-						success(modelList, this.list)
-					}
-				})
-			},
-			upshop(item) {
-				this.getAdrList();
-				this.hideadress = true;
-				this.orderkey = item.orderId;
-			},
-			okupshop() {
-				let url = "UserInterface/order/UpdateOrderAddressInfo.ashx";
-				let param = {
-					orderkey: this.orderkey,
-					addresskey: this.adreskey
-				};
-				this.$post(url, param).then((data) => {
-					if (data.rspcode != 1) {
-						this.$Toast("提货失败！");
-						return;
-					}
-					this.$Toast("提货成功！");
-					this.hideadress = false;
-					this.$Indicator.loading();
-					this.param.pagecount = 0;
-					this.$refs.loadMoreE.getList(); //触发加载更多
-					setTimeout(() => {
-						this.$Indicator.close();
-					}, 200)
-				})
-			},
-			//隐藏地址
-			hideadrs() {
-				this.hideadress = false;
-			},
-			edit(item) {
-				this.$router.push(`/personaladdadress/edit?skey=${item.sKey}`)
-			},
-			//选择地址
-			setDefaultAdr(index, skey) {
-				this.isactv = index;
-				this.adreskey = skey;
-			},
-			//获取地址列表
-			getAdrList() {
-				let url = "UserInterface/GetUserAddressList.ashx";
-				let param = {
-					"PageSize": 100,
-					"PageCount": 1,
-					"OrderBy": 0
-				};
-				this.$post(url, param).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					let modelList = data.VUserAddressInfo;
-					this.listadres = [...modelList];
-					for (var i in modelList) {
-						if (modelList[i].isDefault == 1) {
-							this.isactv = i;
-							this.adreskey = modelList[i].sKey;
-						}
-					}
-				})
-			},
-			// 取消订单
-			delmoy(item, protype) {
-				this.$Indicator.loading();
-				let url = "UserInterface/DeleteOrderInfo.ashx";
-				let param = {
-					orderskey: item.orderId
-				}
-				this.$post(url, param).then((data) => {
-					this.$Indicator.close();
-					if (data.rspcode != 1) {
-						this.$Toast(data.rspdesc);
-						return;
-					}
-					this.$Toast("删除订单成功");
-					this.tab(this.param.status);
-				})
-			},
-			//  确认收货
-			shopsh(item) {
-				this.$Indicator.loading();
-				let url = "UserInterface/order/ConfirmOrder.ashx";
-				let param = {
-					sKey: item.orderId
-				}
-				this.$post(url, param).then((data) => {
-					this.$Indicator.close();
-					if (data.rspCode != 1) {
-						this.$Toast(data.rspdesc);
-						return;
-					}
-					this.$Toast("确认收货成功");
-					this.tab(this.param.status);
-				})
-			},
-			filterToggleFn(type) {
-				var $mark = this.$refs.mark;
-				$mark.style.display = "none"
-				if (type) {
-					$mark.style.display = "block"
-				}
-			},
-			filterActiveFn(index, types) {
-				this.filterActive = index;
-				this.param.orderType = types;
-				this.$Indicator.loading();
-				this.param.pagecount = 0;
-				this.$refs.loadMoreE.getList(); //触发加载更多
-				setTimeout(() => {
-					this.$Indicator.close();
-				}, 200)
-			}
-		},
-		mounted() {
-			let type = this.$route.query.type;
-			if (type) {
-				this.filterList.forEach((item, index) => {
-					if (type == item.types) {
-						this.filterActiveFn(index, item.types)
-					}
-				})
-			}
-			this.param.pagecount = 0;
-			this.$refs.loadMoreE.getList();
-		},
-		beforeRouteLeave(to, from, next) {
-			//不能返回支付成功页面
-			if (to.name == "panicBuyingAreaPaySuccess") {
-				next("/wx_Entrance/personal")
-				return;
-			}
-			next()
-		},
-		components: {
-			productItem,
-			loadMore
-		}
-	}
+import loadMore from '@/components/common/loadMore.vue' // 加载更多组件
+import productItem from './../myCollage/productItem.vue' // 商品列表
+export default {
+  name: 'index',
+  data: () => ({
+    // selected:"",
+    hideadress: false,
+    listadres: [],
+    isactv: 0,
+    selected: 'tab-container1',
+    tabs: [{
+      name: '全部',
+      type: '-1'
+    }, {
+      name: '待发货',
+      type: '0'
+    }, {
+      name: '已发货',
+      type: '1'
+    }, {
+      name: '已收货',
+      type: '2'
+    }], //
+    filterList: [{
+      names: '全部',
+      types: '-1'
+    }, {
+      names: '抢购商品',
+      types: '1'
+    }, {
+      names: '批发提货',
+      types: '4'
+    }, {
+      names: '零售商品',
+      types: '3'
+    }],
+    filterActive: '0',
+    param: {
+      pagesize: 10,
+      pagecount: 0,
+      status: '-1'
+    },
+    orderkey: '', // 提货使用到的商品key
+    list: [{
+      orderId: 11,
+      buyTime: '2018-09-11 11:31:54',
+      orderMoney: '2000',
+      state: 1,
+      goodsName: '营养筛查检测并且营养筛查检测订单完成时间营养筛查',
+      showPrice: '2000',
+      stateText: '待收货',
+      shownum: 2
+    },
+    {
+      orderId: 11,
+      buyTime: '2018-09-11 11:31:54',
+      orderMoney: '2000',
+      state: 2,
+      goodsName: '营养筛查检测并且营养筛查检测订单完成时间营养筛查',
+      showPrice: '2000',
+      stateText: '待发货',
+      shownum: 1
+    },
+    {
+      orderId: 11,
+      buyTime: '2018-09-11 11:31:54',
+      orderMoney: '2000',
+      state: 3,
+      goodsName: '营养筛查检测并且营养筛查检测订单完成时间营养筛查',
+      showPrice: '2000',
+      stateText: '已完成',
+      shownum: 1
+    }
+    ]
+  }),
+  methods: {
+    tab (val) {
+      this.$Indicator.loading()
+      this.param.status = val
+      this.param.pagecount = 0
+      this.$refs.loadMoreE.getList() // 触发加载更多
+      setTimeout(() => {
+        this.$Indicator.close()
+      }, 200)
+    },
+    // 所得商品列表
+    shoplist (success) {
+      let url = 'UserInterface/ProductOrderDetailInfoList.ashx'
+      if (this.param.pagecount == 1) {
+        this.list = []
+      }
+      this.$post(url, this.param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        let modelList = data.goodsList
+        this.list = [...this.list, ...modelList]
+        // 加载更多组件触发回调
+        if (success) {
+          success(modelList, this.list)
+        }
+      })
+    },
+    upshop (item) {
+      this.getAdrList()
+      this.hideadress = true
+      this.orderkey = item.orderId
+    },
+    okupshop () {
+      let url = 'UserInterface/order/UpdateOrderAddressInfo.ashx'
+      let param = {
+        orderkey: this.orderkey,
+        addresskey: this.adreskey
+      }
+      this.$post(url, param).then((data) => {
+        if (data.rspcode != 1) {
+          this.$Toast('提货失败！')
+          return
+        }
+        this.$Toast('提货成功！')
+        this.hideadress = false
+        this.$Indicator.loading()
+        this.param.pagecount = 0
+        this.$refs.loadMoreE.getList() // 触发加载更多
+        setTimeout(() => {
+          this.$Indicator.close()
+        }, 200)
+      })
+    },
+    // 隐藏地址
+    hideadrs () {
+      this.hideadress = false
+    },
+    edit (item) {
+      this.$router.push(`/personaladdadress/edit?skey=${item.sKey}`)
+    },
+    // 选择地址
+    setDefaultAdr (index, skey) {
+      this.isactv = index
+      this.adreskey = skey
+    },
+    // 获取地址列表
+    getAdrList () {
+      let url = 'UserInterface/GetUserAddressList.ashx'
+      let param = {
+        'PageSize': 100,
+        'PageCount': 1,
+        'OrderBy': 0
+      }
+      this.$post(url, param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        let modelList = data.VUserAddressInfo
+        this.listadres = [...modelList]
+        for (var i in modelList) {
+          if (modelList[i].isDefault == 1) {
+            this.isactv = i
+            this.adreskey = modelList[i].sKey
+          }
+        }
+      })
+    },
+    // 取消订单
+    delmoy (item, protype) {
+      this.$Indicator.loading()
+      let url = 'UserInterface/DeleteOrderInfo.ashx'
+      let param = {
+        orderskey: item.orderId
+      }
+      this.$post(url, param).then((data) => {
+        this.$Indicator.close()
+        if (data.rspcode != 1) {
+          this.$Toast(data.rspdesc)
+          return
+        }
+        this.$Toast('删除订单成功')
+        this.tab(this.param.status)
+      })
+    },
+    //  确认收货
+    shopsh (item) {
+      this.$Indicator.loading()
+      let url = 'UserInterface/order/ConfirmOrder.ashx'
+      let param = {
+        sKey: item.orderId,
+        flag: 2
+      }
+      this.$post(url, param).then((data) => {
+        this.$Indicator.close()
+        if (data.rspCode != 1) {
+          this.$Toast(data.rspdesc)
+          return
+        }
+        this.$Toast('确认收货成功')
+        this.tab(this.param.status)
+      })
+    },
+    filterToggleFn (type) {
+      var $mark = this.$refs.mark
+      $mark.style.display = 'none'
+      if (type) {
+        $mark.style.display = 'block'
+      }
+    },
+    filterActiveFn (index, types) {
+      this.filterActive = index
+      this.param.orderType = types
+      this.$Indicator.loading()
+      this.param.pagecount = 0
+      this.$refs.loadMoreE.getList() // 触发加载更多
+      setTimeout(() => {
+        this.$Indicator.close()
+      }, 200)
+    }
+  },
+  mounted () {
+    let type = this.$route.query.type
+    if (type) {
+      this.filterList.forEach((item, index) => {
+        if (type == item.types) {
+          this.filterActiveFn(index, item.types)
+        }
+      })
+    }
+    this.param.pagecount = 0
+    this.$refs.loadMoreE.getList()
+  },
+  beforeRouteLeave (to, from, next) {
+    // 不能返回支付成功页面
+    if (to.name == 'panicBuyingAreaPaySuccess') {
+      next('/wx_Entrance/personal')
+      return
+    }
+    next()
+  },
+  components: {
+    productItem,
+    loadMore
+  }
+}
 </script>
 
 <style scoped lang="scss">
