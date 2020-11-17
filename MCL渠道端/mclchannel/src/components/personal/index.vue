@@ -218,6 +218,9 @@ export default {
         if (localStorage.userInfo) {
           const userInfo = JSON.parse(localStorage.userInfo)
           model.userType = this.$root.getUserType(userInfo.UserType)
+		  if((userInfo.UserType=='5')&&(model.ContactPhone=='15523523851')){
+			  model.userType='总渠道商'
+		  }
 		  model.userTypenum = userInfo.UserType
         }
         this.repData = model
