@@ -1,6 +1,6 @@
 <template>
-	<div class="dietarySuvey-root" style="min-height: 100vh;background: #fff;">
-		<div id="body_main" style="padding-top: 87px;background: #FFFFFF;">
+	<div class="dietarySuvey-root" style="min-height: 100vh;background: #FFFFFF;">
+		<div id="body_main" style="padding-top: 48px;background: #FFFFFF;">
 			<mt-header title="简易膳食调查" fixed>
 				<div slot="left">
 					<header-back>
@@ -8,12 +8,33 @@
 					</header-back>
 				</div>
 			</mt-header>
-			<div class="fix_top time-pick" style="top: 43px;">
+      <div class="dsuv_br"></div>
+			<div class=" time-pick">
 				<div class="time-inner">
-					<div class="time-show"><input type="date" v-model="datriq" /></div>
+					<div class="time-show"><input type="date" v-model="datriq" class="article-time"/></div>
 				</div>
 			</div>
 			<div class="dsuv_home">
+
+        <div class="dsuv_eveall">
+          <label>能量分配</label>
+          <div class="d-flex dsuvFlexnr">
+            <div class="flex-fill">
+            <strong>{{allObj.allFoodenergy.toFixed(2)}}</strong>
+						<span>总能量(Kal)</span></div>
+            <div class="flex-fill">
+              <strong>{{allObj.allCarbohydrate.toFixed(2)}}</strong>
+						<span>碳水化合物(g)</span>
+            </div>
+            <div class="flex-fill">
+              <strong>{{allObj.allFat.toFixed(2)}}</strong>
+						<span>总脂肪(g)</span>
+            </div>
+            <div class="flex-fill">
+              <strong>{{Number(allObj.allProtein).toFixed(2)}}</strong>
+              <span>蛋白质(g)</span></div>
+					</div>
+        </div>
 				<div class="dsuv_addfood">
 					<div class="dsuv_list">
 						<p>早餐</p>
@@ -30,7 +51,7 @@
 								</div>
 							</mt-cell>
 						</div>
-						<span @click="otherfood('01')">+ 食物</span>
+						<span @click="otherfood('01')">+ 早餐</span>
 					</div>
 					<div class="dsuv_list">
 						<p>午餐</p>
@@ -47,7 +68,7 @@
 								</div>
 							</mt-cell>
 						</div>
-						<span @click="otherfood('02')">+ 食物</span>
+						<span @click="otherfood('02')">+ 午餐</span>
 					</div>
 					<div class="dsuv_list">
 						<p>晚餐</p>
@@ -64,7 +85,7 @@
 								</div>
 							</mt-cell>
 						</div>
-						<span @click="otherfood('03')">+ 食物</span>
+						<span @click="otherfood('03')">+ 晚餐</span>
 					</div>
 					<div class="dsuv_list">
 						<p>加餐</p>
@@ -81,25 +102,16 @@
 								</div>
 							</mt-cell>
 						</div>
-						<span @click="otherfood('04')">+ 食物</span>
+						<span @click="otherfood('04')">+ 加餐</span>
 					</div>
 				</div>
-				<p class="dsuv_eveall">
-					<label>能量分配：</label>
-					<span>
-						<i>总能量: {{allObj.allFoodenergy.toFixed(2)}}Kal</i>
-						<i>碳水化合物:{{allObj.allCarbohydrate.toFixed(2)}}g</i>
-						<i>总脂肪:{{allObj.allFat.toFixed(2)}}g</i>
-						<i>蛋白质:{{Number(allObj.allProtein).toFixed(2)}}g</i>
-					</span>
-				</p>
 			</div>
 		</div>
 		<!-- 在线营养筛查页面跳转过来才需要显示 -->
 		<div class="buttons" v-if="$route.query.id">
 		  <mt-button type="danger" class="add_btns" size="large" @click.native="save">提交保存</mt-button>
 		</div>
-		
+
 		<!-- 遮罩层 -->
 		<div id="mark" :style="{display: (show?'block': 'none')}">
 			<div class="modal" :class="show && 'show' ">
@@ -109,7 +121,7 @@
 						<!-- <span>10月20日/早餐</span> -->
 						<span class="yellow" @click="confirm">确认</span>
 					</div>
-		
+
 					<mt-cell class="borderBottom" style="margin-top: 15px;">
 						<img slot="icon" :src="currentItem.foodimg" width="46" height="46">
 						<div slot="title" class="titleWrap">
@@ -117,7 +129,7 @@
 							<span class="mint-cell-label font12 huiFont99"><span class="red">{{currentItem.foodkcal}}{{currentItem.kcalunit}}</span>/{{currentItem.foodgram}}{{currentItem.gramunit}}</span>
 						</div>
 					</mt-cell>
-		
+
 					<div class="showNum font13">
 						<div class="left huiFont">
 							<p>{{currentItem.foodkcal}} {{currentItem.kcalunit}}</p>
@@ -132,15 +144,15 @@
 						</div>
 					</div>
 				</div>
-		
+
 				<!--<p class="yellow text-center">克</p>-->
-		
+
 				<ul class="keyboard">
 					<li v-for="(item,index) in keyList" :style="{'border-right-width': (index%3==2 ? 0 : '2px')}" @click="keyCode(item,index)">{{item}}</li>
 				</ul>
 			</div>
 		</div>
-		
+
 	</div>
 </template>
 
@@ -150,20 +162,20 @@
 		name: "healthy",
 		data: () => ({
 			datriq: '',  //日期
-			
+
 			//键盘
 			keyList: [1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0, 'x'],
 			showNum: [],
 			show: false,
 			currentItem: {},   //点击的菜对象
-			
+
 			allObj:{
 				allFoodenergy: 0,  //总能量
 				allProtein: 0,  //总蛋白质
 				allFat: 0,   //脂肪
 				allCarbohydrate : 0  //碳水化合物
 			},
-					
+
 			//早餐的列表
 			breakfastList: [],
 			//午餐的列表
@@ -172,13 +184,13 @@
 			dinnerList: [],
 			//加餐的列表
 			mealAdditionList: [],
-			
+
 			//保存接口的参数
 			param:{
 				DeviceList:{data: []}
 			},
 			nutritionskey:''
-			
+
 		}),
 		methods:{
 			getday(){
@@ -205,7 +217,7 @@
 //					if (data.rspcode != 1) {
 //						return data;
 //					}
-//					//把页面菜单数据更新到bus对象 
+//					//把页面菜单数据更新到bus对象
 //					const {mealtype} = this.$route.query;
 //					modelList.forEach((item, index)=>{
 //						item.mealtype = mealtype
@@ -225,8 +237,8 @@
 			otherfood(type) {
 				this.$router.push(`/otherfood?mealtype=${type}`)
 			},
-			
-			
+
+
 			//显示和隐藏键盘
 			showModal(item) {
 				this.currentItem = item;
@@ -253,8 +265,8 @@
 					return
 				}
 				const showNum = Number(this.showNum.join().replace(/,/g, ""));
-				//单位克   
-				const {foodgram, foodkcal, protein, fat, carbohydrate} = this.currentItem;  
+				//单位克
+				const {foodgram, foodkcal, protein, fat, carbohydrate} = this.currentItem;
 				//总千卡
 				const foodkcal2 = Number((showNum/foodgram)*foodkcal).toFixed(2);
 				//总蛋白质
@@ -272,7 +284,7 @@
 				//获取早中晚加的数据
 				this.getFoodData()
 			},
-			
+
 			//获取早中晚加的数据
 			getFoodData(){
 				//早餐的列表  午餐的列表    晚餐的列表  加餐的列表
@@ -281,7 +293,7 @@
 				list.forEach((item,index)=>{
 					const resultObj = item.resultObj;
 					allFoodenergy+= Number(resultObj.foodkcal); //总能量
-					allProtein+= Number(resultObj.protein); //总蛋白质  
+					allProtein+= Number(resultObj.protein); //总蛋白质
 					allFat+= Number(resultObj.fat);  //脂肪
 					allCarbohydrate+= Number(resultObj.carbohydrate);  //碳水化合物
 					foodList.push({mealtype: item.mealtype,foodname: item.foodname,foodenergy: resultObj.foodkcal,foodweight: item.foodconsumption});
@@ -383,91 +395,137 @@
 </script>
 
 <style scoped lang="scss">
+  .mint-header{
+    height: 48px;
+    border-bottom: 1px solid #f1f1f1;
+  }
 	.dsuv_eveall{
-		width: 92%;
-		margin: 0 auto;
+		width: 86%;
+		margin: 2% auto;
 		overflow: hidden;
-		height: 1.1rem;
 		font-size: 0.14rem;
-		margin-top: 0.16rem;
+    background-color: #0AC5C9;
+    background-image: repeating-linear-gradient(45deg,#0AC5C9 0%, #52e3e6 100%);
+    border-radius:0.1rem;
+    padding: 0.475rem 2% 0.15rem 2%;
+    position: relative;
+    text-align: center;
+    box-shadow: 2px 5px 8px rgba(0,0,0,0.2);
+    .dsuvFlexnr{
+
+    }
+    .d-flex{
+      display: flex;
+      align-content: center;
+      flex-wrap: wrap;
+      .flex-fill {
+        -ms-flex: 1 1 auto!important;
+        flex: 1 1 auto!important;
+      }
+    }
 		label{
-			float: left;
 			display: block;
 			font-weight: 600;
-			color: #333;
+			color: #00b2b6;
+      padding: 0.035rem 0.08rem 0.035rem 0.15rem;
+      position: absolute;
+      left: -0.1rem;
+      top: 0.125rem;
+      background-color: #FFFFFF;
+      border-radius: 0.15rem;
+      font-size: 0.15rem;
+      box-shadow: 2px 5px 5px rgba(0,0,0,0.1);
 		}
+    strong{
+      color: #FFFFFF;
+      font-size: 0.18rem;
+      font-weight: 500;
+      line-height: 1.8;
+      text-shadow: 1px 1px 1px rgba(6,124,127,0.5);
+    }
 		span{
-			width: 75%;
 			display: block;
-			float: left;
-			color: #666;
-			i{
-				font-style: normal;
-				display: block;
-				margin-top: 0.02rem;
-				margin-left: 0.12rem;
-			}
+			color: #FFFFFF;
+      text-shadow: 1px 1px 1px rgba(6,124,127,0.5);
 		}
 	}
 	.dsuv_addfood{
-		width: 94%;
-		margin: 0 auto;
-		margin-top: 0.1rem;
+		width: 86%;
+		margin: 0.1rem auto;
+    border-radius:0.1rem;
+    padding: 2%;
 		.dsuv_list{
-			border-bottom: 1px solid #ddd;
+      margin: 0.1rem auto;
 			p{
+        background: url(../../assets/images/yinshi@2x.png) no-repeat left center;
+        padding-left: 0.2rem;
+        background-size: 0.15rem;
 				height: 0.4rem;
 				line-height: 0.4rem;
-				color: #049FCF;
+				color: #333333;
 				font-size: 0.16rem;
+        border-bottom: 1px solid #e5e5e5;
 			}
 			&>span{
-				display: block;
-				height: 0.4rem;
-				line-height: 0.4rem;
-				font-size: 0.15rem;
+        display:inline-block;
+        text-align: center;
+        font-size: 0.15rem;
+        color: #0AC5C9;
+        border: 1px dashed #0AC5C9;
+        padding: 0.035rem 0.135rem;
+        border-radius: 4px;
+        margin: 0.15rem auto;
 			}
 		}
 	}
+  .dsuv_br{
+    background-color: #f1f1f1;
+    width: 100%;
+    height: 0.1rem;
+  }
 	/*时间栏目*/
 	.time-pick {
-		background: #FFA466;
-		height: 44px;
+		/*background: #f1f1f1;*/
 	}
-	
+
 	.time-inner {
-		width: 200px;
+    min-width: 100px;
 		text-align: center;
-		padding-top: 10px;
+    /*height: 30px;*/
 		margin: 0 auto;
+    padding-top: 0.05rem;
+    padding-left: 0.15rem;
 	}
-	
+
+  .article-time{
+    background: url(../../assets/images/shaixuan_xia@2x.png) no-repeat 95px center #FFFFFF;
+    background-size: 0.165rem;
+  }
 	.time-show {
 		display: inline-block;
-		width: 116px;
-		font-size: 12px;
-		line-height: 25px;
-		background: #e79660;
-		color: #FFFFFF;
+		font-size: 0.145rem;
+		/*background:rgba(0, 0, 0,0.2);*/
+		color: #484848;
 		text-align: center;
 		border-radius: 5px;
 		overflow: hidden;
-	
+
 		input {
-			width: 100%;
-			font-size: 12px;
-			color: #fff;
+			font-size: 0.145rem;
+      color: #666666;
+      line-height: 28px;
 			text-align: center;
 		}
 	}
-	
-	
+
+
 	/* 早餐列表 */
 	.titleWrap {
 		display: inline-block;
 		vertical-align: middle;
+    margin-left: 0.1rem;
 	}
-	
+
 	/* 弹出层 */
 	#mark {
 		z-index: 9999;
@@ -545,6 +603,13 @@
 	.dsuv_list .mint-cell {
 		min-height: 66px;
 	}
+  .dsuv_list .mint-cell .mint-cell-title img{
+    border-radius: 4px;
+  }
+  .dsuv_list .mint-cell .mint-cell-value img{
+
+    width: 0.15rem;
+  }
 </style>
 <style lang="scss">
 	.dietarySuvey-root {
@@ -565,4 +630,14 @@
 			}
 		}
 	}
+  .buttons{
+    height: auto;
+  }
+  .add_btns{
+    background-color: #0AC5C9;
+    width: 100%;
+    border-radius: 0;
+    margin: 0 auto;
+    height: 48px;
+  }
 </style>
