@@ -398,6 +398,7 @@
   .mint-header{
     height: 48px;
     border-bottom: 1px solid #f1f1f1;
+    font-size: 0.16rem;
   }
 	.dsuv_eveall{
 		width:90%;
