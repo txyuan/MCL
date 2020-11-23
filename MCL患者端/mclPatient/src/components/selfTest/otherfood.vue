@@ -364,6 +364,7 @@
     		ul{
     			max-height: 4rem;
     			overflow-y: scroll;
+          min-height: 0.40rem;
     		}
 		    li{
 		    	padding: 0.03rem  0.22rem;
@@ -375,7 +376,7 @@
 		    .close{
 			    position: absolute;
 			    right: 0;
-			    padding: 0.1rem;
+          padding: 0.05rem 0.1rem;
 			    font-size: 16px;
 			    color: #EC0000;
 		    }
@@ -398,7 +399,7 @@
 		input {
 			flex: 1;
 			font-size: 0.145rem;
-      line-height:1.6;
+      line-height:2;
 			margin-left: 0.05rem;
 		}
    input::-webkit-input-placeholder{
@@ -406,7 +407,6 @@
          }
 	}
   #navbar .mint-navbar .mint-tab-item.is-selected{
-
      border-bottom: 2px solid #0AC5C9;
     color: #0bb8bc;
     font-weight: 600;
@@ -418,6 +418,9 @@
 span.colF7{
   color: #F78335;
 }
+  #navbar .mint-navbar p {
+    line-height: 0.42rem;
+  }
 	/*上传图片区域*/
 	.uploadArea {
 		padding: 0.12rem;
@@ -554,6 +557,7 @@ span.colF7{
 			box-sizing: border-box;
 			display: inline-block;
 			padding: 0 15px;
+      border-bottom: 2px solid #FFFFFF;
 		}
 	}
   .btnConfirm{

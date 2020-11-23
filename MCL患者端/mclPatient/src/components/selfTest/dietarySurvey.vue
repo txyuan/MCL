@@ -20,18 +20,18 @@
           <label>能量分配</label>
           <div class="d-flex dsuvFlexnr">
             <div class="flex-fill">
-            <strong>{{allObj.allFoodenergy.toFixed(2)}}</strong>
-						<span>总能量(Kal)</span></div>
+            <strong>{{allObj.allFoodenergy.toFixed(0)}}</strong>
+						<span>总能量(Kcal)</span></div>
             <div class="flex-fill">
-              <strong>{{allObj.allCarbohydrate.toFixed(2)}}</strong>
+              <strong>{{allObj.allCarbohydrate.toFixed(0)}}</strong>
 						<span>碳水化合物(g)</span>
             </div>
             <div class="flex-fill">
-              <strong>{{allObj.allFat.toFixed(2)}}</strong>
+              <strong>{{allObj.allFat.toFixed(0)}}</strong>
 						<span>总脂肪(g)</span>
             </div>
             <div class="flex-fill">
-              <strong>{{Number(allObj.allProtein).toFixed(2)}}</strong>
+              <strong>{{Number(allObj.allProtein).toFixed(0)}}</strong>
               <span>蛋白质(g)</span></div>
 					</div>
         </div>
@@ -400,7 +400,7 @@
     border-bottom: 1px solid #f1f1f1;
   }
 	.dsuv_eveall{
-		width: 86%;
+		width:90%;
 		margin: 2% auto;
 		overflow: hidden;
 		font-size: 0.14rem;
@@ -450,7 +450,7 @@
 		}
 	}
 	.dsuv_addfood{
-		width: 86%;
+		width:90%;
 		margin: 0.1rem auto;
     border-radius:0.1rem;
     padding: 2%;
@@ -498,8 +498,7 @@
 	}
 
   .article-time{
-    background: url(../../assets/images/shaixuan_xia@2x.png) no-repeat 95px center #FFFFFF;
-    background-size: 0.165rem;
+    background: url(../../assets/images/shaixuan_xia@2x.png) no-repeat right center #FFFFFF;
   }
 	.time-show {
 		display: inline-block;
