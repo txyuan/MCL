@@ -410,7 +410,7 @@
   #navbar .mint-navbar .mint-tab-item.is-selected{
      border-bottom: 2px solid #0AC5C9;
     color: #0bb8bc;
-    font-weight: 600;
+    font-weight: 500;
   }
 	/* 滚动区域 */
 	.scroll {
