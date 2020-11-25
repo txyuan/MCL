@@ -275,36 +275,38 @@
             <div class="solution">
 
               <div class="pogress">
-                <div class="pogress_btn">能量摄入</div>
-                <p>实际摄入量</p>
-                <p class="btys">{{actualIntake}}</p>
-                <p>目标摄入量是{{targetenergy}}，能量处于{{energyBalance}}</p>
+<!--                <div class="pogress_btn">能量摄入</div>-->
+
+                <p>目标能量 <span class="btys">{{parseFloat(targetenergy).toFixed(0)}}<em>Kcal</em></span> </p>
+<!--                <p>目标能量</p>-->
+<!--                <p class="btys">{{parseFloat(targetenergy).toFixed(0)}}Kcal</p>-->
+<!--                <p>目标摄入量是{{parseFloat(targetenergy).toFixed(0)}}Kcal，能量处于{{parseFloat(energyBalance).toFixed(0)}}Kcal</p>-->
               </div>
               <div class="solution_details">
                 <div class="zonghe">
                   <ul>
                     <li>
                       <img src="@/assets/images/danbaizhi@2x.png" alt=""/>
-                      <p class="zonghe_mb">目标{{protein}}</p>
+                      <p class="zonghe_mb">目标 {{parseFloat(protein).toFixed(0)}} g</p>
                       <p class="zonghe_bt">蛋白质</p>
                     </li>
                     <li>
                       <img src="@/assets/images/zhifang@2x.png" alt=""/>
-                      <p class="zonghe_mb">目标{{fat}}</p>
+                      <p class="zonghe_mb">目标 {{parseFloat(fat).toFixed(0)}} g</p>
                       <p class="zonghe_bt">脂肪</p>
                     </li>
                     <li>
                       <img src="@/assets/images/tanshuihuahewu@2x.png" alt=""/>
-                      <p class="zonghe_mb">目标{{carbohydrate}}</p>
+                      <p class="zonghe_mb">目标 {{parseFloat(carbohydrate).toFixed(0)}} g</p>
                       <p class="zonghe_bt">碳水化合物</p>
                     </li>
                   </ul>
                 </div>
                 <div class="pog_inform">
                   <h3>饮食处方说明</h3>
-                  <p>根据饮食调查，您每日的实际摄入量是{{actualIntake}}，您的目标摄入量是{{targetenergy}}，能量处于{{energyBalance}}。</p>
+                  <p>根据饮食调查，您每日的实际摄入量是{{parseFloat(actualIntake).toFixed(0)}}Kcal，您的目标摄入量是{{parseFloat(targetenergy).toFixed(0)}}Kcal，能量处于{{parseFloat(energyBalance).toFixed(0)}}Kcal。</p>
                   <p>
-                    为了在治疗期间能保证充足的能量需要量，使体内能量储备处于稳定状态，以维持体重，提高免疫力，改善营养状况。建议您的每日能量摄入按442原则计算，即脂肪40%、碳水化合物40%、蛋白质20%。其中，脂肪{{fat}}，碳水化合物{{carbohydrate}}，蛋白质{{protein}}。</p>
+                    肿瘤是一种消耗性疾病，为使体内能量储备处于稳定状态，根据您身体评估结果制定如下饮食方案。</p>
                 </div>
               </div>
               <!--              <div class="pogress"><span>能量目标 /{{targetenergy}}</span></div>-->
@@ -968,15 +970,16 @@
 
   .solution {
     /*padding: 0.13rem 0.20rem;*/
-    /*background: #FFFFFF;*/
+    background: #FFFFFF;
     position: relative;
-    padding: 1.2rem 3% 3% 3%;
+    padding: 0.725rem 3% 3% 3%;
+    margin-bottom: 0.1rem;
     .pogress {
       line-height: 18px;
       background: #0AC5C9;
       color: #FFFFFF;
       font-size: 11px;
-      min-height: 1.8rem;
+      min-height: 1.325rem;
       position: absolute;
       top: 0;
       left: 0;
@@ -995,16 +998,21 @@
         box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
       }
       p{
-        font-size: 0.135rem;
-        padding-top: 0.135rem;
+        font-size: 0.155rem;
+        padding-top: 0.145rem;
         padding-left: 0.1rem;
         text-shadow: 0px 1px 0px rgba(0,0,0,0.2);
       }
-      p.btys{
-        font-size: 0.235rem;
+      .btys{
+        font-size: 0.275rem;
+        padding:0.12rem 0.05rem;
         color: #fdff4f;
-        padding-top: 0.12rem;
         text-shadow: 0px 1px 0px rgba(0,0,0,0.3);
+        em{
+          font-style: normal;
+          font-size: 0.16rem;
+          padding-left: 0.05rem;
+        }
       }
     }
 
@@ -1012,22 +1020,22 @@
       z-index: 1;
       position: relative;
       background: #FFFFFF;
-      padding: 2%;
+      /*padding: 2%;*/
       border-radius: 0.1rem;
-      box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+      /*box-shadow: 2px 2px 5px rgba(0,0,0,0.1);*/
       .pog_inform {
         font-size: 0.13rem;
         color: #666;
-        padding: 0.15rem 0.1rem 0.1rem 0.1rem;
+        padding: 0.08rem 5% 0.05rem 5%;
         h3 {
           font-size: 0.15rem;
           color: #484848;
           text-align: center;
           font-weight: 500;
-          padding-bottom: 0.075rem;
+          padding-bottom: 0.05rem;
         }
         p {
-          text-indent: 1em;
+          text-indent: 0.75em;
           line-height: 0.22rem;
           color: #787878;
           font-size: 0.13rem;
@@ -1036,12 +1044,15 @@
 
 
       .zonghe {
-        padding: 0.15rem;
-        border-bottom: 1px dashed #e5e5e5;
+        padding: 0.05rem 4% 0.025rem 4%;
+        box-shadow: 0px -5px 3px 0px rgba(0,0,0,0.1);
+        border-radius: 8px 8px 0 0;
         ul {
           display: flex;
           justify-content: space-between;
           text-align: center;
+          padding:0.15rem 1%;
+          border-bottom: 1px dashed #e5e5e5;
 
           li{
             img{
