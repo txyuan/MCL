@@ -274,46 +274,45 @@
           <div class="already" v-else>
             <div class="solution">
 
-              <div class="pogress">
+              <div class="solution_bg">
 <!--                <div class="pogress_btn">能量摄入</div>-->
 
-                <p>目标能量 <span class="btys">{{parseFloat(targetenergy).toFixed(0)}}<em>Kcal</em></span> </p>
 <!--                <p>目标能量</p>-->
 <!--                <p class="btys">{{parseFloat(targetenergy).toFixed(0)}}Kcal</p>-->
 <!--                <p>目标摄入量是{{parseFloat(targetenergy).toFixed(0)}}Kcal，能量处于{{parseFloat(energyBalance).toFixed(0)}}Kcal</p>-->
               </div>
               <div class="solution_details">
-                <div class="zonghe">
-                  <ul>
-                    <li>
-                      <img src="@/assets/images/danbaizhi@2x.png" alt=""/>
-                      <p class="zonghe_mb">目标 {{parseFloat(protein).toFixed(0)}} g</p>
-                      <p class="zonghe_bt">蛋白质</p>
-                    </li>
-                    <li>
-                      <img src="@/assets/images/zhifang@2x.png" alt=""/>
-                      <p class="zonghe_mb">目标 {{parseFloat(fat).toFixed(0)}} g</p>
-                      <p class="zonghe_bt">脂肪</p>
-                    </li>
-                    <li>
-                      <img src="@/assets/images/tanshuihuahewu@2x.png" alt=""/>
-                      <p class="zonghe_mb">目标 {{parseFloat(carbohydrate).toFixed(0)}} g</p>
-                      <p class="zonghe_bt">碳水化合物</p>
-                    </li>
-                  </ul>
-                </div>
+
                 <div class="pog_inform">
-                  <h3>饮食处方说明</h3>
+<!--                  <h3>饮食处方说明</h3>-->
                   <p>根据饮食调查，您每日的实际摄入量是{{parseFloat(actualIntake).toFixed(0)}}Kcal，您的目标摄入量是{{parseFloat(targetenergy).toFixed(0)}}Kcal，能量处于{{parseFloat(energyBalance).toFixed(0)}}Kcal。</p>
                   <p>
                     肿瘤是一种消耗性疾病，为使体内能量储备处于稳定状态，根据您身体评估结果制定如下饮食方案。</p>
                 </div>
+                <div class="pogress">
+                  <p>
+                    目标能量 <span class="btys">{{parseFloat(targetenergy).toFixed(0)}}<em>Kcal</em></span> </p>
+                </div>
+                <div class="zonghe">
+                  <ul>
+                    <li>
+<!--                      <img src="@/assets/images/danbaizhi@2x.png" alt=""/>-->
+                      <p class="zonghe_mb protein_br"><span> {{parseFloat(protein).toFixed(0)}}g</span><em>20%</em></p>
+                      <p class="zonghe_bt">蛋白质</p>
+                    </li>
+                    <li>
+<!--                      <img src="@/assets/images/zhifang@2x.png" alt=""/>-->
+                      <p class="zonghe_mb fat_br"><span> {{parseFloat(fat).toFixed(0)}}g</span><em>40%</em></p>
+                      <p class="zonghe_bt">脂肪</p>
+                    </li>
+                    <li>
+<!--                      <img src="@/assets/images/tanshuihuahewu@2x.png" alt=""/>-->
+                      <p class="zonghe_mb carbohydrate_br"><span> {{parseFloat(carbohydrate).toFixed(0)}}g</span><em>40%</em></p>
+                      <p class="zonghe_bt">碳水化合物</p>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <!--              <div class="pogress"><span>能量目标 /{{targetenergy}}</span></div>-->
-              <!--              <div class="clear font14 nengliang">-->
-              <!--                <div class="float_left ">能量</div>-->
-              <!--                <div class="float_right huiFont">目标{{targetenergy}}</div>-->
-              <!--              </div>-->
             </div>
             <!-- 早餐 -->
             <div class="meal_sort">
@@ -972,61 +971,60 @@
     /*padding: 0.13rem 0.20rem;*/
     background: #FFFFFF;
     position: relative;
-    padding: 0.725rem 3% 3% 3%;
+    padding: 0.325rem 3% 0.175rem 3%;
     margin-bottom: 0.1rem;
-    .pogress {
-      line-height: 18px;
-      background: #0AC5C9;
-      color: #FFFFFF;
-      font-size: 11px;
-      min-height: 1.325rem;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      padding: 3%;
-      .pogress_btn{
-        display: inline-block;
-        background:rgba(255,255,255,0.8);
-        border-radius: 8px;
-        padding: 0.025rem 0.075rem;
-        color: #077173;
-        position: absolute;
-        right: 6%;
-        top: 12%;
-        font-size: 0.14rem;
-        box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-      }
-      p{
-        font-size: 0.155rem;
-        padding-top: 0.145rem;
-        padding-left: 0.1rem;
-        text-shadow: 0px 1px 0px rgba(0,0,0,0.2);
-      }
-      .btys{
-        font-size: 0.275rem;
-        padding:0.12rem 0.05rem;
-        color: #fdff4f;
-        text-shadow: 0px 1px 0px rgba(0,0,0,0.3);
-        em{
-          font-style: normal;
-          font-size: 0.16rem;
-          padding-left: 0.05rem;
-        }
-      }
+   .solution_bg{
+
+     background-color: #0AC5C9;
+     background-size: auto 100%;
+    color: #FFFFFF;
+    font-size: 11px;
+     min-height: 62%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 3%;
+  }
     }
 
     .solution_details{
       z-index: 1;
       position: relative;
-      background: #FFFFFF;
+      /*background: #FFFFFF;*/
       /*padding: 2%;*/
       border-radius: 0.1rem;
-      /*box-shadow: 2px 2px 5px rgba(0,0,0,0.1);*/
+      .pogress {
+        line-height: 18px;
+        background:#FFFFFF;
+        border-bottom: 1px dashed #e5e5e5;
+        border-radius: 8px 8px 0 0;
+        box-shadow: 0px -4px 5px rgba(0,0,0,0.1);
+        p{
+          font-size: 0.145rem;
+          padding: 0.1rem 0.15rem;
+          color: #666666;
+        }
+        .btys{
+          font-size: 0.185rem;
+          padding:0.12rem 0.05rem;
+          color: #14a4a7;
+          em{
+            font-style: normal;
+            font-size: 0.145rem;
+            padding-left: 0.05rem;
+            color: #666666;
+          }
+        }
+      }
       .pog_inform {
         font-size: 0.13rem;
         color: #666;
-        padding: 0.08rem 5% 0.05rem 5%;
+        padding: 0.15rem 5% 0.1rem 5%;
+        background-color: #FFFFFF;
+        border-radius: 8px;
+        margin-bottom: 0.125rem;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
         h3 {
           font-size: 0.15rem;
           color: #484848;
@@ -1044,37 +1042,77 @@
 
 
       .zonghe {
-        padding: 0.05rem 4% 0.025rem 4%;
-        box-shadow: 0px -5px 3px 0px rgba(0,0,0,0.1);
-        border-radius: 8px 8px 0 0;
+        padding: 0.05rem 3% 0.025rem 3%;
+        background: #FFFFFF;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        border-radius:0 0 8px 8px ;
         ul {
           display: flex;
           justify-content: space-between;
           text-align: center;
           padding:0.15rem 1%;
-          border-bottom: 1px dashed #e5e5e5;
 
           li{
+            width: 33%;
             img{
               width: 0.575rem;
               height: 0.575rem;
             }
             .zonghe_mb {
-                margin-top: 5px;
-                margin-bottom: 5px;
-                color: #787878;
-              font-size: 0.135rem;
+                color: #666666;
+               font-size: 0.14rem;
+              width: 0.5rem;
+              height: 0.5rem;
+              border-style: solid;
+              border-width: 4px;
+              border-radius: 50%;
+              position: relative;
+              margin: 0px auto;
+              span{
+                display: block;
+                background-color: #FFFFFF;
+                height: 0.25rem;
+                line-height: 0.275rem;
+                border-radius: 0.25rem 0.25rem 0 0;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0.25rem;
               }
+              em{
+                font-style: normal;
+                padding-top: 0.25rem;
+                display: inline-block;
+                line-height: 0.25rem;
+                color: #FFFFFF;
+                font-weight: 600;
+                font-size: 0.14rem;
+                padding-left: 0.05rem;
+              }
+              }
+            .protein_br{
+              border-color:#f5c543 ;
+              background-color:#f5c543;
+            }
+            .fat_br{
+              border-color:#ef918f;
+              background-color:#ef918f ;
+            }
+            .carbohydrate_br{
+              border-color:#86c4fa;
+              background-color: #86c4fa;
+            }
             .zonghe_bt{
-              color: #077173;
-              font-size: 0.145rem;
+              color: #484848;
+              font-size: 0.14rem;
               font-weight: 500;
+              margin-top: 0.1rem;
             }
           }
 
         }
       }
-    }
   }
 
 
@@ -1399,6 +1437,11 @@
   }
   .meal_sort{
     margin-bottom: 0.1rem;
+    .mint-cell{
+      img{
+        border-radius: 4px;
+      }
+    }
   }
 </style>
 <style type="text/css">

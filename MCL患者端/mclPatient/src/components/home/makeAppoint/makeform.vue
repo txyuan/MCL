@@ -20,7 +20,7 @@
 
       <div class="make_form">
 			<!-- <mt-field label="预约时间" placeholder="请输入预约时间" type="Datetime" readonly="readonly" v-model="param.CreateTime"></mt-field> -->
-			<p class="ppacc"><span>预约时间：</span><label @click.active="openPicker">{{param.CreateTime}}</label></p>
+			<div class="ppacc"><span>预约时间：</span><p @click.active="openPicker">{{param.CreateTime}}</p></div>
 			<mt-field style="border-bottom: 1px solid #eee;" label="预约医生：" v-model="param.doctor"></mt-field>
 			<div class="make_other">
 				<p>其他：</p>
@@ -179,6 +179,7 @@
 			border: 1px solid #ddd;
 			height: 0.7rem;
       border-radius: 4px;
+      margin-left: 0.1rem;
 		}
 	}
 
@@ -188,14 +189,14 @@
 		line-height: 0.48rem;
 		border-bottom: 1px solid #eee;
     margin-top: 0.1rem;
-		span{
-			width: 1.05rem;
-			display: block;
-			float: left;
-		}
-		label{
-			float: left;
-			display: block;
+    display: flex !important;
+		span{width: 105px;
+
+    }
+		p{
+      flex-grow: 1!important;
+      background: url(../../../assets/images/jiantou@2x.png) no-repeat right center;
+      background-size: 0.2rem;
 		}
 	}
   .buttons{
