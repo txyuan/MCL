@@ -849,7 +849,6 @@
   .mint-header {
     height: 0.48rem;
     font-size: 0.16rem;
-    z-index: 2;
   }
 
   .neirong {
@@ -971,7 +970,7 @@
     /*padding: 0.13rem 0.20rem;*/
     background: #FFFFFF;
     position: relative;
-    padding: 0.325rem 3% 0.175rem 3%;
+    padding: 0.275rem 3% 0.185rem 3%;
     margin-bottom: 0.1rem;
    .solution_bg{
 
@@ -989,7 +988,6 @@
     }
 
     .solution_details{
-      z-index: 1;
       position: relative;
       /*background: #FFFFFF;*/
       /*padding: 2%;*/
@@ -1023,7 +1021,7 @@
         padding: 0.15rem 5% 0.1rem 5%;
         background-color: #FFFFFF;
         border-radius: 8px;
-        margin-bottom: 0.125rem;
+        margin-bottom: 0.165rem;
         box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
         h3 {
           font-size: 0.15rem;
@@ -1036,7 +1034,7 @@
           text-indent: 0.75em;
           line-height: 0.22rem;
           color: #787878;
-          font-size: 0.13rem;
+          font-size: 0.14rem;
         }
       }
 

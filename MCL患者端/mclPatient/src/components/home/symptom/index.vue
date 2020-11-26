@@ -657,6 +657,7 @@
         border-radius: 0;
         height: 50px;
         line-height: 48px;
+        background-color: #0AC5C9;
       }
     }
 
