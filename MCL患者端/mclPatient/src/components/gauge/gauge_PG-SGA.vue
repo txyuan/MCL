@@ -98,7 +98,7 @@
 
       <div class="matterDetails">
         <div class="title2 bg-white" >
-        3、您目前的进食情况<em class="fontCol">（可多选）</em>
+        3、您目前的进食情况<em class="fontCol"></em>
       </div>
       <mt-checklist :options="attribute_value_10.option" v-model="attribute_value_10.value"></mt-checklist>
       </div>
@@ -117,7 +117,7 @@
       <div class="title mainTitle"><em></em>活动和身体功能</div>
      <div class="matterDetails">
        <div class="title2 bg-white" >
-        1、在过去的1个月，我的活动<em class="fontCol">（可多选）</em>
+        1、在过去的1个月，我的活动<em class="fontCol"></em>
       </div>
       <mt-checklist :options="attribute_value_33.option" v-model="attribute_value_33.value"></mt-checklist>
      </div>
