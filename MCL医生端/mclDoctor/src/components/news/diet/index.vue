@@ -225,7 +225,7 @@
           <div class="page">
 						<!-- 三大营养素分析 -->
 						<div class="title">
-							<span class="font17">三大营养素分析</span>
+							<span class="font16">三大营养素分析</span>
 						</div>
 						<div class="panel">
 							<p class="font16">摄入比及推荐</p>
