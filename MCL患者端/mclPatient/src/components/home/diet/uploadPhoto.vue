@@ -426,6 +426,11 @@
 </script>
 
 <style scoped lang="scss">
+  .mint-header{
+  height: 0.44rem;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 0.16rem;
+}
 	/* 早餐列表 */
 	.yinshhi_list {
 		background: #FFFFFF;
