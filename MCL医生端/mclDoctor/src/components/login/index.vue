@@ -68,7 +68,7 @@
 				}
 				this.$post(url, param).then((data) => {
 					if (data.rspcode == 0) {
-						this.$Toast('登录失败请检查账号密码');
+						this.$Toast(data.rspdesc);
 						return;
 					}
 					if(data.rspcode == 2){
