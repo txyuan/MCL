@@ -464,6 +464,7 @@
     margin-left: 0.05rem;
     font-weight: bolder;
     font-size: 0.185rem;
+    font-style: normal;
     line-height: 1;
     box-shadow: 1px 1px 1px #ccc;
   }

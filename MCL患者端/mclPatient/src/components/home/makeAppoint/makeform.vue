@@ -191,7 +191,7 @@
     margin-top: 0.1rem;
     display: flex !important;
 		span{width: 105px;
-
+      display: block;
     }
 		p{
       flex-grow: 1!important;
