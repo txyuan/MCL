@@ -9,7 +9,7 @@
 					</router-link>
 				</div>
 			</div>
-			
+
 			<!--<div class="top_sec">
 				<div class="top_secher">
 					<input type="text" placeholder="搜索食物营养和热量" />
@@ -21,23 +21,30 @@
 
 			<!-- 欢迎信息 -->
 			<div class="wellcomInfo">
-				<div class="home_ikkpo">
-					<img :src="messageInfo.PatientImg" class="imgtody" />
-					<p>{{messageInfo.PatientName}}</p>
-					<img src="@/assets/images/vphyg.png" v-if="messageInfo.IsMember==1" class="vippp" />
-					<img src="@/assets/images/noviphy.png" v-else class="vippp" />
-					<router-link to="/todymanage">
-						<span style="color: #333;">今日管理</span>
-					</router-link>
-				</div>
-				<div class="info" style="width:80%;margin: 0 auto;margin-top: 0.16rem;">
+<!--				<div class="home_ikkpo">-->
+<!--					<img :src="messageInfo.PatientImg" class="imgtody" />-->
+<!--					<p>{{messageInfo.PatientName}}</p>-->
+<!--					<img src="@/assets/images/vphyg.png" v-if="messageInfo.IsMember==1" class="vippp" />-->
+<!--					<img src="@/assets/images/noviphy.png" v-else class="vippp" />-->
+<!--					<router-link to="/todymanage">-->
+<!--						<span style="color: #333;">今日管理</span>-->
+<!--					</router-link>-->
+<!--				</div>-->
+				<div class="info info_sm">
 					<div>
-						<p class="font14 name">{{messageInfo.Time}}，{{messageInfo.PatientName}}</p>
-						<p class="font12 des">MCL专业守护您第 {{messageInfo.ManageDay}} 天</p>
-					</div>
+						<p class="name">{{messageInfo.Time}}，{{messageInfo.PatientName}}
+              <span v-if="messageInfo.IsMember==1" class="vippp" ><img src="@/assets/images/member.png" /></span>
+              <span v-else class="vippp_a" > <img src="@/assets/images/member.png"/></span></p>
+            <p class="des">MCL专业守护您第 {{messageInfo.ManageDay}} 天</p>
+            <div class="addvip" @click="clickvip" v-if="messageInfo.IsMember!=1">点击加入会员</div>
+          </div>
+          <div><router-link to="/todymanage" class="info_jrgl">
+            <span class="mint-cell-allow-right">今日管理</span>
+          </router-link>
+          </div>
 					<!-- <img :src="messageInfo.PatientImg" alt=""> -->
-				</div>
-				<div class="addvip" @click="clickvip" v-if="messageInfo.IsMember!=1">点击加入会员</div>
+
+         		</div>
 				<!-- <router-link to="/searchIllness">
 					<div class="btn font14">
 						<img src="@/assets/images/搜索--1@2x.png" alt="" width="18" height="18" />
@@ -46,7 +53,7 @@
 				</router-link> -->
 			</div>
 
-			
+
 			<!-- 我的医生 -->
 			<router-link tag="div" to="/wx_Entrance/mesage" class="home-cell margin10" v-if="doctorName">
 				<div class="myDocter" style="margin-top: 0.1rem;">
@@ -74,7 +81,7 @@
 			</router-link>
 			<!-- 处方查看  -->
 			<classified class="margin10" />
-			
+
 			<!-- 今日提醒 -->
 			<div class="home-cell margin10">
 				<p class="name">今日提醒<span style="float: right;font-size: 0.14rem;" @click="messmore">更多</span></p>
@@ -320,7 +327,7 @@
 				}else if(item.mtypevalue==4){
 					this.$router.push('/mood?skey='+item.skey);
 				}else if(item.mtypevalue==5){
-					
+
 				}else if(item.mtypevalue==6){
 					this.$router.push('/weight?skey='+item.skey);
 				}else if(item.mtypevalue==7){
@@ -420,7 +427,7 @@
 						//获取未读消息条数
 						this.getMessage(phone)
 					})
-					
+
 				})
 			},
 			//获取客服的未读消息数
@@ -524,7 +531,7 @@
 			// this.information();
 			//获取token
 			this.getToken()
-			
+
 		}
 
 	}
@@ -533,32 +540,37 @@
 <style scoped lang="scss">
 	.home_saerch {
 		height: 1.0rem;
-		padding: 0.2rem 0 0.06rem 0;
-		background: rgb(36,183,192);
+		padding: 0.175rem 0 0.06rem 0;
+    background:#0AC5C9;
 		.home_over{
 			width: 94%;
 			margin: 0 auto;
 			overflow: hidden;
 			img{
 				// width: 25%;
-				height: 0.30rem;
+				height: 0.325rem;
 				float: left;
 			}
-			input {
-				width: 57%;
-				border: none;
-				display: block;
-				height: 0.30rem;
-				padding: 0 0.1rem 0 0.4rem;
-				background: #80d0f5 url(../../assets/images/sousuo@2x.png) no-repeat 0.1rem center;
-				background-size: 0.2rem;
-				border-radius: 0.19rem;
-				font-size: 0.14rem;
-				color: #666;
-				float: right;
-			}
+      input {
+        width: 57%;
+        border: none;
+        display: block;
+        height: 0.30rem;
+        padding: 0 0.1rem 0 0.4rem;
+        background:rgba(0,0,0,0.1) url(../../assets/images/搜索--1@2x.png) no-repeat 0.1rem center;
+        background-size: 0.2rem;
+        border-radius: 0.19rem;
+        font-size: 0.14rem;
+        color: #666666;
+        float: right;
+        opacity: 0.95;
+        margin-top: 0.05rem;
+      }
+      input::-webkit-input-placeholder{
+        color:#f0f0f0;
+      }
 		}
-		
+
 	}
 	/*.top_sec{
 		width: 100%;
@@ -612,7 +624,6 @@
 		border-radius: 6px;
 		margin-top: -0.6rem;
 		position: relative;
-		padding-bottom: 0.1rem;
 		.home_ikkpo{
 			overflow: hidden;
 			padding-top: 0.16rem;
@@ -648,21 +659,48 @@
 				margin-top: 0.04rem;
 			}
 		}
-		.info {
-			display: flex;
-			justify-content: space-between;
-			margin-bottom: 0.1rem;
-		}
+    .info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center!important;
+      margin-bottom: 0.1rem;
+    }
+    .info_sm{
+      width: 90%;
+      margin: 0px auto;
+      padding: 0.15rem 0;
+    }
 
 		.info .name {
-			font-weight: bold;
-			margin-top: 0.05rem;
-			margin-bottom: 0.05rem;
+      font-weight: bold;
+      margin-top: 0.075rem;
+      margin-bottom: 0.075rem;
+      color: #333333;
+      font-size: 0.155rem;
+      span{
+        width: 0.15rem;
+        height: 0.15rem;
+        display: inline-block;
+        border-radius: 50%;
+        text-align: center;
+        img{
+          width: auto;
+          height: 0.13rem;
+        }
+      }
+      .vippp{
+        background-color: rgba(231,137,72,1);
+      }
+      .vippp_a{
+        background-color: rgba(152,150,148,1);
+      }
 		}
 
-		.info .des {
-			color: #91959D;
-		}
+    .info .des {
+      color: #666666;
+      margin-bottom: 0.075rem;
+      font-size: 0.135rem;
+    }
 
 		.info img {
 			width: 0.60rem;
@@ -684,16 +722,26 @@
 			vertical-align: middle;
 		}
 		.addvip{
-			padding: 0.04rem;
-			background: #066FFC;
+			padding:0.035rem 0.04rem;
+			background: #0AC5C9;
 			font-size: 0.12rem;
 			width: 0.76rem;
 			text-align: center;
 			color: #fff;
-			position: absolute;
-			bottom: 0.18rem;
-			right: 8%;
+      border-radius: 4px;
 		}
+    .info_jrgl{
+      display: block;
+      color:#297575;
+      border-radius:0.2rem;
+      padding: 0.02rem 0.1rem;
+      font-size: 0.145rem;
+      .mint-cell-allow-right::after{
+        border: solid 2px #297575;
+        border-bottom-width: 0;
+        border-left-width: 0;
+      }
+    }
 	}
 
 	/*mcl专家栏*/
