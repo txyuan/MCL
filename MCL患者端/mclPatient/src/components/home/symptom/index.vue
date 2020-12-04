@@ -830,6 +830,7 @@
             border-radius: 0;
             height: 48px;
             line-height: 46px;
+            background: #0AC5C9;
           }
         }
       }
