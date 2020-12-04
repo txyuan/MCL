@@ -64,18 +64,22 @@
             <p class="msgBtn">在线咨询</p>
           </div>
           <div class="content">
-            <div class="nameInfo">
-              <span class="DName">{{messageInfo.DoctorName}}</span>
-              <span class="label">{{messageInfo.Position}}</span>
+            <div class="contentTop">
+
+              <div class="nameInfo">
+                <span class="DName">{{messageInfo.DoctorName}}</span>
+                <span class="label">{{messageInfo.Position}}</span>
+              </div>
+              <div class="msg">
+                <!--            <img src="@/assets/images/xiaoxi@2x(1).png" alt="" class="icon"/>-->
+                <span><em class="labelJiao">{{messageNumber}}</em></span>
+              </div>
             </div>
             <div class="adr">
               <span>{{messageInfo.HospitalName}}</span> | <span>{{messageInfo.Department}}</span>
             </div>
             <div class="des huiFont"> 擅长：{{messageInfo.BeGoodAt}}</div>
-            <div class="msg">
-              <!--            <img src="@/assets/images/xiaoxi@2x(1).png" alt="" class="icon"/>-->
-              <span><em class="labelJiao">{{messageNumber}}</em></span>
-            </div>
+
           </div>
 
         </div>
@@ -152,7 +156,7 @@
         </p>
         <div class="mclWrap">
           <ul class="mclZj">
-            <router-link v-for="(item,index) in expertColumn" :key="index" tag="li" :to="`/expertDetail/`+item.sKey">
+            <router-link v-for="(item,index) in expertColumn.slice(0, 4)" :key="index" tag="li" :to="`/expertDetail/`+item.sKey">
               <div class="mclWz">
                 <div class="mclWzBt">{{item.ColumnName}}</div>
                 <div class="seeNum">
@@ -932,27 +936,34 @@
     .touxiang {
       width: 0.55rem;
       height: 0.55rem;
-      border-radius: 50%;
+      border-radius: 50%!important;
       border: 2px solid #0ac5ca;
     }
 
     .content {
-      flex: 1;
       padding-left: 0.15rem;
+      flex: 1;
       position: relative;
-
+      .contentTop{
+        display: flex;
+        justify-content: space-between;
+      }
       .nameInfo {
         .DName {
           font-size: 0.16rem;
           font-weight: 600;
           color: #484848;
+          margin-right: 0.075rem;
+          height: 0.24rem;
+          overflow: hidden;
+          display: inline-block;
         }
 
         .label {
           font-size: 0.14rem;
           color: #787878;
-          margin-left: 0.075rem;
           padding-top: 0.05rem;
+          display: inline-block;
         }
 
         span {
@@ -975,17 +986,17 @@
       }
 
       .msg {
-        position: absolute;
-        top: 0;
-        right: 0.15rem;
-        vertical-align: middle;
-
+        /*position: absolute;*/
+        /*top: 0;*/
+        /*right: 0.15rem;*/
+        /*vertical-align: middle;*/
+        min-width: 0.3rem;
         span {
           display: block;
-          width: 0.2rem;
-          height: 0.2rem;
+          width: 0.22rem;
+          height: 0.22rem;
           background: url(./../../assets/images/news.png) no-repeat center center;
-          background-size: 0.2rem 0.2rem;
+          background-size: 0.22rem 0.22rem;
           color: #FFF;
           position: relative;
           vertical-align: middle;
@@ -997,11 +1008,11 @@
           left: 0.11rem;
           background: #f5630d;
           text-align: center;
-          font-size: 0.11rem;
+          font-size: 0.12rem;
           font-style: normal;
           display: block;
-          height: 0.14rem;
-          line-height: 0.145rem;
+          height: 0.15rem;
+          line-height: 0.155rem;
           min-width: 0.06rem;
           border-radius: 0.065rem;
           padding: 0 0.04rem;
