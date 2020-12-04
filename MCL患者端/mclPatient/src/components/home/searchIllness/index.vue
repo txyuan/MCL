@@ -105,7 +105,7 @@
 			li{
         border-bottom: 1px solid #e5e5e5;
         font-size: 0.142rem;
-        padding: 0.14rem 0 0.14rem 0.1rem;
+        padding: 0.14rem 0.1rem 0.14rem 0.1rem;
         color: #666;
 				a{
 					color: #333333;
