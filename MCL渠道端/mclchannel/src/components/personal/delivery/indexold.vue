@@ -36,28 +36,22 @@
 										<!--<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
 											<span>查看物流</span>
 										</div>-->
-										<div class="f-btn ok" style="float: left;" v-if="btnfh" @click="shopfh(item)">
-											<span>确认发货</span>
+										<div class="f-btn ok" style="float: left;" @click="shopsh(item)">
+											<span>确认收货</span>
 										</div>
 									</div>
 									<div v-else-if="item.state  == '2'" style="overflow: hidden;">
-										<!-- <div class="f-btn ok laood" style="float: left;" @click="delmoy(item,3)">
+										<div class="f-btn ok laood" style="float: left;" @click="delmoy(item,3)">
 											<span>删除订单</span>
-										</div> -->
-										<!-- <div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
+										</div>
+										<!--<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
 											<span>查看物流</span>
-										</div> -->
+										</div>-->
 										<!--<div class="f-btn ok" style="float: left;" @click="againsh(item)">
 											<span>再次购买</span>
 										</div>-->
 									</div>
 								</div>
-							</div>
-							<div slot="footer" class="foot">
-								<p>{{item.RContactName}} {{item.RContactPhone}}</p>
-							</div>
-							<div slot="footer" class="foot">
-								<p>{{item.contactAddress}}</p>
 							</div>
 						</productItem>
 					</mt-tab-container-item>
@@ -91,30 +85,6 @@
 					</p>
 				</div>
 				<span class="myc_okbtn" @click="okupshop">确定</span>
-			</div>
-		</div>
-
-		<div class="atret" v-if="wlifshow">
-			<div class="ayutr">
-				<h3>填写物流信息</h3>
-				<div class="dogbz">
-					<p>物流公司</p>
-					<select v-model="params.Logistics_company">
-						<option v-for="(item,index) in pcsList" :key="index" :value="item.names">{{item.names}}</option>
-					</select>
-				</div>
-				<div class="dogbz">
-					<p>物流编号</p>
-					<input type="text" v-model="params.Logistics_number" />
-				</div>
-				<div class="btn_pk">
-					<div class="f-btn default" style="float: left;" @click="delfat()">
-						<span>取消</span>
-					</div>
-					<div class="f-btn ok" style="float: left;" @click="okshopf()">
-						<span>确认</span>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -153,18 +123,7 @@ export default {
       status: '-1'
       //				orderType: -1
     },
-    list: [],
-    wlifshow: false,
-    pcsList: [
-      {names: '顺丰'}, {names: '百世'}, {names: '申通'}, {names: '中通'}, {names: '京东'}
-    ],
-    params: {
-      flag: 1,
-      Logistics_company: '',
-      Logistics_number: '',
-	  sKey: ''
-    },
-    btnfh: false
+    list: []
   }),
   methods: {
     tab (val) {
@@ -175,15 +134,6 @@ export default {
       setTimeout(() => {
         this.$Indicator.close()
       }, 200)
-    },
-    // 是否可发货
-    isshopfh () {
-      const userInfo = JSON.parse(localStorage.userInfo)
-      if ((userInfo.UserType == '5') || (userInfo.UserType == '7')) {
-        this.btnfh = true
-      } else {
-        this.btnfh = false
-      }
     },
     // 所得商品列表   UserInterface/ProductOrderDetailInfoList.ashx
     shoplist (success) {
@@ -280,47 +230,12 @@ export default {
         this.tab(this.param.status)
       })
     },
-    //  确认发货
-    shopfh (item) {
-      this.params.Logistics_company = ''
-      this.params.Logistics_number = ''
-      this.params.sKey = item.orderId
-      this.wlifshow = true
-    },
-    delfat () {
-      this.params.sKey = ''
-      this.wlifshow = false
-    },
-    okshopf () {
-      if (this.params.Logistics_company == '') {
-        this.$Toast('请选择物流公司')
-        return
-      }
-      if (this.params.Logistics_number == '') {
-        this.$Toast('请填写物流编号')
-        return
-      }
-      this.$Indicator.loading()
-	  let url = 'UserInterface/order/ConfirmOrder.ashx'
-	  this.$post(url, this.params).then((data) => {
-	    this.$Indicator.close()
-	    if (data.rspCode != 1) {
-	      this.$Toast(data.rspdesc)
-	      return
-	    }
-        this.wlifshow = false
-        this.params.sKey = ''
-	    this.$Toast('确认收货成功')
-	    this.tab(this.param.status)
-	  })
-    },
     //  确认收货
     shopsh (item) {
       this.$Indicator.loading()
       let url = 'UserInterface/order/ConfirmOrder.ashx'
       let param = {
-        sKey: item.orderId,
-        flag: 2
+        sKey: item.orderId
       }
       this.$post(url, param).then((data) => {
         this.$Indicator.close()
@@ -351,7 +266,6 @@ export default {
     }
   },
   mounted () {
-	  this.isshopfh()
     let type = this.$route.query.type
     if (type) {
       this.filterList.forEach((item, index) => {
@@ -378,90 +292,6 @@ export default {
 
 <style scoped lang="scss">
 	@import "@/assets/css/base.scss";
-
-	.atret{
-		width: 100%;
-		height: 100vh;
-		background: rgba(000,000,000,0.5);
-		position: fixed;
-		left: 0;
-		top: 0;
-		z-index: 9999;
-		.ayutr{
-			width: 92%;
-			height: 3.0rem;
-			background: #fff;
-			margin: 1.0rem auto;
-			border-radius: 8px;
-			position: relative;
-			h3{
-				font-weight: normal;
-				border-bottom: 1px solid #ddd;
-				font-size: 0.16rem;
-				text-align: center;
-				padding: 0.14rem 0;
-				color: #333;
-			}
-			.dogbz {
-				width: 92%;
-				padding: 0.14rem 4%;
-				border-top: 1px solid #eee;
-				overflow: hidden;
-				background: #fff url(../../../assets/images/jiantou_right_h@2x.png) no-repeat 98% center;
-				background-size: 0.24rem;
-				p {
-					float: left;
-					font-size: 0.15rem;
-					color: #333;
-				}
-
-				select {
-					float: right;
-					font-size: 0.13rem;
-					color: #666;
-					padding-top: 0.03rem;
-					margin-right: 0.16rem;
-					text-align: right;
-				}
-
-				input{
-					float: right;
-					font-size: 0.13rem;
-					color: #666;
-					margin-right: 0.16rem;
-					width: 50%;
-					border:none;
-					text-align: right;
-				}
-			}
-			.btn_pk{
-				position: absolute;
-				bottom: 0.1rem;
-				right: 3%;
-				.f-btn {
-					width: 0.72rem;
-					height: 0.26rem;
-					line-height: 0.26rem;
-					text-align: center;
-					box-sizing: border-box;
-					border-radius: 8px;
-					font-size: 0.12rem;
-					&.default {
-						background: #FFFFFF;
-						border: 1px solid #ddd;
-					}
-					&.ok {
-						background: $themeColor;
-						margin-left: 10px;
-						span {
-							color: white;
-						}
-					}
-				}
-			}
-		}
-	}
-
 	#mark {
 		.content {
 			color: $color66;
@@ -713,9 +543,5 @@ export default {
 
 	.myc_addadrs a {
 		color: #FF3D3D;
-	}
-
-	.buyinform{
-		clear: both;
 	}
 </style>

@@ -10,12 +10,11 @@
       </mt-header>
 
       <div id="page" ref="homePage" >
-				<span v-for="(item, index) in ids" :key="index">
-					<label @click="openModal(item)">{{item.name}}</label>
-					<input v-if="item.itemindex == ''" :id="item.id" type="checkbox" :name="item.id" @click="openModal(item)"
-                 class="active">
-					<input v-else :id="item.id" type="checkbox" :name="item.id" @click.prevent="openModal(item)">
-				</span>
+			<span v-for="(item, index) in ids" :key="index">
+				<label @click="openModal(item)">{{item.name}}</label>
+				<input v-if="item.itemindex == ''" :id="item.id" type="checkbox" :name="item.id" @click="openModal(item)" class="active">
+				<input v-else :id="item.id" type="checkbox" :name="item.id" @click.prevent="openModal(item)">
+			</span>
       </div>
 
       <div class="pageButton">
@@ -217,8 +216,14 @@
           this.renderQuestion(item)
         } else {
           var id = item.id
-          document.getElementById(id).checked = true
-          document.getElementById(id).parentElement.className = 'active'
+		  if(document.getElementById(id).parentElement.className == 'active'){
+			  document.getElementById(id).checked = false
+			  document.getElementById(id).parentElement.className = ''
+		  }else{
+			  document.getElementById(id).checked = true
+			  document.getElementById(id).parentElement.className = 'active'
+		  }
+          
         }
       },
       //获取Guid
