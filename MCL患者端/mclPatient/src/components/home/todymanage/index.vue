@@ -212,7 +212,7 @@
 			span{
 				display: block;
 				float: left;
-				font-size: 0.14rem;
+				font-size: 0.145rem;
 				line-height: 0.4rem;
 				margin-left: 2%;
 			}
@@ -235,7 +235,7 @@
 		margin-top: 0.1rem;
 		box-shadow: 4px 2px 10px #ddd;
 		p{
-			height: 0.5rem;
+			height: 0.52rem;
 			overflow: hidden;
 			padding: 0 3%;
 			background: url(./../../../assets/images/jixu@2x.png) no-repeat 96% center;
@@ -250,9 +250,9 @@
 			span{
 				display: block;
 				float: left;
-				font-size: 0.13rem;
-				line-height: 0.5rem;
-				margin-left: 0.04rem;
+        font-size: 0.145rem;
+        line-height: 0.52rem;
+        margin-left: 0.1rem;
 			}
 		}
 		.eat_ka{
