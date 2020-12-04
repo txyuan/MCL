@@ -282,6 +282,8 @@ export default {
     },
     //  确认发货
     shopfh (item) {
+      this.params.Logistics_company = ''
+      this.params.Logistics_number = ''
       this.params.sKey = item.orderId
       this.wlifshow = true
     },
