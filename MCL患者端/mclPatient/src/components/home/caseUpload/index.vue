@@ -9,13 +9,13 @@
   	</mt-header>
   	<div class="page_btn text-center">
   		<img src="@/assets/images/病例.png" width="79" style="margin-bottom: 15px;"/>
-  		<mt-button type="primary" class="theme-button button-radio " size="large" @click.native="$router.push(`/physician`)">上传病例</mt-button>  
+  		<mt-button type="primary" class="theme-button button-radio " size="large" @click.native="$router.push(`/physician`)">上传病历</mt-button>
   	</div>
-  	
+
   	<div class="rev_fuc" style="margin-top: 0.1rem;padding-bottom: 0.3rem;">
 		<loadMore :param="param" @triggerGetList="getList" ref="loadMoreE">
 			<div slot="content">
-				<h3>历史病例</h3>
+				<h3>历史病历</h3>
 				<div class="rev_list" v-for="(item,index) in list" :key="index">
 					<div class="rev_lilf">
 						<p>复查时间： {{item.ReviewDate}}</p>
@@ -73,7 +73,7 @@
   .page_btn{
   	padding: 0.25rem;
   }
-  
+
   .rev_fuc{
 			width: 100%;
 			background: #fff;

@@ -19,12 +19,12 @@
 			</div>
 			<div class="article-block">
 				<p class="article-title">{{title}}</p>
-				<div class="article-des font14" style="padding-bottom: 0;">
+				<div class="article-des font14">
 					<div class="article-time">
 						{{createtime}}
 					</div>
 				</div>
-				<div class="article-des font14" style="padding-top: 0;">
+				<div class="article-des font14">
 					<div class="article-label">
 						<mt-badge size="small" v-for="(item,index) in labels" :key="index" color="#F78335">#{{item}}</mt-badge>
 					</div>
@@ -33,7 +33,7 @@
 					{{content}}
 				</div>
 			</div>
-			
+
 		</div>
 	</div>
 </template>
@@ -85,12 +85,20 @@
 			this.doLookNum(sKey)
 		},
 		components:{
-			
+
 		}
 	}
 </script>
 
 <style scoped lang="scss">
+  .mint-header {
+    height:0.44rem;
+    line-height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .padding-header {
+    padding-top:0.44rem;
+  }
 	.video-block{
 		position: relative;
 		.video{
@@ -108,31 +116,41 @@
 		}
 	}
 	.article-block{
-		padding:0.10rem;
+		padding:0.15rem 0.15rem 0.35rem 0.15rem;
 	}
 	.article-title{
 		font-size: 0.20rem;
+    letter-spacing: 0.0125rem;
 		color: #333333;
+    padding: 0.1rem 0;
 	}
 	.article-des{
 		display: flex;
 		justify-content: space-between;
-		padding: 0.10rem 0;
+    padding-bottom: 0.075rem;
 		.article-time{
 			padding-left: 0.20rem;
-			background: url(../../assets/images/riqi.png) no-repeat left center;
-			background-size: 0.15rem;	
+			background: url(../../assets/images/time.png) no-repeat left center;
+			background-size: 0.15rem;
+      color: #999999;
 		}
-		
+
 	}
+  .article-content{
+    line-height: 1.8;
+    font-size: 0.142rem;
+    letter-spacing:1px;
+    color: #555555;
+  }
 </style>
 <style>
-	.article-label .mint-badge{
+  .article-label .mint-badge{
 		padding-top: 0;
 		padding-bottom: 0;
 		line-height: 0.20rem;
-		border-radius: 0.10rem;	
-		margin-right: 0.1rem;
-		margin-top: 0.06rem;
+    color: #0AC5C9;
+    background: none!important;
+    font-size: 0.14rem;
 	}
+
 </style>

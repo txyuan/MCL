@@ -65,14 +65,21 @@
 			this.getDetailInfo();
 		},
 		components:{
-			
+
 		}
 	}
 </script>
 
 <style scoped lang="scss">
+  .mint-header {
+    height:0.44rem;
+    line-height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
 	.search_cont{
-		padding-top: 43px;
+    padding-top:0.44rem;
+    text-align: center;
+    background-color: #FFFFFF;
 		img{
 			width: 100%;
 		}
@@ -80,21 +87,26 @@
 			position: relative;
 			width: 70%;
 			padding: 0 2% 0 12%;
-			height: 0.46rem;
-			left: 8%;
+			height: 0.44rem;
 			top: -0.26rem;
 			background:rgba(255,255,255,1);
 			box-shadow:0px 2px 8px 0px rgba(0,0,0,0.5);
-			border-radius:5px;
+			border-radius:6px;
 			background: #fff url(../../../assets/images/sousuowenti@2x.png) no-repeat 3% center;
 			background-size: 0.2rem;
 		}
+
+    input::-webkit-input-placeholder {
+      color: #787878;
+    }
 		ul{
-			padding: 0 8% 0.7rem 8%;
+      padding: 0 0 0.5rem 5%;
+      text-align: left;
 			li{
-				border-bottom: 1px solid #979797;
-				font-size: 0.14rem;
-				padding: 0.14rem 0;
+        border-bottom: 1px solid #e5e5e5;
+        font-size: 0.142rem;
+        padding: 0.14rem 0 0.14rem 0.1rem;
+        color: #666;
 				a{
 					color: #333333;
 				}
@@ -120,7 +132,7 @@
 			-webkit-box-flex: 1;
 			-ms-flex: 1;
 			flex: 1;
-			
+
 			text-align: center;
 			display: -webkit-box;
 			display: -ms-flexbox;
