@@ -21,7 +21,7 @@
           </div>
           <div class="item">
             <img src="@/assets/images/mclZJ.jpg" alt class="touxiang" />
-            <p class="DName font14">MCL专属顾问</p>
+            <p class="DName font14">MCL医生助理</p>
           </div>
         </div>
       </div>
