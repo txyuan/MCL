@@ -1,6 +1,6 @@
 <template>
-	<div class="nutrition-root">
-        <div id="" style="padding-top: 88px;">
+	<div class="nutrition-root" style="background-color: #f1f1f1">
+        <div id="" style="padding-top:0.88rem;">
 			<mt-header title="营养" fixed>
 				<div slot="left">
 					<header-back>
@@ -15,7 +15,7 @@
 					</router-link>
 				</div>
 			</mt-header> -->
-			<div id="navbar" class="fix_top" style="top: 43px;">
+			<div id="navbar" class="fix_top" style="top:0.44rem;">
 				<mt-navbar v-model="ABflag">
 					<mt-tab-item v-for="(item,index) in navbarList" :key="index" :class="(ABflag == item.type)&&'is-selected'"
 					 @click.native="toggleType(item)">
@@ -30,38 +30,40 @@
 				<div class="yinshhi_list" :hidden="ABflag == 2">
 					<!-- 今日提醒 -->
 					<div class="home-cell margin10">
-						<p class="name">今日提醒</p>
+<!--						<p class="name">今日提醒</p>-->
 
 						<router-link tag="ul" v-for="(item,index) in todynews" :key="index" class="remindList"  :to="'/nutritionUploadPhoto?skey='+item.skey+'&mealtype='+item.mealname">
 							<li class="margin10">
 								<div class="left">
 									<div class="rowTop">
-										<img src="@/assets/images/yaopin@2x.png" class="icon" />
-										<span class="huiFont font14">{{item.takingcondition}}</span>
+										<img src="@/assets/images/yingyang@2x.png" class="icon" />
+										<span class=" font15">{{item.takingcondition}}</span>
 									</div>
 									<!-- <div class="rowBottom font12">
 										<p class="yellow">应完成时间：<span>{{item.completiontime}}</span> 已超时：<span>{{item.timeouttime}}</span></p>
 									</div> -->
 								</div>
-								<div class="right yellow font14"> <!-- @click="oksuces(item)" -->
-									<mt-badge size="small" color="#F78335">
-										<span style="padding: 2px 5px;">上传营养</span>
+								<div class="right"> <!-- @click="oksuces(item)" -->
+									<mt-badge size="small" color="#0AC5C9" style="font-size: 0.12rem;padding: 0.015rem 0.075rem;border-radius: 0.05rem">
+										<span>上传营养</span>
 									</mt-badge>
 								</div>
 							</li>
 						</router-link>
-                        
+
 						<div v-for="(item, index) in todayNutritionList" :key="index">
 							<div v-if="item.length > 0">
 								<div class="my-cell borderBottom marginTop10" v-if="nutrition01datas!=''">
-									<img src="@/assets/images/zaoqian@2x.png" width="20" height="20" v-if="index == 0"/>
-									<img src="@/assets/images/wuqian@2x.png" width="20" height="20" v-else/>
+                  <img src="@/assets/images/zaoqian@2x.png" width="20" height="20" v-if="index == 0"/>
+                  <img src="@/assets/images/zaoqian@2x.png" width="20" height="20" v-else-if="index == 1"/>
+                  <img src="@/assets/images/wuqian@2x.png" width="20" height="20" v-else-if="index == 3"/>
+                  <img src="@/assets/images/wanqian@2x.png" width="20" height="20" v-else/>
 									<span class="">{{item[0].mealname}}</span>
 								</div>
 								<div class="content-list margin10">
 									<div class="my-cell" v-for="(cell, i) in item" :key="i">
 										<span class="font14">{{cell.productname}}</span>
-										<div class="float_right huiFont font14">
+										<div class="huiFont font14">
 											<span style="margin-right: 5px;">{{cell.weight}}</span>
 											<img src="@/assets/images/select@2x.png" alt="" width="20" v-if="cell.earlierflag == 1"/>
 											<img src="@/assets/images/select_click@2x.png" alt="" width="20" v-if="cell.earlierflag == 2"/>
@@ -70,7 +72,7 @@
 								</div>
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 
@@ -84,31 +86,31 @@
 						<div class="my-cell borderBottom marginTop10" v-if="nutrition01datas!=''">
 							<img src="@/assets/images/zaoqian@2x.png" width="20" height="20" />
 							<span class="">{{nutrition01datas}}</span>
-							<!-- <span class="float_right huiFont font14">{{earliertime}}</span> -->
+							<!-- <span class="huiFont font14">{{earliertime}}</span> -->
 						</div>
 						<div class="content-list margin10" v-if="nutrition01datas!=''">
 							<div class="my-cell" v-for="(item,index) in nutrition01data" :key="index">
 								<span class="font14">{{item.productname}}</span>
-								<div class="float_right huiFont font14">
+								<div class="huiFont font14">
 									<span style="margin-right: 5px;">{{item.weight}}</span>
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="my-cell borderBottom" v-if="nutrition02datas!=''">
-							<img src="@/assets/images/wuqian@2x.png" width="20" height="20" />
+							<img src="@/assets/images/zaoqian@2x.png" width="20" height="20" />
 							<span class="">{{nutrition02datas}}</span>
-							<!-- <span class="float_right huiFont font14">{{beforenoontime}}</span> -->
+							<!-- <span class="huiFont font14">{{beforenoontime}}</span> -->
 						</div>
 						<div class="content-list margin10" v-if="nutrition02datas!=''">
 							<div class="my-cell" v-for="(item,index) in nutrition02data" :key="index" style="overflow: hidden;">
 								<span class="font14">{{item.productname}}</span>
-								<div class="float_right huiFont font14">
+								<div class="huiFont font14">
 									<span style="margin-right: 5px;">{{item.weight}}</span>
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="my-cell borderBottom" v-if="nutrition03datas!=''">
 							<img src="@/assets/images/zaoqian@2x.png" width="20" height="20" />
 							<span class="">{{nutrition03datas}}</span>
@@ -116,34 +118,34 @@
 						<div class="content-list margin10" v-if="nutrition03datas!=''">
 							<div class="my-cell borderBottom" v-for="(item,index) in nutrition03data" :key="index">
 								<span class="font14">{{item.productname}}</span>
-								<div class="float_right huiFont font14">
+								<div class="huiFont font14">
 									<span style="margin-right: 5px;">{{item.weight}}</span>
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="my-cell borderBottom" v-if="nutrition04datas!=''">
 							<img src="@/assets/images/wuqian@2x.png" width="20" height="20" />
 							<span class="">{{nutrition04datas}}</span>
-							<!-- <span class="float_right huiFont font14">{{beforenoontime}}</span> -->
+							<!-- <span class="huiFont font14">{{beforenoontime}}</span> -->
 						</div>
 						<div class="content-list margin10" v-if="nutrition04datas!=''">
 							<div class="my-cell" v-for="(item,index) in nutrition04data" :key="index" style="overflow: hidden;">
 								<span class="font14">{{item.productname}}</span>
-								<div class="float_right huiFont font14">
+								<div class="huiFont font14">
 									<span style="margin-right: 5px;">{{item.weight}}</span>
 								</div>
 							</div>
 						</div>
 						<div class="my-cell borderBottom" v-if="nutrition05datas!=''">
-							<img src="@/assets/images/wuqian@2x.png" width="20" height="20" />
+							<img src="@/assets/images/wanqian@2x.png" width="20" height="20" />
 							<span class="">{{nutrition05datas}}</span>
-							<!-- <span class="float_right huiFont font14">{{beforenoontime}}</span> -->
+							<!-- <span class="huiFont font14">{{beforenoontime}}</span> -->
 						</div>
 						<div class="content-list margin10" v-if="nutrition05datas!=''">
 							<div class="my-cell" v-for="(item,index) in nutrition05data" :key="index" style="overflow: hidden;">
 								<span class="font14">{{item.productname}}</span>
-								<div class="float_right huiFont font14">
+								<div class="huiFont font14">
 									<span style="margin-right: 5px;">{{item.weight}}</span>
 								</div>
 							</div>
@@ -151,38 +153,38 @@
 						<div class="my-cell borderBottom" v-if="nutrition06datas!=''">
 							<img src="@/assets/images/wuqian@2x.png" width="20" height="20" />
 							<span class="">{{nutrition06datas}}</span>
-							<!-- <span class="float_right huiFont font14">{{beforenoontime}}</span> -->
+							<!-- <span class="huiFont font14">{{beforenoontime}}</span> -->
 						</div>
 						<div class="content-list margin10" v-if="nutrition06datas!=''">
 							<div class="my-cell" v-for="(item,index) in nutrition06data" :key="index" style="overflow: hidden;">
 								<span class="font14">{{item.productname}}</span>
-								<div class="float_right huiFont font14">
+								<div class="huiFont font14">
 									<span style="margin-right: 5px;">{{item.weight}}</span>
 								</div>
 							</div>
 						</div>
 						<div class="my-cell borderBottom" v-if="nutrition07datas!=''">
-							<img src="@/assets/images/wuqian@2x.png" width="20" height="20" />
+							<img src="@/assets/images/wanqian@2x.png" width="20" height="20" />
 							<span class="">{{nutrition07datas}}</span>
-							<!-- <span class="float_right huiFont font14">{{beforenoontime}}</span> -->
+							<!-- <span class="huiFont font14">{{beforenoontime}}</span> -->
 						</div>
 						<div class="content-list margin10" v-if="nutrition07datas!=''">
 							<div class="my-cell" v-for="(item,index) in nutrition07data" :key="index" style="overflow: hidden;">
 								<span class="font14">{{item.productname}}</span>
-								<div class="float_right huiFont font14">
+								<div class="huiFont font14">
 									<span style="margin-right: 5px;">{{item.weight}}</span>
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="my-cell borderBottom" v-if="nutrition08datas!=''">
-							<img src="@/assets/images/wuqian@2x.png" width="20" height="20" />
-							<span class="">{{nutrition08data[0].mealname}}</span> 
+							<img src="@/assets/images/wanqian@2x.png" width="20" height="20" />
+							<span class="">{{nutrition08data[0].mealname}}</span>
 						</div>
 						<div class="content-list margin10" v-if="nutrition08datas!=''">
 							<div class="my-cell" v-for="(item,index) in nutrition08data" :key="index" style="overflow: hidden;">
 								<span class="font14">{{item.productname}}</span>
-								<div class="float_right huiFont font14">
+								<div class="huiFont font14">
 									<span style="margin-right: 5px;">{{item.weight}}</span>
 								</div>
 							</div>
@@ -191,7 +193,7 @@
 							<mt-button type="danger" class="add_btns" size="large">调整处方</mt-button>
 						</router-link>
 					</div>
-					
+
 				</div>
 			</div>
 
@@ -298,7 +300,7 @@
 						todayNutritionList.push(data[`nutrition0${i}data`]);
 					}
 					this.todayNutritionList = todayNutritionList;
-				})		
+				})
 			},
 
 			//营养方案
@@ -342,7 +344,7 @@
 					this.nutrition06data=data.nutrition06data;
 					this.nutrition07data=data.nutrition07data;
 					this.nutrition08data=data.nutrition08data;
-					
+
 					// this.beforelatedata = data.beforelatedata;
 					// this.beforenoondata = data.beforenoondata;
 					// this.earlierdata = data.earlierdata;
@@ -372,7 +374,7 @@
 					this.beforenoondatas = data.beforenoondata;
 					this.earlierdatas = data.earlierdata;
 					this.sleeplatedatas = data.sleeplatedata;
-					
+
 					if(data.earlierdata.lenth > 0){
 						this.earliertimes = data.earlierdata[0].earliertime;
 					}
@@ -390,10 +392,10 @@
 			},
 		},
 		mounted() {
-			this.remindToday();	
+			this.remindToday();
 			this.todayNutrition();	//今日营养
 			this.todayDiet();
-			
+
 			// this.faDiet();
 			if(this.$route.query.ABflag == 2){
 				this.ABflag = 2;
@@ -403,10 +405,21 @@
 </script>
 
 <style scoped lang="scss">
+  .nutrition-root{
+  }
+  .mint-header{
+    height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 0.16rem;
+  }
 	.neirong {
 		margin-top: 0.11rem;
 	}
-
+  #navbar .mint-navbar .mint-tab-item.is-selected {
+    border-bottom: 2px solid #0AC5C9;
+    color: #0AC5C9;
+    margin-bottom: 0;
+  }
 	.home-cell {
 		&>.name {
 			line-height: 0.44rem;
@@ -428,11 +441,12 @@
 			background: #FFFFFF;
 			display: flex;
 			justify-content: space-between;
+      align-items: center;
 		}
 
 		&>li .left {
 			.rowTop .icon {
-				width: 0.14rem;
+				width: 0.16rem;
 				vertical-align: middle;
 				/*margin-right: 5px;*/
 			}
@@ -466,8 +480,9 @@
 	/* */
 	.my-cell {
 		line-height: 0.45rem;
-		padding: 0 0.15rem;
 		background: #FFFFFF;
+    font-size:0.15rem ;
+    padding-left: 0.15rem;
 
 		&>*, .huiFont>*{
 			vertical-align: middle;
@@ -476,12 +491,19 @@
 
 	.content-list {
 		background: #FFFFFF;
-		padding-left: 0.20rem;
-		padding-right: 0.05rem;
+		padding-left: 0.3rem;
 
 		.my-cell {
-			padding-left: 0;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed #e5e5e5;
+      padding: 0 0.15rem 0 0.05rem;
+      font-size: 0.145rem;
+      color: #666666;
 		}
+    .my-cell:last-child{
+      border-bottom: 0;
+    }
 	}
 	.noalready{
 		padding-top: 0.4rem;
@@ -497,4 +519,16 @@
 			padding-top: 0.2rem;
 		}
 	}
+  .buttons{
+    border: 0;
+    height: 0.44rem;
+    .add_btns{
+      background-color: #0AC5C9;
+      width: 100%;
+      border-radius: 0;
+      height: 0.44rem;
+      line-height: 0.44rem;
+      margin: 0;
+    }
+  }
 </style>

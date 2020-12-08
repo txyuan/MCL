@@ -1,6 +1,6 @@
 <template>
 	<div class="sport-root">
-		<div id="body_main" style="padding-top: 88px;">
+		<div id="body_main" style="padding-top: 0.88rem;">
 			<mt-header title="运动" fixed>
 				<div slot="left">
 					<header-back>
@@ -10,7 +10,7 @@
 			</mt-header>
 
 			<!-- mt-navbar -->
-			<div id="navbar" class="fix_top" style="top: 43px;">
+			<div id="navbar" class="fix_top" style="top: 0.44rem;">
 				<mt-navbar v-model="ABflag">
 					<mt-tab-item v-for="(item,index) in navbarList" :key="index" :class="(ABflag == item.type)&&'is-selected'" @click.native="toggleType(item)">
 						<p>{{item.name}}</p>
@@ -24,28 +24,29 @@
 				<div class="yinshhi_list" :hidden="ABflag == 2">
 					<!-- 今日提醒 -->
 					<div class="home-cell margin10">
-						<p class="name">今日提醒</p>
+<!--						<p class="name">今日提醒</p>-->
 
 						<router-link tag="ul" v-for="(item,index) in todynews" :key="index" class="remindList" to="">
 							<li class="margin10">
 								<div class="left">
 									<div class="rowTop">
-										<img src="@/assets/images/yaopin@2x.png" class="icon" />
-										<span class="huiFont font14">{{item.takingcondition}}</span>
+										<img src="@/assets/images/shenghuozhuangkuang@2x.png" class="icon" />
+										<span class="font15">{{item.takingcondition}}</span>
 									</div>
 									<!-- <div class="rowBottom font12">
 										<p class="yellow">应完成时间：<span>{{item.completiontime}}</span> 已超时：<span>{{item.timeouttime}}</span></p>
 									</div> -->
 								</div>
-								<div class="right yellow font14" @click="oksuccess(item)">
-									<mt-badge size="small" color="#F78335">
-										<span style="padding: 2px 5px;">确认完成</span>
+								<div class="right yellow" @click="oksuccess(item)">
+									<mt-badge size="small" color="#0AC5C9" style="font-size: 0.12rem;padding: 0.015rem 0.075rem;border-radius: 0.05rem">
+										<span>确认完成</span>
 									</mt-badge>
 								</div>
 							</li>
 						</router-link>
 					</div>
 
+          <div style="background-color: #FFFFFF">
 					<div class="home-cell">
 						<p class="name">运动完成情况</p>
 					</div>
@@ -55,20 +56,20 @@
 							<div class="left">
 								<span class="huiFont font14">{{item.motorunit}}</span>
 							</div>
-							
+
 							<img src="@/assets/images/select@2x.png" alt="" width="20" v-if="item.motionflag == 1"/>
 							<img src="@/assets/images/select_click@2x.png" alt="" width="20" v-if="item.motionflag == 2"/>
 						</div>
 					</div>
 				</div>
-
+      </div>
 				<!-- 运动方案 -->
 				<div class="yinshhi_list padding-footer" :hidden="ABflag == 1">
 					<div class="noalready" v-if="dataflag==0">
 						<img src="@/assets/images/nowzzz.png" />
 						<p>请稍等，您的运动方案正在制作中...</p>
 					</div>
-					<div v-else>
+					<div v-else style="background-color:#FFFFFF">
 						<mt-cell is-link class="borderBottom margin10 sportEvaluation-wrap" @click.native="sportPickerToggles('show')" style="display: none;">
 							<div slot="title" class="titleWrap">
 								<span class="mint-cell-text">选择运动自评</span>
@@ -80,7 +81,7 @@
 						<!-- <router-link to="/sportAgreement">
 							<p class="red text-right font12 margin10" style="padding: 0 10px;text-decoration: underline;">运动禁忌须知</p>
 						</router-link> -->
-						<div class="sport-cell clear borderBottom" v-for="(item,index) in sportway" :key="index">
+						<div class="sport-cell clear" v-for="(item,index) in sportway" :key="index">
 							<div class="name float_left">{{item.sportsname}}</div>
 							<div class="content float_left">
 								<div class="left" style="width: 70%;line-height: 0.2rem;">
@@ -95,16 +96,16 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<!-- 运动自评picker  -->
 			<mt-popup
 				class="sportPicker"
 				v-model="sportVisible"
 				position="bottom">
-				<mt-picker 
-					:slots="sportSlot" 
-					:showToolbar="true" 
-					:visibleItemCount="3" 
+				<mt-picker
+					:slots="sportSlot"
+					:showToolbar="true"
+					:visibleItemCount="3"
 					ref="sportPickers"
 				>
 				    <div class="picker_bar">
@@ -113,7 +114,7 @@
 				    </div>
 				</mt-picker>
 			</mt-popup>
-				
+
 		</div>
 	</div>
 </template>
@@ -136,16 +137,16 @@
 				flag: 1,  //1:默认查询，2：选择框查询
 				score: "",  //分值
 			},
-			
+
 			todysport:[],   //今日运动
 			sportway:[],    //运动方案
-			
+
 			//运动自评picker
 			sportList:[
-				{name:"请选择", val:""}, 
-				{name:"身体正常，无任何不适", val:"100"}, {name:"能进行正常活动，有轻微不适", val:"90"}, {name:"勉强可正常活动，有一些不适", val:"80"},  
-				{name:"生活可自理，但不能维持正常生活或工作", val:"70"}, {name:"有时需人扶助，多数时间可自理", val:"60"}, {name:"常需人照料", val:"50"}, 
-				{name:"生活不能自理，需特别照顾", val:"40"}, {name:"生活严重不能自理", val:"30"}, {name:"病重，需住院积极支持治疗", val:"20"}, 
+				{name:"请选择", val:""},
+				{name:"身体正常，无任何不适", val:"100"}, {name:"能进行正常活动，有轻微不适", val:"90"}, {name:"勉强可正常活动，有一些不适", val:"80"},
+				{name:"生活可自理，但不能维持正常生活或工作", val:"70"}, {name:"有时需人扶助，多数时间可自理", val:"60"}, {name:"常需人照料", val:"50"},
+				{name:"生活不能自理，需特别照顾", val:"40"}, {name:"生活严重不能自理", val:"30"}, {name:"病重，需住院积极支持治疗", val:"20"},
 				{name:"病危，临近死亡", val:"10"}, {name:"死亡", val:"0"},
 			],
 			sportDefaultName:"请选择",  //页面显示的文字
@@ -155,9 +156,9 @@
 					flex: 1,
 					values: [
 						'请选择',
-						'身体正常，无任何不适', '能进行正常活动，有轻微不适', '勉强可正常活动，有一些不适', 
-						'生活可自理，但不能维持正常生活或工作', '有时需人扶助，多数时间可自理','常需人照料', 
-						'生活不能自理，需特别照顾', '生活严重不能自理', '病重，需住院积极支持治疗', 
+						'身体正常，无任何不适', '能进行正常活动，有轻微不适', '勉强可正常活动，有一些不适',
+						'生活可自理，但不能维持正常生活或工作', '有时需人扶助，多数时间可自理','常需人照料',
+						'生活不能自理，需特别照顾', '生活严重不能自理', '病重，需住院积极支持治疗',
 						'病危，临近死亡', '死亡',
 					],
 					className: 'slot1',
@@ -185,7 +186,7 @@
 			toggleType(item) {
 				this.ABflag = item.type;
 			},
-			
+
 			// 确认完成
 			oksuccess(item) {
 				let url = "UserInterface/PatientMotionConfirm.ashx";
@@ -202,7 +203,7 @@
 					this.todayDiet();
 				})
 			},
-			
+
 			// 今日运动 运动方案
 			todayDiet() {
 				let url = "UserInterface/ScreeningTodaySports.ashx";
@@ -221,7 +222,7 @@
 					return data;
 				})
 			},
-			
+
 			//查看指导
 			doGuidance(skey) {
 				let url = "UserInterface/ScreeningTodaySportsDetail.ashx";
@@ -233,7 +234,7 @@
 					this.$MessageBox.alert(data.motiondetails);
 				})
 			},
-			
+
 			//保存方案
 			save(){
 				this.$router.push('/sport_CF?resetstatus=1');
@@ -255,7 +256,7 @@
 				// 	this.todayDiet();
 				// })
 			},
-			
+
 			//运动自评picker
 			sportPickerToggles(state){
 				if(state == "show"){
@@ -300,7 +301,7 @@
 				const {sportPickers} = this.$refs;
 				sportPickers.setSlotValue(0, sportDefaultName);
 				this.sportDefaultName = sportDefaultName;
-				
+
 			});
 		}
 	}
@@ -322,6 +323,14 @@
 	}
 </style>
 <style scoped lang="scss">
+  .mint-header{
+    height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 0.16rem;
+  }
+  .padding-header {
+    padding-top: 0.44rem;
+  }
 	//picker 的样式
 	.mint-popup-bottom {
 		width: 100%;
@@ -346,6 +355,8 @@
 			line-height: 0.44rem;
 			padding: 0 0.12rem;
 			background: #FFFFFF;
+      border-bottom: 1px solid #e5e5e5;
+      font-size: 0.155rem;
 		}
 
 		.more {
@@ -362,11 +373,12 @@
 			background: #FFFFFF;
 			display: flex;
 			justify-content: space-between;
+      align-items: center;
 		}
 
 		&>li .left {
 			.rowTop .icon {
-				width: 0.14rem;
+				width: 0.165rem;
 				vertical-align: middle;
 				/*margin-right: 5px;*/
 			}
@@ -398,12 +410,15 @@
 	}
 
 	.sport-cell {
-		line-height: 0.64rem;
+		line-height: 0.52rem;
 		background: #FFFFFF;
 		padding: 0 0.12rem;
-
+    border-bottom: 1px dashed #e5e5e5;
+    margin-left: 0.12rem;
 		.name {
 			width: 30%;
+      font-size: 0.145rem;
+      color: #484848;
 		}
 
 		.content {
@@ -418,7 +433,9 @@
 		}
 
 	}
-
+  .sport-cell:last-child{
+    border-bottom:0;
+  }
 	.sport-cell * {
 		vertical-align: middle;
 	}
@@ -427,6 +444,24 @@
 		margin-top: 30px;
 		img{
 			margin-bottom: 15px;
-		}	
+		}
 	}
+  #navbar .mint-navbar .mint-tab-item.is-selected {
+     border-bottom: 2px solid #0AC5C9;
+     color: #0AC5C9;
+     margin-bottom: 0;
+   }
+  .fix_bottom{
+    border: 0;
+    height: 0.44rem;
+    padding: 0;
+    .theme-button{
+      background-color: #0AC5C9;
+      width: 100%;
+      border-radius: 0;
+      height: 0.44rem;
+      line-height: 0.44rem;
+      margin: 0;
+    }
+  }
 </style>

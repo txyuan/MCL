@@ -465,7 +465,7 @@
     font-weight: bolder;
     font-size: 0.185rem;
     font-style: normal;
-    line-height: 1;
+    line-height:  0.165rem;
     box-shadow: 1px 1px 1px #ccc;
   }
 	.titleWrap {

@@ -42,15 +42,15 @@
 			<mt-field label="碳水化合物" placeholder="碳水化合物" :value="carbohydrate" :disabled="true" class="borderBottom">
 				<span style="margin-left: 5px;">g</span>
 			</mt-field>
-			
-			
+
+
 			<div class="title2 yellow bg-white">13.饮食形式</div>
 			<mt-radio :options="dietformRadiolist.option" v-model="param.dietform" class="borderBottom"></mt-radio>-->
-			
-			<div class="title2 yellow bg-white">1.您目前处在以下哪个阶段？</div>
-			<mt-radio :options="diettabooRadiolists.option" v-model="param.prescription_value_22" class="borderBottom"></mt-radio>
-			<div class="title2 yellow bg-white">2.您现在的身体症状有哪些？</div>
-			<mt-checklist :options="diettabooRadiolist.option" v-model="diettabooRadiolist.value" class="borderBottom"></mt-checklist>
+
+			<div class="title2 bg-white">1、您目前处在以下哪个阶段？</div>
+			<mt-radio :options="diettabooRadiolists.option" v-model="param.prescription_value_22"></mt-radio>
+			<div class="title2 bg-white">2、您现在的身体症状有哪些？</div>
+			<mt-checklist :options="diettabooRadiolist.option" v-model="diettabooRadiolist.value"></mt-checklist>
 			<div class="fix_bottom fix_bottom_area">
 				<mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit">保存</mt-button>
 			</div>
@@ -65,7 +65,7 @@
 			//接口参数
 			param:{
 				prescription_value_22:"",
-				prescription_value01: "0", 
+				prescription_value01: "0",
 				resetstatus: "", //重置状态 （传1就行）
 			},
 			//  单选框
@@ -126,7 +126,7 @@
 			if(resetstatus){
 				this.param.resetstatus = resetstatus
 			}
-			
+
 			//重置表单
 			// this.diettabooRadiolist.option.forEach((item)=>{
 			// 	this.param[`prescription_value${item.value}`] = "0";
@@ -136,26 +136,47 @@
 
 		},
 		created() {
-			
+
 		}
 	}
 </script>
 
 <style scoped lang="scss">
+  .mint-header{
+    height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 0.16rem;
+  }
+  .padding-header {
+   padding-top: 0.44rem;
+ }
 	.title,
 	.title2 {
 		margin-top: 10px;
 		padding: 5px 10px;
 		font-size: 16px;
 	}
-	
+
 	.title2 {
-		margin-top: 0px;
-		font-size: 14px;
-		padding: 0 10px;
-		min-height: 48px;
-		line-height: 48px;
+    padding: 0 10px;
+    line-height: 0.48rem;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 0.15rem;
 	}
+
+  .fix_bottom{
+    border: 0;
+    height: 0.44rem;
+    padding: 0;
+    .theme-button{
+      background-color: #0AC5C9;
+      width: 100%;
+      border-radius: 0;
+      height: 0.44rem;
+      line-height: 0.44rem;
+      margin: 0;
+    }
+  }
 </style>
 <style lang="scss">
 	.PG-SGA-root {
@@ -191,6 +212,10 @@
 			border: 1px solid #EEEEEE;
 			height: 33px;
 		}
+    .mint-radiolist,.mint-checklist{
+      padding: 0.1rem 0;
+      background-color: #FFFFFF;
+    }
 		// 多选框
 		.mint-radiolist.radio-nowrap {
 			background: #FFF;
@@ -209,11 +234,15 @@
 		}
 		.mint-radiolist .mint-radio-label,
 		.mint-checkbox-label {
-			font-size: 14px;
+			font-size: 0.145rem;
 		}
 		.mint-radiolist .mint-radiolist-title,
 		.mint-checklist-title {
 			margin: 0;
 		}
 	}
+  .mint-radio-input:checked+.mint-radio-core, .mint-checkbox-input:checked+.mint-checkbox-core {
+     background-color: #0AC5C9;
+     border-color: #0AC5C9;
+   }
 </style>

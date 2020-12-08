@@ -8,7 +8,7 @@
 					</header-back>
 				</div>
 			</mt-header>
-			
+
 			<div class="yinshhi_list">
 				<div class="title margin10 marginTop10">
 					<div class="wrap">
@@ -17,14 +17,15 @@
 					</div>
 				</div>
 			</div>
-				
+
 			<!-- 饮食方案 -->
 			<div class="marginTop10 yinshhi_list" style="background: #fff;">
 				<div class="title">
 					<div class="wrap borderBottom">
-						<span class="font16">营养方案</span>
+						<span class="font16">营养方案
+            <em class="add_ys" @click="goOtherDishes()" >+</em>
+            </span>
 						<span class="float_right huiFont9">食用量</span>
-						<img src="@/assets/images/fabu@2x.png" alt="" class="add" width="23" @click="goOtherDishes()" />
 					</div>
 				</div>
 				<!-- 默认接口返回的数据 -->
@@ -36,10 +37,10 @@
 					</div>
 					<div class="font14 huiFont99">
 						<span style="margin-right: 5px;vertical-align: middle;">{{item.nutritionunit}}</span>
-						<img src="@/assets/images/delIcon.png" alt="" width="25" style="vertical-align: middle;" @click.stop="delDietCase(index)"/>
+						<img src="@/assets/images/delIcon.png" alt="" width="20" style="vertical-align: middle;" @click.stop="delDietCase(index)"/>
 					</div>
 				</mt-cell>
-				
+
 			</div>
 
 			<!-- 其他菜式 -->
@@ -76,7 +77,7 @@
 				</div>
 			</mt-picker>
 		</mt-popup> -->
-		
+
 		<!-- 遮罩层 -->
 		<!-- <div id="mark" :style="{display: (show?'block': 'none')}">
 			<div class="modal" :class="show && 'show' ">
@@ -85,7 +86,7 @@
 						<span class="yellow" @click="hideModal">取消</span>
 						<span class="yellow" @click="confirm">确认</span>
 					</div>
-		
+
 					<mt-cell class="borderBottom" style="margin-top: 15px;">
 						<img slot="icon" src="@/assets/images/午餐@2x.png" width="46" height="46">
 						<div slot="title" class="titleWrap">
@@ -95,7 +96,7 @@
 							<span style="margin-right: 5px;vertical-align: middle;">{{currentItem.nutritionunit}}</span>
 						</div>
 					</mt-cell>
-		
+
 					<div class="showNum font13">
 						<div class="left huiFont">
 							<p>53千卡</p>
@@ -109,13 +110,13 @@
 							<p>1颗鸡蛋</p>
 						</div>
 					</div>
-				</div>		
+				</div>
 				<ul class="keyboard">
 					<li v-for="(item,index) in keyList" :style="{'border-right-width': (index%3==2 ? 0 : '2px')}" @click="keyCode(item,index)">{{item}}</li>
 				</ul>
 			</div>
 		</div> -->
-		
+
 	</div>
 </template>
 
@@ -133,11 +134,11 @@
 			showNum: [],
 			show: false,
 			currentItem: {},   //点击的菜对象
-			
+
 			//方案的列表
 			dietPlanInfo: [],
 			dishesList:[],
-			
+
 			//保存的接口参数
 			param: {
 				seatskey:'',  //提醒key
@@ -148,7 +149,7 @@
 				// img3:"",
 				// img4:"",
 			},
-			
+
 			//图片list
 			photoList:[
 				{key:"img1", src:"", show: false},
@@ -157,11 +158,11 @@
 				{key:"img4", src:"", show: false},
 			],
 			//图片加号
-			photoAdd: true, 
-			
+			photoAdd: true,
+
 		}),
 		methods: {
-			
+
 			//饮食补录-查询补录饮食方案
 			todayDiet() {
 				let url = "UserInterface/NutritionPlanInfo.ashx";
@@ -172,7 +173,7 @@
 					if (data.rspcode != 1) {
 						return data;
 					}
-					//把页面菜单数据更新到bus对象 
+					//把页面菜单数据更新到bus对象
 					Bus.$data.dishesList = data.data;
 					this.dietPlanInfo = Bus.$data.dishesList;
 					return data;
@@ -182,8 +183,8 @@
 			delDietCase(index){
 				this.dietPlanInfo.splice(index, 1)
 			},
-			
-			
+
+
 			//显示和隐藏键盘
 			showModal(item) {
 				this.currentItem = item;
@@ -217,19 +218,19 @@
 				// 	this.currentItem.isComputed = true;
 				// }
 				// let allkcal = this.currentItem.ratio*showNum;   //总千卡
-				// this.currentItem.foodkcal = allkcal;  //总千卡 
+				// this.currentItem.foodkcal = allkcal;  //总千卡
 				this.currentItem.nutritionunit = showNum;  //总克数
 				this.hideModal();
 			},
-			
+
 			//上传图片
 			//增加图片按钮
 			// addPhoto(){
 			// 	if (this.$root.isWeiXin() || /(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-			// 		//微信 和  Ios 
+			// 		//微信 和  Ios
 			// 	    return this.$refs.file.click()
 			// 	} else if (/(Android)/i.test(navigator.userAgent)) {
-			// 	   //Android终端	
+			// 	   //Android终端
 			// 	   window.back.clickOnAndroidSelectPhoto();
 			// 	}
 			// },
@@ -247,8 +248,8 @@
 			// 		  return;
 			// 		}
 			// 		let responseUrl = response.data.url;
-					
-					
+
+
 			// 		//设置图片地址
 			// 		for(let i=0; i<this.photoList.length; i++){
 			// 			const item = this.photoList[i]
@@ -279,8 +280,8 @@
 			// 		return;
 			// 	  }
 			// 	  let responseUrl = responseUrl;
-				  
-				  
+
+
 			// 	  //设置图片地址
 			// 	  for(let i=0; i<this.photoList.length; i++){
 			// 	  	const item = this.photoList[i]
@@ -311,16 +312,16 @@
 			// 	//显示图片新增按钮
 			// 	this.photoAdd = true;
 			// },
-			
+
 			//保存
 			save() {
 				let url = "UserInterface/NutritionUdate.ashx";
-				let foodinfoArr = []; 
+				let foodinfoArr = [];
 				this.dietPlanInfo.forEach((item)=>{
 					const {nutritionname, nutritionunit} = item;
-					foodinfoArr.push(`${nutritionname},${nutritionunit}`)		
+					foodinfoArr.push(`${nutritionname},${nutritionunit}`)
 				})
-				
+
 				//设置图片地址
 				// const param = this.param;
 				// for(let i=0; i<this.photoList.length; i++){
@@ -335,10 +336,10 @@
 					}
 					this.$router.push("/nutrition")
 				})
-				
+
 			},
-			
-			
+
+
 			// 其他菜式页面
 			goOtherDishes() {
 				this.$router.push(`/uploadPhoto_addCase?mealtype=${this.param.mealtype}`)
@@ -354,10 +355,10 @@
 					mealtypeText = "早餐前半小时";
 					    break;
 					case "02":
-					mealtypeText = "早餐后";	
+					mealtypeText = "早餐后";
 					    break;
 					case "03":
-					mealtypeText = "早加餐";	
+					mealtypeText = "早加餐";
 					    break;
 					case "04":
 					mealtypeText = "午餐后";
@@ -373,7 +374,7 @@
 						break;
 					case "08":
 					mealtypeText = "晚加餐";
-					    break;				
+					    break;
 				}
 				this.mealtypeText = mealtypeText;
 				this.param.mealtype = mealtype;
@@ -576,6 +577,35 @@
 		width: 100%;
 		border-bottom: 1px solid #eee;
 	}
+
+  .add_ys{
+    width: 0.165rem;
+    height: 0.165rem;
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    background-color: #0AC5C9;
+    margin-left: 0.05rem;
+    font-weight: bolder;
+    font-size: 0.185rem;
+    font-style: normal;
+    line-height:  0.165rem;
+    box-shadow: 1px 1px 1px #ccc;
+  }
+  .fix_bottom{
+    border: 0;
+    height: 0.44rem;
+    padding: 0;
+    .theme-button{
+      background-color: #0AC5C9;
+      width: 100%;
+      border-radius: 0;
+      height: 0.44rem;
+      line-height: 0.44rem;
+      margin: 0;
+    }
+  }
 </style>
 <style lang="scss">
 	.uploadPhoto-root {

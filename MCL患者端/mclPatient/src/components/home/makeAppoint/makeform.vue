@@ -141,7 +141,7 @@
 
 <style scoped lang="scss">
   .mint-header{
-    height: 48px;
+    height: 0.44rem;
     border-bottom: 1px solid #f1f1f1;
     font-size: 0.16rem;
   }
@@ -149,7 +149,7 @@
     width: 30%;
   }
   .body_main{
-    padding-top: 48px;
+    padding-top:  0.44rem;
     font-size: 0.145rem;
   }
 	.make_form {
@@ -157,11 +157,13 @@
 		margin: 0.1rem auto;
     background-color: #FFFFFF;
     padding-bottom: 0.1rem;
+
 	}
 .title2{
   padding: 0 10px;
   line-height: 0.48rem;
   border-bottom: 1px solid #e5e5e5;
+  font-size: 0.15rem;
 }
 	.make_other {
 		width: 94%;
@@ -169,6 +171,7 @@
 		background: #fff;
 
 		p {
+      font-size: 0.15rem;
 		}
 
 		textarea {
@@ -176,10 +179,10 @@
 			width: 100%;
 			padding: 0.1rem 0;
 			background: #fff;
-			border: 1px solid #ddd;
+			border: 1px solid #e5e5e5;
 			height: 0.7rem;
       border-radius: 4px;
-      margin-left: 0.1rem;
+      margin-left: 0.2rem;
 		}
 	}
 
@@ -192,11 +195,14 @@
     display: flex !important;
 		span{width: 105px;
       display: block;
+      line-height: 0.48rem;
+      font-size: 0.15rem;
     }
 		p{
       flex-grow: 1!important;
       background: url(../../../assets/images/jiantou@2x.png) no-repeat right center;
       background-size: 0.2rem;
+      color: #666666;
 		}
 	}
   .buttons{
@@ -223,5 +229,16 @@
 <style>
 	.make_form input[type=text] {
 		border: none;
+    color: #666666;
 	}
+  #main_router a.mint-cell .mint-cell-text{
+    font-size: 0.15rem;
+  }
+  #main_router a.mint-cell .mint-radio-label{
+    color: #666666;
+  }
+  .mint-radio-input:checked+.mint-radio-core, .mint-checkbox-input:checked+.mint-checkbox-core {
+    background-color: #0AC5C9;
+    border-color: #0AC5C9;
+  }
 </style>
