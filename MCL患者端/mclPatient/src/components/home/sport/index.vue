@@ -38,7 +38,7 @@
 									</div> -->
 								</div>
 								<div class="right yellow" @click="oksuccess(item)">
-									<mt-badge size="small" color="#0AC5C9" style="font-size: 0.12rem;padding: 0.015rem 0.075rem;border-radius: 0.05rem">
+									<mt-badge size="small" color="#0AC5C9" style="font-size: 0.125rem;padding: 0.0175rem 0.075rem;border-radius: 0.05rem">
 										<span>确认完成</span>
 									</mt-badge>
 								</div>
@@ -50,13 +50,13 @@
 					<div class="home-cell">
 						<p class="name">运动完成情况</p>
 					</div>
-					<div class="sport-cell clear borderBottom" v-for="(item,index) in todysport" :key="index">
-						<div class="name float_left">{{item.sportsname}}</div>
-						<div class="content float_left">
-							<div class="left">
-								<span class="huiFont font14">{{item.motorunit}}</span>
-							</div>
+					<div class="sport-cell d-flex" v-for="(item,index) in todysport" :key="index">
+						<div class="name">{{item.sportsname}}</div>
+            <div class="flex-grow-1">
+              <span class="huiFont font14">{{item.motorunit}}</span>
+            </div>
 
+            <div style="margin: 0 0.1rem">
 							<img src="@/assets/images/select@2x.png" alt="" width="20" v-if="item.motionflag == 1"/>
 							<img src="@/assets/images/select_click@2x.png" alt="" width="20" v-if="item.motionflag == 2"/>
 						</div>
@@ -81,12 +81,12 @@
 						<!-- <router-link to="/sportAgreement">
 							<p class="red text-right font12 margin10" style="padding: 0 10px;text-decoration: underline;">运动禁忌须知</p>
 						</router-link> -->
-						<div class="sport-cell clear" v-for="(item,index) in sportway" :key="index">
-							<div class="name float_left">{{item.sportsname}}</div>
-							<div class="content float_left">
-								<div class="left" style="width: 70%;line-height: 0.2rem;">
-									<span class="huiFont font14">{{item.motorunit}}</span>
-								</div>
+						<div class="sport-cell d-flex clear" v-for="(item,index) in sportway" :key="index">
+							<div class="name">{{item.sportsname}}</div>
+              <div class="flex-grow-1">
+              <span class="huiFont font14">{{item.motorunit}}</span>
+            </div>
+							<div>
 								<span class="yellow font14" @click="doGuidance(item.skey)">查看指导</span>
 							</div>
 						</div>
@@ -321,6 +321,24 @@
 		overflow: hidden;
 		font-size: 14px;
 	}
+
+  .mint-msgbox-wrapper, .mint-msgbox, .mint-actionsheet, .mint-popup, .mint-popup-city, .mint-popup-bottom{
+    width: 78%;
+
+    border-radius: 6px;
+  }
+  .mint-msgbox-confirm,.mint-msgbox-confirm:active
+  {
+    background-color: #0AC5C9;
+    color: #FFFFFF;
+    font-size: 0.15rem;
+    border-radius: 0 0 6px 6px;
+  }
+  .mint-msgbox-message{
+    line-height: 1.6;
+    color: #666666;
+    padding: 0.1rem 0 0.05rem 0;
+  }
 </style>
 <style scoped lang="scss">
   .mint-header{
@@ -462,6 +480,12 @@
       height: 0.44rem;
       line-height: 0.44rem;
       margin: 0;
+    }
+  }
+  .d-flex{
+    display: flex;
+    .flex-grow-1 {
+      flex-grow: 1;
     }
   }
 </style>
