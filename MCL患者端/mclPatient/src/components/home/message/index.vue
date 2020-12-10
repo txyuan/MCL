@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="background-color: #f1f1f1">
 		<mt-header fixed title="今日提醒">
 			<div slot="left">
 				<header-back>
@@ -9,11 +9,11 @@
 		</mt-header>
 		<div class="todyinform">
 			<ul class="remindList">
-				<router-link tag="li" to="" v-for="(item,index) in todynews" :key="index" class="borderBottom">
+				<router-link tag="li" to="" v-for="(item,index) in todynews" :key="index">
 					<div class="left">
 						<div class="rowTop">
-							<img src="@/assets/images/yinshi@2x.png" class="icon" />
-							<span class="huiFont font14">{{item.takingcondition}}</span>
+							<img src="@/assets/images/tongzhi@2x.png" class="icon" />
+							<span class="huiFont font15">{{item.takingcondition}}</span>
 						</div>
 						<div class="rowBottom font12">
 							<p class="yellow" v-if="item.mtypevalue=='1'">应完成时间：<span>{{item.completiontime}}</span> 已超时：<span>{{item.timeouttime}}</span></p>
@@ -81,23 +81,31 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  .mint-header{
+    height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 0.16rem;
+  }
 	.todyinform{
-		padding-top:43px;
+    padding-top: 0.44rem;
 	}
 	/*今日提醒*/
 	.remindList {
+    padding-top: 0.1rem;
+    padding-bottom: 0.2rem;
 		&>li {
 			padding: 0.13rem 0.12rem;
 			background: #FFFFFF;
 			display: flex;
 			justify-content: space-between;
+      margin-bottom: 0.1rem;
 		}
 
 		&>li .left {
 			.rowTop .icon {
-				width: 0.14rem;
+				width: 0.16rem;
 				vertical-align: middle;
-				margin-right: 5px;
+				margin-right: 0.02rem;
 			}
 		}
 
@@ -113,11 +121,16 @@ export default {
 		}
 
 		.rowTop {
-			margin-bottom: 0.05rem;
 		}
 
 		.rowTop>* {
 			vertical-align: middle;
 		}
-	}
+    .rowBottom{
+      p{
+        padding-left: 0.2rem;
+        margin-top: 0.02rem;
+      }
+    }
+  }
 </style>

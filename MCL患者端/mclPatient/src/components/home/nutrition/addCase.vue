@@ -8,8 +8,10 @@
 					</header-back>
                 </div>
             </mt-header>
-            <mt-field label="名称" placeholder="请输入名称" v-model.trim="currentItem.nutritionname" class="margin10 marginTop10"></mt-field>
+         <div style="margin-top: 0.1rem;background-color: #FFFFFF;padding-left: 0.1rem">
+            <mt-field label="名称" placeholder="请输入名称" v-model.trim="currentItem.nutritionname"></mt-field>
             <mt-field label="用量" placeholder="请输入用量" v-model.trim="currentItem.nutritionunit"></mt-field>
+         </div>
             <div class="fix_bottom fix_bottom_area">
                 <mt-button type="primary" class="theme-button button-radio " size="large" @click.native="save">保存</mt-button>
             </div>
@@ -63,7 +65,36 @@
 </script>
 
 <style lang="scss">
+  .mint-header{
+    height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 0.16rem;
+  }
+  a.mint-cell{
+    border-bottom: 1px solid #e5e5e5;
+    padding:0.025rem 0.1rem;
+  }
+
+  a.mint-cell:last-child{
+    border-bottom: 0;
+  }
+  a.mint-cell .mint-cell-text {
+    font-size: 0.15rem;
+  }
     .addCase-root input{
-        border: 1px solid #EEEEEE;
+        border:0;
     }
+  .fix_bottom{
+    border: 0;
+    height: 0.44rem;
+    padding: 0;
+    .theme-button{
+      background-color: #0AC5C9;
+      width: 100%;
+      border-radius: 0;
+      height: 0.44rem;
+      line-height: 0.44rem;
+      margin: 0;
+    }
+  }
 </style>

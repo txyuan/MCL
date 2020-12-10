@@ -424,6 +424,7 @@
             return
           }
           this.problem = data.data
+          console.log(data);
         })
       },
       //疾病类型
@@ -1034,7 +1035,7 @@
     padding-left: 0.15rem;
 
     & > li {
-      padding: 0.1rem;
+      padding: 0.1rem 0.1rem 0.1rem 0.05rem;
       display: flex;
       justify-content: space-between;
       border-bottom: 1px dashed #e5e5e5;
@@ -1049,7 +1050,7 @@
       .rowTop .icon {
         width: 0.14rem;
         vertical-align: middle;
-        margin-right: 5px;
+        margin-right: 0.02rem;
       }
     }
 
@@ -1077,6 +1078,11 @@
 
     .rowTop > * {
       vertical-align: middle;
+    }
+    .rowBottom{
+      p{
+        padding-left: 0.2rem;
+      }
     }
   }
 

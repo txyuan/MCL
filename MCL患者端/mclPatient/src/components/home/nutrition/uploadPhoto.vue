@@ -12,8 +12,8 @@
 			<div class="yinshhi_list">
 				<div class="title margin10 marginTop10">
 					<div class="wrap">
-						<span class="font16">营养时间</span>
-						<span class="float_right huiFont9">{{mealtypeText}}</span>
+						<span class="font15">营养时间</span>
+						<span class="float_right huiFont9 font14">{{mealtypeText}}</span>
 					</div>
 				</div>
 			</div>
@@ -22,15 +22,15 @@
 			<div class="marginTop10 yinshhi_list" style="background: #fff;">
 				<div class="title">
 					<div class="wrap borderBottom">
-						<span class="font16">营养方案
+						<span class="font15">营养方案
             <em class="add_ys" @click="goOtherDishes()" >+</em>
             </span>
-						<span class="float_right huiFont9">食用量</span>
+						<span class="float_right huiFont9 font14">食用量</span>
 					</div>
 				</div>
 				<!-- 默认接口返回的数据 -->
 				<mt-cell v-for="(item,index) in dietPlanInfo" :key="index">  <!-- @click.native="showModal(item)" -->
-					<img slot="icon" src="@/assets/images/午餐@2x.png" width="46" height="46">
+					<img slot="icon" src="@/assets/images/午餐@2x.png" width="42" height="42">
 					<div slot="title" class="titleWrap">
 						<span class="mint-cell-text">{{item.nutritionname}}</span>
 						<!-- <span class="mint-cell-label font12 huiFont99">建议食用量：{{item.foodconsumption}}{{item.gramunit}}</span> -->
@@ -412,13 +412,18 @@
 </script>
 
 <style scoped lang="scss">
+  .mint-header{
+  height: 0.44rem;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 0.16rem;
+}
 	/* 早餐列表 */
 	.yinshhi_list {
 		background: #FFFFFF;
 
 		.title {
 			padding-left: 0.12rem;
-			line-height: 45px;
+			line-height:0.44rem;
 		}
 
 		.wrap {

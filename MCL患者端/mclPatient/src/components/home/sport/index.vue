@@ -338,6 +338,7 @@
     line-height: 1.6;
     color: #666666;
     padding: 0.1rem 0 0.05rem 0;
+    letter-spacing: 1px;
   }
 </style>
 <style scoped lang="scss">
