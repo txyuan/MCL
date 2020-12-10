@@ -44,7 +44,7 @@
 									</div> -->
 								</div>
 								<div class="right"> <!-- @click="oksuces(item)" -->
-									<mt-badge size="small" color="#0AC5C9" style="font-size: 0.125rem;padding: 0.02rem 0.075rem;border-radius: 0.05rem">
+									<mt-badge size="small" color="#0AC5C9" style="font-size: 0.13rem;padding: 0.02rem 0.1rem;border-radius: 0.1rem">
 										<span>上传营养</span>
 									</mt-badge>
 								</div>

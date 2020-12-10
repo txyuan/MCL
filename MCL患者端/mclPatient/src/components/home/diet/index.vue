@@ -1401,7 +1401,8 @@
   .mint-badge.is-size-small {
     font-size: 0.125rem;
     background-color: #0AC5C9;
-    padding: 0.02rem 0.065rem;
+    padding: 0.02rem 0.1rem;
+    border-radius: 0.1rem;
   }
 
   .huiFont {

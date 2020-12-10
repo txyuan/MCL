@@ -186,7 +186,8 @@ export default {
 		}
 		.rev_other{
 			font-size: 0.13rem;
-			color: #666;
+      color: #787878;
+      margin-top: 0.025rem;
 		}
 	}
 </style>

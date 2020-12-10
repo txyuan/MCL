@@ -38,7 +38,7 @@
 									</div> -->
 								</div>
 								<div class="right yellow" @click="oksuccess(item)">
-									<mt-badge size="small" color="#0AC5C9" style="font-size: 0.125rem;padding: 0.0175rem 0.075rem;border-radius: 0.05rem">
+									<mt-badge size="small" color="#0AC5C9" style="font-size: 0.13rem;padding: 0.02rem 0.1rem;border-radius: 0.1rem">
 										<span>确认完成</span>
 									</mt-badge>
 								</div>
