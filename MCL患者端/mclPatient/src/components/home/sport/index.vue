@@ -53,12 +53,12 @@
 					<div class="sport-cell d-flex" v-for="(item,index) in todysport" :key="index">
 						<div class="name">{{item.sportsname}}</div>
             <div class="flex-grow-1">
-              <span class="huiFont font14">{{item.motorunit}}</span>
+              <span class="huiFont">{{item.motorunit}}</span>
             </div>
 
             <div style="margin: 0 0.1rem">
-							<img src="@/assets/images/select@2x.png" alt="" width="20" v-if="item.motionflag == 1"/>
-							<img src="@/assets/images/select_click@2x.png" alt="" width="20" v-if="item.motionflag == 2"/>
+							<img src="@/assets/images/select@2x.png" alt="" width="18" v-if="item.motionflag == 1"/>
+							<img src="@/assets/images/select_click@2x.png" alt="" width="18" v-if="item.motionflag == 2"/>
 						</div>
 					</div>
 				</div>
@@ -84,10 +84,10 @@
 						<div class="sport-cell d-flex clear" v-for="(item,index) in sportway" :key="index">
 							<div class="name">{{item.sportsname}}</div>
               <div class="flex-grow-1">
-              <span class="huiFont font14">{{item.motorunit}}</span>
+              <span class="huiFont">{{item.motorunit}}</span>
             </div>
 							<div>
-								<span class="yellow font14" @click="doGuidance(item.skey)">查看指导</span>
+								<span class="yellow" @click="doGuidance(item.skey)">查看指导</span>
 							</div>
 						</div>
 						<div class="fix_bottom fix_bottom_area">
@@ -406,7 +406,7 @@
 
 		&>li .left {
 			.rowTop .icon {
-				width: 0.165rem;
+				width: 0.17rem;
 				vertical-align: middle;
 				/*margin-right: 5px;*/
 			}
@@ -443,10 +443,11 @@
 		padding: 0 0.12rem;
     border-bottom: 1px dashed #e5e5e5;
     margin-left: 0.12rem;
+    font-size: 0.145rem;
 		.name {
 			width: 30%;
       font-size: 0.145rem;
-      color: #484848;
+      color: #333333;
 
 		}
 
