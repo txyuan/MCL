@@ -424,7 +424,6 @@
             return
           }
           this.problem = data.data
-          console.log(data);
         })
       },
       //疾病类型

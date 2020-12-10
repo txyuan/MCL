@@ -16,7 +16,7 @@
 		<div class="rev_fuc" style="margin-top: 0.1rem;padding-bottom: 0.3rem;">
 			<loadMore :param="param" @triggerGetList="getList" ref="loadMoreE">
 				<div slot="content">
-					<h3>历史预约</h3>
+					<h3><i></i>历史预约</h3>
 					<!--<div class="rev_list" v-for="(item,index) in list" :key="index">
 						<div class="rev_lilf">
 							<p>{{item.name}}</p>
@@ -34,7 +34,15 @@
 								<p>{{item.name}}</p>
 							</div>
 							<label>{{item.CreateTime}}</label>
-							<span class="greens">{{item.Booking_status}}</span>
+              <div v-if="item.Booking_status == '预约成功'" >
+                <span class="success">{{item.Booking_status}}</span>
+              </div>
+              <div v-if="item.Booking_status == '预约失败'">
+                <span class="fail">{{item.Booking_status}}</span>
+              </div>
+              <div v-if="item.Booking_status == '预约中'">
+                <span class="blue">{{item.Booking_status}}</span>
+              </div>
 						</div>
 
 						<div class="rev_other">{{item.other}}</div>
@@ -84,6 +92,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  .mint-header{
+    height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 0.16rem;
+  }
+  .padding-header {
+    padding-top: 0.44rem;
+  }
 	.page_btn {
 		padding: 0.25rem;
 	}
@@ -91,18 +107,29 @@ export default {
 	.rev_fuc {
 		width: 100%;
 		background: #fff;
-		h3 {
-			height: 0.5rem;
-			line-height: 0.5rem;
-			padding-left: 4%;
-			font-size: 0.15rem;
-			color: #333;
-			border-bottom: 1px solid #eee;
-		}
+		h3{
+      height: 0.5rem;
+      line-height: 0.5rem;
+      padding-left: 4%;
+      font-size: 0.15rem;
+      color: #333;
+      border-bottom: 1px solid #e5e5e5;
+      font-weight: 500;
+      i{
+        display: inline-block;
+        width: 5px;
+        height: 15px;
+        background-color: #0AC5C9;
+        border-radius: 2px;
+        margin-right: 0.075rem;
+        vertical-align: middle;
+      }
+    }
 		.rev_list {
-			padding: 0.13rem 3% 0.15rem 4%;
-			border-bottom: 1px solid #eee;
-			overflow: hidden;
+      padding: 0.13rem 3% 0.15rem 1%;
+      border-bottom: 1px dashed #e5e5e5;
+      overflow: hidden;
+      margin-left: 0.2rem;
 			.rev_lilfc{
 				// width: 100%;
 				// overflow: hidden;
@@ -111,7 +138,7 @@ export default {
 					width: 70%;*/
 					p {
 						color: #333333;
-						font-size: 0.14rem;
+						font-size: 0.145rem;
 					}
 					label {
 						color: #666;
@@ -122,21 +149,24 @@ export default {
 				}
 				span {
 					/*float: right;*/
-					height: 0.28rem;
-					padding: 0 0.14rem;
-					display: block;
-					background: #F78335;
-					color: #fff;
-					line-height: 0.28rem;
-					font-size: 0.14rem;
-					border-radius: 0.14rem;
+          padding: 0.025rem 0.1rem;
+          display: block;
+          background: #0AC5C9;
+          color: #fff;
+          font-size: 0.13rem;
+          min-width: 0.5rem;
+          text-align: center;
+          border-radius: 0.14rem;
 					/*margin-top: 0.08rem;*/
-					&.greens {
-						background: #4D9C30;
-					}
-					&.bluue {
-						background: #6358F4;
-					}
+          &.success{
+            background: #4ec622;
+          }
+          &.fail{
+            background: #cccccc;
+          }
+          &.blue{
+            background: #0AC5C9;
+          }
 				}
 			}
 
@@ -147,13 +177,16 @@ export default {
 			justify-content: space-between;
 			align-content: center;
 			.rev_lilf,label{
-				margin-top: 0.08rem;
-			}
+        margin-top: 0.04rem;
+      }
+      label{
+        font-size: 0.14rem;
+        color: #666666;
+      }
 		}
 		.rev_other{
 			font-size: 0.13rem;
 			color: #666;
-			padding-top: 0.06rem;
 		}
 	}
 </style>
