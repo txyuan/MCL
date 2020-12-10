@@ -351,18 +351,18 @@
         height: 0.4rem;
         line-height: 0.41rem;
         background: #fff;
-        font-size: 0.145rem;
+        font-size: 0.15rem;
         text-indent: 1em;
         color: #484848;
         font-weight: 500;
         border-bottom: 1px solid #eee;
         i{
           display: inline-block;
-          width: 4px;
+          width: 5px;
           height: 15px;
           background-color: #0AC5C9;
           border-radius: 2px;
-          margin-right: 0.05rem;
+          margin-right: 0.075rem;
           vertical-align: middle;
         }
 			}
@@ -399,7 +399,7 @@
 		width: 0.6rem;
 	}
 
-	.pic_mrimg { 
+	.pic_mrimg {
 	}
 </style>
 <style type="text/css">

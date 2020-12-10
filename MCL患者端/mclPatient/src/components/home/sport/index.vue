@@ -48,7 +48,7 @@
 
           <div style="background-color: #FFFFFF">
 					<div class="home-cell">
-						<p class="name">运动完成情况</p>
+						<p class="name"><i></i>运动完成情况</p>
 					</div>
 					<div class="sport-cell d-flex" v-for="(item,index) in todysport" :key="index">
 						<div class="name">{{item.sportsname}}</div>
@@ -375,6 +375,15 @@
 			background: #FFFFFF;
       border-bottom: 1px solid #e5e5e5;
       font-size: 0.155rem;
+      i{
+        display: inline-block;
+        width: 5px;
+        height: 15px;
+        background-color: #0AC5C9;
+        border-radius: 2px;
+        margin-right: 0.075rem;
+        vertical-align: middle;
+      }
 		}
 
 		.more {
@@ -437,6 +446,7 @@
 			width: 30%;
       font-size: 0.145rem;
       color: #484848;
+
 		}
 
 		.content {
