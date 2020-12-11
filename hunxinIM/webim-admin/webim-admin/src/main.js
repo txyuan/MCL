@@ -6,7 +6,7 @@ import router from './router'
 import vant from 'vant';
 import WebIM from './utils/WebIM';
 import store from './store';
-import {getKeFuInfo} from './api/app.js';
+import {getKeFuInfo,getUserInfo} from './api/app.js';
 // import $ from 'jquery'
 
 
@@ -47,22 +47,37 @@ window.Vue = new Vue({
     },
     methods: {
       //获取客服的账号信息
-      getKeFuInfo: function(username){        
-        if(!username){return}
-        //不存在当前客服
-        if(!this.kefuMap[username]){
-          getKeFuInfo(username).then((data) => {
-            if(data.rspcode == 1){
-              this.kefuMap[username] = data.name
-              localStorage.kefuMap = JSON.stringify(this.kefuMap)
-            }
-          })
+      getKeFuInfo: function(names, type){      
+        if(names.length == 0){ return }
+        const ajax = {
+          'kefu': getKeFuInfo,
+          'user': getUserInfo,
         }
+
+        // 找到不在缓存中的数据
+        const arr = names.filter((username) => !this.kefuMap.hasOwnProperty(String(username)))
+        if(arr.length == 0){ return }
+        ajax[type](arr).then(({data}) => {
+          let users = []
+          if(type === 'kefu'){
+            users = [{userPhone: String(arr[0]), userName: data.name}]
+          }else{
+            users = data.data
+          }
+          // 储存客服信息  
+          users.forEach(item => {
+            this.$set(this.kefuMap, String(item.userPhone), item.userName)
+          });
+          localStorage.kefuMap = JSON.stringify(this.kefuMap)
+        })
+      },
+      getUserNameByPhone(phone){
+        return this.$root.kefuMap.hasOwnProperty(String(phone)) ? `(${this.$root.kefuMap[String(phone)]})` : ''
       }
     },
     created(){
       if(localStorage.kefuMap){
-        this.kefuMap = JSON.parse(localStorage.kefuMap)
+        Object.assign(this.kefuMap, JSON.parse(localStorage.kefuMap))
       }
     },
     router,

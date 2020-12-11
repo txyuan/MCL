@@ -7,7 +7,7 @@
         :key="getKey(item)"
         @click="select2(item, getKey(item))"
       >
-        <span class="custom-title">{{$root.kefuMap[item.name] || item.name}}</span>
+        <span class="custom-title">{{ item.name}} {{$root.getUserNameByPhone(String(item.name))}}</span>
         <div class="icon-style" v-if="getUnreadNum(item) != 0">
           <span class="unreadNum">{{getUnreadNum(item)}}</span>
         </div>
@@ -94,7 +94,6 @@ export default {
       return {
         contact: this.contact.filter(item => {
           if (item && !this.blackList.includes(item.name)) {
-            this.$root.getKeFuInfo(item.name)
             return item;
           }
         }),

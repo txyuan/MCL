@@ -9,7 +9,7 @@
           <a-dropdown>
             <span class="ant-dropdown-link" href="#">
               <!--<a-icon type="setting" />-->
-              <span class="username">{{$root.kefuMap[this.userName]}}</span>
+              <span class="username">{{$root.kefuMap[String(this.userName)]}}</span>
             </span>
             <!--<a-menu slot="overlay">
               <a-menu-item @click="recEmedia">
@@ -474,7 +474,7 @@ export default {
   },
   created(){
     //获取昵称
-    this.$root.getKeFuInfo(this.userName)
+    this.$root.getKeFuInfo([this.userName], 'kefu')
   },
   components: {
     MessageBox,

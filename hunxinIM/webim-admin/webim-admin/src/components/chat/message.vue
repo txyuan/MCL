@@ -30,7 +30,7 @@
         class="message-group"
         :style="{'float':item.bySelf ? 'right':'left'}"
       >
-        <h4 style="text-align: left;margin:0">{{$root.kefuMap[item.from] || item.from}}</h4>
+        <h4 style="text-align: left;margin:0">{{ item.from}} {{$root.getUserNameByPhone(String(item.from))}}</h4>
         <!-- 撤回消息 -->
         <div v-if="item.status == 'recall'" class="recallMsg">{{item.msg}}</div>
         <div v-if="item.status == 'recall'" class="recallMsg">{{renderTime(item.time)}}</div>
@@ -210,11 +210,6 @@ export default {
     }),
     msgList: function(){
       let currentMsgs = this.$store.state.chat.currentMsgs;
-      if(currentMsgs instanceof Array){
-        currentMsgs.forEach((item)=>{
-           this.$root.getKeFuInfo(item.from)
-        })
-      }
       return currentMsgs;
     },
     userList() {

@@ -650,6 +650,8 @@ const Chat = {
 	},
 	getters: {
 		onGetContactUserList(state){
+			const names = state.userList.contactUserList.map((item) => item.name)
+			window.Vue && window.Vue.getKeFuInfo(names, 'user')
 			return state.userList.contactUserList;
 		},
 		onGetGroupUserList(state){

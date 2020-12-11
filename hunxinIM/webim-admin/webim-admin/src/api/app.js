@@ -1,17 +1,29 @@
-import {BASEURLAPP} from '../configURL';
+import {BASEURLAPP,BASEURL} from '../configURL';
 import axios from 'axios'
 
 let axiosInstance = axios.create({
     baseURL: BASEURLAPP,
 });
 
-// 通过手机号，获取用户的姓名
+// 通过手机号，获取客服的姓名
 export function getKeFuInfo ( username ) {
     let url = `UserInterface/GetCustomerServiceName.ashx`;
     //不存在当前客服
     return new Promise((resolve, reject) => {
         let data = {
-            number: username
+            number: username[0]
+        }
+        axiosInstance.get(url, {params: data}).then(resolve, reject)
+    }) 
+}
+
+// 通过手机号，获取用户的姓名
+export function getUserInfo ( rphone ) {
+    let url = `${BASEURL}/Pages/OnLineAppManage/GetCustomerUserName.ashx`;
+    //不存在当前客服
+    return new Promise((resolve, reject) => {
+        let data = {
+            rphone: rphone.join()
         }
         axiosInstance.get(url, {params: data}).then(resolve, reject)
     }) 
@@ -23,7 +35,10 @@ export function saveChatData ( data ) {
     data.sender = JSON.parse(localStorage.userInfo).userId
     return new Promise((resolve, reject) => {
         if(data.msgType == 1){
-            axiosInstance.get(url, {params: data}).then(resolve, reject)
+            axiosInstance.get(url, {params: data}).then(() => {
+                userSendMessage(data.to) // 微信公众号推送消息
+                resolve()
+            }, reject)
         }
         if(data.msgType == 2){
             uploadChatimg(data.msgContent.data).then((responce) => {
@@ -31,6 +46,15 @@ export function saveChatData ( data ) {
                 axiosInstance.get(url, {params: data}).then(resolve, reject)
             })
         }
+    }) 
+}
+
+// 记录聊天内容之后，微信公众号推送消息
+export function userSendMessage (rphone) {
+    let url = `${BASEURL}/Pages/OnLineAppManage/UserSendMessage.ashx`;
+    return new Promise((resolve, reject) => {
+        let data = { rphone }
+        axiosInstance.get(url, {params: data}).then(resolve, reject)
     }) 
 }
 
@@ -56,3 +80,4 @@ export function uploadChatimg ( file ) {
         axiosInstance.post(url, params, config).then(resolve, reject)
     }) 
 }
+
