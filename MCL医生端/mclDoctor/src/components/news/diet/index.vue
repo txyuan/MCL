@@ -1,6 +1,6 @@
 <template>
 	<div class="diet-root">
-		<div id="" style="padding-top: 88px;">
+		<div id="" style="padding-top:0.93rem; background-color: #f1f1f1">
 			<!-- <mt-header title="饮食" fixed>
 				<div slot="left">
 					<router-link to="/wx_Entrance/home" style="color: inherit;">
@@ -16,7 +16,7 @@
 				</div>
 			</mt-header>
 			<!-- mt-navbar -->
-			<div id="navbar" class="fix_top" style="top: 43px;" v-if="$route.query.skey">
+			<div id="navbar" class="fix_top" style="top: 0.48rem;" v-if="$route.query.skey">
 				<mt-navbar v-model="ABflag">
 					<mt-tab-item v-for="(item,index) in navbarList" :key="`tab_${index}`" :class="(ABflag == item.type)&&'is-selected'" @click.native="toggleType(item)">
 						<p>{{item.name}}</p>
@@ -175,7 +175,7 @@
 					<div class="page">
 						<!-- 热量分析 -->
 						<div class="title">
-							<span class="font17">热量分析</span>
+							<span class="font16">热量分析</span>
 						</div>
 						<div class="panel">
 							<p class="font16">三餐热量比及摄入</p>
@@ -208,8 +208,8 @@
 										<div class="borderBottom"></div>
 									</td>
 								</tr>
-								<tr>
-									<td class="font14">总摄入</td>
+								<tr style="font-weight: 600">
+									<td>总摄入</td>
 									<td>
 										<label v-if="Number(totalintake)<Number(totalrecommend)" style="color: #FE7A66;">↓</label>
 										<label v-else-if="Number(totalintake)>Number(totalrecommend)" style="color: #FE7A66;">↑</label>
@@ -221,9 +221,11 @@
 							</table>
 						</div>
 
+          </div>
+          <div class="page">
 						<!-- 三大营养素分析 -->
 						<div class="title">
-							<span class="font17">三大营养素分析</span>
+							<span class="font16">三大营养素分析</span>
 						</div>
 						<div class="panel">
 							<p class="font16">摄入比及推荐</p>
@@ -265,37 +267,40 @@
 					</div>
 					<div class="already" v-else>
 						<div class="solution">
+              <div class="solution_bg">
+              </div>
+
+              <div class="solution_details">
 							<div class="pog_inform">
-								<h3>饮食处方说明</h3>
-								<p>根据饮食调查，您每日的实际摄入量是{{actualIntake}}，您的目标摄入量是{{targetenergy}}，能量处于{{energyBalance}}。</p>
-								<p>为了在治疗期间能保证充足的能量需要量，使体内能量储备处于稳定状态，以维持体重，提高免疫力，改善营养状况。建议您的每日能量摄入按442原则计算，即脂肪40%、碳水化合物40%、蛋白质20%。其中，脂肪{{fat}}，碳水化合物{{carbohydrate}}，蛋白质{{protein}}。</p>
-							</div>
-							<div class="pogress"><span>能量目标 /{{targetenergy}}</span></div>
-							<div class="clear font14 nengliang">
-								<div class="float_left ">能量</div>
-								<div class="float_right huiFont">目标{{targetenergy}}</div>
-							</div>
+                <p>根据饮食调查，您每日的实际摄入量是{{parseFloat(actualIntake).toFixed(0)}}Kcal，您的目标摄入量是{{parseFloat(targetenergy).toFixed(0)}}Kcal，能量处于{{parseFloat(energyBalance).toFixed(0)}}Kcal。</p>
+                <p>肿瘤是一种消耗性疾病，为使体内能量储备处于稳定状态，根据您身体评估结果制定如下饮食方案。</p>
+              </div>
+							<div class="pogress">
+                <p>目标能量 <span class="btys">{{parseFloat(targetenergy).toFixed(0)}}<em>Kcal</em></span> </p>
+              </div>
 							<div class="zonghe">
 								<ul>
 									<li>
-										<img src="@/assets/images/danbaizhi@2x.png" alt="" width="82" height="82" />
-										<p class="font12 huiFont">目标{{protein}}</p>
-										<p class="font14">蛋白质</p>
+<!--										<img src="@/assets/images/danbaizhi@2x.png" alt="" width="82" height="82" />-->
+										<p class="zonghe_mb protein_br"><span> {{parseFloat(protein).toFixed(0)}}g</span><em>20%</em></p>
+										<p class="zonghe_bt">蛋白质</p>
 									</li>
 									<li>
-										<img src="@/assets/images/zhifang@2x.png" alt="" width="82" height="82" />
-										<p class="font12 huiFont">目标{{fat}}</p>
-										<p class="font14">脂肪</p>
+<!--										<img src="@/assets/images/zhifang@2x.png" alt="" width="82" height="82" />-->
+										<p class="zonghe_mb fat_br"><span> {{parseFloat(fat).toFixed(0)}}g</span><em>40%</em></p>
+										<p class="zonghe_bt">脂肪</p>
 									</li>
 									<li>
-										<img src="@/assets/images/tanshuihuahewu@2x.png" alt="" width="82" height="82" />
-										<p class="font12 huiFont">目标{{carbohydrate}}</p>
-										<p class="font14">碳水化合物</p>
+<!--										<img src="@/assets/images/tanshuihuahewu@2x.png" alt="" width="82" height="82" />-->
+										<p class="zonghe_mb carbohydrate_br"><span> {{parseFloat(carbohydrate).toFixed(0)}}g</span><em>40%</em></p>
+										<p class="zonghe_bt">碳水化合物</p>
 									</li>
 								</ul>
 							</div>
+              </div>
 						</div>
 						<!-- 早餐 -->
+            <div class="meal_sort">
 						<div class="title">
 							<div class="wrap borderBottom">
 								<img src="@/assets/images/zaocan@2x.png" width="20" class="icon" />
@@ -313,7 +318,8 @@
 								{{item.breakfast_foodEnergy}}
 							</div>
 						</mt-cell>
-						<!-- 早餐加餐 -->
+            </div>
+            <!-- 早餐加餐 -->
 						<!-- <div class="title">
 							<div class="wrap borderBottom borderTop">
 								<img src="@/assets/images/jiacan@2x.png" width="20" class="icon" />
@@ -345,6 +351,7 @@
 							</div>
 						</div> -->
 						<!-- 午餐 -->
+            <div class="meal_sort">
 						<div class="title">
 							<div class="wrap borderBottom borderTop">
 								<img src="@/assets/images/wucan@2x.png" width="20" class="icon" />
@@ -362,7 +369,8 @@
 								{{item.lunch_foodEnergy}}
 							</div>
 						</mt-cell>
-						<!-- 午加餐 -->
+            </div>
+              <!-- 午加餐 -->
 						<!-- <div class="title">
 							<div class="wrap borderBottom borderTop">
 								<img src="@/assets/images/jiacan@2x.png" width="20" class="icon" />
@@ -381,6 +389,7 @@
 							</div>
 						</mt-cell> -->
 						<!-- 晚餐 -->
+            <div class="meal_sort">
 						<div class="title">
 							<div class="wrap borderBottom borderTop">
 								<img src="@/assets/images/wancan@2x.png" width="20" class="icon" />
@@ -398,7 +407,9 @@
 								{{item.dinner_foodEnergy}}
 							</div>
 						</mt-cell>
+            </div>
 						<!--加餐-->
+            <div class="meal_sort">
 						<div class="title">
 							<div class="wrap borderBottom borderTop">
 								<img src="@/assets/images/jiacan@2x.png" width="20" class="icon" />
@@ -406,7 +417,6 @@
 								<span class="float_right huiFont9">{{mealaddition_time}}</span>
 							</div>
 						</div>
-						<div class="borderBottom">
 							<mt-cell v-for="(item,index) in mealaddition" :key="`jc_${index}`" is-link @click.native="getdetd(item.mealaddition_foodName)">
 								<img slot="icon" :src="item.mealaddition_foodImg" width="46" height="46">
 								<div slot="title" class="titleWrap">
@@ -427,6 +437,7 @@
 		</div>
 		<div class="diet_alety" v-if="aleta">
 			<div class="diet_aletw">
+        <div class="diet_aleta"> 食物详情</div>
 				<div class="diet_aletc">
 					<p>食物名称:{{aletData.foodname}}</p>
 					<p>食物重量:{{aletData.foodgram}}{{aletData.gramunit}}</p>
@@ -577,7 +588,10 @@ export default {
           show: false
         },
         legend: {
-          data: ['早餐', '午餐', '晚餐', '加餐']
+          data: ['早餐', '午餐', '晚餐', '加餐'],
+          right: 5,
+          itemWidth: 15,
+          itemHeight: 12
         },
         animation: false,
         series: [{
@@ -659,7 +673,10 @@ export default {
           show: false
         },
         legend: {
-          data: ['脂肪', '蛋白质', '碳水']
+          data: ['脂肪', '蛋白质', '碳水'],
+          right: 5,
+          itemWidth: 15,
+          itemHeight: 12
         },
         animation: false,
         series: [{
@@ -813,8 +830,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
-	.neirong {
-		margin-top: 0.11rem;
+  .mint-header {
+    height: 0.48rem;
+    font-size: 0.16rem;
+    z-index: 2;
+  }
+
+  .neirong {
+		margin-top: 0.1rem;
 	}
 
 	.home-cell {
@@ -874,16 +897,19 @@ export default {
 	}
 
 	/* 早餐列表 */
-	.yinshhi_list {
-		background: #FFFFFF;
+  .yinshhi_list {
+    .home-cell {
+      background: #FFFFFF;
+    }
 
-		.title {
-			padding-left: 0.12rem;
-			line-height: 45px;
-		}
+    .title {
+      line-height: 45px;
+      background: #FFFFFF;
+    }
 
 		.wrap {
-			padding-right: 34px;
+      padding-left: 0.15rem;
+      padding-right: 34px;
 		}
 
 		.wrap>* {
@@ -900,6 +926,7 @@ export default {
 
 	.mint-cell {
 		min-height: 66px;
+    padding-left: 2%;
 	}
 
 	.mt-progress {
@@ -909,54 +936,154 @@ export default {
 		margin-bottom: 0.10rem;
 	}
 
-	.solution {
-		padding: 0.13rem 0.20rem;
-		background: #FFFFFF;
-	}
+  .solution {
+    /*padding: 0.13rem 0.20rem;*/
+    background: #FFFFFF;
+    position: relative;
+    padding: 0.275rem 3% 0.185rem 3%;
+    margin-bottom: 0.1rem;
+    .solution_bg{
 
-	.solution .pogress {
-		line-height: 18px;
-		border-radius: 9px;
-		background: #0AC5C9;
-		text-align: center;
-		color: #FFFFFF;
-		font-size: 11px;
-	}
-	.pog_inform{
-		font-size: 0.13rem;
-		color: #666;
-		padding: 0 0 0.2rem 0;
-	}
-	.pog_inform h3{
-		font-size: 0.15rem;
-		color: #333;
-		text-align: center;
-		font-weight: 500;
-		padding-bottom: 0.04rem;
-	}
-	.pog_inform p{
-		text-indent: 2em;
-		line-height: 0.22rem;
-	}
-	.nengliang {
-		padding: 0.10rem 0;
-	}
+      background-color: #0AC5C9;
+      background-size: auto 100%;
+      color: #FFFFFF;
+      font-size: 11px;
+      min-height: 62%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 3%;
+    }
+  }
 
-	.zonghe {
-		margin-top: 0.15rem;
-	}
+  .solution_details{
+    position: relative;
+    /*background: #FFFFFF;*/
+    /*padding: 2%;*/
+    border-radius: 0.1rem;
+    .pogress {
+      line-height: 18px;
+      background:#FFFFFF;
+      border-bottom: 1px dashed #e5e5e5;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0px -4px 5px rgba(0,0,0,0.1);
+      p{
+        font-size: 0.145rem;
+        padding: 0.1rem 0.15rem;
+        color: #666666;
+      }
+      .btys{
+        font-size: 0.185rem;
+        padding:0.12rem 0.05rem;
+        color: #14a4a7;
+        em{
+          font-style: normal;
+          font-size: 0.145rem;
+          padding-left: 0.05rem;
+          color: #666666;
+        }
+      }
+    }
+    .pog_inform {
+      font-size: 0.13rem;
+      color: #666;
+      padding: 0.15rem 5% 0.1rem 5%;
+      background-color: #FFFFFF;
+      border-radius: 8px;
+      margin-bottom: 0.165rem;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+      h3 {
+        font-size: 0.15rem;
+        color: #484848;
+        text-align: center;
+        font-weight: 500;
+        padding-bottom: 0.05rem;
+      }
+      p {
+        text-indent: 0.75em;
+        line-height: 0.22rem;
+        color: #787878;
+        font-size: 0.14rem;
+      }
+    }
 
-	.zonghe ul {
-		display: flex;
-		justify-content: space-between;
-		text-align: center;
 
-		.huiFont {
-			margin-top: 5px;
-			margin-bottom: 5px;
-		}
-	}
-	.noalready{
+    .zonghe {
+      padding: 0.05rem 3% 0.025rem 3%;
+      background: #FFFFFF;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+      border-radius:0 0 8px 8px ;
+      ul {
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        padding:0.15rem 1%;
+
+        li{
+          width: 33%;
+          img{
+            width: 0.575rem;
+            height: 0.575rem;
+          }
+          .zonghe_mb {
+            color: #666666;
+            font-size: 0.14rem;
+            width: 0.5rem;
+            height: 0.5rem;
+            border-style: solid;
+            border-width: 4px;
+            border-radius: 50%;
+            position: relative;
+            margin: 0px auto;
+            span{
+              display: block;
+              background-color: #FFFFFF;
+              height: 0.25rem;
+              line-height: 0.275rem;
+              border-radius: 0.25rem 0.25rem 0 0;
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0.25rem;
+            }
+            em{
+              font-style: normal;
+              padding-top: 0.25rem;
+              display: inline-block;
+              line-height: 0.25rem;
+              color: #FFFFFF;
+              font-weight: 600;
+              font-size: 0.14rem;
+              padding-left: 0.05rem;
+            }
+          }
+          .protein_br{
+            border-color:#f5c543 ;
+            background-color:#f5c543;
+          }
+          .fat_br{
+            border-color:#ef918f;
+            background-color:#ef918f ;
+          }
+          .carbohydrate_br{
+            border-color:#86c4fa;
+            background-color: #86c4fa;
+          }
+          .zonghe_bt{
+            color: #484848;
+            font-size: 0.14rem;
+            font-weight: 500;
+            margin-top: 0.1rem;
+          }
+        }
+
+      }
+    }
+  }
+
+  .noalready{
 		padding-top: 0.4rem;
 		img{
 			width: 1.0rem;
@@ -970,10 +1097,24 @@ export default {
 			padding-top: 0.2rem;
 		}
 	}
-	.page {
-		padding: 0.20rem;
-		padding-top: 0;
-	}
+  .page {
+    padding-top: 0;
+    padding-bottom: 0.1rem;
+    background: #FFFFFF;
+    margin-top: 0.1rem;
+
+    .title {
+      padding-left: 0.15rem;
+      line-height: 45px;
+      margin-top: 0;
+      border-bottom: 1px solid #e5e5e5;
+
+      span {
+        padding-left: 0.1rem;
+        border-left: 4px solid #0AC5C9;
+      }
+    }
+  }
 
 	.title:before {
 		content: "";
@@ -987,18 +1128,18 @@ export default {
 	}
 
 	.title {
-		padding-left: 5px;
-		margin-top: 20px;
+		/*padding-left: 5px;*/
+		/*margin-top: 20px;*/
 	}
 
-	.panel {
-		/*height:3.22rem;*/
-		background: rgba(255, 255, 255, 1);
-		box-shadow: 0px 2px 8px 0px rgba(55, 61, 83, 0.51);
-		border-radius: 15px;
-		padding: 16px;
-		margin-top: 20px;
-	}
+  .panel {
+    /*height:3.22rem;*/
+    background: rgba(255, 255, 255, 1);
+    /*box-shadow: 0px 2px 8px 0px rgba(55, 61, 83, 0.51);*/
+    border-radius: 15px;
+    padding: 0.1rem 0.15rem;
+    line-height: 1.6;
+  }
 
 	.list {
 		border-radius: 3px;
@@ -1097,25 +1238,27 @@ export default {
 		margin: 0 auto;
 	}
 
-	.panel table.bgtable {
-		width: 100%;
-		font-size: 0.12rem;
-		line-height: 0.25rem;
-		text-align: left;
-		background: #F5F6FA;
-		border-radius: 5px;
-		padding: 5px 10px;
-	}
+  .panel table.bgtable {
+    width: 100%;
+    font-size: 0.12rem;
+    line-height: 0.25rem;
+    text-align: left;
+    background: #F5F6FA;
+    border-radius: 6px;
+    padding: 0.08rem;
+    text-align: center;
+  }
 
-	.panel table.bgtable th {
-		font-weight: normal;
-		color: #7484E4;
-	}
+  .panel table.bgtable th {
+    font-weight: normal;
+    color: #008b8e;
+    font-size: 0.135rem;
+    font-weight: 500;
+  }
 
-	.panel table.bgtable .line td {
-		padding: 5px 0;
-	}
-
+  .panel table.bgtable .line td {
+    padding: 5px 0;
+  }
 	.geTable {
 		width: 100%;
 		font-size: 0.12rem;
@@ -1154,55 +1297,112 @@ export default {
 		width: 0.35rem;
 		display: block;
 	}
-	.diet_alety{
-		width: 100%;
-		height: 100vh;
-		position: fixed;
-		left: 0;
-		top: 0;
-		z-index: 9990000;
-		background: rgba(000,000,000,0.6);
-		.diet_aletw{
-			width: 78%;
-			padding: 0 4%;
-			height: 3.8rem;
-			background: #fff;
-			border-radius: 8px;
-			position: relative;
-			top: 50%;
-			margin-top: -1.9rem;
-			left: 7%;
-			.diet_aletc{
-				height: 2.8rem;
-				padding: 0.2rem 0;
-				p{
-					font-size: 0.14rem;
-					color: #666;
-					margin-top: 0.08rem;
-				}
-				img{
-					width:100%;
-					max-height: 1.0rem;
-					margin-top: 0.1rem;
-				}
-			}
-			.diet_aleto{
-				height: 0.38rem;
-				line-height: 0.38rem;
-				font-size: 0.14rem;
-				color: #F78335;
-				position: absolute;
-				bottom: 0;
-				left: 0;
-				width: 100%;
-				text-align: center;
-				border-top: 1px solid #ddd;
-			}
-		}
-	}
+
+  .diet_alety {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9990000;
+    background: rgba(000, 000, 000, 0.6);
+
+    .diet_aletw {
+      width: 78%;
+      background: #fff;
+      border-radius: 8px;
+      position: relative;
+      top: 50%;
+      margin-top: -1.5rem;
+      margin-left: auto;
+      margin-right: auto;
+      .diet_aleta{
+        text-align: center;
+        padding: 0.1rem 0;
+        border-bottom: 1px solid #e5e5e5;
+        width: 100%;
+      }
+      .diet_aletc {
+        padding: 0.15rem 0.15rem 0.25rem 0.15rem;
+
+        p {
+          font-size: 0.145rem;
+          color: #666;
+          margin-top: 0.08rem;
+          min-width: 48%;
+          display: inline-block;
+        }
+
+        img {
+          width: 100%;
+          max-height: 1.0rem;
+          margin-top: 0.1rem;
+        }
+      }
+
+      .diet_aleto {
+        height: 0.42rem;
+        line-height: 0.42rem;
+        font-size: 0.15rem;
+        color: #FFFFFF;
+        width: 100%;
+        text-align: center;
+        background-color: #0AC5C9;
+        border-radius:0 0 8px 8px ;
+      }
+    }
+  }
 	.yinshhi_list .title:before{
 		content: none;
 	}
+  #navbar .mint-navbar .mint-tab-item.is-selected {
+       border-bottom: 2px solid #0AC5C9;
+       color: #0AC5C9;
+     }
+
+  .mint-badge.is-size-small {
+    font-size: 0.125rem;
+    background-color: #0AC5C9;
+    padding: 0.02rem 0.065rem;
+  }
+
+  .huiFont {
+    color: #484848;
+  }
+
+  .light_gray {
+
+    color: #787878;
+  }
+
+  #navbar .mint-navbar {
+    border-bottom: 1px solid #f1f1f1;
+  }
+
+  .remindList:last-child li {
+    border-bottom: 0;
+  }
+  .buttons{
+    height: 0.44rem;
+    border: 0;
+    z-index: 3;
+    .add_btns{
+      background-color: #0AC5C9;
+      width: 100%;
+      height: 0.44rem;
+      line-height:0.44rem;
+      border-radius: 0;
+      margin: 0 auto;
+    }
+  }
+  .meal_sort{
+       margin-bottom: 0.1rem;
+       .mint-cell{
+         img{
+           border-radius: 4px;
+         }
+       }
+     }
 </style>
 <style type="text/css">
 	.completeState .mt-progress-progress {

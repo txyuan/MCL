@@ -8,23 +8,25 @@
 					</header-back>
 				</div>
 			</mt-header>
-			
+
 			<div class="yinshhi_list">
 				<div class="title margin10 marginTop10">
 					<div class="wrap">
 						<span class="font16">饮食时间</span>
-						<span class="float_right huiFont9">{{mealtypeText}}</span>
+						<span class="float_right huiFont9 font15">{{mealtypeText}}</span>
 					</div>
 				</div>
 			</div>
-				
+
 			<!-- 饮食方案 -->
 			<div class="marginTop10 yinshhi_list" style="background: #fff;">
-				<div class="title">
-					<div class="wrap borderBottom">
-						<span class="font16">饮食方案</span>
-						<span class="float_right huiFont9">食用量</span>
-						<img src="@/assets/images/fabu@2x.png" alt="" class="add" width="23" @click="goOtherDishes()" />
+				<div class="title borderBottom">
+					<div class="wrap ">
+						<span class="font16">饮食方案
+            <em class="add_ys" @click="goOtherDishes()" >+</em>
+            </span>
+						<span class="float_right huiFont9 font15">食用量</span>
+<!--						<img src="@/assets/images/jia_no@2x.png" alt="" class="add" width="23" @click="goOtherDishes()" />-->
 					</div>
 				</div>
 				<!-- 默认接口返回的数据 -->
@@ -39,10 +41,10 @@
 							<i v-if="item.resultObj" style="font-style:normal">{{item.resultObj.foodkcal}}</i>
 							<i v-else style="font-style:normal">{{item.foodkcal}}</i>
 							{{item.kcalunit}}</span>
-						<img src="@/assets/images/delIcon.png" alt="" width="25" style="vertical-align: middle;" @click.stop="delDietCase(index)"/>
+						<img src="@/assets/images/delIcon.png" alt="" width="20" style="vertical-align: middle;" @click.stop="delDietCase(index)"/>
 					</div>
 				</mt-cell>
-				
+
 			</div>
 
 			<!-- 其他菜式 -->
@@ -81,32 +83,31 @@
 				</div>
 			</mt-picker>
 		</mt-popup> -->
-		
+
 		<!-- 遮罩层 -->
 		<div id="mark" :style="{display: (show?'block': 'none')}">
 			<div class="modal" :class="show && 'show' ">
 				<div class="info">
-					<div class="bar">
-						<span class="yellow" @click="hideModal">取消</span>
+					<div class="btnClose">
+						<span @click="hideModal"></span>
 						<!-- <span>10月20日/早餐</span> -->
-						<span class="yellow" @click="confirm">确认</span>
 					</div>
-		
-					<mt-cell class="borderBottom" style="margin-top: 15px;">
-						<img slot="icon" :src="currentItem.foodimg" width="46" height="46">
+
+					<mt-cell>
+						<img slot="icon" :src="currentItem.foodimg" width="52" height="52">
 						<div slot="title" class="titleWrap">
 							<span class="mint-cell-text">{{currentItem.foodname}}</span>
-							<span class="mint-cell-label font12 huiFont99"><span class="red">{{currentItem.foodkcal}}{{currentItem.kcalunit}}</span>/{{currentItem.foodgram}}{{currentItem.gramunit}}</span>
+							<span class="mint-cell-label font12 huiFont99"><span class="colF7">{{currentItem.foodkcal}}{{currentItem.kcalunit}}</span>/{{currentItem.foodgram}}{{currentItem.gramunit}}</span>
 						</div>
 					</mt-cell>
-		
+
 					<div class="showNum font13">
 						<div class="left huiFont">
-							<p>{{currentItem.foodkcal}} {{currentItem.kcalunit}}</p>
-							<p>{{currentItem.foodgram}}{{currentItem.gramunit}}</p>
+<!--							<p>{{currentItem.foodkcal}} {{currentItem.kcalunit}}</p>-->
+<!--							<p>{{currentItem.foodgram}}{{currentItem.gramunit}}</p>-->
 						</div>
-						<div class="yellow">
-							<p> <span class="num">&nbsp;{{showNum.join().replace(/,/g, "")}}&nbsp;</span><span>{{currentItem.gramunit}}</span></p>
+						<div class="">
+							<p> <span class="num">&nbsp;{{showNum.join().replace(/,/g, "")}}&nbsp;</span><span style="font-size: 0.14rem;color: #666; margin-left: 0.05rem">{{currentItem.gramunit}}</span></p>
 						</div>
 						<div class="right huiFont">
 							<!-- <p>50克约等于</p>
@@ -114,15 +115,16 @@
 						</div>
 					</div>
 				</div>
-		
+
 				<!--<p class="yellow text-center">克</p>-->
-		
+
 				<ul class="keyboard">
 					<li v-for="(item,index) in keyList" :style="{'border-right-width': (index%3==2 ? 0 : '2px')}" @click="keyCode(item,index)">{{item}}</li>
 				</ul>
+        <div class="btnConfirm"><span @click="confirm">确  认</span></div>
 			</div>
 		</div>
-		
+
 	</div>
 </template>
 
@@ -140,11 +142,11 @@
 			showNum: [],
 			show: false,
 			currentItem: {},   //点击的菜对象
-			
+
 			//方案的列表
 			dietPlanInfo: [],
 			dishesList:[],
-			
+
 			//保存的接口参数
 			param: {
 				seatskey:'',  //提醒key
@@ -155,7 +157,7 @@
 				// img3:"",
 				// img4:"",
 			},
-			
+
 			//图片list
 			photoList:[
 				{key:"img1", src:"", show: false},
@@ -164,11 +166,11 @@
 				{key:"img4", src:"", show: false},
 			],
 			//图片加号
-			photoAdd: true, 
-			
+			photoAdd: true,
+
 		}),
 		methods: {
-			
+
 			//饮食补录-查询补录饮食方案
 			todayDiet() {
 				let url = "UserInterface/DietPlanInfo.ashx";
@@ -183,7 +185,7 @@
 					data.data.forEach((item)=>{
 						item.foodgram = item.foodconsumption;
 					})
-					//把页面菜单数据更新到bus对象 
+					//把页面菜单数据更新到bus对象
 					Bus.$data.dishesList = data.data;
 					this.dietPlanInfo = Bus.$data.dishesList;
 					return data;
@@ -193,8 +195,8 @@
 			delDietCase(index){
 				this.dietPlanInfo.splice(index, 1)
 			},
-			
-			
+
+
 			//显示和隐藏键盘
 			showModal(item) {
 				this.currentItem = item;
@@ -221,14 +223,14 @@
 					return
 				}
 				const showNum = Number(this.showNum.join().replace(/,/g, ""));
-				//单位克   
-				const {foodgram, foodkcal} = this.currentItem;  
+				//单位克
+				const {foodgram, foodkcal} = this.currentItem;
 				//总千卡
 				const foodkcal2 = Number((showNum/foodgram)*foodkcal).toFixed(2);
 				//resultObj 保存计算过的结果
 				this.currentItem.resultObj = {foodkcal:foodkcal2}
 				//总克数
-				this.currentItem.foodconsumption = showNum; 
+				this.currentItem.foodconsumption = showNum;
 
 				//是否已经计算初始(化千卡和克)比列
 				// if(!this.currentItem.isComputed){
@@ -237,20 +239,20 @@
 				// 	this.currentItem.isComputed = true;
 				// }
 				// let allkcal = this.currentItem.ratio*showNum;   //总千卡
-				// this.currentItem.foodkcal = allkcal;  //总千卡 
+				// this.currentItem.foodkcal = allkcal;  //总千卡
 				// this.currentItem.foodconsumption = showNum;  //总克数
 
 				this.hideModal();
 			},
-			
+
 			//上传图片
 			//增加图片按钮
 			addPhoto(){
 				if (this.$root.isWeiXin() || /(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-					//微信 和  Ios 
+					//微信 和  Ios
 				    return this.$refs.file.click()
 				} else if (/(Android)/i.test(navigator.userAgent)) {
-				   //Android终端	
+				   //Android终端
 				   window.back.clickOnAndroidSelectPhoto();
 				}
 			},
@@ -268,8 +270,8 @@
 					  return;
 					}
 					let responseUrl = response.data.url;
-					
-					
+
+
 					//设置图片地址
 					for(let i=0; i<this.photoList.length; i++){
 						const item = this.photoList[i]
@@ -300,8 +302,8 @@
 					return;
 				  }
 				  let responseUrl = responseUrl;
-				  
-				  
+
+
 				  //设置图片地址
 				  for(let i=0; i<this.photoList.length; i++){
 				  	const item = this.photoList[i]
@@ -332,20 +334,20 @@
 				//显示图片新增按钮
 				this.photoAdd = true;
 			},
-			
+
 			//保存
 			save() {
 				let url = "UserInterface/DietPlanUpdate.ashx";
-				let foodinfoArr = []; 
+				let foodinfoArr = [];
 				this.dietPlanInfo.forEach((item)=>{
 					const {foodname, foodconsumption} = item;
 					let foodkcal = item.foodkcal
 					if (item.resultObj) {
 						foodkcal = item.resultObj.foodkcal
 					}
-					foodinfoArr.push(`${foodname},${foodkcal},${foodconsumption}`)		
+					foodinfoArr.push(`${foodname},${foodkcal},${foodconsumption}`)
 				})
-				
+
 				//设置图片地址
 				// const param = this.param;
 				// for(let i=0; i<this.photoList.length; i++){
@@ -360,10 +362,10 @@
 					}
 					this.$router.push("/diet")
 				})
-				
+
 			},
-			
-			
+
+
 			// 其他菜式页面
 			goOtherDishes() {
 				this.$router.push(`/otherDishes?mealtype=${this.param.mealtype}`)
@@ -379,10 +381,10 @@
 					mealtypeText = "早餐";
 					    break;
 					case "02":
-					mealtypeText = "午餐";	
+					mealtypeText = "午餐";
 					    break;
 					case "03":
-					mealtypeText = "晚餐";	
+					mealtypeText = "晚餐";
 					    break;
 					case "04":
 					mealtypeText = "加餐";
@@ -424,13 +426,18 @@
 </script>
 
 <style scoped lang="scss">
+  .mint-header{
+  height: 0.44rem;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 0.16rem;
+}
 	/* 早餐列表 */
 	.yinshhi_list {
 		background: #FFFFFF;
 
 		.title {
-			padding-left: 0.12rem;
-			line-height: 45px;
+      padding: 0.12rem 0;
+      margin-left: 0.12rem;
 		}
 
 		.wrap {
@@ -446,9 +453,25 @@
 		}
 	}
 
+  .add_ys{
+    width: 0.165rem;
+    height: 0.165rem;
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    background-color: #0AC5C9;
+    margin-left: 0.05rem;
+    font-weight: bolder;
+    font-size: 0.185rem;
+    font-style: normal;
+    line-height:  0.165rem;
+    box-shadow: 1px 1px 1px #ccc;
+  }
 	.titleWrap {
-		display: inline-block;
-		vertical-align: middle;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 0.1rem;
 	}
 
 	.yinshhi_list .mint-cell {
@@ -554,41 +577,52 @@
 		.showNum {
 			display: flex;
 			justify-content: space-between;
-			margin: 45px 0;
+      margin:0.15rem 0  0.2rem 0;
 		}
 
-		.num {
-			font-size: 0.30rem;
-			display: inline-block;
-			padding: 0 0.05rem;
-			min-width: 0.25rem;
-			height: 0.40rem;
-			box-sizing: border-box;
-			text-align: center;
-			border-bottom: 2px solid #F78335;
-		}
+    .num {
+      font-size: 0.275rem;
+      color: #0AC5C9;
+      display: inline-block;
+      min-width: 72px;
+      height: 0.35rem;
+      box-sizing: border-box;
+      text-align: center;
+      border-bottom: 2px solid #999999;
+    }
 	}
 
 	.keyboard {
 		font-size: 0;
 	}
-
-	.keyboard li {
-		width: 33.333%;
-		display: inline-block;
-		font-size: 0.18rem;
-		font-weight: bold;
-		text-align: center;
-		line-height: 0.40rem;
-		box-sizing: border-box;
-		border-right: 2px solid #eee;
-		border-top: 2px solid #eee;
-	}
+  .keyboard li {
+    width: 33.333%;
+    display: inline-block;
+    font-size: 0.18rem;
+    font-weight: bold;
+    text-align: center;
+    line-height: 0.40rem;
+    box-sizing: border-box;
+    border-right: 4px solid #fff;
+    border-top: 4px solid #fff;
+    background-color: #fafafa;
+    border-radius: 10px;
+    color: #555555;
+  }
 
 	.propic {
 		width: 100%;
 		border-bottom: 1px solid #eee;
 	}
+  .fix_bottom_area{
+    padding: 0;
+    .theme-button{
+      background-color: #0AC5C9;
+      border-radius: 0;
+      line-height: 0.44rem;
+      height: 0.44rem;
+    }
+  }
 </style>
 <style lang="scss">
 	.uploadPhoto-root {
@@ -609,4 +643,39 @@
 			}
 		}
 	}
+  .btnConfirm{
+    text-align: center;
+    span{
+      display: block;
+      width: 100%;
+      line-height: 48px;
+      background-color: #0AC5C9;
+      color: #FFFFFF;
+      font-size: 0.16rem;
+    }
+  }
+  .btnClose{
+    text-align:right;
+    padding: 0.05rem 0 0 0;
+    span{
+      display:inline-block;
+      /*line-height: 0.22rem;*/
+      /*color: #666666;*/
+      /*  font-weight: bolder;*/
+      /*font-size: 0.16rem;*/
+      width: 0.22rem;
+      height: 0.22rem;
+      /*border: 1px solid #999999;*/
+      /*border-radius: 50%;*/
+      text-align: center;
+      background: url(../../../assets/images/关闭@2x.png) no-repeat center center #FFFFFF;
+      background-size: 0.15rem;
+    }
+  }
+  #main_router img{
+    border-radius: 4px;
+  }
+  span .colF7 {
+    color: #F78335;
+  }
 </style>

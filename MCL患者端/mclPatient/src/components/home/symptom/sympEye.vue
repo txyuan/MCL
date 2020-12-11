@@ -1,6 +1,6 @@
 <template>
   <div class="symptom-root">
-    <div id="body_main" ref="homePage">
+    <div id="body_main"style="background-color: #f1f1f1; padding-bottom: 0; ">
       <mt-header fixed title="症状管理">
         <div slot="left">
           <header-back>
@@ -9,7 +9,7 @@
         </div>
       </mt-header>
 
-      <div id="page">
+      <div id="page" ref="homePage" >
 				<span v-for="(item, index) in ids" :key="index" :class="item.states==1?'active':''">
 					<label @click="openModal(item)">{{item.name}}</label>
 					<input v-if="item.states==1" :id="item.id" readonly="readonly" checked="checked" disabled="disabled"
@@ -195,7 +195,7 @@
     methods: {
       changeFixed (clientHeight) {                        //动态修改样式
         console.log(clientHeight)
-        this.$refs.homePage.style.height = clientHeight - 105 + 'px'
+        this.$refs.homePage.style.height = clientHeight - 48+ 'px'
         this.$refs.popupBody.style.height = clientHeight - 48 + 'px'
 
       },
@@ -600,7 +600,18 @@
     margin-right: 0.16rem;
     margin-left: 0.06rem;
   }
-
+  input {
+    outline-color: invert;
+    outline-style: none;
+    outline-width: 0px;
+    border: none;
+    border-style: none;
+    text-shadow: none;
+    -webkit-appearance: none;
+    -webkit-user-select: text;
+    outline-color: transparent;
+    box-shadow: none;
+  }
   input[type=radio], input[type=checkbox] {
     cursor: pointer;
     position: relative;
@@ -632,7 +643,8 @@
     width: 18px;
     height: 18px;
     border: 0;
-    background-color: #787878;
+    outline: 0!important;
+    background-color: #0AC5C9;
   }
 
   input[type=radio]::after {
@@ -830,7 +842,7 @@
 
     #page {
       width: 94%;
-      overflow: hidden;
+      /*overflow: hidden;*/
       margin: 0.1rem auto;
       span {
         /*display: block;*/

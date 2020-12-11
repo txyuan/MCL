@@ -6,7 +6,7 @@
         <!-- <p class="product_ls" v-if="ABflag == 2"><span v-if="item.ProDistinguish==3">抢购价</span><span v-else>市场价</span>：¥ {{item.proPrice}}</p>
 				<p class="product_ls" v-else="ABflag == 1" style="color: #FF3D3D;font-size: 0.14rem;">¥ {{item.proPrice}}</p> -->
         <p class="price">
-          <strong class="money"><div v-if="item.ProDistinguish!='03'">¥ {{item.showPrice}}<span>数量：x2</span></div></strong>
+          <strong class="money"><div v-if="item.ProDistinguish!='03'">¥ {{item.showPrice}}<span>数量：x{{item.buyCount}}</span></div></strong>
           <!-- <span>购买份数：× {{item.buyCount}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="font-style: normal;color: #999;font-size: 0.13rem;">快递费：{{item.ExpressCost}}</i></span> -->
           <!-- <smallButton  class="float_right" :text="item.orderTypeText"/> -->
         </p>
@@ -15,17 +15,17 @@
 </template>
 
 <script>
-    /*
+/*
      订单的列表，获得的商品，我的拼购 使用该组件
     */
-    import smallButton from "./../../common/smallButton.vue"
-    export default {
-        name: "product-content",
-        props:["item","ABflag"],
-        components:{
-          smallButton
-        }
-    }
+import smallButton from './../../common/smallButton.vue'
+export default {
+  name: 'product-content',
+  props: ['item', 'ABflag'],
+  components: {
+    smallButton
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -44,7 +44,7 @@
   }
   .price{
     /*margin: 0.10rem 0;*/
-    
+
   }
   .price strong{
   	 display: block;

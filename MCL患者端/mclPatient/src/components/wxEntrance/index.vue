@@ -83,7 +83,7 @@
 			 width: 22px;
 			 height: 22px;
        display: inline-block;
-       background: url("./../../assets/images//homedl.png") no-repeat center;
+       background: url("./../../assets/images/homedl.png") no-repeat center;
        background-size: cover;
        line-height: 999;
        overflow: hidden;

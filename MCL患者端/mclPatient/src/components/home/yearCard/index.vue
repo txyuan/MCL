@@ -21,7 +21,7 @@
           </div>
           <div class="item">
             <img src="@/assets/images/mclZJ.jpg" alt class="touxiang" />
-            <p class="DName font14">MCL专属顾问</p>
+            <p class="DName font14">MCL医生助理</p>
           </div>
         </div>
       </div>
@@ -47,20 +47,32 @@
       </div>
 
       <div class="fuwuPanel margin10 font15">
-        <p class="title yellow text-center">服务内容</p>
+        <p class="title">服务内容</p>
         <ul>
-          <li>免费在线咨询医生</li>
-          <li>在线咨询不限次数追问、优先回复患者</li>
-          <li>每月2次免费预约咨询</li>
-          <li>根据病情入院挂号就诊上给予指导和帮助</li>
+          <li>服务期限1年</li>
+          <li>每日记录提醒：【饮食】、【体重】、【用药】、【心情】</li>
+          <li>免费在线咨询</li>
+          <li>病历管理<em>（防止病历丢失）</em></li>
+          <li>档案留档<em>（方便院内院外医生随时查看病历报告。形成检查指标曲线图，实时了解身体情况，预防并发症）</em></li>
+          <li>复诊预约管理</li>
+          <li>营养风险筛查评估<em>（无限次）</em></li>
+          <li>营养风险筛查报告<em>（专家解读）</em></li>
+          <li>并发症预警，提供并发症解决方案</li>
+          <li>制定个性化处方：【饮食处方】、【营养处方】、【运动处方】、【心理处方】</li>
+          <li>专属医助对处方执行进行一对一服务<em>（实时指导、实时监督、实时纠偏）</em></li>
+          <li>线上肿瘤患者康复专题课程<em>（部分免费）</em></li>
+          <li>全国顶尖肿瘤专家线上科普教育<em>（每周1堂免费课程）</em></li>
+          <li>享受套餐优惠价格</li>
+          <li>优先参与平台活动</li>
         </ul>
       </div>
 
       <div class="fuwuPanel margin10 font15">
-        <p class="title yellow text-center">重要通知</p>
+        <p class="title">温馨提示</p>
         <ul>
           <li>该服务，仅限专属服务对象使用</li>
-          <li>购买年卡开通费用不包含到医院挂号、就诊、检查、药品等费用</li>
+          <li>购买年卡开通费用不包含到管理套餐、营养补充剂等费用</li>
+          <li>该会员卡一经购买，概不支持退款</li>
         </ul>
       </div>
     </div>
@@ -350,17 +362,28 @@ export default {
   padding: 0 0.15rem;
   padding-bottom: 0.1rem;
 
+
   .title {
     line-height: 0.44rem;
+    border-bottom: 1px solid #dddddd;
+    margin-bottom: 0.1rem;
+    font-size: 0.16rem;
   }
 
   ul {
-    line-height: 1.5;
+    /*line-height: 1.8;*/
   }
 
   ul li {
     position: relative;
-    padding-left: 0.15rem;
+    /*padding-left: 0.15rem;*/
+    line-height: 1.5;
+    padding: 0.05rem 0.1rem 0.05rem 0.15rem;
+    em{
+      font-style: normal;
+      color: #666666;
+      font-size: 0.145rem;
+     };
   }
 
   ul li:before {
@@ -371,7 +394,7 @@ export default {
     background: #f78335;
     border-radius: 50%;
     position: absolute;
-    top: 0.06rem;
+    top: 0.1rem;
     left: 0;
   }
 }

@@ -1,83 +1,92 @@
 <template>
 	<div>
 		<div class="fix_top">
-			<mt-header title="商品订单" class="borderBottom">
+			<mt-header title="我的订单" class="borderBottom">
 				<div slot="left">
 					<router-link to="/wx_Entrance/personal" style="color: initial;">
 						<mt-button icon="back"></mt-button>
 					</router-link>
 				</div>
-				<!-- <div slot="right">
-            <img class="shaixuan" @click="filterToggleFn(true)" src="https://resource.jtsc.club/shaixuan@2x.png" />
-          </div> -->
 			</mt-header>
 
 			<!-- mt-navbar -->
 			<div id="navbar">
 				<mt-navbar>
-					<mt-tab-item id="" v-for="item in tabs" :key="item.type" :class="(param.status == item.type) && 'is-selected'"
-					 @click.native="tab(item.type)">
+					<mt-tab-item id="" v-for="item in tabs" :key="item.type" :class="(param.status == item.type) && 'is-selected'" @click.native="tab(item.type)">
 						<p>{{item.name}}</p>
 					</mt-tab-item>
 				</mt-navbar>
 			</div>
 		</div>
 
-		<div id="mark" style="top: 42px;z-index: 99999;" ref="mark" @click="filterToggleFn(false)">
-			<div class="content" @click.stop="">
-				<ul class="clear">
-					<li class="float_left" v-for="(item,index) in filterList" :key="index" :class="(filterActive == index) && 'active'"
-					 @click="filterActiveFn(index,item.types)">
-						<div class="item text-center">
-							<div>
-								<p>{{item.names}}</p>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-
 		<div id="content" style="padding-top: 0.87rem">
 			<!-- tab-container -->
-			<loadMore :param="param" @triggerGetList="shoplist" ref="loadMoreE" :isDefaultLoading="false">
-			<mt-tab-container slot="content">
-				<mt-tab-container-item>
-					<productItem v-for="(item,index) in list" :key="index" :item="item">
-						<span slot="type">{{item.buyTime}}</span>
-						<span class="themeRed" slot="dateType">{{item.stateText}}</span>
-						<div slot="footer" class="foot">
-							<div class="logisticsInfo">合计：
-								<span class="themeRed">¥ {{item.orderMoney}}</span>
-							</div>
-							<div class="btn-group">
-								<div v-if="item.state == '1'" style="overflow: hidden;">
-									<!--<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
-										<span>查看物流</span>
-									</div>-->
-									<div class="f-btn ok" style="float: left;" @click="shopsh(item)">
-										<span>确认收货</span>
+			<loadMore :param="param" @triggerGetList="shoplist" ref="loadMoreE">
+				<mt-tab-container slot="content">
+					<mt-tab-container-item>
+						<productItem v-for="(item,index) in list" :key="item.orderId" :item="item" :ABflag="item.ABflag">
+							<span slot="type">{{item.buyTime}}</span>
+							<span class="themeRed" slot="dateType">{{item.stateText}}</span>
+							<div slot="footer" class="foot">
+								<div class="logisticsInfo">合计：
+									<span class="themeRed">¥ {{item.orderMoney}}</span>
+								</div>
+								<div class="btn-group">
+									<div v-if="item.state == '0'" style="overflow: hidden;">
+										<!--<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
+											<span>查看物流</span>
+										</div>-->
+										<div class="f-btn ok" style="float: left;" @click="shopsh(item)">
+											<span>确认收货</span>
+										</div>
+									</div>
+									<div v-else-if="item.state  == '2'" style="overflow: hidden;">
+										<div class="f-btn ok laood" style="float: left;" @click="delmoy(item,3)">
+											<span>删除订单</span>
+										</div>
+										<!--<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
+											<span>查看物流</span>
+										</div>-->
+										<!--<div class="f-btn ok" style="float: left;" @click="againsh(item)">
+											<span>再次购买</span>
+										</div>-->
 									</div>
 								</div>
-								<div v-else-if="item.state  == '2'" style="overflow: hidden;">
-									<div class="f-btn ok laood" style="float: left;" @click="delmoy(item,3)">
-										<span>删除订单</span>
-									</div>
-									<!--<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
-										<span>查看物流</span>
-									</div>-->
-									<!--<div class="f-btn ok" style="float: left;" @click="againsh(item)">
-										<span>再次购买</span>
-									</div>-->
-								</div>
 							</div>
-						</div>
-					</productItem>
-				</mt-tab-container-item>
-			</mt-tab-container>
+						</productItem>
+					</mt-tab-container-item>
+				</mt-tab-container>
 			</loadMore>
 		</div>
+		<!--选择地址-->
+		<div class="myc_adress" v-show="hideadress">
+			<div class="myc_cadress">
+				<div class="myc_chose">
+					<p>选择收货地址</p>
+					<span @click="hideadrs"></span>
+				</div>
+				<div class="myc_adul">
+					<div class="myc_adlist" v-for="(item,index) in listadres" :key="index">
+						<span @click="setDefaultAdr(index,item.sKey)" class="myc_actv" :class="{myc_actve: index == isactv}"></span>
+						<div class="myc_acont" @click="edit(item)">
+							<p>
+								<span>{{item.UserName}}</span>
+								<i>{{item.UserPhone}}</i>
+								<label class="mra" v-if="item.isDefault==1">默认</label>
+							</p>
+							<u>{{item.UserAddress}} {{item.UserDetailsAddress}}</u>
+						</div>
+					</div>
 
+					<p class="myc_addadrs">
+						<router-link to="/personaladdadress/add">
+							+添加地址
+						</router-link>
+					</p>
+				</div>
+				<span class="myc_okbtn" @click="okupshop">确定</span>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -105,57 +114,16 @@ export default {
       name: '已收货',
       type: '2'
     }], //
-    filterList: [{
-      names: '全部',
-      types: '-1'
-    }, {
-      names: '抢购商品',
-      types: '1'
-    }, {
-      names: '批发提货',
-      types: '4'
-    }, {
-      names: '零售商品',
-      types: '3'
-    }],
     filterActive: '0',
+    orderkey: '', // 提货使用到的商品key
+
     param: {
       pagesize: 10,
       pagecount: 0,
       status: '-1'
+      //				orderType: -1
     },
-    orderkey: '', // 提货使用到的商品key
-    list: [{
-      orderId: 11,
-      buyTime: '2018-09-11 11:31:54',
-      orderMoney: '2000',
-      state: 1,
-      goodsName: '营养筛查检测并且营养筛查检测订单完成时间营养筛查',
-      showPrice: '2000',
-      stateText: '待收货',
-      shownum: 2
-    },
-    {
-      orderId: 11,
-      buyTime: '2018-09-11 11:31:54',
-      orderMoney: '2000',
-      state: 2,
-      goodsName: '营养筛查检测并且营养筛查检测订单完成时间营养筛查',
-      showPrice: '2000',
-      stateText: '待发货',
-      shownum: 1
-    },
-    {
-      orderId: 11,
-      buyTime: '2018-09-11 11:31:54',
-      orderMoney: '2000',
-      state: 3,
-      goodsName: '营养筛查检测并且营养筛查检测订单完成时间营养筛查',
-      showPrice: '2000',
-      stateText: '已完成',
-      shownum: 1
-    }
-    ]
+    list: []
   }),
   methods: {
     tab (val) {
@@ -167,9 +135,9 @@ export default {
         this.$Indicator.close()
       }, 200)
     },
-    // 所得商品列表
+    // 所得商品列表   UserInterface/ProductOrderDetailInfoList.ashx
     shoplist (success) {
-      let url = 'UserInterface/ProductOrderDetailInfoList.ashx'
+      let url = 'UserInterface/channel/ChannelOrderDetailInfoList.ashx'
       if (this.param.pagecount == 1) {
         this.list = []
       }
@@ -267,8 +235,7 @@ export default {
       this.$Indicator.loading()
       let url = 'UserInterface/order/ConfirmOrder.ashx'
       let param = {
-        sKey: item.orderId,
-        flag: 2
+        sKey: item.orderId
       }
       this.$post(url, param).then((data) => {
         this.$Indicator.close()
@@ -307,8 +274,6 @@ export default {
         }
       })
     }
-    this.param.pagecount = 0
-    this.$refs.loadMoreE.getList()
   },
   beforeRouteLeave (to, from, next) {
     // 不能返回支付成功页面
@@ -327,7 +292,6 @@ export default {
 
 <style scoped lang="scss">
 	@import "@/assets/css/base.scss";
-
 	#mark {
 		.content {
 			color: $color66;
@@ -335,19 +299,16 @@ export default {
 			background: #FFF;
 			font-size: 0.14rem;
 		}
-
 		.content li {
 			width: 33.33%;
 			box-sizing: border-box;
 			padding: 5px;
 		}
-
 		.content li.active .item {
 			background: $themeColor2;
 			color: $themeColor;
 			border-color: $themeColor2;
 		}
-
 		.content li .item {
 			border: 1px solid $boderE;
 			line-height: 30px;
@@ -361,12 +322,10 @@ export default {
 		justify-content: space-between;
 		font-size: 0.14rem;
 		color: $color60;
-
 		.logisticsInfo {
 			display: flex;
 			align-items: center;
 		}
-
 		.f-btn {
 			width: 0.72rem;
 			height: 0.26rem;
@@ -374,36 +333,29 @@ export default {
 			text-align: center;
 			box-sizing: border-box;
 			border-radius: 0.13rem;
-
 			span {
 				/*vertical-align: middle;*/
 			}
-
 			&.default {
 				background: #FFFFFF;
 				border: 1px solid $boderE;
 			}
-
 			&.ok {
 				background: $themeColor;
 				margin-left: 5px;
-
 				span {
 					color: white;
 				}
 			}
-
 			&.laood {
 				background: #fff;
 				border: 1px solid $themeColor;
 				box-sizing: border-box;
-
 				span {
 					color: $themeColor;
 				}
 			}
 		}
-
 		.btn-group {
 			display: flex;
 			justify-content: flex-start;

@@ -303,22 +303,22 @@
   }
   .showPic{
   	margin: 0.1rem 0 0.1rem 46px;
-  	display: flex;
-  	justify-content: flex-start;
+  	/*display: flex;*/
+  	/*justify-content: flex-start;*/
   	/*justify-content: flex-start;*/
     li{
       /*width: 32%;*/
-      width: 32%;
       margin-right: 2%;
+      margin-bottom: 10px;
     }
     li:last-child{
-      margin-right: 0px;
+      /*margin-right: 0px;*/
     }
   	img{
       border-radius: 5px;
       -o-object-fit: cover;
       object-fit: cover;
-      height: 100%;
+      /*height: 100%;*/
       width: 100%;
   	}
   }

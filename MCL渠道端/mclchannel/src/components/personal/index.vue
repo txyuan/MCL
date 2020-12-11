@@ -99,7 +99,7 @@
 							<p class="row">购 &nbsp;物 &nbsp;车</p>
 						</div>
 					</router-link>
-					<router-link :to="'/staffManage'">
+					<router-link :to="'/staffManage'" v-if="(repData.userTypenum=='5')||(repData.userTypenum=='8')">
 						<div class="cell">
 							<div class="row">
 								<img src="@/assets/images/yuangongguanli@2x.png" style="width: 0.25rem;height: 0.25rem;" alt="">
@@ -107,7 +107,16 @@
 							<p class="row">员工管理</p>
 						</div>
 					</router-link>
-					<router-link to="" style="visibility: hidden;">
+
+					<router-link :to="'/custransfer'" v-if="repData.userTypenum=='5'">
+						<div class="cell">
+							<div class="row">
+								<img src="@/assets/images/kahaoguanli@2x.png" style="width: 0.25rem;height: 0.25rem;" alt="">
+							</div>
+							<p class="row">客户转让</p>
+						</div>
+					</router-link>
+					<router-link to="" style="visibility: hidden;" v-else>
 						<div class="cell">
 							<div class="row">
 								<img src="@/assets/images/hezbf.png" style="width: 0.25rem;height: 0.25rem;" alt="">
@@ -115,7 +124,23 @@
 							<p class="row">默认模块</p>
 						</div>
 					</router-link>
-					<router-link to="" style="visibility: hidden;">
+					<router-link :to="'/staticMonth'" v-if="repData.userTypenum=='5'">
+						<div class="cell">
+							<div class="row">
+								<img src="@/assets/images/zijinjilu@2x.png" style="width: 0.25rem;height: 0.25rem;" alt="">
+							</div>
+							<p class="row">绩效统计</p>
+						</div>
+					</router-link>
+					<router-link to="" style="visibility: hidden;" v-else>
+						<div class="cell">
+							<div class="row">
+								<img src="@/assets/images/hezbf.png" style="width: 0.25rem;height: 0.25rem;" alt="">
+							</div>
+							<p class="row">默认模块</p>
+						</div>
+					</router-link>
+					<router-link to="" style="visibility: hidden;" v-if="!((repData.userTypenum=='5')||(repData.userTypenum=='8'))">
 						<div class="cell">
 							<div class="row">
 								<img src="@/assets/images/hezbf.png" style="width: 0.25rem;height: 0.25rem;" alt="">
@@ -191,9 +216,13 @@ export default {
         this.$Indicator.close()
         let model = data.data
         if (localStorage.userInfo) {
-		                const userInfo = JSON.parse(localStorage.userInfo)
-		                model.userType = this.$root.getUserType(userInfo.UserType)
-		            }
+          const userInfo = JSON.parse(localStorage.userInfo)
+          model.userType = this.$root.getUserType(userInfo.UserType)
+		  if((userInfo.UserType=='5')&&(model.ContactPhone=='15523523851')){
+			  model.userType='总渠道商'
+		  }
+		  model.userTypenum = userInfo.UserType
+        }
         this.repData = model
       })
     },

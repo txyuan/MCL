@@ -9,7 +9,7 @@
 		</mt-header>
 		<div class="headty_home" style="background: #f1f1f1;">
 			<div class="headty_inform">
-        <div class="headty_title"><p>基本信息</p></div>
+        <div class="headty_title">	<p>基本信息</p></div>
 				<div class="headty_mead">
           <ul>
 						<li>姓名：{{datasj.name}}</li>
@@ -17,7 +17,7 @@
 						<li>性别：{{datasj.sex}}</li>
 						<li>临床诊断：{{datasj.clinical_diagnosis}}</li>
 						<li>并发症状：{{datasj.concurrent}}</li>
-						<li>录入日期：{{datasj.createtime}}</li>
+            <li>录入日期：{{datasj.createtime}}</li>
 					</ul>
 				</div>
         <div class="headty_title"><p>体重及生活方式</p></div>
@@ -28,8 +28,8 @@
 					<div id="echartsport" v-show="sport"></div>
 					<div id="echarttimes" v-show="times"></div>
           <div class="mpact_tab">
-          <span v-for="(item,index) in liList" @click="addClass(index)" :key="index" :class="{active:index==current}">{{item.names}}</span>
-        </div>
+            <span v-for="(item,index) in liList" @click="addClass(index)" :key="index" :class="{active:index==current}">{{item.names}}</span>
+          </div>
 				</div>
         <div class="headty_title"><p>筛查评估</p></div>
 				<div class="headty_mead">
@@ -102,30 +102,17 @@ export default {
     haodo: true,
     sport: true,
     times: true,
-    liList: [{
-      names: '体重'
-    }, {
-      names: '能量'
-    }, {
-      names: '脂肪'
-    }, {
-      names: '蛋白质'
-    }, {
-      names: '碳水化合物'
-    }],
+    liList: [
+      {names: '体重'}, {names: '能量'}, {names: '脂肪'}, {names: '蛋白质'}, {names: '碳水化合物'}
+    ],
     // 筛查评估
     currente: 0,
     yingyshac: true,
     yypingg: true,
     kaspf: true,
     xinliyl: true,
-    eyeList: [{
-      names: '营养筛查'
-    }, {
-      names: '营养评估'
-    }, {
-      names: '卡式评分'
-    } // ,{names:'心理压力值'}
+    eyeList: [
+      {names: '营养筛查'}, {names: '营养评估'}, {names: '卡式评分'} // ,{names:'心理压力值'}
     ],
     // 关键指标
     currentg: 0,
@@ -137,23 +124,9 @@ export default {
     guanjzb6: true,
     guanjzb7: true,
     guanjzb8: true,
-    eyeListxb: [{
-      names: '白细胞'
-    }, {
-      names: '红细胞'
-    }, {
-      names: '血小板'
-    }, {
-      names: '血红蛋白'
-    }, {
-      names: '白蛋白'
-    }, {
-      names: '前白蛋白'
-    }, {
-      names: '总蛋白'
-    }, {
-      names: '球蛋白'
-    }],
+    eyeListxb: [
+      {names: '白细胞'}, {names: '红细胞'}, {names: '血小板'}, {names: '血红蛋白'}, {names: '白蛋白'}, {names: '前白蛋白'}, {names: '总蛋白'}, {names: '球蛋白'}
+    ],
     // 症状管理
     currentz: 0,
     zzmanage1: true,
@@ -177,48 +150,18 @@ export default {
     zzmanage19: true,
     zmanageList: [
       // {names:'体重流失', id: 0},{names:'贫血', id: 1},
-      {
-        names: '疼痛',
-        id: 3
-      }, {
-        names: '腹胀',
-        id: 8
-      }, {
-        names: '水肿',
-        id: 9
-      },
-      {
-        names: '食欲下降',
-        id: 4
-      }, {
-        names: '吞咽困难',
-        id: 5
-      },
+      {names: '疼痛', id: 3}, {names: '腹胀', id: 8}, {names: '水肿', id: 9},
+      {names: '食欲下降', id: 4}, {names: '吞咽困难', id: 5},
       // {names:'消化不良', id: 6},{names:'恶心、呕吐', id: 7},
 
       // {names:'白细胞减少', id: 10},{names:'骨髓抑制', id: 12},
-      {
-        names: '脱发',
-        id: 11
-      }, {
-        names: '便秘',
-        id: 13
-      }, {
-        names: '口腔黏膜炎',
-        id: 15
-      },
-      {
-        names: '疲劳',
-        id: 16
-      }, {
-        names: '腹泻',
-        id: 19
-      }
+      {names: '脱发', id: 11}, {names: '便秘', id: 13}, {names: '口腔黏膜炎', id: 15},
+      {names: '疲劳', id: 16}, {names: '腹泻', id: 19}
       // {names:'失眠', id: 14},{names:'呼吸困难', id: 17},{names:'口干', id: 18},
     ],
-	param: {
-	  patientskey: ''
-	}
+    param: {
+      patientskey: ''
+    }
   }),
   methods: {
     showfun () {
@@ -265,7 +208,7 @@ export default {
     // 基本信息
     getInform () {
       let url = 'UserInterface/curve/EssentialInformation.ashx'
-      this.$post(url,this.param).then((data) => {
+      this.$post(url, this.param).then((data) => {
         if (data.rspcode != 1) {
           return
         }
@@ -310,17 +253,7 @@ export default {
     // 体重及生活方式
     initEchart () {
       function getOption (option) {
-        const {
-          title: {
-            text
-
-          },
-          yAxis: {
-            name,
-            min,
-            max
-          }
-        } = option
+        const {title: {text},yAxis: { name }} = option
         var model = {
           title: {
             text: text,
@@ -342,17 +275,6 @@ export default {
             },
             textStyle: {
               fontWeight: 'lighter',
-              fontSize: 13
-            }
-          },
-          legend: {
-            right: '2%',
-            top: '32',
-            icon: 'circle',
-            data: ['下限值', '上限值', '实际值'],
-            itemWidth: 8,
-            textStyle: {
-              color: '#787878',
               fontSize: 13
             }
           },
@@ -383,13 +305,10 @@ export default {
             nameTextStyle: {
               align: 'left',
             },
-            offset: 4
           },
           yAxis: {
             type: 'value',
             name: name,
-            min:min,
-            max:max,
             axisLine: {
               // show: false
               lineStyle: {
@@ -412,8 +331,7 @@ export default {
                   return `${a / 10000}w`
                 }
                 return a
-              },
-              color: '#787878',
+              }
             },
             splitLine: {
               show: true,
@@ -428,125 +346,50 @@ export default {
             },
             scale: true,
           },
-          series: [
-            {
-              data: [],
-              name: '下限值',
-              type: 'line',
-              lineStyle: {
-                opacity: ' 0.8',
-                width: 1
-              },
-              symbolSize: 1
-            },
-            {
-              data: [],
-              name: '上限值',
-              type: 'line',
-              lineStyle: {
-                opacity: ' 0.8',
-                width: 1
-              },
-              itemStyle: {
-                borderWidth: 0.5,
-              },
-              symbolSize: 1
-            },
-            {
-              data: [],
-              name: '实际值',
-              type: 'line',
-              symbolSize: 4,
-              lineStyle: {},
-            },
+          series: [{
+            data: [],
+            type: 'line',
+
+          }
           ],
-          color: ['#d17942', '#162d45', '#2cc3cc'],
+          color: ['#0AC5C9']
         }
         return model
       }
 
       // 体重
-      var option = getOption({
-        title: {
-          text: '体重'
-        },
-        yAxis: {
-          name: '单位：kg',
-          min: 0,
-          max: function (value) {
-            return value.max + 6;
-          }
-        },
-      })
+      var option = getOption({title: {text: '体重'},yAxis: {name: '单位：kg'}})
       var myChart = echarts.init(document.getElementById('weighEchart'))
       myChart.setOption(option)
 
       // 能量
-      var option1 = getOption({
-        yAxis: {
-          name: '单位：Kcal'
-        },
-        title: {
-          text: '能量'
-        },
-      })
+      var option1 = getOption({title: {text: '能量'},yAxis: {name: '单位：Kcal'}})
       var myChart1 = echarts.init(document.getElementById('echartnengl'))
       myChart1.setOption(option1)
-      // 脂肪
+      // 蛋白质
 
-      var option2 = getOption({
-        yAxis: {
-          name: '单位：g'
-        },
-        title: {
-          text: '脂肪'
-        },
-      })
+      var option2 = getOption({title: {text: '脂肪'},yAxis: {name: '单位：g'}})
       var myChart2 = echarts.init(document.getElementById('echarthaodo'))
       myChart2.setOption(option2)
 
-      // 蛋白质
-      var option3 = getOption({
-        yAxis: {
-          name: '单位：g'
-        },
-        title: {
-          text: '蛋白质'
-        },
-      })
+      // 运动耗能
+      var option3 = getOption({title: {text: '蛋白质'},yAxis: {name: '单位：g '}})
       var myChart3 = echarts.init(document.getElementById('echartsport'))
       myChart3.setOption(option3)
-      // 碳水化合物
-      var option4 = getOption({
-        yAxis: {
-          name: '单位：g'
-        },
-        title: {
-          text: '碳水化合物'
-        },
-      })
+      // 睡眠时间
+      var option4 = getOption({title: {text: '碳水化合物'},yAxis: {name: '单位：g '}})
       var myChart4 = echarts.init(document.getElementById('echarttimes'))
       myChart4.setOption(option4)
       let url = 'UserInterface/curve/WeightAndIifestyle.ashx'
-      this.$post(url,this.param).then((data) => {
+      this.$post(url, this.param).then((data) => {
         if (data.rspcode != 1) {
           return
         }
-        let weighth = [],
-		  weighths = [],
-		  weighthx = [],
+        var weighth = [],
           recordDate = [],
-		  recordDates = [],
-		  recordDatex = [],
           recordDate2 = [],
-		  recordDate2s = [],
-		  recordDate2x = [],
           recordDate3 = [],
-		  recordDate3s = [],
-		  recordDate3x = [],
           dangerWeight = [],
-		  dangerWeights = [],
-		  dangerWeightx = [],
           standardWeight = [],
           goodtimes = [],
           timedate1 = [],
@@ -556,23 +399,13 @@ export default {
           timedate5 = []
         for (var i = 0; i < data.WeightInfo.length; i++) {
           weighth.push(Number(data.WeightInfo[i].Weight))
-		  weighths.push(Number(data.sectionValue.weight1))
-		  weighthx.push(Number(data.sectionValue.weight2))
           timedate1.push(data.WeightInfo[i].RecordDate)
         }
         for (var i = 0; i < data.DietInfo.length; i++) {
           dangerWeight.push(Number(data.DietInfo[i].foodEnergy))
-		  dangerWeights.push(Number(data.sectionValue.recommendedIntake1))
-		  dangerWeightx.push(Number(data.sectionValue.recommendedIntake2))
           recordDate.push(Number(data.DietInfo[i].fat))
-		  recordDates.push(Number(data.sectionValue.fat1))
-		  recordDatex.push(Number(data.sectionValue.fat2))
           recordDate2.push(Number(data.DietInfo[i].protein))
-		  recordDate2s.push(Number(data.sectionValue.protein1))
-		  recordDate2x.push(Number(data.sectionValue.protein2))
           recordDate3.push(Number(data.DietInfo[i].carbohydrate))
-		  recordDate3s.push(Number(data.sectionValue.carbohydrate1))
-		  recordDate3x.push(Number(data.sectionValue.carbohydrate2))
           timedate2.push(data.DietInfo[i].create_date)
         }
 
@@ -584,14 +417,10 @@ export default {
           goodtimes.push(data.LifeSurveyInfo[i].sleep)
           timedate5.push(data.LifeSurveyInfo[i].create_date)
         }
-        option.series[2].data = weighth
-        option.series[0].data = weighths
-        option.series[1].data = weighthx
+        option.series[0].data = weighth
         option.xAxis.data = timedate1
         myChart.setOption(option)
-        option1.series[2].data = dangerWeight
-        option1.series[0].data = dangerWeights
-        option1.series[1].data = dangerWeightx
+        option1.series[0].data = dangerWeight
         option1.xAxis.data = timedate2
         myChart1.setOption(option1)
         // option2.series[0].data = recordDate
@@ -599,19 +428,13 @@ export default {
         // option2.series[2].data = recordDate3
         // option2.xAxis.data = timedate2
         // myChart2.setOption(option2)
-        option2.series[2].data = recordDate
-        option2.series[0].data = recordDates
-        option2.series[1].data = recordDatex
+        option2.series[0].data = recordDate
         option2.xAxis.data = timedate2
         myChart2.setOption(option2)
-        option3.series[2].data = recordDate2
-        option3.series[0].data = recordDate2s
-        option3.series[1].data = recordDate2x
+        option3.series[0].data = recordDate2
         option3.xAxis.data = timedate2
         myChart3.setOption(option3)
-        option4.series[2].data = recordDate3
-        option4.series[0].data = recordDate3s
-        option4.series[1].data = recordDate3x
+        option4.series[0].data = recordDate3
         option4.xAxis.data = timedate2
         myChart4.setOption(option4)
       })
@@ -666,9 +489,9 @@ export default {
         },
         grid: {
            left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -727,7 +550,8 @@ export default {
           data: [],
           type: 'line',
 
-        }],
+        }
+        ],
         color: ['#0AC5C9']
       }
       var myChart = echarts.init(document.getElementById('echartshaic'))
@@ -754,10 +578,10 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -816,7 +640,8 @@ export default {
           data: [],
           type: 'line',
 
-        }],
+        }
+        ],
         color: ['#0AC5C9']
       }
       var myChart1 = echarts.init(document.getElementById('echartpingg'))
@@ -843,10 +668,10 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -905,7 +730,8 @@ export default {
           data: [],
           type: 'line',
 
-        }],
+        }
+        ],
         color: ['#0AC5C9']
       }
       var myChart2 = echarts.init(document.getElementById('echartkashi'))
@@ -935,7 +761,7 @@ export default {
       // var myChart3 = echarts.init(document.getElementById('echartxlyl'));
       // myChart3.setOption(option3);
       let url = 'UserInterface/curve/ScreeningAssessment.ashx'
-      this.$post(url,this.param).then((data) => {
+      this.$post(url, this.param).then((data) => {
         if (data.rspcode != 1) {
           return
         }
@@ -1077,22 +903,11 @@ export default {
             }
           }
         },
-        legend: {
-          right: '2%',
-          top: '32',
-          icon: 'circle',
-          data: ['下限值', '上限值', '实际值'],
-          itemWidth: 8,
-          textStyle: {
-            color: '#787878',
-            fontSize: 13
-          },
-        },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -1145,39 +960,13 @@ export default {
             align: 'center'
           },
         },
-        series: [
-          {
-            data: [],
-            name: '下限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '上限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            itemStyle: {
-              borderWidth: 0.5,
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '实际值',
-            type: 'line',
-            symbolSize: 4,
-            lineStyle: {},
-          },
+        series: [{
+          data: [],
+          type: 'line',
+
+        }
         ],
-        color: ['#d17942', '#162d45', '#0AC5C9']
+        color: ['#0AC5C9']
       }
       var myChart = echarts.init(document.getElementById('echartgjzb1'))
       myChart.setOption(option)
@@ -1202,22 +991,11 @@ export default {
             }
           }
         },
-        legend: {
-          right: '2%',
-          top: '32',
-          icon: 'circle',
-          data: ['下限值', '上限值', '实际值'],
-          itemWidth: 8,
-          textStyle: {
-            color: '#787878',
-            fontSize: 13
-          },
-        },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -1270,39 +1048,13 @@ export default {
             align: 'center'
           },
         },
-        series: [
-          {
-            data: [],
-            name: '下限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '上限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            itemStyle: {
-              borderWidth: 0.5,
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '实际值',
-            type: 'line',
-            symbolSize: 4,
-            lineStyle: {},
-          },
+        series: [{
+          data: [],
+          type: 'line',
+
+        }
         ],
-        color: ['#d17942', '#162d45', '#0AC5C9']
+        color: ['#0AC5C9']
       }
       var myChart1 = echarts.init(document.getElementById('echartgjzb2'))
       myChart1.setOption(option1)
@@ -1327,22 +1079,11 @@ export default {
             }
           }
         },
-        legend: {
-          right: '2%',
-          top: '32',
-          icon: 'circle',
-          data: ['下限值', '上限值', '实际值'],
-          itemWidth: 8,
-          textStyle: {
-            color: '#787878',
-            fontSize: 13
-          },
-        },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -1395,39 +1136,13 @@ export default {
             align: 'center'
           },
         },
-        series: [
-          {
-            data: [],
-            name: '下限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '上限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            itemStyle: {
-              borderWidth: 0.5,
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '实际值',
-            type: 'line',
-            symbolSize: 4,
-            lineStyle: {},
-          },
+        series: [{
+          data: [],
+          type: 'line',
+
+        }
         ],
-        color: ['#d17942', '#162d45', '#0AC5C9']
+        color: ['#0AC5C9']
       }
       var myChart2 = echarts.init(document.getElementById('echartgjzb3'))
       myChart2.setOption(option2)
@@ -1452,22 +1167,11 @@ export default {
             }
           }
         },
-        legend: {
-          right: '2%',
-          top: '32',
-          icon: 'circle',
-          data: ['下限值', '上限值', '实际值'],
-          itemWidth: 8,
-          textStyle: {
-            color: '#787878',
-            fontSize: 13
-          },
-        },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -1520,39 +1224,13 @@ export default {
             align: 'center'
           },
         },
-        series: [
-          {
-            data: [],
-            name: '下限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '上限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            itemStyle: {
-              borderWidth: 0.5,
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '实际值',
-            type: 'line',
-            symbolSize: 4,
-            lineStyle: {},
-          },
+        series: [{
+          data: [],
+          type: 'line',
+
+        }
         ],
-        color: ['#d17942', '#162d45', '#0AC5C9']
+        color: ['#0AC5C9']
       }
       var myChart3 = echarts.init(document.getElementById('echartgjzb4'))
       myChart3.setOption(option3)
@@ -1577,22 +1255,11 @@ export default {
             }
           }
         },
-        legend: {
-          right: '2%',
-          top: '32',
-          icon: 'circle',
-          data: ['下限值', '上限值', '实际值'],
-          itemWidth: 8,
-          textStyle: {
-            color: '#787878',
-            fontSize: 13
-          },
-        },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -1645,39 +1312,13 @@ export default {
             align: 'center'
           },
         },
-        series: [
-          {
-            data: [],
-            name: '下限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '上限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            itemStyle: {
-              borderWidth: 0.5,
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '实际值',
-            type: 'line',
-            symbolSize: 4,
-            lineStyle: {},
-          },
+        series: [{
+          data: [],
+          type: 'line',
+
+        }
         ],
-        color: ['#d17942', '#162d45', '#0AC5C9']
+        color: ['#0AC5C9']
       }
       var myChart4 = echarts.init(document.getElementById('echartgjzb5'))
       myChart4.setOption(option4)
@@ -1702,22 +1343,11 @@ export default {
             }
           }
         },
-        legend: {
-          right: '2%',
-          top: '32',
-          icon: 'circle',
-          data: ['下限值', '上限值', '实际值'],
-          itemWidth: 8,
-          textStyle: {
-            color: '#787878',
-            fontSize: 13
-          },
-        },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -1770,39 +1400,13 @@ export default {
             align: 'center'
           },
         },
-        series: [
-          {
-            data: [],
-            name: '下限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '上限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            itemStyle: {
-              borderWidth: 0.5,
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '实际值',
-            type: 'line',
-            symbolSize: 4,
-            lineStyle: {},
-          },
+        series: [{
+          data: [],
+          type: 'line',
+
+        }
         ],
-        color: ['#d17942', '#162d45', '#0AC5C9']
+        color: ['#0AC5C9']
       }
       var myChart5 = echarts.init(document.getElementById('echartgjzb6'))
       myChart5.setOption(option5)
@@ -1827,22 +1431,11 @@ export default {
             }
           }
         },
-        legend: {
-          right: '2%',
-          top: '32',
-          icon: 'circle',
-          data: ['下限值', '上限值', '实际值'],
-          itemWidth: 8,
-          textStyle: {
-            color: '#787878',
-            fontSize: 13
-          },
-        },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -1895,39 +1488,13 @@ export default {
             align: 'center'
           },
         },
-        series: [
-          {
-            data: [],
-            name: '下限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '上限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            itemStyle: {
-              borderWidth: 0.5,
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '实际值',
-            type: 'line',
-            symbolSize: 4,
-            lineStyle: {},
-          },
+        series: [{
+          data: [],
+          type: 'line',
+
+        }
         ],
-        color: ['#d17942', '#162d45', '#0AC5C9']
+        color: ['#0AC5C9']
       }
       var myChart6 = echarts.init(document.getElementById('echartgjzb7'))
       myChart6.setOption(option6)
@@ -1952,22 +1519,11 @@ export default {
             }
           }
         },
-        legend: {
-          right: '2%',
-          top: '32',
-          icon: 'circle',
-          data: ['下限值', '上限值', '实际值'],
-          itemWidth: 8,
-          textStyle: {
-            color: '#787878',
-            fontSize: 13
-          },
-        },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -2020,138 +1576,64 @@ export default {
             align: 'center'
           },
         },
-        series: [
-          {
-            data: [],
-            name: '下限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '上限值',
-            type: 'line',
-            lineStyle: {
-              opacity: ' 0.8',
-              width: 1
-            },
-            itemStyle: {
-              borderWidth: 0.5,
-            },
-            symbolSize: 1
-          },
-          {
-            data: [],
-            name: '实际值',
-            type: 'line',
-            symbolSize: 4,
-            lineStyle: {},
-          },
+        series: [{
+          data: [],
+          type: 'line',
+
+        }
         ],
-        color: ['#d17942', '#162d45', '#0AC5C9']
+        color: ['#0AC5C9']
       }
       var myChart7 = echarts.init(document.getElementById('echartgjzb8'))
       myChart7.setOption(option7)
 
       let url = 'UserInterface/curve/KeyIndicators.ashx'
-      this.$post(url,this.param).then((data) => {
+      this.$post(url, this.param).then((data) => {
         if (data.rspcode != 1) {
           return
         }
-        let indicators1 = [],
-		  indicators1s = [],
-		  indicators1x = [],
+        var indicators1 = [],
           indicators2 = [],
-		  indicators2s = [],
-		  indicators2x = [],
           indicators3 = [],
-		  indicators3s = [],
-		  indicators3x = [],
           indicators4 = [],
-		  indicators4s = [],
-		  indicators4x = [],
           indicators5 = [],
-		  indicators5s = [],
-		  indicators5x = [],
           indicators6 = [],
-		  indicators6s = [],
-		  indicators6x = [],
           indicators7 = [],
-		  indicators7s = [],
-		  indicators7x = [],
           indicators8 = [],
-		  indicators8s = [],
-		  indicators8x = [],
           timedate1 = []
         for (var i = 0; i < data.tumourInfo.length; i++) {
           indicators1.push(data.tumourInfo[i].attribute_value_05)
-		  indicators1s.push(data.sectionValue.baixibao1)
-		  indicators1x.push(data.sectionValue.baixibao2)
           indicators2.push(data.tumourInfo[i].attribute_value_06)
-		  indicators2s.push(data.sectionValue.hongxibao1)
-		  indicators2x.push(data.sectionValue.hongxibao2)
           indicators3.push(data.tumourInfo[i].attribute_value_07)
-		  indicators3s.push(data.sectionValue.xuexiaoban1)
-		  indicators3x.push(data.sectionValue.xuexiaoban2)
           indicators4.push(data.tumourInfo[i].attribute_value_10)
-		  indicators4s.push(data.sectionValue.xuehongdanbai1)
-		  indicators4x.push(data.sectionValue.xuehongdanbai2)
           indicators5.push(data.tumourInfo[i].attribute_value_05)
-		  indicators5s.push(data.sectionValue.baidanbai1)
-		  indicators5x.push(data.sectionValue.baidanbai2)
           indicators6.push(data.tumourInfo[i].attribute_value_11)
-		  indicators6s.push(data.sectionValue.qianbaidanbai1)
-		  indicators6x.push(data.sectionValue.qianbaidanbai2)
           indicators7.push(data.tumourInfo[i].attribute_value_12)
-		  indicators7s.push(data.sectionValue.zongdanbai1)
-		  indicators7x.push(data.sectionValue.zongdanbai2)
           indicators8.push(data.tumourInfo[i].attribute_value_43)
-		  indicators8s.push(data.sectionValue.qiudanbai1)
-		  indicators8x.push(data.sectionValue.qiudanbai2)
           timedate1.push(data.tumourInfo[i].create_date)
         }
-        option.series[2].data = indicators1
-        option.series[0].data = indicators1s
-        option.series[1].data = indicators1x
+        option.series[0].data = indicators1
         option.xAxis.data = timedate1
         myChart.setOption(option)
-        option1.series[2].data = indicators2
-        option1.series[0].data = indicators2s
-        option1.series[1].data = indicators2x
+        option1.series[0].data = indicators2
         option1.xAxis.data = timedate1
         myChart1.setOption(option1)
-        option2.series[2].data = indicators3
-        option2.series[0].data = indicators3s
-        option2.series[1].data = indicators3x
+        option2.series[0].data = indicators3
         option2.xAxis.data = timedate1
         myChart2.setOption(option2)
-        option3.series[2].data = indicators4
-        option3.series[0].data = indicators4s
-        option3.series[1].data = indicators4x
+        option3.series[0].data = indicators4
         option3.xAxis.data = timedate1
         myChart3.setOption(option3)
-        option4.series[2].data = indicators5
-        option4.series[0].data = indicators5s
-        option4.series[1].data = indicators5x
+        option4.series[0].data = indicators5
         option4.xAxis.data = timedate1
         myChart4.setOption(option4)
-        option5.series[2].data = indicators6
-        option5.series[0].data = indicators6s
-        option5.series[1].data = indicators6x
+        option5.series[0].data = indicators6
         option5.xAxis.data = timedate1
         myChart5.setOption(option5)
-        option6.series[2].data = indicators7
-        option6.series[0].data = indicators7s
-        option6.series[1].data = indicators7x
+        option6.series[0].data = indicators7
         option6.xAxis.data = timedate1
         myChart6.setOption(option6)
-        option7.series[2].data = indicators8
-        option7.series[0].data = indicators8s
-        option7.series[1].data = indicators8x
+        option7.series[0].data = indicators8
         option7.xAxis.data = timedate1
         myChart7.setOption(option7)
       })
@@ -2629,7 +2111,7 @@ export default {
       //
       // 		}
       // 	],
-      // 	color: ["#09AC17"]
+      // 	color: ["#0AC5C9"]
       // };
       // var myChart1 = echarts.init(document.getElementById('echartzmanage2'));
       // myChart1.setOption(option1);
@@ -2655,10 +2137,10 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -2717,7 +2199,8 @@ export default {
           data: [],
           type: 'line',
 
-        }],
+        }
+        ],
         color: ['#0AC5C9']
       }
       var myChart2 = echarts.init(document.getElementById('echartzmanage3'))
@@ -2744,10 +2227,10 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -2806,7 +2289,8 @@ export default {
           data: [],
           type: 'line',
 
-        }],
+        }
+        ],
         color: ['#0AC5C9']
       }
       var myChart3 = echarts.init(document.getElementById('echartzmanage4'))
@@ -2833,10 +2317,10 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -2895,7 +2379,8 @@ export default {
           data: [],
           type: 'line',
 
-        }],
+        }
+        ],
         color: ['#0AC5C9']
       }
       var myChart4 = echarts.init(document.getElementById('echartzmanage5'))
@@ -2970,10 +2455,10 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -3032,7 +2517,8 @@ export default {
           data: [],
           type: 'line',
 
-        }],
+        }
+        ],
         color: ['#0AC5C9']
       }
       var myChart7 = echarts.init(document.getElementById('echartzmanage8'))
@@ -3059,10 +2545,10 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -3121,7 +2607,8 @@ export default {
           data: [],
           type: 'line',
 
-        }],
+        }
+        ],
         color: ['#0AC5C9']
       }
       var myChart8 = echarts.init(document.getElementById('echartzmanage9'))
@@ -3146,7 +2633,7 @@ export default {
       //
       //   }
       //   ],
-      //   color: ['#09AC17']
+      //   color: ['#0AC5C9']
       // }
       // var myChart9 = echarts.init(document.getElementById('echartzmanage10'))
       // myChart9.setOption(option9)
@@ -3172,10 +2659,10 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -3234,8 +2721,9 @@ export default {
           data: [],
           type: 'line',
 
-        }],
-        color: ['#2cc3cc']
+        }
+        ],
+        color: ['#0AC5C9']
       }
       var myChart10 = echarts.init(document.getElementById('echartzmanage11'))
       myChart10.setOption(option10)
@@ -3285,10 +2773,10 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -3347,7 +2835,8 @@ export default {
           data: [],
           type: 'line',
 
-        }],
+        }
+        ],
         color: ['#0AC5C9']
       }
       var myChart12 = echarts.init(document.getElementById('echartzmanage13'))
@@ -3398,10 +2887,10 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -3460,7 +2949,8 @@ export default {
           data: [],
           type: 'line',
 
-        }],
+        }
+        ],
         color: ['#0AC5C9']
       }
       var myChart14 = echarts.init(document.getElementById('echartzmanage15'))
@@ -3487,10 +2977,10 @@ export default {
           }
         },
         grid: {
-           left: '40',
-            right: '3%',
-            bottom: '40',
-            top:'65'
+          left: '40',
+          right: '3%',
+          bottom: '40',
+          top:'65'
         },
         xAxis: {
           type: 'category',
@@ -3549,7 +3039,8 @@ export default {
           data: [],
           type: 'line',
 
-        }],
+        }
+        ],
         color: ['#0AC5C9']
       }
       var myChart15 = echarts.init(document.getElementById('echartzmanage16'))
@@ -3686,14 +3177,15 @@ export default {
           data: [],
           type: 'line',
 
-        }],
+        }
+        ],
         color: ['#0AC5C9']
       }
       var myChart18 = echarts.init(document.getElementById('echartzmanage19'))
       myChart18.setOption(option18)
 
       let url = 'UserInterface/curve/SymptomManagement.ashx'
-      this.$post(url,this.param).then((data) => {
+      this.$post(url, this.param).then((data) => {
         if (data.rspcode != 1) {
           return
         }
@@ -3889,9 +3381,7 @@ export default {
           }
         },
         legend: {
-          data: ['躯体功能', '角色功能', '疲倦情况', '恶心与呕吐情况', '疼痛状况', '认知功能', '气促情况', '睡眠情况', '食欲情况', '便秘情况', '腹泻情况', '情绪功能', '社会功能',
-            '经济情况', '总健康状况'
-          ],
+          data: ['躯体功能', '角色功能', '疲倦情况', '恶心与呕吐情况', '疼痛状况', '认知功能', '气促情况', '睡眠情况', '食欲情况', '便秘情况', '腹泻情况', '情绪功能', '社会功能', '经济情况', '总健康状况'],
           icon:"roundRect",
           itemWidth: 9,
           itemHeight: 7,
@@ -4033,7 +3523,7 @@ export default {
       myChart.setOption(option)
 
       let url = 'UserInterface/curve/QualityOfLife.ashx'
-      this.$post(url,this.param).then((data) => {
+      this.$post(url, this.param).then((data) => {
         if (data.rspcode != 1) {
           return
         }
@@ -4091,10 +3581,10 @@ export default {
         myChart.setOption(option)
       })
     }
-  },
-  created() {
-  	this.param.patientskey = this.$route.query.skey;
-  },
+	},
+	created() {
+		this.param.patientskey = this.$route.query.skey;
+	},
   mounted () {
     this.showfun()
     this.getInform()
@@ -4108,43 +3598,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-	#weighEchart,
-	#echartnengl,
-	#echarthaodo,
-	#echartsport,
-	#echarttimes,
-	#echartkashi,
-	#echartpingg,
-	#echartshaic,
-	#echartxlyl,
-	#echartgjzb1,
-	#echartgjzb2,
-	#echartgjzb3,
-	#echartgjzb4,
-	#echartgjzb5,
-	#echartgjzb6,
-	#echartgjzb7,
-	#echartgjzb8,
-	#echartzmanage1,
-	#echartzmanage2,
-	#echartzmanage3,
-	#echartzmanage4,
-	#echartzmanage5,
-	#echartzmanage6,
-	#echartzmanage7,
-	#echartzmanage8,
-	#echartzmanage9,
-	#echartzmanage10,
-	#echartzmanage11,
-	#echartzmanage12,
-	#echartzmanage13,
-	#echartzmanage14,
-	#echartzmanage15,
-	#echartzmanage16,
-	#echartzmanage17,
-	#echartzmanage18,
-	#echartzmanage19,
-  {
+	#weighEchart,#echartnengl,#echarthaodo,#echartsport,#echarttimes,#echartkashi,#echartpingg,#echartshaic,#echartxlyl,
+	#echartgjzb1,#echartgjzb2,#echartgjzb3,#echartgjzb4,#echartgjzb5,#echartgjzb6,#echartgjzb7,#echartgjzb8,
+	#echartzmanage1,#echartzmanage2,#echartzmanage3,#echartzmanage4,#echartzmanage5,#echartzmanage6,#echartzmanage7,
+	#echartzmanage8,#echartzmanage9,#echartzmanage10,#echartzmanage11,#echartzmanage12,#echartzmanage13,#echartzmanage14,
+	#echartzmanage15,#echartzmanage16,#echartzmanage17,#echartzmanage18,#echartzmanage19,{
     margin: 0.1rem auto 0 auto;
     min-height: 2.75rem;
     max-height: 5rem;

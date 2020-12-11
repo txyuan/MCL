@@ -42,11 +42,12 @@
 						<label></label>
 					</router-link>
 				</p>
-				<p>
+				<p class="poton">
 					<router-link to="/appointment">
 						<img src="@/assets/images/gongju.png" />
 						<span>复诊预约</span>
 						<label></label>
+						<i v-if="ishsow"></i>
 					</router-link>
 				</p>
 			</div>
@@ -85,6 +86,7 @@ export default {
     list: [],
     clist: [],
     repData: {},
+    ishsow: false,
     shareLink: '/'
   }),
   methods: {
@@ -126,6 +128,11 @@ export default {
       return this.$post(url).then((data) => {
         let model = data.data
         this.repData = model
+        if (model.reviewtheTotal != '0') {
+          this.ishsow = true
+        } else {
+          this.ishsow = false
+        }
       })
     },
     // 获取客服的token
@@ -336,6 +343,20 @@ export default {
 				&:first-child {
 					label {
 						border: none;
+					}
+				}
+
+				&.poton{
+					position: relative;
+					i{
+						display: block;
+						width: 0.06rem;
+						height: 0.06rem;
+						background: red;
+						position: absolute;
+						border-radius: 0.3rem;
+						top: 0;
+						right: 35%;
 					}
 				}
 			}

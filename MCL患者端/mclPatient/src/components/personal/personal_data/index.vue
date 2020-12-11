@@ -25,14 +25,14 @@
 				<span v-if="repData.Sex == 2">女</span>
 			</mt-cell>
 			<mt-cell title="身高" is-link to="/heights">
-				<span>{{repData.height}}</span>
+				<span>{{repData.height}}<em style="font-style:normal; padding-left: 2px">cm</em></span>
 			</mt-cell>
 			<div class="person_marg">
 				<mt-cell title="修改登录密码" is-link to="/changePass"></mt-cell>
 			</div>
-			<div class="person_marg" style="margin-top: 0">
+			<!-- <div class="person_marg" style="margin-top: 0">
 				<mt-cell title="修改支付密码" is-link to="/twopass"></mt-cell>
-			</div>
+			</div> -->
 			<!-- <div class="person_marg" style="margin-top: 0">
             <mt-cell title="银行卡" is-link to="/editbcard"></mt-cell>
           </div> -->

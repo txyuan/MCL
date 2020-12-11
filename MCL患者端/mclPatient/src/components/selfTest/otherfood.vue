@@ -1,7 +1,7 @@
 <template>
-	<div class="uploadPhoto-root" style="background: #fff;">
+	<div class="uploadPhoto-root" style="background: #FAFAFA;">
 		<div id="body_main" style="padding-top: 1.41rem;" @click="toggleMenu('hide')">
-			<div class="fix_top" style="background: #fff;">
+			<div class="fix_top" style="background: #FAFAFA;">
 				<mt-header title="其他菜式">
 					<div slot="left">
 						<header-back>
@@ -12,7 +12,7 @@
 				<!-- 搜索框 -->
 				<div class="search-block" @click.stop="">
 					<div class="search">
-						<img src="@/assets/images/搜索@2x.png" alt="" class="icon" width="20" height="20" />
+						<img src="@/assets/images/sousuowenti@2x.png" alt="" class="icon" width="20" height="20" />
 						<input type="text" v-model.trim="searchParam.foodname" placeholder="请输入食物名称" @input="searchDishes" @focus="toggleMenu('show')"/>
 					</div>
 					<div class="menu-list" v-show="isSearchPanel">
@@ -36,14 +36,14 @@
 
 
 			<!-- 其他菜式 -->
-			<div class="marginTop10 yinshhi_list">
+			<div class=" yinshhi_list">
 				<loadMore :param="param" @triggerGetList="shoplist" ref="loadMoreE" :isDefaultLoading="false">
 					<div class="scroll" slot="content">
 						<mt-cell v-for="(item,index) in list" :key="index" is-link @click.native="showModal(item)">
 							<img slot="icon" :src="item.foodimg" width="46" height="46">
 							<div slot="title" class="titleWrap">
 								<span class="mint-cell-text">{{item.foodname}}</span>
-								<span class="mint-cell-label font12 huiFont99"><span class="red">{{item.foodkcal}} {{item.kcalunit}}</span> /{{item.foodgram}}{{item.gramunit}}</span>
+								<span class="mint-cell-label font12 huiFont99"><span class="colF7">{{item.foodkcal}} {{item.kcalunit}}</span> /{{item.foodgram}}{{item.gramunit}}</span>
 							</div>
 						</mt-cell>
 					</div>
@@ -55,27 +55,27 @@
 		<div id="mark" :style="{display: (show?'block': 'none')}">
 			<div class="modal" :class="show && 'show' ">
 				<div class="info">
-					<div class="bar">
-						<span class="yellow" @click="hideModal">取消</span>
-						<!-- <span>10月20日/早餐</span> -->
-						<span class="yellow" @click="confirm">确认</span>
+					<div class="btnClose">
+						<span @click="hideModal"></span>
+<!--						 <span>10月20日/早餐</span>-->
+<!--						<span class="yellow" @click="confirm">确认</span>-->
 					</div>
 
-					<mt-cell class="borderBottom" style="margin-top: 15px;">
-						<img slot="icon" :src="currentItem.foodimg" width="46" height="46">
+					<mt-cell class="">
+						<img slot="icon" :src="currentItem.foodimg" width="52" height="52">
 						<div slot="title" class="titleWrap">
 							<span class="mint-cell-text">{{currentItem.foodname}}</span>
-							<span class="mint-cell-label font12 huiFont99"><span class="red">{{currentItem.foodkcal}} {{currentItem.kcalunit}}</span>/{{currentItem.foodgram}}{{currentItem.gramunit}}</span>
+							<span class="mint-cell-label font12 huiFont99"><span class="colF7">{{currentItem.foodkcal}} {{currentItem.kcalunit}}</span>/{{currentItem.foodgram}}{{currentItem.gramunit}}</span>
 						</div>
 					</mt-cell>
 
 					<div class="showNum font13">
 						<div class="left huiFont">
-							<p>{{currentItem.foodkcal}} {{currentItem.kcalunit}}</p>
-							<p>{{currentItem.foodgram}}{{currentItem.gramunit}}</p>
+<!--							<p>{{currentItem.foodkcal}} {{currentItem.kcalunit}}</p>-->
+<!--							<p>{{currentItem.foodgram}}{{currentItem.gramunit}}</p>-->
 						</div>
-						<div class="yellow">
-							<p> <span class="num">&nbsp;{{showNum.join().replace(/,/g, "")}}&nbsp;</span><span>{{currentItem.gramunit}}</span></p>
+						<div class="">
+							<p> <span class="num">&nbsp;{{showNum.join().replace(/,/g, "")}}&nbsp;</span><span style="font-size: 0.14rem;color: #666; margin-left: 0.05rem">{{currentItem.gramunit}}</span></p>
 						</div>
 						<div class="right huiFont">
 							<!-- <p>50克约等于</p>
@@ -87,9 +87,10 @@
 				<!--<p class="yellow text-center">克</p>-->
 
 				<ul class="keyboard">
-					<li v-for="(item,index) in keyList" :style="{'border-right-width': (index%3==2 ? 0 : '2px')}" @click="keyCode(item,index)">{{item}}</li>
+					<li v-for="(item,index) in keyList" :style="{'border-right-width': (index%3==2 ? 0 : '4px')}" @click="keyCode(item,index)">{{item}}</li>
 				</ul>
-			</div>
+       <div class="btnConfirm"><span @click="confirm">确  认</span></div>
+      </div>
 		</div>
 
 	</div>
@@ -109,7 +110,7 @@
 			isSearchPanel: false,  //显示搜索面板
 			searchIndex: -1,
 			searchList:[],  //search的下拉框
-			
+
 			keyList: [1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0, 'x'],
 			showNum: [],
 			show: false,
@@ -167,8 +168,8 @@
 					return
 				}
 				const showNum = Number(this.showNum.join().replace(/,/g, ""));
-				//单位克   
-				const {foodgram, foodkcal, protein, fat, carbohydrate} = this.currentItem;  
+				//单位克
+				const {foodgram, foodkcal, protein, fat, carbohydrate} = this.currentItem;
 				//总千卡
 				const foodkcal2 = Number((showNum/foodgram)*foodkcal).toFixed(2);
 				//总蛋白质
@@ -180,12 +181,12 @@
 				//resultObj 保存计算过的结果
 				this.currentItem.resultObj = {foodkcal:foodkcal2, protein:protein2, fat:fat2, carbohydrate:carbohydrate2}
  				//总克数
-				this.currentItem.foodconsumption = showNum; 
+				this.currentItem.foodconsumption = showNum;
 				//添加到bus
 				Bus.$emit("addDishes", this.currentItem)
 				this.$router.back()
 			},
-			
+
 			//搜索菜单
 			searchDishes(){
 			    const searchData = ()=>{
@@ -306,10 +307,15 @@
 </script>
 
 <style scoped lang="scss">
+  .mint-header{
+    height: 48px;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 0.16rem;
+  }
 	/* 早餐列表 */
 	.yinshhi_list {
 		background: #FFFFFF;
-		/*padding-top: 0.54rem;*/
+    padding-top: 0.1rem;
 		.title {
 			padding-left: 0.12rem;
 			line-height: 45px;
@@ -331,6 +337,7 @@
 	.titleWrap {
 		display: inline-block;
 		vertical-align: middle;
+    margin-left: 0.1rem;
 	}
 
 	.yinshhi_list .mint-cell {
@@ -343,7 +350,8 @@
 	.search-block{
     	position: relative;
 		z-index: 10;
-		background: #FFF;
+		background: #0AC5C9;
+    padding: 0.075rem 0.2rem 0.075rem 0.2rem;
 	    .menu-list{
 		    position: absolute;
 		    left: 0.12rem;
@@ -357,6 +365,7 @@
     		ul{
     			max-height: 4rem;
     			overflow-y: scroll;
+          min-height: 0.40rem;
     		}
 		    li{
 		    	padding: 0.03rem  0.22rem;
@@ -368,7 +377,7 @@
 		    .close{
 			    position: absolute;
 			    right: 0;
-			    padding: 0.1rem;
+          padding: 0.05rem 0.1rem;
 			    font-size: 16px;
 			    color: #EC0000;
 		    }
@@ -376,11 +385,9 @@
 	}
 	.search {
 		background: #F0F1F3;
-		border-radius: 0.15rem;
-		height: 0.30rem;
+		border-radius: 0.1rem;
 		overflow: hidden;
-		margin: 0.12rem;
-		padding: 0 0.2rem;
+    padding: 0 0.1rem;
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
@@ -392,18 +399,29 @@
 
 		input {
 			flex: 1;
-			height: 0.30rem;
-			line-height: 0.30rem;
-			font-size: 0.12rem;
+			font-size: 0.145rem;
+      line-height:2;
 			margin-left: 0.05rem;
 		}
+   input::-webkit-input-placeholder{
+           color:#999999;
+         }
 	}
-
+  #navbar .mint-navbar .mint-tab-item.is-selected{
+     border-bottom: 2px solid #0AC5C9;
+    color: #0bb8bc;
+    font-weight: 500;
+  }
 	/* 滚动区域 */
 	.scroll {
 		overflow: hidden;
 	}
-
+span.colF7{
+  color: #F78335;
+}
+  #navbar .mint-navbar p {
+    line-height: 0.42rem;
+  }
 	/*上传图片区域*/
 	.uploadArea {
 		padding: 0.12rem;
@@ -466,22 +484,24 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: baseline;
+      text-align: right;
 		}
 
 		.showNum {
 			display: flex;
 			justify-content: space-between;
-			margin: 45px 0;
+			margin:0.15rem 0  0.2rem 0;
 		}
 
 		.num {
-			font-size: 0.30rem;
+			font-size: 0.275rem;
+      color: #0AC5C9;
 			display: inline-block;
-			min-width: 0.25rem;
-			height: 0.45rem;
+			min-width: 72px;
+			height: 0.35rem;
 			box-sizing: border-box;
 			text-align: center;
-			border-bottom: 2px solid #F78335;
+			border-bottom: 2px solid #999999;
 		}
 	}
 
@@ -497,8 +517,11 @@
 		text-align: center;
 		line-height: 0.40rem;
 		box-sizing: border-box;
-		border-right: 2px solid #eee;
-		border-top: 2px solid #eee;
+    border-right: 4px solid #fff;
+    border-top: 4px solid #fff;
+    background-color: #fafafa;
+    border-radius: 10px;
+    color: #555555;
 	}
 </style>
 <style lang="scss">
@@ -522,7 +545,10 @@
 	}
 	.uploadPhoto-root #navbar{
 		overflow-x: scroll;
-	    margin: 0 10px;
+	    margin: 0 auto 0.1rem auto;
+    border-bottom: 1px solid #e5e5e5;
+    background-color: #fff;
+    padding: 0px 10px;
 		.mint-navbar{
 			display: inline-block;
 			white-space: nowrap;
@@ -532,6 +558,45 @@
 			box-sizing: border-box;
 			display: inline-block;
 			padding: 0 15px;
+      border-bottom: 2px solid #FFFFFF;
 		}
 	}
+  .btnConfirm{
+    text-align: center;
+    span{
+      display: block;
+      width: 100%;
+      line-height: 48px;
+      background-color: #0AC5C9;
+      color: #FFFFFF;
+      font-size: 0.16rem;
+    }
+  }
+  .btnClose{
+    text-align:right;
+    padding: 0.05rem 0 0 0;
+    span{
+    display:inline-block;
+    /*line-height: 0.22rem;*/
+    /*color: #666666;*/
+    /*  font-weight: bolder;*/
+    /*font-size: 0.16rem;*/
+      width: 0.22rem;
+      height: 0.22rem;
+      /*border: 1px solid #999999;*/
+      /*border-radius: 50%;*/
+      text-align: center;
+      background: url(../../assets/images/关闭@2x.png) no-repeat center center #FFFFFF;
+      background-size: 0.15rem;
+  }
+  }
+#main_router img{
+  border-radius: 4px;
+}
+  /*.show .info .mint-cell-title{ text-align: center;*/
+  /*  .titleWrap{*/
+  /*    text-align: left;*/
+  /*  }*/
+  /*}*/
+
 </style>

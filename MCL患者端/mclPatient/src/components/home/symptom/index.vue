@@ -1,6 +1,6 @@
 <template>
   <div class="symptom-root">
-    <div id="body_main" ref="homePage">
+    <div id="body_main" style="background-color: #f1f1f1; padding-bottom: 0; ">
       <mt-header fixed title="症状管理">
         <div slot="left">
           <header-back>
@@ -9,13 +9,12 @@
         </div>
       </mt-header>
 
-      <div id="page">
-				<span v-for="(item, index) in ids" :key="index">
-					<label @click="openModal(item)">{{item.name}}</label>
-					<input v-if="item.itemindex == ''" :id="item.id" type="checkbox" :name="item.id" @click="openModal(item)"
-                 class="active">
-					<input v-else :id="item.id" type="checkbox" :name="item.id" @click.prevent="openModal(item)">
-				</span>
+      <div id="page" ref="homePage" >
+			<span v-for="(item, index) in ids" :key="index">
+				<label @click="openModal(item)">{{item.name}}</label>
+				<input v-if="item.itemindex == ''" :id="item.id" type="checkbox" :name="item.id" @click="openModal(item)" class="active">
+				<input v-else :id="item.id" type="checkbox" :name="item.id" @click.prevent="openModal(item)">
+			</span>
       </div>
 
       <div class="pageButton">
@@ -217,8 +216,14 @@
           this.renderQuestion(item)
         } else {
           var id = item.id
-          document.getElementById(id).checked = true
-          document.getElementById(id).parentElement.className = 'active'
+		  if(document.getElementById(id).parentElement.className == 'active'){
+			  document.getElementById(id).checked = false
+			  document.getElementById(id).parentElement.className = ''
+		  }else{
+			  document.getElementById(id).checked = true
+			  document.getElementById(id).parentElement.className = 'active'
+		  }
+          
         }
       },
       //获取Guid
@@ -591,7 +596,18 @@
     margin-right: 0.1rem;
     margin-left: 0.1rem;
   }
-
+  input {
+    outline-color: invert;
+    outline-style: none;
+    outline-width: 0px;
+    border: none;
+    border-style: none;
+    text-shadow: none;
+    -webkit-appearance: none;
+    -webkit-user-select: text;
+    outline-color: transparent;
+    box-shadow: none;
+  }
   input[type=radio], input[type=checkbox] {
     cursor: pointer;
     position: relative;
@@ -646,6 +662,7 @@
         border-radius: 0;
         height: 50px;
         line-height: 48px;
+        background-color: #0AC5C9;
       }
     }
 
@@ -813,6 +830,7 @@
             border-radius: 0;
             height: 48px;
             line-height: 46px;
+            background: #0AC5C9;
           }
         }
       }
@@ -821,14 +839,17 @@
     #page {
       width: 94%;
       overflow: hidden;
-      margin: 0.1rem auto;
+      margin: 0 auto;
+      padding: 10px 0;
+      box-sizing: border-box;
+      overflow-y: scroll;
       span {
         /*display: block;*/
         /*width: 50%;*/
         /*float: left;*/
         /*margin-top: 0.1rem;*/
         display: inline-block;
-        padding: 0.085rem 0;
+        padding: 0.1rem 0;
         /*border: 1px solid #ccc;*/
         margin: 0.05rem 2%;
         /*border-radius: 20px;*/

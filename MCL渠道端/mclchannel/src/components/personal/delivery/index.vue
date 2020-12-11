@@ -1,318 +1,466 @@
 <template>
 	<div>
 		<div class="fix_top">
-			<!-- <mt-header title="发货管理" class="borderBottom">
-          <div slot="left">
-            <router-link to="/wx_Entrance/personal" style="color: initial;">
-              <mt-button icon="back"></mt-button>
-            </router-link>
-          </div>
-        </mt-header> -->
+			<mt-header title="我的订单" class="borderBottom">
+				<div slot="left">
+					<router-link to="/wx_Entrance/personal" style="color: initial;">
+						<mt-button icon="back"></mt-button>
+					</router-link>
+				</div>
+			</mt-header>
 
 			<!-- mt-navbar -->
 			<div id="navbar">
 				<mt-navbar>
-					<mt-tab-item id="" v-for="item in tabs" :key="item.type" :class="(param.status == item.type) && 'is-selected'"
-					 @click.native="tab(item.type)">
+					<mt-tab-item id="" v-for="item in tabs" :key="item.type" :class="(param.status == item.type) && 'is-selected'" @click.native="tab(item.type)">
 						<p>{{item.name}}</p>
 					</mt-tab-item>
 				</mt-navbar>
 			</div>
 		</div>
 
-		<!--<div id="mark" style="top: 42px;z-index: 99999;" ref="mark" @click="filterToggleFn(false)">
-        <div class="content" @click.stop="">
-          <ul class="clear">
-            <li class="float_left" v-for="(item,index) in filterList" :key="index" :class="(filterActive == index) && 'active'" @click="filterActiveFn(index,item.types)">
-              <div class="item text-center">
-                <div>
-                  <p>{{item.names}}</p>
-                </div>
-              </div>
-            </li>
-           </ul>
-        </div>
-      </div>-->
-
-		<div id="content" style="padding-top: 0.44rem;padding-bottom: 0.62rem;">
+		<div id="content" style="padding-top: 0.87rem">
 			<!-- tab-container -->
 			<loadMore :param="param" @triggerGetList="shoplist" ref="loadMoreE">
 				<mt-tab-container slot="content">
 					<mt-tab-container-item>
-						<productItem v-for="(item,index) in list" :key="index" :item="item">
+						<productItem v-for="(item,index) in list" :key="item.orderId" :item="item" :ABflag="item.ABflag">
 							<span slot="type">{{item.buyTime}}</span>
-							<span style="color:#F78335;" slot="dateType">{{item.stateText}}</span>
-							<div slot="footer" class="ccont_cc">
-								<p>
-									<label>收货姓名：<u>{{item.receiptname}}</u></label>
-									<i> 手机号码：<u>{{item.phonenumber}}</u></i>
-								</p>
-								<span>收货地址：<u>{{item.receivingaddress}}</u></span>
-							</div>
+							<span class="themeRed" slot="dateType">{{item.stateText}}</span>
 							<div slot="footer" class="foot">
-								<div class="logisticsInfo">订单合计：
-									<span style="color: #F78335;">¥ {{item.orderMoney}}</span>
+								<div class="logisticsInfo">合计：
+									<span class="themeRed">¥ {{item.orderMoney}}</span>
 								</div>
-								<div v-if="item.state != '-1'" class="btn-group">
-									<!-- <div v-if="item.state == '0'"><div v-if="item.OrderState == '1'" class="f-btn ok" @click="delmoy(item,1)"><span>取消订单</span></div><div v-else>订单已取消</div></div>
-	                  <div v-if="item.state == '4'" class="f-btn ok" @click="delmoy(item,2)" style="width: 0.88rem;"><span>签收待确认</span></div> -->
-									<div style="overflow: hidden;">
-										<!--<div class="f-btn ok laood" style="float: left;" @click="$router.push(`/orderDetail?key=${item.orderId}`)">
-	                    	<span>订单详情</span>
-	                    </div>-->
-										<div class="f-btn ok" style="float: left;" @click="$router.push(`/orderShip?key=${item.orderId}`)">
-											<span>发货</span>
+								<div class="btn-group">
+									<div v-if="item.state == '0'" style="overflow: hidden;">
+										<!--<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
+											<span>查看物流</span>
+										</div>-->
+										<div class="f-btn ok" style="float: left;" v-if="btnfh" @click="shopfh(item)">
+											<span>确认发货</span>
 										</div>
 									</div>
+									<div v-else-if="item.state  == '2'" style="overflow: hidden;">
+										<!-- <div class="f-btn ok laood" style="float: left;" @click="delmoy(item,3)">
+											<span>删除订单</span>
+										</div> -->
+										<!-- <div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
+											<span>查看物流</span>
+										</div> -->
+										<!--<div class="f-btn ok" style="float: left;" @click="againsh(item)">
+											<span>再次购买</span>
+										</div>-->
+									</div>
 								</div>
+							</div>
+							<div slot="footer" class="foot">
+								<p>{{item.RContactName}} {{item.RContactPhone}}</p>
+							</div>
+							<div slot="footer" class="foot">
+								<p>{{item.contactAddress}}</p>
 							</div>
 						</productItem>
 					</mt-tab-container-item>
 				</mt-tab-container>
 			</loadMore>
 		</div>
-
 		<!--选择地址-->
-		<!--<div class="myc_adress" v-show="hideadress">
-        <div class="myc_cadress">
-          <div class="myc_chose">
-            <p>选择收货地址</p>
-            <span @click="hideadrs"></span>
-          </div>
-          <div class="myc_adul">
-            <div class="myc_adlist" v-for="(item,index) in listadres" :key="index">
-              <span @click="setDefaultAdr(index,item.sKey)" class="myc_actv" :class="{myc_actve: index == isactv}"></span>
-              <div class="myc_acont" @click="edit(item)">
-                <p>
-                  <span>{{item.UserName}}</span>
-                  <i>{{item.UserPhone}}</i>
-                  <label class="mra" v-if="item.isDefault==1">默认</label>
-                </p>
-                <u>{{item.UserAddress}} {{item.UserDetailsAddress}}</u>
-              </div>
-            </div>
+		<div class="myc_adress" v-show="hideadress">
+			<div class="myc_cadress">
+				<div class="myc_chose">
+					<p>选择收货地址</p>
+					<span @click="hideadrs"></span>
+				</div>
+				<div class="myc_adul">
+					<div class="myc_adlist" v-for="(item,index) in listadres" :key="index">
+						<span @click="setDefaultAdr(index,item.sKey)" class="myc_actv" :class="{myc_actve: index == isactv}"></span>
+						<div class="myc_acont" @click="edit(item)">
+							<p>
+								<span>{{item.UserName}}</span>
+								<i>{{item.UserPhone}}</i>
+								<label class="mra" v-if="item.isDefault==1">默认</label>
+							</p>
+							<u>{{item.UserAddress}} {{item.UserDetailsAddress}}</u>
+						</div>
+					</div>
 
-            <p class="myc_addadrs">
-              <router-link to="/personaladdadress/add">
-                +添加地址
-              </router-link>
-            </p>
-          </div>
-          <span class="myc_okbtn" @click="okupshop">确定</span>
-        </div>
-      </div>-->
+					<p class="myc_addadrs">
+						<router-link to="/personaladdadress/add">
+							+添加地址
+						</router-link>
+					</p>
+				</div>
+				<span class="myc_okbtn" @click="okupshop">确定</span>
+			</div>
+		</div>
+
+		<div class="atret" v-if="wlifshow">
+			<div class="ayutr">
+				<h3>填写物流信息</h3>
+				<div class="dogbz">
+					<p>物流公司</p>
+					<select v-model="params.Logistics_company">
+						<option v-for="(item,index) in pcsList" :key="index" :value="item.names">{{item.names}}</option>
+					</select>
+				</div>
+				<div class="dogbz">
+					<p>物流编号</p>
+					<input type="text" v-model="params.Logistics_number" />
+				</div>
+				<div class="btn_pk">
+					<div class="f-btn default" style="float: left;" @click="delfat()">
+						<span>取消</span>
+					</div>
+					<div class="f-btn ok" style="float: left;" @click="okshopf()">
+						<span>确认</span>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
-	import loadMore from "@/components/common/loadMore.vue"; //加载更多组件
-	import productItem from "./../myCollage/productItem.vue"; //商品列表
-	export default {
-		name: "index",
-		data: () => ({
-			selected: "tab-container1",
-			tabs: [{
-				name: "待发货",
-				type: "0"
-			}, {
-				name: "待付款",
-				type: "3"
-			}, {
-				name: "已完成",
-				type: "4"
-			}, {
-				name: "已取消",
-				type: "5"
-			}, {
-				name: "已收货",
-				type: "2"
-			}], //
-			param: {
-				pagesize: 10,
-				pagecount: 0,
-				status: "0", ////0,待发货;3,待付款;4,已完成;5,已取消;2,已收货）
-			},
-			list: []
-			// selected:"",
-			//        hideadress:false,
-			//        listadres:[],
-			//        isactv:0,
+import loadMore from '@/components/common/loadMore.vue' // 加载更多组件
+import productItem from './../myCollage/productItem.vue' // 商品列表
+export default {
+  name: 'index',
+  data: () => ({
+    // selected:"",
+    hideadress: false,
+    listadres: [],
+    isactv: 0,
+    selected: 'tab-container1',
+    tabs: [{
+      name: '全部',
+      type: '-1'
+    }, {
+      name: '待发货',
+      type: '0'
+    }, {
+      name: '已发货',
+      type: '1'
+    }, {
+      name: '已收货',
+      type: '2'
+    }], //
+    filterActive: '0',
+    orderkey: '', // 提货使用到的商品key
 
-			//        filterList:[{names:"全部",types:"-1"},{names:"抢购商品",types:"1"},{names:"批发提货",types:"4"},{names:"零售商品",types:"3"}],
-			//        filterActive:"0",
-
-			//        orderkey:'',  //提货使用到的商品key
-
-		}),
-		methods: {
-			tab(val) {
-				this.$Indicator.loading();
-				this.param.status = val;
-				this.param.pagecount = 0;
-				this.$refs.loadMoreE.getList(); //触发加载更多
-				setTimeout(() => {
-					this.$Indicator.close();
-				}, 200)
-			},
-			//所得商品列表
-			shoplist(success) {
-				let url = "UserInterface/channel/ChannelDeliveryManagement.ashx";
-				if (this.param.pagecount == 1) {
-					this.list = [];
-				}
-				this.$post(url, this.param).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					let modelList = data.goodsList;
-					this.list = [...this.list, ...modelList]
-					//加载更多组件触发回调
-					if (success) {
-						success(modelList, this.list)
-					}
-				})
-			},
-			//        upshop(item){
-			//          this.getAdrList();
-			//          this.hideadress = true;
-			//          this.orderkey=item.orderId;
-			//        },
-			//        okupshop(){
-			//          let url = "UserInterface/order/UpdateOrderAddressInfo.ashx";
-			//          let param = {
-			//            orderkey: this.orderkey,
-			//            addresskey: this.adreskey
-			//          };
-			//          this.$post(url, param).then((data) => {
-			//            if(data.rspcode != 1){
-			//              this.$Toast("提货失败！");
-			//              return;
-			//            }
-			//            this.$Toast("提货成功！");
-			//            this.hideadress = false;
-			//            this.$Indicator.loading();
-			//            this.param.pagecount = 0;
-			//            this.$refs.loadMoreE.getList();  //触发加载更多
-			//            setTimeout(()=>{
-			//              this.$Indicator.close();
-			//            },200)
-			//          })
-			//        },
-			//隐藏地址
-			//        hideadrs(){
-			//          this.hideadress = false;
-			//        },
-			//        edit(item){
-			//          this.$router.push(`/personaladdadress/edit?skey=${item.sKey}`)
-			//        },
-			//选择地址
-			//        setDefaultAdr(index,skey){
-			//          this.isactv=index;
-			//          this.adreskey=skey;
-			//        },
-			//获取地址列表
-			//        getAdrList() {
-			//          let url = "UserInterface/GetUserAddressList.ashx";
-			//          let param= {
-			//            "PageSize": 100,
-			//            "PageCount": 1,
-			//            "OrderBy": 0
-			//          };
-			//          this.$post(url, param).then((data) => {
-			//            if (data.rspcode != 1) {
-			//              return;
-			//            }
-			//            let modelList = data.VUserAddressInfo;
-			//            this.listadres = [...modelList];
-			//            for(var i in modelList){
-			//              if(modelList[i].isDefault==1){
-			//                this.isactv=i;
-			//                this.adreskey=modelList[i].sKey;
-			//              }
-			//            }
-			//          })
-			//        },
-			// 取消订单
-			//			delmoy(item,protype){
-			//				if(protype==3){
-			//					this.$MessageBox.confirm('您是否确认申请退款?').then(action => {
-			//						this.delmoys(item,protype);
-			//					})
-			//				}else{
-			//					this.delmoys(item,protype);
-			//				}
-			//			},
-			//			delmoys(item,protype){
-			//				this.$Indicator.loading();
-			//				let url = "UserInterface/GETCancelOrder.ashx";
-			//				let param = {
-			//				  ProductPhSkey: item.proPhReSkey,
-			//				  ABflag: item.ABflag,
-			//					protype:protype
-			//				}
-			//				this.$post(url, param).then((data) => {
-			//				  this.$Indicator.close();
-			//				  if(data.rspCode != 1){
-			//					this.$Toast(data.rspDesc);
-			//					return;
-			//				  }
-			//					if(protype==1){
-			//						this.$Toast("取消订单成功");
-			//					}else if(protype==2){
-			//						this.$Toast("订单签收确认成功");
-			//					}else if(protype==3){
-			//						this.$Toast("订单正在申请退换");
-			//					}
-			//				  
-			//				  this.tab(this.param.status);
-			//				})
-			//			},
-			//        filterToggleFn(type){
-			//          var $mark = this.$refs.mark;
-			//          $mark.style.display = "none"
-			//          if(type){
-			//            $mark.style.display = "block"
-			//          }
-			//        },
-			//        filterActiveFn(index,types){
-			//          this.filterActive =  index;
-			//          this.param.orderType = types;
-			//          this.$Indicator.loading();
-			//          this.param.pagecount = 0;
-			//          this.$refs.loadMoreE.getList();  //触发加载更多
-			//          setTimeout(()=>{
-			//            this.$Indicator.close();
-			//          },200)
-			//        }
-		},
-		mounted() {
-
-			//        let type = this.$route.query.type;
-			//        if(type){
-			//          this.filterList.forEach((item,index)=>{
-			//            if(type == item.types){
-			//              this.filterActiveFn(index,item.types)
-			//            }
-			//          })
-			//        }
-		},
-		//      beforeRouteLeave (to, from, next) {
-		//不能返回支付成功页面
-		//	      if(to.name == "panicBuyingAreaPaySuccess"){
-		//	      	next("/wx_Entrance/personal")
-		//	      	return;
-		//	      }
-		//    	  next()
-		//      },
-		components: {
-			productItem,
-			loadMore
-		}
-	}
+    param: {
+      pagesize: 10,
+      pagecount: 0,
+      status: '-1'
+      //				orderType: -1
+    },
+    list: [],
+    wlifshow: false,
+    pcsList: [
+      {names: '顺丰'}, {names: '百世'}, {names: '申通'}, {names: '中通'}, {names: '京东'}
+    ],
+    params: {
+      flag: 1,
+      Logistics_company: '',
+      Logistics_number: '',
+	  sKey: ''
+    },
+    btnfh: false
+  }),
+  methods: {
+    tab (val) {
+      this.$Indicator.loading()
+      this.param.status = val
+      this.param.pagecount = 0
+      this.$refs.loadMoreE.getList() // 触发加载更多
+      setTimeout(() => {
+        this.$Indicator.close()
+      }, 200)
+    },
+    // 是否可发货
+    isshopfh () {
+      const userInfo = JSON.parse(localStorage.userInfo)
+      if ((userInfo.UserType == '5') || (userInfo.UserType == '7')) {
+        this.btnfh = true
+      } else {
+        this.btnfh = false
+      }
+    },
+    // 所得商品列表   UserInterface/ProductOrderDetailInfoList.ashx
+    shoplist (success) {
+      let url = 'UserInterface/channel/ChannelOrderDetailInfoList.ashx'
+      if (this.param.pagecount == 1) {
+        this.list = []
+      }
+      this.$post(url, this.param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        let modelList = data.goodsList
+        this.list = [...this.list, ...modelList]
+        // 加载更多组件触发回调
+        if (success) {
+          success(modelList, this.list)
+        }
+      })
+    },
+    upshop (item) {
+      this.getAdrList()
+      this.hideadress = true
+      this.orderkey = item.orderId
+    },
+    okupshop () {
+      let url = 'UserInterface/order/UpdateOrderAddressInfo.ashx'
+      let param = {
+        orderkey: this.orderkey,
+        addresskey: this.adreskey
+      }
+      this.$post(url, param).then((data) => {
+        if (data.rspcode != 1) {
+          this.$Toast('提货失败！')
+          return
+        }
+        this.$Toast('提货成功！')
+        this.hideadress = false
+        this.$Indicator.loading()
+        this.param.pagecount = 0
+        this.$refs.loadMoreE.getList() // 触发加载更多
+        setTimeout(() => {
+          this.$Indicator.close()
+        }, 200)
+      })
+    },
+    // 隐藏地址
+    hideadrs () {
+      this.hideadress = false
+    },
+    edit (item) {
+      this.$router.push(`/personaladdadress/edit?skey=${item.sKey}`)
+    },
+    // 选择地址
+    setDefaultAdr (index, skey) {
+      this.isactv = index
+      this.adreskey = skey
+    },
+    // 获取地址列表
+    getAdrList () {
+      let url = 'UserInterface/GetUserAddressList.ashx'
+      let param = {
+        'PageSize': 100,
+        'PageCount': 1,
+        'OrderBy': 0
+      }
+      this.$post(url, param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        let modelList = data.VUserAddressInfo
+        this.listadres = [...modelList]
+        for (var i in modelList) {
+          if (modelList[i].isDefault == 1) {
+            this.isactv = i
+            this.adreskey = modelList[i].sKey
+          }
+        }
+      })
+    },
+    // 取消订单
+    delmoy (item, protype) {
+      this.$Indicator.loading()
+      let url = 'UserInterface/DeleteOrderInfo.ashx'
+      let param = {
+        orderskey: item.orderId
+      }
+      this.$post(url, param).then((data) => {
+        this.$Indicator.close()
+        if (data.rspcode != 1) {
+          this.$Toast(data.rspdesc)
+          return
+        }
+        this.$Toast('删除订单成功')
+        this.tab(this.param.status)
+      })
+    },
+    //  确认发货
+    shopfh (item) {
+      this.params.Logistics_company = ''
+      this.params.Logistics_number = ''
+      this.params.sKey = item.orderId
+      this.wlifshow = true
+    },
+    delfat () {
+      this.params.sKey = ''
+      this.wlifshow = false
+    },
+    okshopf () {
+      if (this.params.Logistics_company == '') {
+        this.$Toast('请选择物流公司')
+        return
+      }
+      if (this.params.Logistics_number == '') {
+        this.$Toast('请填写物流编号')
+        return
+      }
+      this.$Indicator.loading()
+	  let url = 'UserInterface/order/ConfirmOrder.ashx'
+	  this.$post(url, this.params).then((data) => {
+	    this.$Indicator.close()
+	    if (data.rspCode != 1) {
+	      this.$Toast(data.rspdesc)
+	      return
+	    }
+        this.wlifshow = false
+        this.params.sKey = ''
+	    this.$Toast('确认收货成功')
+	    this.tab(this.param.status)
+	  })
+    },
+    //  确认收货
+    shopsh (item) {
+      this.$Indicator.loading()
+      let url = 'UserInterface/order/ConfirmOrder.ashx'
+      let param = {
+        sKey: item.orderId,
+        flag: 2
+      }
+      this.$post(url, param).then((data) => {
+        this.$Indicator.close()
+        if (data.rspCode != 1) {
+          this.$Toast(data.rspdesc)
+          return
+        }
+        this.$Toast('确认收货成功')
+        this.tab(this.param.status)
+      })
+    },
+    filterToggleFn (type) {
+      var $mark = this.$refs.mark
+      $mark.style.display = 'none'
+      if (type) {
+        $mark.style.display = 'block'
+      }
+    },
+    filterActiveFn (index, types) {
+      this.filterActive = index
+      this.param.orderType = types
+      this.$Indicator.loading()
+      this.param.pagecount = 0
+      this.$refs.loadMoreE.getList() // 触发加载更多
+      setTimeout(() => {
+        this.$Indicator.close()
+      }, 200)
+    }
+  },
+  mounted () {
+	  this.isshopfh()
+    let type = this.$route.query.type
+    if (type) {
+      this.filterList.forEach((item, index) => {
+        if (type == item.types) {
+          this.filterActiveFn(index, item.types)
+        }
+      })
+    }
+  },
+  beforeRouteLeave (to, from, next) {
+    // 不能返回支付成功页面
+    if (to.name == 'panicBuyingAreaPaySuccess') {
+      next('/wx_Entrance/personal')
+      return
+    }
+    next()
+  },
+  components: {
+    productItem,
+    loadMore
+  }
+}
 </script>
 
 <style scoped lang="scss">
 	@import "@/assets/css/base.scss";
+
+	.atret{
+		width: 100%;
+		height: 100vh;
+		background: rgba(000,000,000,0.5);
+		position: fixed;
+		left: 0;
+		top: 0;
+		z-index: 9999;
+		.ayutr{
+			width: 92%;
+			height: 3.0rem;
+			background: #fff;
+			margin: 1.0rem auto;
+			border-radius: 8px;
+			position: relative;
+			h3{
+				font-weight: normal;
+				border-bottom: 1px solid #ddd;
+				font-size: 0.16rem;
+				text-align: center;
+				padding: 0.14rem 0;
+				color: #333;
+			}
+			.dogbz {
+				width: 92%;
+				padding: 0.14rem 4%;
+				border-top: 1px solid #eee;
+				overflow: hidden;
+				background: #fff url(../../../assets/images/jiantou_right_h@2x.png) no-repeat 98% center;
+				background-size: 0.24rem;
+				p {
+					float: left;
+					font-size: 0.15rem;
+					color: #333;
+				}
+
+				select {
+					float: right;
+					font-size: 0.13rem;
+					color: #666;
+					padding-top: 0.03rem;
+					margin-right: 0.16rem;
+					text-align: right;
+				}
+
+				input{
+					float: right;
+					font-size: 0.13rem;
+					color: #666;
+					margin-right: 0.16rem;
+					width: 50%;
+					border:none;
+					text-align: right;
+				}
+			}
+			.btn_pk{
+				position: absolute;
+				bottom: 0.1rem;
+				right: 3%;
+				.f-btn {
+					width: 0.72rem;
+					height: 0.26rem;
+					line-height: 0.26rem;
+					text-align: center;
+					box-sizing: border-box;
+					border-radius: 8px;
+					font-size: 0.12rem;
+					&.default {
+						background: #FFFFFF;
+						border: 1px solid #ddd;
+					}
+					&.ok {
+						background: $themeColor;
+						margin-left: 10px;
+						span {
+							color: white;
+						}
+					}
+				}
+			}
+		}
+	}
 
 	#mark {
 		.content {
@@ -321,19 +469,16 @@
 			background: #FFF;
 			font-size: 0.14rem;
 		}
-
 		.content li {
 			width: 33.33%;
 			box-sizing: border-box;
 			padding: 5px;
 		}
-
 		.content li.active .item {
 			background: $themeColor2;
 			color: $themeColor;
 			border-color: $themeColor2;
 		}
-
 		.content li .item {
 			border: 1px solid $boderE;
 			line-height: 30px;
@@ -347,12 +492,10 @@
 		justify-content: space-between;
 		font-size: 0.14rem;
 		color: $color60;
-
 		.logisticsInfo {
 			display: flex;
 			align-items: center;
 		}
-
 		.f-btn {
 			width: 0.72rem;
 			height: 0.26rem;
@@ -360,36 +503,29 @@
 			text-align: center;
 			box-sizing: border-box;
 			border-radius: 0.13rem;
-
 			span {
 				/*vertical-align: middle;*/
 			}
-
 			&.default {
 				background: #FFFFFF;
 				border: 1px solid $boderE;
 			}
-
 			&.ok {
 				background: $themeColor;
 				margin-left: 5px;
-
 				span {
 					color: white;
 				}
 			}
-
 			&.laood {
 				background: #fff;
 				border: 1px solid $themeColor;
 				box-sizing: border-box;
-
 				span {
 					color: $themeColor;
 				}
 			}
 		}
-
 		.btn-group {
 			display: flex;
 			justify-content: flex-start;
@@ -579,30 +715,7 @@
 		color: #FF3D3D;
 	}
 
-	.ccont_cc {
-		border-bottom: 1px solid #eee;
-		padding: 0.1rem 0;
-		font-size: 0.13rem;
-		color: #666666;
-
-		u {
-			text-decoration: none;
-			color: #000000;
-		}
-
-		p {
-			padding-top: 0.1rem;
-			border-top: 1px solid #eee;
-
-			i {
-				font-style: normal;
-				margin-left: 0.14rem;
-			}
-		}
-
-		span {
-			display: block;
-			padding-top: 0.1rem;
-		}
+	.buyinform{
+		clear: both;
 	}
 </style>

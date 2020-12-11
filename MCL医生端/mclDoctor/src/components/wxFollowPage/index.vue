@@ -8,10 +8,10 @@
   	 		<div class="border" :style="{'height': `${borderHeight}px`}"></div>
   	 		<div class="panel_code">
 	  	 	 <img src="@/assets/images/wxcode.jpg"/>
-	  	 	 <p>长按识别识别图中二维码</p>
+	  	 	 <p>长按识别图中二维码</p>
 	  	 </div>
-  	 </div>  
-  	 
+  	 </div>
+
   </div>
 </template>
 
@@ -19,16 +19,16 @@
     export default {
         name: "wxFollowPage",
         data:()=>({
-					
+
         }),
         computed:{
         	borderHeight: function(){
         		var width = window.innerWidth*0.85;
-        		return parseInt(width/(633/36))   
+        		return parseInt(width/(633/36))
         	}
         },
         methods:{
-        	
+
         },
     }
 </script>
@@ -103,5 +103,5 @@
   	right: 0;
   	margin: auto;
   }
-  
+
 </style>
