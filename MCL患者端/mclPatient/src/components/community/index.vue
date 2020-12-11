@@ -77,14 +77,22 @@
 
 					<div class="content" v-show="ABflag == 3">
 						<div class="activity marginTop10">
-							<div class="item margin10" v-for="(item, index) in caseList" :key="index">
+							<div class="item margin10" v-for="(item, index) in caseList" :key="index" @click="$router.push(`/caseDetail?id=${item.caseSkey}`)">
 								<img :src="item.caseImg" alt="" width="100%" class="pic"/>
-								<div class="activity-bar font12 huiFont">
-									<div>
-										<img src="@/assets/images/yijieshu@2x.png" class="icon" width="15"/>
+								<div class=" font12 huiFont">
+									<div class="caseTitle">
+										<!-- <img src="@/assets/images/yijieshu@2x.png" class="icon" width="15"/> -->
 										<span class="font16">{{item.caseName}}</span>
+										<span class="more yellow">查看全文</span>
 									</div>
-									<span>{{item.casePeopleCount}}</span>
+									<div class="des">
+										<div class="article-time">
+											<img src="@/assets/images/time.png" alt=""/> <span>{{item.createDate}}</span>
+										</div>
+										<div class="seeNum">
+											<img src="@/assets/images/eyeh.png" alt=""/> <span>{{item.casePeopleCount}}</span>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -463,7 +471,38 @@
   			vertical-align: text-top;
   		}
   	}
-  }
+	}
+	
+	.seeNum, .article-time {
+		padding-right: 0.1rem;
+		font-weight: 500;
+		display: inline-block;
+
+		img {
+			width: 0.16rem;
+			vertical-align: middle;
+		}
+
+		span {
+			font-size: 0.135rem;
+			color: #787878;
+			vertical-align: middle;
+		}
+	}
+	.content .des{
+		padding: 0.05rem;
+    padding-bottom: 0.1rem 0.1rem;
+	}
+	.caseTitle{
+		display: block;
+		padding: 0.05rem 0.1rem; 
+		padding-top: 0.1rem;
+		display: flex;
+    justify-content: space-between;
+		.more{
+			font-size: 0.14rem;
+		}
+	}
 </style>
 
 <style type="text/css">

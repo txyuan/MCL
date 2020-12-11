@@ -105,7 +105,7 @@
 				</div>
 				<div class="dogbz">
 					<p>物流编号</p>
-					<input type="text" v-model="params.Logistics_number" />
+					<input type="text" v-model="params.Logistics_number"/>
 				</div>
 				<div class="btn_pk">
 					<div class="f-btn default" style="float: left;" @click="delfat()">
@@ -156,7 +156,7 @@ export default {
     list: [],
     wlifshow: false,
     pcsList: [
-      {names: '顺丰'}, {names: '百世'}, {names: '申通'}, {names: '中通'}, {names: '京东'}
+      {names: '顺丰'}, {names: '百世'}, {names: '申通'}, {names: '中通'}, {names: '京东'}, {names: '其他'}
     ],
     params: {
       flag: 1,

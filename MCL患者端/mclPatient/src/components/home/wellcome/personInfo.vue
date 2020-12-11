@@ -112,8 +112,8 @@
     </div>
     <div class=""></div>
     <div class="fix_bottom fix_bottom_area">
-      <mt-button type="primary" class="theme-button button-radio " size="large" @click.native="diseaseSubmit">下一步
-      </mt-button>
+      <mt-button v-if="($route.query.type == 'look')" type="primary" class="theme-button button-radio " size="large" @click.native="editSubmit">保存</mt-button>
+      <mt-button v-else type="primary" class="theme-button button-radio " size="large" @click.native="addSubmit">下一步</mt-button>
     </div>
 
     <!-- 性别picker  -->
@@ -159,463 +159,504 @@
 
     <!-- 时间picker -->
     <mt-datetime-picker ref="DatetimePicker" @change="visbleChange" type="date"
-                        :startDate="new Date(new Date().setFullYear(new Date().getFullYear() - 90))"
-                        :endDate="new Date(new Date().setFullYear(new Date().getFullYear() + 3))" :value="new Date()"
-                        year-format="{value} 年"
-                        month-format="{value} 月" date-format="{value} 日" @confirm="confirmDatetime" @cancel="delqxDate">
+      :startDate="new Date(new Date().setFullYear(new Date().getFullYear() - 90))"
+      :endDate="new Date(new Date().setFullYear(new Date().getFullYear() + 3))" :value="new Date()"
+      year-format="{value} 年"
+      month-format="{value} 月" date-format="{value} 日" @confirm="confirmDatetime" @cancel="delqxDate">
     </mt-datetime-picker>
   </div>
 
 </template>
 
 <script>
-  function getTime (d) {
-    let year = d.getFullYear()
-    let month = (d.getMonth() + 1)
-    month = (month < 10 ? `0${month}` : month)
-    let date = d.getDate()
-    date = (date < 10 ? `0${date}` : date)
-    return `${year}-${month}-${date}`
-  }
+function getTime (d) {
+  let year = d.getFullYear()
+  let month = (d.getMonth() + 1)
+  month = (month < 10 ? `0${month}` : month)
+  let date = d.getDate()
+  date = (date < 10 ? `0${date}` : date)
+  return `${year}-${month}-${date}`
+}
 
-  const formData = {
+const formData = {
 
-    // 婚姻状态
-    new_value_3: {
-      option: ['未婚', '已婚/再婚/同居', '分居', '丧偶'],
-      value: '',
-      radiolist: true
-    },
+  // 婚姻状态
+  new_value_3: {
+    option: ['未婚', '已婚/再婚/同居', '分居', '丧偶'],
+    value: '',
+    radiolist: true
+  },
 
-    // 个人病史
-    new_value_4: {
-      option: [{
-        label: '糖尿病',
-        value: 'new_value_4'
-      }, {
-        label: '高血压',
-        value: 'new_value_5'
-      }, {
-        label: '冠心病',
-        value: 'new_value_6'
-      }, {
-        label: '贫血',
-        value: 'new_value_7'
-      },
-        {
-          label: '甲亢',
-          value: 'new_value_8'
-        }, {
-          label: '甲低',
-          value: 'new_value_9'
-        }, {
-          label: '慢性胰腺炎',
-          value: 'new_value_10'
-        }, {
-          label: '肝硬化',
-          value: 'new_value_11'
-        },
-        {
-          label: '慢性肝炎',
-          value: 'new_value_12'
-        }, {
-          label: '中风',
-          value: 'new_value_13'
-        }, {
-          label: 'COPD',
-          value: 'new_value_14'
-        }, {
-          label: '心肌梗塞',
-          value: 'new_value_15'
-        },
-        {
-          label: '接受透析治疗',
-          value: 'new_value_16'
-        }, {
-          label: '骨质疏松',
-          value: 'new_value_17'
-        }, {
-          label: '溃疡性结肠炎',
-          value: 'new_value_18'
-        }, {
-          label: '慢性肾病',
-          value: 'new_value_19'
-        },
-        {
-          label: '结核',
-          value: 'new_value_20'
-        }, {
-          label: '无',
-          value: 'new_value_21'
-        } //, {label:'其他', value:"new_value_21"}
-      ],
-      value: [],
-      checklist: true
+  // 个人病史
+  new_value_4: {
+    option: [{
+      label: '糖尿病',
+      value: 'new_value_4'
+    }, {
+      label: '高血压',
+      value: 'new_value_5'
+    }, {
+      label: '冠心病',
+      value: 'new_value_6'
+    }, {
+      label: '贫血',
+      value: 'new_value_7'
     },
+    {
+      label: '甲亢',
+      value: 'new_value_8'
+    }, {
+      label: '甲低',
+      value: 'new_value_9'
+    }, {
+      label: '慢性胰腺炎',
+      value: 'new_value_10'
+    }, {
+      label: '肝硬化',
+      value: 'new_value_11'
+    },
+    {
+      label: '慢性肝炎',
+      value: 'new_value_12'
+    }, {
+      label: '中风',
+      value: 'new_value_13'
+    }, {
+      label: 'COPD',
+      value: 'new_value_14'
+    }, {
+      label: '心肌梗塞',
+      value: 'new_value_15'
+    },
+    {
+      label: '接受透析治疗',
+      value: 'new_value_16'
+    }, {
+      label: '骨质疏松',
+      value: 'new_value_17'
+    }, {
+      label: '溃疡性结肠炎',
+      value: 'new_value_18'
+    }, {
+      label: '慢性肾病',
+      value: 'new_value_19'
+    },
+    {
+      label: '结核',
+      value: 'new_value_20'
+    }, {
+      label: '无',
+      value: 'new_value_21'
+    } //, {label:'其他', value:"new_value_21"}
+    ],
+    value: [],
+    checklist: true
+  },
 
-    // 肿瘤家族史
-    new_value_22: {
-      option: ['有', '无'],
-      value: '',
-      radiolist: true
-    },
+  // 肿瘤家族史
+  new_value_22: {
+    option: ['有', '无'],
+    value: '',
+    radiolist: true
+  },
 
-    // 个人病史
-    new_value_23: {
-      option: [{
-        label: '准备手术',
-        value: 'new_value_23'
-      }, {
-        label: '手术后',
-        value: 'new_value_25'
-      }, {
-        label: '肿瘤转移',
-        value: 'new_value_26'
-      }, {
-        label: '肿瘤复发',
-        value: 'new_value_27'
-      },
-        {
-          label: '终末期',
-          value: 'new_value_28'
-        }, {
-          label: '化疗',
-          value: 'new_value_29'
-        }, {
-          label: '放疗',
-          value: 'new_value_31'
-        }, {
-          label: '靶向治疗',
-          value: 'new_value_34'
-        },
-        {
-          label: '免疫治疗',
-          value: 'new_value_35'
-        }, {
-          label: '观察随访中',
-          value: 'new_value_37'
-        }, {
-          label: '其它',
-          value: 'new_value_38'
-        }
-      ],
-      value: [],
-      checklist: true
+  // 目前的治疗状态
+  new_value_23: {
+    option: [{
+      label: '准备手术',
+      value: 'new_value_23'
+    }, {
+      label: '手术后',
+      value: 'new_value_25'
+    }, {
+      label: '肿瘤转移',
+      value: 'new_value_26'
+    }, {
+      label: '肿瘤复发',
+      value: 'new_value_27'
     },
-    // 准备手术时间
-    new_value_24: {
-      value: '',
-      show: false
+    {
+      label: '终末期',
+      value: 'new_value_28'
+    }, {
+      label: '化疗',
+      value: 'new_value_29'
+    }, {
+      label: '放疗',
+      value: 'new_value_31'
+    }, {
+      label: '靶向治疗',
+      value: 'new_value_34'
     },
-    // 化疗次数
-    new_value_30: {
-      value: '',
-      show: false
-    },
-    // 放疗次数
-    new_value_32: {
-      value: '',
-      show: false
-    },
-    // 靶向治疗次数
-    new_value_33: {
-      value: '',
-      show: false
-    },
-    // 免疫治疗次数
-    new_value_36: {
-      value: '',
-      show: false
+    {
+      label: '免疫治疗',
+      value: 'new_value_35'
+    }, {
+      label: '观察随访中',
+      value: 'new_value_37'
+    }, {
+      label: '其它',
+      value: 'new_value_38'
     }
+    ],
+    value: [],
+    checklist: true
+  },
+  // 准备手术时间
+  new_value_24: {
+    value: '',
+    show: false
+  },
+  // 化疗次数
+  new_value_30: {
+    value: '',
+    show: false
+  },
+  // 放疗次数
+  new_value_32: {
+    value: '',
+    show: false
+  },
+  // 靶向治疗次数
+  new_value_33: {
+    value: '',
+    show: false
+  },
+  // 免疫治疗次数
+  new_value_36: {
+    value: '',
+    show: false
   }
+}
 
-  export default {
-    name: 'personInfo_root',
-    data: () => ({
-      handler: function (e) {
-        e.preventDefault()
-      },
-      param: {
-        name: '', // 姓名
-        sex: '男', // 姓名
-        birth: '', // 出生日期
-        height: '', // 身高
-        weight: '', // 体重
-        bmi: '', // BMI
-        diseasetype: '01', // 疾病类型（01：肿瘤，02：慢病）
-        location: '', // 所在地
-        new_value_1: '', // 首次诊断日期
-        new_value_2: '0' // 具体日期记不清
-      },
+export default {
+  name: 'personInfo_root',
+  data: () => ({
+    handler: function (e) {
+      e.preventDefault()
+    },
+    param: {
+      name: '', // 姓名
+      sex: '男', // 姓名
+      birth: '', // 出生日期
+      height: '', // 身高
+      weight: '', // 体重
+      bmi: '', // BMI
+      diseasetype: '01', // 疾病类型（01：肿瘤，02：慢病）
+      location: '', // 所在地
+      new_value_1: '', // 首次诊断日期
+      new_value_2: '0' // 具体日期记不清
+    },
 
-      // 性别picker
-      popupVisible: false, // 是否显示
-      sexSlots: [{
-        flex: 1,
-        values: ['男', '女'],
-        className: 'slot1',
-        textAlign: 'center'
-      }],
+    // 性别picker
+    popupVisible: false, // 是否显示
+    sexSlots: [{
+      flex: 1,
+      values: ['男', '女'],
+      className: 'slot1',
+      textAlign: 'center'
+    }],
 
-      // 疾病类型picker
-      sportList: [{
-        name: '肿瘤',
-        val: 'attribute_value_03'
-      }, {
-        name: '慢病',
-        val: 'attribute_value_04'
-      }],
-      sportDefaultName: '肿瘤', // 页面显示的文字
-      sportVisible: false,
-      sportSlot: [{
-        flex: 1,
-        values: ['肿瘤', '慢病'],
-        className: 'slot1',
-        textAlign: 'center'
-      }],
+    // 疾病类型picker
+    sportList: [{
+      name: '肿瘤',
+      val: 'attribute_value_03'
+    }, {
+      name: '慢病',
+      val: 'attribute_value_04'
+    }],
+    sportDefaultName: '肿瘤', // 页面显示的文字
+    sportVisible: false,
+    sportSlot: [{
+      flex: 1,
+      values: ['肿瘤', '慢病'],
+      className: 'slot1',
+      textAlign: 'center'
+    }],
 
-      // 临床诊断picker
-      // 			zhenduanList:[
-      //				{name:"请选择", val:""},
-      //				{name:"肺癌", val:"attribute_value_03"}, {name:"胃癌", val:"attribute_value_04"}, {name:"肝癌", val:"attribute_value_05"},
-      //				{name:"乳腺癌", val:"attribute_value_06"}, {name:"食管癌", val:"attribute_value_07"}, {name:"胰腺癌", val:"attribute_value_08"},
-      //				{name:"白血病", val:"attribute_value_09"}, {name:"膀胱癌", val:"attribute_value_10"}, {name:"卵巢癌", val:"attribute_value_11"},
-      //				{name:"鼻咽癌", val:"attribute_value_12"}, {name:"前列腺癌", val:"attribute_value_13"}, {name:"恶性淋巴瘤", val:"attribute_value_13"},
-      //				{name:"结/直肠癌", val:"attribute_value_15"}, {name:"子宫内膜癌", val:"attribute_value_16"}, {name:"子宫癌颈癌", val:"attribute_value_17"},
-      //				{name:"胃间质瘤", val:"attribute_value_18"}, {name:"脑恶性肿瘤", val:"attribute_value_19"}, {name:"胆道恶性肿瘤", val:"attribute_value_20"},
-      // 			],
-      // 			zhenduanDefaultName:"请选择",  //页面显示的文字
-      // 			zhenduanVisible: false,
-      // 			zhenduanSlot:[
-      //				{
-      // 					flex: 1,
-      // 					values: [
-      //						'请选择',
-      //						'肺癌', '胃癌', '肝癌',
-      //						'乳腺癌', '食管癌','胰腺癌',
-      //						'白血病', '膀胱癌', '卵巢癌',
-      //						'鼻咽癌', '前列腺癌', '恶性淋巴瘤',
-      //						'结/直肠癌', '子宫内膜癌', '子宫癌颈癌',
-      //						'胃间质瘤', '脑恶性肿瘤', '胆道恶性肿瘤'
-      // 					],
-      // 					className: 'slot1',
-      // 					textAlign: 'center'
-      //				}
-      //			],
+    // 临床诊断picker
+    // 			zhenduanList:[
+    //				{name:"请选择", val:""},
+    //				{name:"肺癌", val:"attribute_value_03"}, {name:"胃癌", val:"attribute_value_04"}, {name:"肝癌", val:"attribute_value_05"},
+    //				{name:"乳腺癌", val:"attribute_value_06"}, {name:"食管癌", val:"attribute_value_07"}, {name:"胰腺癌", val:"attribute_value_08"},
+    //				{name:"白血病", val:"attribute_value_09"}, {name:"膀胱癌", val:"attribute_value_10"}, {name:"卵巢癌", val:"attribute_value_11"},
+    //				{name:"鼻咽癌", val:"attribute_value_12"}, {name:"前列腺癌", val:"attribute_value_13"}, {name:"恶性淋巴瘤", val:"attribute_value_13"},
+    //				{name:"结/直肠癌", val:"attribute_value_15"}, {name:"子宫内膜癌", val:"attribute_value_16"}, {name:"子宫癌颈癌", val:"attribute_value_17"},
+    //				{name:"胃间质瘤", val:"attribute_value_18"}, {name:"脑恶性肿瘤", val:"attribute_value_19"}, {name:"胆道恶性肿瘤", val:"attribute_value_20"},
+    // 			],
+    // 			zhenduanDefaultName:"请选择",  //页面显示的文字
+    // 			zhenduanVisible: false,
+    // 			zhenduanSlot:[
+    //				{
+    // 					flex: 1,
+    // 					values: [
+    //						'请选择',
+    //						'肺癌', '胃癌', '肝癌',
+    //						'乳腺癌', '食管癌','胰腺癌',
+    //						'白血病', '膀胱癌', '卵巢癌',
+    //						'鼻咽癌', '前列腺癌', '恶性淋巴瘤',
+    //						'结/直肠癌', '子宫内膜癌', '子宫癌颈癌',
+    //						'胃间质瘤', '脑恶性肿瘤', '胆道恶性肿瘤'
+    // 					],
+    // 					className: 'slot1',
+    // 					textAlign: 'center'
+    //				}
+    //			],
 
-      // 临床诊断
-      attribute_value_03_item: {
-        option: [],
-        value: [],
-        checklist: true
-      },
+    // 临床诊断
+    attribute_value_03_item: {
+      option: [],
+      value: [],
+      checklist: true
+    },
 
-      ...formData
+    ...formData
 
-    }),
-    watch: {
-      'param.diseasetype': 'diseaseType',
-      'new_value_23.value': function (valList) {
-        // 准备手术
-        if (valList.indexOf('new_value_23') != -1) {
-          this.new_value_24.show = true
-        } else {
-          this.new_value_24.show = false
-        }
-        // 化疗
-        if (valList.indexOf('new_value_29') != -1) {
-          this.new_value_30.show = true
-        } else {
-          this.new_value_30.show = false
-        }
-        // 放疗
-        if (valList.indexOf('new_value_31') != -1) {
-          this.new_value_32.show = true
-        } else {
-          this.new_value_32.show = false
-        }
-        // 靶向治疗
-        if (valList.indexOf('new_value_34') != -1) {
-          this.new_value_33.show = true
-        } else {
-          this.new_value_33.show = false
-        }
-        // 免疫治疗
-        if (valList.indexOf('new_value_35') != -1) {
-          this.new_value_36.show = true
-        } else {
-          this.new_value_36.show = false
-        }
-        setTimeout(() => {
-          window.scrollTo(0, document.body.scrollHeight)
-        }, 0)
+  }),
+  watch: {
+    'param.diseasetype': 'diseaseType',
+    'new_value_23.value': function (valList) {
+      // 准备手术
+      if (valList.indexOf('new_value_23') != -1) {
+        this.new_value_24.show = true
+      } else {
+        this.new_value_24.show = false
+      }
+      // 化疗
+      if (valList.indexOf('new_value_29') != -1) {
+        this.new_value_30.show = true
+      } else {
+        this.new_value_30.show = false
+      }
+      // 放疗
+      if (valList.indexOf('new_value_31') != -1) {
+        this.new_value_32.show = true
+      } else {
+        this.new_value_32.show = false
+      }
+      // 靶向治疗
+      if (valList.indexOf('new_value_34') != -1) {
+        this.new_value_33.show = true
+      } else {
+        this.new_value_33.show = false
+      }
+      // 免疫治疗
+      if (valList.indexOf('new_value_35') != -1) {
+        this.new_value_36.show = true
+      } else {
+        this.new_value_36.show = false
+      }
+      setTimeout(() => {
+        window.scrollTo(0, document.body.scrollHeight)
+      }, 0)
+    }
+  },
+  methods: {
+    closeTouch () {
+      document.getElementsByTagName('body')[0].addEventListener('touchmove', this.handler, {
+        passive: false
+      }) // 阻止默认事件
+    },
+    openTouch () {
+      document.getElementsByTagName('body')[0].removeEventListener('touchmove', this.handler, {
+        passive: false
+      }) // 打开默认事件
+    },
+    visbleChange (val) {
+      // console.log(val)
+      // if (val) {
+      this.closeTouch()
+      // } else {
+      // 	this.openTouch()
+      // }
+    },
+    // 性别picker
+    sexPickerToggle (state) {
+      if (state == 'show') {
+        this.closeTouch()
+        this.popupVisible = true
+      }
+      if (state == 'hide') {
+        this.openTouch()
+        this.popupVisible = false
       }
     },
-    methods: {
-      closeTouch () {
-        document.getElementsByTagName('body')[0].addEventListener('touchmove', this.handler, {
-          passive: false
-        }) // 阻止默认事件
-      },
-      openTouch () {
-        document.getElementsByTagName('body')[0].removeEventListener('touchmove', this.handler, {
-          passive: false
-        }) // 打开默认事件
-      },
-      visbleChange (val) {
-        // console.log(val)
-        // if (val) {
+    // 性别picker  确定事件
+    sexConfirm () {
+      this.openTouch()
+      const {
+        sexPicker
+      } = this.$refs
+      let sex = sexPicker.getSlotValue(0)
+      this.param.sex = sex
+      this.sexPickerToggle('hide')
+    },
+
+    // 疾病类型picker
+    sportPickerToggles (state) {
+      if (state == 'show') {
         this.closeTouch()
-        // } else {
-        // 	this.openTouch()
-        // }
-      },
-      // 性别picker
-      sexPickerToggle (state) {
-        if (state == 'show') {
-          this.closeTouch()
-          this.popupVisible = true
-        }
-        if (state == 'hide') {
-          this.openTouch()
-          this.popupVisible = false
-        }
-      },
-      // 性别picker  确定事件
-      sexConfirm () {
+        this.sportVisible = true
+      }
+      if (state == 'hide') {
         this.openTouch()
-        const {
-          sexPicker
-        } = this.$refs
-        let sex = sexPicker.getSlotValue(0)
-        this.param.sex = sex
-        this.sexPickerToggle('hide')
-      },
+        this.sportVisible = false
+      }
+    },
+    // 疾病类型picker 确定事件
+    sportConfirm () {
+      this.openTouch()
+      const {
+        sportPickers
+      } = this.$refs
+      let state = sportPickers.getSlotValue(0)
+      let code = ''
+      if (state == '肿瘤') {
+        code = '01'
+      }
+      if (state == '慢病') {
+        code = '02'
+      }
+      this.sportDefaultName = state
+      this.param.diseasetype = code
+      this.sportPickerToggles('hide')
+    },
 
-      // 疾病类型picker
-      sportPickerToggles (state) {
-        if (state == 'show') {
-          this.closeTouch()
-          this.sportVisible = true
-        }
-        if (state == 'hide') {
-          this.openTouch()
-          this.sportVisible = false
-        }
-      },
-      // 疾病类型picker 确定事件
-      sportConfirm () {
-        this.openTouch()
-        const {
-          sportPickers
-        } = this.$refs
-        let state = sportPickers.getSlotValue(0)
-        let code = ''
-        if (state == '肿瘤') {
-          code = '01'
-        }
-        if (state == '慢病') {
-          code = '02'
-        }
-        this.sportDefaultName = state
-        this.param.diseasetype = code
-        this.sportPickerToggles('hide')
-      },
+    // 临床诊断picker
+    zhenduanPickerToggles (state) {
+      if (state == 'show') {
+        this.zhenduanVisible = true
+      }
+      if (state == 'hide') {
+        this.zhenduanVisible = false
+      }
+    },
+    // 临床诊断picker 确定事件
+    zhenduanConfirm () {
+      // 删除以前选择的内容
+      //				for(let keys in this.diseaseParam){
+      //					if(this.diseaseParam[keys] == 1){
+      //						delete this.diseaseParam[keys]
+      //					}
+      //				}
 
-      // 临床诊断picker
-      zhenduanPickerToggles (state) {
-        if (state == 'show') {
-          this.zhenduanVisible = true
+      const {
+        zhenduanPickers
+      } = this.$refs
+      let statecode = zhenduanPickers.getSlotValue(0)
+      this.zhenduanList.forEach((item, index) => {
+        if (item.name == statecode) {
+          const {
+            val,
+            name
+          } = item
+          this.param[`${val}`] = 1
+          this.zhenduanDefaultName = name
         }
-        if (state == 'hide') {
-          this.zhenduanVisible = false
-        }
-      },
-      // 临床诊断picker 确定事件
-      zhenduanConfirm () {
-        // 删除以前选择的内容
-        //				for(let keys in this.diseaseParam){
-        //					if(this.diseaseParam[keys] == 1){
-        //						delete this.diseaseParam[keys]
-        //					}
-        //				}
+      })
+      this.zhenduanPickerToggles('hide')
+    },
 
-        const {
-          zhenduanPickers
-        } = this.$refs
-        let statecode = zhenduanPickers.getSlotValue(0)
-        this.zhenduanList.forEach((item, index) => {
-          if (item.name == statecode) {
-            const {
-              val,
-              name
-            } = item
-            this.param[`${val}`] = 1
-            this.zhenduanDefaultName = name
+    // 计算BMI
+    doBMI () {
+      let {
+        height,
+        weight
+      } = this.param // 身高  体重
+      if (height < 50) {
+        this.$Toast('请输入有效的身高')
+        this.param.height = ''
+        return
+      }
+      if (height == '' || weight == '') {
+        return
+      }
+      height = height / 100 // 单位转换  cm到m
+      const BMI = weight / (height * height) // 体重/身高的平方
+      this.param.bmi = BMI.toFixed(1)
+    },
+
+    // citypicker的确定回调
+    cityPickerChange (values) {
+      this.openTouch()
+      let cityValue = [values[0].name, values[1].name].join(',')
+      this.param.location = cityValue.replace(',', '')
+    },
+    // 打开citypicker
+    openCityPicker () {
+      this.closeTouch()
+      this.$refs.cityPicker.show()
+    },
+
+    // 新增提交
+    addSubmit () {
+      let url = 'UserInterface/AddConditionDiseaseTumour.ashx'
+      if (this.diseaseSubmit()) {
+        this.$post(url, this.param).then((data) => {
+          if (data.rspcode != 1) {
+            return
           }
+          this.$Toast('保存成功')
+          this.$router.push(`/message2`)
         })
-        this.zhenduanPickerToggles('hide')
-      },
+      }
+    },
+    // 修改提交
+    editSubmit () {
+      let url = 'UserInterface/UpdateConditionDiseaseTumour.ashx'
+      if (this.diseaseSubmit()) {
+        this.$post(url, this.param).then((data) => {
+          if (data.rspcode != 1) {
+            return
+          }
+          this.$Toast('保存成功')
+          this.$router.back()
+        })
+      }
+    },
+    // 疾病类型提交
+    diseaseSubmit () {
+      if (this.sportDefaultName == '肿瘤') {
+        this.param.diseasetype = '01'
+      }
+      if (this.sportDefaultName == '慢病') {
+        this.param.diseasetype = '02'
+      }
+      let param = this.param
+      if (param.name == '') {
+        this.$Toast('请输入姓名')
+        return false
+      }
+      if (param.height == '') {
+        this.$Toast('请输入身高')
+        return false
+      }
+      if (param.weight == '') {
+        this.$Toast('请输入体重')
+        return false
+      }
+      if (param.location == '') {
+        this.$Toast('请选择您所在地区')
+        return false
+      }
+      // 遍历数据
+      let rowData = this.$data[`attribute_value_03_item`]
+      if (rowData) {
+        // 多选框	  未选中0  选中1
+        if (rowData.checklist) {
+          rowData.option.forEach((item) => {
+            let checklistVal = 0
+            if (rowData.value.indexOf(item.value) != -1) {
+              checklistVal = 1
+            }
+            param[`attribute_value_${item.id}`] = checklistVal
+          })
+        }
+      }
 
-      // 计算BMI
-      doBMI () {
-        let {
-          height,
-          weight
-        } = this.param // 身高  体重
-        if (height < 50) {
-          this.$Toast('请输入有效的身高')
-          this.param.height = ''
-          return
-        }
-        if (height == '' || weight == '') {
-          return
-        }
-        height = height / 100 // 单位转换  cm到m
-        const BMI = weight / (height * height) // 体重/身高的平方
-        this.param.bmi = BMI.toFixed(1)
-      },
-
-      // citypicker的确定回调
-      cityPickerChange (values) {
-        this.openTouch()
-        let cityValue = [values[0].name, values[1].name].join(',')
-        this.param.location = cityValue.replace(',', '')
-      },
-      // 打开citypicker
-      openCityPicker () {
-        this.closeTouch()
-        this.$refs.cityPicker.show()
-      },
-
-      // 疾病类型提交
-      diseaseSubmit () {
-        if (this.sportDefaultName == '肿瘤') {
-          this.param.diseasetype = '01'
-        }
-        if (this.sportDefaultName == '慢病') {
-          this.param.diseasetype = '02'
-        }
-        let url = 'UserInterface/AddConditionDiseaseTumour.ashx'
-        let param = this.param
-        if (param.name == '') {
-          this.$Toast('请输入姓名')
-          return
-        }
-        if (param.height == '') {
-          this.$Toast('请输入身高')
-          return
-        }
-        if (param.weight == '') {
-          this.$Toast('请输入体重')
-          return
-        }
-        if (param.location == '') {
-          this.$Toast('请选择您所在地区')
-          return
-        }
-        // 遍历数据
-        let rowData = this.$data[`attribute_value_03_item`]
+      // 遍历数据
+      for (let key in formData) {
+        let rowData = formData[key]
         if (rowData) {
           // 多选框	  未选中0  选中1
           if (rowData.checklist) {
@@ -624,8 +665,86 @@
               if (rowData.value.indexOf(item.value) != -1) {
                 checklistVal = 1
               }
-              param[`attribute_value_${item.id}`] = checklistVal
+              param[item.value] = checklistVal
+            })
+          } else {
+            param[key] = rowData.value
+          }
+        }
+      }
 
+      return true
+    },
+
+    // 临床诊断
+    diseaseType (type) {
+      let zhengzhuangList = []
+      // 肿瘤
+      if (type == '01') {
+        zhengzhuangList = [
+          '肺癌_03', '胃癌_04', '肝癌_05', '乳腺癌_06', '食管癌_07', '子宫癌颈癌_08',
+          '白血病_09', '膀胱癌_10', '胰腺癌_11', '前列腺癌_12', '卵巢癌_13', '鼻咽癌_14',
+          '结/直肠癌_15', '子宫内膜癌_16', '恶性淋巴瘤_17', '脑恶性肿瘤_18', '胃间质瘤_19', '胆道恶性肿瘤_20', '其他_21'
+        ]
+      }
+      // 慢病
+      if (type == '02') {
+        zhengzhuangList = [
+          '贫血_03', '疼痛_04', '脱发_05', '食欲下降_06', '吞吐困难_07', '消化不良_08',
+          '恶心、呕吐_09', '腹胀_10', '水肿_11', '腹泻_12', '便秘_13', '疲劳_14',
+          '失眠_15', '白细胞减少_16'
+        ]
+      }
+      this.attribute_value_03_item.option = []
+      zhengzhuangList.forEach((item) => {
+        const value = item.split('_')
+        let obj = {
+          label: value[0],
+          value: value[0],
+          id: value[1]
+        }
+        this.attribute_value_03_item.option.push(obj)
+      })
+    },
+
+    // 打开日期插件
+    openTimePicker (timeField) {
+      this.closeTouch()
+      this.$refs.DatetimePicker.timeField = timeField
+      this.$refs.DatetimePicker.open()
+    },
+    confirmDatetime (value) {
+      this.openTouch()
+      let {
+        timeField
+      } = this.$refs.DatetimePicker
+      timeField = timeField.split('.')
+      this.$data[timeField[0]][timeField[1]] = getTime(new Date(value))
+    },
+    delqxDate () {
+      this.openTouch()
+    },
+    // 回显表单数据
+    getDetail () {
+      let url = 'UserInterface/SelectConditionDiseaseTumour.ashx'
+      this.$post(url).then((data) => {
+        if (data.rspcode !== 1) {
+          return
+        }
+        const param = this.param
+        Object.keys(param).forEach((key) => {
+          param[`${key}`] = data[`${key}`]
+        })
+
+        // 遍历数据
+        let rowData = this.$data[`attribute_value_03_item`]
+        if (rowData) {
+          // 多选框 未选中0  选中1
+          if (rowData.checklist) {
+            rowData.option.forEach((item) => {
+              if (data[`attribute_value_${item.id}`] == '1') {
+                rowData.value.push(item.value)
+              }
             })
           }
         }
@@ -634,89 +753,35 @@
         for (let key in formData) {
           let rowData = formData[key]
           if (rowData) {
-            // 多选框	  未选中0  选中1
+          // 多选框未选中0  选中1
             if (rowData.checklist) {
               rowData.option.forEach((item) => {
-                let checklistVal = 0
-                if (rowData.value.indexOf(item.value) != -1) {
-                  checklistVal = 1
+                if (data[`attribute_value_${item.id}`] == '1') {
+                  rowData.value.push(item.value)
                 }
-                param[item.value] = checklistVal
               })
             } else {
-              param[key] = rowData.value
+              rowData.value = data[key]
             }
           }
         }
-
-        this.$post(url, param).then((data) => {
-          if (data.rspcode != 1) {
-            return
-          }
-          this.$Toast('保存成功')
-          this.$router.push(`/message2`)
-        })
-      },
-
-      // 临床诊断
-      diseaseType (type) {
-        let zhengzhuangList = []
-        // 肿瘤
-        if (type == '01') {
-          zhengzhuangList = [
-            '肺癌_03', '胃癌_04', '肝癌_05', '乳腺癌_06', '食管癌_07', '子宫癌颈癌_08',
-            '白血病_09', '膀胱癌_10', '胰腺癌_11', '前列腺癌_12', '卵巢癌_13', '鼻咽癌_14',
-            '结/直肠癌_15', '子宫内膜癌_16', '恶性淋巴瘤_17', '脑恶性肿瘤_18', '胃间质瘤_19', '胆道恶性肿瘤_20', '其他_21'
-          ]
-        }
-        // 慢病
-        if (type == '02') {
-          zhengzhuangList = [
-            '贫血_03', '疼痛_04', '脱发_05', '食欲下降_06', '吞吐困难_07', '消化不良_08',
-            '恶心、呕吐_09', '腹胀_10', '水肿_11', '腹泻_12', '便秘_13', '疲劳_14',
-            '失眠_15', '白细胞减少_16'
-          ]
-        }
-        this.attribute_value_03_item.option = []
-        zhengzhuangList.forEach((item) => {
-          const value = item.split('_')
-          let obj = {
-            label: value[0],
-            value: value[0],
-            id: value[1]
-          }
-          this.attribute_value_03_item.option.push(obj)
-        })
-      },
-
-      // 打开日期插件
-      openTimePicker (timeField) {
-        this.closeTouch()
-        this.$refs.DatetimePicker.timeField = timeField
-        this.$refs.DatetimePicker.open()
-      },
-      confirmDatetime (value) {
-        this.openTouch()
-        let {
-          timeField
-        } = this.$refs.DatetimePicker
-        timeField = timeField.split('.')
-        this.$data[timeField[0]][timeField[1]] = getTime(new Date(value))
-      },
-      delqxDate () {
-        this.openTouch()
-      }
-    },
-    created: function () {
-      this.diseaseType('01')
-    },
-    components: {
-      cityPicker: () => import(/* webpackChunkName: "cityData2" */ './../../common/cityPicker2.vue')
-    },
-    mounted () {
-      this.openTouch()
+      })
     }
+  },
+  created: function () {
+    this.diseaseType('01')
+    // 回显表单数据
+    if (this.$route.query.type === 'look') {
+      this.getDetail()
+    }
+  },
+  components: {
+    cityPicker: () => import(/* webpackChunkName: "cityData2" */ './../../common/cityPicker2.vue')
+  },
+  mounted () {
+    this.openTouch()
   }
+}
 </script>
 
 <style scoped lang="scss">

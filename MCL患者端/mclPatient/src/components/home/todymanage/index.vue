@@ -11,86 +11,86 @@
 			<div class="bj_inform">
 				<img :src="picurl" />
 				<span>{{uname}}</span>
-				<p>健康档案</p>
+				<p @click="$router.push('/wellcome_personInfo?type=look')">完善资料</p>
 			</div>
 			<div class="tody_ul">
 				<div class="tody_list">
-					<router-link to="/diet">
+					<router-link :to="{path: messageInfo.blscFlag==0||messageInfo.IsMember==0 ? `/buyfood/饮食` : `/diet`}">
 						<p @click="ishow(1)">
 							<img src="@/assets/images/yinshis.png" />
 							<span>饮食</span>
 						</p>
 					</router-link>
-					<router-link to="/diet">
+					<!-- <router-link to="/diet">
 						<div class="eat_ka" v-show="foods">
 							<label>还可吃2000千卡</label>
 						</div>
-					</router-link>
+					</router-link> -->
 				</div>
 				<div class="tody_list">
-					<router-link to="/weight">
+					<router-link :to="{path: `/weight`}">
 						<p @click="ishow(2)">
 							<img src="@/assets/images/tizhong@2x.png" />
 							<span>体重</span>
 						</p>
 					</router-link>
-					<router-link to="/weight">
+					<!-- <router-link to="/weight">
 						<div class="eat_ka" v-show="weigt">
 							<label>最新体重<i>60</i>公斤</label>
 						</div>
-					</router-link>
+					</router-link> -->
 				</div>
 				<div class="tody_list">
-					<router-link to="/sport">
+					<router-link :to="{path: messageInfo.ydlbFlag==0||messageInfo.IsMember==0 ? `/buyfood/运动` : `/sport`}">
 						<p @click="ishow(3)">
 							<img src="@/assets/images/yundong@2x.png" />
 							<span>运动</span>
 						</p>
 					</router-link>
-					<router-link to="/sport">
+					<!-- <router-link to="/sport">
 						<div class="eat_ka" v-show="sport">
 							<label> </label>
 						</div>
-					</router-link>
+					</router-link> -->
 				</div>
 				<div class="tody_list">
-					<router-link to="/nutrition">
+					<router-link :to="{path: messageInfo.yylbFlag==0||messageInfo.IsMember==0 ? `/buyfood/营养` : `/nutrition`}">
 						<p @click="ishow(4)">
 							<img src="@/assets/images/yingyang@2x.png" />
 							<span>营养</span>
 						</p>
 					</router-link>
-					<router-link to="/nutrition">
+					<!-- <router-link to="/nutrition">
 						<div class="eat_ka" v-show="eatp">
 							<label>最新体重<i>60</i>公斤</label>
 						</div>
-					</router-link>
+					</router-link> -->
 				</div>
 				<div class="tody_list">
-					<router-link to="/mood">
+					<router-link :to="{path: messageInfo.xqglFlag==0||messageInfo.IsMember==0 ? `/welcomexqgl` : `/mood`}">
 						<p @click="ishow(5)">
 							<img src="@/assets/images/xinqing@2x.png" />
 							<span>心情</span>
 						</p>
 					</router-link>
-					<router-link to="/mood">
+					<!-- <router-link to="/mood">
 						<div class="eat_ka" v-show="lauthy">
 							<label> </label>
 						</div>
-					</router-link>
+					</router-link> -->
 				</div>
 				<div class="tody_list">
-					<router-link to="/symptom">
+					<router-link :to="{path: messageInfo.zzglFlag==0||messageInfo.IsMember==0 ? `/welcomezz` : `/symptom`}">
 						<p @click="ishow(6)">
 							<img src="@/assets/images/zhengzhuang@2x.png" />
 							<span>症状</span>
 						</p>
 					</router-link>
-					<router-link to="/symptom">
+					<!-- <router-link to="/symptom">
 						<div class="eat_ka"  v-show="tbgt">
 							<label> </label>
 						</div>
-					</router-link>
+					</router-link> -->
 				</div>
 				<div class="tody_list">
 					<router-link to="/gauge_life">
@@ -99,11 +99,11 @@
 							<span>生活状况</span>
 						</p>
 					</router-link>
-					<router-link to="/gauge_life">
+					<!-- <router-link to="/gauge_life">
 						<div class="eat_ka" v-show="noezk">
 							<label> </label>
 						</div>
-					</router-link>
+					</router-link> -->
 				</div>
 				<div class="tody_list">
 					<router-link to="/physician">
@@ -112,11 +112,11 @@
 							<span>检查报告</span>
 						</p>
 					</router-link>
-					<router-link to="/physician">
+					<!-- <router-link to="/physician">
 						<div class="eat_ka" v-show="jianceye">
 							<label> </label>
 						</div>
-					</router-link>
+					</router-link> -->
 				</div>
 				<div class="tody_list">
 					<router-link to="/gauge_PG_SGA">
@@ -125,9 +125,9 @@
 							<span>筛查评估</span>
 						</p>
 					</router-link>
-					<div class="eat_ka" v-show="scbgd">
+					<!-- <div class="eat_ka" v-show="scbgd">
 						<label> </label>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
@@ -135,65 +135,78 @@
 </template>
 
 <script>
-	export default {
-		name: "index",
-		data: () => ({
-			picurl:'',
-			uname:'',
-			foods:false,
-			weigt:false,
-			sport:false,
-			eatp:false,
-			lauthy:false,
-			tbgt:false,
-			noezk:false,
-			jianceye:false,
-			scbgd:false,
-		}),
-		methods:{
-			ishow(nums){
-				// if(nums==1){
-				// 	this.foods=!this.foods;
-				// }
-				// if(nums==2){
-				// 	this.weigt=!this.weigt;
-				// }
-				// if(nums==3){
-				// 	this.sport=!this.sport;
-				// }
-				// if(nums==4){
-				// 	this.eatp=!this.eatp;
-				// }
-				// if(nums==5){
-				// 	this.lauthy=!this.lauthy;
-				// }
-				// if(nums==6){
-				// 	this.tbgt=!this.tbgt;
-				// }
-				// if(nums==7){
-				// 	this.noezk=!this.noezk;
-				// }
-				// if(nums==8){
-				// 	this.jianceye=!this.jianceye;
-				// }
-				// if(nums==9){
-				// 	this.scbgd=!this.scbgd;
-				// }
-			},
-			getinform(){
-				let url="UserInterface/GetUserShowInfo.ashx";
-				this.$post(url).then((data)=>{
-					if(data.rspcode == 1){
-						this.picurl=data.data.ImgUrl;
-						this.uname=data.data.Nickname;
-					}
-				})
-			}
-		},
-		mounted(){
-			this.getinform();
-		}
-	}
+export default {
+  name: 'index',
+  data: () => ({
+    picurl: '',
+    uname: '',
+    isLoad: false,
+    messageInfo: {}
+    // foods: false,
+    // weigt: false,
+    // sport: false,
+    // eatp: false,
+    // lauthy: false,
+    // tbgt: false,
+    // noezk: false,
+    // jianceye: false,
+    // scbgd: false
+  }),
+  methods: {
+    ishow (nums) {
+      // if(nums==1){
+      // 	this.foods=!this.foods;
+      // }
+      // if(nums==2){
+      // 	this.weigt=!this.weigt;
+      // }
+      // if(nums==3){
+      // 	this.sport=!this.sport;
+      // }
+      // if(nums==4){
+      // 	this.eatp=!this.eatp;
+      // }
+      // if(nums==5){
+      // 	this.lauthy=!this.lauthy;
+      // }
+      // if(nums==6){
+      // 	this.tbgt=!this.tbgt;
+      // }
+      // if(nums==7){
+      // 	this.noezk=!this.noezk;
+      // }
+      // if(nums==8){
+      // 	this.jianceye=!this.jianceye;
+      // }
+      // if(nums==9){
+      // 	this.scbgd=!this.scbgd;
+      // }
+    },
+    getinform () {
+      let url = 'UserInterface/GetUserShowInfo.ashx'
+      this.$post(url).then((data) => {
+        if (data.rspcode == 1) {
+          this.picurl = data.data.ImgUrl
+          this.uname = data.data.Nickname
+        }
+      })
+    },
+    getMsgInfo () {
+      let url = 'UserInterface/PatientHomePageEssentialInfo.ashx'
+      this.$post(url).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.messageInfo = data
+        this.isLoad = true
+      })
+    }
+  },
+  created () {
+    this.getinform()
+    this.getMsgInfo()
+  }
+}
 </script>
 
 <style scoped lang="scss">

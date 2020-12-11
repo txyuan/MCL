@@ -77,6 +77,7 @@ const chartDetail = () => import(/* webpackChunkName: "chartDetail" */ '@/compon
 const publish = () => import(/* webpackChunkName: "publish" */ '@/components/community/publish.vue')  //社区 发布动态
 const activetyDetail = () => import(/* webpackChunkName: "activetyDetail" */ '@/components/community/activetyDetail.vue')  //社区 活动详情
 const activetyEnroll = () => import(/* webpackChunkName: "activetyEnroll" */ '@/components/community/activetyEnroll.vue')  //社区 活动报名
+const caseDetail = () => import(/* webpackChunkName: "caseDetail" */ '@/components/community/caseDetail.vue')  //案例详情
 
 //消息
 const mesage = () => import(/* webpackChunkName: "mesage" */ '@/components/mesage/index/index.vue')  //消息
@@ -323,7 +324,7 @@ const router = new Router({
     { path:"/publish", name:"publish", component: publish },  //发布动态  
     { path:"/activetyDetail", name:"activetyDetail", component: activetyDetail },  //活动详情  
     { path:"/activetyEnroll", name:"activetyEnroll", component: activetyEnroll },  //活动报名
-    
+    { path:"/caseDetail", name:"caseDetail", component: caseDetail },  //案例详情 
     
     
     //医生

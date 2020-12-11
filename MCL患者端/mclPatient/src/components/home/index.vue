@@ -54,7 +54,6 @@
         </router-link> -->
       </div>
 
-
       <!-- 我的医生 -->
       <router-link tag="div" to="/wx_Entrance/mesage" class="home-cell " v-if="doctorName">
         <div class="myDocter">
@@ -213,350 +212,355 @@
 </template>
 
 <script>
-  import carousel from './carousel.vue'
-  import classified from './classified/classifiedRow.vue'
-  import axios from 'axios'
+import carousel from './carousel.vue'
+import classified from './classified/classifiedRow.vue'
+import axios from 'axios'
 
-  export default {
-    name: 'home',
-    data: () => ({
-      messageNumber: 0, //未读消息的数量
-      doctorName: false, //是否有主治医生
-      isShowCode: false,
-      UserKey: '',
-      SessionId: '',
-      messageInfo: {
-        Time: '',
-        PatientName: '',
-        PatientImg: '',
-        ManageDay: '',
-        DoctorName: '',
-        DoctorPicUrl: '',
-        Position: '',
-        HospitalName: '',
-        Department: '',
-        BeGoodAt: '',
-        RemindCount: 10,
-        managepackage: 0
-      },
-      newWeight: '', //体重记录
-      expertColumn: [],
-      problem: [],
-      todynews: [],  //今日提醒
-      // //疾病类型
-      // diseasePanel: false,
-      // diseaseType: [{
-      // 		name: "肺癌",
-      // 		select: false,
-      // 		key: "attribute_value_03"
-      // 	}, {
-      // 		name: "胃癌",
-      // 		select: false,
-      // 		key: "attribute_value_04"
-      // 	}, {
-      // 		name: "肝癌",
-      // 		select: false,
-      // 		key: "attribute_value_05"
-      // 	},
-      // 	{
-      // 		name: "乳腺癌",
-      // 		select: false,
-      // 		key: "attribute_value_06"
-      // 	}, {
-      // 		name: "食管癌",
-      // 		select: false,
-      // 		key: "attribute_value_07"
-      // 	}, {
-      // 		name: "胰腺癌",
-      // 		select: false,
-      // 		key: "attribute_value_08"
-      // 	},
-      // 	{
-      // 		name: "白血病",
-      // 		select: false,
-      // 		key: "attribute_value_09"
-      // 	}, {
-      // 		name: "膀胱癌",
-      // 		select: false,
-      // 		key: "attribute_value_10"
-      // 	}, {
-      // 		name: "卵巢癌",
-      // 		select: false,
-      // 		key: "attribute_value_11"
-      // 	},
-      // 	{
-      // 		name: "鼻咽癌",
-      // 		select: false,
-      // 		key: "attribute_value_12"
-      // 	}, {
-      // 		name: "前列腺癌",
-      // 		select: false,
-      // 		key: "attribute_value_13"
-      // 	}, {
-      // 		name: "恶性淋巴瘤",
-      // 		select: false,
-      // 		key: "attribute_value_14"
-      // 	},
-      // 	{
-      // 		name: "结/直肠癌",
-      // 		select: false,
-      // 		key: "attribute_value_15"
-      // 	}, {
-      // 		name: "子宫内膜癌",
-      // 		select: false,
-      // 		key: "attribute_value_16"
-      // 	}, {
-      // 		name: "子宫癌颈癌",
-      // 		select: false,
-      // 		key: "attribute_value_17"
-      // 	},
-      // 	{
-      // 		name: "胃间质瘤",
-      // 		select: false,
-      // 		key: "attribute_value_18"
-      // 	}, {
-      // 		name: "脑恶性肿瘤",
-      // 		select: false,
-      // 		key: "attribute_value_19"
-      // 	}, {
-      // 		name: "胆道恶性肿瘤",
-      // 		select: false,
-      // 		key: "attribute_value_20"
-      // 	},
-      // ],
-      // diseaseParam: {
-      // 	attribute_value_01: "", //（体重），
-      // 	attribute_value_02: "" //（身高）
-      // }
+export default {
+  name: 'home',
+  data: () => ({
+    messageNumber: 0, // 未读消息的数量
+    doctorName: false, // 是否有主治医生
+    isShowCode: false,
+    UserKey: '',
+    SessionId: '',
+    messageInfo: {
+      Time: '',
+      PatientName: '',
+      PatientImg: '',
+      ManageDay: '',
+      DoctorName: '',
+      DoctorPicUrl: '',
+      Position: '',
+      HospitalName: '',
+      Department: '',
+      BeGoodAt: '',
+      RemindCount: 10,
+      managepackage: 0
+    },
+    newWeight: '', // 体重记录
+    expertColumn: [],
+    problem: [],
+    todynews: [] // 今日提醒
+    // //疾病类型
+    // diseasePanel: false,
+    // diseaseType: [{
+    // 		name: "肺癌",
+    // 		select: false,
+    // 		key: "attribute_value_03"
+    // 	}, {
+    // 		name: "胃癌",
+    // 		select: false,
+    // 		key: "attribute_value_04"
+    // 	}, {
+    // 		name: "肝癌",
+    // 		select: false,
+    // 		key: "attribute_value_05"
+    // 	},
+    // 	{
+    // 		name: "乳腺癌",
+    // 		select: false,
+    // 		key: "attribute_value_06"
+    // 	}, {
+    // 		name: "食管癌",
+    // 		select: false,
+    // 		key: "attribute_value_07"
+    // 	}, {
+    // 		name: "胰腺癌",
+    // 		select: false,
+    // 		key: "attribute_value_08"
+    // 	},
+    // 	{
+    // 		name: "白血病",
+    // 		select: false,
+    // 		key: "attribute_value_09"
+    // 	}, {
+    // 		name: "膀胱癌",
+    // 		select: false,
+    // 		key: "attribute_value_10"
+    // 	}, {
+    // 		name: "卵巢癌",
+    // 		select: false,
+    // 		key: "attribute_value_11"
+    // 	},
+    // 	{
+    // 		name: "鼻咽癌",
+    // 		select: false,
+    // 		key: "attribute_value_12"
+    // 	}, {
+    // 		name: "前列腺癌",
+    // 		select: false,
+    // 		key: "attribute_value_13"
+    // 	}, {
+    // 		name: "恶性淋巴瘤",
+    // 		select: false,
+    // 		key: "attribute_value_14"
+    // 	},
+    // 	{
+    // 		name: "结/直肠癌",
+    // 		select: false,
+    // 		key: "attribute_value_15"
+    // 	}, {
+    // 		name: "子宫内膜癌",
+    // 		select: false,
+    // 		key: "attribute_value_16"
+    // 	}, {
+    // 		name: "子宫癌颈癌",
+    // 		select: false,
+    // 		key: "attribute_value_17"
+    // 	},
+    // 	{
+    // 		name: "胃间质瘤",
+    // 		select: false,
+    // 		key: "attribute_value_18"
+    // 	}, {
+    // 		name: "脑恶性肿瘤",
+    // 		select: false,
+    // 		key: "attribute_value_19"
+    // 	}, {
+    // 		name: "胆道恶性肿瘤",
+    // 		select: false,
+    // 		key: "attribute_value_20"
+    // 	},
+    // ],
+    // diseaseParam: {
+    // 	attribute_value_01: "", //（体重），
+    // 	attribute_value_02: "" //（身高）
+    // }
 
-    }),
-    methods: {
-      messmore () {
-        this.$router.push('/homemessage')
-      },
-      enteclick () {
-        this.$router.push('/searchIllness')
-      },
-      // 今日提醒跳转
-      cklcl (item) {
-        if (item.mtypevalue == 1) {
-          console.log(item)
-          this.$router.push('/uploadPhoto?skey=' + item.skey + '&mealtype=' + item.mealname)
-        } else if (item.mtypevalue == 2) {
-          this.$router.push('/nutritionUploadPhoto?skey=' + item.skey + '&mealtype=' + item.mealname)
-        } else if (item.mtypevalue == 3) {
-          this.$router.push('/sport?skey=' + item.skey)
-        } else if (item.mtypevalue == 4) {
-          this.$router.push('/mood?skey=' + item.skey)
-        } else if (item.mtypevalue == 5) {
-
-        } else if (item.mtypevalue == 6) {
-          this.$router.push('/weight?skey=' + item.skey)
-        } else if (item.mtypevalue == 7) {
-          this.$router.push('/yearCard?skey=' + item.skey)
-        } else if (item.mtypevalue == 8) {
-          this.$router.push('/wx_Entrance/service?skey=' + item.skey)
-        }
-      },
-      // 点击加入会员
-      clickvip () {
-        this.$router.push('/yearCard')
-      },
-      searchChange (val) {
-        let $router = this.$router
-        $router.push('/searchproduct')
-      },
-      // 基本信息
-      getMsgInfo () {
-        let url = 'UserInterface/PatientHomePageEssentialInfo.ashx'
-        this.$post(url).then((data) => {
-          if (data.rspcode != 1) {
-            return
-          }
-          this.messageInfo = data
-          if ((data.DoctorName == '') || (data.DoctorName == null)) {
-            this.doctorName = false
-          } else {
-            this.doctorName = true
-          }
-        })
-      },
-      // 今日提醒
-      remindToday () {
-        let url = 'UserInterface/PatientHomePageRemindToday3.ashx'
-        let param = {
-          functiontype: '',
-          pagesize: 20,
-          pagecount: 1
-        }
-        this.$post(url, param).then((data) => {
-          if (data.rspcode != 1) {
-            return
-          }
-          this.todynews = data.remindtoday
-        })
-      },
-      // 体重记录
-      wightRecord () {
-        let url = 'UserInterface/PatientHomePageWeightRecord.ashx'
-        this.$post(url).then((data) => {
-          if (data.rspcode != 1) {
-            return
-          }
-          this.newWeight = data.NewWeight
-        })
-      },
-      // 专家栏
-      expert () {
-        let url = 'UserInterface/PatientHomePageExpert.ashx'
-        this.$post(url).then((data) => {
-          if (data.rspcode != 1) {
-            return
-          }
-          this.expertColumn = data.data
-        })
-      },
-      // 常见问题
-      problems () {
-        let url = 'UserInterface/PatientHomePageProblem.ashx'
-        this.$post(url).then((data) => {
-          if (data.rspcode != 1) {
-            return
-          }
-          this.problem = data.data
-        })
-      },
-      //疾病类型
-      tabLabel (item) {
-        item.select = !item.select
-      },
-      //获取客服的token
-      getToken: function () {
-        const {org_name, app_name, client_id, client_secret} = this.$root
-        let url = `http://a1.easemob.com/${org_name}/${app_name}/token`
-        let param = {
-          'grant_type': 'client_credentials',
-          client_id,
-          client_secret
-        }
-        const http = axios.create({
-          headers: {'Content-Type': 'application/json;charset=UTF-8'}
-        })
-        http.post(url, param).then(response => {
-          this.$root.token = response.data.access_token
-          this.information().then((data) => {
-            var phone = data.data.ContactPhone
-            //获取未读消息条数
-            this.getMessage(phone)
-          })
-
-        })
-      },
-      //获取客服的未读消息数
-      getMessage: function (owner_username) {
-        const {org_name, app_name, token} = this.$root
-        let url = `http://a1.easemob.com/${org_name}/${app_name}/users/${owner_username}/offline_msg_count`
-        const http = axios.create({
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-            'Authorization': `Bearer ${token}`
-          }
-        })
-        http.get(url).then(response => {
-          const data = response.data.data
-          var i = 0
-          for (let key in data) {
-            if (i == 0) {
-              this.messageNumber = data[key]
-            }
-            i += 1
-          }
-        })
-      },
-      //获取账号
-      information () {
-        let url = 'UserInterface/GetUserShowInfo.ashx'
-        return this.$post(url)
-      },
-      //疾病类型状态
-      // getDiseaseStatus() {
-      // 	let url = "/UserInterface/GetDiseaseShowStatus.ashx";
-      // 	this.$post(url).then((data) => {
-      // 		if (data.rspcode != 1) {
-      // 			return;
-      // 		}
-      // 		// 0 不显示  1显示
-      // 		if (data.need == 1) {
-      // 			this.diseasePanel = true;
-      // 		}
-      // 	})
-      // },
-      //疾病类型提交
-      // diseaseSubmit() {
-      // 	let url = "UserInterface/AddConditionDiseaseTumour.ashx";
-      // 	let param = this.diseaseParam;
-      // 	let isTypeEmpty = 0; // 判断疾病类型是否为空
-      // 	this.diseaseType.forEach((item) => {
-      // 		let state = 0;
-      // 		if (item.select) {
-      // 			state = 1;
-      // 			isTypeEmpty = 1;
-      // 		}
-      // 		param[`${item.key}`] = state
-      // 	})
-      // 	if (isTypeEmpty == 0) {
-      // 		this.$Toast('请选择疾病类型');
-      // 		return
-      // 	}
-      // 	if (param.attribute_value_02 == "") {
-      // 		this.$Toast('请输入身高');
-      // 		return
-      // 	}
-      // 	if (param.attribute_value_01 == "") {
-      // 		this.$Toast('请输入体重');
-      // 		return
-      // 	}
-      // 	this.$post(url, param).then((data) => {
-      // 		if (data.rspcode != 1) {
-      // 			return;
-      // 		}
-      // 		this.$Toast('保存成功');
-      // 		this.diseasePanel = false;
-      // 	})
-      // }
-    },
-    beforeRouteLeave (to, from, next) {
-      // 导航离开该组件的对应路由时调用
-      let keepAlive = (to.name == 'classdetail') ? true : false
-      this.$route.meta.keepAlive = keepAlive
-      next()
-    },
-    mounted () {
-      this.getMsgInfo()
-      this.wightRecord()
-      this.expert()
-      this.problems()
-      this.remindToday()
-      //this.getDiseaseStatus(); //疾病类型状态
-    },
-    components: {
-      carousel,
-      classified
-    },
-    created () {
-      if (localStorage.userInfo) {
-        this.UserKey = JSON.parse(localStorage.userInfo).UserKey
-        this.SessionId = JSON.parse(localStorage.userInfo).SessionId
+  }),
+  methods: {
+    messmore () {
+      if (this.messageInfo.IsMember == 0) {
+        this.$router.push('/buyfood/饮食')
       } else {
-        this.$router.push('/login')
+        this.$router.push('/homemessage')
       }
-      // this.information();
-      //获取token
-      this.getToken()
+    },
+    enteclick () {
+      this.$router.push('/searchIllness')
+    },
+    // 今日提醒跳转
+    cklcl (item) {
+      if (this.messageInfo.IsMember == 0) {
+        this.$router.push('/buyfood/饮食')
+        return
+      }
+      if (item.mtypevalue == 1) {
+        this.$router.push('/uploadPhoto?skey=' + item.skey + '&mealtype=' + item.mealname)
+      } else if (item.mtypevalue == 2) {
+        this.$router.push('/nutritionUploadPhoto?skey=' + item.skey + '&mealtype=' + item.mealname)
+      } else if (item.mtypevalue == 3) {
+        this.$router.push('/sport?skey=' + item.skey)
+      } else if (item.mtypevalue == 4) {
+        this.$router.push('/mood?skey=' + item.skey)
+      } else if (item.mtypevalue == 5) {
 
+      } else if (item.mtypevalue == 6) {
+        this.$router.push('/weight?skey=' + item.skey)
+      } else if (item.mtypevalue == 7) {
+        this.$router.push('/yearCard?skey=' + item.skey)
+      } else if (item.mtypevalue == 8) {
+        this.$router.push('/wx_Entrance/service?skey=' + item.skey)
+      }
+    },
+    // 点击加入会员
+    clickvip () {
+      this.$router.push('/yearCard')
+    },
+    searchChange (val) {
+      let $router = this.$router
+      $router.push('/searchproduct')
+    },
+    // 基本信息
+    getMsgInfo () {
+      let url = 'UserInterface/PatientHomePageEssentialInfo.ashx'
+      this.$post(url).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.messageInfo = data
+        if ((data.DoctorName == '') || (data.DoctorName == null)) {
+          this.doctorName = false
+        } else {
+          this.doctorName = true
+        }
+      })
+    },
+    // 今日提醒
+    remindToday () {
+      let url = 'UserInterface/PatientHomePageRemindToday3.ashx'
+      let param = {
+        functiontype: '',
+        pagesize: 20,
+        pagecount: 1
+      }
+      this.$post(url, param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.todynews = data.remindtoday
+      })
+    },
+    // 体重记录
+    wightRecord () {
+      let url = 'UserInterface/PatientHomePageWeightRecord.ashx'
+      this.$post(url).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.newWeight = data.NewWeight
+      })
+    },
+    // 专家栏
+    expert () {
+      let url = 'UserInterface/PatientHomePageExpert.ashx'
+      this.$post(url).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.expertColumn = data.data
+      })
+    },
+    // 常见问题
+    problems () {
+      let url = 'UserInterface/PatientHomePageProblem.ashx'
+      this.$post(url).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.problem = data.data
+      })
+    },
+    // 疾病类型
+    tabLabel (item) {
+      item.select = !item.select
+    },
+    // 获取客服的token
+    getToken: function () {
+      const {org_name, app_name, client_id, client_secret} = this.$root
+      let url = `http://a1.easemob.com/${org_name}/${app_name}/token`
+      let param = {
+        'grant_type': 'client_credentials',
+        client_id,
+        client_secret
+      }
+      const http = axios.create({
+        headers: {'Content-Type': 'application/json;charset=UTF-8'}
+      })
+      http.post(url, param).then(response => {
+        this.$root.token = response.data.access_token
+        this.information().then((data) => {
+          var phone = data.data.ContactPhone
+          // 获取未读消息条数
+          this.getMessage(phone)
+        })
+      })
+    },
+    // 获取客服的未读消息数
+    getMessage: function (owner_username) {
+      const {org_name, app_name, token} = this.$root
+      let url = `http://a1.easemob.com/${org_name}/${app_name}/users/${owner_username}/offline_msg_count`
+      const http = axios.create({
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      http.get(url).then(response => {
+        const data = response.data.data
+        var i = 0
+        for (let key in data) {
+          if (i == 0) {
+            this.messageNumber = data[key]
+          }
+          i += 1
+        }
+      })
+    },
+    // 获取账号
+    information () {
+      let url = 'UserInterface/GetUserShowInfo.ashx'
+      return this.$post(url)
     }
-
+    // 疾病类型状态
+    // getDiseaseStatus() {
+    // 	let url = "/UserInterface/GetDiseaseShowStatus.ashx";
+    // 	this.$post(url).then((data) => {
+    // 		if (data.rspcode != 1) {
+    // 			return;
+    // 		}
+    // 		// 0 不显示  1显示
+    // 		if (data.need == 1) {
+    // 			this.diseasePanel = true;
+    // 		}
+    // 	})
+    // },
+    // 疾病类型提交
+    // diseaseSubmit() {
+    // 	let url = "UserInterface/AddConditionDiseaseTumour.ashx";
+    // 	let param = this.diseaseParam;
+    // 	let isTypeEmpty = 0; // 判断疾病类型是否为空
+    // 	this.diseaseType.forEach((item) => {
+    // 		let state = 0;
+    // 		if (item.select) {
+    // 			state = 1;
+    // 			isTypeEmpty = 1;
+    // 		}
+    // 		param[`${item.key}`] = state
+    // 	})
+    // 	if (isTypeEmpty == 0) {
+    // 		this.$Toast('请选择疾病类型');
+    // 		return
+    // 	}
+    // 	if (param.attribute_value_02 == "") {
+    // 		this.$Toast('请输入身高');
+    // 		return
+    // 	}
+    // 	if (param.attribute_value_01 == "") {
+    // 		this.$Toast('请输入体重');
+    // 		return
+    // 	}
+    // 	this.$post(url, param).then((data) => {
+    // 		if (data.rspcode != 1) {
+    // 			return;
+    // 		}
+    // 		this.$Toast('保存成功');
+    // 		this.diseasePanel = false;
+    // 	})
+    // }
+  },
+  beforeRouteLeave (to, from, next) {
+    // 导航离开该组件的对应路由时调用
+    let keepAlive = (to.name == 'classdetail')
+    this.$route.meta.keepAlive = keepAlive
+    next()
+  },
+  mounted () {
+    this.getMsgInfo()
+    this.wightRecord()
+    this.expert()
+    this.problems()
+    this.remindToday()
+    // this.getDiseaseStatus(); //疾病类型状态
+  },
+  components: {
+    carousel,
+    classified
+  },
+  created () {
+    if (localStorage.userInfo) {
+      this.UserKey = JSON.parse(localStorage.userInfo).UserKey
+      this.SessionId = JSON.parse(localStorage.userInfo).SessionId
+    } else {
+      this.$router.push('/login')
+    }
+    // this.information();
+    // 获取token
+    this.getToken()
   }
+
+}
 </script>
 
 <style scoped lang="scss">
@@ -1020,7 +1024,6 @@
         }
       }
     }
-
 
     .nameInfo,
     .adr {
