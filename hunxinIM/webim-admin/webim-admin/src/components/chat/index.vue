@@ -3,11 +3,12 @@
     <a-menu style="width: 100%; border-right: 0;" mode="vertical" :selectedKeys="selectedKeys">
       <a-menu-item
         style="height: 80px; position: relative; textAlign: left; borderBottom: 1px solid #eee; margin: 0"
-        v-for="(item) in userList[type]"
+        v-for="(item) in friendList"
         :key="getKey(item)"
         @click="select2(item, getKey(item))"
       >
-        <span class="custom-title">{{ item.name}} {{$root.getUserNameByPhone(String(item.name))}}</span>
+      <!-- v-for="(item) in userList[type]" -->
+        <span class="custom-title">{{ item.name}} {{item.username}}</span>
         <div class="icon-style" v-if="getUnreadNum(item) != 0">
           <span class="unreadNum">{{getUnreadNum(item)}}</span>
         </div>
@@ -15,6 +16,7 @@
         <div>{{getLastMsg(item).lastMsg}}</div>
       </a-menu-item>
     </a-menu>
+    <div v-if="friendList.length == 0" style="margin-top: 15px;">没有好友信息</div>
   </div>
 </template>
 
@@ -31,6 +33,7 @@ import GetGroupInfo from "../group/groupInfo.vue";
 export default {
   data() {
     return {
+      friendList: [], // 好友列表
       activedKey: {
         contact: "",
         group: "",
@@ -96,7 +99,7 @@ export default {
           if (item && !this.blackList.includes(item.name)) {
             return item;
           }
-        }),
+        }), 
         group: this.group,
         chatroom: this.chatroom
       };
@@ -114,8 +117,20 @@ export default {
   props: [
     "type", // 聊天类型 contact, group, chatroom
     "username", // 选中的聊天对象
-    "select"
+    "select",
+    "filterKeyword"
   ],
+  watch:{
+    'userList.contact': function (value) {
+      value.forEach((item) => {
+        this.$set(item, 'username', this.$root.getUserNameByPhone(String(item.name)))
+      })
+      this.friendList = value
+    },
+    filterKeyword: function(value){
+      this.friendList = this.userList.contact.filter((item) => (item.name.indexOf(value) != -1) || (item.username.indexOf(value) != -1) )
+    }
+  },
   methods: {
     ...mapActions([
       "onGetContactUserList",
@@ -376,9 +391,10 @@ export default {
 
 <style scoped lang='less'>
 .userlist {
-  height: 100%;
+  height: calc(100% - 70px);
   overflow-y: scroll;
   border-right: 1px solid #e8e8e8;
+  border-top: 1px solid #e8e8e8;
 }
 .byself {
   float: right;
