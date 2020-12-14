@@ -214,7 +214,7 @@
       <div class="title2 bg-white" style="margin: 0px; padding-top: 0px; padding-bottom: 0px; min-height: 48px; line-height: 48px;">腹水（检查有无移动性浊音、振水音、腹围是否增大）：</div>
       <mt-radio :options="attribute_value_70.option" v-model="attribute_value_70.value"></mt-radio>-->
       </div>
-      <div class="fix_bottom fix_bottom_area">
+      <div class="fix_bottom">
         <mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit">下一步</mt-button>
       </div>
     </div>
@@ -938,15 +938,11 @@
       margin: 0.1rem auto;
     }
   }
-  span{
-
-    line-height: 1.5;
-  }
   .formImg {
     width: 100%;
     display: block;
   }
-  .fix_bottom_area {
+  .fix_bottom {
     padding: 0;
     .theme-button{
       border-radius: 0;

@@ -103,6 +103,7 @@
 				v-model="sportVisible"
 				position="bottom">
 				<mt-picker
+          class="sportPickerYs"
 					:slots="sportSlot"
 					:showToolbar="true"
 					:visibleItemCount="3"
@@ -307,30 +308,19 @@
 	}
 </script>
 <style>
-	.sportPicker .picker-slot{
-		font-size: 14px;
-	}
-	a.mint-cell.sportEvaluation-wrap .mint-cell-text{
-		font-size: 14px;
-	}
-	.sportEvaluation{
-		width: 200px;
-		text-align: right;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-		overflow: hidden;
-		font-size: 14px;
-	}
+  /*.sportPicker .picker-slot{*/
+  /*  font-size: 0.14rem;*/
+  /*}*/
 
-  .mint-msgbox-wrapper, .mint-msgbox, .mint-actionsheet, .mint-popup, .mint-popup-city, .mint-popup-bottom{
-    width: 78%;
+  .mint-msgbox-wrapper, .mint-msgbox, .mint-actionsheet, .mint-popup, .mint-popup-city, .mint-popup-bottom,.mint-msgbox-btns{
+    /*width: 78%;*/
 
     border-radius: 6px;
   }
   .mint-msgbox-confirm,.mint-msgbox-confirm:active
   {
-    background-color: #0AC5C9;
-    color: #FFFFFF;
+    background-color: #0AC5C9 !important;
+    color: #FFFFFF!important;
     font-size: 0.15rem;
     border-radius: 0 0 6px 6px;
   }
@@ -340,6 +330,25 @@
     padding: 0.1rem 0 0.05rem 0;
     letter-spacing: 1px;
   }
+  .mint-msgbox-content{
+    border: 0;
+  }
+ .mint-msgbox-btns{
+    height: 0.40rem;
+    line-height: 0.40rem;
+  }
+  /*a.mint-cell.sportEvaluation-wrap .mint-cell-text{*/
+  /*  font-size:  0.14rem;*/
+  /*}*/
+  .sportEvaluation{
+    width: 200px;
+    text-align: right;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 0.14rem;
+  }
+
 </style>
 <style scoped lang="scss">
   .mint-header{
@@ -350,30 +359,30 @@
   .padding-header {
     padding-top: 0.44rem;
   }
-	//picker 的样式
-	.mint-popup-bottom {
-		width: 100%;
-	}
-	.picker_bar{
-		display: flex;
-		justify-content: space-between;
-		text-align: center;
-		line-height: 40px;
-		padding: 0 20px;
-		border-bottom: solid 1px #eaeaea;
-		.confrim{
-			color: #26a2ff;
-		}
-	}
-	.neirong {
-		margin-top: 0.11rem;
-	}
+  //picker 的样式
+  .mint-popup-bottom {
+    width: 100%;
+  }
+  .picker_bar{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    line-height: 40px;
+    padding: 0 20px;
+    border-bottom: solid 1px #eaeaea;
+    .confrim{
+      color: #26a2ff;
+    }
+  }
+  .neirong {
+    margin-top: 0.11rem;
+  }
 
-	.home-cell {
-		&>.name {
-			line-height: 0.44rem;
-			padding: 0 0.12rem;
-			background: #FFFFFF;
+  .home-cell {
+    &>.name {
+      line-height: 0.44rem;
+      padding: 0 0.12rem;
+      background: #FFFFFF;
       border-bottom: 1px solid #e5e5e5;
       font-size: 0.155rem;
       i{
@@ -385,102 +394,102 @@
         margin-right: 0.075rem;
         vertical-align: middle;
       }
-		}
+    }
 
-		.more {
-			float: right;
-			color: #958F8F;
-			font-size: 0.12rem;
-		}
-	}
+    .more {
+      float: right;
+      color: #958F8F;
+      font-size: 0.12rem;
+    }
+  }
 
-	/*今日提醒*/
-	.remindList {
-		&>li {
-			padding: 0.13rem 0.12rem;
-			background: #FFFFFF;
-			display: flex;
-			justify-content: space-between;
+  /*今日提醒*/
+  .remindList {
+    &>li {
+      padding: 0.13rem 0.12rem;
+      background: #FFFFFF;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-		}
+    }
 
-		&>li .left {
-			.rowTop .icon {
-				width: 0.17rem;
-				vertical-align: middle;
-				/*margin-right: 5px;*/
-			}
-		}
+    &>li .left {
+      .rowTop .icon {
+        width: 0.17rem;
+        vertical-align: middle;
+        /*margin-right: 5px;*/
+      }
+    }
 
-		&>li .right {
-			text-align: right;
-		}
+    &>li .right {
+      text-align: right;
+    }
 
-		.rowTop {
-			margin-bottom: 0.05rem;
-		}
+    .rowTop {
+      margin-bottom: 0.05rem;
+    }
 
-		.rowTop>* {
-			vertical-align: middle;
-		}
-	}
+    .rowTop>* {
+      vertical-align: middle;
+    }
+  }
 
-	.completeState {
-		padding: 0.12rem;
+  .completeState {
+    padding: 0.12rem;
 
-		.float_left {
-			width: 40%;
-		}
+    .float_left {
+      width: 40%;
+    }
 
-		.float_right {
-			width: 60%;
-		}
-	}
+    .float_right {
+      width: 60%;
+    }
+  }
 
-	.sport-cell {
-		line-height: 0.52rem;
-		background: #FFFFFF;
-		padding: 0 0.12rem;
+  .sport-cell {
+    line-height: 0.52rem;
+    background: #FFFFFF;
+    padding: 0 0.12rem;
     border-bottom: 1px dashed #e5e5e5;
     margin-left: 0.12rem;
     font-size: 0.145rem;
-		.name {
-			width: 30%;
+    .name {
+      width: 30%;
       font-size: 0.145rem;
       color: #333333;
 
-		}
+    }
 
-		.content {
-			width: 70%;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-		}
+    .content {
+      width: 70%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-		.content>* {
-			display: inline-block;
-		}
+    .content>* {
+      display: inline-block;
+    }
 
-	}
+  }
   .sport-cell:last-child{
     border-bottom:0;
   }
-	.sport-cell * {
-		vertical-align: middle;
-	}
-	.noalready{
-		text-align: center;
-		margin-top: 30px;
-		img{
-			margin-bottom: 15px;
-		}
-	}
+  .sport-cell * {
+    vertical-align: middle;
+  }
+  .noalready{
+    text-align: center;
+    margin-top: 30px;
+    img{
+      margin-bottom: 15px;
+    }
+  }
   #navbar .mint-navbar .mint-tab-item.is-selected {
-     border-bottom: 2px solid #0AC5C9;
-     color: #0AC5C9;
-     margin-bottom: 0;
-   }
+    border-bottom: 2px solid #0AC5C9;
+    color: #0AC5C9;
+    margin-bottom: 0;
+  }
   .fix_bottom{
     border: 0;
     height: 0.44rem;

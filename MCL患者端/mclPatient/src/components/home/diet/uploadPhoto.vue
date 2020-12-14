@@ -69,7 +69,7 @@
 
 			</div>
 
-			<div class="fix_bottom fix_bottom_area">
+			<div class="fix_bottom">
 				<mt-button type="primary" class="theme-button button-radio " size="large" @click.native="save">保存</mt-button>
 			</div>
 		</div>
@@ -614,7 +614,7 @@
 		width: 100%;
 		border-bottom: 1px solid #eee;
 	}
-  .fix_bottom_area{
+  .fix_bottom{
     padding: 0;
     .theme-button{
       background-color: #0AC5C9;

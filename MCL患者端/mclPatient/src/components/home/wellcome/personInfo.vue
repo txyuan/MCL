@@ -111,7 +111,7 @@
       </div>
     </div>
     <div class=""></div>
-    <div class="fix_bottom fix_bottom_area">
+    <div class="fix_bottom">
       <mt-button v-if="($route.query.type == 'look')" type="primary" class="theme-button button-radio " size="large" @click.native="editSubmit">保存</mt-button>
       <mt-button v-else type="primary" class="theme-button button-radio " size="large" @click.native="addSubmit">下一步</mt-button>
     </div>
@@ -894,13 +894,14 @@ export default {
     /*  }*/
     /*}*/
 
-    .fix_bottom_area {
+    .fix_bottom {
       padding: 0;
 
       .theme-button {
         width: 100%;
         border-radius: 0;
         height: 50px;
+        background-color: #0AC5C9;
       }
     }
   }
