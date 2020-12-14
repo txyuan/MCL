@@ -65,6 +65,10 @@
 </script>
 
 <style lang="scss">
+.addCase-root{
+  input[type=text] {
+    border: none;
+  }
   .mint-header{
     height: 0.44rem;
     border-bottom: 1px solid #e5e5e5;
@@ -81,9 +85,9 @@
   a.mint-cell .mint-cell-text {
     font-size: 0.15rem;
   }
-    .addCase-root input{
-        border:0;
-    }
+  .addCase-root input{
+    border:0;
+  }
   .fix_bottom{
     border: 0;
     height: 0.44rem;
@@ -97,4 +101,5 @@
       margin: 0;
     }
   }
+}
 </style>

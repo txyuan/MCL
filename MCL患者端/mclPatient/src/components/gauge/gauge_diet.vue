@@ -92,7 +92,7 @@
       <mt-checklist :options="diettabooRadiolist.option" v-model="diettabooRadiolist.value"></mt-checklist>
       <div class="title2">13.饮食形式</div>
       <mt-radio :options="dietformRadiolist.option" v-model="param.dietform"></mt-radio>-->
-      <div class="fix_bottom fix_bottom_area">
+      <div class="fix_bottom">
         <mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit">保存</mt-button>
       </div>
     </div>
@@ -405,7 +405,7 @@
     }
   }
 
-  .fix_bottom_area {
+  .fix_bottom {
     padding: 0;
 
     .theme-button {
@@ -415,6 +415,10 @@
       line-height: 0.44rem;
       height: 0.44rem;
     }
+  }
+  .mint-checklist{
+
+    padding: 0.1rem 0;
   }
 </style>
 <style lang="scss">
@@ -426,40 +430,36 @@
       margin: 0 0.05rem;
     }
 
-    a.mint-cell .mint-cell-text {
-      font-size: 14px;
-    }
+  /*  .mint-field .mint-cell-title,*/
+  /*  .my-mint-cell .mint-cell-title {*/
+  /*    width: 105px;*/
+  /*    -webkit-box-flex: 0;*/
+  /*    -ms-flex: none;*/
+  /*    flex: none;*/
+  /*  }*/
 
-    .mint-field .mint-cell-title,
-    .my-mint-cell .mint-cell-title {
-      width: 105px;
-      -webkit-box-flex: 0;
-      -ms-flex: none;
-      flex: none;
-    }
-
-    .my-mint-cell .mint-cell-value {
-      flex: 1;
-    }
+  /*  .my-mint-cell .mint-cell-value {*/
+  /*    flex: 1;*/
+  /*  }*/
     .mint-radio-input:checked+.mint-radio-core, .mint-checkbox-input:checked+.mint-checkbox-core {
       background-color: #0AC5C9;
       border-color: #0AC5C9;
     }
-    .mint-cell-value .mint-field-core,
-    .mint-cell-value select {
-      // width: 250px;
-      height: 33px;
-      margin-left: 10px;
-      font-size: 14px;
-      color: inherit;
-      text-indent: 5px;
-      border: 1px solid #EEEEEE;
-    }
+  /*  .mint-cell-value .mint-field-core,*/
+  /*  .mint-cell-value select {*/
+  /*    // width: 250px;*/
+  /*    height: 33px;*/
+  /*    margin-left: 10px;*/
+  /*    font-size: 0.145rem;*/
+  /*    color: inherit;*/
+  /*    text-indent: 5px;*/
+  /*    border: 1px solid #EEEEEE;*/
+  /*  }*/
 
-    .mint-cell-value select {
-      border: 1px solid #EEEEEE;
-      height: 33px;
-    }
+  /*  .mint-cell-value select {*/
+  /*    border: 1px solid #EEEEEE;*/
+  /*    height: 33px;*/
+  /*  }*/
 
     .mint-radiolist {
 

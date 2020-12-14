@@ -366,9 +366,9 @@ export default {
 		.mint-radiolist.radio-nowrap {
 			background: #FFF;
 
-			.mint-cell {
-				display: inline-block;
-			}
+			/*.mint-cell {*/
+			/*	display: inline-block;*/
+			/*}*/
 
 			.mint-radiolist-label {
 				white-space: nowrap;
