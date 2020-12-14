@@ -15,7 +15,7 @@
 			</div>
 			<div class="tody_ul">
 				<div class="tody_list">
-					<router-link :to="{path: messageInfo.blscFlag==0||messageInfo.IsMember==0 ? `/buyfood/饮食` : `/diet`}">
+					<router-link :to="{path: messageInfo.lbFlag==0||messageInfo.IsMember==0 ? `/buyfood/饮食` : `/diet`}">
 						<p @click="ishow(1)">
 							<img src="@/assets/images/yinshis.png" />
 							<span>饮食</span>
@@ -106,7 +106,7 @@
 					</router-link> -->
 				</div>
 				<div class="tody_list">
-					<router-link to="/physician">
+					<router-link :to="{path: messageInfo.blscFlag==0||messageInfo.IsMember==0 ? `/welcomebl` : `/physician`}">
 						<p @click="ishow(8)">
 							<img src="@/assets/images/jianchabaogao@2x.png" />
 							<span>检查报告</span>

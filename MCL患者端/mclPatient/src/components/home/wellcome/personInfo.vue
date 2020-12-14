@@ -755,8 +755,9 @@ export default {
           if (rowData) {
           // 多选框未选中0  选中1
             if (rowData.checklist) {
+              rowData.value = []
               rowData.option.forEach((item) => {
-                if (data[`attribute_value_${item.id}`] == '1') {
+                if (data[item.value] == '1') {
                   rowData.value.push(item.value)
                 }
               })
