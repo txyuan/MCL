@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="padding-top: 0.44rem">
 		<div class="fix_top">
 			<mt-header title="复查管理" fixed class="borderBottom">
 				<div slot="left">
@@ -41,7 +41,7 @@
 								<label>复查时间： {{item.CreateTime}}</label>
 							</div>
 							<router-link :to="`/reviewDetail?skey=${item.skey}`">
-								<span class="greens">查看</span>
+								<span class="blue">查看</span>
 							</router-link>
 						</div>
 						<!-- <div class="rev_list">
@@ -123,8 +123,12 @@
 </script>
 
 <style scoped lang="scss">
+  .mint-header {
+    height: 0.44rem;
+    line-height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
 	.review {
-		margin-top: 43px;
 
 		.rev_fuc {
 			width: 100%;
@@ -143,10 +147,11 @@
 				padding: 0.13rem 3% 0.15rem 4%;
 				border-bottom: 1px solid #eee;
 				overflow: hidden;
-
+        display: flex;
+        align-items: center;
+        border-bottom: 1px dashed #e5e5e5;
+        justify-content: space-between;
 				.rev_lilf {
-					float: left;
-					width: 70%;
 
 					p {
 						color: #333333;
@@ -162,14 +167,12 @@
 				}
 
 				span {
-					float: right;
-					height: 0.28rem;
 					padding: 0 0.14rem;
-					display: block;
-					background: #F78335;
+					display:inline-block;
+					background: #4A8EF4;
 					color: #fff;
-					line-height: 0.28rem;
-					font-size: 0.14rem;
+					line-height: 0.22rem;
+					font-size: 0.135rem;
 					border-radius: 0.14rem;
 					margin-top: 0.08rem;
 
@@ -180,6 +183,9 @@
 					&.bluue {
 						background: #6358F4;
 					}
+          &.blue{
+            background-color: #4A8EF4;
+          }
 				}
 			}
 		}

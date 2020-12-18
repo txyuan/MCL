@@ -40,7 +40,7 @@
 							<p>{{item.treatment}}</p>
 						</div>
 						<label>{{item.create_date}}</label>
-						<span class="greens">{{item.ContactName}}</span>
+						<span class="blue">{{item.ContactName}}</span>
 					</div>
 				</div>
 			</div>
@@ -120,6 +120,14 @@ export default {
 <style scoped lang="scss">
 	@import "@/assets/css/base.scss";
 
+  .mint-header {
+    height: 0.44rem;
+    line-height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .padding-header {
+    padding-top: 0.44rem ;
+  }
 	.mint-cell.borderBottom {
 		padding: 0.06rem 0;
 		align-items: center;
@@ -135,6 +143,9 @@ export default {
 		}
 	}
 
+  .content{
+    margin-top: 0.1rem;
+  }
 	.showMoney {
 		margin-bottom: 5px;
 		background: #ffffff;
@@ -189,7 +200,8 @@ export default {
 				width: 70%;*/
 				p {
 					color: #333333;
-					font-size: 0.14rem;
+					font-size: 0.15rem;
+          line-height: 0.22rem;
 				}
 				label {
 					color: #666;
@@ -199,23 +211,25 @@ export default {
 				}
 			}
 			span {
-				/*float: right;*/
-				height: 0.28rem;
-				padding: 0 0.14rem;
-				display: block;
-				background: #F78335;
-				color: #fff;
-				line-height: 0.28rem;
-				font-size: 0.14rem;
-				border-radius: 0.14rem;
-				/*margin-top: 0.08rem;*/
-				&.greens {
+        padding: 0 0.14rem;
+        display:inline-block;
+        background: #4A8EF4;
+        color: #fff;
+        line-height: 0.22rem;
+        font-size: 0.135rem;
+        border-radius: 0.14rem;
+        margin-top: 0.04rem;
+
+        &.greens {
 					background: #4D9C30;
 				}
-				&.bluue {
-					background: #6358F4;
-				}
-			}
+        &.bluue {
+          background: #6358F4;
+        }
+        &.blue {
+          background: #4A8EF4;
+        }
+      }
 		}
 
 	}
@@ -225,7 +239,9 @@ export default {
 		justify-content: space-between;
 		align-content: center;
 		.rev_lilf,label{
-			margin-top: 0.08rem;
+      line-height: 0.22rem;
+      font-size: 0.14rem;
+      color: #666666;
 		}
 	}
 </style>

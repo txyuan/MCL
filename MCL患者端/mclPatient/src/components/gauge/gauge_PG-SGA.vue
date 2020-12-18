@@ -826,11 +826,7 @@
         em.fontCol{
           color: #0AC5C9;
         }
-      }
-      .matterDetails:last-child {
-        border-bottom: 0;
-      }
-    }
+
     .line-input {
       width: 50px;
       border: none;
@@ -930,7 +926,11 @@
       border-color: #23bec8;
     }
   }
-
+    }
+    .matterDetails:last-child {
+      border-bottom: 0;
+    }
+  }
   .formImgWrap {
     padding: 0 15px;
     img{
