@@ -9,9 +9,9 @@
 				</div>
 			</mt-header>
 		</div>
-		<div style="padding-top: 43px;">
+		<div style="padding-top:0.44rem;">
 			<loadMore :param="param" @triggerGetList="getList" ref="loadMoreE" :isDefaultLoading="false">
-				<div slot="content">
+				<div slot="content" class="indexData">
 					<mt-cell v-for="(item,index) in list" :key="index" :title="item.ContactName" label="" is-link :to="`/indexDataDet?id=`+item.goodsId+`&patientskey=`+param.patientskey" class="borderBottom">
 						<div class="right text-right">
 							<span>{{item.buyTime}}</span>
@@ -64,10 +64,41 @@
 		components: {
 			loadMore
 		},
-		created() {			this.param.patientskey = this.$route.query.skey;		}
+		created() {
+			this.param.patientskey = this.$route.query.skey;
+		}
 	}
 </script>
 
 <style scoped lang="scss">
-	
+  .mint-header {
+    height: 0.44rem;
+    line-height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .indexData{
+    margin-top: 0.1rem;
+  }
+</style>
+<style lang="scss">
+  .indexData{
+
+    .mint-cell{
+      background:#FFFFFF url("../../../assets/images/zijinjilu@2x.png") no-repeat 0.12rem center;
+      background-size:0.2rem;
+      padding-left: 0.32rem;
+    }
+    .mint-cell-title{
+      font-size: 0.15rem;
+      span{
+        font-size: 0.15rem;
+      }
+    }
+    .mint-cell-value{
+      font-size: 0.14rem;
+      span{
+        font-size: 0.14rem;
+      }
+    }
+  }
 </style>

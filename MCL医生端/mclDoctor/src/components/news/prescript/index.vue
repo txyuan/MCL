@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="padding-top: 0.44rem">
 		<mt-header title="心情管理" fixed>
 			<div slot="left">
 				<header-back>
@@ -31,7 +31,7 @@
 			</div> -->
 			<p class="lovets">温馨提示：3种方式任选其一即可！</p>
 			<div class="result">
-				<h3>检测结果</h3>
+				<h3><em></em>检测结果</h3>
 				<div class="result_more">
 					<div class="img_jgli" v-show="isShowResult">
 						<div class="cell_li" v-for="(item, index) in resultList" :key="index">
@@ -68,7 +68,7 @@
 				{name:"恐惧", key:"fear", value: 0, className:""},
 			],
 			maxItem: {name:"", value: 0}, //最大值
-			
+
 			isShowResult: true,  //是否显示结果
 			noResult: false,  //图片不是人物头像
 			patientskey:''
@@ -90,74 +90,74 @@
 					let params = new FormData(); //创建form对象
 				  params.append('uploadedFile',file);//通过append向form对象添加数据
 					//注意：此处第3个参数最好传入一个带后缀名的文件名，否则很有可能被后台认为不是有效的图片文件
-					params.append("uploadedFile", blob, "uploadedFile"); 
+					params.append("uploadedFile", blob, "uploadedFile");
 					axios.post('UserInterface/UploadFile.ashx', params, config).then(response => {
 						if (response.data.rspcode != 1) {
 						  return;
 						}
-						
+
 						let responseUrl = response.data.url;
 						this.responseUrl = responseUrl;
 						// 创建url
 						var imgUrl = window.URL.createObjectURL(file);
 						this.imgUrl = imgUrl;
-		        
+
 						//获取心情结果
 						this.getResult()
 					})
 				})
-				
-				
-				
+
+
+
 				/**
 				 * 压缩裁剪图片
 				 */
 				function resizeImage(file) {
 					return new Promise(function (resolve, reject) {
 						var reader = new FileReader();
-		
+
 						reader.onload = function () {
 							var img = new Image();
-		
+
 							img.onload = function () {
 								var w = this.naturalWidth;
 								var h = this.naturalHeight;
 								var maxW = 500;
 								var maxH = 500;
-		
+
 								// 如果图片尺寸小于最大限制，则不压缩直接上传
 								if (w <= maxW && h <= maxH) {
 									resolve(file);
 									return;
 								}
-		
+
 								var level = 0.6;
 								var multiple = Math.max(w / maxW, h / maxH);
 								var resizeW = w / multiple;
 								var resizeH = h / multiple;
-		
+
 								var canvas = document.createElement("canvas");
-		
+
 								canvas.width = resizeW;
 								canvas.height = resizeH;
-		
+
 								var ctx = canvas.getContext("2d");
-		
+
 								ctx.drawImage(img, 0, 0, resizeW, resizeH);
-		
+
 								var base64Img = canvas.toDataURL(file.type, level);
 								var arr = base64Img.split(",");
-		
+
 								resolve(arr[1]);
 							};
-		
+
 							img.src = this.result;
 						};
-		
+
 						reader.readAsDataURL(file);
 					});
 				}
-				
+
 				/**
 				 * 将图片的base64字符串转换为Blob对象
 				 */
@@ -166,13 +166,13 @@
 					var len = base64.length;
 					var buff = new ArrayBuffer(len);
 					var uarr = new Uint8Array(buff);
-		
+
 					for (var i = 0; i < len; i++) {
 						uarr[i] = base64.charCodeAt(i);
 					}
-		
+
 					var blob = null;
-		
+
 					try {
 						blob = new Blob([buff], { type: fileType });
 					} catch (e) {
@@ -182,19 +182,19 @@
 							window.MozBlobBuilder ||
 							window.MSBlobBuilder
 						);
-		
+
 						if (e.name === "TypeError" && BlobBuilder) {
 							var builder = new BlobBuilder();
 							builder.append(buff);
 							blob = builder.getBlob(fileType);
 						}
 					}
-		
+
 					return blob;
 				}
 			},
 			//获取心情结果
-			
+
 			getResult(){
 				//保存图片
 				// let savePic = () => {
@@ -220,7 +220,7 @@
 							const key = item.key;
 							const value = Number(model[key]).toFixed(3);
 							item.value = Number(value);
-							//最大值							
+							//最大值
 							if(value >= this.maxItem.value){
 								this.maxItem.name = item.name
 								this.maxItem.value = item.value
@@ -240,10 +240,10 @@
 				//   }
 				//   getInfo()
 				// })
-				
+
 			},
 			onTake() {
-				
+
 			}
 		},
 		mounted() {
@@ -257,10 +257,12 @@
 </script>
 
 <style scoped lang="scss">
+  .mint-header {
+    height: 0.44rem;
+    line-height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
 	.pic_img {
-		padding-top: 43px;
-		padding-bottom: 0.6rem;
-
 		img {
 			display: block;
 			width: 100%;
@@ -347,19 +349,31 @@
 		}
 
 		.result {
-			width: 100%;
-			border: 1px solid #ddd;
-			box-sizing: border-box;
+      width: 100%;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      margin-top: 0.1rem;
+      background: #fff;
 
-			h3 {
-				height: 0.4rem;
-				line-height: 0.41rem;
-				background: #fff;
-				font-size: 0.13rem;
-				text-indent: 1em;
-				color: #666;
-				border-bottom: 1px solid #eee;
-			}
+      h3 {
+        height: 0.44rem;
+        border-bottom: 1px solid #DFE6E7;
+        font-weight: 500;
+        font-size: 0.15rem;
+        line-height: 0.44rem;
+        color: #333535;
+        padding-left: 0.12rem;
+
+        em {
+          font-style: normal;
+          background-color: #4A8EF4;
+          display: inline-block;
+          width: 0.035rem;
+          height:  0.135rem;
+          margin-right: 0.05rem;
+          border-radius: 0.015rem;
+        }
+      }
 
 			.result_more {
 				padding: 0.1rem 0;
@@ -394,7 +408,6 @@
 	}
 
 	.pic_mrimg {
-		margin-top: 0.06rem;
 	}
 </style>
 <style type="text/css">

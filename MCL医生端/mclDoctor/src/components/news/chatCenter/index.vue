@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="padding-top: 0.44rem">
 		<mt-header fixed :title="inform.doctorname">
 			<router-link to="/" slot="left">
 				<mt-button icon="back"></mt-button>
@@ -274,7 +274,11 @@ export default {
 </style>
 <style scoped lang="scss">
 	@import "@/assets/css/base.scss";
-
+  .mint-header {
+    height: 0.44rem;
+    line-height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
 	//头像部分
 	.person_info {
 		padding: 0.14rem 0.10rem;
@@ -328,15 +332,14 @@ export default {
 	}
 
 	.content {
-		padding-top: 43px;
-		padding-bottom: 56px;
+    margin-top: 0.1rem;
 	}
 
 	/*常用功能*/
 	.person_menu {
 		background: #fff;
 		padding-bottom: 0.06rem;
-		border-top: 1px solid #eee;
+    margin-top: 0.1rem;
 
 		h3 {
 			font-size: 0.15rem;

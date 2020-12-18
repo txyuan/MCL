@@ -1,5 +1,5 @@
 <template>
-	<div style="padding-bottom: 0.52rem;">
+	<div style="padding-bottom: 0.52rem;padding-top: 0.44rem">
 		<mt-header title="复查预约" fixed>
 			<div slot="left">
 				<header-back>
@@ -8,11 +8,11 @@
 			</div>
 		</mt-header>
 		<div class="make_form">
-			<mt-field style="border-bottom: 1px solid #eee;" label="患者姓名" readonly v-model="param.ContactName"></mt-field>
-			<mt-field style="border-bottom: 1px solid #eee;" label="下一次治疗" readonly v-model="param.treatment"></mt-field>
-			<p class="ppacc"><span>预约时间</span><label @click.active="openPicker">{{param.createTime}}</label></p>
+			<mt-field style="border-bottom: 1px solid #eee;" label="患者姓名：" readonly v-model="param.ContactName"></mt-field>
+			<mt-field style="border-bottom: 1px solid #eee;" label="下一次治疗：" readonly v-model="param.treatment"></mt-field>
+			<p class="ppacc"><span>预约时间：</span><label @click.active="openPicker">{{param.createTime}}</label></p>
 			<div class="make_other">
-				<p>其他</p>
+				<p>其他：</p>
 				<textarea v-model="param.other"></textarea>
 			</div>
 		</div>
@@ -134,12 +134,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+  .mint-header {
+    height: 0.44rem;
+    line-height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
 	.make_form {
 		background: #fff;
 		width: 94%;
-		margin: 0 auto;
+		margin: 0.1rem auto;
 		padding: 0 3%;
-		padding-top: 50px;
 	}
 
 	.make_other {
@@ -148,7 +153,7 @@ export default {
 		background: #fff;
 
 		p {
-			font-size: 0.16rem;
+			font-size: 0.15rem;
 		}
 
 		textarea {
@@ -159,6 +164,9 @@ export default {
 			border: 1px solid #ddd;
 			margin-top: 0.1rem;
 			height: 0.7rem;
+      border-radius: 0.04rem;
+      font-size: 0.145rem;
+      color: #666666;
 		}
 	}
 
@@ -168,52 +176,51 @@ export default {
 		line-height: 0.48rem;
 		border-bottom: 1px solid #eee;
 		span{
-			width: 1.05rem;
+      font-size: 0.15rem;
+			width: 105px;
 			display: block;
 			float: left;
 		}
 		label{
 			float: left;
 			display: block;
+      font-weight: 400;
+      font-size: 0.15rem;
 		}
 	}
 
 	.detile_btn {
 		width: 100%;
-		height: 0.5rem;
+		height: 0.44rem;
 		background: #fff;
 		position: fixed;
 		bottom: 0;
 		left: 0;
-		border-top: 1px solid #eee;
+		border-top: 1px solid #4A8EF4;
 	}
 
 	.detile_btn .btn-group {
-		width: 80%;
-		height: 0.4rem;
-		margin: 0 auto;
-		margin-top: 0.05rem;
-		border-radius: 0.2rem;
+		width: 100%;
+		height: 0.44rem;
 		overflow: hidden;
 		display: flex;
-		border: 1px solid #FF3D3D;
 		box-sizing: border-box;
 	}
 
 	.detile_btn .btn-group>p {
 		flex: 1;
 		text-align: center;
-		font-size: 0.16rem;
+		font-size: 0.155rem;
 		line-height: 0.4rem;
 	}
 
 	.detile_btn .btn {
-		background: #FF3D3D;
+		background: #4A8EF4;
 		color: #fff;
 	}
 
 	.detile_btn .defult-btn {
-		color: #FF3D3D;
+		color: #4A8EF4;
 		box-sizing: border-box;
 	}
 </style>
@@ -221,4 +228,9 @@ export default {
 	.make_form input[type=text] {
 		border: none;
 	}
+  .make_form  .mint-cell-wrapper span,
+  .make_form  .mint-cell-title span,
+  .make_form  .mint-cell-value span{
+    font-size: 0.15rem;
+  }
 </style>

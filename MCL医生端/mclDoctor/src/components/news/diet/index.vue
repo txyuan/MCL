@@ -944,7 +944,7 @@ export default {
     margin-bottom: 0.1rem;
     .solution_bg{
 
-      background-color: #0AC5C9;
+      background-color: #4A8EF4;
       background-size: auto 100%;
       color: #FFFFFF;
       font-size: 11px;
@@ -976,7 +976,7 @@ export default {
       .btys{
         font-size: 0.185rem;
         padding:0.12rem 0.05rem;
-        color: #14a4a7;
+        color:  #0084ff;
         em{
           font-style: normal;
           font-size: 0.145rem;
@@ -1111,7 +1111,7 @@ export default {
 
       span {
         padding-left: 0.1rem;
-        border-left: 4px solid #0AC5C9;
+        border-left: 4px solid #4A8EF4;
       }
     }
   }
@@ -1251,7 +1251,7 @@ export default {
 
   .panel table.bgtable th {
     font-weight: normal;
-    color: #008b8e;
+    color: #0084ff;
     font-size: 0.135rem;
     font-weight: 500;
   }
@@ -1347,7 +1347,7 @@ export default {
         color: #FFFFFF;
         width: 100%;
         text-align: center;
-        background-color: #0AC5C9;
+        background-color: #4A8EF4;
         border-radius:0 0 8px 8px ;
       }
     }
@@ -1356,13 +1356,13 @@ export default {
 		content: none;
 	}
   #navbar .mint-navbar .mint-tab-item.is-selected {
-       border-bottom: 2px solid #0AC5C9;
-       color: #0AC5C9;
+       border-bottom: 2px solid #4A8EF4;
+       color: #4A8EF4;
      }
 
   .mint-badge.is-size-small {
     font-size: 0.125rem;
-    background-color: #0AC5C9;
+    background-color: #4A8EF4;
     padding: 0.02rem 0.065rem;
   }
 
@@ -1387,7 +1387,7 @@ export default {
     border: 0;
     z-index: 3;
     .add_btns{
-      background-color: #0AC5C9;
+      background-color: #4A8EF4;
       width: 100%;
       height: 0.44rem;
       line-height:0.44rem;

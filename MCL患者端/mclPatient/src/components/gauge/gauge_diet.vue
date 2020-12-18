@@ -9,15 +9,15 @@
     </mt-header>
     <div style="margin-bottom: 0.2rem">
       <div class="section">
-        <div class="title2">1、您目前是否可以进食？</div>
+        <div class="title2">1、您目前是否可以进食？<em class="text_bt">(必填)</em></div>
         <mt-radio :options="eatingflagRadiolist.option" v-model="param.eatingflag" class="radio-nowrap"></mt-radio>
       </div>
       <div class="section">
-        <div class="title2">2、您的饮食状况：</div>
+        <div class="title2">2、您的饮食状况：<em class="text_bt">(必填)</em></div>
         <mt-radio :options="dietarysituationRadiolist.option" v-model="param.dietarysituation"></mt-radio>
       </div>
       <div class="section">
-        <div class="title2">3、您是否有其他营养来源？</div>
+        <div class="title2">3、您是否有其他营养来源？<em class="text_bt">(必填)</em></div>
         <mt-radio :options="nutrientsourcesRadiolist.option" v-model="nutrientsourcesRadiolist.value"
                   class=""></mt-radio>
         <div class="title2" style="line-height: 48px;padding-left: 20px;" v-show="this.nutrientsourcesRadiolist.show1">
@@ -31,7 +31,7 @@
       <mt-field label="静脉营养" placeholder="剂量" class="" v-model="param.nutrientsources05" v-show="this.nutrientsourcesRadiolist.show2"></mt-field> -->
 
       <div class="section">
-        <div class="title2">4、目前的活动状态</div>
+        <div class="title2">4、目前的活动状态<em class="text_bt">(必填)</em></div>
         <mt-radio :options="coefficienttypeRadioList.option" v-model="param.coefficienttype"
                   class="radio-nowrap"></mt-radio>
       </div>
@@ -93,7 +93,7 @@
       <div class="title2">13.饮食形式</div>
       <mt-radio :options="dietformRadiolist.option" v-model="param.dietform"></mt-radio>-->
       <div class="fix_bottom">
-        <mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit">保存</mt-button>
+        <mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit">提交申请</mt-button>
       </div>
     </div>
   </div>
@@ -338,13 +338,30 @@
     methods: {
       //提交
       submit () {
+        let param = this.param
+        if (param.eatingflag == '') {
+          this.$Toast('请选择是否可以进食')
+          return false
+        }
+        if (param.dietarysituation == '') {
+          this.$Toast('请选择您的饮食状况')
+          return false
+        }
+        if (param.nutrientsources01 == '0' && param.nutrientsources02 == '0' && param.nutrientsources04 == '0') {
+          this.$Toast('请选择您是否有其他营养来源')
+          return false
+        }
+        if (param.coefficienttype == '') {
+          this.$Toast('请选择目前的活动状态')
+          return false
+        }
         let url = 'UserInterface/DietGaugeInsert.ashx'
         this.$post(url, this.param).then((data) => {
           if (data.rspcode != 1) {
             this.$Toast(data.rspdesc)
             return
           }
-          this.$Toast('保存成功')
+          this.$Toast('提交申请成功')
           //查看报告
           this.$router.push('/diet')
         })
@@ -377,7 +394,7 @@
 
   .title,
   .title2 {
-    margin-top: 10px;
+    margin-top: 0.1rem;
     padding: 5px 10px;
     font-size: 0.145rem;
   }
@@ -385,9 +402,9 @@
   .title2 {
     margin-top: 0px;
     font-size: 0.15rem;
-    padding: 0 10px;
-    min-height: 48px;
-    line-height: 48px;
+    padding: 0 0.1rem;
+    min-height: 0.44rem;
+    line-height:  0.44rem;
     border-bottom: 1px solid #e5e5e5;
   }
 
@@ -402,6 +419,12 @@
         line-height: 0.44rem;
         color: #666666;
       }
+    }
+    .text_bt{
+      font-style: normal;
+      font-size: 0.13rem;
+      color: #CB0000;
+      padding-left: 0.05rem;
     }
   }
 
@@ -423,6 +446,8 @@
 </style>
 <style lang="scss">
   .PG-SGA-root {
+
+    .section{
     .line-input {
       min-width: 72px;
       border: none;
@@ -430,42 +455,41 @@
       margin: 0 0.05rem;
     }
 
-  /*  .mint-field .mint-cell-title,*/
-  /*  .my-mint-cell .mint-cell-title {*/
-  /*    width: 105px;*/
-  /*    -webkit-box-flex: 0;*/
-  /*    -ms-flex: none;*/
-  /*    flex: none;*/
-  /*  }*/
+    .mint-field .mint-cell-title,
+    .my-mint-cell .mint-cell-title {
+      width: 105px;
+      -webkit-box-flex: 0;
+      -ms-flex: none;
+      flex: none;
+    }
 
-  /*  .my-mint-cell .mint-cell-value {*/
-  /*    flex: 1;*/
-  /*  }*/
+    .my-mint-cell .mint-cell-value {
+      flex: 1;
+    }
     .mint-radio-input:checked+.mint-radio-core, .mint-checkbox-input:checked+.mint-checkbox-core {
       background-color: #0AC5C9;
       border-color: #0AC5C9;
     }
-  /*  .mint-cell-value .mint-field-core,*/
-  /*  .mint-cell-value select {*/
-  /*    // width: 250px;*/
-  /*    height: 33px;*/
-  /*    margin-left: 10px;*/
-  /*    font-size: 0.145rem;*/
-  /*    color: inherit;*/
-  /*    text-indent: 5px;*/
-  /*    border: 1px solid #EEEEEE;*/
-  /*  }*/
+    .mint-cell-value .mint-field-core,
+    .mint-cell-value select {
+      // width: 250px;
+      height: 33px;
+      margin-left: 10px;
+      font-size: 0.145rem;
+      color: inherit;
+      text-indent: 5px;
+      border: 1px solid #EEEEEE;
+    }
 
-  /*  .mint-cell-value select {*/
-  /*    border: 1px solid #EEEEEE;*/
-  /*    height: 33px;*/
-  /*  }*/
+    .mint-cell-value select {
+      border: 1px solid #EEEEEE;
+      height: 33px;
+    }
 
     .mint-radiolist {
 
       padding: 0.1rem 0;
     }
-
     // 多选框
     .mint-radiolist.radio-nowrap {
       .mint-cell {
@@ -494,5 +518,6 @@
     .mint-checklist-title {
       margin: 0;
     }
+}
   }
 </style>
