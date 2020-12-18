@@ -81,7 +81,8 @@
         @collapse="onCollapse"
         @breakpoint="onBreakpoint"
       >
-        <MessageBox :type="activeKey" :select="select" ref="messageBox" @getInfo="getDoctorInfo"/>
+        <el-input placeholder="搜索" v-model.trim="userListKeyword" style="margin: 15px 0;width: 90%"></el-input>
+        <MessageBox :type="activeKey" :select="select" :filterKeyword="userListKeyword" ref="messageBox" @getInfo="getDoctorInfo"  />
         <!-- <MessageBox v-if="activeKey == 'chatroom'"  type="chatroom" />
         <MessageBox v-if="activeKey == 'group'" type="group" />-->
       </a-layout-sider>
@@ -204,6 +205,7 @@ import { BASEURL } from '@/configURL'
 export default {
   data() {
     return {
+      userListKeyword: '', // 搜索好友的输入框
     	rightShow: false, //右侧信息窗口显示
     	keyword: "",  //搜索关键字
       questionList: [],  //问题列表
