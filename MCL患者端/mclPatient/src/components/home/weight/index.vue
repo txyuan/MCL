@@ -1,20 +1,20 @@
 <template>
   <div class="weigh-root">
-    <div id="body_main" style="background: #FFFFFF;padding-bottom: 0;">
+    <div id="body_main" style="padding-bottom: 0;">
   		<mt-header title="体重记录" fixed>
 		    <div slot="left">
 	          <header-back>
 	            <mt-button icon="back"></mt-button>
 	          </header-back>
 	        </div>
-	    </mt-header> 
-		
+	    </mt-header>
+<div class="mag10 bg-white">
 		<div class="title">
 	  		<p> <span class="font16 name">体重</span> <span class="huiFont font12">单位：公斤</span></p>
 	  	</div>
-	  	
+
 	  	<div id="weighEchart"></div>
-		
+
 	  	<div class="weight_cla">
 			<div class="weight_clared">
 				<span></span>
@@ -25,17 +25,16 @@
 				<span></span>
 			</div>
 		</div>
-		
+
 	  	<div class="btns">
 	  		<mt-button type="primary" class="theme-button button-radio " size="large" @click.native="save">记录体重</mt-button>
 	  	</div>
-	  	
 	  	<div class="jiluInfo">
-	  		<ul class="borderTop">
+	  		<ul>
 	  			<li class="font12">
 	  				<div class="row">
 	  					<p class=""> <span class="font17 num">{{startWeight}}</span> <span>公斤</span> </p>
-						<p class="">开始记录</p>	
+						<p class="">开始记录</p>
 	  				</div>
 	  				<div class="row">
 	  					<p class="">初始体重</p>
@@ -45,7 +44,7 @@
 	  			<li class="font12">
 	  				<div class="row">
 	  					<p class=""> <span class="font17 num">{{newWeight}}</span> <span>公斤</span> </p>
-						<p class="">最新记录</p>	
+						<p class="">最新记录</p>
 	  				</div>
 	  				<div class="row">
 	  					<p class="">最新体重</p>
@@ -53,15 +52,18 @@
 	  				</div>
 	  			</li>
 	  		</ul>
-	  		
-	  		<ul class="borderTop">
+      </div>
+      </div>
+        <div class="mag10 bg-white">
+          <div class="jiluInfo">
+	  		<ul>
 				<h3 class="allweit">所有体重记录</h3>
 				<loadMore :param="param" @triggerGetList="shoplist" ref="loadMoreE" :isDefaultLoading="false">
 					<div slot="content">
 						<li class="font12" v-for="(item,index) in list" :key="index" :item="item">
 							<div class="row">
 								<p class=""> <span class="font17 num">{{item.Weight}}</span> <span>公斤</span> </p>
-								<p class="">我的记录</p>	
+								<p class="">我的记录</p>
 							</div>
 							<div class="row">
 								<p class="">体重信息</p>
@@ -71,8 +73,8 @@
 					</div>
 				</loadMore>
 	  		</ul>
+          </div>
 	  	</div>
-	  	
 	  	<!-- 遮罩层 -->
 	  	<div id="mark" :style="{display: (show?'block': 'none')}">
 	  		<div class="modal" :class="show && 'show' ">
@@ -88,11 +90,11 @@
 	  			</div>
 	  			<!-- <div class="chizi"></div> -->
 	  			<DLRuler :value="50.0" :min="0" :max="300" :onChange="changeWeight"></DLRuler>
-	  			<mt-button type="primary" class="theme-button" style="margin-top:0.2rem;" size="large" @click="okweigt">保存</mt-button>
+	  			<mt-button type="primary" class="theme-button" style="height: 0.44rem;line-height: 0.44rem;border-radius: 0" size="large" @click="okweigt">保存</mt-button>
 	  		</div>
 	  	</div>
-	  	
-	</div>  
+
+	</div>
   </div>
 </template>
 
@@ -120,6 +122,19 @@
         methods:{
         	initEchart(){
         		var option = {
+              tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                  type: 'cross',
+                  label: {
+                    backgroundColor: '#6a7985'
+                  }
+                },
+                textStyle: {
+                  fontWeight: 'lighter',
+                  fontSize: 13
+                }
+              },
         			grid:{
         				top: 20,
         				bottom: 40
@@ -127,10 +142,54 @@
 				    xAxis: {
 				        type: 'category',
 				        boundaryGap: false,
-				        data: []
+				        data: [],
+              axisLabel: {
+                color: '#787878',
+              },
+              axisLine: {
+                lineStyle: {
+                  color: '#979797'
+                }
+              },
+              axisTick: {
+                // show: false,
+                lineStyle: {
+                  color: '#979797'
+                }
+              },
+              nameTextStyle: {
+                align: 'left',
+              },
+              offset: 4
 				    },
 				    yAxis: {
-				        type: 'value'
+				        type: 'value',
+              axisLine: {
+                // show: false
+                lineStyle: {
+                  color: '#979797'
+                }
+              },
+              axisTick: {
+                // show: false
+
+                alignWithLabel: true,
+                lineStyle: {
+                  color: '#979797'
+                }
+              },
+              splitLine: {
+                show: true,
+                lineStyle: {
+                  color: 'rgba(241, 240, 240, 1)'
+                }
+              },
+              nameTextStyle: {
+                color: '#787878',
+                fontSize: 13,
+                align: 'center'
+              },
+              scale: true,
 				    },
 				    series: [
 					    {
@@ -163,7 +222,7 @@
 				            },
 					    },
 				    ],
-				    color:["#F78335", "#09AC17", "#CB0000"]
+				    color:["#0AC5C9", "#d17942", "#162d45"]
 				};
         		//获取dom容器
 				var myChart = echarts.init(document.getElementById('weighEchart'));
@@ -251,7 +310,7 @@
 		},
 		created() {
 			if (localStorage.userInfo) {
-				
+
 			} else {
 				this.$router.push('/login');
 			}
@@ -260,22 +319,32 @@
 </script>
 
 <style scoped lang="scss">
+
+  .mint-header {
+    height: 0.44rem;
+    line-height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
   .title{
-  	padding: 0.20rem;
+    padding: 0.20rem 0.20rem 0.10rem 0.20rem;
   }
   .title .name{
   	color: #000000;
   }
   #weighEchart{
   	margin: 0 0.2rem;
-  	height: 1.5rem;
+  	height: 2.5rem;
   }
   .btns{
-  	padding: 0.20rem 0.66rem;
+  	padding: 0.20rem 8% 0.10rem 8%;
+    .mint-button--primary {
+      background: #0AC5C9!important;
+    }
   }
-   
+
   .jiluInfo{
-  	padding:0 0.32rem;
+    width: 86%;
+    margin: 0px auto;
   }
   .jiluInfo ul li .num{
   	color: #000000;
@@ -290,7 +359,9 @@
   	justify-content: space-between;
   	align-items: baseline;
   }
-  
+  .mag10{
+    margin-top: 0.1rem;
+  }
   .modal.show{
   	transform: translateY(0);
   }
@@ -321,7 +392,7 @@
 	  height: 0.6rem;
 	  background: linear-gradient(180deg,rgba(255,205,80,1) 0%,rgba(252,209,134,1) 100%);
 	  margin-bottom: 20px;
-	}	
+	}
   }
   .close{
 	  width: 0.2rem;
@@ -371,8 +442,9 @@
 	  }
   }
   .allweit{
-	  padding-top: 0.1rem;
+	  padding: 0.2rem 0 0.15rem 0;
 	  font-weight: 700;
 	  font-size: 0.16rem;
+    border-bottom: 1px solid #e5e5e5;
   }
 </style>

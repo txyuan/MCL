@@ -47,12 +47,12 @@
 			<div class="title2 yellow bg-white">13.饮食形式</div>
 			<mt-radio :options="dietformRadiolist.option" v-model="param.dietform" class="borderBottom"></mt-radio>-->
 
-			<div class="title2 bg-white">1、您目前处在以下哪个阶段？</div>
+			<div class="title2 bg-white">1、您目前处在以下哪个阶段？<em class="text_bt">(必填)</em></div>
 			<mt-radio :options="diettabooRadiolists.option" v-model="param.prescription_value_22"></mt-radio>
-			<div class="title2 bg-white">2、您现在的身体症状有哪些？</div>
+			<div class="title2 bg-white">2、您现在的身体症状有哪些？<em class="text_bt">(必填)</em></div>
 			<mt-checklist :options="diettabooRadiolist.option" v-model="diettabooRadiolist.value"></mt-checklist>
 			<div class="fix_bottom fix_bottom_area">
-				<mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit">保存</mt-button>
+				<mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit">提交申请</mt-button>
 			</div>
 		</div>
 	</div>
@@ -108,13 +108,17 @@
 					this.$Toast("请选择您目前所处的阶段");
 					return;
 				}
+        if(this.diettabooRadiolist.value==""){
+          this.$Toast("请选择您现在的身体症状有哪些");
+          return;
+        }
 				let url = "UserInterface/UpdateNutritionPrescription.ashx";
 				this.$post(url, this.param).then((data) => {
 					if (data.rspcode != 1) {
 						this.$Toast(data.rspdesc)
 						return;
 					}
-					this.$Toast("保存成功")
+					this.$Toast("提交申请成功")
 					//查看报告
 					this.$router.push("/nutrition")
 				})
@@ -162,6 +166,12 @@
     line-height: 0.48rem;
     border-bottom: 1px solid #e5e5e5;
     font-size: 0.15rem;
+    .text_bt{
+      font-style: normal;
+      font-size: 0.13rem;
+      color: #CB0000;
+      padding-left: 0.05rem;
+    }
 	}
 
   .fix_bottom{

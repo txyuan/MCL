@@ -210,8 +210,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  .mint-header {
+  height: 0.44rem;
+  line-height: 0.44rem;
+  border-bottom: 1px solid #e5e5e5;
+}
 	.todymag{
-		padding: 43px 3% 0 3%;
+		padding: 0.44rem 3% 0 3%;
 		.bj_inform{
 			padding: 0.16rem 3% 0.06rem 3%;
 			overflow: hidden;

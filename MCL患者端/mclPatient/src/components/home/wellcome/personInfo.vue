@@ -28,10 +28,10 @@
       </mt-cell>
     </div>
     <div class="splitLine">
-      <mt-field label="身高" placeholder="请输入身高(cm)" class="borderBottom" v-model.trim="param.height"
-                @change="doBMI"></mt-field>
-      <mt-field label="体重" placeholder="请输入体重(kg)" class="borderBottom" v-model.trim="param.weight"
-                @change="doBMI"></mt-field>
+      <mt-field label="身高" placeholder="请输入身高" class="borderBottom" v-model.trim="param.height"
+                @change="doBMI">&nbsp;cm</mt-field>
+      <mt-field label="体重" placeholder="请输入体重" class="borderBottom" v-model.trim="param.weight"
+                @change="doBMI">&nbsp;kg</mt-field>
       <mt-field label="BMI" placeholder="BMI" class="borderBottom" :readonly="true" v-model.trim="param.bmi"></mt-field>
     </div>
 
@@ -575,7 +575,6 @@ export default {
       const BMI = weight / (height * height) // 体重/身高的平方
       this.param.bmi = BMI.toFixed(1)
     },
-
     // citypicker的确定回调
     cityPickerChange (values) {
       this.openTouch()
@@ -948,7 +947,8 @@ export default {
     width: 72px;
     border: none !important;
     border-bottom: 1px solid #ddd !important;
-    text-align: left;
+    text-align: center;
+    font-size: 0.145rem;
   }
 
   .personInfo_root .mint-checklist-title,
@@ -1111,6 +1111,9 @@ export default {
     font-weight: bold;
     background-color:#0AC5C9;
   }
+  .personInfo_root .splitLine .mint-field .mint-cell-value {
+    color: #999;
+  }
   .personInfo_root .mint-radiolist.dateSelection  .mint-radio-input:checked + .mint-radio-core{
     /*background-color: #FFFFFF;*/
     /*border-color: #FFFFFF;*/
@@ -1131,7 +1134,6 @@ export default {
     background-color: #0AC5C9;
     border-color: #0AC5C9;
   }
-
   /* 屏幕等于1440px */
   @media screen and (max-width: 375px) and (min-width: 1440px) {
     .add {
