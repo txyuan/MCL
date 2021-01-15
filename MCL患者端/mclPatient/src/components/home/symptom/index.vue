@@ -16,7 +16,6 @@
 				<input v-else :id="item.id" type="checkbox" :name="item.id" @click.prevent="openModal(item)">
 			</span>
       </div>
-
       <div class="pageButton">
         <mt-button type="primary" class="theme-button button-radio " size="large" @click.native="save">保存</mt-button>
       </div>
@@ -86,13 +85,32 @@
         </div>
 
       </mt-popup>
-
+      <!-- 体重标识遮罩层 -->
+      <div id="mark" :style="{display: (show?'block': 'none')}">
+        <div class="modal" :class="show && 'show' ">
+          <div class="close" @click="hidejl"></div>
+          <div class="text-center">
+<!--            <p class="today">今天</p>-->
+<!--            <img src="@/assets/images/paizhao@2x.png" alt="" width="60" height="60"/>-->
+<!--            <div class="huiFont font12 note">-->
+<!--              <p>用照片记录改变</p>-->
+<!--              <p>（照片将自动发布到个人动态中）</p>-->
+<!--            </div>-->
+            <!-- <p class="yellow nums"> <span class="num">69.5</span> <span class="font14">公斤</span></p> -->
+          </div>
+          <!-- <div class="chizi"></div> -->
+          <span class="tit_ys">体重<em>（Kg）</em> </span>
+          <DLRuler :value="50.0" :min="0" :max="300" :onChange="changeWeight"></DLRuler>
+          <mt-button type="primary" class="theme-button rulerBtm" size="large" @click="okweigt">保存</mt-button>
+        </div>
+      </div>
 
     </div>
   </div>
 </template>
 <script>
 
+  import DLRuler from './ruler.vue';
   function $ (el) {
     return document.querySelector(el)
   }
@@ -101,6 +119,12 @@
     name: 'symptom',
     data: () => ({
       popupVisible: false,
+      show: false,
+      wegvale:50,
+      param:{
+        pagesize: 10,
+        pagecount: 0,
+      },
       itmekey: '',  //Guid
       usekey: '',
       modalQustionHtml: '',  //问题的html
@@ -198,7 +222,6 @@
     }),
     methods: {
       changeFixed (clientHeight) {                        //动态修改样式
-        console.log(clientHeight)
         this.$refs.homePage.style.height = clientHeight - 105 + 'px'
         this.$refs.popupBody.style.height = clientHeight - 96 + 'px'
 
@@ -223,7 +246,7 @@
 			  document.getElementById(id).checked = true
 			  document.getElementById(id).parentElement.className = 'active'
 		  }
-          
+
         }
       },
       //获取Guid
@@ -240,6 +263,10 @@
       //生成问题
       renderQuestion (elObj) {
         var indexList = elObj.itemindex.split(',')
+        console.log(indexList)
+        if(indexList=="31"){
+          this.show= true;
+        }
         indexList.forEach((item, index) => {
           var id = item
           var q = this.questionList['id' + item]
@@ -359,7 +386,6 @@
 
           //问题的html字符串
           this.modalQustionHtml += (qhtml + ahtml)
-
           //获取答案
           let url = 'UserInterface/SelectReportCheckedItemValue.ashx'
           var data = {
@@ -376,6 +402,7 @@
                 datalist.forEach((item, index) => {
                   num = num + 1
                   var $input = document.getElementById(id + '_' + num)
+                  console.log($input )
                   if ($input) {
                     $input.value = item
                   }
@@ -455,6 +482,25 @@
         }
       },
 
+      saveWeight(){
+        this.show = true;
+      },
+      hidejl(){
+        this.show = false;
+      },
+      // 体重保存
+      okweigt(){
+        let param={
+          Weight:this.wegvale
+        };
+        this.show = false;
+        document.getElementById("31_1").value=param.Weight;
+        console.log(param)
+      },
+      changeWeight(val) {
+        this.wegvale=val;
+        console.log(val)
+      },
       // 重置问题
       reset () {
         var $eles = document.querySelectorAll('.popup_body [name]')
@@ -524,6 +570,9 @@
         var data = {
           itmekey: this.itmekey
         }
+        let param={
+          Weight:this.wegvale
+        };
         var $checkboxs = document.querySelectorAll('#page [type=checkbox]')
         $checkboxs.forEach(($box) => {
           var id = $box.id.replace('cb_', '')
@@ -540,6 +589,9 @@
           }
         })
       }
+    },
+    components:{
+      DLRuler
     },
     mounted: function () {
       //获取Guid
@@ -560,19 +612,22 @@
   }
 </script>
 <style lang="scss">
-  .mint-popup-3 {
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
+  .mint-popup{
+   z-index: 999!important;
+}
+.mint-popup-3 {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
 
-  }
+}
 
-  .popup_body {
-    height: 100%;
-    padding-top: 45px;
-    box-sizing: border-box;
-    overflow-y: scroll;
-  }
+.popup_body {
+  height: 100%;
+  padding-top: 45px;
+  box-sizing: border-box;
+  overflow-y: scroll;
+}
 </style>
 <style type="text/css">
   .symptom-root input[type=checkbox] {
@@ -889,6 +944,75 @@
         color: #fff;
         background-color: #0AC5C9;
       }
+    }
+    #mark{
+      z-index: 1000!important;
+  }
+    .modal.show {
+      transform: translateY(0);
+      min-height: 45%;
+      padding-top: 0.35rem;
+    }
+    .modal{
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #FFFFFF;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      transition: transform ease 0.6s;
+      transform: translateY(1000px);
+      .today{
+        margin: 20px 0;
+      }
+      .note{
+        margin-top: 3px;
+        margin-bottom: 20px;
+      }
+      .nums{
+        margin-bottom: 20px;
+      }
+      .num{
+        font-size: 0.25rem;
+      }
+      .chizi{
+        height: 0.6rem;
+        background: linear-gradient(180deg,rgba(255,205,80,1) 0%,rgba(252,209,134,1) 100%);
+        margin-bottom: 20px;
+      }
+      .tit_ys {
+        display: block;
+        text-align: center;
+        font-size: 0.2rem;
+        padding-left: 0.2rem;
+        padding-bottom: 0.1rem;
+
+        em {
+          font-style: normal;
+          font-size: 0.15rem;
+        }
+      }
+
+      .rulerBtm {
+        height: 0.44rem;
+        line-height: 0.44rem;
+        background: #0AC5C9;
+        position: absolute;
+        bottom: 0.25rem;
+        width: 60%;
+        margin: 0.1rem 20%;
+        border-radius: 0.2rem;
+      }
+    }
+    .close{
+      width: 0.2rem;
+      height: 0.2rem;
+      background: url(./../../../assets/images/guanbi@2x.png) no-repeat center center;
+      background-size: 100%;
+      position: absolute;
+      right: 0.14rem;
+      top: 0.1rem;
     }
   }
 </style>
