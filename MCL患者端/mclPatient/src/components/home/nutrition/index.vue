@@ -482,16 +482,17 @@
 		line-height: 0.45rem;
 		background: #FFFFFF;
     font-size:0.15rem ;
-    padding-left: 0.15rem;
+    padding-left: 0.12rem;
 
 		&>*, .huiFont>*{
 			vertical-align: middle;
+      font-size: 0.145rem;
 		}
 	}
 
 	.content-list {
 		background: #FFFFFF;
-		padding-left: 0.3rem;
+		padding-left: 0.27rem;
 
 		.my-cell {
       display: flex;

@@ -16,7 +16,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<!-- 今日饮食 -->
 			<div class="marginTop10 yinshhi_list" style="background: #fff;">
 				<div class="title">
@@ -39,7 +39,7 @@
 							{{item.kcalunit}}</span>
 					</div>
 				</mt-cell>
-				
+
 			</div>
 		</div>
 	</div>
@@ -61,6 +61,7 @@
 					flag:1,
 				};
 				this.$post(url,param).then((data) => {
+				  console.log(data);
 					if (data.rspcode != 1) {
 						return;
 					}
@@ -77,10 +78,10 @@
 					mealtypeText = "早餐";
 					    break;
 					case "02":
-					mealtypeText = "午餐";	
+					mealtypeText = "午餐";
 					    break;
 					case "03":
-					mealtypeText = "晚餐";	
+					mealtypeText = "晚餐";
 					    break;
 					case "04":
 					mealtypeText = "加餐";
@@ -100,20 +101,20 @@
 	}
 	.yinshhi_list {
 		background: #FFFFFF;
-	
+
 		.title {
 			padding-left: 0.12rem;
 			line-height: 45px;
 		}
-	
+
 		.wrap {
 			padding-right: 15px;
 		}
-	
+
 		.wrap>* {
 			vertical-align: middle;
 		}
-	
+
 		.wrap>.icon {
 			margin-right: 5px;
 		}
@@ -122,7 +123,7 @@
 		display: inline-block;
 		vertical-align: middle;
 	}
-	
+
 	.yinshhi_list .mint-cell {
 		min-height: 66px;
 	}
