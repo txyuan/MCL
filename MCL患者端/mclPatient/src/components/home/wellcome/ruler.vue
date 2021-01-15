@@ -1,9 +1,9 @@
 <template xmlns:v-touch="http://www.w3.org/1999/xhtml">
-  <div class="ymRuler ">
+  <div class="ymRuler">
     <div class="rultitle"><strong>{{numberValue}}</strong><span style="font-size: 0.18rem;"></span></div>
     <div class="ruler " ref="testAA">
-    <div class="rulltbg"></div>
-    <div class="rulrtbg"></div>
+      <div class="rulltbg"></div>
+      <div class="rulrtbg"></div>
       <div class="main"
            :style="{'-webkit-transform': 'translateX(' +  mainValue + 'px)', 'width': getMainWidth+'px', position: 'relative',  left: '0px'}">
         <ul style="overflow: hidden;  -webkit-transform: translateX(45px);">
@@ -19,7 +19,7 @@
 </template>
 <script>
   export default {
-    props: ["value", "min", "max", "onChange"],
+    props: ['value', 'min', 'max', 'onChange'],
     components: {},
     data: function () {
       return {
@@ -34,106 +34,107 @@
       }
     },
     computed: {
-      itemCount() {
-        const num = this.max - this.min;
-        let value = num / 5;
-        return value + 1;
+      itemCount () {
+        const num = this.max - this.min
+        let value = num / 5
+        return value + 1
       },
-      getMainWidth() {
+      getMainWidth () {
         return ((this.max - this.min) / 5 + 2) * 104
       }
     },
-    created() {
+    created () {
     },
-    mounted() {
-      this.calcInit(this.value);
+    mounted () {
+      this.calcInit(this.value)
     },
     methods: {
-      calcInit(value) {
-        let startValue = this.min - 5;
-        let width = this.$refs.testAA.offsetWidth;
-        let centerPX = width / 2 - 40;
-        let offsetKe = centerPX / 104;
+      calcInit (value) {
+        let startValue = this.min - 5
+        let width = this.$refs.testAA.offsetWidth
+        let centerPX = width / 2 - 40
+        let offsetKe = centerPX / 104
         while (offsetKe > 0) {
           if (offsetKe < 1) {
-            startValue += offsetKe * 5;
+            startValue += offsetKe * 5
           } else {
             startValue += 5
           }
-          offsetKe--;
+          offsetKe--
         }
-        let offsetPx = ( value - startValue) / 5;
-        offsetPx = offsetPx * 105 - offsetPx;
-        this.mainValue = -offsetPx;
+        let offsetPx = (value - startValue) / 5
+        offsetPx = offsetPx * 105 - offsetPx
+        this.mainValue = -offsetPx
       },
-      onTouchStart(e) {
-        const that = this;
-        e.stopPropagation();
-        that.start = 0;
-        that.end = -((this.max - this.min) * 20.8);
-        that.startX = e.changedTouches[0].pageX - that.mainValue;
+      onTouchStart (e) {
+        const that = this
+        e.stopPropagation()
+        that.start = 0
+        that.end = -((this.max - this.min) * 20.8)
+        that.startX = e.changedTouches[0].pageX - that.mainValue
       },
-      onTouchMove(e) {
-        e.preventDefault();
-        const that = this;
-        that.moveX = e.changedTouches[0].pageX;
-        that.X = that.moveX - that.startX;
+      onTouchMove (e) {
+        e.preventDefault()
+        const that = this
+        that.moveX = e.changedTouches[0].pageX
+        that.X = that.moveX - that.startX
         if (that.X > 0) {
-          var vv = that.mainValue;
+          var vv = that.mainValue
           if (vv >= that.start) {
-            that.start = that.X > that.start ? that.start : that.X;
-            that.mainValue = that.start;
+            that.start = that.X > that.start ? that.start : that.X
+            that.mainValue = that.start
           } else {
-            that.mainValue = that.X;
+            that.mainValue = that.X
           }
         } else {
-          var vv = that.mainValue;
+          var vv = that.mainValue
           if (vv <= that.end) {
-            that.end = that.X < that.end ? that.end : that.X;
-            that.mainValue = that.end;
+            that.end = that.X < that.end ? that.end : that.X
+            that.mainValue = that.end
           } else {
-            that.mainValue = that.X;
+            that.mainValue = that.X
           }
         }
-        let width = this.$refs.testAA.offsetWidth;
-        let startValue = this.min - 5;
-        let centerValue = startValue;
-        let centerPX = width / 2 - 40;
-        let offsetKe = centerPX / 104;
+        let width = this.$refs.testAA.offsetWidth
+        let startValue = this.min - 5
+        let centerValue = startValue
+        let centerPX = width / 2 - 40
+        let offsetKe = centerPX / 104
         while (offsetKe > 0) {
           if (offsetKe < 1) {
-            centerValue += offsetKe * 5;
+            centerValue += offsetKe * 5
           } else {
             centerValue += 5
           }
-          offsetKe--;
+          offsetKe--
         }
-        let a = Math.abs(that.mainValue) / 20.8;
+        let a = Math.abs(that.mainValue) / 20.8
         // that.numberValue = Math.round(centerValue + a);
-        that.numberValue = (centerValue + a).toFixed(1);
-        if(that.numberValue >= that.max){
-          that.numberValue = that.max;
-          that.calcInit(that.max);
-          return ;
+        that.numberValue = (centerValue + a).toFixed(1)
+        if (that.numberValue >= that.max) {
+          that.numberValue = that.max
+          that.calcInit(that.max)
+          return
         }
-        if(that.numberValue <= that.min){
-          that.numberValue = that.min;
-          that.calcInit(that.min);
-          return ;
+        if (that.numberValue <= that.min) {
+          that.numberValue = that.min
+          that.calcInit(that.min)
+          return
         }
       },
-      onTouchEnd(var1, var2) {
-        this.onChange && this.onChange(this.numberValue);
-        this.calcInit( this.numberValue);
+      onTouchEnd (var1, var2) {
+        this.onChange && this.onChange(this.numberValue)
+        this.calcInit(this.numberValue)
       }
     }
   }
 </script>
 <style>
-  ul,li {
+  ul, li {
     list-style: none;
     padding: 0;
   }
+
   .ymRuler .rultitle {
     text-align: center;
     margin-top: 0.15rem;
@@ -186,12 +187,14 @@
     text-align: right;
     padding-left: 0;
   }
+
   .ymRuler .ruler li .num {
     display: inline-block;
     position: relative;
     margin-right: -6px;
     color: #484848;
   }
+
   .ymRuler .ruler .arrow {
     width: 0;
     height: 0;
@@ -202,8 +205,10 @@
     top: -6px;
     margin-left: -14px;
   }
+
   .ymRuler .main li {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANMAAAAxCAYAAABAi5xQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQyIDc5LjE2MDkyNCwgMjAxNy8wNy8xMy0wMTowNjozOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpERDMwOEQ3MEVDQjExMUU4OEVFMDk2RDM3RkE1OEMyRCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpERDMwOEQ3MUVDQjExMUU4OEVFMDk2RDM3RkE1OEMyRCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkREMzA4RDZFRUNCMTExRTg4RUUwOTZEMzdGQTU4QzJEIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkREMzA4RDZGRUNCMTExRTg4RUUwOTZEMzdGQTU4QzJEIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+sPzlxgAAAOlJREFUeNrs3DEKwjAUgOFEciIv4Obgfeusm4texgNUsBTcJNAX0/p9c3mEF35aF/NwuY9pktN3W362Rg9zPdvBvZ0O+3S+Pt5zd4nPRY8rmktn9yYmWIiYQEwgJhATICYQE4gJxASICcQEYgLEBGICMYGYADGBmEBMICZATPB7JS3/d0ozc839q7neTOAzD8QEYgLEBGKCtSiVzz+DzmFuLPttcG+1MR2DzmFuLPttcG+1Md2CzmFuLPttcG9+M4GYQEywScUKupKtwJsJxGQFICYQE4gJEBOICcQEYgLEBGICMQGTlwADAJ6bLbi/IMcnAAAAAElFTkSuQmCC) left top no-repeat;
+    /*background-size: 100px 40px;*/
     color: #fff;
     background-size: 200px 42px;
   }

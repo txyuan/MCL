@@ -80,17 +80,18 @@
 	  		<div class="modal" :class="show && 'show' ">
 	  			<div class="close" @click="hidejl"></div>
 	  			<div class="text-center">
-	  			 	<p class="today">今天</p>
-		  			<img src="@/assets/images/paizhao@2x.png" alt="" width="60" height="60"/>
-		  			<div class="huiFont font12 note">
-		  				<p>用照片记录改变</p>
-		  				<p>（照片将自动发布到个人动态中）</p>
-		  			</div>
+<!--	  			 	<p class="today">今天</p>-->
+<!--		  			<img src="@/assets/images/paizhao@2x.png" alt="" width="60" height="60"/>-->
+<!--		  			<div class="huiFont font12 note">-->
+<!--		  				<p>用照片记录改变</p>-->
+<!--		  				<p>（照片将自动发布到个人动态中）</p>-->
+<!--		  			</div>-->
 		  			<!-- <p class="yellow nums"> <span class="num">69.5</span> <span class="font14">公斤</span></p> -->
 	  			</div>
 	  			<!-- <div class="chizi"></div> -->
+          <span class="tit_ys">体重<em>（Kg） </em></span>
 	  			<DLRuler :value="50.0" :min="0" :max="300" :onChange="changeWeight"></DLRuler>
-	  			<mt-button type="primary" class="theme-button" style="height: 0.44rem;line-height: 0.44rem;border-radius: 0" size="large" @click="okweigt">保存</mt-button>
+	  			<mt-button type="primary" class="theme-button rulerBtm" size="large" @click="okweigt">保存</mt-button>
 	  		</div>
 	  	</div>
 
@@ -284,10 +285,13 @@
 				let param={
 					Weight:this.wegvale
 				};
+
+        console.log(param)
 				this.$post(url,param).then((data)=>{
 					 if(data.rspcode != 1 ){
 					   return;
 					 }
+
 					 this.$Toast(data.rspdesc);
 					 this.show = false;
 					 this.initEchart();
@@ -297,6 +301,7 @@
 			},
 			changeWeight(val) {
 				this.wegvale=val;
+        console.log(val)
 			}
         },
         mounted: function(){
@@ -363,7 +368,9 @@
     margin-top: 0.1rem;
   }
   .modal.show{
-  	transform: translateY(0);
+    transform: translateY(0);
+    min-height: 45%;
+    padding-top: 0.35rem;
   }
   .modal{
   	position: absolute;
@@ -393,6 +400,28 @@
 	  background: linear-gradient(180deg,rgba(255,205,80,1) 0%,rgba(252,209,134,1) 100%);
 	  margin-bottom: 20px;
 	}
+    .tit_ys {
+      display: block;
+      text-align: center;
+      font-size: 0.2rem;
+      padding-left: 0.2rem;
+      padding-bottom: 0.1rem;
+
+      em {
+        font-style: normal;
+        font-size: 0.15rem;
+      }
+    }
+    .rulerBtm {
+      height: 0.44rem;
+      line-height: 0.44rem;
+      background: #0AC5C9;
+      position: absolute;
+      bottom: 0.25rem;
+      width: 60%;
+      margin: 0.1rem 20%;
+      border-radius: 0.2rem;
+    }
   }
   .close{
 	  width: 0.2rem;
