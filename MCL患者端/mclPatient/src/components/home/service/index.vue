@@ -22,7 +22,7 @@
 				</ul>
 			</div>
 			<div class="titlebt">
-				<h3>管理套餐<router-link :to="'/service2?stat=1'"><span>查看更多</span></router-link></h3>
+				<h3>管理套餐</h3>
 			</div>
 			<!-- 商品列表  -->
 			<div class="shop_list" style="">
@@ -35,6 +35,9 @@
 							</div>
 					</div>
 				</div>
+        <div class="seeMore">
+        <router-link :to="'/service2?stat=1'" class="seemore_a"><span>查看更多&nbsp;></span></router-link>
+        </div>
 			</div>
 			<!-- <div class="serv_ul">
 				<div class="serv_list" v-for="(item,index) in tclist" :key="index" @click="cometca(item)">
@@ -49,7 +52,7 @@
 				</div>
 			</div> -->
 			<div class="titlebt">
-				<h3>零售商品<router-link :to="'/service2?stat=2'"><span>查看更多</span></router-link></h3>
+				<h3>零售商品</h3>
 			</div>
 			<!-- 商品列表  -->
 			<div class="shop_list" style="padding-bottom: 0.5rem;">
@@ -66,6 +69,9 @@
 						<!-- </loadMore> -->
 					</div>
 				</div>
+        <div class="seeMore">
+          <router-link :to="'/service2?stat=2'" class="seemore_a"><span>查看更多&nbsp;></span></router-link>
+        </div>
 			</div>
 		</div>
 		<!-- 购物车入口 -->
@@ -318,9 +324,9 @@ export default {
 			span{
 				float: right;
 				color: #F78335;
-				font-size: 0.12rem;
+				font-size: 0.15rem;
 				font-weight: normal;
-				line-height: 0.18rem;
+				/*line-height: 0.18rem;*/
 			}
 		}
 	}
@@ -424,4 +430,17 @@ export default {
 			}
 		}
 	}
+  .seeMore{
+    .seemore_a{
+      display: block;
+      width: 50%;
+      margin: 0.1rem auto;
+      background-color: #0AC5C9;
+      color: #FFFFFF;
+      text-decoration: none;
+      border-radius: 0.2rem;
+      text-align: center;
+      padding: 0.065rem 0;
+    }
+  }
 </style>
