@@ -40,7 +40,7 @@
 				<loadMore :param="param" @triggerGetList="shoplist" ref="loadMoreE" :isDefaultLoading="false">
 					<div class="scroll" slot="content">
 						<mt-cell v-for="(item,index) in list" :key="index" is-link @click.native="showModal(item)">
-							<img slot="icon" :src="item.foodimg" width="46" height="46">
+							<img slot="icon" :src="item.foodimg" width="52" height="52">
 							<div slot="title" class="titleWrap">
 								<span class="mint-cell-text">{{item.foodname}}</span>
 								<span class="mint-cell-label font12 huiFont99"><span class="colF7">{{item.foodkcal}} {{item.kcalunit}}</span> /{{item.foodgram}}{{item.gramunit}}</span>
@@ -62,7 +62,7 @@
 					</div>
 
 					<mt-cell class="">
-						<img slot="icon" :src="currentItem.foodimg" width="52" height="52">
+						<img slot="icon" :src="currentItem.foodimg" width="56" height="56">
 						<div slot="title" class="titleWrap">
 							<span class="mint-cell-text">{{currentItem.foodname}}</span>
 							<span class="mint-cell-label font12 huiFont99"><span class="colF7">{{currentItem.foodkcal}} {{currentItem.kcalunit}}</span>/{{currentItem.foodgram}}{{currentItem.gramunit}}</span>
@@ -71,24 +71,41 @@
 
 					<div class="showNum font13">
 						<div class="left huiFont">
-<!--							<p>{{currentItem.foodkcal}} {{currentItem.kcalunit}}</p>-->
-<!--							<p>{{currentItem.foodgram}}{{currentItem.gramunit}}</p>-->
+							<p style="line-height: 25px">{{currentItem.foodkcal}} {{currentItem.kcalunit}}</p>
+							<p>{{currentItem.foodgram}}{{currentItem.gramunit}}</p>
 						</div>
 						<div class="">
-							<p> <span class="num">&nbsp;{{showNum.join().replace(/,/g, "")}}&nbsp;</span><span style="font-size: 0.14rem;color: #666; margin-left: 0.05rem">{{currentItem.gramunit}}</span></p>
+<!--							<p> <span class="num">&nbsp;{{showNum.join().replace(/,/g, "")}}&nbsp;</span><span style="font-size: 0.14rem;color: #666; margin-left: 0.05rem">{{currentItem.gramunit}}</span></p>-->
+
+              <p><span class="num">&nbsp;{{wegvale}}&nbsp;</span><span class="num_g">{{company}}</span></p>
 						</div>
-						<div class="right huiFont">
-							<!-- <p>50克约等于</p>
-							<p>1颗鸡蛋</p> -->
+            <div class="right huiFont"  style="text-align: center; color: #898989">
+              <p> <img src="@/assets/images/icon-units.png" alt="" class="icon" width="22" height="22"/></p>
+              <p>重量估算</p>
 						</div>
 					</div>
 				</div>
-
+        <div v-show="hideWeight">
+          <DLRuler :value="50.0" :min="0" :max="300" :onChange="changeWeight"></DLRuler>
+        </div>
+        <div v-show="hideTwo">
+          <DLRuler :value="0" :min="0" :max="50" :onChange="changeTwo"></DLRuler>
+        </div>
+        <div v-show="hideMl">
+          <DLRuler :value="100.0" :min="0" :max="800" :onChange="changeMl"></DLRuler>
+        </div>
 				<!--<p class="yellow text-center">克</p>-->
 
-				<ul class="keyboard">
-					<li v-for="(item,index) in keyList" :style="{'border-right-width': (index%3==2 ? 0 : '4px')}" @click="keyCode(item,index)">{{item}}</li>
-				</ul>
+<!--				<ul class="keyboard">-->
+<!--					<li v-for="(item,index) in keyList" :style="{'border-right-width': (index%3==2 ? 0 : '4px')}" @click="keyCode(item,index)">{{item}}</li>-->
+<!--				</ul>-->
+        <div class="dw_ys" v-show="hideWgtTwo" >
+          <mt-button type="primary" id="saveWeight" class="dw_btn active" size="large" @click.native="saveWeight">g</mt-button>
+          <mt-button type="primary" id="saveTwo" class="dw_btn" size="large" @click.native="saveTwo">两</mt-button>
+        </div>
+        <div class="dw_ys" v-show="hideBtnml" >
+          <mt-button type="primary" id="saveMl" class="dw_btn active"  size="large">ml</mt-button>
+        </div>
        <div class="btnConfirm"><span @click="confirm">确  认</span></div>
       </div>
 		</div>
@@ -99,7 +116,10 @@
 <script>
 	import Bus from "@/assets/js/updateShopCar.js"; //bus
 	import pic from "@/assets/images/syyx.png"; //跟新购物车数量
-	import loadMore from "@/components/common/loadMore.vue"; //加载更多组件
+	import loadMore from "@/components/common/loadMore.vue";
+  import DLRuler from '../home/diet/ruler' //加载更多组件
+
+  // import DLRuler from './ruler.vue'//标尺
 	export default {
 		name: "uploadPhoto",
 		data: () => ({
@@ -115,6 +135,14 @@
 			showNum: [],
 			show: false,
 			currentItem: {},   //点击的菜对象
+
+      wegvale:50,
+      hideTwo: false,
+      hideMl: false,
+      hideBtnml: false,
+      hideWgtTwo: true,
+      hideWeight: true,
+      company:'g',
 
 			//早，中，晚，加餐的对象key
 			foodKey:"",
@@ -146,7 +174,20 @@
 			showModal(item) {
 				this.currentItem = item;
 				this.showNum = [];
-				this.show = true
+				this.show = true;
+        if(item.gramunit=="ml"){
+          this.hideMl=true;
+          this.hideBtnml=true;
+          this.hideWgtTwo=false;
+          this.hideWeight=false;
+          this.wegvale = 100
+          this.company= "ml"
+        }else {
+          this.hideMl=false;
+          this.hideBtnml=false;
+          this.hideWgtTwo=true;
+          this.hideWeight=true;
+        }
 			},
 			hideModal() {
 				this.show = false
@@ -163,11 +204,37 @@
 			},
 			//键盘的确定按钮
 			confirm(){
-				if(this.showNum.length == 0){
-					this.$Toast("请输入菜品克数")
-					return
-				}
-				const showNum = Number(this.showNum.join().replace(/,/g, ""));
+				// if(this.showNum.length == 0){
+				// 	this.$Toast("请输入菜品克数")
+				// 	return
+				// }
+        if (this.wegvale == '0') {
+          this.$Toast('请输入菜品克数')
+          return
+        }
+        let param = {
+          Weight: this.wegvale,
+        }
+        if (  this.company=="g") {
+          const showNum = param.Weight
+          this.currentItem.foodconsumption = showNum
+          console.log("saveWeight"+showNum)
+        }
+        if( this.company=="两"){
+          const showNum = param.Weight*50;
+          console.log("saveTwshowNumo"+showNum)
+          this.currentItem.gramunit="g";
+          this.currentItem.foodconsumption = showNum
+          console.log("saveTwo"+showNum)
+          console.log(" this.currentItem.foodconsumption"+ this.currentItem.foodconsumption)
+        }
+        if ( this.company=="ml") {
+          const showNum = param.Weight
+          this.currentItem.foodconsumption = showNum
+          console.log("saveMl"+showNum)
+        }
+        const showNum =  this.currentItem.foodconsumption
+				// const showNum = Number(this.showNum.join().replace(/,/g, ""));
 				//单位克
 				const {foodgram, foodkcal, protein, fat, carbohydrate} = this.currentItem;
 				//总千卡
@@ -181,12 +248,46 @@
 				//resultObj 保存计算过的结果
 				this.currentItem.resultObj = {foodkcal:foodkcal2, protein:protein2, fat:fat2, carbohydrate:carbohydrate2}
  				//总克数
-				this.currentItem.foodconsumption = showNum;
+				// this.currentItem.foodconsumption = showNum;
 				//添加到bus
 				Bus.$emit("addDishes", this.currentItem)
 				this.$router.back()
 			},
+      saveWeight () {
+        this.show = true
+        this.hideWeight = true
+        this.hideTwo = false
+        this.wegvale = 50
+        this.company= this.currentItem.gramunit
+        // this.currentItem.gramunit="g"
+        // this.currentItem.foodgram="100"
+        document.getElementById('saveWeight').classList.add('active')
+        document.getElementById('saveTwo').classList.remove('active')
+      },
+      saveTwo() {
+        this.show = true
+        this.hideTwo = true
+        this.hideWeight = false
+        this.wegvale = 0
+        this.company= "两"
+        // this.currentItem.gramunit="两"
+        // this.currentItem.foodgram="2"
+        document.getElementById('saveTwo').classList.add('active')
+        document.getElementById('saveWeight').classList.remove('active')
+      },
 
+      changeWeight (val) {
+        this.wegvale = val
+        console.log(val)
+      },
+      changeTwo (val) {
+        this.wegvale = val
+        console.log(val)
+      },
+      changeMl (val) {
+        this.wegvale = val
+        console.log(val)
+      },
 			//搜索菜单
 			searchDishes(){
 			    const searchData = ()=>{
@@ -301,7 +402,8 @@
 			Bus.$off("addDishes")
 		},
 		components: {
-			loadMore
+			loadMore,
+      DLRuler
 		}
 	}
 </script>
@@ -455,56 +557,102 @@ span.colF7{
 		}
 	}
 
-	/* 弹出层 */
-	#mark {
-		z-index: 99;
-	}
+  /* 弹出层 */
+  #mark {
+    z-index: 99;
+  }
 
-	.modal.show {
-		transform: translateY(0);
-	}
+  .modal.show {
+    transform: translateY(0);
+    min-height: 50%;
+  }
 
-	.modal {
-		position: absolute;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: #FFFFFF;
-		border-top-left-radius: 10px;
-		border-top-right-radius: 10px;
-		transition: transform ease 0.6s;
-		transform: translateY(1000px);
+  .modal {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #FFFFFF;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: transform ease 0.6s;
+    transform: translateY(1000px);
+    padding-bottom: 0.44rem;
 
-		.info {
-			padding: 0px 10px;
-		}
+    .btnConfirm {
+      text-align: center;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
 
-		.bar {
-			padding: 7px 10px;
-			display: flex;
-			justify-content: space-between;
-			align-items: baseline;
-      text-align: right;
-		}
+      span {
+        display: block;
+        width: 100%;
+        line-height: 0.44rem;
+        background-color: #0AC5C9;
+        color: #FFFFFF;
+        font-size: 0.16rem;
+      }
+    }
+    .info {
+      padding: 0px 10px;
+    }
 
-		.showNum {
-			display: flex;
-			justify-content: space-between;
-			margin:0.15rem 0  0.2rem 0;
-		}
+    .bar {
+      padding: 7px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
 
-		.num {
-			font-size: 0.275rem;
+    .showNum {
+      display: flex;
+      justify-content: space-between;
+      margin: 0.35rem 4% 0.2rem 4%;
+    }
+
+    .num {
+      font-size: 0.275rem;
       color: #0AC5C9;
-			display: inline-block;
-			min-width: 72px;
-			height: 0.35rem;
-			box-sizing: border-box;
-			text-align: center;
-			border-bottom: 2px solid #999999;
-		}
-	}
+      display: inline-block;
+      /*min-width: 72px;*/
+      height: 0.35rem;
+      padding-left: 0.2rem;
+      box-sizing: border-box;
+      text-align: right;
+      /*border-bottom: 2px solid #999999;*/
+    }
 
+    .num_g {
+      font-size: 0.165rem;
+      color: #0AC5C9;
+      /*margin-left: 0.05rem*/
+    }
+    .dw_ys{
+      text-align: center;
+      margin: 0.15rem 0;
+      .dw_btn{
+        display: inline-block;
+        width: 0.5rem;
+        padding: 0 0.05rem;
+        background: none;
+        color: #666666;
+        height: 0.28rem;
+        border-radius: 0.4rem;
+      }
+      .active{
+        background: #0AC5C9;
+        color: #FFFFFF;
+
+      }
+      .dw_btn::after{
+        background: none;
+        color: #0AC5C9;
+      }
+
+    }
+  }
 	.keyboard {
 		font-size: 0;
 	}

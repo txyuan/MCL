@@ -1,9 +1,9 @@
 <template xmlns:v-touch="http://www.w3.org/1999/xhtml">
   <div class="ymRuler">
-    <div class="rultitle"><strong>{{numberValue}}</strong><span style="font-size: 0.18rem;"></span></div>
+<!--    <div class="rultitle"><strong>{{numberValue}}</strong><span style="font-size: 0.18rem;"></span></div>-->
     <div class="ruler " ref="testAA">
-      <div class="rulltbg"></div>
-      <div class="rulrtbg"></div>
+      <div class="rulltbg" style="width: 8%"></div>
+      <div class="rulrtbg" style="width: 8%"></div>
       <div class="main"
            :style="{'-webkit-transform': 'translateX(' +  mainValue + 'px)', 'width': getMainWidth+'px', position: 'relative',  left: '0px'}">
         <ul style="overflow: hidden;  -webkit-transform: translateX(45px);">
@@ -47,6 +47,7 @@
     },
     mounted () {
       this.calcInit(this.value)
+      console.log("this.value"+this.value)
     },
     methods: {
       calcInit (value) {
@@ -62,7 +63,7 @@
           }
           offsetKe--
         }
-        let offsetPx = (value - startValue) / 5
+          let offsetPx = (value - startValue) / 5
         offsetPx = offsetPx * 105 - offsetPx
         this.mainValue = -offsetPx
       },
