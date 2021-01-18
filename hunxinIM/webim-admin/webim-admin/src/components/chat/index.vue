@@ -3,20 +3,24 @@
     <a-menu style="width: 100%; border-right: 0;" mode="vertical" :selectedKeys="selectedKeys">
       <a-menu-item
         style="height: 80px; position: relative; textAlign: left; borderBottom: 1px solid #eee; margin: 0"
-        v-for="(item) in friendList"
+        v-for="(item,index) in userList.contact"
         :key="getKey(item)"
         @click="select2(item, getKey(item))"
       >
       <!-- v-for="(item) in userList[type]" -->
-        <span class="custom-title">{{ item.name}} {{item.username}}</span>
-        <div class="icon-style" v-if="getUnreadNum(item) != 0">
-          <span class="unreadNum">{{getUnreadNum(item)}}</span>
+        <span class="custom-title" v-if="item.username.userName">
+		<i class="el-icon-star-on" v-if="item.username.isMember==1"></i>
+		{{ item.name}} ({{item.username.userName}})
+		</span>
+		<span class="custom-title" v-else><i class="el-icon-star-on" v-if="item.username.isMember==1"></i>{{ item.name}}</span>
+        <div class="icon-style" v-if="item.meum != 0">
+          <span class="unreadNum">{{item.meum}}</span>
         </div>
         <span class="time-style" style="float:right">{{getLastMsg(item).msgTime}}</span>
         <div>{{getLastMsg(item).lastMsg}}</div>
       </a-menu-item>
     </a-menu>
-    <div v-if="friendList.length == 0" style="margin-top: 15px;">没有好友信息</div>
+    <div v-if="userList.contact.length == 0" style="margin-top: 15px;">没有好友信息</div>
   </div>
 </template>
 
@@ -94,15 +98,30 @@ export default {
       msgList: "onGetCurrentChatObjMsg"
     }),
     userList() {
-      return {
+	  const temp = {
         contact: this.contact.filter(item => {
+		  this.$set(item, 'username', this.$root.getUserNameByPhone(String(item.name)))
+		  this.$set(item, 'meum', this.getUnreadNum(item))
           if (item && !this.blackList.includes(item.name)) {
             return item;
           }
         }), 
         group: this.group,
         chatroom: this.chatroom
-      };
+      }
+	  // temp.contact.forEach((item) => {
+		  
+   //    })
+	  for(let i=0;i<temp.contact.length;i++){
+		  let atyop=temp.contact[i]
+		  if(temp.contact[i].meum!=0){
+			  
+		  	temp.contact.splice(i,1)
+		  	temp.contact.unshift(atyop)	
+		  }
+	  }
+	  console.log(temp)
+      return temp;
     },
     blackList() {
       return Object.keys(this.$store.state.friendModule.blackList);
@@ -123,12 +142,20 @@ export default {
   watch:{
     'userList.contact': function (value) {
       value.forEach((item) => {
-        this.$set(item, 'username', this.$root.getUserNameByPhone(String(item.name)))
+        // item.lock = true
       })
       this.friendList = value
     },
     filterKeyword: function(value){
-      this.friendList = this.userList.contact.filter((item) => (item.name.indexOf(value) != -1) || (item.username.indexOf(value) != -1) )
+		
+      this.friendList = this.userList.contact.filter((item) =>{
+		  if(item.username){
+			  if((item.name.indexOf(value) != -1) || ((item.username.sUserName&&item.username.sUserName.indexOf(value)) != -1) ){
+				  return (item.name.indexOf(value) != -1) || ((item.username.sUserName&&item.username.sUserName.indexOf(value)) != -1)
+			  }
+		  }
+		  
+	  } )
     }
   },
   methods: {

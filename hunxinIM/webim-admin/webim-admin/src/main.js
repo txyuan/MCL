@@ -66,13 +66,14 @@ window.Vue = new Vue({
           }
           // 储存客服信息  
           users.forEach(item => {
-            this.$set(this.kefuMap, String(item.userPhone), item.userName)
+            this.$set(this.kefuMap, String(item.userPhone), item)
           });
           localStorage.kefuMap = JSON.stringify(this.kefuMap)
         })
       },
       getUserNameByPhone(phone){
-        return this.$root.kefuMap.hasOwnProperty(String(phone)) ? `(${this.$root.kefuMap[String(phone)]})` : ''
+		    return this.$root.kefuMap[String(phone)] ? this.$root.kefuMap[String(phone)] : {}
+        // return this.$root.kefuMap.hasOwnProperty(String(phone)) ? `(${this.$root.kefuMap[String(phone)]})` : ''
       }
     },
     created(){

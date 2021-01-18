@@ -47,6 +47,7 @@
             <img
               :key="item.msg"
               :src="item.msg?item.msg:''"
+              :preview="1"
               v-if="item.type === 'img'"
               class="img-style"
             />
@@ -112,10 +113,10 @@
         <!-- 上传图片组件 -->
         <UpLoadImage :type="this.type" :chatId="activedKey[type]" />
         <!-- 上传文件组件 -->
-        <!-- <UpLoadFile :type="this.type" :chatId="activedKey[type]" /> -->
+        <UpLoadFile :type="this.type" :chatId="activedKey[type]" />
 
         <!-- 发送语音 -->
-        <!--<RecordAudio v-show="isHttps" />
+        <RecordAudio v-show="isHttps" />
 
         <i
           class="el-icon-video-camera icon"
@@ -129,7 +130,7 @@
           @click="callVoice"
           v-show="isHttps && type != 'chatroom'"
           :style="nowIsVideo?'pointer-events: none':'cursor: pointer'"
-        ></i>-->
+        ></i>
         <div style="flex: 1; text-align: right;"></div>
         <a-button type="primary" size="small" style="margin-top: -3px;" @click="onSendTextMsg">发送</a-button>
       </div>

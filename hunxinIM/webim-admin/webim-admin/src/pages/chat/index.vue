@@ -9,7 +9,7 @@
           <a-dropdown>
             <span class="ant-dropdown-link" href="#">
               <!--<a-icon type="setting" />-->
-              <span class="username">{{$root.kefuMap[String(this.userName)]}}</span>
+              <span class="username">{{$root.kefuMap[String(this.userName)].userName}}</span>
             </span>
             <!--<a-menu slot="overlay">
               <a-menu-item @click="recEmedia">

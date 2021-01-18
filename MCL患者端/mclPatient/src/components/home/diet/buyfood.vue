@@ -58,8 +58,6 @@
 			<span @click="goubuyvip" v-if="isvip==0" class="btn">去购买</span>
 			<span @click="gouviplb" v-else class="btn">下一步</span>
 		</div> -->
-
-		
 	</div>
 </template>
 
@@ -89,11 +87,14 @@
 			},
 			gouviplb(){
 				if(this.names=="饮食"){
-					this.$router.push('/gauge_diet?ABflag=2');
+					this.$router.replace('/gauge_diet?ABflag=2');
+					// this.$router.push('/gauge_diet?ABflag=2');
 				}else if(this.names=="营养"){
-					this.$router.push('/gauge_nutrition?ABflag=2');
+					this.$router.replace('/gauge_nutrition?ABflag=2');
+					// this.$router.push('/gauge_nutrition?ABflag=2');
 				}else if(this.names=="运动"){
-					this.$router.push('/sport_CF?ABflag=2');
+					this.$router.replace('/sport_CF?ABflag=2');
+					// this.$router.push('/sport_CF?ABflag=2');
 				}
 			}
 		},

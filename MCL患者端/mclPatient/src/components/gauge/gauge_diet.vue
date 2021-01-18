@@ -363,7 +363,7 @@
           }
           this.$Toast('提交申请成功')
           //查看报告
-          this.$router.push('/diet')
+		  this.$router.replace('/diet');
         })
       },
     },

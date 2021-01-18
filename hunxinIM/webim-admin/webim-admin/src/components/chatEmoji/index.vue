@@ -26,7 +26,8 @@ export default {
   },
   methods: {
     selectEmoji(e) {
-      let value = (this.inpMessage || "") + e;
+	  console.log(e)
+      let value = (this.inpMessage || "");
       this.$data.showModal = false;
       this.$emit("selectEmoji", value);
     }
