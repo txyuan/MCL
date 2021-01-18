@@ -1,6 +1,6 @@
 import config from "./WebIMConfig";
 import websdk from "easemob-websdk";
-//import emedia from "easemob-emedia";
+import emedia from "easemob-emedia";
 import webrtc from "easemob-webrtc";
 import { Message } from "element-ui";
 function ack(message) {
@@ -341,5 +341,5 @@ WebIM.conn.listen({
 });
 
 WebIM.WebRTC = webrtc;
-//WebIM.EMedia = emedia;
+WebIM.EMedia = emedia;
 export default WebIM;

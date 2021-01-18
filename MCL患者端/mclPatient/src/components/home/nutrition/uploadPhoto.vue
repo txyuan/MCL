@@ -334,7 +334,8 @@
 					if (data.rspcode != 1) {
 						return;
 					}
-					this.$router.push("/nutrition")
+					this.$router.back()
+					// this.$router.push("/nutrition")
 				})
 
 			},

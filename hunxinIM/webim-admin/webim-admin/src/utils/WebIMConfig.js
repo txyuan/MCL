@@ -47,8 +47,8 @@ var config = {
      * Application AppKey
      */
     //appkey:"gdpwq123#ceshi",
-//  appkey: "easemob-demo#chatdemoui",
-    appkey: "1101200519042884#mcl",
+	appkey: "1105200109113529#app",
+    // appkey: "1101200519042884#mcl",
     /*
      * Application Host
      */

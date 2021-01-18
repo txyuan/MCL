@@ -10,7 +10,9 @@ import {getKeFuInfo} from './api/app.js';
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 
-
+import preview from 'vue-photo-preview'
+import 'vue-photo-preview/dist/skin.css'
+Vue.use(preview)
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'

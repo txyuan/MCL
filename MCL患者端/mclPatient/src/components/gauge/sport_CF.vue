@@ -247,7 +247,7 @@ export default {
 	    return
 	  }
 	  if (this.param.walking_distance == '') {
-	    this.$Toast('请填写您6分钟能不行多远')
+	    this.$Toast('请填写您6分钟能步行多远')
 	    return
 	  }
 	  if (this.param.experiment_off == '') {
@@ -270,7 +270,8 @@ export default {
         }
         this.$Toast('提交申请成功')
         // 查看报告
-        this.$router.push('/sport')
+		this.$router.replace('/sport');
+        // this.$router.push('/sport')
       })
     },
     // 疾病情况 接口

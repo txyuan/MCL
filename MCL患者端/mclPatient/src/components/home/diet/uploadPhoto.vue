@@ -384,7 +384,8 @@ export default {
         if (data.rspcode != 1) {
           return
         }
-        this.$router.push('/wx_Entrance/home')
+		this.$router.back()
+        // this.$router.push('/diet')
       })
     },
 

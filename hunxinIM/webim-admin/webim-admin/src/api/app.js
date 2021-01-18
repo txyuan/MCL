@@ -63,7 +63,9 @@ export function getChatData ( data ) {
     data.user = JSON.parse(localStorage.userInfo).userId
     let url = `${BASEURLAPP}/UserInterface/user/getCustomServiceChatList.ashx`;
     return new Promise((resolve, reject) => {
-        axiosInstance.get(url, {params: data}).then(resolve, reject)
+        axiosInstance.get(url, {params: data}).then((res) =>{
+			resolve(res)
+		}, reject)
     }) 
 }
 
