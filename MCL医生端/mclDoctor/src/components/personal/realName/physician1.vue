@@ -1,62 +1,75 @@
 <template>
-	<div class="padding-header" style="padding-bottom: 0.2rem;">
+	<div class="padding-header">
 		<mt-header fixed title="完善资料"></mt-header>
 		<div class="mains">
-			<div class="phys_top">
-				<div class="phys_list">
-					<p>
-						<span class="aaccv"></span>
-					</p>
+			<div class="phys_top d-flex justify-content-around">
+				<div class="phys_list aaccv">
+<!--					<p>-->
+<!--						<span class="aaccv"></span>-->
+<!--					</p>-->
+          <i class="icons icon-doctor"></i>
 					<label>基本信息</label>
 				</div>
 				<div class="phys_list">
 					<p>
 						<span></span>
 					</p>
+          <i class="icons icon-personal"></i>
 					<label>个人介绍</label>
 				</div>
 				<div class="phys_list">
 					<p>
 						<span></span>
 					</p>
+          <i class="icons icon-photo"></i>
 					<label>个人照片</label>
 				</div>
 				<div class="phys_list">
 					<p>
 						<span></span>
 					</p>
+          <i class="icons icon-license"></i>
 					<label>医生执照</label>
 				</div>
 			</div>
-			<p class="phys_ppo"><span>*</span>请按照要求完善上传资料，否则将不能通过审核</p>
-			<div class="form" style="margin-top: 0.06rem">
-				<div class="form_bname">
-					<span>手机号码</span>
-					<input type="" placeholder="请输入手机号码(必填)" readonly="readonly" v-model="phonenum" />
+			<div class="form" style="margin-top: 0.1rem">
+				<div class="form_bname  d-flex align-items-center">
+          <div>手机号码<span>(<em>*</em>必填)</span></div>
+          <div class="flex-grow-1"><input type="" placeholder="请输入手机号码" readonly="readonly" v-model="phonenum" /></div>
 				</div>
-				<div class="form_bname">
-					<span>姓名</span>
-					<input type="" placeholder="请输入真实姓名(必填)" v-model="param.name" />
+				<div class="form_bname d-flex align-items-center">
+					<div>姓名<span>(<em>*</em>必填)</span></div>
+          <div class="flex-grow-1"><input type="" placeholder="请输入真实姓名" v-model="param.name" /></div>
 				</div>
-				<mt-cell title="性别" is-link @click.native="pickerToggles('show')" style="border-bottom: 1px solid #eee;">
+        <div class="form_bname d-flex align-items-center">
+          <div>性别</div>
+          <div class="flex-grow-1"><mt-cell  is-link @click.native="pickerToggles('show')" >
 					<!-- <span v-if="param.sex == 1">男</span>
 					<span v-if="param.sex == 2">女</span> -->
-					<span style="">{{param.sex}}</span>
+					<span style="">{{param.sex || '请选择您的性别'}}</span>
+          </mt-cell></div>
+        </div>
+
+        <div class="form_bname d-flex align-items-center">
+
+          <div>地区</div>
+          <div class="flex-grow-1"><mt-cell title="" is-link @click.native="openCityPicker('show')" >
+					<span>{{param.city || '请选择您所在地区'}}</span>
 				</mt-cell>
-				<mt-cell title="地区" is-link @click.native="openCityPicker('show')" style="border-bottom: 1px solid #eee">
-					<span>{{param.city}}</span>
-				</mt-cell>
-				<div class="form_bname">
-					<span>医院</span>
-					<input type="" placeholder="请输入所属医院(必填)" v-model="param.hospital" />
+          </div>
+        </div>
+
+				<div class="form_bname d-flex align-items-center">
+					<div>医院<span>(<em>*</em>必填)</span></div>
+          <div class="flex-grow-1"><input type="" placeholder="请输入所属医院" v-model="param.hospital" /></div>
 				</div>
-				<div class="form_bname">
-					<span>科室</span>
-					<input type="" placeholder="请输入所属科室(必填)" v-model="param.department" />
+				<div class="form_bname d-flex align-items-center">
+					<div>科室<span>(<em>*</em>必填)</span></div>
+          <div class="flex-grow-1"><input type="" placeholder="请输入所属科室" v-model="param.department" /></div>
 				</div>
-				<div class="form_bname">
-					<span>职称</span>
-					<input type="" placeholder="请输入您的职称(必填)" v-model="param.title" />
+				<div class="form_bname d-flex align-items-center">
+					<div>职称<span>(<em>*</em>必填)</span></div>
+          <div class="flex-grow-1">	<input type="" placeholder="请输入您的职称" v-model="param.title" /></div>
 				</div>
 				<!-- <mt-cell title="医院" is-link @click.native="pickerToggle('show')" style="border-bottom: 1px solid #eee">
 					<span>{{param.hospital}}</span>
@@ -69,6 +82,8 @@
 				</mt-cell> -->
 
 			</div>
+
+      <p class="phys_ppo"><span>*</span>请按照要求完善必填项并上传资料，否则将不能通过审核</p>
 		</div>
 		<!-- <div class="img_wrap">
 			<div class="tits">请上传医师认证资料 </div>
@@ -121,7 +136,7 @@
 			<div class="tits">擅长</div>
 			<textarea placeholder="输入专业领域、擅长病种等信息" v-model="param.begoodat"></textarea>
 		</div> -->
-		<span class="btn_ok" @click="submit">下一步</span>
+		<div class="btn_ok" @click="submit">下一步</div>
 		<!-- 发卡银行picker  -->
 		<mt-popup v-model="popupVisible" position="bottom">
 			<mt-picker :slots="sexSlots" :showToolbar="true" :visibleItemCount="3" ref="sexPicker">
@@ -158,7 +173,7 @@
 				</div>
 			</mt-picker>
 		</mt-popup>
-		
+
 		<cityPicker @confrim="cityPickerChange" ref="cityPicker"/>
 	</div>
 </template>
@@ -488,6 +503,21 @@
 	}
 </script>
 <style>
+
+  .mains .form .mint-cell-value span{
+    font-size: 0.14rem;
+    color: #787878;
+
+  }
+  .mains .form .mint-cell-value.is-link {
+    margin-right: 0.125rem;
+  }
+  .mains .form .mint-cell-allow-right::after{
+    right: 0.02rem;
+  }
+  .mains .form .mint-cell .mint-cell-wrapper{
+    padding: 0;
+  }
 	/* .physc{
 	  .mint-popup-bottom{
 	    width: 100%;
@@ -522,13 +552,24 @@
 </style>
 <style scoped lang="scss">
 	@import "@/assets/css/base.scss";
-
+  .padding-header {
+    padding-top:0.44rem;
+    padding-bottom:0.44rem;
+  }
+  .mint-header {
+    height:0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .mains{
+    margin-top: 0.1rem;
+    margin-bottom: 0.5rem;
+  }
 	.img_wrap {
 		background: #fff;
-		padding: 0 10px;
-		padding-bottom: 10px;
+    padding: 0 0.125rem 0.125rem 0.125rem;
+    margin-top: 0.1rem;
 
-		.tits {
+    .tits {
 			font-size: 0.15rem;
 			color: #333535;
 			line-height: 0.5rem;
@@ -615,21 +656,26 @@
 	.form_bname {
 		background: #fff;
 		border-bottom: 1px solid #eee;
-
+    font-size: 0.155rem;
+    padding:0 0.15rem 0 0.125rem;
 		span {
-			font-size: 16px;
-			height: 48px;
-			line-height: 48px;
-			padding: 0 10px;
+			font-size:0.135rem;
+      color: #999999;
+      margin-left: 0.05rem;
+      em{
+        font-size: 0.16rem;
+        color: #FF1E41;
+        margin-right: 0.02rem;
+        vertical-align: sub;
+      }
 		}
 
 		input {
-			width: 50%;
-			float: right;
+			width: 100%;
 			text-align: right;
-			height: 48px;
+			height: 0.44rem;
 			font-size: 0.14rem;
-			margin-right: 30px;
+      margin-right: 0.2rem;
 		}
 	}
 
@@ -660,60 +706,107 @@
 	}
 
 	.btn_ok {
-		width: 94%;
-		margin: 0 auto;
-		display: block;
-		height: 0.5rem;
-		background: #24b7c0;
-		font-size: 0.16rem;
-		color: #FFFFFF;
-		text-align: center;
-		line-height: 0.5rem;
-		border-radius: 6px;
-		margin-top: 0.3rem;
+    width: 90%;
+    margin:0.5rem auto 0 auto;
+    display: block;
+    height: 0.44rem;
+    background: #4A8EF4;
+    font-size: 0.16rem;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 0.5rem;
+    border-radius: 0.2rem;
+    /*position: absolute;*/
+    /*bottom: 0;*/
 	}
 	.phys_top{
-		width: 88%;
+		width:100%;
 		margin: 0 auto;
 		overflow: hidden;
+    padding: 0.2rem 0;
+    background-color: #FFFFFF;
+    color: #666666;
 		.phys_list{
-			width: 25%;
-			float: left;
+      position: relative;
+      &.aaccv{
+        color: #307aed;
+        .icon-doctor{
+          background-image: url("../../../assets/images/icon-doctor_a.png");
+        }
+        .icon-personal{
+          background-image: url("../../../assets/images/icon-personal_a.png");
+        }
+        .icon-photo{
+          background-image: url("../../../assets/images/icon-photo_a.png");
+        }
+        .icon-license{
+          background-image: url("../../../assets/images/icon-license_a.png");
+        }
+        p{
+          border-bottom: 1px dashed #307aed;
+        }
+      }
+      .icons{
+        display: block;
+        width: 0.3rem;
+        height: 0.3rem;
+        background-size: 100%;
+        margin: 0 auto;
+        background-position: center bottom;
+        background-repeat: no-repeat;
+      }
+      .icon-doctor{
+        background-image: url("../../../assets/images/icon-doctor.png");
+      }
+      .icon-personal{
+        background-image: url("../../../assets/images/icon-personal.png");
+      }
+      .icon-photo{
+        background-image: url("../../../assets/images/icon-photo.png");
+      }
+      .icon-license{
+        background-image: url("../../../assets/images/icon-license.png");
+      }
 			p{
-				width: 100%;
-				height: 0.02rem;
-				background: #999;
-				position: relative;
-				margin-top: 0.14rem;
-				span{
-					width: 0.06rem;
-					height: 0.06rem;
-					display: block;
-					background: #999;
-					position: absolute;
-					border-radius: 0.03rem;
-					top: -0.02rem;
-					left: 50%;
-					margin-left: -0.03rem;
-					&.aaccv{
-						background: #4A8EF4;
-					}
-				}
+        width: 76%;
+        height: 0.02rem;
+        border-bottom: 1px dashed #bababa;
+        position: absolute;
+        margin-top: 0.14rem;
+        top: 0;
+        left: -80%;
 			}
 			label{
 				display: block;
 				font-size: 0.13rem;
 				text-align: center;
-				padding-top: 0.12rem;
+				padding-top: 0.05rem;
 			}
 		}
 	}
 	.phys_ppo{
 		font-size: 0.13rem;
-		padding: 0.14rem 5% 0.02rem 5%;
-		color: #666;
+		padding: 0.125rem 5% 0.05rem 5%;
+		color: #999999;
 		span{
 			color: red;
 		}
 	}
+  .d-flex {
+    display: -ms-flexbox!important;
+    display: flex!important;
+  }
+
+  .justify-content-around {
+    -ms-flex-pack: distribute!important;
+    justify-content: space-around!important;
+  }
+  .flex-grow-1 {
+    -ms-flex-positive: 1!important;
+    flex-grow: 1!important;
+  }
+  .align-items-center {
+    -ms-flex-align: center!important;
+    align-items: center!important;
+  }
 </style>
