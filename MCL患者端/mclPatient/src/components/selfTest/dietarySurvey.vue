@@ -127,7 +127,7 @@
 <!--						<span class="yellow" @click="confirm">确认</span>-->
 <!--					</div>-->
 
-					<mt-cell class="borderBottom" style="margin-top: 15px;">
+					<mt-cell style="margin-top: 15px;">
 						<img slot="icon" :src="currentItem.foodimg" width="46" height="46">
 						<div slot="title" class="titleWrap">
 							<span class="mint-cell-text">{{currentItem.foodname}}</span>
