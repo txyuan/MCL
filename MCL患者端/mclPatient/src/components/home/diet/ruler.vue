@@ -97,9 +97,9 @@
           }
         }
         let width = this.$refs.testAA.offsetWidth
-        let startValue = this.min - 5
+        let startValue = this.min - 10
         let centerValue = startValue
-        let centerPX = width / 2 - 40
+        let centerPX = width / 2 - 10
         let offsetKe = centerPX / 104
         while (offsetKe > 0) {
           if (offsetKe < 1) {
@@ -124,8 +124,8 @@
         }
       },
       onTouchEnd (var1, var2) {
-        this.onChange && this.onChange(this.numberValue)
-        this.calcInit(this.numberValue)
+        this.onChange && this.onChange(parseFloat(this.numberValue).toFixed(0))
+        this.calcInit(parseFloat(this.numberValue).toFixed(0))
       }
     }
   }

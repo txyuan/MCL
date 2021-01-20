@@ -150,10 +150,10 @@
 					</div>
 				</div>
         <div v-show="hideWeight">
-          <DLRuler :value="50.0" :min="0" :max="300" :onChange="changeWeight"></DLRuler>
+          <DLRuler :value="50.0" :min="0" :max="500" :onChange="changeWeight"></DLRuler>
         </div>
         <div v-show="hideTwo">
-          <DLRuler :value="0" :min="0" :max="50" :onChange="changeTwo"></DLRuler>
+          <DLRuler :value="0" :min="0" :max="20" :onChange="changeTwo"></DLRuler>
         </div>
         <div v-show="hideMl">
           <DLRuler :value="100.0" :min="0" :max="800" :onChange="changeMl"></DLRuler>
@@ -164,7 +164,7 @@
 <!--					<li v-for="(item,index) in keyList" :style="{'border-right-width': (index%3==2 ? 0 : '2px')}" @click="keyCode(item,index)">{{item}}</li>-->
 <!--				</ul>-->
         <div class="dw_ys" v-show="hideWgtTwo" >
-          <mt-button type="primary" id="saveWeight" class="dw_btn active" size="large" @click.native="saveWeight">g</mt-button>
+          <mt-button type="primary" id="saveWeight" class="dw_btn active" size="large" @click.native="saveWeight">克</mt-button>
           <mt-button type="primary" id="saveTwo" class="dw_btn" size="large" @click.native="saveTwo">两</mt-button>
         </div>
         <div class="dw_ys" v-show="hideBtnml" >
@@ -205,7 +205,7 @@
       hideBtnml: false,
       hideWgtTwo: true,
       hideWeight: true,
-      company:'g',
+      company:'克',
 
 			//早餐的列表
 			breakfastList: [],
@@ -274,22 +274,25 @@
 			showModal(item) {
 				this.currentItem = item;
 				this.showNum = [];
-				this.show = true
-        if(item.gramunit=="ml"){
+				this.show = true;
+        this.hideTwo=false;
+        if( this.currentItem.gramunit=="ml"){
           this.hideMl=true;
           this.hideBtnml=true;
           this.hideWgtTwo=false;
           this.hideWeight=false;
           this.wegvale = 100
           this.company= "ml"
-        }else {
+        }
+        if( this.currentItem.gramunit=="g"){
+          this.hideWeight=true;
+          this.hideTwo=false;
           this.hideMl=false;
           this.hideBtnml=false;
           this.hideWgtTwo=true;
-          this.hideWeight=true;
-        }
-        if(this.company=="两"){
-          this.hideWeight=false;
+          this.company= "克";
+          document.getElementById('saveWeight').classList.add('active')
+          document.getElementById('saveTwo').classList.remove('active')
         }
 			},
 			hideModal() {
@@ -314,23 +317,18 @@
         let param = {
           Weight: this.wegvale,
         }
-        if (  this.company=="g") {
+        if (  this.company=="克") {
           const showNum = param.Weight
           this.currentItem.foodconsumption = showNum
-          console.log("saveWeight"+showNum)
         }
         if( this.company=="两"){
           const showNum = param.Weight*50;
-          console.log("saveTwshowNumo"+showNum)
           this.currentItem.gramunit="g";
           this.currentItem.foodconsumption = showNum
-          console.log("saveTwo"+showNum)
-          console.log(" this.currentItem.foodconsumption"+ this.currentItem.foodconsumption)
         }
         if ( this.company=="ml") {
           const showNum = param.Weight
           this.currentItem.foodconsumption = showNum
-          console.log("saveMl"+showNum)
         }
         const showNum =  this.currentItem.foodconsumption
 				// const showNum = Number(this.showNum.join().replace(/,/g, ""));
@@ -358,8 +356,8 @@
         this.hideWeight = true
         this.hideTwo = false
         this.wegvale = 50
-        this.company= this.currentItem.gramunit
-        // this.currentItem.gramunit="g"
+        this.company="克"
+        // this.company= this.currentItem.gramunit
         // this.currentItem.foodgram="100"
         document.getElementById('saveWeight').classList.add('active')
         document.getElementById('saveTwo').classList.remove('active')
@@ -377,15 +375,12 @@
       },
       changeWeight (val) {
         this.wegvale = val
-        console.log(val)
       },
       changeTwo (val) {
         this.wegvale = val
-        console.log(val)
       },
       changeMl (val) {
         this.wegvale = val
-        console.log(val)
       },
 			//获取早中晚加的数据
 			getFoodData(){
@@ -692,7 +687,7 @@
       display: inline-block;
       /*min-width: 72px;*/
       height: 0.35rem;
-      padding-left: 0.2rem;
+      padding-left: 0.1rem;
       box-sizing: border-box;
       text-align: right;
       /*border-bottom: 2px solid #999999;*/
