@@ -123,8 +123,8 @@
         }
       },
       onTouchEnd (var1, var2) {
-        this.onChange && this.onChange(this.numberValue)
-        this.calcInit(this.numberValue)
+        this.onChange && this.onChange(parseFloat(this.numberValue).toFixed(0))
+        this.calcInit(parseFloat(this.numberValue).toFixed(0))
       }
     }
   }

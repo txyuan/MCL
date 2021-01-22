@@ -81,7 +81,7 @@
 						</div>
             <div class="right huiFont"  style="text-align: center; color: #898989">
               <p> <img src="@/assets/images/icon-units.png" alt="" class="icon" width="22" height="22"/></p>
-              <p>重量估算</p>
+              <p @click="weightEstimation">重量估算</p>
 						</div>
 					</div>
 				</div>
@@ -198,6 +198,10 @@
 			hideModal() {
 				this.show = false
 			},
+      // 重量估算
+      weightEstimation() {
+        this.$router.push(`/weightEstimation`)
+      },
 			//键盘的输入事件
 			keyCode(item, index) {
 				if (item == "x") {
