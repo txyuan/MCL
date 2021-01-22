@@ -48,8 +48,10 @@
               :key="item.msg"
               :src="item.msg?item.msg:''"
               :preview="1"
+			  :style="{'float':item.bySelf ? 'right':'left',maxWidth: '60%'}"
               v-if="item.type === 'img'"
               class="img-style"
+			  @load="()=>{$previewRefresh()}"
             />
             <!-- 文件card -->
             <div
@@ -86,7 +88,7 @@
               :class="{ 'byself': item.bySelf}"
             />
 
-             <div v-if="item.bySelf?true:false" class="status">{{status[item.status]}}</div> 
+             <!-- <div v-if="item.bySelf?true:false" class="status">{{status[item.status]}}</div> -->
           </span>
           <!-- <el-dropdown-menu slot="dropdown" >
             <el-dropdown-item command="a" :disabled="!item.bySelf">撤回</el-dropdown-item>
