@@ -160,10 +160,14 @@
 			</div>
 		</div>
 		<div class="alert_name" v-if="checkValue==0">
-			 <div class="alert_cont">
+			 <div class="alert_cont" :style="userType=='5' ? 'top:0.4rem' : 'top:1.0rem'">
 				 <h3>填写信息审核</h3>
 				 <mt-field label="姓名" v-model="params.UserName" placeholder="请输入您的姓名" style="border-bottom: 1px solid #eee;"></mt-field>
+				 <mt-field label="用户名" v-if="userType=='5'" v-model="params.loginName" placeholder="请输入用户名" style="border-bottom: 1px solid #eee;"></mt-field>
+				 <mt-field label="公司名称" v-if="userType=='5'" v-model="params.clinicName" placeholder="请输入公司名称" style="border-bottom: 1px solid #eee;"></mt-field>
+				 <mt-field label="公司面积/㎡" v-if="userType=='5'" v-model="params.clinicArea" placeholder="请输入公司面积" style="border-bottom: 1px solid #eee;"></mt-field>
 				 <mt-cell :title="params.UserAddress" is-link @click.native="openCityPicker" style="border-bottom: 1px solid #eee;"></mt-cell>
+				 <mt-field label="公司地址" v-if="userType=='5'" type="textarea" rows="2" v-model="params.clinicAddress" placeholder="请输入公司地址"></mt-field>
 				 <mt-button type="default" class="add_btn" size="large" @click="postInfo">保存</mt-button>
 			 </div>
 		</div>
@@ -214,15 +218,23 @@ export default {
     list: [],
     params: {
       'UserName': '',
-      'UserAddress': '请选择省、市、区'
+	  'loginName':'',
+      'UserAddress': '请选择省、市、区',
+	  'addressCode':'',
+	  'clinicName':'',
+	  'clinicArea':'',
+	  'clinicAddress':''
     },
-    checkValue: 1
+    checkValue: 1,
+	userType:""
   }),
   methods: {
     // citypicker的确定回调
     cityPickerChange (values) {
       let cityValue = [values[0].name, values[1].name, values[2].name].toString()
+	  let cityCode = [values[0].code, values[1].code, values[2].code].toString()
       this.params.UserAddress = cityValue
+	  this.params.addressCode = cityCode
     },
     // 打开citypicker
     openCityPicker () {
@@ -236,19 +248,30 @@ export default {
           return
         }
         this.checkValue = data.checkValue
+		this.userType=data.userType
       })
     },
-    postInfo () {
+	postInfo(){
+		if(this.userType=="5"){
+			this.postInfd()
+		}else{
+			this.postInfox()
+		}
+	},
+    postInfox () {
       if (this.params.UserName == '') {
         this.$Toast('请输入您的真实姓名')
+		return
       }
       if ((this.params.UserUserAddressName == '') || (this.params.UserUserAddressName == '请选择省、市、区')) {
         this.$Toast('请选择省、市、区')
+		return
       }
       let url = 'UserInterface/channel/SetChannelInfo.ashx'
       let param = {
         name: this.params.UserName,
-        address: this.params.UserAddress
+        address: this.params.UserAddress,
+		addressCode:this.params.addressCode
       }
       this.$post(url, param).then((data) => {
         this.$Toast(data.rspdesc)
@@ -258,6 +281,50 @@ export default {
         this.checkValue = 1
       })
     },
+	postInfd () {
+	  if (this.params.UserName == '') {
+	    this.$Toast('请输入您的真实姓名')
+		return
+	  }
+	  if (this.params.loginName == '') {
+	    this.$Toast('请输入用户名')
+	  	return
+	  }
+	  if (this.params.clinicName == '') {
+	    this.$Toast('请输入公司名称')
+	  	return
+	  }
+	  if (this.params.clinicArea == '') {
+	    this.$Toast('请输入公司面积')
+	  	return
+	  }
+	  if ((this.params.UserUserAddressName == '') || (this.params.UserUserAddressName == '请选择省、市、区')) {
+	    this.$Toast('请选择省、市、区')
+		return
+	  }
+	  if (this.params.clinicAddress == '') {
+	    this.$Toast('请输入公司地址')
+	  	return
+	  }
+	  let url = 'UserInterface/channel/AddClinicInfo.ashx'
+	  let param = {
+		loginName:this.params.loginName,
+	    userName: this.params.UserName,
+		phone:this.userInfo.ContactPhone,
+	    address: this.params.UserAddress,
+		addressCode:this.params.addressCode,
+		clinicAddress:this.params.clinicAddress,
+		clinicArea:this.params.clinicArea,
+		clinicName:this.params.clinicName
+	  }
+	  this.$post(url, param).then((data) => {
+	    this.$Toast(data.rspdesc)
+	    if (data.rspcode != 1) {
+	      return
+	    }
+	    this.checkValue = 1
+	  })
+	},
     // 获取用户信息
     getInfo () {
       let url = 'UserInterface/channel/ChannelHomePageInfo.ashx'

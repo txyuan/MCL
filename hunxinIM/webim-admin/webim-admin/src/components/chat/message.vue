@@ -112,7 +112,7 @@
     <div class="messagebox-footer">
       <div class="footer-icon">
         <!-- 表情组件 -->
-        <ChatEmoji v-on:selectEmoji="selectEmoji" :inpMessage="message" />
+        <ChatEmoji v-on:selectEmoji="selectEmoji" :inpMessage="message" :messposnum="messpos" :messposnumend="messposend" />
         <!-- 上传图片组件 -->
         <UpLoadImage :type="this.type" :chatId="activedKey[type]" />
         <!-- 上传文件组件 -->
@@ -144,6 +144,8 @@
           @pressEnter="onSendTextMsg"
           style="resize:none"
           ref="txtDom"
+		  id="aa"
+		  @blur="posvalue('aa')"
         />
         <template />
       </div>
@@ -180,6 +182,8 @@ export default {
         chatroom: ""
       },
       message: "",
+	  messpos:0,
+	  messposend:0,
       isHttps: window.location.protocol === "https:",
       loadText: "加载更多",
       status: {
@@ -213,6 +217,7 @@ export default {
     }),
     msgList: function(){
       let currentMsgs = this.$store.state.chat.currentMsgs;
+	  console.log(currentMsgs)
       return currentMsgs;
     },
     userList() {
@@ -250,6 +255,13 @@ export default {
       "recallMessage",
       "onGetGroupBlack"
     ]),
+	posvalue(id){
+		var elInput =document.getElementById(id);
+		var startPos = elInput.selectionStart;
+		var endPos = elInput.selectionEnd;
+		this.messpos=startPos
+		this.messposend=endPos
+	},
     getKey(item, type) {
       let key = "";
       switch (type) {

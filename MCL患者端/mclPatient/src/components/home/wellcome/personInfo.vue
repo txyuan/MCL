@@ -663,6 +663,7 @@
         this.hideHight = false
         document.getElementById('saveWeight').classList.add('saveweight')
         document.getElementById('saveHeight').classList.remove('saveheight')
+		
       },
       hidejl () {
         this.show = false
@@ -682,6 +683,9 @@
         if (weight == 'saveweight') {
           this.param.weight = wegparam.Weight
         }
+		if((this.param.weight!='')&&(this.param.height!='')){
+			this.doBMI()
+		}
       },
       changeHight (val) {
         this.wegvale = val
@@ -725,6 +729,7 @@
         if (this.sportDefaultName == '慢病') {
           this.param.diseasetype = '02'
         }
+		
         let param = this.param
         if (param.name == '') {
           this.$Toast('请输入姓名')
@@ -742,6 +747,14 @@
           this.$Toast('请选择您所在地区')
           return false
         }
+		if(param.birth == ''){
+		  this.$Toast('请选择出生日期')
+		  return false
+		}
+		if((param.new_value_1 == '')&&(param.new_value_2 == '0')){
+		  this.$Toast('请选择首次诊断日期')
+		  return false
+		}
         // 遍历数据
         let rowData = this.$data[`attribute_value_03_item`]
         if (rowData) {
@@ -775,7 +788,59 @@
             }
           }
         }
-
+		console.log(this.new_value_3.value)
+		if(this.attribute_value_03_item.value.length==0){
+			this.$Toast('请选择临床诊断')
+			return false
+		}
+		if(this.new_value_3.value.length==0){
+			this.$Toast('请选择婚姻状态')
+			return false
+		}
+		if(this.new_value_4.value.length==0){
+			this.$Toast('请选择个人病史')
+			return false
+		}
+		if(this.new_value_22.value.length==0){
+			this.$Toast('请选择肿瘤家族史')
+			return false
+		}
+		if(this.new_value_23.value.length==0){
+			this.$Toast('请选择目前的治疗状态')
+			return false
+		}
+		for(var i=0;i<this.new_value_23.value.length;i++){
+			if(this.new_value_23.value[i]=="new_value_23"){
+				if(this.new_value_24.value==''){
+					this.$Toast('请填写准备手术时间')
+					return
+				}
+			}
+			if(this.new_value_23.value[i]=="new_value_29"){
+				if(this.new_value_30.value==''){
+					this.$Toast('请填写化疗第几疗程')
+					return
+				}
+			}
+			if(this.new_value_23.value[i]=="new_value_31"){
+				if(this.new_value_232.value==''){
+					this.$Toast('请填写放疗第几疗程')
+					return
+				}
+			}
+			if(this.new_value_23.value[i]=="new_value_34"){
+				if(this.new_value_33.value==''){
+					this.$Toast('请填写靶向治疗第几疗程')
+					return
+				}
+			}
+			if(this.new_value_23.value[i]=="new_value_35"){
+				if(this.new_value_36.value==''){
+					this.$Toast('请填写免疫治疗第几疗程')
+					return
+				}
+			}
+		}
         return true
       },
 
