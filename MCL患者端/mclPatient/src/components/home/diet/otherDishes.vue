@@ -83,7 +83,7 @@
             </div>
             <div class="right huiFont"  style="text-align: center; color: #898989">
               <p> <img src="@/assets/images/icon-units.png" alt="" class="icon" width="22" height="22"/></p>
-              <p>重量估算</p>
+              <p @click="weightEstimation">重量估算</p>
             </div>
           </div>
         </div>
@@ -91,7 +91,7 @@
         <DLRuler :value="50.0" :min="0" :max="500" :onChange="changeWeight"></DLRuler>
         </div>
         <div v-show="hideTwo">
-          <DLRuler :value="0" :min="0" :max="20" :onChange="changeTwo"></DLRuler>
+          <DLRulerLiang :value="0" :min="0" :max="20" :onChange="changeTwo"></DLRulerLiang>
         </div>
         <div v-show="hideMl">
           <DLRuler :value="100.0" :min="0" :max="800" :onChange="changeMl"></DLRuler>
@@ -117,6 +117,7 @@
 
 <script>
   import DLRuler from './ruler.vue'//标尺
+  import DLRulerLiang from './rulerLiang.vue'//标尺
   import Bus from '@/assets/js/updateShopCar.js' //bus
   import pic from '@/assets/images/syyx.png' //跟新购物车数量
   import loadMore from '@/components/common/loadMore.vue' //加载更多组件
@@ -195,6 +196,12 @@
       hideModal () {
         this.show = false
       },
+
+      // 重量估算
+      weightEstimation() {
+        this.$router.push(`/weightEstimation`)
+      },
+
       //键盘的输入事件
       keyCode (item, index) {
         if (item == 'x') {
@@ -406,7 +413,8 @@
     },
     components: {
       loadMore,
-      DLRuler
+      DLRuler,
+      DLRulerLiang
     }
   }
 </script>
