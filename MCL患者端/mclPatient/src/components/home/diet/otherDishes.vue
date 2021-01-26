@@ -91,7 +91,7 @@
         <DLRuler :value="50.0" :min="0" :max="500" :onChange="changeWeight"></DLRuler>
         </div>
         <div v-show="hideTwo">
-          <DLRulerLiang :value="0" :min="0" :max="20" :onChange="changeTwo"></DLRulerLiang>
+          <DLRuler :value="0" :min="0" :max="20" :onChange="changeTwo"></DLRuler>
         </div>
         <div v-show="hideMl">
           <DLRuler :value="100.0" :min="0" :max="800" :onChange="changeMl"></DLRuler>
@@ -117,7 +117,6 @@
 
 <script>
   import DLRuler from './ruler.vue'//标尺
-  import DLRulerLiang from './rulerLiang.vue'//标尺
   import Bus from '@/assets/js/updateShopCar.js' //bus
   import pic from '@/assets/images/syyx.png' //跟新购物车数量
   import loadMore from '@/components/common/loadMore.vue' //加载更多组件
@@ -414,7 +413,6 @@
     components: {
       loadMore,
       DLRuler,
-      DLRulerLiang
     }
   }
 </script>
