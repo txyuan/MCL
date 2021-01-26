@@ -207,7 +207,7 @@
         <mt-button type="primary" class="theme-button button-radio " size="large" @click.native="diseaseSubmit">保存</mt-button>
       </div>
     </div> -->
-
+  <iframe :src="`${KFURL}/login?username=${repData.ContactPhone}&userkey=${UserKey}&logoSinge=0`" width="100%" style="height: 100%; border: none;display: none;" ref="kefuView"></iframe>
   </div>
 </template>
 
@@ -215,10 +215,12 @@
 import carousel from './carousel.vue'
 import classified from './classified/classifiedRow.vue'
 import axios from 'axios'
-
+import { KFURL } from '@/configURL.js'
 export default {
   name: 'home',
   data: () => ({
+	KFURL,
+	repData: {},
     messageNumber: 0, // 未读消息的数量
     doctorName: false, // 是否有主治医生
     isShowCode: false,
@@ -387,6 +389,16 @@ export default {
         }
       })
     },
+	// 个人信息
+	informations () {
+	  let url = 'UserInterface/GetUserShowInfo.ashx'
+	  this.$post(url).then((data) => {
+	    let model = data.data
+	    if (model) {
+	      this.repData = model
+	    }
+	  })
+	},
     // 今日提醒
     remindToday () {
       let url = 'UserInterface/PatientHomePageRemindToday3.ashx'
@@ -537,6 +549,22 @@ export default {
     next()
   },
   mounted () {
+	  let base=0;
+	  if(localStorage.mesnum){
+		  console.log(localStorage.mesnum)
+	  	base=Number(localStorage.mesnum)
+		console.log(base)
+		this.messageNumber=base
+	  }
+	  window.addEventListener('message',e=>{
+		  if(e.data>=1){
+			  this.messageNumber=Number(e.data)+base
+			  localStorage.mesnum=this.messageNumber
+			  console.log(e.data)
+			  console.log(localStorage.mesnum)
+		  }
+	  },false)
+	  this.informations()
     this.getMsgInfo()
     this.wightRecord()
     this.expert()
@@ -557,7 +585,7 @@ export default {
     }
     // this.information();
     // 获取token
-    this.getToken()
+    // this.getToken()
   }
 
 }
