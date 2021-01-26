@@ -26,28 +26,18 @@
           {{param.location|| '请选择您所在地区'}}
         </div>
       </mt-cell>
-    </div>
-    <div class="splitLine">
-      <!--      <mt-field label="身高" placeholder="请输入身高" class="borderBottom" v-model.trim="param.height"-->
-      <!--                @change="doBMI">&nbsp;cm</mt-field>-->
-      <!--      <mt-field label="体重" placeholder="请输入体重" class="borderBottom" v-model.trim="param.weight"-->
-      <!--                @change="doBMI">&nbsp;kg</mt-field>-->
-      <div id="saveHeight">
-        <mt-cell title="身高" is-link @click.native="saveHeight" v-model.trim="param.height" class="borderBottom">
-          <span>{{param.height || '请选择体重单位'}}&nbsp;cm</span>
-        </mt-cell>
-      </div>
-      <div id="saveWeight">
-        <mt-cell title="体重" is-link @click.native="saveWeight" v-model.trim="param.weight" class="borderBottom">
-          <span>{{param.weight || '请选择体重单位'}}&nbsp;kg</span>
-        </mt-cell>
-      </div>
+            <mt-field label="身高" placeholder="请输入身高" class="borderBottom" v-model.trim="param.height"
+                      @change="doBMI">&nbsp;cm</mt-field>
+            <mt-field label="体重" placeholder="请输入体重" class="borderBottom" v-model.trim="param.weight"
+                      @change="doBMI">&nbsp;kg</mt-field>
       <mt-field label="BMI" placeholder="BMI" class="borderBottom" :readonly="true" v-model.trim="param.bmi"></mt-field>
     </div>
-    <!--<div class="splitLine">-->
-    <!--  <mt-button type="primary"  class="theme-button button-radio " size="large" @click.native="saveWeight">记录体重</mt-button>-->
-    <!--</div>-->
     <div class="splitLine">
+<!--      <div class="d-flex manageTitle">-->
+<!--        <div class="flex-fill">体重管理</div>-->
+<!--        <div class="flex-fill">健康管理</div>-->
+<!--        <div class="flex-fill active">肿瘤管理</div>-->
+<!--      </div>-->
       <mt-cell is-link class="sportEvaluation-wrap borderBottom" @click.native="sportPickerToggles('show')">
         <div slot="title" class="titleWrap">
           <span class="mint-cell-text">疾病类型</span>
@@ -141,43 +131,6 @@
       </mt-picker>
     </mt-popup>
 
-    <!--     体重标识遮罩层-->
-    <div id="mark" :style="{display: (show?'block': 'none')}">
-      <div class="modal" :class="show && 'show' ">
-        <div class="close" @click="hidejl"></div>
-        <div class="text-center">
-          <!--          <p class="today">今天</p>-->
-          <!--          <img src="@/assets/images/paizhao@2x.png" alt="" width="60" height="60"/>-->
-          <!--          <div class="huiFont font12 note">-->
-          <!--            <p>用照片记录改变</p>-->
-          <!--            <p>（照片将自动发布到个人动态中）</p>-->
-          <!--          </div>-->
-          <!-- <p class="yellow nums"> <span class="num">69.5</span> <span class="font14">公斤</span></p> -->
-        </div>
-        <!-- <div class="chizi"></div> -->
-        <div v-show="hideHight">
-          <span class="tit_ys">身高<em>（cm） </em></span>
-          <DLRuler :value="150.0" :min="0" :max="300" :onChange="changeHight"></DLRuler>
-        </div>
-        <div v-show="hideWeight">
-          <span class="tit_ys">体重<em>（Kg）</em> </span>
-          <DLRuler :value="50.0" :min="0" :max="300" :onChange="changeWeight"></DLRuler>
-        </div>
-        <mt-button type="primary" class="theme-button rulerBtm" size="large" @click="okweigt">保存</mt-button>
-      </div>
-    </div>
-
-    <!--    &lt;!&ndash; 体重标识遮罩层 &ndash;&gt;-->
-    <!--    <mt-popup class="sportPicker" v-model="sportVisible" position="bottom">-->
-    <!--      <mt-picker :slots="sportSlot" :showToolbar="true" :visibleItemCount="3" ref="sportPickers" @change="visbleChange">-->
-    <!--        <div class="picker_bar">-->
-    <!--          <DLRuler :value="50.0" :min="0" :max="300" :onChange="changeWeight"></DLRuler>-->
-    <!--          <div class="cancel" @click="sportPickerToggles('hide')">取消</div>-->
-    <!--          <div class="confrim" @click="sportConfirm">确定</div>-->
-    <!--        </div>-->
-    <!--      </mt-picker>-->
-    <!--    </mt-popup>-->
-
     <!-- 疾病类型picker  -->
     <mt-popup class="sportPicker" v-model="sportVisible" position="bottom">
       <mt-picker :slots="sportSlot" :showToolbar="true" :visibleItemCount="3" ref="sportPickers" @change="visbleChange">
@@ -223,7 +176,6 @@
 </template>
 
 <script>
-  import DLRuler from './ruler.vue'
 
   function getTime (d) {
     let year = d.getFullYear()
@@ -403,14 +355,6 @@
         new_value_1: '', // 首次诊断日期
         new_value_2: '0', // 具体日期记不清
       },
-      show: false,
-      wegvale: 50,
-      wegparam: {
-        pagesize: 10,
-        pagecount: 0,
-      },
-      hideHight: false,
-      hideWeight: false,
       // 性别picker
       popupVisible: false, // 是否显示
       sexSlots: [{
@@ -649,52 +593,6 @@
         this.closeTouch()
         this.$refs.cityPicker.show()
       },
-
-      saveHeight () {
-        this.show = true
-        document.getElementById('saveHeight').classList.add('saveheight')
-        document.getElementById('saveWeight').classList.remove('saveweight')
-        this.hideHight = true
-        this.hideWeight = false
-      },
-      saveWeight () {
-        this.show = true
-        this.hideWeight = true
-        this.hideHight = false
-        document.getElementById('saveWeight').classList.add('saveweight')
-        document.getElementById('saveHeight').classList.remove('saveheight')
-		
-      },
-      hidejl () {
-        this.show = false
-      },
-      // 体重保存
-      okweigt () {
-        const height = document.getElementById('saveHeight').className
-        const weight = document.getElementById('saveWeight').className
-        let wegparam = {
-          Weight: this.wegvale,
-          Hight: this.wegvale
-        }
-        this.show = false
-        if (height == 'saveheight') {
-          this.param.height = wegparam.Hight
-        }
-        if (weight == 'saveweight') {
-          this.param.weight = wegparam.Weight
-        }
-		if((this.param.weight!='')&&(this.param.height!='')){
-			this.doBMI()
-		}
-      },
-      changeHight (val) {
-        this.wegvale = val
-        console.log(val)
-      },
-      changeWeight (val) {
-        this.wegvale = val
-        console.log(val)
-      },
       // 新增提交
       addSubmit () {
         let url = 'UserInterface/AddConditionDiseaseTumour.ashx'
@@ -729,7 +627,7 @@
         if (this.sportDefaultName == '慢病') {
           this.param.diseasetype = '02'
         }
-		
+
         let param = this.param
         if (param.name == '') {
           this.$Toast('请输入姓名')
@@ -945,8 +843,7 @@
       }
     },
     components: {
-      cityPicker: () => import(/* webpackChunkName: "cityData2" */ './../../common/cityPicker2.vue'),
-      DLRuler
+      cityPicker: () => import(/* webpackChunkName: "cityData2" */ './../../common/cityPicker2.vue')
     },
     mounted () {
       this.openTouch()
@@ -957,11 +854,12 @@
 <style scoped lang="scss">
   .personInfo_root {
     background-color: #f1f1f1;
-    padding-top: 46px;
+    padding-top: 0.44rem;
     padding-bottom: 64px;
 
     .mint-header {
-      height: 46px;
+      height:0.44rem;
+      border-bottom: 1px solid #e5e5e5;
     }
 
     .splitLine {
@@ -1110,80 +1008,32 @@
       color: #484848;
     }
   }
-
-  .modal.show {
-    transform: translateY(0);
-    min-height: 45%;
-    padding-top: 0.35rem;
-  }
-
-  .modal {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #FFFFFF;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    transition: transform ease 0.6s;
-    transform: translateY(1000px);
-
-    .today {
-      margin: 20px 0;
+  .manageTitle{
+    height: 0.44rem;
+    line-height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+    text-align: center;
+    font-size: 0.155rem;
+    padding-bottom: 1px;
+    color: #333333;
+    .flex-fill{
+      border-right: 1px solid #e5e5e5;
     }
-
-    .note {
-      margin-top: 3px;
-      margin-bottom: 20px;
+    .flex-fill:last-child{
+      border-right:0;
     }
-
-    .nums {
-      margin-bottom: 20px;
-    }
-
-    .num {
-      font-size: 0.25rem;
-    }
-
-    .chizi {
-      height: 0.6rem;
-      background: linear-gradient(180deg, rgba(255, 205, 80, 1) 0%, rgba(252, 209, 134, 1) 100%);
-      margin-bottom: 20px;
-    }
-
-    .tit_ys {
-      display: block;
-      text-align: center;
-      font-size: 0.2rem;
-      padding-left: 0.2rem;
-      padding-bottom: 0.1rem;
-
-      em {
-        font-style: normal;
-        font-size: 0.15rem;
-      }
-    }
-
-    .rulerBtm {
-      height: 0.44rem;
-      line-height: 0.44rem;
-      background: #0AC5C9;
-      position: absolute;
-      bottom: 0.25rem;
-      width: 60%;
-      margin: 0.1rem 20%;
-      border-radius: 0.2rem;
+    .active{
+      background-color: #0AC5C9;
+      color: #FFFFFF;
     }
   }
-
-  .close {
-    width: 0.2rem;
-    height: 0.2rem;
-    background: url(./../../../assets/images/guanbi@2x.png) no-repeat center center;
-    background-size: 100%;
-    position: absolute;
-    right: 0.14rem;
-    top: 0.1rem;
+  .d-flex {
+    display: -ms-flexbox!important;
+    display: flex!important;
+  }
+  .flex-fill {
+    -ms-flex: 1 1 auto!important;
+    flex: 1 1 auto!important;
   }
 </style>
 <style>
