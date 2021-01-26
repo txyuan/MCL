@@ -29,7 +29,7 @@
 				</div> -->
 			</div>
 			<div style="position: absolute;  bottom:53px; width: 100%; border: none;" :style="{top: slide ? '0.5rem' : '1.84rem'}">
-				<iframe :src="`${KFURL}/login?username=${repData.ContactPhone}&userkey=${userkey}`" width="100%" style="height: 100%; border: none;" ref="kefuView"></iframe>
+				<iframe :src="`${KFURL}/login?username=${repData.ContactPhone}&userkey=${userkey}&logoSinge=1`" width="100%" style="height: 100%; border: none;" ref="kefuView"></iframe>
 			</div>
 		</div>
 		<div class="mess_alet" v-if="docinf1">
@@ -142,6 +142,10 @@ export default {
     this.userkey = JSON.parse(localStorage.getItem('userInfo')).UserKey
   },
   mounted () {
+	  if(localStorage.mesnum){
+		  localStorage.removeItem('mesnum')
+	  }
+	  
     this.$Indicator.loading()
     this.information()
     this.getupshop()

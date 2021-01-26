@@ -1,6 +1,7 @@
 
 // app端客服地址
 const KFURL = 'http://clics.marryhealthscience.com'
+// const KFURL = 'http://192.168.1.170:8082'
 
 // 客服端配置信息
 const KFCONFIG = {

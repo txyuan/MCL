@@ -823,7 +823,7 @@
 				}
 			}
 			if(this.new_value_23.value[i]=="new_value_31"){
-				if(this.new_value_232.value==''){
+				if(this.new_value_32.value==''){
 					this.$Toast('请填写放疗第几疗程')
 					return
 				}
