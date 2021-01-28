@@ -23,7 +23,7 @@
 				<div class="title borderBottom">
 					<div class="wrap ">
 						<span class="font16">饮食方案
-							<em class="add_ys" @click="goOtherDishes()">+</em>
+							<em class="add_ys" @click="goOtherDishes()"></em>
 						</span>
 						<span class="float_right huiFont9 font15">食用量</span>
 						<!--						<img src="@/assets/images/jia_no@2x.png" alt="" class="add" width="23" @click="goOtherDishes()" />-->
@@ -107,7 +107,7 @@
 														<p>{{currentItem.foodgram}}{{currentItem.gramunit}}</p>
 						</div>
 						<div class="">
-              <p><span class="num">&nbsp;{{wegvale}}&nbsp;</span><span class="num_g">{{company}}</span></p>
+              <p><span class="num">&nbsp;{{showNum.join().replace(/,/g, "")}}</span><span class="num_g">{{company}}</span></p>
 						</div>
             <div class="right huiFont"  style="text-align: center; color: #898989">
               <p> <img src="@/assets/images/icon-units.png" alt="" class="icon" width="22" height="22"/></p>
@@ -115,20 +115,6 @@
 						</div>
 					</div>
 				</div>
-        <div v-show="hideWeight">
-          <DLRuler :value="50.0" :min="0" :max="500" :onChange="changeWeight"></DLRuler>
-        </div>
-        <div v-show="hideTwo">
-          <DLRuler :value="0" :min="0" :max="20" :onChange="changeTwo"></DLRuler>
-        </div>
-        <div v-show="hideMl">
-          <DLRuler :value="100.0" :min="0" :max="800" :onChange="changeMl"></DLRuler>
-        </div>
-				<!--<p class="yellow text-center">克</p>-->
-
-<!--				<ul class="keyboard">-->
-<!--					<li v-for="(item,index) in keyList" :style="{'border-right-width': (index%3==2 ? 0 : '2px')}" @click="keyCode(item,index)">{{item}}</li>-->
-<!--				</ul>-->
         <div class="dw_ys" v-show="hideWgtTwo" >
           <mt-button type="primary" id="saveWeight" class="dw_btn active" size="large" @click.native="saveWeight">克</mt-button>
           <mt-button type="primary" id="saveTwo" class="dw_btn" size="large" @click.native="saveTwo">两</mt-button>
@@ -136,7 +122,11 @@
         <div class="dw_ys" v-show="hideBtnml" >
           <mt-button type="primary" id="saveMl" class="dw_btn active"  size="large">ml</mt-button>
         </div>
-				<div class="btnConfirm"><span @click="confirm">确 认</span></div>
+        <ul class="keyboard">
+          <li v-for="(item,index) in keyList" :style="{'border-right-width': (index%3==2 ? 0 : '2px')}" @click="keyCode(item,index)">{{item}}</li>
+        </ul>
+
+        <div class="btnConfirm"><span @click="confirm">确 认</span></div>
 			</div>
 		</div>
 
@@ -144,7 +134,6 @@
 </template>
 
 <script>
-import DLRuler from './ruler.vue'//标尺
 import Bus from '@/assets/js/updateShopCar.js' // bus
 import pic from '@/assets/images/syyx.png' //
 import loadMore from '@/components/common/loadMore.vue' // 加载更多组件
@@ -160,12 +149,8 @@ export default {
     currentItem: {}, // 点击的菜对象
 
 
-    wegvale:50,
-    hideTwo: false,
-    hideMl: false,
     hideBtnml: false,
     hideWgtTwo: true,
-    hideWeight: true,
     company:'克',
 
     // 方案的列表
@@ -245,19 +230,12 @@ export default {
       this.currentItem = item
       this.showNum = []
       this.show = true
-      this.hideTwo=false
       if( this.currentItem.gramunit=="ml"){
-        this.hideMl=true;
         this.hideBtnml=true;
         this.hideWgtTwo=false;
-        this.hideWeight=false;
-        this.wegvale = 100
-        this.company= "ml"
+        this.company= "ml";
       }
       if( this.currentItem.gramunit=="g"){
-        this.hideWeight=true;
-        this.hideTwo=false;
-        this.hideMl=false;
         this.hideBtnml=false;
         this.hideWgtTwo=true;
         this.company= "克";
@@ -273,35 +251,31 @@ export default {
       if (item == 'x') {
         this.showNum.pop()
       } else {
-        if (this.showNum.length < 6) {
-          this.showNum.push(item)
+        if( this.company=="两"){
+          if (this.showNum.length < 3) {
+            this.showNum.push(item)
+          }
+        }
+        else {
+          if (this.showNum.length < 6) {
+            this.showNum.push(item)
+          }
         }
       }
     },
     // 键盘的确定按钮
     confirm () {
-      // if (this.showNum.length == 0) {
-      //   this.$Toast('请输入菜品克数')
-      //   return
-      // }
-      let param = {
-        Weight: this.wegvale,
+      if(this.showNum.length == 0){
+        this.$Toast("请输入菜品克数")
+        return
       }
-      if (  this.company=="克") {
-        const showNum = param.Weight
-        this.currentItem.foodconsumption = showNum
-      }
+      let showNum;
       if( this.company=="两"){
-        const showNum = param.Weight*50;
+        showNum = Number(this.showNum.join().replace(/,/g, ""))*50;
         this.currentItem.gramunit="g";
-        this.currentItem.foodconsumption = showNum
+      }else {
+        showNum = Number(this.showNum.join().replace(/,/g, ""));
       }
-      if ( this.company=="ml") {
-        const showNum = param.Weight
-        this.currentItem.foodconsumption = showNum
-      }
-      const showNum =  this.currentItem.foodconsumption
-      // const showNum = Number(this.showNum.join().replace(/,/g, ''))
       // 单位克
       const {
         foodgram,
@@ -331,34 +305,17 @@ export default {
 
     saveWeight () {
       this.show = true
-      this.hideWeight = true
-      this.hideTwo = false
-      this.wegvale = 50
       this.company= "克"
-      // this.currentItem.gramunit="g"
-      // this.currentItem.foodgram="100"
       document.getElementById('saveWeight').classList.add('active')
       document.getElementById('saveTwo').classList.remove('active')
+      this.showNum.length=0
     },
     saveTwo() {
       this.show = true
-      this.hideTwo = true
-      this.hideWeight = false
-      this.wegvale = 0
       this.company= "两"
-      // this.currentItem.gramunit="两"
-      // this.currentItem.foodgram="2"
       document.getElementById('saveTwo').classList.add('active')
       document.getElementById('saveWeight').classList.remove('active')
-    },
-    changeWeight (val) {
-      this.wegvale = val
-    },
-    changeTwo (val) {
-      this.wegvale = val
-    },
-    changeMl (val) {
-      this.wegvale = val
+      this.showNum.length=0
     },
     // 上传图片
     // 增加图片按钮
@@ -518,8 +475,7 @@ export default {
     }
   },
   components: {
-    loadMore,
-    DLRuler
+    loadMore
   },
   created () {
     this.param.mealtype = this.$route.query.mealtype
@@ -581,15 +537,19 @@ export default {
 		height: 0.165rem;
 		display: inline-block;
 		border-radius: 50%;
-		text-align: center;
-		color: #fff;
-		background-color: #0AC5C9;
+		/*text-align: center;*/
+		/*color: #fff;*/
+		/*background-color: #0AC5C9;*/
 		margin-left: 0.05rem;
-		font-weight: bolder;
-		font-size: 0.185rem;
+		/*font-weight: bolder;*/
+		/*font-size: 0.165rem;*/
 		font-style: normal;
-		line-height: 0.165rem;
+    /*font-family:emoji;*/
+		/*line-height: 0.165rem;*/
 		box-shadow: 1px 1px 1px #ccc;
+    vertical-align: text-top;
+    background: url(../../../assets/images/jia_white.png) no-repeat center center #0AC5C9;
+    background-size:80%;
 	}
 
 	.titleWrap {
@@ -695,7 +655,7 @@ export default {
       bottom: 0;
       left: 0;
       right: 0;
-
+      z-index: 999;
       span {
         display: block;
         width: 100%;
@@ -726,18 +686,18 @@ export default {
       font-size: 0.275rem;
       color: #0AC5C9;
       display: inline-block;
-      /*min-width: 72px;*/
+      min-width: 84px;
       height: 0.35rem;
-      padding-left: 0.1rem;
+      padding:0 0.05rem;
       box-sizing: border-box;
-      text-align: right;
-      /*border-bottom: 2px solid #999999;*/
+      text-align: center;
+      border-bottom: 2px solid #0AC5C9;
     }
 
     .num_g {
       font-size: 0.165rem;
       color: #0AC5C9;
-      /*margin-left: 0.05rem*/
+      vertical-align: super;
     }
     .dw_ys{
       text-align: center;
@@ -768,20 +728,29 @@ export default {
 		font-size: 0;
 	}
 
-	.keyboard li {
-		width: 33.333%;
-		display: inline-block;
-		font-size: 0.18rem;
-		font-weight: bold;
-		text-align: center;
-		line-height: 0.40rem;
-		box-sizing: border-box;
-		border-right: 4px solid #fff;
-		border-top: 4px solid #fff;
-		background-color: #fafafa;
-		border-radius: 10px;
-		color: #555555;
-	}
+  .keyboard li {
+    width: 33.333%;
+    display: inline-block;
+    font-size: 0.18rem;
+    font-weight: bold;
+    text-align: center;
+    line-height: 0.42rem;
+    box-sizing: border-box;
+    border-right: 4px solid #fff;
+    border-top: 4px solid #fff;
+    background-color: #fafafa;
+    border-radius: 10px;
+    color: #555555;
+  }
+
+  .keyboard li:last-child{
+    color: #fafafa;
+    background: url(../../../assets/images/jpsc_bg.png) no-repeat center center #fafafa;
+    background-size: 0.30rem 0.25rem;
+    font-size: 0.16rem;
+    font-family: ui-monospace;
+    line-height: 0.44rem;
+  }
 
 	.propic {
 		width: 100%;
@@ -790,7 +759,7 @@ export default {
 
 	.fix_bottom {
 		padding: 0;
-
+    z-index: 99;
 		.theme-button {
 			background-color: #0AC5C9;
 			border-radius: 0;
