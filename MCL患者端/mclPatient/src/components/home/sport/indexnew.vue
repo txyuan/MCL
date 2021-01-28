@@ -83,7 +83,7 @@
 						<!-- <router-link to="/sportAgreement">
 							<p class="red text-right font12 margin10" style="padding: 0 10px;text-decoration: underline;">运动禁忌须知</p>
 						</router-link> -->
-						<div class="sport-cell d-flex clear" v-for="(item,index) in sportway" :key="index">
+						<div class="sport-cell  clear" v-for="(item,index) in sportway" :key="index">
 							<div class="name">{{item.sportsname}}</div>
 							<div class="flex-grow-1">
 								<span class="huiFont">{{item.motorunit}}</span>
@@ -536,8 +536,8 @@
 		line-height: 0.52rem;
 		background: #FFFFFF;
 		padding: 0 0.12rem;
-		border-bottom: 1px dashed #e5e5e5;
-		margin-left: 0.12rem;
+		// border-bottom: 1px dashed #e5e5e5;
+		// margin-left: 0.12rem;
 		font-size: 0.145rem;
 
 		.name {

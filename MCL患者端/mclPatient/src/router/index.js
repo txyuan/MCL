@@ -41,6 +41,7 @@ const uploadPhoto_addCase = () => import(/* webpackChunkName: "uploadPhoto_addCa
 
 const sport = () => import(/* webpackChunkName: "sport" */ '@/components/home/sport/index.vue')  //首页 运动
 const sportAgreement = () => import(/* webpackChunkName: "sport-agreement" */ '@/components/home/sport/sport-agreement.vue')  //首页 运动  运动禁忌须知
+const sportDetail = () => import(/* webpackChunkName: "sportDetail" */ '@/components/home/sport/sportDetail.vue')  //首页 运动-指导
 
 const mood = () => import(/* webpackChunkName: "mood" */ '@/components/home/mood/index.vue')  //首页 心情
 const welcomexqgl = () => import(/* webpackChunkName: "welcomexqgl" */ '@/components/home/mood/welcomexqgl.vue')  //首页 心情 欢迎页
@@ -293,6 +294,7 @@ const router = new Router({
     { path:"/nutrition", name:"nutrition", component: nutrition },  //营养
     { path:"/sport", name:"sport", component: sport },  //运动
     { path:"/sportAgreement", name:"sportAgreement", component: sportAgreement },  //运动禁忌须知
+	{ path:"/sportDetail", name:"sportDetail", component: sportDetail },  //运动
     { path:"/nutritionUploadPhoto", name:"nutritionUploadPhoto", component: nutritionUploadPhoto },  //营养 拍照上传
     { path:"/uploadPhoto_supplement", name:"uploadPhoto_supplement", component: uploadPhoto_supplement },  //营养 拍照上传
     { path:"/uploadPhoto_addCase", name:"uploadPhoto_addCase", component: uploadPhoto_addCase },  //营养 添加方案

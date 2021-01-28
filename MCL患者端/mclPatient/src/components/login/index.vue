@@ -64,9 +64,11 @@ export default {
       //               return;
       //             }
       let url = 'UserInterface/UserLogin.ashx'
+	 
       let param = {
         'userphone': this.phone,
-        'userpassword': this.code
+        'userpassword': this.code,
+		'openid': localStorage.openId
       }
       this.$post(url, param).then((data) => {
         if (data.rspcode != 1) {

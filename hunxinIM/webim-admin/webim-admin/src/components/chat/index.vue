@@ -2,7 +2,7 @@
 	<div class="userlist">
 		<a-menu style="width: 100%; border-right: 0;" mode="vertical" :selectedKeys="selectedKeys">
 			<a-menu-item style="height: 80px; position: relative; textAlign: left; borderBottom: 1px solid #eee; margin: 0"
-			 v-for="(item,index) in userList.contact" :key="getKey(item)" @click="select2(item, getKey(item))">
+			 v-for="(item,index) in friendList" :key="getKey(item)" @click="select2(item, getKey(item))">
 				<!-- v-for="(item) in userList[type]" -->
 				<span class="custom-title" v-if="item.username.userName">
 					<i class="el-icon-star-on" v-if="item.username.isMember==1"></i>
@@ -16,7 +16,7 @@
 				<div>{{getLastMsg(item).lastMsg}}</div>
 			</a-menu-item>
 		</a-menu>
-		<div v-if="userList.contact.length == 0" style="margin-top: 15px;">没有好友信息</div>
+		<div v-if="friendList.length == 0" style="margin-top: 15px;">没有好友信息</div>
 	</div>
 </template>
 
@@ -99,6 +99,7 @@
 				const temp = {
 					contact: this.contact.filter(item => {
 						this.$set(item, 'username', this.$root.getUserNameByPhone(String(item.name)))
+						console.log(item)
 						this.$set(item, 'meum', this.getUnreadNum(item))
 						if (item && !this.blackList.includes(item.name)) {
 							return item;
@@ -139,19 +140,15 @@
 		],
 		watch: {
 			'userList.contact': function(value) {
-				value.forEach((item) => {
-					// item.lock = true
-				})
 				this.friendList = value
 			},
 			filterKeyword: function(value) {
 
 				this.friendList = this.userList.contact.filter((item) => {
 					if (item.username) {
-						if ((item.name.indexOf(value) != -1) || ((item.username.sUserName && item.username.sUserName.indexOf(value)) !=
-								-1)) {
-							return (item.name.indexOf(value) != -1) || ((item.username.sUserName && item.username.sUserName.indexOf(value)) !=
-								-1)
+						if ((item.name.indexOf(value) != -1) || ((item.username.sUserName && item.username.sUserName.indexOf(value)) != -1)) {
+							console.log((item.name.indexOf(value) != -1) || ((item.username.sUserName && item.username.sUserName.indexOf(value)) != -1))
+							return (item.name.indexOf(value) != -1) || ((item.username.sUserName && item.username.sUserName.indexOf(value)) != -1)
 						}
 					}
 
@@ -200,6 +197,7 @@
 				return key;
 			},
 			getUnreadNum(item) {
+				
 				const {
 					name,
 					params
