@@ -34,6 +34,18 @@
       </mt-field>
       <mt-field label="BMI" placeholder="BMI" class="borderBottom" :readonly="true" v-model.trim="param.bmi"></mt-field>
     </div>
+
+    <div class="splitLine">
+            <mt-cell is-link class="sportEvaluation-wrap borderBottom" @click.native="sportPickerToggles('show')">
+              <div slot="title" class="titleWrap">
+                <span class="mint-cell-text">管理类型</span>
+              </div>
+              <div class="sportEvaluation">
+                {{sportDefaultName}}
+              </div>
+            </mt-cell>
+    </div>
+
     <div class="splitLine">
       <div class="d-flex manageTitle">
         <div class="flex-fill active" ref="tz_title" @click="tzTitle">体重管理</div>
@@ -135,7 +147,7 @@
       <div class="splitLine">
         <div class="title2 bg-white titleBtm">是否有基础疾病
         </div>
-        <mt-radio :options="new_value_41.option" v-model="new_value_41.value" class=""></mt-radio> 
+        <mt-radio :options="new_value_41.option" v-model="new_value_41.value" class=""></mt-radio>
         <div class="title2 bg-white titlTop">如果有，那么疾病情况<em>(可多选)</em>
         </div>
         <mt-checklist :options="new_value_42.option" v-model="new_value_42.value" class="checklist borderBottom" style="position: relative; padding-top: 0.02rem"></mt-checklist>
@@ -201,9 +213,9 @@
         </div>
         <mt-radio :options="new_value_74.option" v-model="new_value_74.value"></mt-radio>
 
-        <div class="title2 bg-white titleBtm">如果有请选择情况<em>(可多选)</em>
+        <div class="title2 bg-white titlTop">如果有请选择情况<em>(可多选)</em>
         </div>
-        <mt-checklist :options="new_value_75.option" v-model="new_value_75.value" class="checklist qkxz_style_a"></mt-checklist>
+        <mt-checklist :options="new_value_75.option" v-model="new_value_75.value" class="checklist qkxz_style_a" style="position: relative; padding-top: 0.02rem"></mt-checklist>
       </div>
       <div class="splitLine">
         <div class="title2 bg-white titleBtm">是否有基础疾病
@@ -683,11 +695,11 @@
         name: '慢病',
         val: 'attribute_value_04'
       }],
-      sportDefaultName: '肿瘤', // 页面显示的文字
+      sportDefaultName: '请选择管理类型', // 页面显示的文字
       sportVisible: false,
       sportSlot: [{
         flex: 1,
-        values: ['肿瘤', '慢病'],
+        values: ['体重管理', '健康管理', '肿瘤管理'],
         className: 'slot1',
         textAlign: 'center'
       }],
@@ -1300,13 +1312,16 @@
 
     .mint-popup-bottom {
       width: 100%;
+      min-height: 40%;
     }
 
     .picker {
       .picker-toolbar {
 
       }
-
+      .picker-items{
+        min-height: 40%;
+      }
       .picker_bar {
         display: flex;
         justify-content: space-between;
@@ -1573,6 +1588,7 @@
   .personInfo_root .picker .picker-toolbar {
     height: 45px;
     border: 0;
+  margin-bottom: 0.2rem;
   }
 
   .personInfo_root .picker .mint-datetime-action {
@@ -1631,7 +1647,28 @@
     /*background-color: #FFFFFF;*/
     /*border-color: #FFFFFF;*/
   }
+  .personInfo_root .city_picker_root .picker,  .personInfo_root .city_picker_root .mint-popup {
+    min-height: 40%;
+  }
 
+  .personInfo_root .city_picker_root .picker .picker-toolbar .bar {
+    padding: 0;
+    background-color: #dddddd;
+    color: #666666;
+    text-align: center;
+  }
+
+  .personInfo_root .city_picker_root .picker .picker-toolbar .bar span{
+    width: 50%;
+    display: inline-block;
+    height: 44px;
+    line-height: 44px;
+  }
+
+  .personInfo_root .city_picker_root .picker .picker-toolbar .bar span.confirm{
+    background-color: #0AC5C9;
+    color: #FFFFFF;
+  }
   @media screen and (max-width: 375px) {
     .personInfo_root .mint-checklist .mint-cell {
       width: 48%;
