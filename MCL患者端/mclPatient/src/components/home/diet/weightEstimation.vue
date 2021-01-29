@@ -15,11 +15,6 @@
           <img src="../../../assets/images/wigtsin_5.jpg" width="100%"/>
           <img src="../../../assets/images/wigtsin_6.jpg" width="100%"/>
           <img src="../../../assets/images/wigtsin_7.jpg" width="100%"/>
-          <img src="../../../assets/images/wigtsin_8.jpg" width="100%"/>
-          <img src="../../../assets/images/wigtsin_9.jpg" width="100%"/>
-          <img src="../../../assets/images/wigtsin_10.jpg" width="100%"/>
-          <img src="../../../assets/images/wigtsin_11.jpg" width="100%"/>
-          <img src="../../../assets/images/wigtsin_12.jpg" width="100%"/>
         </div>
   </div>
 </template>

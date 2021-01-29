@@ -102,14 +102,14 @@
 					</mt-cell>
 
 					<div class="showNum font13">
-						<div class="left huiFont">
+						<div class="left" style="color: #aaaaaa">
 														<p  style="line-height: 25px">{{currentItem.foodkcal}} {{currentItem.kcalunit}}</p>
 														<p>{{currentItem.foodgram}}{{currentItem.gramunit}}</p>
 						</div>
 						<div class="">
               <p><span class="num">&nbsp;{{showNum.join().replace(/,/g, "")}}</span><span class="num_g">{{company}}</span></p>
 						</div>
-            <div class="right huiFont"  style="text-align: center; color: #898989">
+            <div class="right huiFont"  style="text-align: center; color: #aaaaaa">
               <p> <img src="@/assets/images/icon-units.png" alt="" class="icon" width="22" height="22"/></p>
               <p @click="weightEstimation">重量估算</p>
 						</div>
@@ -129,7 +129,30 @@
         <div class="btnConfirm"><span @click="confirm">确 认</span></div>
 			</div>
 		</div>
-
+    <!-- 重量估算picker  -->
+    <mt-popup
+    class="mint-popup-3"
+    v-model="weightVisible"
+    position="right"
+    :modal="false"
+    popup-transition="popup-fade">
+    <mt-header fixed title="重量估算">
+      <div slot="left">
+        <mt-button icon="back" @click.native="toggleModal('hide')"></mt-button>
+      </div>
+    </mt-header>
+      <div class="popup_body" ref="popupBody">
+        <div class="wigtsin_bg">
+          <img src="../../../assets/images/wigtsin_1.jpg" width="100%"/>
+          <img src="../../../assets/images/wigtsin_2.jpg" width="100%"/>
+          <img src="../../../assets/images/wigtsin_3.jpg" width="100%"/>
+          <img src="../../../assets/images/wigtsin_4.jpg" width="100%"/>
+          <img src="../../../assets/images/wigtsin_5.jpg" width="100%"/>
+          <img src="../../../assets/images/wigtsin_6.jpg" width="100%"/>
+          <img src="../../../assets/images/wigtsin_7.jpg" width="100%"/>
+        </div>
+      </div>
+    </mt-popup>
 	</div>
 </template>
 
@@ -152,6 +175,7 @@ export default {
     hideBtnml: false,
     hideWgtTwo: true,
     company:'克',
+    weightVisible: false,
 
     // 方案的列表
     dietPlanInfo: [],
@@ -223,7 +247,13 @@ export default {
 
     // 重量估算
     weightEstimation() {
-      this.$router.push(`/weightEstimation`)
+      // this.$router.push(`/weightEstimation`)
+      this.toggleModal('show')
+    },
+
+    toggleModal (type) {
+      var state = (type == 'show' ? true : false)
+      this.weightVisible = state
     },
     // 显示和隐藏键盘
     showModal (item) {
@@ -767,6 +797,19 @@ export default {
 			height: 0.44rem;
 		}
 	}
+  .mint-popup-3 {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+  }
+  .wigtsin_bg{
+    background-color: #FFFFFF;
+  }
+  .wigtsin_bg img{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
 </style>
 <style lang="scss">
 	.uploadPhoto-root {

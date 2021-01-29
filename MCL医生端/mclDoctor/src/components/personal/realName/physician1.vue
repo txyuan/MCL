@@ -60,16 +60,21 @@
         </div>
 
 				<div class="form_bname d-flex align-items-center">
-					<div>医院<span>(<em>*</em>必填)</span></div>
-          <div class="flex-grow-1"><input type="" placeholder="请输入所属医院" v-model="param.hospital" /></div>
+					<div>医院/公司<span>(<em>*</em>必填)</span></div>
+          <div class="flex-grow-1"><input type="" placeholder="请输入所属医院/公司" v-model="param.hospital" /></div>
 				</div>
 				<div class="form_bname d-flex align-items-center">
 					<div>科室<span>(<em>*</em>必填)</span></div>
           <div class="flex-grow-1"><input type="" placeholder="请输入所属科室" v-model="param.department" /></div>
 				</div>
 				<div class="form_bname d-flex align-items-center">
-					<div>职称<span>(<em>*</em>必填)</span></div>
-          <div class="flex-grow-1">	<input type="" placeholder="请输入您的职称" v-model="param.title" /></div>
+					<div>角色<span>(<em>*</em>必填)</span></div>
+          <div class="flex-grow-1">
+            <mt-cell title="" is-link @click.native="pickerTogglez('show')" >
+              <span>{{param.title || '请选择您的角色'}}</span>
+            </mt-cell>
+<!--            <input type="" placeholder="请选择角色" v-model="param.title" />-->
+          </div>
 				</div>
 				<!-- <mt-cell title="医院" is-link @click.native="pickerToggle('show')" style="border-bottom: 1px solid #eee">
 					<span>{{param.hospital}}</span>
@@ -232,8 +237,7 @@
 			}],
 			sexSlotz: [{
 				flex: 1,
-				values: ['中国工商银行3', '中国农业银行', '中国银行', '中国建设银行', '交通银行', '中信银行', '中国光大银行', '华夏银行', '中国民生银行', '广发银行', '深圳发展银行',
-					'招商银行', '兴业银行', '上海浦东发展银行', '恒丰银行', '浙商银行', '渤海银行', '中国邮政储蓄银行', '北京银行'
+				values: ['医师', '主治医师', '副主任医师', '主任医师', '医学顾问', '营养师','其他'
 				],
 				className: 'slot1',
 				textAlign: 'center'
@@ -257,10 +261,10 @@
 			  let cityValue = [values[0].name,values[1].name,values[2].name].toString();
 			  this.param.city = cityValue;
 			},
-			//打开citypicker
-			openCityPicker(){
-			  this.$refs.cityPicker.show();
-			},
+      //打开citypicker
+      openCityPicker(){
+        this.$refs.cityPicker.show();
+      },
 			downApp() {
 //				let ua = navigator.userAgent.toLowerCase();
 //				//Android终端
