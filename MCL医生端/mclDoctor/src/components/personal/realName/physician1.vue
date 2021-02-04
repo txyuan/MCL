@@ -1,5 +1,5 @@
 <template>
-	<div class="padding-header">
+	<div class="padding-header physician">
 		<mt-header fixed title="完善资料"></mt-header>
 		<div class="mains">
 			<div class="phys_top d-flex justify-content-around">
@@ -64,8 +64,8 @@
           <div class="flex-grow-1"><input type="" placeholder="请输入所属医院/公司" v-model="param.hospital" /></div>
 				</div>
 				<div class="form_bname d-flex align-items-center">
-					<div>科室<span>(<em>*</em>必填)</span></div>
-          <div class="flex-grow-1"><input type="" placeholder="请输入所属科室" v-model="param.department" /></div>
+					<div>科室/部门<span>(<em>*</em>必填)</span></div>
+          <div class="flex-grow-1"><input type="" placeholder="请输入所属科室/部门" v-model="param.department" /></div>
 				</div>
 				<div class="form_bname d-flex align-items-center">
 					<div>角色<span>(<em>*</em>必填)</span></div>
@@ -522,6 +522,25 @@
   .mains .form .mint-cell .mint-cell-wrapper{
     padding: 0;
   }
+ .physician .picker-toolbar{
+    height: 0.42rem;
+  }
+  .physician .mint-popup-bottom,.physician .city_picker_root{
+    min-height: 35%;
+  }
+  .physician .city-picker .bar{
+       line-height: 0.42rem;
+       padding: 0;
+  }
+  .physician .city-picker .bar span{
+    text-align: center;
+    background-color: #e5e5e5;
+    width: 50%;
+  }
+  .physician .city-picker .bar .confirm{
+    color: #FFFFFF;
+    background-color: #4A8EF4;
+  }
 	/* .physc{
 	  .mint-popup-bottom{
 	    width: 100%;
@@ -637,12 +656,17 @@
 		display: flex;
 		justify-content: space-between;
 		text-align: center;
-		line-height: 40px;
-		padding: 0 20px;
+		line-height: 0.42rem;
+		padding: 0;
 		border-bottom: solid 1px #eaeaea;
-
+    background-color: #4A8EF4;
+    .cancel{
+      width: 50%;
+      background-color: #e5e5e5;
+    }
 		.confrim {
-			color: #26a2ff;
+      width: 50%;
+			color: #FFFFFF;
 		}
 	}
 
@@ -663,7 +687,7 @@
     font-size: 0.155rem;
     padding:0 0.15rem 0 0.125rem;
 		span {
-			font-size:0.135rem;
+			font-size:0.13rem;
       color: #999999;
       margin-left: 0.05rem;
       em{
@@ -680,6 +704,7 @@
 			height: 0.44rem;
 			font-size: 0.14rem;
       margin-right: 0.2rem;
+      color: #787878;
 		}
 	}
 
