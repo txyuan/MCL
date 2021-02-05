@@ -176,7 +176,7 @@
         'id9': {questions: '2、您觉得虚弱吗？'},
         'id10': {questions: '3、您觉得累吗？'},
 
-        'id11': {questions: '1、恶心呕吐情况'},
+        'id11': {questions: '1、恶心情况'},
         'id12': {questions: '2、呕吐情况'},
         'id13': {questions: '1、您有疼痛吗？'},
         'id14': {questions: '2、疼痛影响您的日常活动吗？'},
@@ -210,7 +210,7 @@
         'id37': {questions: '3、恶心或呕吐情况对吃饭进食的影响程度'},
         'id38': {questions: '4、恶心、呕吐次数'},
         'id39': {questions: '1、您现在的腹胀严重程度', answer1: '1'},
-        'id40': {questions: '1、您现在的身体水肿严重程度', answer1: '1'},
+        'id40': {questions: '1、您现在的身体水肿严重程度，有水肿的部位在哪些？', answer1: '1'},
 
         'id41': {questions: '1、白细胞情况'},
         'id42': {questions: '1、您现在的落发严重程度', answer1: '1'},
@@ -534,7 +534,7 @@
             ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="8" id="checkbox' + id + '8"/><label for="checkbox' + id + '8">咳痰，偶有量多</label></li>'
             ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="9" id="checkbox' + id + '9"/><label for="checkbox' + id + '9">咳痰，自感量多，但咳不出</label></li>'
             ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="10" id="checkbox' + id + '10"/><label for="checkbox' + id + '10">咳痰，痰液粘稠</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="11" id="checkbox' + id + '11"/><label for="checkbox' + id + '11">咳痰，痰液粘稠</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="11" id="checkbox' + id + '11"/><label for="checkbox' + id + '11">半年内多次肺部感染（2次以上）</label></li>'
 			ahtml += '</ul>'
           }else if (id == '48') {
             ahtml = ' <ul class="answerUl">'
@@ -1184,8 +1184,8 @@
 	  }
   }
   .fszrg{
-	  width: 92%;
-	  padding: 0 4%;
+	  width: 80%;
+	  padding: 0 10%;
 	  background: #fff;
 	  height: 176px;
 	  h3{

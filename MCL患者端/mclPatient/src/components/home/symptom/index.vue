@@ -135,27 +135,27 @@
       //页面上的元素
       ids: [
 
-        {id: 'cb_attribute_value_23', itemindex: '32', name: '贫血'},
-        {id: 'cb_attribute_value_24', itemindex: '33', name: '疼痛'},
-		{id: 'cb_attribute_value_163', itemindex: '17', name: '吞咽困难'},
-        {id: 'cb_attribute_value_25', itemindex: '34', name: '食欲下降、厌食'},
-        {id: 'cb_attribute_value_28', itemindex: '11,12,37', name: '恶心呕吐'},
-        {id: 'cb_attribute_value_27', itemindex: '36', name: '消化不良'},
-		{id: 'cb_attribute_value_31', itemindex: '48', name: '腹泻'},
-        {id: 'cb_attribute_value_29', itemindex: '39', name: '化疗后腹胀'},
-		{id: 'cb_attribute_value_32', itemindex: '44', name: '便秘'},
-		{id: 'cb_attribute_value_33', itemindex: '46', name: '疲劳'},
-		{id: 'cb_attribute_value_34', itemindex: '18', name: '睡眠障碍(失眠)'},  //修改问题了
-		{id: 'cb_attribute_value_35', itemindex: '41', name: '白细胞减少'},
-		{id: 'cb_attribute_value_50', itemindex: '54', name: '低蛋白血症'},   //新加问题
-		{id: 'cb_attribute_value_22', itemindex: '31', name: '体重丢失'},
-		{id: 'cb_attribute_value_49', itemindex: '49', name: '放射性肺炎'},   //新加弹窗
-		{id: 'cb_attribute_value_162', itemindex: '45', name: '口腔溃疡'},
-		{id: 'cb_attribute_value_50', itemindex: '50', name: '血小板减少'},   //新加问题
-		{id: 'cb_attribute_value_164', itemindex: '52', name: '放射性肠炎'},  //47新加问题
-		{id: 'cb_attribute_value_31', itemindex: '53', name: '肺部感染'},  //新增项
-        {id: 'cb_attribute_value_30', itemindex: '40', name: '肢体肿胀'},
-		{id: 'cb_attribute_value_36', itemindex: '42', name: '脱发'},
+        {id: 'attribute_value_01', itemindex: '32', name: '贫血'},
+        {id: 'attribute_value_02', itemindex: '33', name: '疼痛'},
+		{id: 'attribute_value_03', itemindex: '17', name: '吞咽困难'},
+        {id: 'attribute_value_04', itemindex: '34', name: '食欲下降、厌食'},
+        {id: 'attribute_value_05', itemindex: '11,12,37', name: '恶心呕吐'},
+        {id: 'attribute_value_06', itemindex: '36', name: '消化不良'},
+		{id: 'attribute_value_07', itemindex: '48', name: '腹泻'},
+        {id: 'attribute_value_08', itemindex: '39', name: '化疗后腹胀'},
+		{id: 'attribute_value_09', itemindex: '44', name: '便秘'},
+		{id: 'attribute_value_10', itemindex: '46', name: '疲劳'},
+		{id: 'attribute_value_11', itemindex: '18', name: '睡眠障碍(失眠)'},  //修改问题了
+		{id: 'attribute_value_12', itemindex: '41', name: '白细胞减少'},
+		{id: 'attribute_value_13', itemindex: '54', name: '低蛋白血症'},   //新加问题
+		{id: 'attribute_value_14', itemindex: '31', name: '体重丢失'},
+		{id: 'attribute_value_15', itemindex: '49', name: '放射性肺炎'},   //新加弹窗
+		{id: 'attribute_value_16', itemindex: '45', name: '口腔溃疡'},
+		{id: 'attribute_value_17', itemindex: '50', name: '血小板减少'},   //新加问题
+		{id: 'attribute_value_18', itemindex: '52', name: '放射性肠炎'},  //47新加问题
+		{id: 'attribute_value_19', itemindex: '53', name: '肺部感染'},  //新增项
+        {id: 'attribute_value_20', itemindex: '40', name: '肢体肿胀'},
+		{id: 'attribute_value_21', itemindex: '42', name: '脱发'},
         
         // {id: 'cb_attribute_value_38', itemindex: '43', name: '骨髓抑制'},
         // {id: 'cb_attribute_value_165', itemindex: '', name: '皮肤损伤'},   //没有这个弹窗
@@ -176,7 +176,7 @@
         'id9': {questions: '2、您觉得虚弱吗？'},
         'id10': {questions: '3、您觉得累吗？'},
 
-        'id11': {questions: '1、恶心呕吐情况'},
+        'id11': {questions: '1、恶心情况'},
         'id12': {questions: '2、呕吐情况'},
         'id13': {questions: '1、您有疼痛吗？'},
         'id14': {questions: '2、疼痛影响您的日常活动吗？'},
@@ -210,7 +210,7 @@
         'id37': {questions: '3、恶心或呕吐情况对吃饭进食的影响程度'},
         'id38': {questions: '4、恶心、呕吐次数'},
         'id39': {questions: '1、您现在的腹胀严重程度', answer1: '1'},
-        'id40': {questions: '1、您现在的身体水肿严重程度', answer1: '1'},
+        'id40': {questions: '1、您现在的身体水肿严重程度，有水肿的部位在哪些？', answer1: '1'},
 
         'id41': {questions: '1、白细胞情况'},
         'id42': {questions: '1、您现在的落发严重程度', answer1: '1'},
@@ -448,11 +448,11 @@
             ahtml += '</ul>'
           } else if (id == '45') {
             ahtml = ' <ul class="answerUl">'
-            ahtml += '<li><input type="radio" name="' + id + '" value="0" id="radio' + id + '1"/> <label for="radio' + id + '1">0级：无症状</label></li>'
-            ahtml += '<li><input type="radio" name="' + id + '" value="1" id="radio' + id + '2"/><label for="radio' + id + '2">1级：红斑/疼痛，不影响进食）</label></li>'
-            ahtml += '<li><input type="radio" name="' + id + '" value="2" id="radio' + id + '3"/><label for="radio' + id + '3">2级：溃疡/红斑，仍能进食</label></li>'
-            ahtml += '<li><input type="radio" name="' + id + '" value="3" id="radio' + id + '4"/><label for="radio' + id + '4">3级：溃疡及严重红斑，不能进食</label></li>'
-            ahtml += '<li><input type="radio" name="' + id + '" value="4" id="radio' + id + '5"/><label for="radio' + id + '5">4级：溃疡融合成片，有坏死，不能进食</label></li>'
+            ahtml += '<li><input type="radio" name="' + id + '" value="0" id="radio' + id + '0"/> <label for="radio' + id + '0">0级：无症状</label></li>'
+            ahtml += '<li><input type="radio" name="' + id + '" value="1" id="radio' + id + '1"/><label for="radio' + id + '1">1级：红斑/疼痛，不影响进食）</label></li>'
+            ahtml += '<li><input type="radio" name="' + id + '" value="2" id="radio' + id + '2"/><label for="radio' + id + '2">2级：溃疡/红斑，仍能进食</label></li>'
+            ahtml += '<li><input type="radio" name="' + id + '" value="3" id="radio' + id + '3"/><label for="radio' + id + '3">3级：溃疡及严重红斑，不能进食</label></li>'
+            ahtml += '<li><input type="radio" name="' + id + '" value="4" id="radio' + id + '4"/><label for="radio' + id + '4">4级：溃疡融合成片，有坏死，不能进食</label></li>'
             ahtml += '</ul>'
           } else if (id == '38') {
             ahtml = ' <ul class="answerUl">'
@@ -461,48 +461,48 @@
             ahtml += '</ul>'
           }else if (id == '44') {
             ahtml = ' <ul class="answerUl">'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="1" id="checkbox' + id + '1"/><label for="checkbox' + id + '1">没有便秘情况</label></li>'
-            ahtml += '<li><input type="radio" style=" margin-left: 6px;" name="' + id + '" value="2" id="radio' + id + '2"/><label for="radio' + id + '2">2天解便一次，伴有大便轻度干结，或每天一次伴有大便严重干结</label></li>'
-            ahtml += '<li><input type="radio" style=" margin-left: 6px;" name="' + id + '" value="3" id="radio' + id + '3"/><label for="radio' + id + '3">3天解便一次，伴有大便轻度干结</label></li>'
-            ahtml += '<li><input type="radio" style=" margin-left: 6px;" name="' + id + '" value="4" id="radio' + id + '4"/><label for="radio' + id + '4">2-3天解便一次，伴有大便干结</label></li>'
-            ahtml += '<li><input type="radio" style=" margin-left: 6px;" name="' + id + '" value="5" id="radio' + id + '5"/><label for="radio' + id + '5">4天及以上解便一次</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="6" id="checkbox' + id + '6"/><label for="checkbox' + id + '6">伴有腹痛</label></li>'
-            ahtml += '<li><input type="checkbox"  style=" margin-left: 6px;" name="' + id + '" value="7" id="checkbox' + id + '7"/><label for="checkbox' + id + '7">伴有腹胀</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="8" id="checkbox' + id + '8"/><label for="checkbox' + id + '8">大便软，但自感排便困难</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="9" id="checkbox' + id + '9"/><label for="checkbox' + id + '9">必须依靠开塞露等药物才能解便</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="10" id="checkbox' + id + '10"/><label for="checkbox' + id + '10">便秘时间超过半年</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="0" id="checkbox' + id + '0"/><label for="checkbox' + id + '0">没有便秘情况</label></li>'
+            ahtml += '<li><input type="radio" style=" margin-left: 6px;" name="' + id + '" value="1" id="radio' + id + '1"/><label for="radio' + id + '1">2天解便一次，伴有大便轻度干结，或每天一次伴有大便严重干结</label></li>'
+            ahtml += '<li><input type="radio" style=" margin-left: 6px;" name="' + id + '" value="2" id="radio' + id + '2"/><label for="radio' + id + '2">3天解便一次，伴有大便轻度干结</label></li>'
+            ahtml += '<li><input type="radio" style=" margin-left: 6px;" name="' + id + '" value="3" id="radio' + id + '3"/><label for="radio' + id + '3">2-3天解便一次，伴有大便干结</label></li>'
+            ahtml += '<li><input type="radio" style=" margin-left: 6px;" name="' + id + '" value="4" id="radio' + id + '4"/><label for="radio' + id + '4">4天及以上解便一次</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="5" id="checkbox' + id + '5"/><label for="checkbox' + id + '5">伴有腹痛</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="6" id="checkbox' + id + '6"/><label for="checkbox' + id + '6">伴有腹胀</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="7" id="checkbox' + id + '7"/><label for="checkbox' + id + '7">大便软，但自感排便困难</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="8" id="checkbox' + id + '8"/><label for="checkbox' + id + '8">必须依靠开塞露等药物才能解便</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="9" id="checkbox' + id + '9"/><label for="checkbox' + id + '9">便秘时间超过半年</label></li>'
 			ahtml += '</ul>'
           }else if (id == '49') {
             ahtml = ' <ul class="answerUl">'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="1" id="checkbox' + id + '1"/><label for="checkbox' + id + '1">有诊断，但较轻微无明显症状</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="2" id="checkbox' + id + '2"/><label for="checkbox' + id + '2">偶有刺激性干咳</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="3" id="checkbox' + id + '3"/><label for="checkbox' + id + '3">干咳，活动后加重（多数在放射治疗2～3个月后出现）</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="4" id="checkbox' + id + '4"/><label for="checkbox' + id + '4">干咳频繁</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="5" id="checkbox' + id + '5"/><label for="checkbox' + id + '5">伴有气喘、气急</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="6" id="checkbox' + id + '6"/><label for="checkbox' + id + '6">伴有胸痛</label></li>'
-            ahtml += '<li><input type="checkbox"  style=" margin-left: 6px;" name="' + id + '" value="7" id="checkbox' + id + '7"/><label for="checkbox' + id + '7">伴有心悸、心慌</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="8" id="checkbox' + id + '8"/><label for="checkbox' + id + '8">伴有发热</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="9" id="checkbox' + id + '9"/><label for="checkbox' + id + '9">呼吸困难，或伴有低氧血症</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="10" id="checkbox' + id + '10"/><label for="checkbox' + id + '10">并发支气管炎</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="11" id="checkbox' + id + '11"/><label for="checkbox' + id + '11">并发肺气肿</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="0" id="checkbox' + id + '0"/><label for="checkbox' + id + '0">有诊断，但较轻微无明显症状</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="1" id="checkbox' + id + '1"/><label for="checkbox' + id + '1">偶有刺激性干咳</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="2" id="checkbox' + id + '2"/><label for="checkbox' + id + '2">干咳，活动后加重（多数在放射治疗2～3个月后出现）</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="3" id="checkbox' + id + '3"/><label for="checkbox' + id + '3">干咳频繁</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="4" id="checkbox' + id + '4"/><label for="checkbox' + id + '4">伴有气喘、气急</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="5" id="checkbox' + id + '5"/><label for="checkbox' + id + '5">伴有胸痛</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="6" id="checkbox' + id + '6"/><label for="checkbox' + id + '6">伴有心悸、心慌</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="7" id="checkbox' + id + '7"/><label for="checkbox' + id + '7">伴有发热</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="8" id="checkbox' + id + '8"/><label for="checkbox' + id + '8">呼吸困难，或伴有低氧血症</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="9" id="checkbox' + id + '9"/><label for="checkbox' + id + '9">并发支气管炎</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="10" id="checkbox' + id + '10"/><label for="checkbox' + id + '10">并发肺气肿</label></li>'
 			ahtml += '</ul>'
           }else if (id == '50') {
             ahtml = ' <ul class="answerUl">'
-            ahtml += ' <li><label >血液检查，血常规中血小板计数</label><input name="' + id + '" id="' + id + '_1" class="td_input " type="text"/><label >10<sup>9</sup>/L</label></li>'
+            ahtml += ' <li><label >血液检查，血常规中血小板计数</label><input name="' + id + '_1" id="' + id + '_1" class="td_input " type="text"/><label >10<sup>9</sup>/L</label></li>'
             ahtml += '</ul>'
           }else if (id == '18') {
             ahtml = ' <ul class="answerUl">'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="1" id="checkbox' + id + '1"/><label for="checkbox' + id + '1">没有</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="2" id="checkbox' + id + '2"/><label for="checkbox' + id + '2">睡眠节律紊乱</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="3" id="checkbox' + id + '3"/><label for="checkbox' + id + '3">入睡困难</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="4" id="checkbox' + id + '4"/><label for="checkbox' + id + '4">早醒</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="5" id="checkbox' + id + '5"/><label for="checkbox' + id + '5">多梦</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="6" id="checkbox' + id + '6"/><label for="checkbox' + id + '6">睡眠浅，易醒</label></li>'
-            ahtml += '<li><input type="checkbox"  style=" margin-left: 6px;" name="' + id + '" value="7" id="checkbox' + id + '7"/><label for="checkbox' + id + '7">醒后不易睡着</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="8" id="checkbox' + id + '8"/><label for="checkbox' + id + '8">睡后有疲惫感</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="9" id="checkbox' + id + '9"/><label for="checkbox' + id + '9">睡眠时间小于6小时</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="10" id="checkbox' + id + '10"/><label for="checkbox' + id + '10">伴有头痛、头晕等症状</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="11" id="checkbox' + id + '11"/><label for="checkbox' + id + '11">睡眠障碍时间超过1周</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="0" id="checkbox' + id + '0"/><label for="checkbox' + id + '0">没有</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="1" id="checkbox' + id + '1"/><label for="checkbox' + id + '1">睡眠节律紊乱</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="2" id="checkbox' + id + '2"/><label for="checkbox' + id + '2">入睡困难</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="3" id="checkbox' + id + '3"/><label for="checkbox' + id + '3">早醒</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="4" id="checkbox' + id + '4"/><label for="checkbox' + id + '4">多梦</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="5" id="checkbox' + id + '5"/><label for="checkbox' + id + '5">睡眠浅，易醒</label></li>'
+            ahtml += '<li><input type="checkbox"  style=" margin-left: 6px;" name="' + id + '" value="6" id="checkbox' + id + '6"/><label for="checkbox' + id + '6">醒后不易睡着</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="7" id="checkbox' + id + '7"/><label for="checkbox' + id + '7">睡后有疲惫感</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="8" id="checkbox' + id + '8"/><label for="checkbox' + id + '8">睡眠时间小于6小时</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="9" id="checkbox' + id + '9"/><label for="checkbox' + id + '9">伴有头痛、头晕等症状</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="10" id="checkbox' + id + '10"/><label for="checkbox' + id + '10">睡眠障碍时间超过1周</label></li>'
 			ahtml += '</ul>'
           }else if (id == '54') {
             ahtml = ' <ul class="answerUl">'
@@ -510,59 +510,59 @@
             ahtml += '</ul>'
           }else if (id == '52') {
             ahtml = ' <ul class="answerUl">'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="1" id="checkbox' + id + '1"/><label for="checkbox' + id + '1">无明显症状</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="2" id="checkbox' + id + '2"/><label for="checkbox' + id + '2">伴有恶心</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="3" id="checkbox' + id + '3"/><label for="checkbox' + id + '3">伴有呕吐</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="4" id="checkbox' + id + '4"/><label for="checkbox' + id + '4">伴有腹痛或慢性腹痛</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="5" id="checkbox' + id + '5"/><label for="checkbox' + id + '5">伴有腹泻、或大便次数增多</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="6" id="checkbox' + id + '6"/><label for="checkbox' + id + '6">伴有黏液血便</label></li>'
-            ahtml += '<li><input type="checkbox"  style=" margin-left: 6px;" name="' + id + '" value="7" id="checkbox' + id + '7"/><label for="checkbox' + id + '7">合并贫血</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="8" id="checkbox' + id + '8"/><label for="checkbox' + id + '8">并发放射性直肠炎，或有里急后重和直肠部位疼痛</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="9" id="checkbox' + id + '9"/><label for="checkbox' + id + '9">持续时间长，放疗完成后6个月以上仍有症状，或者数十年之后才出现症状</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="10" id="checkbox' + id + '10"/><label for="checkbox' + id + '10">并发肠梗阻、或便秘或大便失禁</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="11" id="checkbox' + id + '11"/><label for="checkbox' + id + '11">肠管与腹部其他器官(包括盆腔器官)之间可形成瘘管</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="0" id="checkbox' + id + '0"/><label for="checkbox' + id + '0">无明显症状</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="1" id="checkbox' + id + '1"/><label for="checkbox' + id + '1">伴有恶心</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="2" id="checkbox' + id + '2"/><label for="checkbox' + id + '2">伴有呕吐</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="3" id="checkbox' + id + '3"/><label for="checkbox' + id + '3">伴有腹痛或慢性腹痛</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="4" id="checkbox' + id + '4"/><label for="checkbox' + id + '4">伴有腹泻、或大便次数增多</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="5" id="checkbox' + id + '5"/><label for="checkbox' + id + '5">伴有黏液血便</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="6" id="checkbox' + id + '6"/><label for="checkbox' + id + '6">合并贫血</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="7" id="checkbox' + id + '7"/><label for="checkbox' + id + '7">并发放射性直肠炎，或有里急后重和直肠部位疼痛</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="8" id="checkbox' + id + '8"/><label for="checkbox' + id + '8">持续时间长，放疗完成后6个月以上仍有症状，或者数十年之后才出现症状</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="9" id="checkbox' + id + '9"/><label for="checkbox' + id + '9">并发肠梗阻、或便秘或大便失禁</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="10" id="checkbox' + id + '10"/><label for="checkbox' + id + '10">肠管与腹部其他器官(包括盆腔器官)之间可形成瘘管</label></li>'
 			ahtml += '</ul>'
           }else if (id == '53') {
             ahtml = ' <ul class="answerUl">'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="1" id="checkbox' + id + '1"/><label for="checkbox' + id + '1">无明显症状</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="2" id="checkbox' + id + '2"/><label for="checkbox' + id + '2">呼吸困难</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="3" id="checkbox' + id + '3"/><label for="checkbox' + id + '3">发热，持续时间长</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="4" id="checkbox' + id + '4"/><label for="checkbox' + id + '4">高热</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="5" id="checkbox' + id + '5"/><label for="checkbox' + id + '5">咳嗽</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="6" id="checkbox' + id + '6"/><label for="checkbox' + id + '6">气喘</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="7" id="checkbox' + id + '7"/><label for="checkbox' + id + '7">咳痰，量少</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="8" id="checkbox' + id + '8"/><label for="checkbox' + id + '8">咳痰，偶有量多</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="9" id="checkbox' + id + '9"/><label for="checkbox' + id + '9">咳痰，自感量多，但咳不出</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="10" id="checkbox' + id + '10"/><label for="checkbox' + id + '10">咳痰，痰液粘稠</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="11" id="checkbox' + id + '11"/><label for="checkbox' + id + '11">咳痰，痰液粘稠</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="0" id="checkbox' + id + '0"/><label for="checkbox' + id + '0">无明显症状</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="1" id="checkbox' + id + '1"/><label for="checkbox' + id + '1">呼吸困难</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="2" id="checkbox' + id + '2"/><label for="checkbox' + id + '2">发热，持续时间长</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="3" id="checkbox' + id + '3"/><label for="checkbox' + id + '3">高热</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="4" id="checkbox' + id + '4"/><label for="checkbox' + id + '4">咳嗽</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="5" id="checkbox' + id + '5"/><label for="checkbox' + id + '5">气喘</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="6" id="checkbox' + id + '6"/><label for="checkbox' + id + '6">咳痰，量少</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="7" id="checkbox' + id + '7"/><label for="checkbox' + id + '7">咳痰，偶有量多</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="8" id="checkbox' + id + '8"/><label for="checkbox' + id + '8">咳痰，自感量多，但咳不出</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="9" id="checkbox' + id + '9"/><label for="checkbox' + id + '9">咳痰，痰液粘稠</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="10" id="checkbox' + id + '10"/><label for="checkbox' + id + '10">半年内多次肺部感染（2次以上）</label></li>'
 			ahtml += '</ul>'
           }else if (id == '48') {
             ahtml = ' <ul class="answerUl">'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="1" id="checkbox' + id + '1"/><label for="checkbox' + id + '1">没有腹泻</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="2" id="checkbox' + id + '2"/><label for="checkbox' + id + '2">偶尔有1次，或每天1次</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="3" id="checkbox' + id + '3"/><label for="checkbox' + id + '3">每天腹泻3-4次</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="4" id="checkbox' + id + '4"/><label for="checkbox' + id + '4">每天腹泻4-6次</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="5" id="checkbox' + id + '5"/><label for="checkbox' + id + '5">每天腹泻大于6次</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="6" id="checkbox' + id + '6"/><label for="checkbox' + id + '6">水样腹泻</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="7" id="checkbox' + id + '7"/><label for="checkbox' + id + '7">伴有其中一种症状：食欲减退、恶心、呕吐、发热</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="8" id="checkbox' + id + '8"/><label for="checkbox' + id + '8">伴有血便</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="9" id="checkbox' + id + '9"/><label for="checkbox' + id + '9">伴有腹痛</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="10" id="checkbox' + id + '10"/><label for="checkbox' + id + '10">腹泻和便秘交替出现</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="11" id="checkbox' + id + '11"/><label for="checkbox' + id + '11">伴有体重下降</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="0" id="checkbox' + id + '0"/><label for="checkbox' + id + '0">没有腹泻</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="1" id="checkbox' + id + '1"/><label for="checkbox' + id + '1">偶尔有1次，或每天1次</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="2" id="checkbox' + id + '2"/><label for="checkbox' + id + '2">每天腹泻3-4次</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="3" id="checkbox' + id + '3"/><label for="checkbox' + id + '3">每天腹泻4-6次</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="4" id="checkbox' + id + '4"/><label for="checkbox' + id + '4">每天腹泻大于6次</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="5" id="checkbox' + id + '5"/><label for="checkbox' + id + '5">水样腹泻</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="6" id="checkbox' + id + '6"/><label for="checkbox' + id + '6">伴有其中一种症状：食欲减退、恶心、呕吐、发热</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="7" id="checkbox' + id + '7"/><label for="checkbox' + id + '7">伴有血便</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="8" id="checkbox' + id + '8"/><label for="checkbox' + id + '8">伴有腹痛</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="9" id="checkbox' + id + '9"/><label for="checkbox' + id + '9">腹泻和便秘交替出现</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="10" id="checkbox' + id + '10"/><label for="checkbox' + id + '10">伴有体重下降</label></li>'
 			ahtml += '</ul>'
           }else if (id == '40') {
             ahtml = ' <ul class="answerUl">'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="1" id="checkbox' + id + '1"/><label for="checkbox' + id + '1">无水肿</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="2" id="checkbox' + id + '2"/><label for="checkbox' + id + '2">脚踝</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="3" id="checkbox' + id + '3"/><label for="checkbox' + id + '3">小腿</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="4" id="checkbox' + id + '4"/><label for="checkbox' + id + '4">膝盖</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="5" id="checkbox' + id + '5"/><label for="checkbox' + id + '5">大腿</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="6" id="checkbox' + id + '6"/><label for="checkbox' + id + '6">臀部</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="7" id="checkbox' + id + '7"/><label for="checkbox' + id + '7">腰骶部</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="8" id="checkbox' + id + '8"/><label for="checkbox' + id + '8">双手</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="9" id="checkbox' + id + '9"/><label for="checkbox' + id + '9">手臂</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="10" id="checkbox' + id + '10"/><label for="checkbox' + id + '10">面部</label></li>'
-            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="11" id="checkbox' + id + '11"/><label for="checkbox' + id + '11">伴有腹水</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="0" id="checkbox' + id + '0"/><label for="checkbox' + id + '0">无水肿</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="1" id="checkbox' + id + '1"/><label for="checkbox' + id + '1">脚踝</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="2" id="checkbox' + id + '2"/><label for="checkbox' + id + '2">小腿</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="3" id="checkbox' + id + '3"/><label for="checkbox' + id + '3">膝盖</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="4" id="checkbox' + id + '4"/><label for="checkbox' + id + '4">大腿</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="5" id="checkbox' + id + '5"/><label for="checkbox' + id + '5">臀部</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="6" id="checkbox' + id + '6"/><label for="checkbox' + id + '6">腰骶部</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="7" id="checkbox' + id + '7"/><label for="checkbox' + id + '7">双手</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="8" id="checkbox' + id + '8"/><label for="checkbox' + id + '8">手臂</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="9" id="checkbox' + id + '9"/><label for="checkbox' + id + '9">面部</label></li>'
+            ahtml += '<li><input type="checkbox" style=" margin-left: 6px;" name="' + id + '" value="10" id="checkbox' + id + '10"/><label for="checkbox' + id + '10">伴有腹水</label></li>'
 			ahtml += '</ul>'
           }else if (id == '11') {
             ahtml = ' <ul class="answerUl">'
@@ -601,7 +601,7 @@
           this.$post(url, data).then((data) => {
             if (data.rspcode == '1') {
               let itemvalue = data.itemvalue
-              if (id == '31' || id == '43' || id == '38') {
+              if (id == '31' || id == '43' || id == '38'||id == '54') {
                 var datalist = itemvalue.split(',')
                 var num = 0
                 datalist.forEach((item, index) => {
@@ -611,12 +611,12 @@
                     $input.value = item
                   }
                 })
-              } else if (id == '32' || id == '41') {
+              } else if (id == '32' || id == '41'|| id == '50') {
                 var $input = document.getElementById(id + '_1')
                 if ($input) {
                   $input.value = itemvalue
                 }
-              } else if (id == '36') {
+              } else if ((id == '36')||(id == '48')||(id == '18')||(id == '49')||(id == '52')||(id == '53')||(id == '40')) {
                 var datalist = itemvalue.split(',')
                 datalist.forEach((item, index) => {
                   var $input = document.getElementById('checkbox' + id + item)
@@ -624,7 +624,22 @@
                     $input.checked = true
                   }
                 })
-              }else if((id==33)||(id==34)||(id==17)||(id==39)||(id==42)||(id==46)){
+              }else if(id == '44'){
+				  var datalist = itemvalue.split(',')
+				  datalist.forEach((item, index) => {
+					if (item == 1 || item == 2 || item == 3 || item == 4) {
+						var $input = document.getElementById('radio' + id + item)
+						if ($input) {
+						  $input.checked = true
+						}
+					} else {
+						var $input = document.getElementById('checkbox' + id + item)
+						if ($input) {
+						  $input.checked = true
+						}
+					}
+				  })
+			  }else if((id==33)||(id==34)||(id==17)||(id==39)||(id==42)||(id==46)){
 				  this.ttvalue=Number(itemvalue)
 				  this.aa()
 			  } else {
@@ -715,9 +730,9 @@
             }
           })
 		  
-          if (id == '31') {
+          if (id == '31'||id == '50') {
             value = (document.querySelector('input[name=\'' + id + '_1\']').value)
-          } else if (id == '32' || id == '41' || id == '50') {
+          } else if (id == '32' || id == '41') {
             value = document.querySelector('input[name=\'' + id + '\']').value
           } else if ((id == '36')||(id == '48')||(id == '44')||(id == '18')||(id == '49')||(id == '52')||(id == '53')||(id == '40')) {
             var id_array = new Array()
@@ -1184,8 +1199,8 @@
 	  }
   }
   .fszrg{
-	  width: 92%;
-	  padding: 0 4%;
+	  width: 80%;
+	  padding: 0 10%;
 	  background: #fff;
 	  height: 176px;
 	  h3{
