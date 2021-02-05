@@ -442,9 +442,9 @@
             ahtml += '</ul>'
           } else if (id == '43') {
             ahtml = ' <ul class="answerUl dhysUl">'
-            ahtml += ' <li><label >血红蛋白</label><input name="' + id + '_1" id="' + id + '_1" class="td_input" type="text"/><label >g/L，</label></li>'
-            ahtml += ' <li><label >白细胞</label><input name="' + id + '_2" id="' + id + '_2" class="td_input" type="text"/><label >10^9/L，</label></li>'
-            ahtml += ' <li><label >中性粒细胞</label><input name="' + id + '_3" id="' + id + '_3" class="td_input" type="text"/><label >10^9/L³，</label></li>'
+            ahtml += ' <li><label >血红蛋白</label><input name="' + id + '_1" id="' + id + '_1" class="td_input" type="text"/><label >g/L</label></li>'
+            ahtml += ' <li><label >白细胞</label><input name="' + id + '_2" id="' + id + '_2" class="td_input" type="text"/><label >10^9/L</label></li>'
+            ahtml += ' <li><label >中性粒细胞</label><input name="' + id + '_3" id="' + id + '_3" class="td_input" type="text"/><label >10^9/L³</label></li>'
             ahtml += ' <li><label >血小板</label><input name="' + id + '_4" id="' + id + '_4" class="td_input" type="text"/><label >10^9/L</label></li>'
             ahtml += '</ul>'
           } else if (id == '45') {
@@ -507,7 +507,7 @@
 			ahtml += '</ul>'
           }else if (id == '54') {
             ahtml = ' <ul class="answerUl dhysUl">'
-            ahtml += ' <li><p>血液检查，肝功能中</p><div class="mgnbtn"><label >a.血浆总蛋白</label><input name="' + id + '_1" id="' + id + '_1" class="td_input " type="text"/><label >g/L</div><div class="mgnbtn"></label><label >b.白蛋白</label><input name="' + id + '_2" id="' + id + '_2" class="td_input " type="text"/><label >g/L</div><div class="mgnbtn"></label><label >c.前白蛋白</label><input name="' + id + '_3" id="' + id + '_3" class="td_input " type="text"/><label >g/L</label></div></li>'
+            ahtml += ' <li><p>血液检查，肝功能中</p><div class="mgnbtn"><label >a.血浆总蛋白</label><input name="' + id + '_1" id="' + id + '_1" class="td_input " type="text"/><label >g/L，</div><div class="mgnbtn"></label><label >b.白蛋白</label><input name="' + id + '_2" id="' + id + '_2" class="td_input " type="text"/><label >g/L，</div><div class="mgnbtn"></label><label >c.前白蛋白</label><input name="' + id + '_3" id="' + id + '_3" class="td_input " type="text"/><label >g/L</label></div></li>'
             ahtml += '</ul>'
           }else if (id == '52') {
             ahtml = ' <ul class="answerUl">'
