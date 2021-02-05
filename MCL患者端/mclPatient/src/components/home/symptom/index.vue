@@ -507,7 +507,7 @@
 			ahtml += '</ul>'
           }else if (id == '54') {
             ahtml = ' <ul class="answerUl dhysUl">'
-            ahtml += ' <li><p>血液检查，肝功能中</p><div class="mgnbtn"><label >a.血浆总蛋白</label><input name="' + id + '_1" id="' + id + '_1" class="td_input " type="text"/><label >g/L，</div><div class="mgnbtn"></label><label >b.白蛋白</label><input name="' + id + '_2" id="' + id + '_2" class="td_input " type="text"/><label >g/L，</div><div class="mgnbtn"></label><label >c.前白蛋白</label><input name="' + id + '_3" id="' + id + '_3" class="td_input " type="text"/><label >g/L</label></div></li>'
+            ahtml += ' <li><p>血液检查，肝功能中</p><div class="mgnbtn"><label >a.血浆总蛋白</label><input name="' + id + '_1" id="' + id + '_1" class="td_input " type="text"/><label >g/L</div><div class="mgnbtn"></label><label >b.白蛋白</label><input name="' + id + '_2" id="' + id + '_2" class="td_input " type="text"/><label >g/L</div><div class="mgnbtn"></label><label >c.前白蛋白</label><input name="' + id + '_3" id="' + id + '_3" class="td_input " type="text"/><label >g/L</label></div></li>'
             ahtml += '</ul>'
           }else if (id == '52') {
             ahtml = ' <ul class="answerUl">'
