@@ -403,10 +403,10 @@
           } else if (id == '32') {
             ahtml = ' <ul class="answerUl dhysUl">'
             ahtml += ' <li><p>血液检查，血常规中</p><label >血红蛋白值（Ｈｂ）<input name="' + id + '" id="' + id + '_1" class="td_input" type="text"/><label >g/L</label></li></ul>'
-            ahtml += ' <ul class="explainUl"><li><label >贫血分级标准为：</label></li>'
-            ahtml += ' <li class="d-flex"><div><label >1.轻度贫血：</label></div><div><label >男性：90～120g/L</label><br><label >女性：90～110g/L；</label></div></li>'
-            ahtml += ' <li class="d-flex"><div><label >2.中度贫血：</label></div><div><label >60～90g/L；</label></div></li>'
-            ahtml += ' <li class="d-flex"><div><label >3.重度贫血：</label></div><div><label >＜60g/L。</label></div></li>'
+            ahtml += ' <ul class="explainUl"><li><label >贫血分级标准为</label></li>'
+            ahtml += ' <li class="d-flex"><div><label >1.轻度贫血：</label></div><div><label >男性：90～120g/L</label><br><label >女性：90～110g/L</label></div></li>'
+            ahtml += ' <li class="d-flex"><div><label >2.中度贫血：</label></div><div><label >60～90g/L</label></div></li>'
+            ahtml += ' <li class="d-flex"><div><label >3.重度贫血：</label></div><div><label >＜60g/L</label></div></li>'
             ahtml += '</ul>'
           } else if (id == '41') {
             ahtml = ' <ul class="answerUl dhysUl">'
@@ -450,7 +450,7 @@
           } else if (id == '45') {
             ahtml = ' <ul class="answerUl">'
             ahtml += '<li><input type="radio" name="' + id + '" value="0" id="radio' + id + '1"/> <label for="radio' + id + '1">0级：无症状</label></li>'
-            ahtml += '<li><input type="radio" name="' + id + '" value="1" id="radio' + id + '2"/><label for="radio' + id + '2">1级：红斑/疼痛，不影响进食）</label></li>'
+            ahtml += '<li><input type="radio" name="' + id + '" value="1" id="radio' + id + '2"/><label for="radio' + id + '2">1级：红斑/疼痛，不影响进食</label></li>'
             ahtml += '<li><input type="radio" name="' + id + '" value="2" id="radio' + id + '3"/><label for="radio' + id + '3">2级：溃疡/红斑，仍能进食</label></li>'
             ahtml += '<li><input type="radio" name="' + id + '" value="3" id="radio' + id + '4"/><label for="radio' + id + '4">3级：溃疡及严重红斑，不能进食</label></li>'
             ahtml += '<li><input type="radio" name="' + id + '" value="4" id="radio' + id + '5"/><label for="radio' + id + '5">4级：溃疡融合成片，有坏死，不能进食</label></li>'
@@ -507,7 +507,7 @@
 			ahtml += '</ul>'
           }else if (id == '54') {
             ahtml = ' <ul class="answerUl dhysUl">'
-            ahtml += ' <li><p>血液检查，肝功能中</p><div class="mgnbtn"><label >a.血浆总蛋白</label><input name="' + id + '_1" id="' + id + '_1" class="td_input " type="text"/><label >g/L，</div><div class="mgnbtn"></label><label >b.白蛋白</label><input name="' + id + '_2" id="' + id + '_2" class="td_input " type="text"/><label >g/L，</div><div class="mgnbtn"></label><label >c.前白蛋白</label><input name="' + id + '_3" id="' + id + '_3" class="td_input " type="text"/><label >g/L</label></div></li>'
+            ahtml += ' <li><p>血液检查，肝功能中</p><div class="mgnbtn"><label >a.血浆总蛋白</label><input name="' + id + '_1" id="' + id + '_1" class="td_input " type="text"/><label >g/L</div><div class="mgnbtn"></label><label >b.白蛋白</label><input name="' + id + '_2" id="' + id + '_2" class="td_input " type="text"/><label >g/L</div><div class="mgnbtn"></label><label >c.前白蛋白</label><input name="' + id + '_3" id="' + id + '_3" class="td_input " type="text"/><label >g/L</label></div></li>'
             ahtml += '</ul>'
           }else if (id == '52') {
             ahtml = ' <ul class="answerUl">'
