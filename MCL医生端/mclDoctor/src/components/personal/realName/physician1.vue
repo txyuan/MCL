@@ -155,7 +155,7 @@
 		<mt-popup v-model="popupVisibles" position="bottom">
 			<mt-picker :slots="sexSlot" :showToolbar="true" :visibleItemCount="3" ref="sexPickers">
 				<div class="picker_bar">
-					<div class="cancel" @click="pickerToggle('hide')">取消</div>
+					<div class="cancel" @click="pickerToggles('hide')">取消</div>
 					<div class="confrim" @click="editUserInfos">确定</div>
 				</div>
 			</mt-picker>
@@ -173,7 +173,7 @@
 		<mt-popup v-model="popupVisiblez" position="bottom">
 			<mt-picker :slots="sexSlotz" :showToolbar="true" :visibleItemCount="3" ref="sexPickerz">
 				<div class="picker_bar">
-					<div class="cancel" @click="pickerToggle('hide')">取消</div>
+					<div class="cancel" @click="pickerTogglez('hide')">取消</div>
 					<div class="confrim" @click="editUserInfoz">确定</div>
 				</div>
 			</mt-picker>
