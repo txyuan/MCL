@@ -125,7 +125,7 @@ export default {
     // 获取订单信息
     getOrderInfo () {
       this.$Indicator.loading()
-      let url = 'UserInterface/cart/orderConfirmImmediately.ashx'
+      let url = 'UserInterface/cart/orderConfirm.ashx'
       let ABflag = this.$route.query.ABflag
       this.ABflag = ABflag
       let param = {

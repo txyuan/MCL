@@ -1,8 +1,12 @@
 import {BASEURLAPP,BASEURL} from '../configURL';
 import axios from 'axios'
+import qs from 'qs';
 
 let axiosInstance = axios.create({
     baseURL: BASEURLAPP,
+	headers:{
+		'Content-Type': 'application/x-www-form-urlencoded'
+	}
 });
 
 // 通过手机号，获取客服的姓名
@@ -25,7 +29,7 @@ export function getUserInfo ( rphone ) {
         let data = {
             rphone: rphone.join()
         }
-        axiosInstance.get(url, {params: data}).then(resolve, reject)
+        axiosInstance.post(url, qs.stringify(data)).then(resolve, reject)
     }) 
 }
 

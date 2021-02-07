@@ -2,10 +2,20 @@
 <div>
   <mt-header title="购物车">
 		<div slot="left">
-		  <header-back>
-		    <mt-button icon="back"></mt-button>
-		  </header-back>
+		  <!-- <header-back> -->
+		  <router-link to="/wx_Entrance/personal" style="color: initial;">
+		  	<mt-button icon="back"></mt-button>
+		  </router-link>
+		    <!-- <mt-button icon="back"></mt-button> -->
+		  <!-- </header-back> -->
 		</div>
+			<!-- <mt-header title="购物车">
+				<div slot="left">
+					<router-link to="/wx_Entrance/personal" style="color: initial;">
+						<mt-button icon="back"></mt-button>
+					</router-link>
+				</div>
+			</mt-header> -->
     <div slot="right">
       <div class="header-edit" @click="edit" :class="!this.isEdit && 'del'">
         <i class="ico"></i>
@@ -193,7 +203,7 @@
           },
           goOrder(){
             if(this.isSettlement){   //是否能结算
-              this.$router.push({path:"/order",query: { orderFrom: 0, ABflag:this.ABflag }})
+              this.$router.push({path:"/orderindex",query: { orderFrom: 0, ABflag:this.ABflag }})
             }
           },
           toggleType(item){
@@ -241,7 +251,7 @@
   .product-list{
     position: fixed;
     width: 100%;
-    top: 0.88rem;
+    top: 45px;
     bottom: 1.03rem;
   }
 

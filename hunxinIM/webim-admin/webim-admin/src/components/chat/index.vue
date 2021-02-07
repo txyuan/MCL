@@ -264,14 +264,14 @@
 					select_id: this.$data.activedKey[this.type].groupid
 				});
 			},
-			onSendTextMsg() {
-				this.onSendText({
-					chatType: this.type,
-					chatId: this.$data.activedKey[this.type],
-					message: this.$data.message
-				});
-				this.$data.message = "";
-			},
+			// onSendTextMsg() {
+			// 	this.onSendText({
+			// 		chatType: this.type,
+			// 		chatId: this.$data.activedKey[this.type],
+			// 		message: this.$data.message
+			// 	});
+			// 	this.$data.message = "";
+			// },
 
 			selectEmoji(v) {
 				this.$data.message = v;
