@@ -26,100 +26,221 @@
           {{param.location|| '请选择您所在地区'}}
         </div>
       </mt-cell>
-    </div>
-    <div class="splitLine">
-      <!--      <mt-field label="身高" placeholder="请输入身高" class="borderBottom" v-model.trim="param.height"-->
-      <!--                @change="doBMI">&nbsp;cm</mt-field>-->
-      <!--      <mt-field label="体重" placeholder="请输入体重" class="borderBottom" v-model.trim="param.weight"-->
-      <!--                @change="doBMI">&nbsp;kg</mt-field>-->
-      <div id="saveHeight">
-        <mt-cell title="身高" is-link @click.native="saveHeight" v-model.trim="param.height" class="borderBottom">
-          <span>{{param.height || '请选择体重单位'}}&nbsp;cm</span>
-        </mt-cell>
-      </div>
-      <div id="saveWeight">
-        <mt-cell title="体重" is-link @click.native="saveWeight" v-model.trim="param.weight" class="borderBottom">
-          <span>{{param.weight || '请选择体重单位'}}&nbsp;kg</span>
-        </mt-cell>
-      </div>
+      <mt-field label="身高" placeholder="请输入身高" class="borderBottom" v-model.trim="param.height"
+                @change="doBMI">&nbsp;cm
+      </mt-field>
+      <mt-field label="体重" placeholder="请输入体重" class="borderBottom" v-model.trim="param.weight"
+                @change="doBMI">&nbsp;kg
+      </mt-field>
       <mt-field label="BMI" placeholder="BMI" class="borderBottom" :readonly="true" v-model.trim="param.bmi"></mt-field>
     </div>
-    <!--<div class="splitLine">-->
-    <!--  <mt-button type="primary"  class="theme-button button-radio " size="large" @click.native="saveWeight">记录体重</mt-button>-->
-    <!--</div>-->
-    <div class="splitLine">
-      <mt-cell is-link class="sportEvaluation-wrap borderBottom" @click.native="sportPickerToggles('show')">
-        <div slot="title" class="titleWrap">
-          <span class="mint-cell-text">疾病类型</span>
-        </div>
-        <div class="sportEvaluation">
-          {{sportDefaultName}}
-        </div>
-      </mt-cell>
-      <!--<mt-cell is-link class="borderBottom sportEvaluation-wrap" @click.native="zhenduanPickerToggles('show')">
-        <div slot="title" class="titleWrap">
-          <span class="mint-cell-text">临床诊断</span>
-        </div>
-        <div class="sportEvaluation">
-          {{zhenduanDefaultName}}
-        </div>
-      </mt-cell>-->
-      <mt-cell is-link class="sportEvaluation-wrap zddataWrap " @click.native="openTimePicker('param.new_value_1')">
-        <div slot="title" class="titleWrap">
-          <span class="mint-cell-text">首次诊断日期</span>
-        </div>
-        <div class="sportEvaluation">
-          {{param.new_value_1|| '请选择日期'}}
-        </div>
-      </mt-cell>
-      <mt-radio :options="[{label: '具体日期记不清', value: '1'}]" v-model="param.new_value_2"
-                class="dateSelection"></mt-radio>
 
-    </div>
     <div class="splitLine">
-      <div class="title2 bg-white titleBtm">临床诊断<em>(可多选)</em>
-      </div>
-      <mt-checklist :options="attribute_value_03_item.option" v-model="attribute_value_03_item.value"
-                    class="checklist "></mt-checklist>
+            <mt-cell is-link class="sportEvaluation-wrap borderBottom" @click.native="sportPickerToggles('show')">
+              <div slot="title" class="titleWrap">
+                <span class="mint-cell-text">管理类型</span>
+              </div>
+              <div class="sportEvaluation">
+                {{sportDefaultName}}
+              </div>
+            </mt-cell>
     </div>
-    <div class="splitLine">
-      <div class="title2 bg-white titleBtm">婚姻状态
-      </div>
-      <mt-radio :options="new_value_3.option" v-model="new_value_3.value"></mt-radio>
-    </div>
-    <div class="splitLine">
-      <div class="title2 bg-white titleBtm">个人病史<em>(可多选)</em>
-      </div>
-      <mt-checklist :options="new_value_4.option" v-model="new_value_4.value"
-                    class="checklist "></mt-checklist>
-    </div>
-    <div class="splitLine">
-      <div class="title2 bg-white titleBtm" style="line-height: 20px; padding: 14px 15px">肿瘤家族史
-        <span>(三代直系亲属有无任何恶性肿瘤) </span>
-      </div>
-      <mt-radio :options="new_value_22.option" v-model="new_value_22.value"
-                style="padding-top: 8px;padding-bottom: 10px"></mt-radio>
 
+    <div class="splitLine">
+      <div class="d-flex manageTitle">
+        <div class="flex-fill active" ref="tz_title" @click="tzTitle">体重管理</div>
+        <div class="flex-fill" ref="jk_title"  @click="jkTitle">健康管理</div>
+        <div class="flex-fill" ref="zl_title"  @click="zlTitle">肿瘤管理</div>
+      </div>
     </div>
-    <div class="splitLine" style="padding-bottom: 0.2rem">
-      <div class="title2 bg-white titleBtm">目前的治疗状态<em>(可多选)</em>
+    <!--  肿瘤管理-->
+    <div class="zl_manage"  v-show="hideZl">
+      <div class="splitLine" style="margin-top: 0;">
+        <!--      <mt-cell is-link class="sportEvaluation-wrap borderBottom" @click.native="sportPickerToggles('show')">-->
+        <!--        <div slot="title" class="titleWrap">-->
+        <!--          <span class="mint-cell-text">疾病类型</span>-->
+        <!--        </div>-->
+        <!--        <div class="sportEvaluation">-->
+        <!--          {{sportDefaultName}}-->
+        <!--        </div>-->
+        <!--      </mt-cell>-->
+        <!--<mt-cell is-link class="borderBottom sportEvaluation-wrap" @click.native="zhenduanPickerToggles('show')">
+          <div slot="title" class="titleWrap">
+            <span class="mint-cell-text">临床诊断</span>
+          </div>
+          <div class="sportEvaluation">
+            {{zhenduanDefaultName}}
+          </div>
+        </mt-cell>-->
+        <mt-cell is-link class="sportEvaluation-wrap zddataWrap " @click.native="openTimePicker('param.new_value_1')">
+          <div slot="title" class="titleWrap">
+            <span class="mint-cell-text">首次诊断日期</span>
+          </div>
+          <div class="sportEvaluation">
+            {{param.new_value_1|| '请选择日期'}}
+          </div>
+        </mt-cell>
+        <mt-radio :options="[{label: '具体日期记不清', value: '1'}]" v-model="param.new_value_2"
+                  class="dateSelection"></mt-radio>
+
       </div>
-      <mt-checklist :options="new_value_23.option" v-model="new_value_23.value" class="checklist"></mt-checklist>
-      <div class="title2 bg-white splitData" v-show="new_value_24.show" @click="openTimePicker('new_value_24.value')">
-        <span>准备手术时间：</span> <input type="text" class="line-input" readonly v-model="new_value_24.value"
-                                    style="width: 100px">
+      <div class="splitLine">
+        <div class="title2 bg-white titleBtm">临床诊断<em>(可多选)</em>
+        </div>
+        <mt-checklist :options="attribute_value_03_item.option" v-model="attribute_value_03_item.value"
+                      class="checklist "></mt-checklist>
       </div>
-      <div class="title2 bg-white splitData" v-show="new_value_30.show">
-        <span>化疗：</span> 第 <input type="tel" class="line-input" v-model="new_value_30.value"> 疗程
+      <div class="splitLine">
+        <div class="title2 bg-white titleBtm">婚姻状态
+        </div>
+        <mt-radio :options="new_value_3.option" v-model="new_value_3.value"></mt-radio>
       </div>
-      <div class="title2 bg-white splitData" v-show="new_value_32.show">
-        <span>放疗：</span> 第 <input type="tel" class="line-input" v-model="new_value_32.value"> 疗程
+      <div class="splitLine">
+        <div class="title2 bg-white titleBtm">个人病史<em>(可多选)</em>
+        </div>
+        <mt-checklist :options="new_value_4.option" v-model="new_value_4.value"
+                      class="checklist "></mt-checklist>
       </div>
-      <div class="title2 bg-white splitData" v-show="new_value_33.show">
-        <span>靶向治疗：</span> 第 <input type="tel" class="line-input" v-model="new_value_33.value"> 疗程
+      <div class="splitLine">
+        <div class="title2 bg-white titleBtm" style="line-height: 20px; padding: 14px 15px">肿瘤家族史
+          <span>(三代直系亲属有无任何恶性肿瘤) </span>
+        </div>
+        <mt-radio :options="new_value_22.option" v-model="new_value_22.value"
+                  style="padding-top: 8px;padding-bottom: 10px"></mt-radio>
+
       </div>
-      <div class="title2 bg-white splitData" v-show="new_value_36.show">
-        <span>免疫治疗：</span> 第 <input type="tel" class="line-input" v-model="new_value_36.value"> 疗程
+      <div class="splitLine" style="padding-bottom: 0.2rem">
+        <div class="title2 bg-white titleBtm">目前的治疗状态<em>(可多选)</em>
+        </div>
+        <mt-checklist :options="new_value_23.option" v-model="new_value_23.value" class="checklist"></mt-checklist>
+        <div class="title2 bg-white splitData" v-show="new_value_24.show" @click="openTimePicker('new_value_24.value')">
+          <span>准备手术时间：</span> <input type="text" class="line-input" readonly v-model="new_value_24.value"
+                                      style="width: 100px">
+        </div>
+        <div class="title2 bg-white splitData" v-show="new_value_30.show">
+          <span>化疗：</span> 第 <input type="tel" class="line-input" v-model="new_value_30.value"> 疗程
+        </div>
+        <div class="title2 bg-white splitData" v-show="new_value_32.show">
+          <span>放疗：</span> 第 <input type="tel" class="line-input" v-model="new_value_32.value"> 疗程
+        </div>
+        <div class="title2 bg-white splitData" v-show="new_value_33.show">
+          <span>靶向治疗：</span> 第 <input type="tel" class="line-input" v-model="new_value_33.value"> 疗程
+        </div>
+        <div class="title2 bg-white splitData" v-show="new_value_36.show">
+          <span>免疫治疗：</span> 第 <input type="tel" class="line-input" v-model="new_value_36.value"> 疗程
+        </div>
+      </div>
+    </div>
+    <!--  体重管理-->
+    <div class="tz_manage" v-show="hideTz">
+      <div class="splitLine" style="margin-top: 0">
+        <mt-field label="目标体重 " placeholder="目标体重" class="borderBottom" v-model.trim="param.trgetweight"></mt-field>
+        <mt-field label="腰围" placeholder="请输入腰围" class="borderBottom" v-model.trim="param.waistline"></mt-field>
+        <mt-field label="臀围" placeholder="请输入臀围" class="borderBottom" v-model.trim="param.hipline"></mt-field>
+      </div>
+
+      <div class="splitLine">
+        <div class="title2 bg-white titleBtm">管理目标
+        </div>
+        <mt-radio :options="new_value_40.option" v-model="new_value_40.value" class="glmb_style_a"></mt-radio>
+      </div>
+      <div class="splitLine">
+        <div class="title2 bg-white titleBtm">是否有基础疾病
+        </div>
+        <mt-radio :options="new_value_41.option" v-model="new_value_41.value" class=""></mt-radio>
+        <div class="title2 bg-white titlTop">如果有，那么疾病情况<em>(可多选)</em>
+        </div>
+        <mt-checklist :options="new_value_42.option" v-model="new_value_42.value" class="checklist borderBottom" style="position: relative; padding-top: 0.02rem"></mt-checklist>
+
+        <mt-cell is-link class="sportEvaluation-wrap zddataWrap " @click.native="openTimePicker('param.diagnosis')">
+          <div slot="title" class="titleWrap">
+            <span class="mint-cell-text">诊断时间</span>
+          </div>
+          <div class="sportEvaluation">
+            {{param.diagnosis|| '请选择诊断日期'}}
+          </div>
+        </mt-cell>
+        <mt-radio :options="[{label: '具体日期记不清', value: '1'}]" v-model="param.new_value_2"
+                  class="dateSelection borderBottom" style="position: relative; padding-top: 0.02rem; padding-bottom:0.05rem;margin-bottom: 0.05rem"></mt-radio>
+        <div class="title2 bg-white titlTop" style="line-height: 20px; padding: 14px 15px">肿瘤家族史
+          <span>(三代直系亲属有无任何恶性肿瘤) </span>
+        </div>
+        <mt-radio :options="new_value_22.option" v-model="new_value_22.value" class="borderBottom" style="position: relative; padding-top: 0.02rem"></mt-radio>
+
+      </div>
+      <div class="splitLine">
+        <div class="title2 bg-white titleBtm">体重增加或减少持续时间
+        </div>
+        <mt-field label="" placeholder="请输入持续时间（月）" class="borderBottom page_text_left"
+                  v-model.trim="param.duration"></mt-field>
+
+      </div>
+      <div class="splitLine">
+        <mt-field label="体脂率" placeholder="请输入体脂率" class="borderBottom" v-model.trim="param.bodyfat" ></mt-field>
+      </div>
+      <div class="splitLine">
+        <div class="title2 bg-white titleBtm">既往使用过哪些管理体重方法<em>(可多选)</em>
+        </div>
+        <mt-checklist :options="new_value_60.option" v-model="new_value_60.value" class="checklist gltz_style_a"></mt-checklist>
+      </div>
+      <div class="splitLine">
+        <div class="title2 bg-white titleZb" >
+          <em></em>用药情况
+        </div>
+        <div class="title2 bg-white titlTop">a.目前改善体重是否使用药物治疗
+        </div>
+        <mt-radio :options="new_value_67.option" v-model="new_value_67.value"  class="borderBottom" style="position: relative; padding-top: 0.02rem"></mt-radio>
+        <div class="title2 bg-white titlTop">b.如果有慢病，是否长期服药
+        </div>
+        <mt-radio :options="new_value_68.option" v-model="new_value_68.value"  class="borderBottom" style="position: relative; padding-top: 0.02rem"></mt-radio>
+        <div class="title2 bg-white titlTop">c.用药情况<em>(可多选)</em>
+        </div>
+        <mt-checklist :options="new_value_69.option" v-model="new_value_69.value" class="checklist yyqk_style_a" style="position: relative; padding-top: 0.02rem"></mt-checklist>
+
+      </div>
+    </div>
+    <!--  健康管理-->
+    <div class="jk_manage" v-show="hideJk">
+      <div class="splitLine" style="margin-top: 0">
+        <mt-field label="目标体重 " placeholder="目标体重" class="borderBottom" v-model.trim="param.trgetweight"></mt-field>
+        <mt-field label="腰围" placeholder="请输入腰围" class="borderBottom" v-model.trim="param.waistline"></mt-field>
+        <mt-field label="臀围" placeholder="请输入臀围" class="borderBottom" v-model.trim="param.hipline"></mt-field>
+      </div>
+      <div class="splitLine">
+        <div class="title2 bg-white titleZb"><em></em>目前身体情况描述
+        </div>
+        <div class="title2 bg-white titleBtm">是否有亚健康情况（无临床疾病诊断）
+        </div>
+        <mt-radio :options="new_value_74.option" v-model="new_value_74.value"></mt-radio>
+
+        <div class="title2 bg-white titlTop">如果有请选择情况<em>(可多选)</em>
+        </div>
+        <mt-checklist :options="new_value_75.option" v-model="new_value_75.value" class="checklist qkxz_style_a" style="position: relative; padding-top: 0.02rem"></mt-checklist>
+      </div>
+      <div class="splitLine">
+        <div class="title2 bg-white titleBtm">是否有基础疾病
+        </div>
+        <mt-radio :options="new_value_41.option" v-model="new_value_41.value"></mt-radio>
+
+        <div class="title2 bg-white titlTop">如果有，那么疾病情况<em>(可多选)</em>
+        </div>
+        <mt-checklist :options="new_value_42.option" v-model="new_value_42.value" class="checklist " style="position: relative; padding-top: 0.02rem"></mt-checklist>
+      </div>
+
+      <div class="splitLine">
+        <div class="title2 bg-white titleZb"> <em></em>目前的治疗情况
+        </div>
+        <div class="title2 bg-white titlTop">a.治疗方法
+        </div>
+        <mt-radio :options="new_value_67.option" v-model="new_value_67.value" class="borderBottom" style="position: relative; padding-top: 0.02rem"></mt-radio>
+        <div class="title2 bg-white titlTop">b.用药情况<em>(可多选)</em>
+        </div>
+        <mt-checklist :options="new_value_69.option" v-model="new_value_69.value" class="checklist borderBottom" style="position: relative; padding-top: 0.02rem"></mt-checklist>
+
+        <div class="title2 bg-white titlTop">c.是否长期用药
+        </div>
+        <mt-radio :options="new_value_84.option" v-model="new_value_84.value"  style="position: relative; padding-top: 0.02rem"></mt-radio>
+
       </div>
     </div>
     <div class=""></div>
@@ -140,43 +261,6 @@
         </div>
       </mt-picker>
     </mt-popup>
-
-    <!--     体重标识遮罩层-->
-    <div id="mark" :style="{display: (show?'block': 'none')}">
-      <div class="modal" :class="show && 'show' ">
-        <div class="close" @click="hidejl"></div>
-        <div class="text-center">
-          <!--          <p class="today">今天</p>-->
-          <!--          <img src="@/assets/images/paizhao@2x.png" alt="" width="60" height="60"/>-->
-          <!--          <div class="huiFont font12 note">-->
-          <!--            <p>用照片记录改变</p>-->
-          <!--            <p>（照片将自动发布到个人动态中）</p>-->
-          <!--          </div>-->
-          <!-- <p class="yellow nums"> <span class="num">69.5</span> <span class="font14">公斤</span></p> -->
-        </div>
-        <!-- <div class="chizi"></div> -->
-        <div v-show="hideHight">
-          <span class="tit_ys">身高<em>（cm） </em></span>
-          <DLRuler :value="150.0" :min="0" :max="300" :onChange="changeHight"></DLRuler>
-        </div>
-        <div v-show="hideWeight">
-          <span class="tit_ys">体重<em>（Kg）</em> </span>
-          <DLRuler :value="50.0" :min="0" :max="300" :onChange="changeWeight"></DLRuler>
-        </div>
-        <mt-button type="primary" class="theme-button rulerBtm" size="large" @click="okweigt">保存</mt-button>
-      </div>
-    </div>
-
-    <!--    &lt;!&ndash; 体重标识遮罩层 &ndash;&gt;-->
-    <!--    <mt-popup class="sportPicker" v-model="sportVisible" position="bottom">-->
-    <!--      <mt-picker :slots="sportSlot" :showToolbar="true" :visibleItemCount="3" ref="sportPickers" @change="visbleChange">-->
-    <!--        <div class="picker_bar">-->
-    <!--          <DLRuler :value="50.0" :min="0" :max="300" :onChange="changeWeight"></DLRuler>-->
-    <!--          <div class="cancel" @click="sportPickerToggles('hide')">取消</div>-->
-    <!--          <div class="confrim" @click="sportConfirm">确定</div>-->
-    <!--        </div>-->
-    <!--      </mt-picker>-->
-    <!--    </mt-popup>-->
 
     <!-- 疾病类型picker  -->
     <mt-popup class="sportPicker" v-model="sportVisible" position="bottom">
@@ -223,7 +307,6 @@
 </template>
 
 <script>
-  import DLRuler from './ruler.vue'
 
   function getTime (d) {
     let year = d.getFullYear()
@@ -382,7 +465,190 @@
     new_value_36: {
       value: '',
       show: false
-    }
+    },
+    // 体重管理
+    // 管理目标
+    new_value_40: {
+      option: ['增重', '减重', '保持/塑性', '减脂'],
+      value: '',
+      radiolist: true
+    },
+    //是否有疾病
+    new_value_41: {
+      option: ['是', '否'],
+      value: '',
+      radiolist: true
+    },
+    // 有疾病--疾病情况是
+    new_value_42: {
+      option: [{
+        label: '糖尿病',
+        value: 'new_value_42'
+      }, {
+        label: '高血压',
+        value: 'new_value_43'
+      }, {
+        label: '高血脂',
+        value: 'new_value_44'
+      }, {
+        label: '高甘油三酯',
+        value: 'new_value_45'
+      }, {
+        label: '高胆固醇',
+        value: 'new_value_46'
+      }, {
+        label: '肝硬化',
+        value: 'new_value_47'
+      }, {
+        label: '非酒精性脂肪肝',
+        value: 'new_value_48'
+      }, {
+        label: '高尿酸',
+        value: 'new_value_49'
+      }, {
+        label: '高同型半胱氨酸',
+        value: 'new_value_50'
+      }, {
+        label: '慢性肝炎',
+        value: 'new_value_51'
+      }, {
+        label: '中风',
+        value: 'new_value_52'
+      }, {
+        label: '慢阻肺',
+        value: 'new_value_53'
+      }, {
+        label: '冠心病',
+        value: 'new_value_54'
+      }, {
+        label: '贫血',
+        value: 'new_value_55'
+      }, {
+        label: '甲亢',
+        value: 'new_value_56'
+      }, {
+        label: '甲减',
+        value: 'new_value_57'
+      }, {
+        label: '其他',
+        value: 'new_value_58'
+      }, {
+        label: '无',
+        value: 'new_value_58'
+      }
+      ],
+      value: [],
+      checklist: true
+    },
+    // 既往使用过哪些管理体重方法
+    new_value_60: {
+      option: [{
+        label: '节食',
+        value: 'new_value_60'
+      }, {
+        label: '代餐（包括蛋白粉、水果等）',
+        value: 'new_value_61'
+      }, {
+        label: '奶昔',
+        value: 'new_value_62'
+      }, {
+        label: '运动',
+        value: 'new_value_63'
+      }, {
+        label: '抽脂',
+        value: 'new_value_64'
+      }, {
+        label: '瘦瘦包',
+        value: 'new_value_65'
+      }, {
+        label: '其他',
+        value: 'new_value_66'
+      }
+      ],
+      value: [],
+      checklist: true
+    },
+    // 目前改善体重是否使用药物治疗
+    new_value_67: {
+      option: ['用药', '未用药', '不清楚'],
+      value: '',
+      radiolist: true
+    },
+    // 如果有慢病，是否长期服药
+    new_value_68: {
+      option: ['是', '否'],
+      value: '',
+      radiolist: true
+    },
+    // 用药情况
+    new_value_69: {
+      option: [{
+        label: '遵从医嘱',
+        value: 'new_value_69'
+      }, {
+        label: '常常忘记用药',
+        value: 'new_value_70'
+      }, {
+        label: '排斥用药',
+        value: 'new_value_71'
+      }, {
+        label: '自己调整药量',
+        value: 'new_value_72'
+      }, {
+        label: '以上都不符合',
+        value: 'new_value_73'
+      }
+      ],
+      value: [],
+      checklist: true
+    },
+    // 是否有亚健康情况（无临床疾病诊断）
+    new_value_74: {
+      option: ['是', '否'],
+      value: '',
+      radiolist: true
+    },
+    // 亚健康情况
+    new_value_75: {
+      option: [{
+        label: '夜间血气不足，盗汗',
+        value: 'new_value_75'
+      }, {
+        label: '秋季常感冒',
+        value: 'new_value_76'
+      }, {
+        label: '容易疲劳，失眠',
+        value: 'new_value_77'
+      }, {
+        label: '胃口差，脾虚弱',
+        value: 'new_value_78'
+      }, {
+        label: '便秘',
+        value: 'new_value_79'
+      }, {
+        label: '肥胖或超重',
+        value: 'new_value_80'
+      }, {
+        label: '坐立不安、心烦意乱',
+        value: 'new_value_81'
+      }, {
+        label: '手脚发凉',
+        value: 'new_value_82'
+      }, {
+        label: '其他',
+        value: 'new_value_83'
+      }
+      ],
+      value: [],
+      checklist: true
+    },
+    // 是否长期用药
+    new_value_84: {
+      option: ['是', '否'],
+      value: '',
+      radiolist: true
+    },
+
   }
 
   export default {
@@ -402,15 +668,16 @@
         location: '', // 所在地
         new_value_1: '', // 首次诊断日期
         new_value_2: '0', // 具体日期记不清
+        diagnosis: '', // 临床诊断
+        duration: '', // 体重增加或减少持续时间
+        bodyfat: '', // 体脂率
+        trgetweight: '', // 目标体重
+        waistline: '', // 腰围
+        hipline: '', // 臀围
       },
-      show: false,
-      wegvale: 50,
-      wegparam: {
-        pagesize: 10,
-        pagecount: 0,
-      },
-      hideHight: false,
-      hideWeight: false,
+      hideZl:false,// 肿瘤是否显示
+      hideTz:true,// 体重是否显示
+      hideJk:false,// 健康是否显示
       // 性别picker
       popupVisible: false, // 是否显示
       sexSlots: [{
@@ -428,11 +695,11 @@
         name: '慢病',
         val: 'attribute_value_04'
       }],
-      sportDefaultName: '肿瘤', // 页面显示的文字
+      sportDefaultName: '请选择管理类型', // 页面显示的文字
       sportVisible: false,
       sportSlot: [{
         flex: 1,
-        values: ['肿瘤', '慢病'],
+        values: ['体重管理', '健康管理', '肿瘤管理'],
         className: 'slot1',
         textAlign: 'center'
       }],
@@ -544,6 +811,7 @@
           this.popupVisible = false
         }
       },
+
       // 性别picker  确定事件
       sexConfirm () {
         this.openTouch()
@@ -638,6 +906,36 @@
         const BMI = weight / (height * height) // 体重/身高的平方
         this.param.bmi = BMI.toFixed(1)
       },
+
+      // 体重管理
+      tzTitle () {
+        this.hideTz = true
+        this.hideJk = false
+        this.hideZl = false
+        this.$refs.tz_title.classList.add('active')
+        this.$refs.jk_title.classList.remove('active')
+        this.$refs.zl_title.classList.remove('active')
+      },
+      // 健康管理
+      jkTitle () {
+        this.hideTz = false
+        this.hideJk = true
+        this.hideZl = false
+        this.$refs.tz_title.classList.remove('active')
+        this.$refs.jk_title.classList.add('active')
+        this.$refs.zl_title.classList.remove('active')
+      },
+      // 肿瘤管理
+      zlTitle () {
+        this.hideTz =false
+        this.hideJk = false
+        this.hideZl = true
+        this.$refs.tz_title.classList.remove('active')
+        this.$refs.jk_title.classList.remove('active')
+        this.$refs.zl_title.classList.add('active')
+      },
+
+
       // citypicker的确定回调
       cityPickerChange (values) {
         this.openTouch()
@@ -648,52 +946,6 @@
       openCityPicker () {
         this.closeTouch()
         this.$refs.cityPicker.show()
-      },
-
-      saveHeight () {
-        this.show = true
-        document.getElementById('saveHeight').classList.add('saveheight')
-        document.getElementById('saveWeight').classList.remove('saveweight')
-        this.hideHight = true
-        this.hideWeight = false
-      },
-      saveWeight () {
-        this.show = true
-        this.hideWeight = true
-        this.hideHight = false
-        document.getElementById('saveWeight').classList.add('saveweight')
-        document.getElementById('saveHeight').classList.remove('saveheight')
-		
-      },
-      hidejl () {
-        this.show = false
-      },
-      // 体重保存
-      okweigt () {
-        const height = document.getElementById('saveHeight').className
-        const weight = document.getElementById('saveWeight').className
-        let wegparam = {
-          Weight: this.wegvale,
-          Hight: this.wegvale
-        }
-        this.show = false
-        if (height == 'saveheight') {
-          this.param.height = wegparam.Hight
-        }
-        if (weight == 'saveweight') {
-          this.param.weight = wegparam.Weight
-        }
-		if((this.param.weight!='')&&(this.param.height!='')){
-			this.doBMI()
-		}
-      },
-      changeHight (val) {
-        this.wegvale = val
-        console.log(val)
-      },
-      changeWeight (val) {
-        this.wegvale = val
-        console.log(val)
       },
       // 新增提交
       addSubmit () {
@@ -729,7 +981,7 @@
         if (this.sportDefaultName == '慢病') {
           this.param.diseasetype = '02'
         }
-		
+
         let param = this.param
         if (param.name == '') {
           this.$Toast('请输入姓名')
@@ -747,14 +999,14 @@
           this.$Toast('请选择您所在地区')
           return false
         }
-		if(param.birth == ''){
-		  this.$Toast('请选择出生日期')
-		  return false
-		}
-		if((param.new_value_1 == '')&&(param.new_value_2 == '0')){
-		  this.$Toast('请选择首次诊断日期')
-		  return false
-		}
+        if (param.birth == '') {
+          this.$Toast('请选择出生日期')
+          return false
+        }
+        if ((param.new_value_1 == '') && (param.new_value_2 == '0')) {
+          this.$Toast('请选择首次诊断日期')
+          return false
+        }
         // 遍历数据
         let rowData = this.$data[`attribute_value_03_item`]
         if (rowData) {
@@ -788,59 +1040,59 @@
             }
           }
         }
-		console.log(this.new_value_3.value)
-		if(this.attribute_value_03_item.value.length==0){
-			this.$Toast('请选择临床诊断')
-			return false
-		}
-		if(this.new_value_3.value.length==0){
-			this.$Toast('请选择婚姻状态')
-			return false
-		}
-		if(this.new_value_4.value.length==0){
-			this.$Toast('请选择个人病史')
-			return false
-		}
-		if(this.new_value_22.value.length==0){
-			this.$Toast('请选择肿瘤家族史')
-			return false
-		}
-		if(this.new_value_23.value.length==0){
-			this.$Toast('请选择目前的治疗状态')
-			return false
-		}
-		for(var i=0;i<this.new_value_23.value.length;i++){
-			if(this.new_value_23.value[i]=="new_value_23"){
-				if(this.new_value_24.value==''){
-					this.$Toast('请填写准备手术时间')
-					return
-				}
-			}
-			if(this.new_value_23.value[i]=="new_value_29"){
-				if(this.new_value_30.value==''){
-					this.$Toast('请填写化疗第几疗程')
-					return
-				}
-			}
-			if(this.new_value_23.value[i]=="new_value_31"){
-				if(this.new_value_32.value==''){
-					this.$Toast('请填写放疗第几疗程')
-					return
-				}
-			}
-			if(this.new_value_23.value[i]=="new_value_34"){
-				if(this.new_value_33.value==''){
-					this.$Toast('请填写靶向治疗第几疗程')
-					return
-				}
-			}
-			if(this.new_value_23.value[i]=="new_value_35"){
-				if(this.new_value_36.value==''){
-					this.$Toast('请填写免疫治疗第几疗程')
-					return
-				}
-			}
-		}
+        console.log(this.new_value_3.value)
+        if (this.attribute_value_03_item.value.length == 0) {
+          this.$Toast('请选择临床诊断')
+          return false
+        }
+        if (this.new_value_3.value.length == 0) {
+          this.$Toast('请选择婚姻状态')
+          return false
+        }
+        if (this.new_value_4.value.length == 0) {
+          this.$Toast('请选择个人病史')
+          return false
+        }
+        if (this.new_value_22.value.length == 0) {
+          this.$Toast('请选择肿瘤家族史')
+          return false
+        }
+        if (this.new_value_23.value.length == 0) {
+          this.$Toast('请选择目前的治疗状态')
+          return false
+        }
+        for (var i = 0; i < this.new_value_23.value.length; i++) {
+          if (this.new_value_23.value[i] == 'new_value_23') {
+            if (this.new_value_24.value == '') {
+              this.$Toast('请填写准备手术时间')
+              return
+            }
+          }
+          if (this.new_value_23.value[i] == 'new_value_29') {
+            if (this.new_value_30.value == '') {
+              this.$Toast('请填写化疗第几疗程')
+              return
+            }
+          }
+          if (this.new_value_23.value[i] == 'new_value_31') {
+            if (this.new_value_32.value == '') {
+              this.$Toast('请填写放疗第几疗程')
+              return
+            }
+          }
+          if (this.new_value_23.value[i] == 'new_value_34') {
+            if (this.new_value_33.value == '') {
+              this.$Toast('请填写靶向治疗第几疗程')
+              return
+            }
+          }
+          if (this.new_value_23.value[i] == 'new_value_35') {
+            if (this.new_value_36.value == '') {
+              this.$Toast('请填写免疫治疗第几疗程')
+              return
+            }
+          }
+        }
         return true
       },
 
@@ -945,8 +1197,7 @@
       }
     },
     components: {
-      cityPicker: () => import(/* webpackChunkName: "cityData2" */ './../../common/cityPicker2.vue'),
-      DLRuler
+      cityPicker: () => import(/* webpackChunkName: "cityData2" */ './../../common/cityPicker2.vue')
     },
     mounted () {
       this.openTouch()
@@ -957,11 +1208,12 @@
 <style scoped lang="scss">
   .personInfo_root {
     background-color: #f1f1f1;
-    padding-top: 46px;
+    padding-top: 0.44rem;
     padding-bottom: 64px;
 
     .mint-header {
-      height: 46px;
+      height: 0.44rem;
+      border-bottom: 1px solid #e5e5e5;
     }
 
     .splitLine {
@@ -971,10 +1223,45 @@
       .borderBottom {
         border: 0;
       }
+      .titleZb {
+        padding: 0 25px 0 15px;
+        line-height:0.46rem;
+        font-size:16px;
+        position: relative;
+        border-bottom: 1px solid #e5e5e5;
+        em {
+          font-style: normal;
+          width: 0.04rem;
+          height: 0.15rem;
+          display: inline-block;
+          background-color: #0AC5C9;
+          margin-right: 0.05rem;
+        vertical-align: text-bottom;
+        }
+      }
+      .titlTop {
+        padding: 0 25px 0 15px;
+        line-height:0.46rem;
+        font-size: 16px;
+        position: relative;
 
+        em {
+          color: #0AC5C9;
+          font-style: normal;
+          font-size: 14px;
+          padding-left: 2px;
+        }
+
+        span {
+          color: #999999;
+          font-size: 14px;
+          padding-left: 2px;
+          display: inline-block;
+        }
+      }
       .titleBtm {
         padding: 0 25px 0 15px;
-        line-height: 48px;
+        line-height:0.46rem;
         font-size: 16px;
         position: relative;
 
@@ -1025,13 +1312,16 @@
 
     .mint-popup-bottom {
       width: 100%;
+      min-height: 40%;
     }
 
     .picker {
       .picker-toolbar {
 
       }
-
+      .picker-items{
+        min-height: 40%;
+      }
       .picker_bar {
         display: flex;
         justify-content: space-between;
@@ -1111,79 +1401,36 @@
     }
   }
 
-  .modal.show {
-    transform: translateY(0);
-    min-height: 45%;
-    padding-top: 0.35rem;
-  }
+  .manageTitle {
+    height: 0.44rem;
+    line-height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+    text-align: center;
+    font-size: 0.155rem;
+    color: #333333;
 
-  .modal {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #FFFFFF;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    transition: transform ease 0.6s;
-    transform: translateY(1000px);
-
-    .today {
-      margin: 20px 0;
+    .flex-fill {
+      border-right: 1px solid #e5e5e5;
     }
 
-    .note {
-      margin-top: 3px;
-      margin-bottom: 20px;
+    .flex-fill:last-child {
+      border-right: 0;
     }
 
-    .nums {
-      margin-bottom: 20px;
-    }
-
-    .num {
-      font-size: 0.25rem;
-    }
-
-    .chizi {
-      height: 0.6rem;
-      background: linear-gradient(180deg, rgba(255, 205, 80, 1) 0%, rgba(252, 209, 134, 1) 100%);
-      margin-bottom: 20px;
-    }
-
-    .tit_ys {
-      display: block;
-      text-align: center;
-      font-size: 0.2rem;
-      padding-left: 0.2rem;
-      padding-bottom: 0.1rem;
-
-      em {
-        font-style: normal;
-        font-size: 0.15rem;
-      }
-    }
-
-    .rulerBtm {
-      height: 0.44rem;
-      line-height: 0.44rem;
-      background: #0AC5C9;
-      position: absolute;
-      bottom: 0.25rem;
-      width: 60%;
-      margin: 0.1rem 20%;
-      border-radius: 0.2rem;
+    .active {
+      background-color: #0AC5C9;
+      color: #FFFFFF;
     }
   }
 
-  .close {
-    width: 0.2rem;
-    height: 0.2rem;
-    background: url(./../../../assets/images/guanbi@2x.png) no-repeat center center;
-    background-size: 100%;
-    position: absolute;
-    right: 0.14rem;
-    top: 0.1rem;
+  .d-flex {
+    display: -ms-flexbox !important;
+    display: flex !important;
+  }
+
+  .flex-fill {
+    -ms-flex: 1 1 auto !important;
+    flex: 1 1 auto !important;
   }
 </style>
 <style>
@@ -1191,6 +1438,10 @@
     text-align: right;
     border: 0 !important;
     color: #999999;
+  }
+
+  .personInfo_root .page_text_left input {
+    text-align: left;
   }
 
   .personInfo_root .line-input {
@@ -1241,6 +1492,25 @@
     min-width: 38%;
     min-height: 42px;
   }
+  .personInfo_root .glmb_style_a .mint-cell {
+      margin: 0 1%;
+      min-width: 46%;
+    }
+  .personInfo_root .yyqk_style_a .mint-cell {
+      margin: 0 1%;
+      min-width: 33%;
+      max-width: 66%;
+    }
+  .personInfo_root .qkxz_style_a .mint-cell {
+      margin: 0 1%;
+      min-width: 48%;
+    }
+  .personInfo_root .gltz_style_a .mint-cell {
+      margin: 0 1%;
+      min-width: 24%;
+    width: auto!important;
+      max-width: 60%;
+    }
 
   .personInfo_root .mint-radiolist .mint-cell .mint-cell-wrapper,
   .personInfo_root .mint-radiolist .mint-cell .mint-cell-wrapper .mint-radiolist-label {
@@ -1318,6 +1588,7 @@
   .personInfo_root .picker .picker-toolbar {
     height: 45px;
     border: 0;
+  margin-bottom: 0.2rem;
   }
 
   .personInfo_root .picker .mint-datetime-action {
@@ -1376,7 +1647,28 @@
     /*background-color: #FFFFFF;*/
     /*border-color: #FFFFFF;*/
   }
+  .personInfo_root .city_picker_root .picker,  .personInfo_root .city_picker_root .mint-popup {
+    min-height: 40%;
+  }
 
+  .personInfo_root .city_picker_root .picker .picker-toolbar .bar {
+    padding: 0;
+    background-color: #dddddd;
+    color: #666666;
+    text-align: center;
+  }
+
+  .personInfo_root .city_picker_root .picker .picker-toolbar .bar span{
+    width: 50%;
+    display: inline-block;
+    height: 44px;
+    line-height: 44px;
+  }
+
+  .personInfo_root .city_picker_root .picker .picker-toolbar .bar span.confirm{
+    background-color: #0AC5C9;
+    color: #FFFFFF;
+  }
   @media screen and (max-width: 375px) {
     .personInfo_root .mint-checklist .mint-cell {
       width: 48%;

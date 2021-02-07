@@ -99,6 +99,7 @@
 				const temp = {
 					contact: this.contact.filter(item => {
 						this.$set(item, 'username', this.$root.getUserNameByPhone(String(item.name)))
+						console.log(item)
 						this.$set(item, 'meum', this.getUnreadNum(item))
 						if (item && !this.blackList.includes(item.name)) {
 							return item;
@@ -118,6 +119,7 @@
 						temp.contact.unshift(atyop)
 					}
 				}
+				console.log(temp)
 				return temp;
 			},
 			blackList() {

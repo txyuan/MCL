@@ -216,9 +216,8 @@ export default {
       // msgList: "onGetCurrentChatObjMsg"
     }),
     msgList: function(){
-		console.log(this.$store)
       let currentMsgs = this.$store.state.chat.currentMsgs;
-	  
+	  console.log(currentMsgs)
       return currentMsgs;
     },
     userList() {
@@ -316,10 +315,10 @@ export default {
         this.$router.push({ name: this.type, params: { id: key.name } });
         this.onGetCurrentChatObjMsg({ type: this.type, id: key.name });
         setTimeout(() => {
-          // Vue.$store.commit("updateMessageStatus", {
-          //   action: "oneUserReadMsgs",
-          //   readUser: key.name
-          // });
+          Vue.$store.commit("updateMessageStatus", {
+            action: "oneUserReadMsgs",
+            readUser: key.name
+          });
           this.$forceUpdate();
         }, 100);
 

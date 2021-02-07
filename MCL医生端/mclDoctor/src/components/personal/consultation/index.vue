@@ -15,11 +15,6 @@
 					<span>{{allmoney}}</span>
 				</div>
 			</div>
-			<p>
-				<label>金额</label>
-				<label>患者</label>
-				<label>医生</label>
-			</p>
 		</div>
 
 		<!-- <div id="navbar" class="borderBottom">
@@ -40,21 +35,13 @@
 			<!-- tab-container -->
 			<loadMore :param="param" @triggerGetList="getList" ref="loadMoreE" class=""> <!-- padding-footer -->
 				<div slot="content">
-					<div class="data_list" v-for="(item,index) in list" :key="index">
-						<p>
-							<label>{{item.money}}</label>
-							<label>{{item.remarks}}</label>
-							<label>{{item.nickname}}</label>
-						</p>
-						<span>{{item.create_date}}</span>
-					</div>
-					<!-- <mt-cell v-for="(item,index) in list" :title="item.money" :label="item.create_date" :key="index" class="borderBottom">
+					<mt-cell v-for="(item,index) in list" :title="item.money" :label="item.create_date" :key="index" class="borderBottom">
 						<div class="right text-right">
 							<span>{{item.remarks}}</span>
 							<span class="mint-cell-label">{{item.nickname}}</span>
 
 						</div>
-					</mt-cell> -->
+					</mt-cell>
 				</div>
 			</loadMore>
 		</div>
@@ -171,54 +158,8 @@ export default {
 				}
 			}
 		}
-		p{
-			overflow: hidden;
-			background: #fff;
-			padding: 0.1rem 3%;
-			border-bottom: 1px solid #ddd;
-			font-size: 0.15rem;
-			color: #333;
-			label{
-				float: left;
-				display: block;
-				width: 33.33%;
-				&:nth-child(2){
-					text-align: center;
-				}
-				&:nth-child(3){
-					text-align: right;
-				}
-			}
-		}
 	}
-	.data_list{
-		background: #fff;
-		padding: 0.1rem 3%;
-		border-bottom: 1px solid #eee;
-		p{
-			overflow: hidden;
-			font-size: 0.14rem;
-			label{
-				float: left;
-				display: block;
-				width: 33.33%;
-				&:nth-child(2){
-					text-align: center;
-					color: #666;
-				}
-				&:nth-child(3){
-					text-align: right;
-					color: #666;
-				}
-			}
-		}
-		span{
-			font-size: 0.13rem;
-			color: #666;
-			padding-top: 0.06rem;
-			display: block;
-		}
-	}
+
 	.buttons {
 		overflow: hidden;
 
