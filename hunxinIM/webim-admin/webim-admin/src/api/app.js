@@ -39,7 +39,7 @@ export function saveChatData ( data ) {
     data.sender = JSON.parse(localStorage.userInfo).userId
     return new Promise((resolve, reject) => {
         if(data.msgType == 1){
-            axiosInstance.get(url, {params: data}).then(() => {
+            axiosInstance.post(url, qs.stringify(data)).then(() => {
                 userSendMessage(data.to) // 微信公众号推送消息
                 resolve()
             }, reject)
@@ -47,7 +47,7 @@ export function saveChatData ( data ) {
         if(data.msgType == 2){
             uploadChatimg(data.msgContent.data).then((responce) => {
                 data.msgContent = responce.data.url
-                axiosInstance.get(url, {params: data}).then(resolve, reject)
+                axiosInstance.post(url, qs.stringify(data)).then(resolve, reject)
             })
         }
     }) 
