@@ -47,8 +47,8 @@
 		<!--按钮-->
 		<div class="detile_btn">
 			<div class="btn-group">
-				<!-- <p class="defult-btn" @click="addshopcar">加入购物车</p> -->
-				<p class="btn" @click="buy">立即购买</p>
+				<p class="defult-btn" @click="myshopcar">我的购物车</p>
+				<p class="btn" @click="addshopcar">加入购物车</p>
 			</div>
 		</div>
 	</div>
@@ -120,24 +120,27 @@
 			// },
 			
 			// 加入购物车
-			// addshopcar() {
-			// 	let url = "UserInterface/cart/updateGoodsNum.ashx";
-			// 	let param = {
-			// 		goodsId: this.goodsInfo.goodsId,
-			// 		goodsNum: this.num,
-			// 		goodsSpecId: this.goodsInfo.goodsDetailId,
-			// 		IsAddNum: 0,
-			// 		ABflag: 1
-			// 	}
-			// 	this.$post(url, param).then((data) => {
-			// 		if (data.rspcode != 1) {
-			// 			this.$Toast('添加失败！');
-			// 			return;
-			// 		}
-			// 		this.$Toast('添加成功！');
-			// 	})
-			// },
-			
+			addshopcar() {
+				let url = "UserInterface/cart/updateGoodsNum.ashx";
+				let param = {
+					goodsId: this.responseData.goodsId,
+					goodsNum: this.num,
+					goodsSpecId: this.responseData.goodsDetailId,
+					IsAddNum: 0,
+					ABflag: 1
+				}
+				this.$post(url, param).then((data) => {
+					if (data.rspcode != 1) {
+						this.$Toast('添加失败！');
+						return;
+					}
+					this.$Toast('添加成功！');
+				})
+			},
+			// 我的购物车
+			myshopcar(){
+				this.$router.push('/shopcar')
+			},
 			//立即购买
 			buy() {
 				let url = "UserInterface/cart/shoppingImmediately.ashx";

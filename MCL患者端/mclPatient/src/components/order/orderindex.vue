@@ -125,7 +125,7 @@ export default {
     // 获取订单信息
     getOrderInfo () {
       this.$Indicator.loading()
-      let url = 'UserInterface/cart/orderConfirmImmediately.ashx'
+      let url = 'UserInterface/cart/orderConfirm.ashx'
       let ABflag = this.$route.query.ABflag
       this.ABflag = ABflag
       let param = {
@@ -194,10 +194,11 @@ export default {
       }
       const orderType = this.$route.query.orderType
       let url = 'UserInterface/IPayment/CZWPaymentRequest_vshop.ashx'
+	  alert(localStorage.openId)
       let param = {
         'RechargeAmount': Number(this.orderInfo.orderAmount),
         'OpenID': localStorage.openId,
-        'PaymentType': orderType, // 【1：营养筛查；2：管理套餐；3：商品订单；4：活动订单；5：会员年卡】
+        'PaymentType': 2, // 【1：营养筛查；2：管理套餐；3：商品订单；4：活动订单；5：会员年卡】
         'addressId': this.defaultAdr.addressId
       }
       this.$Indicator.loading()
