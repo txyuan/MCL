@@ -55,9 +55,7 @@
             </mt-cell>
           </div> -->
 		</div>
-    <div class="btn">
-		<mt-button class="signOutBtn" size="large" @click="signOut">退出登录</mt-button>
-    </div>
+		<mt-button class="add_btns" size="large" @click="signOut">退出登录</mt-button>
 		<!-- 头像 -->
 		<mt-actionsheet :actions="userActions" v-model="sheetVisible">
 		</mt-actionsheet>
@@ -265,20 +263,6 @@ export default {
   .person_data{
     padding-bottom: 0.44rem;
     margin-top: 0.1rem;
-  }
-  .btn{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    .signOutBtn{
-      background-color: #0AC5C9;
-      color: #FFFFFF;
-      border-radius: 0;
-      height: 0.44rem;
-      font-size: 0.165rem;
-      letter-spacing: 2px;
-    }
   }
 </style>
 <style lang="scss">
