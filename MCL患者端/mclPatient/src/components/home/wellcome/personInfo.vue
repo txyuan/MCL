@@ -102,7 +102,7 @@
                       class="checklist "></mt-checklist>
       </div>
       <div class="splitLine">
-        <div class="title2 bg-white titleBtm" style="line-height: 20px; padding: 14px 15px">肿瘤家族史
+        <div class="title2 bg-white titleBtm" style="line-height: 20px; padding: 0.145rem 15px">肿瘤家族史
           <span>(三代直系亲属有无任何恶性肿瘤) </span>
         </div>
         <mt-radio :options="new_value_22.option" v-model="new_value_22.value"
@@ -162,7 +162,7 @@
         </mt-cell>
         <mt-radio :options="[{label: '具体日期记不清', value: '1'}]" v-model="param.new_value_2"
                   class="dateSelection borderBottom" style="position: relative; padding-top: 0.02rem; padding-bottom:0.05rem;margin-bottom: 0.05rem"></mt-radio>
-        <div class="title2 bg-white titlTop" style="line-height: 20px; padding: 14px 15px">肿瘤家族史
+        <div class="title2 bg-white titlTop" style="line-height: 20px; padding: 0.145rem 15px">肿瘤家族史
           <span>(三代直系亲属有无任何恶性肿瘤) </span>
         </div>
         <mt-radio :options="new_value_22.option" v-model="new_value_22.value" class="borderBottom" style="position: relative; padding-top: 0.02rem"></mt-radio>
@@ -1226,7 +1226,7 @@
       .titleZb {
         padding: 0 25px 0 15px;
         line-height:0.46rem;
-        font-size:16px;
+        font-size:0.16rem;
         position: relative;
         border-bottom: 1px solid #e5e5e5;
         em {
@@ -1242,19 +1242,19 @@
       .titlTop {
         padding: 0 25px 0 15px;
         line-height:0.46rem;
-        font-size: 16px;
+        font-size: 0.16rem;
         position: relative;
 
         em {
           color: #0AC5C9;
           font-style: normal;
-          font-size: 14px;
+          font-size: 0.145rem;
           padding-left: 2px;
         }
 
         span {
           color: #999999;
-          font-size: 14px;
+          font-size: 0.145rem;
           padding-left: 2px;
           display: inline-block;
         }
@@ -1262,19 +1262,19 @@
       .titleBtm {
         padding: 0 25px 0 15px;
         line-height:0.46rem;
-        font-size: 16px;
+        font-size: 0.16rem;
         position: relative;
 
         em {
           color: #0AC5C9;
           font-style: normal;
-          font-size: 14px;
+          font-size: 0.145rem;
           padding-left: 2px;
         }
 
         span {
           color: #999999;
-          font-size: 14px;
+          font-size: 0.145rem;
           padding-left: 2px;
           display: inline-block;
         }
@@ -1305,7 +1305,7 @@
         background-color: #FFFFFF;
         padding: 0 15px;
         line-height: 48px;
-        font-size: 16px;
+        font-size: 0.16rem;
 
       }
     }
@@ -1364,7 +1364,9 @@
       .theme-button {
         width: 100%;
         border-radius: 0;
-        height: 50px;
+        height: 0.44rem;
+        font-size: 0.17rem;
+        letter-spacing: 2px;
         background-color: #0AC5C9;
       }
     }
@@ -1382,12 +1384,12 @@
   .title2 {
     margin-top: 10px;
     padding: 5px 10px;
-    font-size: 16px;
+    font-size: 0.16rem;
   }
 
   .title2 {
     margin-top: 0px;
-    font-size: 14px;
+    font-size: 0.145rem;
   }
 
   .splitData {
@@ -1406,7 +1408,7 @@
     line-height: 0.44rem;
     border-bottom: 1px solid #e5e5e5;
     text-align: center;
-    font-size: 0.155rem;
+    font-size: 0.160rem;
     color: #333333;
 
     .flex-fill {
@@ -1561,6 +1563,7 @@
 
   .personInfo_root .mint-checklist .mint-checkbox-label {
     margin-left: 4px;
+
   }
 
   /*.personInfo_root .mint-radiolist .mint-radiolist-label{*/

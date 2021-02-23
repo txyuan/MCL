@@ -9,6 +9,7 @@
 		</mt-header>
 
 		<div class="person_data marginTop5">
+      <div class="person_data_xq">
 			<!-- <input type="file" v-if="anios==1" accept="image/*" @click="changes()" ref="userImg" style="display: none"> -->
 			<input type="file" accept="image/*" @change="change($event)" ref="userImg" style="display: none">
 			<mt-cell title="头像" is-link @click.native="actionsheetToggle('show')">
@@ -27,6 +28,7 @@
 			<mt-cell title="身高" is-link to="/heights">
 				<span>{{repData.height}}<em style="font-style:normal; padding-left: 2px">cm</em></span>
 			</mt-cell>
+      </div>
 			<div class="person_marg">
 				<mt-cell title="修改登录密码" is-link to="/changePass"></mt-cell>
 			</div>
@@ -53,9 +55,9 @@
             </mt-cell>
           </div> -->
 		</div>
-
-		<mt-button type="default" class="add_btn" size="large" @click="signOut">退出登录</mt-button>
-
+    <div class="btn">
+		<mt-button class="signOutBtn" size="large" @click="signOut">退出登录</mt-button>
+    </div>
 		<!-- 头像 -->
 		<mt-actionsheet :actions="userActions" v-model="sheetVisible">
 		</mt-actionsheet>
@@ -245,12 +247,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
-	.marginTop5 a {
-		border-bottom: 1px solid #ddd;
-	}
+
+  .mint-header {
+    height: 0.44rem;
+    border-bottom: 1px solid #eee;
+  }
 
 	.person_marg {
-		margin-top: 0.08rem;
+		margin-top: 0.1rem;
 	}
 
 	.person_marg img {
@@ -258,8 +262,79 @@ export default {
 		width: 0.2rem;
 		margin-right: 0.1rem;
 	}
+  .person_data{
+    padding-bottom: 0.44rem;
+    margin-top: 0.1rem;
+  }
+  .btn{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    .signOutBtn{
+      background-color: #0AC5C9;
+      color: #FFFFFF;
+      border-radius: 0;
+      height: 0.44rem;
+      font-size: 0.165rem;
+      letter-spacing: 2px;
+    }
+  }
 </style>
 <style lang="scss">
+
+  /*手机*/
+  @media screen and (max-width:539px){
+    .mint-header {
+      height: 0.44rem;
+      border-bottom: 1px solid #eee;
+      font-size: 0.175rem;
+    }
+    .mint-cell {
+      min-height: 0.46rem;
+    }
+    a.mint-cell .mint-cell-text {
+      font-size: 0.16rem;
+    }
+    .mint-cell-wrapper{
+      font-size: 0.16rem;
+    }
+    .mint-button {
+      font-size: 0.165rem;
+      letter-spacing: 2px;
+      height:0.42rem;
+    }
+    .mint-msgbox{
+      font-size: 0.16rem;
+    }
+  }
+
+  /*平板*/
+
+  @media screen and (min-width:540px) and (max-width:960px){
+    .mint-header {
+      height: 48px;
+      border-bottom: 1px solid #eee;
+      font-size: 18px;
+    }
+    .mint-header {
+      font-size: 18px;
+    }
+    a.mint-cell .mint-cell-text {
+      font-size: 16px;
+    }
+    .mint-cell-wrapper{
+      font-size:16px;
+    }
+    .mint-button {
+      font-size: 18px;
+      height: 41px;
+    }
+
+    .mint-msgbox{
+      font-size:16px;
+    }
+  }
 	.person_data_root {
 		.mint-popup-bottom {
 			width: 100%;
@@ -277,5 +352,25 @@ export default {
 				color: #26a2ff;
 			}
 		}
-	}
+    .person_data{
+      .person_data_xq{
+        a.mint-cell{
+          position: relative;
+        }
+        a.mint-cell::after{
+          background-color: #000;
+          content: " ";
+          opacity: 0.1;
+          right: 0;
+          bottom: 0;
+          left: 0.2rem;
+          position: absolute;
+          height: 1px;
+        }
+        a.mint-cell:last-child::after{
+          opacity: 0;
+        }
+      }
+    }
+  }
 </style>
