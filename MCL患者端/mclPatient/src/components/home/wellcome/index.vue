@@ -1,7 +1,7 @@
 <template>
 	<div class="wellcome_root">
 		<img src="@/assets/images/wellcome_bg.png" alt="" style="width: 100%;"/>
-		<mt-button type="default" class="theme-button button-radio lalala" size="large" @click.native="$router.push(`/wellcome_personInfo`)">下一步</mt-button>
+		<mt-button type="default" class="theme-button button-radio lalala" size="large" @click.native="go">下一步</mt-button>
 		<!--<div class="wellcome_panel">
 			<div class="title">
 				<img src="@/assets/images/wellcome_btn.png" width="100%" alt="">
@@ -17,15 +17,22 @@
 </template>
 
 <script>
-	export default {
-		name: "wellcome_root",
-		data: () => ({
-			
-		}),
-		methods:{
-			
-		}
-	}
+export default {
+  name: 'wellcome_root',
+  data: () => ({
+
+  }),
+  methods: {
+    go () {
+      const redirect = this.$route.query.redirect
+      if (redirect) {
+        this.$router.push(redirect)
+      } else {
+        this.$router.push('/wellcome_personInfo')
+      }
+    }
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -53,7 +60,7 @@
 			padding-top: 0.22rem;
 			border-radius: 10px;
 			background: #FFF;
-			line-height: 1.5;  
+			line-height: 1.5;
 			font-size: 0.14rem;
 			color: #333535;
 		}
@@ -73,5 +80,5 @@
 			left: 5%;
 		}
 	}
-	
+
 </style>

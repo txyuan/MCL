@@ -81,18 +81,23 @@ export default {
             userType: data.data.userType
           })
           this.$Toast('登录成功')
-          const userinfoflag = data.data.userinfoflag
+          const userinfoflag = data.data.userinfoflag // 1:线下，2：线上
+          const PatientDistinguish = data.data.PatientDistinguish // 是否录入基本信息0：未录入，1：已录入
           // 0：未录入
-          if (userinfoflag == 0) {
+          if ((PatientDistinguish == 2) && (userinfoflag == 0)) {
             this.$router.push('/wellcome')
+            return
           };
-          // 1：已录入
-          if (userinfoflag == 1) {
-            if (this.$route.query.redirect) {
-              this.$router.replace(this.$route.query.redirect)
-            } else {
-              this.$router.push('/wx_Entrance/home')
-            }
+					const redirect = this.$route.query.redirect
+          if (redirect) {
+						// 报告查询页面
+						if(redirect == '/eyeconme'){
+							this.$router.replace('/wellcome?redirect=/eyeconme')
+						}else{
+							this.$router.replace(redirect)
+						}
+          } else {
+            this.$router.push('/wx_Entrance/home')
           }
         } else {
           this.$Toast('该账号权限不匹配')
