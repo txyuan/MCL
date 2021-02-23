@@ -1,6 +1,6 @@
 <template>
 	<div class="nutrition-root">
-		<div id="body_main" style="padding-top: 88px;">
+		<div id="body_main" style="padding-top: 0.88rem;">
 			<mt-header title="营养" fixed>
 				<div slot="left">
 					<header-back>
@@ -10,7 +10,7 @@
 			</mt-header>
 
 			<!-- mt-navbar -->
-			<div id="navbar" class="fix_top" style="top: 43px;" v-if="$route.query.skey">
+			<div id="navbar" class="fix_top" style="top: 0.44rem;" v-if="$route.query.skey">
 				<mt-navbar v-model="ABflag">
 					<mt-tab-item v-for="(item,index) in navbarList" :key="index" :class="(ABflag == item.type)&&'is-selected'"
 					 @click.native="toggleType(item)">
@@ -26,7 +26,7 @@
 					<!-- 今日提醒 -->
 					<div class="home-cell margin10">
 						<!-- <p class="name">今日提醒</p> -->
-			
+
 						<!-- <router-link tag="ul" class="remindList" to="/nutritionUploadPhoto"> -->
 						<!-- <ul class="remindList">
 							<li class="margin10">
@@ -47,7 +47,7 @@
 							</li>
 						</ul> -->
 						<!-- </router-link> -->
-			
+
 						<!-- <div class="my-cell borderBottom marginTop10">
 							<img src="@/assets/images/zaoqian@2x.png" width="20" height="20" />
 							<span class="">早前</span>
@@ -63,7 +63,7 @@
 								</div>
 							</div>
 						</div>
-			
+
 						<div class="my-cell borderBottom">
 							<img src="@/assets/images/wuqian@2x.png" width="20" height="20" />
 							<span class="">午前</span>
@@ -79,7 +79,7 @@
 								</div>
 							</div>
 						</div>
-			
+
 						<div class="my-cell borderBottom">
 							<img src="@/assets/images/zaoqian@2x.png" width="20" height="20" />
 							<span class="">晚前</span>
@@ -95,7 +95,7 @@
 								</div>
 							</div>
 						</div>
-			
+
 						<div class="my-cell borderBottom">
 							<img src="@/assets/images/shuiqian@2x.png" width="20" height="20" />
 							<span class="">睡前</span>
@@ -132,7 +132,7 @@
 						</div>
 					</div>
 				</div>
-			
+
 				<!-- 营养方案 -->
 				<div class="yinshhi_list" :hidden="ABflag == 1">
 					<div class="noalready" v-if="dataflag==0">
@@ -153,7 +153,7 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="my-cell borderBottom" v-if="nutrition02datas!=''">
 							<img src="@/assets/images/wuqian@2x.png" width="20" height="20" />
 							<span class="">{{nutrition02datas}}</span>
@@ -167,7 +167,7 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="my-cell borderBottom" v-if="nutrition03datas!=''">
 							<img src="@/assets/images/zaoqian@2x.png" width="20" height="20" />
 							<span class="">{{nutrition03datas}}</span>
@@ -180,7 +180,7 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="my-cell borderBottom" v-if="nutrition04datas!=''">
 							<img src="@/assets/images/wuqian@2x.png" width="20" height="20" />
 							<span class="">{{nutrition04datas}}</span>
@@ -233,10 +233,10 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="my-cell borderBottom" v-if="nutrition08datas!=''">
 							<img src="@/assets/images/wuqian@2x.png" width="20" height="20" />
-							<span class="">{{nutrition08data[0].mealname}}</span> 
+							<span class="">{{nutrition08data[0].mealname}}</span>
 						</div>
 						<div class="content-list margin10" v-if="nutrition08datas!=''">
 							<div class="my-cell" v-for="(item,index) in nutrition08data" :key="index" style="overflow: hidden;">
@@ -250,7 +250,7 @@
 							<mt-button type="danger" class="add_btns" size="large">调整处方</mt-button>
 						</router-link> -->
 					</div>
-					
+
 				</div>
 			</div>
 			<empty-data v-show="!$route.query.skey" />
@@ -337,9 +337,9 @@
 						todayNutritionList.push(data[`nutrition0${i}data`]);
 					}
 					this.todayNutritionList = todayNutritionList;
-				})		
+				})
 			},
-			
+
 			//营养方案
 			todayDiet() {
 				let url = "UserInterface/NutritionToday.ashx";
@@ -384,7 +384,7 @@
 					this.nutrition06data=data.nutrition06data;
 					this.nutrition07data=data.nutrition07data;
 					this.nutrition08data=data.nutrition08data;
-					
+
 					// this.beforelatedata = data.beforelatedata;
 					// this.beforenoondata = data.beforenoondata;
 					// this.earlierdata = data.earlierdata;
@@ -436,6 +436,11 @@
 </script>
 
 <style scoped lang="scss">
+  .mint-header {
+    height: 0.44rem;
+    line-height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
 	.neirong {
 		margin-top: 0.11rem;
 	}

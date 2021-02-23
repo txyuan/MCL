@@ -1,6 +1,6 @@
 <template>
-	<div class="mesage-root">
-		<mt-header title="专家团介绍" fixed @click.native="slide = !slide"></mt-header>
+	<div class="mesage-root messp">
+		<mt-header title="小美医助为您提供实时指导" fixed @click.native="slide = !slide"></mt-header>
 		<div id="body_main">
 			<div class="page">
 				<!--卡片-->
@@ -23,13 +23,13 @@
 					</div>
 				</div>
 
-				<div class="my-cell font15 margin10 marginTop10">
+				<!-- <div class="my-cell font15 margin10 marginTop10">
 					<div class="">专属服务对象</div>
 					<div class="yellow">{{ServicePatient}}</div>
-				</div>
+				</div> -->
 			</div>
-			<div style="position: absolute;  bottom:53px; width: 100%; border: none;" :style="{top: slide ? '1rem' : '2.3rem'}">
-				<iframe :src="`${KFURL}/login?username=${repData.ContactPhone}&userkey=${userkey}`" width="100%" style="height: 100%; border: none;" ref="kefuView"></iframe>
+			<div style="position: absolute;  bottom:53px; width: 100%; border: none;" :style="{top: slide ? '0.5rem' : '1.84rem'}">
+				<iframe :src="`${KFURL}/login?username=${repData.ContactPhone}&userkey=${userkey}&logoSinge=1`" width="100%" style="height: 100%; border: none;" ref="kefuView"></iframe>
 			</div>
 		</div>
 		<div class="mess_alet" v-if="docinf1">
@@ -142,6 +142,10 @@ export default {
     this.userkey = JSON.parse(localStorage.getItem('userInfo')).UserKey
   },
   mounted () {
+	  if(localStorage.mesnum){
+		  localStorage.removeItem('mesnum')
+	  }
+	  
     this.$Indicator.loading()
     this.information()
     this.getupshop()
@@ -290,4 +294,10 @@ export default {
 		transition: max-height 0.25s ease-in;
 	}
 
+</style>
+<style>
+	.messp .mint-header-title{
+		flex:3;
+		font-size: 0.16rem;
+	}
 </style>

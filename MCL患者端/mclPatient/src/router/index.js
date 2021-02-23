@@ -9,25 +9,26 @@ const wxFollowPage = () => import(/* webpackChunkName: "wxFollowPage" */ '@/comp
 const home = () => import(/* webpackChunkName: "home" */ '@/components/home/index.vue')  //首页
 const wellcome = () => import(/* webpackChunkName: "wellcome" */ '@/components/home/wellcome/index.vue')  //首页  欢迎页面
 const wellcome_personInfo = () => import(/* webpackChunkName: "wellcome_personInfo" */ '@/components/home/wellcome/personInfo.vue')  //首页  个人信息录入
-const message2 = () => import(/* webpackChunkName: "message2" */ '@/components/mesage/message2.vue')  //营养评估简介  
-// const home2 = () => import(/* webpackChunkName: "home2" */ '@/components/home/index2.vue')  //首页 
+const message2 = () => import(/* webpackChunkName: "message2" */ '@/components/mesage/message2.vue')  //营养评估简介
+// const home2 = () => import(/* webpackChunkName: "home2" */ '@/components/home/index2.vue')  //首页
 const yearCard = () => import(/* webpackChunkName: "yearCard" */ '@/components/home/yearCard/index.vue')  //首页 购买年卡
 const homemessage = () => import(/* webpackChunkName: "homemessage" */ '@/components/home/message/index.vue')  //首页 今日提醒
 const todymanage = () => import(/* webpackChunkName: "todymanage" */ '@/components/home/todymanage/index.vue')  //首页 今日管理
-const caseUpload = () => import(/* webpackChunkName: "caseUpload" */ '@/components/home/caseUpload/index.vue')  //首页 病例上传 
+const caseUpload = () => import(/* webpackChunkName: "caseUpload" */ '@/components/home/caseUpload/index.vue')  //首页 病例上传
 const welcomebl = () => import(/* webpackChunkName: "welcomebl" */ '@/components/home/caseUpload/welcomebl.vue')  //首页 病例上传 欢迎页
-const appointment = () => import(/* webpackChunkName: "appointment" */ '@/components/home/appointment/index.vue')  //首页 复诊预约 
+const appointment = () => import(/* webpackChunkName: "appointment" */ '@/components/home/appointment/index.vue')  //首页 复诊预约
 const welcomefzyy = () => import(/* webpackChunkName: "welcomefzyy" */ '@/components/home/appointment/welcomefzyy.vue')  //首页 复诊预约 欢迎页
 const medicatRecord = () => import(/* webpackChunkName: "medicatRecord" */ '@/components/home/medicatRecord/index.vue')  //首页 用药记录
 const welcomeyy = () => import(/* webpackChunkName: "welcomeyy" */ '@/components/home/medicatRecord/welcomeyy.vue')  //首页 用药记录欢迎页
 const addmedicat = () => import(/* webpackChunkName: "addmedicat" */ '@/components/home/medicatRecord/addmedicat.vue')  //首页 用药记录 添加eyemedicat
 const eyemedicat = () => import(/* webpackChunkName: "eyemedicat" */ '@/components/home/medicatRecord/eyemedicat.vue')  //首页 用药记录 添加
-const diet = () => import(/* webpackChunkName: "diet" */ '@/components/home/diet/index.vue')  //首页 饮食 
+const diet = () => import(/* webpackChunkName: "diet" */ '@/components/home/diet/index.vue')  //首页 饮食
 const buyfood = () => import(/* webpackChunkName: "buyfood" */ '@/components/home/diet/buyfood.vue')  //首页 饮食
-const diet_supplement = () => import(/* webpackChunkName: "diet_supplement" */ '@/components/home/diet/uploadPhoto_supplement.vue')  //首页 饮食补录 
+const diet_supplement = () => import(/* webpackChunkName: "diet_supplement" */ '@/components/home/diet/uploadPhoto_supplement.vue')  //首页 饮食补录
 const uploadPhoto = () => import(/* webpackChunkName: "uploadPhoto" */ '@/components/home/diet/uploadPhoto.vue')  //首页 饮食上传图片
 const uploadss = () => import(/* webpackChunkName: "uploadss" */ '@/components/home/diet/uploadss.vue')  //首页 查看饮食上传图片
-const otherDishes = () => import(/* webpackChunkName: "otherDishes" */ '@/components/home/diet/otherDishes.vue')  //首页 饮食上传  其他菜式 
+const otherDishes = () => import(/* webpackChunkName: "otherDishes" */ '@/components/home/diet/otherDishes.vue')  //首页 饮食上传  其他菜式
+const weightEstimation = () => import(/* webpackChunkName: "weightEstimation" */ '@/components/home/diet/weightEstimation.vue')  //首页 饮食上传 重量估算
 const symptom = () => import(/* webpackChunkName: "symptom" */ '@/components/home/symptom/index.vue')  //首页 并发症状
 const sympList = () => import(/* webpackChunkName: "sympList" */ '@/components/home/symptom/sympList.vue')  //首页 病症管理列表
 const sympEye = () => import(/* webpackChunkName: "sympEye" */ '@/components/home/symptom/sympEye.vue')  //首页 病症管理查看
@@ -40,6 +41,7 @@ const uploadPhoto_addCase = () => import(/* webpackChunkName: "uploadPhoto_addCa
 
 const sport = () => import(/* webpackChunkName: "sport" */ '@/components/home/sport/index.vue')  //首页 运动
 const sportAgreement = () => import(/* webpackChunkName: "sport-agreement" */ '@/components/home/sport/sport-agreement.vue')  //首页 运动  运动禁忌须知
+const sportDetail = () => import(/* webpackChunkName: "sportDetail" */ '@/components/home/sport/sportDetail.vue')  //首页 运动-指导
 
 const mood = () => import(/* webpackChunkName: "mood" */ '@/components/home/mood/index.vue')  //首页 心情
 const welcomexqgl = () => import(/* webpackChunkName: "welcomexqgl" */ '@/components/home/mood/welcomexqgl.vue')  //首页 心情 欢迎页
@@ -54,8 +56,8 @@ const use_guide = () => import(/* webpackChunkName: "use_guide" */ '@/components
 const project_description = () => import(/* webpackChunkName: "project_description" */ '@/components/home/agree/project_description.vue')  //项目说明
 
 //服务
-const service = () => import(/* webpackChunkName: "service" */ '@/components/home/service/index.vue')  //首页 会员服务 
-const service2 = () => import(/* webpackChunkName: "service2" */ '@/components/home/service/index2.vue')  //首页 会员服务 
+const service = () => import(/* webpackChunkName: "service" */ '@/components/home/service/index.vue')  //首页 会员服务
+const service2 = () => import(/* webpackChunkName: "service2" */ '@/components/home/service/index2.vue')  //首页 会员服务
 const serviceorderpay = () => import(/* webpackChunkName: "serviceorderpay" */ '@/components/home/service/orderpay.vue')  //营养筛查支付订单
 const menuRecog = () => import(/* webpackChunkName: "menuRecog" */ '@/components/home/service/menuRecog.vue')  //菜谱识别
 const serviceDetail = () => import(/* webpackChunkName: "serviceDetail" */ '@/components/home/service/serviceDetail.vue')  //服务详情
@@ -83,10 +85,10 @@ const caseDetail = () => import(/* webpackChunkName: "caseDetail" */ '@/componen
 const mesage = () => import(/* webpackChunkName: "mesage" */ '@/components/mesage/index/index.vue')  //消息
 
 
-//医生  
+//医生
 const searchDoctor = () => import(/* webpackChunkName: "searchDoctor" */ '@/components/doctor/searchDoctor.vue')  //查找医生
-const searchDoctorList = () => import(/* webpackChunkName: "searchDoctorList" */ '@/components/doctor/searchDoctorList.vue')  //查找医生  
-const doctorInfo = () => import(/* webpackChunkName: "doctorInfo" */ '@/components/doctor/doctorInfo.vue')  //医生信息  
+const searchDoctorList = () => import(/* webpackChunkName: "searchDoctorList" */ '@/components/doctor/searchDoctorList.vue')  //查找医生
+const doctorInfo = () => import(/* webpackChunkName: "doctorInfo" */ '@/components/doctor/doctorInfo.vue')  //医生信息
 const doctorPay = () => import(/* webpackChunkName: "doctorPay" */ '@/components/doctor/doctorPay.vue')  //医生支付信息
 //const cityList = () => import(/* webpackChunkName: "cityList" */ '@/components/doctor/city.vue')  //城市列表
 
@@ -229,7 +231,7 @@ const wheel = () => import(/* webpackChunkName: "wheel"  '@/components/wheel/ind
 const record = () => import(/* webpackChunkName: "record" '@/components/wheel/record.vue') //幸运大转盘我的记录
 const extractProduct = () => import(/* webpackChunkName: "extractProduct" '@/components/wheel/extractProduct/extractProduct.vue') //幸运大转盘提取商品页面
 */
-  
+
 //完成报告
 const gauge_NRS2002 = () => import(/* webpackChunkName: "gauge_NRS2002" */ '@/components/gauge/gauge_NRS2002.vue')  //量表NR2002
 const gauge_PG_SGA = () => import(/* webpackChunkName: "gauge_PG-SGA" */ '@/components/gauge/gauge_PG-SGA.vue')  //量表PG-SGA-
@@ -263,38 +265,40 @@ const router = new Router({
       ]
     },
     //关注微信的二维码页面
-    { path:"/wxFollowPage", name:"wxFollowPage", component: wxFollowPage }, 
-    
+    { path:"/wxFollowPage", name:"wxFollowPage", component: wxFollowPage },
+
     //首页页面
-    { path:"/wellcome", name:"wellcome", component: wellcome },  //欢迎页面 
+    { path:"/wellcome", name:"wellcome", component: wellcome },  //欢迎页面
     { path:"/wellcome_personInfo", name:"wellcome_personInfo", component: wellcome_personInfo },  //欢迎页面   个人信息录入
     { path:"/message2", name:"message2", component: message2 },  //营养评估简介
 	  { path:"/todymanage", name:"todymanage", component: todymanage },  //今日管理
     { path:"/caseUpload", name:"caseUpload", component: caseUpload },  //病例上传 welcomebl
 	{ path:"/welcomebl", name:"welcomebl", component: welcomebl },  //
     { path:"/appointment", name:"appointment", component: appointment },  //复诊预约 welcomefzyy
-	{ path:"/welcomefzyy", name:"welcomefzyy", component: welcomefzyy },  //复诊预约 
+	{ path:"/welcomefzyy", name:"welcomefzyy", component: welcomefzyy },  //复诊预约
 	{ path:"/medicatRecord", name:"medicatRecord", component: medicatRecord },
 	{ path:"/welcomeyy", name:"welcomeyy", component: welcomeyy },
 	{ path:"/addmedicat", name:"addmedicat", component: addmedicat },
 	{ path:"/eyemedicat", name:"eyemedicat", component: eyemedicat },
-    { path:"/diet", name:"diet", component: diet },  //饮食 
+    { path:"/diet", name:"diet", component: diet },  //饮食
 	{ path:"/buyfood/:names", name:"buyfood", component: buyfood },  //饮食
-    { path:"/diet_supplement", name:"diet_supplement", component: diet_supplement },  //饮食  
-    { path:"/uploadPhoto", name:"uploadPhoto", component: uploadPhoto },  //饮食上传图片  
+    { path:"/diet_supplement", name:"diet_supplement", component: diet_supplement },  //饮食
+    { path:"/uploadPhoto", name:"uploadPhoto", component: uploadPhoto },  //饮食上传图片
 	{ path:"/uploadss", name:"uploadss", component: uploadss },  //饮食上传图片  uploadss
-    { path:"/otherDishes", name:"otherDishes", component: otherDishes },  //饮食上传图片  其他菜式 
+    { path:"/otherDishes", name:"otherDishes", component: otherDishes },  //饮食上传图片  其他菜式
+    { path:"/weightEstimation", name:"weightEstimation", component: weightEstimation },  //饮食上传 重量估算
     { path:"/symptom", name:"symptom", component: symptom },  //并发症状sympList
 	{ path:"/sympList", name:"sympList", component: sympList },  //并发症状
 	{ path:"/sympEye", name:"sympEye", component: sympEye },  //并发症状查看
 	{ path:"/welcomezz", name:"welcomezz", component: welcomezz },  //并发症状welcomezz
-    { path:"/nutrition", name:"nutrition", component: nutrition },  //营养 
+    { path:"/nutrition", name:"nutrition", component: nutrition },  //营养
     { path:"/sport", name:"sport", component: sport },  //运动
     { path:"/sportAgreement", name:"sportAgreement", component: sportAgreement },  //运动禁忌须知
+	{ path:"/sportDetail", name:"sportDetail", component: sportDetail },  //运动
     { path:"/nutritionUploadPhoto", name:"nutritionUploadPhoto", component: nutritionUploadPhoto },  //营养 拍照上传
     { path:"/uploadPhoto_supplement", name:"uploadPhoto_supplement", component: uploadPhoto_supplement },  //营养 拍照上传
     { path:"/uploadPhoto_addCase", name:"uploadPhoto_addCase", component: uploadPhoto_addCase },  //营养 添加方案
-    { path:"/mood", name:"mood", component: mood },  //心情 
+    { path:"/mood", name:"mood", component: mood },  //心情
 	{ path:"/welcomexqgl", name:"welcomexqgl", component: welcomexqgl },
     { path:"/moodExplain", name:"moodExplain", component: moodExplain },  //心情说明
     { path:"/healthy", name:"healthy", component: healthy },  //健康
@@ -306,8 +310,8 @@ const router = new Router({
 	{ path:"/otherfood", name:"otherfood", component: otherfood },  //
     { path:"/use_guide", name:"use_guide", component: use_guide },  //使用指南
     { path:"/project_description", name:"project_description", component: project_description },  //项目说明
-    
-		{ path:"/makeform", name:"makeform", component: makeform },  //营养 
+
+		{ path:"/makeform", name:"makeform", component: makeform },  //营养
 		//服务
 		{ path:"/service2", name:"service2", component: service2},
 		{ path:"/menuRecog", name:"menuRecog", component: menuRecog },  //
@@ -317,23 +321,23 @@ const router = new Router({
 		{ path:"/shopcar", name:"shopcar", component: shopcar },  //购物车
 		{ path:"/orderPay", name:"orderPay", component: orderPay },   //订单
 		{ path:"/orderPayPaySuccess", name:"orderPayPaySuccess", component: orderPayPaySuccess },  //支付
-	
+
     //社区页面
-    { path:"/edition", name:"edition", component: edition },  //在线教育 
-    { path:"/chartDetail", name:"chartDetail", component: chartDetail },  //动态详情  
-    { path:"/publish", name:"publish", component: publish },  //发布动态  
-    { path:"/activetyDetail", name:"activetyDetail", component: activetyDetail },  //活动详情  
+    { path:"/edition", name:"edition", component: edition },  //在线教育
+    { path:"/chartDetail", name:"chartDetail", component: chartDetail },  //动态详情
+    { path:"/publish", name:"publish", component: publish },  //发布动态
+    { path:"/activetyDetail", name:"activetyDetail", component: activetyDetail },  //活动详情
     { path:"/activetyEnroll", name:"activetyEnroll", component: activetyEnroll },  //活动报名
-    { path:"/caseDetail", name:"caseDetail", component: caseDetail },  //案例详情 
-    
-    
+    { path:"/caseDetail", name:"caseDetail", component: caseDetail },  //案例详情
+
+
     //医生
     { path:"/searchDoctor", name:"searchDoctor", component: searchDoctor },  //查找医生
     { path:"/searchDoctorList", name:"searchDoctorList", component: searchDoctorList },  //查找医生
     { path:"/doctorInfo/:key", name:"doctorInfo", component: doctorInfo },  //医生简介
     { path:"/doctorPay", name:"doctorPay", component: doctorPay },  //医生支付信息
     //{ path:"/cityList", name:"cityList", component: cityList },  //城市列表
-    
+
 		//量表
 		{ path:"/gauge_NRS2002", name:"gauge_NRS2002", component: gauge_NRS2002 },  //NRS量表
 		{ path:"/gauge_PG_SGA", name:"gauge_PG_SGA", component: gauge_PG_SGA },  //PG-SGA量表
@@ -341,9 +345,9 @@ const router = new Router({
 		{ path:"/gauge_nutrition", name:"gauge_nutrition", component: gauge_nutrition },  //营养处方量表
 		{ path:"/sport_CF", name:"sport_CF", component: sport_CF },
 		{ path:"/watch_repot", name:"watch_repot", component: watch_repot },  //查看报告
-	
-    
-    
+
+
+
     // { path:"/panicBuyingArea", name:"panicBuyingArea", component: panicBuyingArea, meta:{keepAlive: true}},
     // { path:"/panicBuyingAreaDetail/:sKey", name:"panicBuyingAreaDetail", component: panicBuyingAreaDetail },
     // { path:"/panicBuyingAreaPaySuccess", name:"panicBuyingAreaPaySuccess", component: panicBuyingAreaPaySuccess },
@@ -357,7 +361,7 @@ const router = new Router({
     // { path:"/mapadress/:lnglat", name:"mapadress", component: mapadress },
     // { path:"/mershopdetail/:key/:skey", name:"mershopdetail", component: mershopdetail },
     // { path:"/ChoiCity", name:"ChoiCity", component: ChoiCity },
-    
+
     { path:"/yearCard", name:"yearCard", component: yearCard },
 	{ path:"/homemessage", name:"homemessage", component: homemessage },
 //  { path:"/searchproduct", name:"searchProduct", component: search_product },

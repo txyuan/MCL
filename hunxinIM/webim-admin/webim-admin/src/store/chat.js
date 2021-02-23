@@ -582,6 +582,7 @@ const Chat = {
 										time: time,
 										type: 'txt',
 										mid: item.msgKey,
+										from:item.msgTo,
 										status: "read"
 									};
 									// if(payload.isGroup){
@@ -600,6 +601,7 @@ const Chat = {
 										type: "img",
 										time: time,
 										mid: item.msgKey,
+										from:item.msgTo,
 										status: "read"
 									};
 									// if(payload.isGroup){

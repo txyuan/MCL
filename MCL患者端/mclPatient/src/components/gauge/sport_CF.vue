@@ -1,44 +1,44 @@
 <template>
 	<div class="PG-SGA-root padding-header padding-footer">
-		<mt-header title="运动处方" fixed class="borderBottom">
+		<mt-header title="运动处方" fixed>
 			<div slot="left">
 				<header-back>
 					<mt-button icon="back"></mt-button>
 				</header-back>
 			</div>
 		</mt-header>
-		<div>
-			<div class="title2 yellow bg-white">1.目前的活动状态</div>
-			<mt-radio :options="diettabooRadiolists.option" v-model="param.activity_state" class="borderBottom"></mt-radio>
-			<div class="title2 yellow bg-white">2.您的日常运动</div>
-			<mt-radio :options="diettaboolists.option" v-model="param.daily_state" class="borderBottom"></mt-radio>
-			<div class="title2 yellow bg-white">3.您目前身体状况</div>
-			<mt-radio :options="diettabooRadiolist.option" v-model="param.physical_condition" class="borderBottom"></mt-radio>
-			<div class="title2 yellow bg-white">4.体格检查</div>
-			<div class="title2 bg-white" style="line-height: 1.5;">
-				（1）心率：<input type="number" pattern="number" class="line-input" v-model="param.heart_rate"><br />
+		<div class="motionRecipel">
+			<div class="title2 ">1、目前的活动状态<em class="text_bt">(必填)</em></div>
+			<mt-radio :options="diettabooRadiolists.option" v-model="param.activity_state"></mt-radio>
+			<div class="title2 ">2、您的日常运动<em class="text_bt">(必填)</em></div>
+			<mt-radio :options="diettaboolists.option" v-model="param.daily_state"></mt-radio>
+			<div class="title2 ">3、您目前身体状况<em class="text_bt">(必填)</em></div>
+			<mt-radio :options="diettabooRadiolist.option" v-model="param.physical_condition"></mt-radio>
+			<div class="title2 ">4、体格检查<em class="text_bt">(必填)</em></div>
+			<div class="motpel bg-white" style="line-height: 1.5;">
+        <div>
+          <p>（1）心率：<input type="number" pattern="number" class="line-input" v-model="param.heart_rate" style="min-width: 70px"></p></div>
 				<!-- 血压：<input type="number" pattern="number" class="line-input" v-model="topgy">/<input type="number" pattern="number" class="line-input" v-model="botdy"><br />
 				体温：<input type="number" pattern="number" class="line-input" v-model="param.temperature"><br />
 				疾病部位：<input type="text" class="line-input" v-model="param.location_disease"><br />
 				定时端坐起立试验<input type="number" pattern="number" class="line-input" v-model="param.standing_time">秒<br /> -->
-				（2）疾病部位疼痛情况：
-				<mt-radio :options="jibingList.option" v-model="param.itemvalue" class=""></mt-radio>
-				（3）6分钟能步行<input type="number" pattern="number" class="line-input" v-model="param.walking_distance">米
-				<div class="title2 bg-white">
-					是否完成试验
-				</div>
-				<mt-radio :options="islists.option" v-model="param.experiment_off" class="borderBottom"></mt-radio>
+        <div><p>（2）疾病部位疼痛情况：</p>
+          <mt-radio :options="jibingList.option" v-model="param.itemvalue" class=""></mt-radio></div>
+        <div>
+			<p>（3）6分钟能步行<input type="number" pattern="number" class="line-input" v-model="param.walking_distance">米,是否完成试验</p>
+
+				<mt-radio :options="islists.option" v-model="param.experiment_off"></mt-radio></div>
 			</div>
 
-			<div class="title2 yellow bg-white">5.肺功能测试</div>
-			<mt-radio :options="diettlist.option" v-model="param.lung_test" class="borderBottom"></mt-radio><!-- mt-checklist -->
-			<div class="fix_bottom fix_bottom_area">
+			<div class="title2 ">5、肺功能测试<em class="text_bt">(必填)</em></div>
+			<mt-radio :options="diettlist.option" v-model="param.lung_test"></mt-radio><!-- mt-checklist -->
+			<div class="fix_bottom">
 				<mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit">保存</mt-button>
 			</div>
-			<div class="title2 yellow bg-white">6.认知障碍</div>
-			<mt-radio :options="obstaclelist.option" v-model="param.obstacle" class="borderBottom"></mt-radio><!-- mt-checklist -->
-			<div class="fix_bottom fix_bottom_area">
-				<mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit">保存</mt-button>
+			<div class="title2 ">6、认知障碍<em class="text_bt">(必填)</em></div>
+			<mt-radio :options="obstaclelist.option" v-model="param.obstacle"></mt-radio><!-- mt-checklist -->
+			<div class="fix_bottom">
+				<mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit">提交申请</mt-button>
 			</div>
 		</div>
 	</div>
@@ -247,7 +247,7 @@ export default {
 	    return
 	  }
 	  if (this.param.walking_distance == '') {
-	    this.$Toast('请填写您6分钟能不行多远')
+	    this.$Toast('请填写您6分钟能步行多远')
 	    return
 	  }
 	  if (this.param.experiment_off == '') {
@@ -268,9 +268,10 @@ export default {
           this.$Toast(data.rspdesc)
           return
         }
-        this.$Toast('保存成功')
+        this.$Toast('提交申请成功')
         // 查看报告
-        this.$router.push('/sport')
+		this.$router.replace('/sport');
+        // this.$router.push('/sport')
       })
     },
     // 疾病情况 接口
@@ -307,31 +308,70 @@ export default {
 </script>
 
 <style scoped lang="scss">
-	.title,
-	.title2 {
-		margin-top: 10px;
-		padding: 5px 10px;
-		font-size: 16px;
-	}
+  .mint-header {
+    height:0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .padding-header {
+    padding-top: 0.44rem;
+  }
+  .motionRecipel{
 
-	.title2 {
-		margin-top: 0px;
-		font-size: 14px;
-		padding: 0 10px;
-		min-height: 48px;
-		line-height: 48px;
-	}
+    .title,
+    .title2 {
+      margin-top: 10px;
+      padding: 5px 10px;
+      font-size: 0.15rem;
+    }
+
+    .title2 {
+      padding: 0 0.1rem;
+      min-height: 0.44rem;
+      line-height: 0.44rem;
+      background-color: #FFFFFF;
+      border-bottom: 1px solid #e5e5e5;
+      .text_bt{
+        font-style: normal;
+        font-size: 0.13rem;
+        color: #CB0000;
+        padding-left: 0.05rem;
+      }
+    }
+    .motpel{
+      padding-left: 0.2rem;
+      .mint-radiolist{
+        padding: 0;
+      }
+      &>div{
+        border-bottom: 1px dashed #e5e5e5;
+        padding-bottom: 0.035rem;
+        p{
+          height: 0.44rem;
+          line-height: 0.44rem;
+          font-size: 0.145rem;
+          color: #666666;
+        }
+      }
+      &>div:last-child{
+
+        border-bottom:0;
+      }
+    }
+  }
 </style>
 <style lang="scss">
 	.PG-SGA-root {
+    .motionRecipel{
+
+
 		.line-input {
 			width: 50px;
 			border: none;
-			border-bottom: 1px solid #EEEEEE;
+			border-bottom: 1px solid #e5e5e5;
 		}
 
 		a.mint-cell .mint-cell-text {
-			font-size: 14px;
+			font-size: 0.145rem;
 		}
 
 		.mint-field .mint-cell-title,
@@ -351,7 +391,7 @@ export default {
 			// width: 250px;
 			height: 33px;
 			margin-left: 10px;
-			font-size: 14px;
+			font-size: 0.145rem;
 			color: inherit;
 			text-indent: 5px;
 			border: 1px solid #EEEEEE;
@@ -361,7 +401,14 @@ export default {
 			border: 1px solid #EEEEEE;
 			height: 33px;
 		}
-
+      .mint-radio-input:checked+.mint-radio-core, .mint-checkbox-input:checked+.mint-checkbox-core{
+        background-color: #0AC5C9;
+        border-color: #0AC5C9;
+      }
+.mint-radiolist{
+  padding: 0.1rem 0;
+  background-color: #FFFFFF;
+}
 		// 多选框
 		.mint-radiolist.radio-nowrap {
 			background: #FFF;
@@ -384,12 +431,21 @@ export default {
 
 		.mint-radiolist .mint-radio-label,
 		.mint-checkbox-label {
-			font-size: 14px;
+			font-size: 0.145rem;
+      color: #666666;
 		}
 
 		.mint-radiolist .mint-radiolist-title,
 		.mint-checklist-title {
 			margin: 0;
 		}
+    .fix_bottom {
+      padding: 0;
+      .theme-button{
+        border-radius: 0;
+        height: 48px;
+        background-color:#0AC5C9;
+      }
+    }}
 	}
 </style>

@@ -54,8 +54,8 @@
 		</div>
 		<div class="home_ul">
 			<div class="home_list" v-for="(item,index) in list" :key="index">
-				<p @click="getchildg(item)" v-if="item.clists.length==0">{{item.groupname}}（{{item.groupcount}}）</p>
-				<p @click="getchildg(item)" v-else class="showIs">{{item.groupname}}（{{item.groupcount}}）</p>
+        <p @click="getchildg(item)" v-if="item.clists.length==0">{{item.groupname}}（<span class="nr_sm">{{item.groupcount}}</span>）</p>
+        <p @click="getchildg(item)" v-else class="showIs">{{item.groupname}}（<span class="nr_sm">{{item.groupcount}}</span>）</p>
 				<ul>
 					<li v-for="(items,i) in item.clists" :key="i">
 						<router-link :to="'/chatCenter?skey='+items.patientskey">
@@ -215,7 +215,7 @@ export default {
 		.home_saerch {
 			height: 0.8rem;
 			padding: 0.2rem 0 0.06rem 0;
-			background: rgb(36,183,192);
+			background:#0AC5C9;
 			.home_over{
 				width: 94%;
 				margin: 0 auto;
@@ -231,13 +231,25 @@ export default {
 					display: block;
 					height: 0.30rem;
 					padding: 0 0.1rem 0 0.4rem;
-					background: #80d0f5 url(../../assets/images/sousuo@2x.png) no-repeat 0.1rem center;
+					background: rgba(255,255,255,0.3) url(../../assets/images/搜索--1@2x.png) no-repeat 0.1rem center;
 					background-size: 0.2rem;
 					border-radius: 0.19rem;
 					font-size: 0.14rem;
-					color: #666;
+					color: #666666;
 					float: right;
 				}
+        input::-webkit-input-placeholder{
+          color:#FFFFFF;
+        }
+        input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+          color:#FFFFFF;
+        }
+        input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+          color:#FFFFFF;
+        }
+        input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+          color:#FFFFFF;
+        }
 			}
 
 		}
@@ -250,19 +262,19 @@ export default {
 			border-radius: 8px;
 			p{
 				overflow: hidden;
-				padding: 0.16rem 8%;
+				padding: 0.15rem 6%;
 				img{
-					width: 0.4rem;
-					height: 0.4rem;
-					border-radius: 0.2rem;
+          width: 0.52rem;
+          height: 0.52rem;
+          border-radius: 50%;
 					display: block;
 					float: left;
 				}
 				span{
 					display: block;
-					font-size: 0.14rem;
+					font-size: 0.15rem;
 					float: left;
-					line-height: 0.4rem;
+					line-height: 0.5rem;
 					margin-left: 0.14rem;
 				}
 			}
@@ -369,8 +381,10 @@ export default {
 		margin-top: 0.1rem;
 		.home_list {
 			border-top: 1px solid #DFE6E7;
-
-			&:first-child {
+      .nr_sm{
+        color: #4A8EF4;
+      }
+        &:first-child {
 				border-top: none;
 			}
 
@@ -378,12 +392,12 @@ export default {
 				height: 0.5rem;
 				font-size: 0.15rem;
 				color: #333535;
-				background: url(../../assets/images/fenzu@2x.png) no-repeat 0.06rem center;
+				background: url(../../assets/images/eyenext.png) no-repeat 0.06rem center;
 				background-size: 0.2rem;
 				padding-left: 0.26rem;
 				line-height: 0.5rem;
 				&.showIs {
-					background: url(../../assets/images/fenzuxiala@2x.png) no-repeat 0.06rem center;
+					background: url(../../assets/images/eyenext@2x.png) no-repeat 0.06rem center;
 					background-size: 0.2rem;
 				}
 			}
@@ -398,9 +412,9 @@ export default {
 				img {
 					display: block;
 					float: left;
-					width: 0.54rem;
-					height: 0.54rem;
-					border-radius: 0.27rem;
+					width: 0.52rem;
+					height: 0.52rem;
+					border-radius: 50%;
 					margin-left: 0.1rem;
 					margin-top: 0.07rem;
 				}

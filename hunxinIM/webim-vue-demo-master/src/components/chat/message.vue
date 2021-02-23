@@ -47,8 +47,11 @@
             <img
               :key="item.msg"
               :src="item.msg?item.msg:''"
+              :preview="1"
+			  :style="{'float':item.bySelf ? 'right':'left',maxWidth: '60%'}"
               v-if="item.type === 'img'"
               class="img-style"
+			  @load="()=>{$previewRefresh()}"
             />
             <!-- 文件card -->
             <div
@@ -85,7 +88,7 @@
               :class="{ 'byself': item.bySelf}"
             />
 
-             <div v-if="item.bySelf?true:false" class="status">{{status[item.status]}}</div> 
+             <!-- <div v-if="item.bySelf?true:false" class="status">{{status[item.status]}}</div> -->
           </span>
           <!-- <el-dropdown-menu slot="dropdown" >
             <el-dropdown-item command="a" :disabled="!item.bySelf">撤回</el-dropdown-item>
@@ -112,10 +115,10 @@
         <!-- 上传图片组件 -->
         <UpLoadImage :type="this.type" :chatId="activedKey[type]" />
         <!-- 上传文件组件 -->
-        <!-- <UpLoadFile :type="this.type" :chatId="activedKey[type]" /> -->
+        <UpLoadFile :type="this.type" :chatId="activedKey[type]" />
 
         <!-- 发送语音 -->
-        <!--<RecordAudio v-show="isHttps" />
+        <RecordAudio v-show="isHttps" />
 
         <i
           class="el-icon-video-camera icon"
@@ -129,7 +132,7 @@
           @click="callVoice"
           v-show="isHttps && type != 'chatroom'"
           :style="nowIsVideo?'pointer-events: none':'cursor: pointer'"
-        ></i>-->
+        ></i>
         <div style="flex: 1; text-align: right;"></div>
         <a-button type="primary" size="small" style="margin-top: -3px;" @click="onSendTextMsg">发送</a-button>
       </div>

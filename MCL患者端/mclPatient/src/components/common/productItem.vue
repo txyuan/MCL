@@ -25,7 +25,8 @@
          </div> -->
 				 <div class="product_mpny">
 					 <p>¥ {{item.marketPrice}}</p>
-					  <router-link :to="`/${detailPage}/${item.goodsId}`" class="img_wrap">
+					  <!-- <router-link :to="`/${detailPage}/${item.goodsId}`" class="img_wrap"> -->
+						<router-link :to="`/${detailPage}/${item.goodsId}`" class="img_wrap">
 					    <span>立即抢购</span>
 					  </router-link>
 				 </div>

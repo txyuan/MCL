@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<div class="fix_top">
+	<div style="padding-top: 0.44rem">
+		<div class="fix_top" >
 			<mt-header fixed title="筛查评估报告">
 				<div slot="left">
 					<header-back>
@@ -9,7 +9,7 @@
 				</div>
 			</mt-header>
 		</div>
-		
+
 		<div class="nuteye">
 			<div class="headty_inform">
 				<div class="headty_mead">
@@ -33,35 +33,41 @@
 			</div>
 			<div class="nut_list">
 				<div class="nut_li">
-					<h2>
-						<span>风险筛查（NRS-2002）</span>
-					</h2>
-					<p>
-						<u>筛查结果：</u>
-						<strong>{{responseData.nutritionriskvalue}}</strong>
-					</p>
-					<label>{{responseData.nutritionriskresult}}</label>
-				</div>
-				<i>{{responseData.nutritionremarks}}</i>
+					<h3>
+						<em></em>风险筛查（NRS-2002）
+					</h3>
+					<div class="nut_linr">
+            <div class="flex-grow-1">
+              <u>筛查结果：</u>
+              <span>{{responseData.nutritionriskresult}}</span>
+            </div>
+            <div>
+              <strong>{{responseData.nutritionriskvalue}}</strong></div>
+					</div>
+				<p>{{responseData.nutritionremarks}}</p>
+      </div>
 			</div>
 			<div class="nut_list">
 				<div class="nut_li">
-					<h2>
-						<span>营养评估（PG-SGA）</span>
-					</h2>
-					<p>
-						<u>评估结果：</u>
-						<strong>{{responseData.pgsgavalue}}</strong>
-					</p>
-					<label>{{responseData.pgsgaresult}}</label>
-				</div>
-				<i>{{responseData.pgsgaremarks}}</i>
+					<h3>
+						<em></em>营养评估（PG-SGA）
+					</h3>
+          <div class="nut_linr">
+            <div class="flex-grow-1">
+              <u>评估结果：</u>
+              <span>{{responseData.pgsgaresult}}</span>
+            </div>
+            <div>
+              <strong>{{responseData.pgsgavalue}}</strong></div>
+          </div>
+        <p>{{responseData.pgsgaremarks}}</p>
+      </div>
 			</div>
 			<!-- <div class="nut_list" v-show="responseData.mnasfShow">
 				<div class="nut_li">
-					<h2>
+					<h3>
 						<span>营养评估</span>
-					</h2>
+					</h3>
 					<p>
 						<u>MNA-SF评分值：</u>
 						<strong>{{responseData.mnasfvalue}}</strong>
@@ -72,18 +78,20 @@
 			</div> -->
 			<div class="nut_list">
 				<div class="nut_li">
-					<h2>
-						<span>膳食摄入评估</span>
-					</h2>
-					<p class="dsuv_eveall">
+					<h3>
+						<em></em>膳食摄入评估
+					</h3>
+					<div class="dsuv_eveall">
 						<!-- <label>能量分配：</label> -->
-						<span>
-							<i>总能量: {{responseData.foodEnergy}}</i>
-							<i>碳水化合物:{{responseData.carbohydrate}}</i>
-							<i>总脂肪:{{responseData.fat}}</i>
-							<i>蛋白质:{{responseData.protein}}</i>
-						</span>
-					</p>
+						<div>
+							<span>总能量: {{responseData.foodEnergy}}</span>
+							<span>碳水化合物:{{responseData.carbohydrate}}</span>
+          </div>
+            <div>
+							<span>总脂肪:{{responseData.fat}}</span>
+							<span>蛋白质:{{responseData.protein}}</span>
+						</div>
+					</div>
 					<!-- <p>
 						<u>评估结果：{{responseData.detectionresult}}</u>
 					</p> -->
@@ -113,7 +121,7 @@
 				mnasfvalue: "", //MNASF分值
 				mnasfresult: "", //MNASF结果
 				mnasfremarks: "", //MNASF备注
-				mnasfShow: false 
+				mnasfShow: false
 			},
 			patientskey:''
 		}),
@@ -152,29 +160,28 @@
 </script>
 
 <style scoped lang="scss">
+  .mint-header {
+    height: 0.44rem;
+    line-height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .fix_top{
+    padding-top: 0.44rem;
+  }
 	.dsuv_eveall{
-		overflow: hidden;
-		font-size: 0.14rem;
+    display: flex;
 		margin-top: 0.04rem;
-		label{
-			float: left;
-			display: block;
-			font-weight: 600;
-			color: #333;
-		}
-		span{
-			width: 75%;
-			display: block;
-			float: left;
-			color: #666;
-			i{
-				font-style: normal;
-				display: block;
-				margin-top: 0.04rem;
-				margin-left: 0.06rem;
-				padding: 0 !important;
-			}
-		}
+    padding: 0.1rem 0;
+    div{
+      width: 50%;
+
+    }
+    span{
+      font-style: normal;
+      font-size: 0.145rem;
+      display: block;
+      padding:0.05rem 0.1rem;
+    }
 	}
 	.headty_inform{
 		width: 100%;
@@ -188,15 +195,15 @@
 			text-align: center;
 			line-height: 0.36rem;
 			margin-top: 0.16rem;
-			
+
 		}
 		.headty_mead{
 			width: 94%;
-			padding: 0.1rem 3%;
+			padding: 0.1rem 3% 0.2rem 3%;
 			margin-top: 0.1rem;
 			background: #fff;
 			border-radius: 8px;
-			font-size: 0.14rem;
+			font-size: 0.145rem;
 			ol{
 				overflow: hidden;
 				li{
@@ -213,18 +220,16 @@
 		}
 	}
 	.nuteye {
-		padding: 0 3%;
-		margin-top: 43px;
-		padding-bottom: 0.3rem;
+		padding: 0 3% 0.3rem 3%;
 		.nut_list {
-			padding-top: 0.1rem;
-
+			margin-top: 0.1rem;
+      background: #fff;
+      border-radius: 6px;
+      padding: 0.1rem 0;
 			.nut_li {
-				background: #fff;
-				border-radius: 6px;
 				padding: 0 3%;
 
-				h2 {
+				h3 {
 					width: 100%;
 					height: 0.44rem;
 					border-bottom: 1px solid #DFE6E7;
@@ -233,51 +238,66 @@
 					line-height: 0.44rem;
 					color: #333535;
 
-					span {
-						border-left: 2px solid #F78335;
-						padding-left: 0.1rem;
+					em {
+            font-style: normal;
+            background-color: #4A8EF4;
+            display: inline-block;
+            width: 0.035rem;
+            height:  0.135rem;
+            margin-right: 0.05rem;
+            border-radius: 0.015rem;
 					}
 				}
+        .nut_linr{
+          display: flex;
+          align-items: center;
+          padding: 0.1rem;
+          border-bottom: 1px dashed #e5e5e5;
 
-				p {
-					overflow: hidden;
-					padding: 0.1rem 0;
-					font-size: 0.14rem;
+          .flex-grow-1 {
+            flex-grow: 1;
+          }
+          .justify-content-between {
+            justify-content: space-between;
+          }
+          u {
+            text-decoration: none;
+            color: #484848;
+            display: block;
+            font-size: 0.145rem;
+          }
+          span {
+            color: #484848;
+            display: block;
+            font-size: 0.15rem;
+            padding-top: 0.1rem;
+            padding-bottom: 0.05rem;
+          }
 
-					u {
-						text-decoration: none;
-						color: #636768;
-						float: left;
-					}
+          strong {
+            color: #F78335;
+            font-weight: 400;
+            font-size: 0.25rem;
+            letter-spacing: 2px;
+          }
+        }
 
-					strong {
-						color: #F78335;
-						float: right;
-						font-weight: 400;
-					}
-				}
+        p {
+          font-style: normal;
+          font-size: 0.13rem;
+          color: #898989;
+          padding: 0.1rem 3% 0.04rem 3%;
+          display: block;
+        }
 
-				label {
-					display: block;
-					text-align: right;
-					color: #636768;
-					font-size: 0.14rem;
-					padding-bottom: 0.12rem;
-				}
 			}
 
-			i {
-				font-style: normal;
-				font-size: 0.13rem;
-				color: #636768;
-				padding: 0.12rem 3% 0.04rem 3%;
-				display: block;
-			}
 		}
 	}
 	.rightdate{
 		text-align: right;
-		font-size: 0.14rem;
-		margin-top: 0.1rem;
+		font-size: 0.145rem;
+		margin-top: 0.12rem;
 	}
+
 </style>

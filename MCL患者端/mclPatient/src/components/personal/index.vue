@@ -149,13 +149,20 @@
 							<p class="row">每日签到</p>
 						</div>
 					</router-link>
-
-					<router-link :to="'/personalreceivingadress'">
+					<!-- <router-link :to="'/personalreceivingadress'">
 						<div class="cell">
 							<div class="row">
 								<img src="@/assets/images/wodedizhi.png" style="width: 0.25rem;height: 0.25rem;" alt="">
 							</div>
 							<p class="row">我的地址</p>
+						</div>
+					</router-link> -->
+					<router-link :to="'/shopcar'">
+						<div class="cell">
+							<div class="row">
+								<img src="@/assets/images/wodedizhi.png" style="width: 0.25rem;height: 0.25rem;" alt="">
+							</div>
+							<p class="row">购 物 车</p>
 						</div>
 					</router-link>
 				</div>

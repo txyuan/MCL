@@ -9,9 +9,9 @@
   	</mt-header>
   	<!-- <div class="page_btn text-center">
   		<img src="@/assets/images/病例.png" width="79" style="margin-bottom: 15px;"/>
-  		<mt-button type="primary" class="theme-button button-radio " size="large" @click.native="$router.push(`/physician`)">上传病例</mt-button>  
+  		<mt-button type="primary" class="theme-button button-radio " size="large" @click.native="$router.push(`/physician`)">上传病例</mt-button>
   	</div> -->
-  	
+
   	<div class="rev_fuc" style="margin-top: 0.1rem;padding-bottom: 0.3rem;">
 		<loadMore :param="param" @triggerGetList="getList" ref="loadMoreE">
 			<div slot="content">
@@ -22,7 +22,7 @@
 						<label>上传时间： {{item.ReviewDate}}</label>
 					</div>
 					<router-link :to="`/physicians?id=${item.ReKey}`">
-						<span class="greens">查看报告</span>
+						<span class="blue">查看报告</span>
 					</router-link>
 				</div>
 			</div>
@@ -74,10 +74,18 @@
 </script>
 
 <style scoped lang="scss">
+  .mint-header {
+    height: 0.44rem;
+    line-height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .padding-header{
+    padding-top: 0.44rem;
+  }
   .page_btn{
   	padding: 0.25rem;
   }
-  
+
   .rev_fuc{
 			width: 100%;
 			background: #fff;
@@ -90,9 +98,13 @@
 				border-bottom: 1px solid #eee;
 			}
 			.rev_list{
-				padding: 0.13rem 3% 0.15rem 4%;
-				border-bottom: 1px solid #eee;
-				overflow: hidden;
+        padding: 0.13rem 3% 0.15rem 4%;
+        border-bottom: 1px solid #eee;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px dashed #e5e5e5;
+        justify-content: space-between;
 				.rev_lilf{
 					float: left;
 					width:70%;
@@ -108,22 +120,23 @@
 					}
 				}
 				span{
-					float: right;
-					height: 0.28rem;
-					padding: 0 0.14rem;
-					display: block;
-					background: #F78335;
-					color: #fff;
-					line-height: 0.28rem;
-					font-size: 0.14rem;
-					border-radius: 0.14rem;
-					margin-top: 0.08rem;
+          padding: 0 0.14rem;
+          display:inline-block;
+          background: #4A8EF4;
+          color: #fff;
+          line-height: 0.22rem;
+          font-size: 0.135rem;
+          border-radius: 0.14rem;
+          margin-top: 0.08rem;
 					&.greens{
 						background: #4D9C30;
 					}
 					&.bluue{
 						background: #6358F4;
 					}
+          &.blue{
+            background-color: #4A8EF4;
+          }
 				}
 			}
 		}

@@ -26,11 +26,13 @@
 			</div>
 		</div>
 		<div class="img_wrap" v-if="showButton">
-			<div class="tits">检查报告一 </div>
+
+      <div class="img_wrap_list">
+			<div class="tits">肝肾功检验报告单 </div>
 			<div class="img text-center" style="margin-bottom: 10px">
 				<div class="defaultImg" v-if="isShowDefalutIdCardA">
 					<img :src="idCardA" alt="">
-					<p>上传检查报告一</p>
+					<p>上传血常规检验报告单</p>
 				</div>
 				<div class="newImg" v-else>
 					<img :src="param.inspectpre" alt="">
@@ -39,12 +41,14 @@
 					<!-- <input v-if="anios==1" type="file" accept="image/*" name="uploadedFile" @click="changes('A')" ref="idCardAFile"> -->
 					<input type="file" accept="image/*" name="uploadedFile" @change="change($event,'A')" ref="idCardAFile">
 				</div>
-			</div>
-			<div class="tits">检查报告二 </div>
+      </div>
+      </div>
+      <div class="img_wrap_list">
+			<div class="tits">肝肾功检验报告单 </div>
 			<div class="img text-center" style="margin-bottom: 10px">
 				<div class="defaultImg" v-if="isShowDefalutIdCardB">
 					<img :src="idCardB" alt="" id="bb">
-					<p>上传检查报告二</p>
+					<p>上传肝肾功检验报告单</p>
 				</div>
 				<div class="newImg" v-else>
 					<img :src="param.leavehospitalpre" alt="">
@@ -54,6 +58,8 @@
 					<input type="file" accept="image/*" @change="change($event,'B')" ref="idCardBFile">
 				</div>
 			</div>
+      </div>
+      <div class="img_wrap_list">
 			<div class="tits">出院报告 </div>
 			<div class="img text-center" style="margin-bottom: 10px">
 				<div class="defaultImg" v-if="isShowDefalutIdCardC">
@@ -69,12 +75,14 @@
 				</div>
 			</div>
 		</div>
+    </div>
 		<div class="img_wrap eyepic" v-else>
-			<div class="tits">检查报告一</div>
+      <div class="img_wrap_list">
+			<div class="tits">血常规检验报告单</div>
 			<div class="img text-center" style="margin-bottom: 10px">
 				<div class="defaultImg" v-if="isShowDefalutIdCardA">
 					<img :src="idCardA" alt="">
-					<p>上传检查报告一</p>
+					<p>上传血常规检验报告单</p>
 				</div>
 				<div class="newImg" v-else>
 					<img :src="param.inspectpre" alt="">
@@ -84,11 +92,13 @@
 					<input type="file" accept="image/*" name="uploadedFile" @change="change($event,'A')" ref="idCardAFile">
 				</div>
 			</div>
-			<div class="tits">检查报告二 </div>
+      </div>
+      <div class="img_wrap_list">
+			<div class="tits">肝肾功检验报告单 </div>
 			<div class="img text-center" style="margin-bottom: 10px">
 				<div class="defaultImg" v-if="isShowDefalutIdCardB">
 					<img :src="idCardB" alt="" id="bb">
-					<p>上传检查报告二</p>
+					<p>上传肝肾功检验报告单</p>
 				</div>
 				<div class="newImg" v-else>
 					<img :src="param.leavehospitalpre" alt="">
@@ -98,6 +108,8 @@
 					<input type="file" accept="image/*" @change="change($event,'B')" ref="idCardBFile">
 				</div>
 			</div>
+      </div>
+      <div class="img_wrap_list">
 			<div class="tits">出院报告 </div>
 			<div class="img text-center" style="margin-bottom: 10px">
 				<div class="defaultImg" v-if="isShowDefalutIdCardC">
@@ -113,13 +125,14 @@
 				</div>
 			</div>
 		</div>
+    </div>
 		<div class="others">
 			<div class="tits">影像及其他资料 </div>
 			<div class="uploadArea">
 				<div class="photoList" v-for="(item,index) in photoList" v-if="item.show">
-					<img :src="item.src" width="100" height="100" />
+					<img :src="item.src" width="100%" />
 					<div class="mask">
-						<span class="close" @click="delPhoto(index)" v-if="pageState != 'edit'">X</span> 
+						<span class="close" @click="delPhoto(index)" v-if="pageState != 'edit'">X</span>
 					</div>
 				</div>
 				<img src="@/assets/images/tianjia备份@2x.png" width="100" height="100" @click="addPhoto" class="add" v-if="pageState != 'edit'" v-show="photoAdd"/>
@@ -156,7 +169,7 @@
 	var date = new Date();
 	let startDate = new Date(`${date.getFullYear()-3}/01/01`)
 	let endDate = new Date(`${date.getFullYear()+3}/12/31`)
-	
+
 	import axios from 'axios'
 	export default {
 		name: "realName",
@@ -200,7 +213,7 @@
 				{key:"otherinfo2", src:"", show: false}
 			],
 			//图片加号
-			photoAdd: true,  
+			photoAdd: true,
 			pageState: "add",
 		}),
 		methods: {
@@ -462,7 +475,7 @@
 					input.addEventListener("blur", this.$root.windowScrollTop.bind(this.$root), false);
 				})
 			},
-			
+
 			//其他资料 增加图片按钮
 			addPhoto(){
 				this.pdsfz = 4;
@@ -470,7 +483,7 @@
 					//Ios
 				    return this.$refs.file.click()
 				}else if(this.anios == 1){
-					//Android终端	
+					//Android终端
 				    window.back.clickOnAndroidSelectPhoto();
 				}
 			},
@@ -482,10 +495,10 @@
 				//显示图片新增按钮
 				this.photoAdd = true;
 			},
-			
+
 		},
 		mounted() {
-			
+
 			this.downApp();
 			window.showbg = this.showbg;
 			let that = this;
@@ -496,20 +509,20 @@
 			}]
 			//初始化input的事件
 			this.inputInputBulr()
-			
+
 			const id = this.$route.query.id;
 			if(id){
 				this.showInform();
 				this.showButton = false;  //是否显示确认上传按钮
 				this.photoAdd = false;    //是否图片新增按钮
 				this.pageState = "edit";
-				
+
 			}else{
 				const date = new Date();
-				let year = date.getFullYear(); 
-				let month = date.getMonth(); 
+				let year = date.getFullYear();
+				let month = date.getMonth();
 				month = month+1 < 10 ? `0${month+1}`: month+1;
-				let day = date.getDay(); 
+				let day = date.getDay();
 				day = day < 10 ? `0${day}` : day;
 				this.param.inspectdate = `${year}-${month}-${day}`
 			}
@@ -551,17 +564,25 @@
 </style>
 <style scoped lang="scss">
 	@import "@/assets/css/base.scss";
-
+  .mint-header {
+    height: 0.44rem;
+    line-height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .padding-header {
+    padding-top: 0.44rem;
+  }
 	.img_wrap {
-		background: #fff;
-		padding: 0 10px;
-		padding-bottom: 10px;
-
+    .img_wrap_list{
+      margin-top: 0.1rem;
+      padding: 0 10px 10px 10px;
+      background: #fff;
+    }
 		.tits {
-			font-size: 0.15rem;
-			color: #333535;
-			line-height: 0.5rem;
-			margin-top: 0.1rem;
+      font-size: 0.145rem;
+      color: #333535;
+      line-height: 0.5rem;
+      margin-top: 0.1rem;
 		}
 
 		.img {
@@ -569,7 +590,6 @@
 			background: #F9F9F9;
 			color: $color66;
 			font-size: 0.14rem;
-			height: 1.90rem;
 		}
 
 		.img .defaultImg {
@@ -611,6 +631,7 @@
 			max-width: 100%;
 			display: inline-block;
 			vertical-align: middle;
+      border-radius: 0.06rem;
 		}
 	}
 
@@ -628,26 +649,26 @@
 
 		/*上传图片区域*/
 		.uploadArea {
-			padding: 0.12rem;
-			padding-top: 0;
-
 			.photoList,
 			.add {
-				width: 100px;
-				height: 100px;
+				width: 100%;
 				display: inline-block;
 				margin-right: 10px;
 				margin-bottom: 10px;
 				vertical-align: top;
 				position: relative;
+        border-radius: 0.06rem;
 			}
-
+      .photoList>img{
+        border-radius: 0.06rem;
+      }
 			.mask {
 				position: absolute;
 				width: 100%;
 				top: 0;
 				bottom: 0;
-				background: rgba(0, 0, 0, .2);
+				background: rgba(0, 0, 0, .1);
+        border-radius: 0.06rem;
 
 				.close {
 					position: absolute;
@@ -764,4 +785,16 @@
 		width: 100%;
 		height: auto;
 	}
+</style>
+<style lang="scss">
+  .mains{
+    .mint-cell-wrapper,
+    .mint-cell-title,
+    .mint-cell-value{
+      font-size: 0.145rem;
+      span{
+        font-size: 0.145rem;
+      }
+    }
+  }
 </style>

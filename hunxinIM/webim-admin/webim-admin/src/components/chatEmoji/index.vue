@@ -26,13 +26,17 @@ export default {
   },
   methods: {
     selectEmoji(e) {
-      let value = (this.inpMessage || "") + e;
+	  console.log(e)
+      // let value = (this.inpMessage || "") + e;
+	  let value = this.inpMessage.substring(0, this.messposnum) + e + this.inpMessage.substring(this.messposnumend) 
       this.$data.showModal = false;
       this.$emit("selectEmoji", value);
     }
   },
   props: {
-    inpMessage: String
+    inpMessage: String,
+	messposnum: Number,
+	messposnumend:Number
   }
 };
 </script>

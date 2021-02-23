@@ -1,7 +1,9 @@
 <template xmlns:v-touch="http://www.w3.org/1999/xhtml">
-  <div>
-    <div style="text-align: center;color: #F78335;margin-top: 11px;margin-bottom: 24px;font-size: 0.3rem;font-weight: 600;">{{numberValue}}<span style="font-size: 0.18rem;">公斤</span></div>
-    <div class="ruler " ref="testAA" style="border: 1px solid #B5C0CD;">
+  <div class="ymRuler ">
+    <div class="rultitle"><strong>{{numberValue}}</strong><span style="font-size: 0.18rem;"></span></div>
+    <div class="ruler " ref="testAA">
+    <div class="rulltbg"></div>
+    <div class="rulrtbg"></div>
       <div class="main"
            :style="{'-webkit-transform': 'translateX(' +  mainValue + 'px)', 'width': getMainWidth+'px', position: 'relative',  left: '0px'}">
         <ul style="overflow: hidden;  -webkit-transform: translateX(45px);">
@@ -132,43 +134,77 @@
     list-style: none;
     padding: 0;
   }
-  .ruler {
+  .ymRuler .rultitle {
+    text-align: center;
+    margin-top: 0.15rem;
+    margin-bottom: 0.2rem;
+  }
+  .ymRuler .rultitle strong{
+    font-weight: 600;
+    font-size: 0.275rem;
+    background-color: #FFFFFF;
+    color: #0AC5C9;
+    border-radius: 6px;
+    padding: 0.05rem 0.05rem 0rem 0.15rem;
+    display: inline-block;
+    min-width: 0.625rem;
+  }
+  .ymRuler .ruler {
     height: 90px;
-    overflow: hidden;
+    /*overflow: hidden;*/
     position: relative;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    background:linear-gradient(180deg,rgba(255,205,80,1) 0%,rgba(252,209,134,1) 100%);
+    /*border-top: 1px solid #B5C0CD;*/
+    /*border-bottom: 1px solid #B5C0CD;*/
+    /*background:linear-gradient(180deg,rgba(255,205,80,1) 0%,rgba(252,209,134,1) 100%);*/
+
   }
-  .ruler li {
+  .ymRuler .ruler .rulltbg, .ymRuler  .ruler .rulrtbg{
+    position: absolute;
+    width: 15%;
+    top: -30px;
+    bottom: 0;
+    z-index: 10;
+    display: block;
+  }
+  .ymRuler .ruler .rulltbg{
+    left: 0;
+    background: linear-gradient(to left, rgba(255,255,255,0) 0%,rgba(255,255,255,0.75) 35%, rgba(255,255,255,1) 100%);
+  }
+  .ymRuler .ruler .rulrtbg{
+    right: 0;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,0.75) 35%, rgba(255,255,255,1) 100%);
+  }
+  .ymRuler .ruler li {
     float: left;
     width: 104px;
     height: 60px;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAL8AAAAxCAYAAACLUHiuAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQyIDc5LjE2MDkyNCwgMjAxNy8wNy8xMy0wMTowNjozOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpENzkxQzI5Q0VDQjExMUU4QTRDNDhDRDFEQjY1RjE4MCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpENzkxQzI5REVDQjExMUU4QTRDNDhDRDFEQjY1RjE4MCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkQ3OTFDMjlBRUNCMTExRThBNEM0OENEMURCNjVGMTgwIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkQ3OTFDMjlCRUNCMTExRThBNEM0OENEMURCNjVGMTgwIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Rxi/xQAAAK9JREFUeNrs3LEJgDAURdEfyUQuYO++WusAupKC4gCGIEjOGeAV8RKskqZlO+KWoh6bNj/ZHIf+9eC87tdmF9Ao8SN+ED+IH8QP4gfxg/hB/CB+ED+IH8QP4gfxg/hB/CB+ED+IH8QP4gfxQ4EcdR8YerS8Gc7zH9/IzY/fHhA/iB/ED+IH8YP4QfwgfviL7AiqS47AzQ/iB/GD+EH8IH4QP4gfxA/iB/GD+KHcKcAAOSwPsO1PsqYAAAAASUVORK5CYII=) left top no-repeat;
-    background-size: 94px;
-    padding-top: 30px;
+    padding-top: 45px;
     text-align: right;
     padding-left: 0;
   }
-  .ruler li .num {
+  .ymRuler .ruler li .num {
     display: inline-block;
     position: relative;
     margin-right: -6px;
+    color: #484848;
   }
-  .ruler .arrow {
+  .ymRuler .ruler .arrow {
     width: 0;
     height: 0;
-    border: 8px solid transparent;
-    border-top: 8px solid #ffa657;
+    border: 10px solid transparent;
+    border-top: 16px solid #0AC5C9;
     position: absolute;
     left: 50%;
-    top: 0;
-    margin-left: -8px;
+    top: -6px;
+    margin-left: -14px;
   }
-  .main li {
+  .ymRuler .main li {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANMAAAAxCAYAAABAi5xQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQyIDc5LjE2MDkyNCwgMjAxNy8wNy8xMy0wMTowNjozOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpERDMwOEQ3MEVDQjExMUU4OEVFMDk2RDM3RkE1OEMyRCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpERDMwOEQ3MUVDQjExMUU4OEVFMDk2RDM3RkE1OEMyRCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkREMzA4RDZFRUNCMTExRTg4RUUwOTZEMzdGQTU4QzJEIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkREMzA4RDZGRUNCMTExRTg4RUUwOTZEMzdGQTU4QzJEIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+sPzlxgAAAOlJREFUeNrs3DEKwjAUgOFEciIv4Obgfeusm4texgNUsBTcJNAX0/p9c3mEF35aF/NwuY9pktN3W362Rg9zPdvBvZ0O+3S+Pt5zd4nPRY8rmktn9yYmWIiYQEwgJhATICYQE4gJxASICcQEYgLEBGICMYGYADGBmEBMICZATPB7JS3/d0ozc839q7neTOAzD8QEYgLEBGKCtSiVzz+DzmFuLPttcG+1MR2DzmFuLPttcG+1Md2CzmFuLPttcG9+M4GYQEywScUKupKtwJsJxGQFICYQE4gJEBOICcQEYgLEBGICMQGTlwADAJ6bLbi/IMcnAAAAAElFTkSuQmCC) left top no-repeat;
-    background-size: 100px auto;
     color: #fff;
+    background-size: 200px 42px;
   }
 </style>

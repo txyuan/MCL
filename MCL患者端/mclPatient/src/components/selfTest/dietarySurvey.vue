@@ -60,7 +60,7 @@
 								<img slot="icon" :src="item.foodimg" width="46" height="46">
 								<div slot="title" class="titleWrap">
 									<span class="mint-cell-text">{{item.foodname}}</span>
-									<span class="mint-cell-label font12 huiFont99">实际食用：{{item.foodconsumption}}{{item.gramunit}}</span>
+									<span class="mint-cell-label font12 huiFont99">实际食用：{{parseFloat(item.foodconsumption).toFixed(0)}}{{item.gramunit}}</span>
 								</div>
 								<div class="font14 huiFont99">
 									<span style="margin-right: 5px;vertical-align: middle;">{{item.resultObj.foodkcal}}{{item.kcalunit}}</span>
@@ -116,13 +116,18 @@
 		<div id="mark" :style="{display: (show?'block': 'none')}">
 			<div class="modal" :class="show && 'show' ">
 				<div class="info">
-					<div class="bar">
-						<span class="yellow" @click="hideModal">取消</span>
-						<!-- <span>10月20日/早餐</span> -->
-						<span class="yellow" @click="confirm">确认</span>
-					</div>
+          <div class="btnClose">
+            <span @click="hideModal"></span>
+            <!-- <span>10月20日/早餐</span> -->
+          </div>
 
-					<mt-cell class="borderBottom" style="margin-top: 15px;">
+<!--          <div class="bar">-->
+<!--            <span class="yellow" @click="hideModal">取消</span>-->
+<!--						&lt;!&ndash; <span>10月20日/早餐</span> &ndash;&gt;-->
+<!--						<span class="yellow" @click="confirm">确认</span>-->
+<!--					</div>-->
+
+					<mt-cell style="margin-top: 15px;">
 						<img slot="icon" :src="currentItem.foodimg" width="46" height="46">
 						<div slot="title" class="titleWrap">
 							<span class="mint-cell-text">{{currentItem.foodname}}</span>
@@ -131,33 +136,63 @@
 					</mt-cell>
 
 					<div class="showNum font13">
-						<div class="left huiFont">
-							<p>{{currentItem.foodkcal}} {{currentItem.kcalunit}}</p>
+						<div class="left" style="color: #aaaaaa">
+							<p style="line-height: 25px">{{currentItem.foodkcal}} {{currentItem.kcalunit}}</p>
 							<p>{{currentItem.foodgram}}{{currentItem.gramunit}}</p>
 						</div>
 						<div class="yellow">
-							<p> <span class="num">&nbsp;{{showNum.join().replace(/,/g, "")}}&nbsp;</span><span>{{currentItem.gramunit}}</span></p>
+              <p><span class="num">{{showNum.join().replace(/,/g, "")}}&nbsp;</span><span class="num_g">{{company}}</span></p>
 						</div>
-						<div class="right huiFont">
-							<!-- <p>50克约等于</p>
-							<p>1颗鸡蛋</p> -->
+            <div class="right huiFont"  style="text-align: center; color: #aaaaaa">
+              <p> <img src="@/assets/images/icon-units.png" alt="" class="icon" width="22" height="22"/></p>
+              <p @click="weightEstimation">重量估算</p>
 						</div>
 					</div>
 				</div>
+        <div class="dw_ys" v-show="hideWgtTwo" >
+          <mt-button type="primary" id="saveWeight" class="dw_btn active" size="large" @click.native="saveWeight">克</mt-button>
+          <mt-button type="primary" id="saveTwo" class="dw_btn" size="large" @click.native="saveTwo">两</mt-button>
+        </div>
+        <div class="dw_ys" v-show="hideBtnml" >
+          <mt-button type="primary" id="saveMl" class="dw_btn active"  size="large">ml</mt-button>
+        </div>
 
-				<!--<p class="yellow text-center">克</p>-->
-
-				<ul class="keyboard">
+        <ul class="keyboard">
 					<li v-for="(item,index) in keyList" :style="{'border-right-width': (index%3==2 ? 0 : '2px')}" @click="keyCode(item,index)">{{item}}</li>
 				</ul>
+        <div class="btnConfirm"><span @click="confirm">确 认</span></div>
 			</div>
 		</div>
-
+    <!-- 重量估算picker  -->
+    <mt-popup
+      class="mint-popup-3"
+      v-model="weightVisible"
+      position="right"
+      :modal="false"
+      popup-transition="popup-fade">
+      <mt-header fixed title="重量估算">
+        <div slot="left">
+          <mt-button icon="back" @click.native="toggleModal('hide')"></mt-button>
+        </div>
+      </mt-header>
+      <div class="popup_body" ref="popupBody">
+        <div class="wigtsin_bg">
+          <img src="../../assets/images/wigtsin_1.jpg" width="100%"/>
+          <img src="../../assets/images/wigtsin_2.jpg" width="100%"/>
+          <img src="../../assets/images/wigtsin_3.jpg" width="100%"/>
+          <img src="../../assets/images/wigtsin_4.jpg" width="100%"/>
+          <img src="../../assets/images/wigtsin_5.jpg" width="100%"/>
+          <img src="../../assets/images/wigtsin_6.jpg" width="100%"/>
+          <img src="../../assets/images/wigtsin_7.jpg" width="100%"/>
+        </div>
+      </div>
+    </mt-popup>
 	</div>
 </template>
 
 <script>
 	import Bus from "@/assets/js/updateShopCar.js"; //bus
+  import DLRuler from '../home/diet/ruler' //加载更多组件
 	export default {
 		name: "healthy",
 		data: () => ({
@@ -175,6 +210,11 @@
 				allFat: 0,   //脂肪
 				allCarbohydrate : 0  //碳水化合物
 			},
+
+      hideBtnml: false,
+      hideWgtTwo: true,
+      company:'克',
+      weightVisible: false,
 
 			//早餐的列表
 			breakfastList: [],
@@ -238,12 +278,34 @@
 				this.$router.push(`/otherfood?mealtype=${type}`)
 			},
 
+      // 重量估算
+      weightEstimation() {
+        // this.$router.push(`/weightEstimation`)
+        this.toggleModal('show')
+      },
+
+      toggleModal (type) {
+        var state = (type == 'show' ? true : false)
+        this.weightVisible = state
+      },
 
 			//显示和隐藏键盘
 			showModal(item) {
 				this.currentItem = item;
 				this.showNum = [];
-				this.show = true
+        this.show = true
+        if( this.currentItem.gramunit=="ml"){
+          this.hideBtnml=true;
+          this.hideWgtTwo=false;
+          this.company= "ml";
+        }
+        if( this.currentItem.gramunit=="g"){
+          this.hideBtnml=false;
+          this.hideWgtTwo=true;
+          this.company= "克";
+          document.getElementById('saveWeight').classList.add('active')
+          document.getElementById('saveTwo').classList.remove('active')
+        }
 			},
 			hideModal() {
 				this.show = false
@@ -253,18 +315,31 @@
 				if (item == "x") {
 					this.showNum.pop()
 				} else {
-					if(this.showNum.length<6){
-						this.showNum.push(item)
-					}
+          if( this.company=="两"){
+            if (this.showNum.length < 3) {
+              this.showNum.push(item)
+            }
+          }
+          else {
+            if (this.showNum.length < 6) {
+              this.showNum.push(item)
+            }
+          }
 				}
 			},
 			//键盘的确定按钮
 			confirm(){
-				if(this.showNum.length == 0){
-					this.$Toast("请输入菜品克数")
-					return
-				}
-				const showNum = Number(this.showNum.join().replace(/,/g, ""));
+        if(this.showNum.length == 0){
+          this.$Toast("请输入菜品克数")
+          return
+        }
+        let showNum;
+        if( this.company=="两"){
+          showNum = Number(this.showNum.join().replace(/,/g, ""))*50;
+          this.currentItem.gramunit="g";
+        }else {
+          showNum = Number(this.showNum.join().replace(/,/g, ""));
+        }
 				//单位克
 				const {foodgram, foodkcal, protein, fat, carbohydrate} = this.currentItem;
 				//总千卡
@@ -284,7 +359,20 @@
 				//获取早中晚加的数据
 				this.getFoodData()
 			},
-
+      saveWeight () {
+        this.show = true
+        this.company= "克"
+        document.getElementById('saveWeight').classList.add('active')
+        document.getElementById('saveTwo').classList.remove('active')
+        this.showNum.length=0
+      },
+      saveTwo() {
+        this.show = true
+        this.company= "两"
+        document.getElementById('saveTwo').classList.add('active')
+        document.getElementById('saveWeight').classList.remove('active')
+        this.showNum.length=0
+      },
 			//获取早中晚加的数据
 			getFoodData(){
 				//早餐的列表  午餐的列表    晚餐的列表  加餐的列表
@@ -391,6 +479,9 @@
 			}
 			next()
 		},
+    components: {
+      DLRuler
+    }
 	}
 </script>
 
@@ -526,75 +617,147 @@
     margin-left: 0.1rem;
 	}
 
-	/* 弹出层 */
-	#mark {
-		z-index: 9999;
-	}
 
-	.modal.show {
-		transform: translateY(0);
-	}
+  /* 弹出层 */
+  #mark {
+    z-index: 99;
+  }
 
-	.modal {
-		position: absolute;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: #FFFFFF;
-		border-top-left-radius: 10px;
-		border-top-right-radius: 10px;
-		transition: transform ease 0.6s;
-		transform: translateY(1000px);
+  .modal.show {
+    transform: translateY(0);
+    min-height: 50%;
+  }
 
-		.info {
-			padding: 0px 10px;
-		}
+  .modal {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #FFFFFF;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: transform ease 0.6s;
+    transform: translateY(1000px);
+    padding-bottom: 0.44rem;
+    .btnConfirm {
+      text-align: center;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      span {
+        display: block;
+        width: 100%;
+        line-height: 0.44rem;
+        background-color: #0AC5C9;
+        color: #FFFFFF;
+        font-size: 0.16rem;
+      }
+    }
+    .info {
+      padding: 0px 10px;
+    }
 
-		.bar {
-			padding: 7px 10px;
-			display: flex;
-			justify-content: space-between;
-			align-items: baseline;
-		}
+    .bar {
+      padding: 7px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
 
-		.showNum {
-			display: flex;
-			justify-content: space-between;
-			margin: 45px 0;
-		}
+    .showNum {
+      display: flex;
+      justify-content: space-between;
+      margin: 0.35rem 4% 0.2rem 4%;
+    }
 
-		.num {
-			font-size: 0.30rem;
-			display: inline-block;
-			padding: 0 0.05rem;
-			min-width: 0.25rem;
-			height: 0.40rem;
-			box-sizing: border-box;
-			text-align: center;
-			border-bottom: 2px solid #F78335;
-		}
-	}
+    .num {
+      font-size: 0.275rem;
+      color: #0AC5C9;
+      display: inline-block;
+      min-width: 84px;
+      height: 0.35rem;
+      padding:0 0.05rem;
+      box-sizing: border-box;
+      text-align: center;
+      border-bottom: 2px solid #0AC5C9;
+    }
+
+    .num_g {
+      font-size: 0.155rem;
+      color: #0AC5C9;
+      vertical-align: super;
+    }
+    .dw_ys{
+      text-align: center;
+      margin: 0.15rem 0;
+      .dw_btn{
+        display: inline-block;
+        width: 0.5rem;
+        padding: 0 0.05rem;
+        background: none;
+        color: #666666;
+        height: 0.28rem;
+        border-radius: 0.4rem;
+      }
+      .active{
+        background: #0AC5C9;
+        color: #FFFFFF;
+
+      }
+      .dw_btn::after{
+        background: none;
+        color: #0AC5C9;
+      }
+
+    }
+  }
 
 	.keyboard {
 		font-size: 0;
 	}
+  .keyboard li {
+    width: 33.333%;
+    display: inline-block;
+    font-size: 0.18rem;
+    font-weight: bold;
+    text-align: center;
+    line-height: 0.42rem;
+    box-sizing: border-box;
+    border-right: 4px solid #fff;
+    border-top: 4px solid #fff;
+    background-color: #fafafa;
+    border-radius: 10px;
+    color: #555555;
+  }
 
-	.keyboard li {
-		width: 33.333%;
-		display: inline-block;
-		font-size: 0.18rem;
-		font-weight: bold;
-		text-align: center;
-		line-height: 0.40rem;
-		box-sizing: border-box;
-		border-right: 2px solid #eee;
-		border-top: 2px solid #eee;
-	}
-
-	.propic {
+  .keyboard li:last-child{
+    color: #fafafa;
+    background: url(../../assets/images/jpsc_bg.png) no-repeat center center #fafafa;
+    background-size: 0.30rem 0.25rem;
+    font-size: 0.16rem;
+    font-family: ui-monospace;
+    line-height: 0.44rem;
+  }
+  .propic {
 		width: 100%;
 		border-bottom: 1px solid #eee;
 	}
+
+  .mint-popup-3 {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+  }
+  .wigtsin_bg{
+    background-color: #FFFFFF;
+  }
+  .wigtsin_bg img{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
 </style>
 <style type="text/css">
 	.dsuv_list .mint-cell-wrapper{

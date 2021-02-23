@@ -1,5 +1,5 @@
 <template>
-	<div class="padding-header" style="padding-bottom: 0.2rem;">
+	<div class="padding-header">
 		<mt-header title="上传报告" fixed class="borderBottom">
 			<div slot="left">
 				<header-back>
@@ -8,7 +8,7 @@
 			</div>
 		</mt-header>
 		<div class="mains">
-			<div class="form" style="margin-top: 0.06rem" v-if="showButton">
+			<div class="form" contData v-if="showButton">
 				<mt-cell title="状态选择" is-link @click.native="pickerToggles('show')" style="border-bottom: 1px solid #eee;">
 					<span style="">{{param.statecode || '请选择手术状态'}}</span>
 				</mt-cell>
@@ -16,7 +16,7 @@
 					<span>{{param.inspectdate}}</span>
 				</mt-cell>
 			</div>
-			<div class="form" style="margin-top: 0.06rem" v-else>
+			<div class="form" contData v-else>
 				<mt-cell title="状态选择" style="border-bottom: 1px solid #eee;">
 					<span style="">{{param.statecode || '请选择手术状态'}}</span>
 				</mt-cell>
@@ -26,19 +26,22 @@
 			</div>
 		</div>
 		<div class="img_wrap" v-if="showButton">
+      <div class="img_wrap_list">
 			<div class="tits">血常规检验报告单 </div>
 			<div class="img text-center" style="margin-bottom: 10px">
-				<div class="defaultImg" v-if="isShowDefalutIdCardA">
+				<div class="defaultImg" v-if="isShowDefalutIdCardA" >
 					<img :src="idCardA" alt="">
 					<p>上传血常规检验报告单</p>
 				</div>
-				<div class="newImg" v-else>
+				<div class="newImg" v-else >
 					<img :src="param.inspectpre" alt="">
 				</div>
 				<div v-if="pageState != 'edit'">
 					<input type="file" accept="image/*" name="uploadedFile" @change="change($event,'A')" ref="idCardAFile">
 				</div>
 			</div>
+      </div>
+      <div class="img_wrap_list">
 			<div class="tits">肝肾功检验报告单 </div>
 			<div class="img text-center" style="margin-bottom: 10px">
 				<div class="defaultImg" v-if="isShowDefalutIdCardB">
@@ -53,6 +56,8 @@
 					<input type="file" accept="image/*" @change="change($event,'B')" ref="idCardBFile">
 				</div>
 			</div>
+      </div>
+      <div class="img_wrap_list">
 			<div class="tits">出院报告 </div>
 			<div class="img text-center" style="margin-bottom: 10px">
 				<div class="defaultImg" v-if="isShowDefalutIdCardC">
@@ -66,12 +71,16 @@
 					<input type="file" accept="image/*" name="uploadedFile" @change="change($event,'C')" ref="idCardAFile">
 				</div>
 			</div>
+      </div>
 		</div>
 		<div class="img_wrap eyepic" v-else>
+      <div class="img_wrap_list">
 			<div class="tits">血常规检验报告单</div>
 			<div class="img text-center" style="margin-bottom: 10px">
 				<div class="defaultImg" v-if="isShowDefalutIdCardA">
 					<img :src="idCardA" alt="">
+
+<!--          <li v-for="(imgItem, imgIndex) in item.imgList" :key="imgIndex"><img :src="imgItem.img" width="100%"/></li>-->
 					<p>上传血常规检验报告单</p>
 				</div>
 				<div class="newImg" v-else>
@@ -81,6 +90,8 @@
 					<input type="file" accept="image/*" name="uploadedFile" @change="change($event,'A')" ref="idCardAFile">
 				</div>
 			</div>
+      </div>
+      <div class="img_wrap_list">
 			<div class="tits">肝肾功检验报告单 </div>
 			<div class="img text-center" style="margin-bottom: 10px">
 				<div class="defaultImg" v-if="isShowDefalutIdCardB">
@@ -94,6 +105,8 @@
 					<input type="file" accept="image/*" @change="change($event,'B')" ref="idCardBFile">
 				</div>
 			</div>
+      </div>
+      <div class="img_wrap_list">
 			<div class="tits">出院报告 </div>
 			<div class="img text-center" style="margin-bottom: 10px">
 				<div class="defaultImg" v-if="isShowDefalutIdCardC">
@@ -107,19 +120,21 @@
 					<input type="file" accept="image/*" name="uploadedFile" @change="change($event,'C')" ref="idCardAFile">
 				</div>
 			</div>
+      </div>
 		</div>
 		<div class="others">
 			<div class="tits">影像及其他资料 </div>
 			<div class="uploadArea">
-				<div class="photoList" v-for="(item,index) in photoList" v-if="item.show">
-					<img :src="item.src" width="100" height="100" />
+				<div class="photoList" v-for="(item,index) in photoList" v-if="item.show" :key="index">
+					<img :src="item.src" width="100%" />
 					<div class="mask">
-						<span class="close" @click="delPhoto(index)" v-if="pageState != 'edit'">X</span> 
+						<span class="close" @click="delPhoto(index)" v-if="pageState != 'edit'"></span>
 					</div>
 				</div>
-				<img src="@/assets/images/tianjia备份@2x.png" width="100" height="100" @click="addPhoto" class="add" v-if="pageState != 'edit'" v-show="photoAdd"/>
+        <div @click="addPhoto" class="add" v-if="pageState != 'edit'" v-show="photoAdd"></div>
+<!--				<img src="@/assets/images/tianjia备份@2x.png" width="100" height="100" @click="addPhoto" class="add" v-if="pageState != 'edit'" v-show="photoAdd"/>-->
 				<div v-if="pageState != 'edit'">
-					<input type="file" accept="image/*" style="display: none;" @change="change($event,'D')" ref="file" />
+					<input type="file" accept="add" style="display: none;" @change="change($event,'D')" ref="file" />
 				</div>
 			</div>
 		</div>
@@ -151,7 +166,7 @@
 	var date = new Date();
 	let startDate = new Date(`${date.getFullYear()-3}/01/01`)
 	let endDate = new Date(`${date.getFullYear()+3}/12/31`)
-	
+
 	import axios from 'axios'
 	export default {
 		name: "realName",
@@ -195,7 +210,7 @@
 				{key:"otherinfo2", src:"", show: false}
 			],
 			//图片加号
-			photoAdd: true,  
+			photoAdd: true,
 			pageState: "add",
 		}),
 		methods: {
@@ -463,7 +478,7 @@
 					input.addEventListener("blur", this.$root.windowScrollTop.bind(this.$root), false);
 				})
 			},
-			
+
 			//其他资料 增加图片按钮
 			addPhoto(){
 				this.pdsfz = 4;
@@ -471,7 +486,7 @@
 					//Ios
 				    return this.$refs.file.click()
 				}else if(this.anios == 1){
-					//Android终端	
+					//Android终端
 				    window.back.clickOnAndroidSelectPhoto();
 				}
 			},
@@ -483,10 +498,10 @@
 				//显示图片新增按钮
 				this.photoAdd = true;
 			},
-			
+
 		},
 		mounted() {
-			
+
 			this.downApp();
 			window.showbg = this.showbg;
 			let that = this;
@@ -497,20 +512,20 @@
 			}]
 			//初始化input的事件
 			this.inputInputBulr()
-			
+
 			const id = this.$route.query.id;
 			if(id){
 				this.showInform();
 				this.showButton = false;  //是否显示确认上传按钮
 				this.photoAdd = false;    //是否图片新增按钮
 				this.pageState = "edit";
-				
+
 			}else{
 				const date = new Date();
-				let year = date.getFullYear(); 
-				let month = date.getMonth(); 
+				let year = date.getFullYear();
+				let month = date.getMonth();
 				month = month+1 < 10 ? `0${month+1}`: month+1;
-				let day = date.getDay(); 
+				let day = date.getDay();
 				day = day < 10 ? `0${day}` : day;
 				this.param.inspectdate = `${year}-${month}-${day}`
 			}
@@ -552,14 +567,22 @@
 </style>
 <style scoped lang="scss">
 	@import "@/assets/css/base.scss";
-
+  .mint-header {
+    height: 0.44rem;
+    line-height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .padding-header {
+    padding-top: 0.44rem;
+  }
 	.img_wrap {
-		background: #fff;
-		padding: 0 10px;
-		padding-bottom: 10px;
-
+    .img_wrap_list{
+      margin-top: 0.1rem;
+      padding: 0 10px 10px 10px;
+      background: #fff;
+    }
 		.tits {
-			font-size: 0.15rem;
+			font-size: 0.145rem;
 			color: #333535;
 			line-height: 0.5rem;
 			margin-top: 0.1rem;
@@ -567,19 +590,27 @@
 
 		.img {
 			position: relative;
-			background: #F9F9F9;
+			background: #FAFAFA;
 			color: $color66;
 			font-size: 0.14rem;
 			height: 1.90rem;
+      width: 92%;
+      margin: 0.05rem auto;
+      border-radius: 0.06rem;
+      border: 2px dashed #e5e5e5;
 		}
 
 		.img .defaultImg {
 			height: 100%;
-
+      p{
+        background: url("../../../assets/images/拍照@2x.png") no-repeat center top;
+        padding-top: 0.375rem;
+        background-size: 0.375rem 0.3rem;
+      }
 			img {
 				width: 18%;
-				margin-top: 50px;
-				margin-bottom: 25px;
+				margin-top: 0.44rem;
+				margin-bottom: 0.2rem;
 			}
 		}
 
@@ -608,10 +639,12 @@
 		}
 
 		.img .newImg img {
-			max-height: 100%;
-			max-width: 100%;
-			display: inline-block;
-			vertical-align: middle;
+			height:100%;
+			width: 100%;
+			/*display: inline-block;*/
+			/*vertical-align: middle;*/
+      object-fit:cover;
+      border-radius: 0.06rem;
 		}
 	}
 
@@ -629,38 +662,55 @@
 
 		/*上传图片区域*/
 		.uploadArea {
-			padding: 0.12rem;
-			padding-top: 0;
-
+      width: 92%;
+      margin: 0.05rem auto;
 			.photoList,
 			.add {
-				width: 100px;
-				height: 100px;
-				display: inline-block;
-				margin-right: 10px;
-				margin-bottom: 10px;
-				vertical-align: top;
-				position: relative;
+				/*width: 100px;*/
+				/*height: 100px;*/
+				/*display: inline-block;*/
+				/*margin-right: 10px;*/
+				/*margin-bottom: 10px;*/
+				/*vertical-align: top;*/
+				/*position: relative;*/
+        /*border: 1px dashed #e5e5e5;*/
+        /*border-radius: 0.03rem;*/
+        position: relative;
+        background: #FAFAFA url("../../../assets/images/jia_no@3x.png") no-repeat center center;
+        background-size: 0.35rem;
+        height: 1.50rem;
+        width: 100%;
+        margin: 0.05rem auto 0.15rem auto;
+        border-radius: 0.06rem;
+        border: 2px dashed #e5e5e5;
 			}
 
+      .photoList>img{
+        object-fit:cover;
+        height: 100%;
+        width: 100%;
+        border-radius: 0.06rem;
+      }
 			.mask {
 				position: absolute;
 				width: 100%;
 				top: 0;
 				bottom: 0;
-				background: rgba(0, 0, 0, .2);
+				background: rgba(0, 0, 0, .1);
 
 				.close {
 					position: absolute;
-					right: 5px;
-					top: 5px;
-					color: #FFFFFF;
-					font-size: 16px;
+					right: -0.08rem;
+					top: -0.08rem;
+          width: 0.20rem;
+          height: 0.20rem;
+          background:#FFFFFF url("../../../assets/images/delIcon.png") no-repeat center center;
+          background-size:0.21rem;
+          border-radius: 50%;
 				}
 			}
 		}
 	}
-
 	.mint-popup-bottom {
 		width: 100%;
 	}
@@ -694,10 +744,10 @@
 		border-bottom: 1px solid #eee;
 
 		span {
-			font-size: 16px;
-			height: 48px;
-			line-height: 48px;
-			padding: 0 10px;
+			font-size: 0.145rem;
+			height: 0.44rem;
+			line-height: 0.44rem;
+			padding: 0 0.1rem;
 		}
 
 		input {
@@ -742,21 +792,21 @@
 		position: fixed;
 		bottom: 0;
 		left: 0;
-		height: 0.6rem;
+    line-height: 0.44rem;
+    height: 0.44rem;
 		background: #fff;
 		font-size: 0.15rem;
 		color: #FFFFFF;
 		text-align: center;
-		line-height: 0.4rem;
 
-		span {
-			width: 92%;
-			height: 0.4rem;
-			display: block;
-			background: #F78335;
-			border-radius: 0.35rem;
-			margin: 0.1rem 0 0 4%;
-		}
+      span {
+        display: block;
+        background-color: #0AC5C9;
+        border-radius: 0;
+        width: 100%;
+        line-height: 0.44rem;
+        height: 0.44rem;
+      }
 	}
 	.img_wrap.eyepic .img{
 		height: auto;
@@ -765,4 +815,14 @@
 		width: 100%;
 		height: auto;
 	}
+  </style>
+
+<style lang="scss">
+  .mains{
+    .mint-cell-wrapper,
+    .mint-cell-title,
+    .mint-cell-value{
+      font-size: 0.145rem;
+    }
+  }
 </style>

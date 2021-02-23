@@ -27,10 +27,12 @@
       <div
         v-for="(item,i) in msgList"
         :key="i"
-        class="message-group"
+        class="message-group demo-image__preview"
         :style="{'float':item.bySelf ? 'right':'left'}"
       >
-        <h4 style="text-align: left;margin:0">{{ item.from}} {{$root.getUserNameByPhone(String(item.from))}}</h4>
+        <!-- <h4 style="text-align: left;margin:0">{{ item.from}} ({{$root.getUserNameByPhone(String(item.from)).userName}})</h4> -->
+		<h4 :style="{'text-align':item.bySelf ? 'right':'left',margin:0}">{{ item.chatId}}</h4>
+		
         <!-- 撤回消息 -->
         <div v-if="item.status == 'recall'" class="recallMsg">{{item.msg}}</div>
         <div v-if="item.status == 'recall'" class="recallMsg">{{renderTime(item.time)}}</div>
@@ -45,12 +47,13 @@
             <!-- <el-dropdown v-else @command="handleCommand(item)" trigger="click" :style="{'float':item.bySelf ? 'right':'left'}">
             <span class="el-dropdown-link">-->
             <!-- 图片消息 -->
-            <img
+            <el-image 
               :key="item.msg"
               :src="item.msg?item.msg:''"
+			  :preview-src-list="[item.msg?item.msg:'']"
               v-if="item.type === 'img'"
               class="img-style"
-            />
+            ></el-image>
             <!-- 文件card -->
             <div
               v-else-if="item.type==='file'"
@@ -109,14 +112,14 @@
     <div class="messagebox-footer">
       <div class="footer-icon">
         <!-- 表情组件 -->
-        <ChatEmoji v-on:selectEmoji="selectEmoji" :inpMessage="message" />
+        <ChatEmoji v-on:selectEmoji="selectEmoji" :inpMessage="message" :messposnum="messpos" :messposnumend="messposend" />
         <!-- 上传图片组件 -->
         <UpLoadImage :type="this.type" :chatId="activedKey[type]" />
         <!-- 上传文件组件 -->
-        <!-- <UpLoadFile :type="this.type" :chatId="activedKey[type]" /> -->
+        <UpLoadFile :type="this.type" :chatId="activedKey[type]" />
 
         <!-- 发送语音 -->
-        <!--<RecordAudio v-show="isHttps" />
+        <!-- <RecordAudio v-show="isHttps" />
 
         <i
           class="el-icon-video-camera icon"
@@ -130,17 +133,19 @@
           @click="callVoice"
           v-show="isHttps && type != 'chatroom'"
           :style="nowIsVideo?'pointer-events: none':'cursor: pointer'"
-        ></i>-->
+        ></i> -->
       </div>
       <div class="fotter-send">
         <a-textarea
-          v-model="message"
+          v-model.trim="message"
           equired
           placeholder="消息"
           class="sengTxt"
           @pressEnter="onSendTextMsg"
           style="resize:none"
           ref="txtDom"
+		  id="aa"
+		  @blur="posvalue('aa')"
         />
         <template />
       </div>
@@ -177,6 +182,8 @@ export default {
         chatroom: ""
       },
       message: "",
+	  messpos:0,
+	  messposend:0,
       isHttps: window.location.protocol === "https:",
       loadText: "加载更多",
       status: {
@@ -247,6 +254,13 @@ export default {
       "recallMessage",
       "onGetGroupBlack"
     ]),
+	posvalue(id){
+		var elInput =document.getElementById(id);
+		var startPos = elInput.selectionStart;
+		var endPos = elInput.selectionEnd;
+		this.messpos=startPos
+		this.messposend=endPos
+	},
     getKey(item, type) {
       let key = "";
       switch (type) {

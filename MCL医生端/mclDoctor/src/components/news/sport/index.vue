@@ -1,6 +1,6 @@
 <template>
 	<div class="sport-root">
-		<div id="body_main" style="padding-top: 88px;">
+		<div id="body_main" style="padding-top:0.88rem;">
 			<mt-header title="运动" fixed>
 				<div slot="left">
 					<header-back>
@@ -10,7 +10,7 @@
 			</mt-header>
 
 			<!-- mt-navbar -->
-			<div id="navbar" class="fix_top" style="top: 43px;" v-if="$route.query.skey">
+			<div id="navbar" class="fix_top" style="top:0.44rem;" v-if="$route.query.skey">
 				<mt-navbar v-model="ABflag">
 					<mt-tab-item v-for="(item,index) in navbarList" :key="index" :class="(ABflag == item.type)&&'is-selected'"
 					 @click.native="toggleType(item)">
@@ -26,19 +26,19 @@
 					<!-- 今日提醒 -->
 					<div class="home-cell margin10">
 						<!-- <p class="name">今日提醒</p>
-			
+
 						<router-link tag="ul" class="remindList" to="">
 							<li class="margin10">
 								<div class="left">
 									<div class="rowTop">
 										<img src="@/assets/images/yaopin@2x.png" class="icon" />
-										<span class="huiFont font14">柔性拉伸动作</span>
+										<span class="huiFont ">柔性拉伸动作</span>
 									</div>
 									<div class="rowBottom font12">
 										<p class="blueys">应完成时间：<span>06:30</span> 已超时：<span>1小时20分钟</span></p>
 									</div>
 								</div>
-								<div class="right blueys font14">
+								<div class="right blueys ">
 									<mt-badge size="small" color="#F78335" @click="oksuccess">
 										<span style="padding: 2px 5px;">查看</span>
 									</mt-badge>
@@ -46,7 +46,7 @@
 							</li>
 						</router-link> -->
 					</div>
-			
+
 					<div class="home-cell">
 						<p class="name">运动完成情况</p>
 					</div>
@@ -54,15 +54,15 @@
 						<div class="name float_left">{{item.sportsname}}</div>
 						<div class="content float_left">
 							<div class="left">
-								<span class="huiFont font14">{{item.motorunit}}</span>
+								<span class="huiFont font145">{{item.motorunit}}</span>
 							</div>
-							
+
 							<img src="@/assets/images/select@2x.png" alt="" width="20" v-if="item.motionflag == 1"/>
 							<img src="@/assets/images/select_click@2x.png" alt="" width="20" v-if="item.motionflag == 2"/>
 						</div>
 					</div>
 				</div>
-			
+
 				<!-- 运动方案 -->
 				<div class="yinshhi_list padding-footer" :hidden="ABflag == 1">
 					<!-- <mt-cell is-link class="borderBottom margin10 sportEvaluation-wrap" @click.native="sportPickerToggles('show')">
@@ -80,9 +80,9 @@
 						<div class="name float_left">{{item.sportsname}}</div>
 						<div class="content float_left">
 							<div class="left">
-								<span class="huiFont font14">{{item.motorunit}}</span>
+								<span class="huiFont font145">{{item.motorunit}}</span>
 							</div>
-							<span class="yellow font14" @click="doGuidance(item.skey)">查看指导</span>
+							<span class="yellow font145" @click="doGuidance(item.skey)">查看指导</span>
 						</div>
 					</div>
 					<!-- <div class="fix_bottom fix_bottom_area">
@@ -107,23 +107,23 @@
 				name: "运动方案",
 				type: 2
 			}],
-			
+
 			//参数
 			param:{
 				flag: 1,  //1:默认查询，2：选择框查询
 				score: "",  //分值
 				patientskey:''
 			},
-			
+
 			todysport:[],   //今日运动
 			sportway:[],    //运动方案
-			
+
 			//运动自评picker
 			sportList:[
-				{name:"请选择", val:""}, 
-				{name:"身体正常，无任何不适", val:"100"}, {name:"能进行正常活动，有轻微不适", val:"90"}, {name:"勉强可正常活动，有一些不适", val:"80"},  
-				{name:"生活可自理，但不能维持正常生活或工作", val:"70"}, {name:"有时需人扶助，多数时间可自理", val:"60"}, {name:"常需人照料", val:"50"}, 
-				{name:"生活不能自理，需特别照顾", val:"40"}, {name:"生活严重不能自理", val:"30"}, {name:"病重，需住院积极支持治疗", val:"20"}, 
+				{name:"请选择", val:""},
+				{name:"身体正常，无任何不适", val:"100"}, {name:"能进行正常活动，有轻微不适", val:"90"}, {name:"勉强可正常活动，有一些不适", val:"80"},
+				{name:"生活可自理，但不能维持正常生活或工作", val:"70"}, {name:"有时需人扶助，多数时间可自理", val:"60"}, {name:"常需人照料", val:"50"},
+				{name:"生活不能自理，需特别照顾", val:"40"}, {name:"生活严重不能自理", val:"30"}, {name:"病重，需住院积极支持治疗", val:"20"},
 				{name:"病危，临近死亡", val:"10"}, {name:"死亡", val:"0"},
 			],
 			sportDefaultName:"请选择",  //页面显示的文字
@@ -133,9 +133,9 @@
 					flex: 1,
 					values: [
 						'请选择',
-						'身体正常，无任何不适', '能进行正常活动，有轻微不适', '勉强可正常活动，有一些不适', 
-						'生活可自理，但不能维持正常生活或工作', '有时需人扶助，多数时间可自理','常需人照料', 
-						'生活不能自理，需特别照顾', '生活严重不能自理', '病重，需住院积极支持治疗', 
+						'身体正常，无任何不适', '能进行正常活动，有轻微不适', '勉强可正常活动，有一些不适',
+						'生活可自理，但不能维持正常生活或工作', '有时需人扶助，多数时间可自理','常需人照料',
+						'生活不能自理，需特别照顾', '生活严重不能自理', '病重，需住院积极支持治疗',
 						'病危，临近死亡', '死亡',
 					],
 					className: 'slot1',
@@ -147,7 +147,7 @@
 			toggleType(item) {
 				this.ABflag = item.type;
 			},
-			
+
 			// 确认完成
 			oksuccess() {
 				let url = "UserInterface/PatientMotionConfirm.ashx";
@@ -161,7 +161,7 @@
 					this.todayDiet();
 				})
 			},
-			
+
 			// 今日运动 运动方案
 			todayDiet() {
 				let url = "UserInterface/ScreeningTodaySports.ashx";
@@ -179,7 +179,7 @@
 					return data;
 				})
 			},
-			
+
 			//查看指导
 			doGuidance(skey) {
 				let url = "UserInterface/ScreeningTodaySportsDetail.ashx";
@@ -191,7 +191,7 @@
 					this.$MessageBox.alert(data.motiondetails);
 				})
 			},
-			
+
 			//保存方案
 			save(){
 				const { score } = this.param;
@@ -212,7 +212,7 @@
 					this.todayDiet();
 				})
 			},
-			
+
 			//运动自评picker
 			sportPickerToggles(state){
 				if(state == "show"){
@@ -256,7 +256,7 @@
 				const {sportPickers} = this.$refs;
 				sportPickers.setSlotValue(0, sportDefaultName);
 				this.sportDefaultName = sportDefaultName;
-				
+
 			});
 		},
 		created() {
@@ -266,6 +266,12 @@
 </script>
 
 <style scoped lang="scss">
+
+  .mint-header {
+    height: 0.44rem;
+    line-height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
 	.neirong {
 		margin-top: 0.11rem;
 	}
@@ -283,7 +289,9 @@
 			font-size: 0.12rem;
 		}
 	}
-
+.yinshhi_list{
+  font-size: 0.15rem;
+}
 	/*今日提醒*/
 	.remindList {
 		&>li {
@@ -327,7 +335,7 @@
 	}
 
 	.sport-cell {
-		line-height: 0.64rem;
+		line-height: 0.54rem;
 		background: #FFFFFF;
 		padding: 0 0.12rem;
 
@@ -356,4 +364,14 @@
 		background: #FFFFFF url(../../../assets/images/eyenext.png) no-repeat 98% center !important;
 		background-size: 0.3rem !important;
 	}
+  .font145{
+    font-size: 0.145rem;
+  }
+</style>
+
+<style lang="scss">
+
+  .mint-msgbox-btn{
+    font-size: 0.145rem;
+  }
 </style>
