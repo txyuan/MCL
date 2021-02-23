@@ -578,7 +578,7 @@
             ahtml += '<li><input type="radio" name="' + id + '" value="1" id="radio' + id + '1" title="有呕吐偶有1次"/><label for="radio' + id + '1">1分：有呕吐偶有1次</label></li>'
             ahtml += '<li><input type="radio" name="' + id + '" value="2" id="radio' + id + '2" title="有呕吐，每天一次"/><label for="radio' + id + '2">2分：有呕吐，每天一次</label></li>'
             ahtml += '<li><input type="radio" name="' + id + '" value="3" id="radio' + id + '3" title="多次呕吐，一天大于2次"/><label for="radio' + id + '3">3分：多次呕吐，一天大于2次</label></li>'
-            ahtml += '<li><input type="radio" name="' + id + '" value="3" id="radio' + id + '3" title="频繁呕吐，或每次进食都出现呕吐"/><label for="radio' + id + '3">3分：频繁呕吐，或每次进食都出现呕吐</label></li>'
+            ahtml += '<li><input type="radio" name="' + id + '" value="4" id="radio' + id + '4" title="频繁呕吐，或每次进食都出现呕吐"/><label for="radio' + id + '4">4分：频繁呕吐，或每次进食都出现呕吐</label></li>'
 			ahtml += '</ul>'
           }else if (id == '37') {
             ahtml = ' <ul class="answerUl">'
