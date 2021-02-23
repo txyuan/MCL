@@ -11,14 +11,14 @@
       <div class="gaugelifeList">
         <div class="title2">1、过敏史</div>
         <div class="contData">
-          <div class="listTitle">（1）是否有食物过敏？ </div>
+          <div class="listTitle">（1）是否有食物过敏 </div>
           <mt-radio :options="diettabooRadiolists.option" v-model="param.check_01"></mt-radio>
           <div class="lh-ys">
             过敏食物:<input type="text" class="line-input" v-model="param.check_02">
           </div>
         </div>
         <div class="contData">
-          <div class="listTitle">（2）是否有药物过敏？</div>
+          <div class="listTitle">（2）是否有药物过敏</div>
           <mt-radio :options="diettabooRadiolists.option" v-model="param.check_03"></mt-radio>
           <div class="lh-ys">
             过敏药物:<input type="text" class="line-input" v-model="param.check_04">
@@ -72,31 +72,31 @@
       <div class="gaugelifeList">
         <div class="title2">3、饮食</div>
         <div class="contData">
-          <div class="listTitle">（1）饮食餐次？</div>
+          <div class="listTitle">（1）饮食餐次</div>
           <mt-radio :options="diettabooRadioyscc.option" v-model="param.check_05"></mt-radio>
         </div>
         <div class="contData">
-          <div class="listTitle">（2）哪餐最丰富？</div>
+          <div class="listTitle">（2）哪餐最丰富</div>
           <mt-radio :options="diettabooRadioysff.option" v-model="param.check_06"></mt-radio>
         </div>
         <div class="contData">
-          <div class="listTitle">（3）早餐<em class="gayYs">（多选）</em>？</div>
+          <div class="listTitle">（3）早餐<em class="gayYs">（多选）</em></div>
           <mt-checklist :options="diettabooRadiozc.option" v-model="diettabooRadiozc.value"></mt-checklist>
         </div>
         <div class="contData">
-          <div class="listTitle">（4）中餐食物结构<em class="gayYs">（多选）</em>？</div>
+          <div class="listTitle">（4）中餐食物结构<em class="gayYs">（多选）</em></div>
           <mt-checklist :options="diettabooRadiozwc.option" v-model="diettabooRadiozwc.value"></mt-checklist>
         </div>
         <div class="contData">
-          <div class="listTitle">（5）晚餐食物结构<em class="gayYs">（多选）</em>？</div>
+          <div class="listTitle">（5）晚餐食物结构<em class="gayYs">（多选）</em></div>
           <mt-checklist :options="diettabooRadiowsc.option" v-model="diettabooRadiowsc.value"></mt-checklist>
         </div>
         <div class="contData">
-          <div class="listTitle">（6）菜的烹调习惯<em class="gayYs">（多选）</em>？</div>
+          <div class="listTitle">（6）菜的烹调习惯<em class="gayYs">（多选）</em></div>
           <mt-checklist :options="diettabooRadioztxg.option" v-model="diettabooRadioztxg.value"></mt-checklist>
         </div>
         <div class="contData">
-          <div class="listTitle">（7）饮食习惯<em class="gayYs">（多选）</em>？</div>
+          <div class="listTitle">（7）饮食习惯<em class="gayYs">（多选）</em></div>
           <mt-checklist :options="diettabooRadioysxg.option" v-model="diettabooRadioysxg.value"></mt-checklist>
         </div>
         <div class="contData">
@@ -124,7 +124,7 @@
             <p>或<input type="tel" class="line-input-x" v-model="param.check_16">小时/周 </p></div>
         </div>
         <div class="contData">
-          <div class="listTitle">（3）体育锻炼类型？</div>
+          <div class="listTitle">（3）体育锻炼类型</div>
 
           <div class="listTitle">a、有氧运动</div>
           <mt-radio :options="diettabooRadioyyyd.option" v-model="param.check_17"></mt-radio>
