@@ -449,7 +449,7 @@
     }
   }
   .line-input-x {
-    width:40px;
+    width:35px;
     border: none;
     border-bottom: 1px solid #cccccc;
     text-align: center;

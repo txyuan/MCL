@@ -55,7 +55,7 @@
 				<h3>零售商品</h3>
 			</div>
 			<!-- 商品列表  -->
-			<div class="shop_list" style="padding-bottom: 0.5rem;">
+			<div class="shop_list" style="padding-bottom: 0.65rem;">
 				<div class="shop_li">
 					<div class="shop_go">
 							<div class="shop_goce" slot="content">

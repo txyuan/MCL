@@ -25,9 +25,9 @@
 				<span v-if="repData.Sex == 1">男</span>
 				<span v-if="repData.Sex == 2">女</span>
 			</mt-cell>
-			<mt-cell title="身高" is-link to="/heights">
-				<span>{{repData.height}}<em style="font-style:normal; padding-left: 2px">cm</em></span>
-			</mt-cell>
+<!--			<mt-cell title="身高" is-link to="/heights">-->
+<!--				<span>{{repData.height}}<em style="font-style:normal; padding-left: 2px">cm</em></span>-->
+<!--			</mt-cell>-->
       </div>
 			<div class="person_marg">
 				<mt-cell title="修改登录密码" is-link to="/changePass"></mt-cell>
@@ -61,7 +61,7 @@
 		</mt-actionsheet>
 
 		<!-- 性别picker  -->
-		<mt-popup v-model="popupVisible" position="bottom">
+		<mt-popup v-model="popupVisible" position="bottom" class="picker_style">
 			<mt-picker :slots="sexSlots" :showToolbar="true" :visibleItemCount="3" ref="sexPicker">
 				<div class="picker_bar">
 					<div class="cancel" @click="pickerToggle('hide')">取消</div>
@@ -246,6 +246,7 @@ export default {
 
 <style scoped lang="scss">
 
+  .person_data_root {
   .mint-header {
     height: 0.44rem;
     border-bottom: 1px solid #eee;
@@ -264,61 +265,120 @@ export default {
     padding-bottom: 0.44rem;
     margin-top: 0.1rem;
   }
+    .add_btns{
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: 0;
+      border-radius: 0;
+      line-height: 0.44rem;
+      font-size: 0.165rem;
+      letter-spacing: 1px;
+      width: 100%;
+      background-color: #0AC5C9;
+    }
+  }
 </style>
 <style lang="scss">
+.person_data_root{
+  .picker_style{
 
+    .picker_bar {
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+      line-height: 0.42rem;
+      padding: 0;
+      border-bottom: solid 1px #eaeaea;
+      background-color: #0AC5C9;
+      .cancel{
+        width: 50%;
+        background-color: #e5e5e5;
+      }
+      .confrim {
+        width: 50%;
+        color: #FFFFFF;
+      }
+    }
+
+  }
+
+}
+
+.person_data_root .picker_style .picker-items{
+  margin-top: 0.15rem;
+}
   /*手机*/
-  @media screen and (max-width:539px){
-    .mint-header {
-      height: 0.44rem;
-      border-bottom: 1px solid #eee;
-      font-size: 0.175rem;
-    }
-    .mint-cell {
-      min-height: 0.46rem;
-    }
-    a.mint-cell .mint-cell-text {
-      font-size: 0.16rem;
-    }
-    .mint-cell-wrapper{
-      font-size: 0.16rem;
-    }
-    .mint-button {
-      font-size: 0.165rem;
-      letter-spacing: 2px;
-      height:0.42rem;
-    }
-    .mint-msgbox{
-      font-size: 0.16rem;
-    }
+@media screen and (max-width:539px){
+  .mint-header {
+    height: 0.44rem;
+    border-bottom: 1px solid #eee;
+    font-size: 0.175rem;
+  }
+  .mint-cell {
+    min-height: 0.48rem;
+  }
+  a.mint-cell .mint-cell-text {
+    font-size: 0.16rem;
+  }
+  .mint-cell-wrapper{
+    font-size: 0.16rem;
+  }
+  .mint-button {
+    font-size: 0.165rem;
+    letter-spacing: 2px;
+    height:0.42rem;
+  }
+  .mint-msgbox{
+    font-size: 0.16rem;
+  }
+  .username-root>.marginTop5 {
+    margin-top: 0.1rem;
+
+  }
+  .username-root>div.btn{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    width: 100%;
+  }
+  .username-root>div.btn>.mint-button{
+    font-size: 0.165rem;
+    letter-spacing: 2px;
+    border-radius: 0;
+    background-color: #0AC5C9;
+  }
+}
+
+/*平板*/
+
+@media screen and (min-width:540px) and (max-width:960px){
+  .mint-header {
+    height: 48px;
+    border-bottom: 1px solid #eee;
+    font-size: 18px;
+  }
+  .mint-header {
+    font-size: 18px;
+  }
+  a.mint-cell .mint-cell-text {
+    font-size: 16px;
+  }
+  .mint-cell-wrapper{
+    font-size:16px;
+  }
+  .mint-button {
+    font-size: 18px;
+    height: 41px;
   }
 
-  /*平板*/
-
-  @media screen and (min-width:540px) and (max-width:960px){
-    .mint-header {
-      height: 48px;
-      border-bottom: 1px solid #eee;
-      font-size: 18px;
-    }
-    .mint-header {
-      font-size: 18px;
-    }
-    a.mint-cell .mint-cell-text {
-      font-size: 16px;
-    }
-    .mint-cell-wrapper{
-      font-size:16px;
-    }
-    .mint-button {
-      font-size: 18px;
-      height: 41px;
-    }
-
-    .mint-msgbox{
-      font-size:16px;
-    }
+  .mint-msgbox{
+    font-size:16px;
   }
+}
 	.person_data_root {
 		.mint-popup-bottom {
 			width: 100%;

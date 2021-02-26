@@ -228,6 +228,18 @@
 </script>
 
 <style scoped lang="scss">
+  .person_data_root {
+    .add_btns{
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: 0;
+      border-radius: 0;
+      line-height: 0.44rem;
+      font-size: 0.175rem;
+      letter-spacing: 1px;
+  }
   .person_marg {
     margin-top: 0.1rem;
   }
@@ -290,6 +302,7 @@
     }
   }
 
+  }
 </style>
 <style lang="scss">
   .person_data_root {
