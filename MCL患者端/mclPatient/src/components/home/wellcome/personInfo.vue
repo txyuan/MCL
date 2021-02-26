@@ -346,7 +346,6 @@ export default {
     // 回显表单数据
     getDetail () {
       const diseasetype = this.param.diseasetype
-      console.log(diseasetype)
       let url = ''
       // 01：肿瘤，02：健康 03：体重
       if (diseasetype === '01') {
@@ -415,7 +414,71 @@ export default {
     padding-top: 0.44rem;
     padding-bottom: 64px;
   }
-  .personInfo_root /deep/ {
+
+  .tip {
+    font-size: 0.14rem;
+    line-height: 0.45rem;
+    text-align: center;
+    background: #FFD3B5;
+    color: #F78335;
+  }
+
+  .title,
+  .title2 {
+    margin-top: 10px;
+    padding: 5px 10px;
+    font-size: 0.16rem;
+  }
+
+  .title2 {
+    margin-top: 0px;
+    font-size: 0.145rem;
+  }
+
+  .manageTitle {
+    height: 0.44rem;
+    line-height: 0.44rem;
+    border-bottom: 1px solid #e5e5e5;
+    text-align: center;
+    font-size: 0.160rem;
+    color: #333333;
+
+    .flex-fill {
+      border-right: 1px solid #e5e5e5;
+    }
+
+    .flex-fill:last-child {
+      border-right: 0;
+    }
+
+    .active {
+      background-color: #0AC5C9;
+      color: #FFFFFF;
+    }
+  }
+
+  .d-flex {
+    display: -ms-flexbox !important;
+    display: flex !important;
+  }
+
+  .flex-fill {
+    -ms-flex: 1 1 auto !important;
+    flex: 1 1 auto !important;
+  }
+</style>
+<style lang="scss">
+  .personInfo_root .splitData {
+    padding: 0 0.2rem 0.1rem 0.2rem;
+    color: #666666;
+    font-size: 0.14rem;
+
+    span {
+      font-size: 0.145rem;
+      color: #484848;
+    }
+  }
+  .personInfo_root  {
     .mint-header {
       height: 0.44rem;
       border-bottom: 1px solid #e5e5e5;
@@ -577,81 +640,17 @@ export default {
     }
   }
 
-  .tip {
-    font-size: 0.14rem;
-    line-height: 0.45rem;
-    text-align: center;
-    background: #FFD3B5;
-    color: #F78335;
-  }
-
-  .title,
-  .title2 {
-    margin-top: 10px;
-    padding: 5px 10px;
-    font-size: 0.16rem;
-  }
-
-  .title2 {
-    margin-top: 0px;
-    font-size: 0.145rem;
-  }
-
-  /deep/ .splitData {
-    padding: 0 0.2rem 0.1rem 0.2rem;
-    color: #666666;
-    font-size: 0.14rem;
-
-    span {
-      font-size: 0.145rem;
-      color: #484848;
-    }
-  }
-
-  .manageTitle {
-    height: 0.44rem;
-    line-height: 0.44rem;
-    border-bottom: 1px solid #e5e5e5;
-    text-align: center;
-    font-size: 0.160rem;
-    color: #333333;
-
-    .flex-fill {
-      border-right: 1px solid #e5e5e5;
-    }
-
-    .flex-fill:last-child {
-      border-right: 0;
-    }
-
-    .active {
-      background-color: #0AC5C9;
-      color: #FFFFFF;
-    }
-  }
-
-  .d-flex {
-    display: -ms-flexbox !important;
-    display: flex !important;
-  }
-
-  .flex-fill {
-    -ms-flex: 1 1 auto !important;
-    flex: 1 1 auto !important;
-  }
-</style>
-<style lang="scss">
-  .personInfo_root /deep/ input {
+  .personInfo_root  input {
     text-align: right;
-    border: 0 !important;
+    border: none !important;
     color: #999999;
   }
 
-  .personInfo_root /deep/ .page_text_left input {
+  .personInfo_root  .page_text_left input {
     text-align: left;
   }
 
-  .personInfo_root /deep/ .line-input {
+  .personInfo_root  .line-input {
     width: 72px;
     border: none !important;
     border-bottom: 1px solid #ddd !important;
@@ -659,31 +658,31 @@ export default {
     font-size: 0.145rem;
   }
 
-  .personInfo_root /deep/ .mint-checklist-title,
-  .personInfo_root /deep/ .mint-radiolist-title,
-  .personInfo_root /deep/ .mint-cell-value.is-link {
+  .personInfo_root  .mint-checklist-title,
+  .personInfo_root  .mint-radiolist-title,
+  .personInfo_root  .mint-cell-value.is-link {
     margin: 0;
   }
 
-  .personInfo_root /deep/ .mint-cell-allow-right::after {
+  .personInfo_root  .mint-cell-allow-right::after {
     right: 10px;
   }
 
-  .personInfo_root /deep/ .mint-cell-wrapper {
+  .personInfo_root  .mint-cell-wrapper {
     padding: 0 25px 0px 15px;
   }
 
-  .personInfo_root /deep/ .checklist,
-  .personInfo_root /deep/ .mint-radiolist {
+  .personInfo_root  .checklist,
+  .personInfo_root  .mint-radiolist {
     background: #FFFFFF;
     padding: 15px;
   }
 
-  .personInfo_root /deep/ .checklist .mint-cell-wrapper {
+  .personInfo_root  .checklist .mint-cell-wrapper {
     padding: 0;
   }
 
-  .personInfo_root /deep/ .checklist .mint-cell {
+  .personInfo_root  .checklist .mint-cell {
     display: inline-block;
     padding: 0;
     border-radius: 20px;
@@ -691,7 +690,7 @@ export default {
     min-height: 42px;
   }
 
-  .personInfo_root /deep/ .mint-radiolist .mint-cell {
+  .personInfo_root  .mint-radiolist .mint-cell {
     display: inline-block;
     padding: 0;
     border-radius: 20px;
@@ -699,40 +698,40 @@ export default {
     min-width: 38%;
     min-height: 42px;
   }
-  .personInfo_root /deep/ .glmb_style_a .mint-cell {
+  .personInfo_root  .glmb_style_a .mint-cell {
       margin: 0 1%;
       min-width: 46%;
     }
-  .personInfo_root /deep/ .yyqk_style_a .mint-cell {
+  .personInfo_root  .yyqk_style_a .mint-cell {
       margin: 0 1%;
       min-width: 33%;
       max-width: 66%;
     }
-  .personInfo_root /deep/ .qkxz_style_a .mint-cell {
+  .personInfo_root  .qkxz_style_a .mint-cell {
       margin: 0 1%;
       min-width: 48%;
     }
-  .personInfo_root /deep/ .gltz_style_a .mint-cell {
+  .personInfo_root  .gltz_style_a .mint-cell {
       margin: 0 1%;
       min-width: 24%;
     width: auto!important;
       max-width: 60%;
     }
 
-  .personInfo_root /deep/ .mint-radiolist .mint-cell .mint-cell-wrapper,
-  .personInfo_root /deep/ .mint-radiolist .mint-cell .mint-cell-wrapper .mint-radiolist-label {
+  .personInfo_root  .mint-radiolist .mint-cell .mint-cell-wrapper,
+  .personInfo_root  .mint-radiolist .mint-cell .mint-cell-wrapper .mint-radiolist-label {
     padding: 0;
   }
 
-  .personInfo_root /deep/ .checklist .mint-cell.active {
+  .personInfo_root  .checklist .mint-cell.active {
     background-color: #0AC5C9;
   }
 
-  .personInfo_root /deep/ .mint-radiolist .mint-cell::after {
+  .personInfo_root  .mint-radiolist .mint-cell::after {
 
   }
 
-  .personInfo_root /deep/ .mint-checklist .mint-cell::after {
+  .personInfo_root  .mint-checklist .mint-cell::after {
     /*content: " ";*/
     /*opacity: 0.1;*/
     /*right: 0;*/
@@ -742,11 +741,11 @@ export default {
     /*border-bottom: 1px dashed #000;*/
   }
 
-  .personInfo_root /deep/ .mint-cell:last-child::after {
+  .personInfo_root  .mint-cell:last-child::after {
     /*opacity: 0;*/
   }
 
-  .personInfo_root /deep/ .checklist .mint-checklist-label {
+  .personInfo_root  .checklist .mint-checklist-label {
     padding: 0;
     position: relative;
     width: 100%;
@@ -755,90 +754,90 @@ export default {
     text-overflow: ellipsis; /*超出部分文字以...显示*/
   }
 
-  .personInfo_root /deep/ .mint-checklist .mint-cell {
+  .personInfo_root  .mint-checklist .mint-cell {
     width: 32%;
     margin: 0 0 0 1%;
   }
 
-  .personInfo_root /deep/ .mint-checklist .mint-checkbox-core {
+  .personInfo_root  .mint-checklist .mint-checkbox-core {
     border-radius: 5px;
     width: 18px;
     height: 18px;
   }
 
-  .personInfo_root /deep/ .mint-checklist .mint-checkbox-label {
+  .personInfo_root  .mint-checklist .mint-checkbox-label {
     margin-left: 4px;
 
   }
 
-  /*.personInfo_root /deep/ .mint-radiolist .mint-radiolist-label{*/
+  /*.personInfo_root  .mint-radiolist .mint-radiolist-label{*/
   /*  position: relative;*/
   /*}*/
-  /*.personInfo_root /deep/ .mint-radiolist .mint-radiolist-label .mint-radio-core{*/
+  /*.personInfo_root  .mint-radiolist .mint-radiolist-label .mint-radio-core{*/
   /*  width: 100%;*/
   /*  height: 29px;*/
   /*  border-radius: 20px;*/
   /*}*/
-  /*.personInfo_root /deep/ .mint-radiolist .mint-radiolist-label .mint-radio-label {*/
+  /*.personInfo_root  .mint-radiolist .mint-radiolist-label .mint-radio-label {*/
   /*  vertical-align: middle;*/
   /*  margin-left: 6px;*/
   /*  position: absolute;*/
   /*  left: 33px;*/
   /*}*/
-  /*.personInfo_root /deep/ .mint-radiolist  .mint-radio-input:checked+.mint-radio-label,*/
-  /*.personInfo_root /deep/ .mint-radiolist .mint-checkbox-input:checked+.mint-radio-label{*/
+  /*.personInfo_root  .mint-radiolist  .mint-radio-input:checked+.mint-radio-label,*/
+  /*.personInfo_root  .mint-radiolist .mint-checkbox-input:checked+.mint-radio-label{*/
   /*  color: #f1f1f1;*/
   /*}*/
-  .personInfo_root /deep/ .mint-radiolist .mint-radiolist-label .mint-radio-label {
+  .personInfo_root  .mint-radiolist .mint-radiolist-label .mint-radio-label {
 
   }
 
-  .personInfo_root /deep/ .picker .picker-toolbar {
+  .personInfo_root  .picker .picker-toolbar {
     height: 45px;
     border: 0;
   margin-bottom: 0.2rem;
   }
 
-  .personInfo_root /deep/ .picker .mint-datetime-action {
+  .personInfo_root  .picker .mint-datetime-action {
     width: 50%;
     line-height: 44px;
     font-size: inherit;
   }
 
-  .personInfo_root /deep/ .picker .mint-datetime-cancel {
+  .personInfo_root  .picker .mint-datetime-cancel {
     background-color: #dddddd;
     color: #666666;
   }
 
-  .personInfo_root /deep/ .picker .mint-datetime-confirm {
+  .personInfo_root  .picker .mint-datetime-confirm {
     background-color: #0AC5C9;
     color: #FFFFFF;
   }
 
-  .personInfo_root /deep/ .mint-radiolist.dateSelection {
+  .personInfo_root  .mint-radiolist.dateSelection {
     padding: 0 25px 0 15px;
     color: #787878;
   }
 
-  .personInfo_root /deep/ .mint-radiolist.dateSelection .mint-cell {
+  .personInfo_root  .mint-radiolist.dateSelection .mint-cell {
     width: 100%;
   }
 
-  .personInfo_root /deep/ .mint-radiolist.dateSelection .mint-radio .mint-radio-core {
+  .personInfo_root  .mint-radiolist.dateSelection .mint-radio .mint-radio-core {
     border-radius: 5px;
     /*float: right;*/
   }
 
-  .personInfo_root /deep/ .mint-radiolist.dateSelection .mint-cell-title {
+  .personInfo_root  .mint-radiolist.dateSelection .mint-cell-title {
     position: relative;
 
   }
 
-  .personInfo_root /deep/ .mint-radiolist.dateSelection .mint-radio-label {
+  .personInfo_root  .mint-radiolist.dateSelection .mint-radio-label {
     margin-left: 0;
   }
 
-  .personInfo_root /deep/ .mint-radiolist.dateSelection .mint-radio-input:checked + .mint-radio-core::after {
+  .personInfo_root  .mint-radiolist.dateSelection .mint-radio-input:checked + .mint-radio-core::after {
     color: #FFFFFF;
     top: 2px;
     left: 3px;
@@ -847,43 +846,43 @@ export default {
     background-color: #0AC5C9;
   }
 
-  .personInfo_root /deep/ .splitLine .mint-field .mint-cell-value {
+  .personInfo_root  .splitLine .mint-field .mint-cell-value {
     color: #999;
   }
 
-  .personInfo_root /deep/ .mint-radiolist.dateSelection .mint-radio-input:checked + .mint-radio-core {
+  .personInfo_root  .mint-radiolist.dateSelection .mint-radio-input:checked + .mint-radio-core {
     /*background-color: #FFFFFF;*/
     /*border-color: #FFFFFF;*/
   }
-  .personInfo_root /deep/ .city_picker_root .picker,  .personInfo_root /deep/ .city_picker_root .mint-popup {
+  .personInfo_root  .city_picker_root .picker,  .personInfo_root  .city_picker_root .mint-popup {
     min-height: 40%;
   }
 
-  .personInfo_root /deep/ .city_picker_root .picker .picker-toolbar .bar {
+  .personInfo_root  .city_picker_root .picker .picker-toolbar .bar {
     padding: 0;
     background-color: #dddddd;
     color: #666666;
     text-align: center;
   }
 
-  .personInfo_root /deep/ .city_picker_root .picker .picker-toolbar .bar span{
+  .personInfo_root  .city_picker_root .picker .picker-toolbar .bar span{
     width: 50%;
     display: inline-block;
     height: 44px;
     line-height: 44px;
   }
 
-  .personInfo_root /deep/ .city_picker_root .picker .picker-toolbar .bar span.confirm{
+  .personInfo_root  .city_picker_root .picker .picker-toolbar .bar span.confirm{
     background-color: #0AC5C9;
     color: #FFFFFF;
   }
   @media screen and (max-width: 375px) {
-    .personInfo_root /deep/ .mint-checklist .mint-cell {
+    .personInfo_root  .mint-checklist .mint-cell {
       width: 48%;
       margin: 0 0 0 1%;
     }
 
-    .personInfo_root /deep/ .mint-radiolist .mint-cell {
+    .personInfo_root  .mint-radiolist .mint-cell {
       margin: 0 1%;
       min-width: 43%;
     }
