@@ -8,7 +8,7 @@
 			</div>
 		</mt-header>
 
-		<div class="person_data marginTop5" style="padding: 45px 0 0.6rem 0;">
+		<div class="person_data">
 			<input type="file" accept="image/*" @change="change($event)" ref="userImg" style="display: none">
 			<mt-cell title="头像" is-link @click.native="actionsheetToggle('show')">
 				<span><img slot="icon" :src="repData.ImgUrl" style="width:0.3rem;height:0.3rem;border-radius: 15px"></span>
@@ -45,7 +45,7 @@
 			<!-- <div class="person_marg" style="margin-top: 0">
 				<mt-cell title="修改支付密码" is-link to="/twopass"></mt-cell>
 			</div> -->
-			
+
 			<!-- <div class="person_marg" style="margin-top: 0">
             <mt-cell title="银行卡" is-link to="/editbcard"></mt-cell>
           </div> -->
@@ -259,12 +259,8 @@
 </script>
 
 <style scoped lang="scss">
-	.marginTop5 a {
-		border-bottom: 1px solid #ddd;
-	}
-
 	.person_marg {
-		margin-top: 0.08rem;
+		margin-top: 0.1rem;
 	}
 
 	.person_marg img {
@@ -274,20 +270,18 @@
 	}
 	.person_margs{
 		background: #fff;
-		padding: 0 5%;
-		padding-bottom: 0.08rem;
+		padding: 0 5% 0.1rem 5%;
 		p{
-			font-size: 16px;
+			font-size: 0.16rem;
 			padding: 0.1rem 0;
 		}
 		textarea{
 			width: 100%;
 			height: 0.8rem;
-			border: none;
 			resize: none;
 			background: #eee;
 			border: 1px solid #ddd;
-			padding: 0.08rem 2%;
+			padding: 0.08rem 3%;
 			border-radius: 6px;
 			color: #333;
 			font-size: 0.15rem;
@@ -296,39 +290,165 @@
 	}
 	.buttons {
 		overflow: hidden;
+    height: 0.44rem;
 		label {
-			width: 88%;
-			float: left;
-			height: 0.4rem;
+			width: 100%;
 			display: block;
-			font-size: 0.15rem;
+			font-size: 0.165rem;
 			color: #fff;
 			text-align: center;
-			line-height: 0.4rem;
-			border-radius: 0.2rem;
+			line-height: 0.44rem;
 			background: #4A8EF4;
-			margin-top: 0.05rem;
-			margin-left: 6%;
+      border-radius: 0;
+      letter-spacing: 2px;
 		}
 	}
+  .picker_bar {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    line-height: 0.42rem;
+    padding: 0;
+    border-bottom: solid 1px #eaeaea;
+    background-color: #4A8EF4;
+    .cancel{
+      width: 50%;
+      background-color: #e5e5e5;
+    }
+    .confrim {
+      width: 50%;
+      color: #FFFFFF;
+    }
+  }
+
 </style>
 <style lang="scss">
 	.person_data_root {
+    padding-top: 0.44rem;
+    padding-bottom: 0.54rem;
 		.mint-popup-bottom {
 			width: 100%;
 		}
 
-		.picker_bar {
-			display: flex;
-			justify-content: space-between;
-			text-align: center;
-			line-height: 40px;
-			padding: 0 20px;
-			border-bottom: solid 1px #eaeaea;
+    .person_data{
+      margin-top: 0.1rem;
+      a.mint-cell{
+        position: relative;
+      }
+      a.mint-cell::after{
+        background-color: #000;
+        content: " ";
+        opacity: 0.1;
+        right: 0;
+        bottom: 0;
+        left: 0.15rem;
+        position: absolute;
+        height: 1px;
+      }
+       a.mint-cell .mint-cell-value {
+        margin-right: 20px;
+      }
+       a.mint-cell  .mint-cell-allow-right::after{
+        right: 15px;
+      }
 
-			.confrim {
-				color: #26a2ff;
-			}
-		}
+      .person_marg{
+        a.mint-cell::after{
+          opacity: 0;
+        }
+      }
+      .picker_bar {
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        line-height: 0.42rem;
+        padding: 0;
+        border-bottom: solid 1px #eaeaea;
+        background-color: #4A8EF4;
+        .cancel{
+          width: 50%;
+          background-color: #e5e5e5;
+        }
+        .confrim {
+          width: 50%;
+          color: #FFFFFF;
+        }
+      }
+    }
 	}
+
+  .person_data_root .picker-items{
+    margin-top: 0.15rem;
+  }
+  .person_data_root .mint-popup-bottom,  .person_data_root  .picker-items .city_picker_root {
+   min-height: 35%;
+  }
+  /*手机*/
+  @media screen and (max-width:539px){
+    .mint-header {
+      height: 0.44rem;
+      border-bottom: 1px solid #eee;
+      font-size: 0.175rem;
+    }
+    .mint-cell {
+      min-height: 0.48rem;
+    }
+    a.mint-cell .mint-cell-text {
+      font-size: 0.16rem;
+    }
+    .mint-cell-wrapper{
+      font-size: 0.16rem;
+    }
+    .mint-button {
+      font-size: 0.165rem;
+      letter-spacing: 2px;
+      height:0.42rem;
+    }
+    .mint-msgbox{
+      font-size: 0.16rem;
+    }
+  .username-root>.marginTop5 {
+    margin-top: 0.1rem;
+
+  }
+    .username-root>div.btn{
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: 0;
+    }
+    .username-root>div.btn>.mint-button{
+      font-size: 0.165rem;
+      letter-spacing: 2px;
+      border-radius: 0;
+    }
+  }
+
+  /*平板*/
+
+  @media screen and (min-width:540px) and (max-width:960px){
+    .mint-header {
+      height: 48px;
+      border-bottom: 1px solid #eee;
+      font-size: 18px;
+    }
+    .mint-header {
+      font-size: 18px;
+    }
+    a.mint-cell .mint-cell-text {
+      font-size: 16px;
+    }
+    .mint-cell-wrapper{
+      font-size:16px;
+    }
+    .mint-button {
+      font-size: 18px;
+      height: 41px;
+    }
+
+    .mint-msgbox{
+      font-size:16px;
+    }
+  }
 </style>
