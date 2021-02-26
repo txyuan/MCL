@@ -235,7 +235,13 @@ export default {
   data () {
     return {
       param: {
-
+        // 所有的输入框
+        waist: '', // 腰围
+        hipline: '', // 臀围
+        attribute_value_22: '', // 诊断时间
+        attribute_value_23: '0', // 具体日期记不清
+        attribute_value_25: '', // 持续时间
+        attribute_value_26: '' // 体脂率
       },
       ...formData
     }
@@ -254,10 +260,95 @@ export default {
       } = this.$refs.DatetimePicker
       timeField = timeField.split('.')
       this.$set(this[timeField[0]], timeField[1], getTime(new Date(value)))
+    },
+    // 设置表单内容
+    setFormData (data) {
+      const param = this.param
+      // 输入框
+      Object.keys(param).forEach((key) => {
+        param[`${key}`] = data[`${key}`]
+      })
+      // 遍历数据 单选框和多选框
+      for (let key in formData) {
+        let rowData = formData[key]
+        if (rowData) {
+          // 多选框未选中0  选中1
+          if (rowData.checklist) {
+            rowData.value = []
+            rowData.option.forEach((item) => {
+              if (data[item.value] == '1') {
+                rowData.value.push(item.value)
+              }
+            })
+          } else {
+            rowData.value = data[key]
+          }
+        }
+      }
+    },
+    // 必填项验证
+    verification () {
+      let param = this.param
+      if (param.waist == '') {
+        this.$Toast('请输入腰围')
+        return false
+      }
+      if (param.hipline == '') {
+        this.$Toast('请输入臀围')
+        return false
+      }
+      if (this.attribute_value_01.value == '') {
+        this.$Toast('请选择管理目标')
+        return false
+      }
+      if (this.attribute_value_02.value == '') {
+        this.$Toast('请选择是否有基础疾病')
+        return false
+      }
+      if ((param.attribute_value_22 == '') && (param.attribute_value_23 == '0')) {
+        this.$Toast('请选择诊断日期')
+        return false
+      }
+      if (this.attribute_value_24.value == '') {
+        this.$Toast('请选择肿瘤家族史')
+        return false
+      }
+      if (param.attribute_value_25 == '') {
+        this.$Toast('请输入持续时间')
+        return false
+      }
+      if (param.attribute_value_26 == '') {
+        this.$Toast('请输入体脂率')
+        return false
+      }
+      if (this.attribute_value_27.value.length == 0) {
+        this.$Toast('请选择既往使用过哪些管理体重方法')
+        return false
+      }
+      if (this.attribute_value_36.value == '' || this.attribute_value_37.value == '' || this.attribute_value_38.value.length == 0) {
+        this.$Toast('请选择用药情况')
+        return false
+      }
+      // 遍历数据
+      for (let key in formData) {
+        let rowData = formData[key]
+        if (rowData) {
+          // 多选框 未选中0  选中1
+          if (rowData.checklist) {
+            rowData.option.forEach((item) => {
+              let checklistVal = 0
+              if (rowData.value.indexOf(item.value) != -1) {
+                checklistVal = 1
+              }
+              param[item.value] = checklistVal
+            })
+          } else {
+            param[key] = rowData.value
+          }
+        }
+      }
+      return true
     }
-  },
-  components: {
-
   }
 }
 </script>

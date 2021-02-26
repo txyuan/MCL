@@ -64,11 +64,11 @@ export default {
       //               return;
       //             }
       let url = 'UserInterface/UserLogin.ashx'
-	 
+
       let param = {
         'userphone': this.phone,
         'userpassword': this.code,
-		'openid': localStorage.openId
+        'openid': localStorage.openId
       }
       this.$post(url, param).then((data) => {
         if (data.rspcode != 1) {
@@ -85,19 +85,19 @@ export default {
           this.$Toast('登录成功')
           const userinfoflag = data.data.userinfoflag // 1:线下，2：线上
           const PatientDistinguish = data.data.PatientDistinguish // 是否录入基本信息0：未录入，1：已录入
-          // 0：未录入
+          // 0：未录入 2：线上
           if ((PatientDistinguish == 2) && (userinfoflag == 0)) {
             this.$router.push('/wellcome')
             return
           };
-					const redirect = this.$route.query.redirect
+          const redirect = this.$route.query.redirect
           if (redirect) {
-						// 报告查询页面
-						if(redirect == '/eyeconme'){
-							this.$router.replace('/wellcome?redirect=/eyeconme')
-						}else{
-							this.$router.replace(redirect)
-						}
+            // 报告查询页面
+            if (redirect == '/eyeconme') {
+              this.$router.replace('/wellcome?redirect=/eyeconme')
+            } else {
+              this.$router.replace(redirect)
+            }
           } else {
             this.$router.push('/wx_Entrance/home')
           }

@@ -33,71 +33,75 @@
 </template>
 
 <script>
-	import logoImg from '@/assets/images/mclogo.png'
-	export default {
-		name: "index",
-		data: () => ({
-			phone: '',
-			code: '',
-			agrn: false,
-			logoImg: logoImg
-		}),
-		methods: {
-			//注册
-			registbtn() {
-				this.$router.push('/termsService');
-			},
-			//           agre(){
-			//             this.agrn=!this.agrn;
-			//           },
-			//登录
-			loginbtn() {
-				let myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
-				if (!myreg.test(this.phone)) {
-					this.$Toast('请输入格式正确的手机号');
-					return;
-				}
-				if (this.code == "") {
-					this.$Toast('请输入密码');
-					return;
-				}
-				let url = "UserInterface/UserLogin.ashx";
-				let param = {
-					"userphone": this.phone,
-					"userpassword": this.code
-				}
-				this.$post(url, param).then((data) => {
-					if (data.rspcode == 0) {
-						this.$Toast(data.rspdesc);
-						return;
-					}
-					if(data.rspcode == 2){
-						this.$router.push(`/physician1?UserKey=${data.data.userKey}&SessionId=${data.data.sessionId}`)
-						return;
-					}
-					//存登录信息
-					localStorage.userInfo = JSON.stringify({
-						UserKey: data.data.userKey,
-						SessionId: data.data.sessionId
-					})
-					this.$Toast('登录成功');
-					if(this.$route.query.redirect){
-						this.$router.replace(this.$route.query.redirect);
-					}else{
-						this.$router.push('/wx_Entrance/home');
-					}
-				})
-			}
-		},
-		created: function(){
-			if(localStorage.userInfo){
-				this.$router.push("/")
-			}
-		},
-		mounted: function() {
+import logoImg from '@/assets/images/mclogo.png'
+export default {
+  name: 'index',
+  data: () => ({
+    phone: '',
+    code: '',
+    agrn: false,
+    logoImg: logoImg
+  }),
+  methods: {
+    // 注册
+    registbtn () {
+      this.$router.push('/termsService')
+    },
+    //           agre(){
+    //             this.agrn=!this.agrn;
+    //           },
+    // 登录
+    loginbtn () {
+      let myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
+      if (!myreg.test(this.phone)) {
+        this.$Toast('请输入格式正确的手机号')
+        return
+      }
+      if (this.code == '') {
+        this.$Toast('请输入密码')
+        return
+      }
+      let url = 'UserInterface/UserLogin.ashx'
+      let param = {
+        'userphone': this.phone,
+        'userpassword': this.code
+      }
+      this.$post(url, param).then((data) => {
+        if (data.rspcode == 0) {
+          this.$Toast(data.rspdesc)
+          return
+        }
+        if ((data.data.userType == 4)) {
+          if (data.rspcode == 2) {
+            this.$router.push(`/physician1?UserKey=${data.data.userKey}&SessionId=${data.data.sessionId}`)
+            return
+          }
+          // 存登录信息
+          localStorage.userInfo = JSON.stringify({
+            UserKey: data.data.userKey,
+            SessionId: data.data.sessionId
+          })
+          this.$Toast('登录成功')
+          if (this.$route.query.redirect) {
+            this.$router.replace(this.$route.query.redirect)
+          } else {
+            this.$router.push('/wx_Entrance/home')
+          }
+        } else {
+          this.$Toast('该账号权限不匹配')
+        }
+      })
+    }
+  },
+  created: function () {
+    if (localStorage.userInfo) {
+      this.$router.push('/')
+    }
+  },
+  mounted: function () {
 
-		}
-	}
+  }
+}
 </script>
 
 <style scoped lang="scss">
