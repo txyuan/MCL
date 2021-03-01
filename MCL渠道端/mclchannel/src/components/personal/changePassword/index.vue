@@ -31,7 +31,7 @@
         <mt-field label="新密码：" type="password" placeholder="请输入新密码" v-model="newpassword"></mt-field>
       </div>
       <p class="ets">温馨提示：点击图片更换图片验证码！</p>
-      <div class="btn">
+      <div class="changePassbtn">
         <mt-button type="danger" size="large" @click="loginbtn">确认</mt-button>
       </div>
     </div>
@@ -166,7 +166,7 @@
       .passnum{
         margin-top: 0.1rem;
       }
-      .btn{
+      .changePassbtn{
         position: fixed;
         bottom: 0;
         left: 0;

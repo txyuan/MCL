@@ -402,7 +402,7 @@
     .mint-button {
       font-size: 0.165rem;
       letter-spacing: 2px;
-      height:0.42rem;
+      height:0.44rem;
     }
     .mint-msgbox{
       font-size: 0.16rem;

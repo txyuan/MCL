@@ -19,7 +19,7 @@
           <mt-cell title="账号">
             <span>{{repData.ContactPhone}}</span>
           </mt-cell>
-          <mt-cell title="性别" is-link @click.native="pickerToggle('show')">
+          <mt-cell class="last_cell" title="性别" is-link @click.native="pickerToggle('show')">
             <span v-if="repData.Sex == 1">男</span>
             <span v-if="repData.Sex == 2">女</span>
           </mt-cell>
@@ -326,7 +326,7 @@
         position: absolute;
         height: 1px;
       }
-      a.mint-cell:last-child::after{
+      a.mint-cell:last-child::after,a.last_cell::after{
         opacity: 0;
       }
       a.mint-cell .mint-cell-value {
@@ -381,7 +381,7 @@
     .mint-button {
       font-size: 0.165rem;
       letter-spacing: 2px;
-      height:0.42rem;
+      height:0.44rem;
     }
     .mint-msgbox{
       font-size: 0.16rem;
