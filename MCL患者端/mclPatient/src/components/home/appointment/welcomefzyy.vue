@@ -11,7 +11,7 @@
 			<div class="wel_fix">
 				<img src="@/assets/images/welfzyy.jpg" style="width: 100%;" />
 			</div>
-			<mt-button type="default" class="add_btn" v-on:click="goubuyvip()" v-if="isvip==0" size="large">去购买</mt-button>
+			<mt-button type="default" class="add_btn" v-on:click="goubuyvip()" v-if="isvip==0" size="large">成为会员</mt-button>
 			<mt-button type="default" class="add_btn" v-on:click="loginbtn()" v-else size="large">下一步</mt-button>
 		</div>
 	</div>

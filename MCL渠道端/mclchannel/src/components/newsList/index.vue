@@ -20,8 +20,9 @@
 							<h4>{{item.status}}</h4>
 							<span>{{item.remarks}}</span>
 							<label>{{item.createtime}}</label>
-							<mt-cell title="查看详情" is-link  @click.native="openModal(item)" >
-                </mt-cell>
+              <!-- 还未开发，暂时屏蔽掉 -->
+							<!-- <mt-cell title="查看详情" is-link  @click.native="openModal(item)" ></mt-cell> -->
+							<mt-cell title="查看详情" is-link></mt-cell>
 						</div>
 					</div>
 				</div>
