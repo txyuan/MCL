@@ -20,6 +20,7 @@ const personal = () => import(/* webpackChunkName: "personal" */ '@/components/p
 const personal_data = () => import(/* webpackChunkName: "personal_data" */ '@/components/personal/personal_data/index.vue')  //个人资料
 const username = () => import(/* webpackChunkName: "username" */ '@/components/personal/username/index.vue')  //个人资料
 const myUser = () => import(/* webpackChunkName: "myUser" */ '@/components/personal/myUser/index.vue')  //我的用户
+const userListDetails = () => import(/* webpackChunkName: "userListDetails" */ '@/components/personal/myUser/userListDetails.vue')  //我的用户列表详情
 const consultation = () => import(/* webpackChunkName: "consultation" */ '@/components/personal/consultation/index.vue')  //我的余额
 const rechademon = () => import(/* webpackChunkName: "rechademon" */ '@/components/personal/consultation/rechademon.vue')  //我的余额  充值
 const capital = () => import(/* webpackChunkName: "capital" */ '@/components/personal/capital/index.vue')  //资金记录
@@ -53,7 +54,7 @@ const shopDetails = () => import(/* webpackChunkName: "shopDetails" */ '@/compon
 // const notice = () => import(/* webpackChunkName: "notice" */ '@/components/notice/index.vue') //停运公告
 const notOpen = () => import(/* webpackChunkName: "notOpen" */ '@/components/personal/notOpen.vue') //暂未开放
 const bankCard = () => import(/* webpackChunkName: "bankCard" */ '@/components/personal/bankCard/index.vue')  //卡号管理
-const addcard = () => import(/* webpackChunkName: "addcard" */ '@/components/personal/bankCard/addcard.vue')  //添加银行卡 
+const addcard = () => import(/* webpackChunkName: "addcard" */ '@/components/personal/bankCard/addcard.vue')  //添加银行卡
 const custransfer = () => import(/* webpackChunkName: "custransfer" */ '@/components/personal/custransfer/index.vue')  //客户转让
 const customerfer = () => import(/* webpackChunkName: "customerfer" */ '@/components/personal/custransfer/customerfer.vue')  //客户转让
 const staticMonth = () => import(/* webpackChunkName: "staticMonth" */ '@/components/personal/staticMonth/index.vue')  //绩效统计
@@ -87,6 +88,7 @@ const router = new Router({
     { path:"/personaldata", name:"personaldata", component: personal_data },
     { path:"/username", name:"username", component: username },
     { path:"/myUser", name:"myUser", component: myUser },
+    { path:"/userListDetails", name:"userListDetails", component: userListDetails },
 	  { path:"/consultation", name:"consultation", component: consultation },
 	  { path:"/rechademon", name:"rechademon", component: rechademon },  //余额  充值
 	  { path:"/capital", name:"capital", component: capital },
@@ -95,7 +97,7 @@ const router = new Router({
 	  { path:"/yjcardRefund", name:"yjcardRefund", component: yjcardRefund },
     { path:"/personal_achievement", name:"personal_achievement", component: personal_achievement },
     { path:"/friendachieve/:friendsKey", name:"friendachieve", component: friendachieve },
-	
+
     { path:"/personalreceivingadress", name:"personalreceivingadress", component: personal_receivingadress },
     { path:"/personaladdadress/:isType", name:"personaladdadress", component: personal_addadress },
     { path:"/shopdetail/:sKey", name:"shopdetail",redirect: '/shopdetail/:sKey/detailshow', component: shop_detail},
