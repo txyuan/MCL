@@ -42,6 +42,7 @@ const staffManage = () => import(/* webpackChunkName: "staffManage" */ '@/compon
 const establish = () => import(/* webpackChunkName: "establish" */ '@/components/personal/staffManage/establish.vue')  //创建员工
 const onestaff = () => import(/* webpackChunkName: "onestaff" */ '@/components/personal/staffManage/onestaff.vue')  //员工管理单个
 const newsList = () => import(/* webpackChunkName: "newsList" */ '@/components/newsList/index.vue')  //消息列表
+const newsDetail = () => import(/* webpackChunkName: "newsDetail" */ '@/components/newsList/newsDetail.vue')  //消息列表
 const searchShop = () => import(/* webpackChunkName: "searchShop" */ '@/components/home/searchShop/index.vue')  //搜索商品
 const termsService = () => import(/* webpackChunkName: "termsService" */ '@/components/login/termsService.vue')  //注册
 const changePass = () => import(/* webpackChunkName: "changePass" */ '@/components/personal/changePassword/index.vue') //修改密码
@@ -107,7 +108,8 @@ const router = new Router({
 	{ path:"/staffManage", name:"staffManage", component: staffManage },
 	{ path:"/establish", name:"establish", component: establish },
 	{ path:"/onestaff", name:"onestaff", component: onestaff },
-	{ path:"/newsList", name:"newsList", component: newsList },
+	{ path:"/newsList", name:"newsList", component: newsList, meta: {keepAlive: true} },
+	{ path:"/newsDetail", name:"newsDetail", component: newsDetail },
     { path:"/order", name:"order", component: order },
 	{ path:"/orderindex", name:"orderindex", component: orderindex },
     { path:"/searchShop", name:"searchShop", component: searchShop, meta:{keepAlive: true}},

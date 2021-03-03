@@ -1,134 +1,118 @@
 <template>
-	<div class="news-list">
-		<mt-header fixed title="消息列表">
+	<div class="news-list padding-header">
+		<mt-header fixed :title="$route.query.title">
 			<div slot="left">
 				<header-back>
 					<mt-button icon="back"></mt-button>
 				</header-back>
 			</div>
 		</mt-header>
-		<div class="inform_cont">
-			<!-- <loadMore :param="param" @triggerGetList="getList" ref="loadMoreE" class="padding-footer"> -->
-				<div slot="content">
-					<div class="inform_list" v-for="(item, index) in list" :key="index">
-						<h2>
-							<img :src="item.imgurl" />
-							<span>{{item.title}}</span>
-							<label>{{item.time}}</label>
-						</h2>
-						<div class="inform_jtds">
-							<h4>{{item.status}}</h4>
-							<span>{{item.remarks}}</span>
-							<label>{{item.createtime}}</label>
-							<mt-cell title="查看详情" is-link :to="`/newsDetail?userskey=${item.userskey}&sKey=${item.sKey}&title=${item.title}`"></mt-cell>
-						</div>
-					</div>
-				</div>
-			<!-- </loadMore> -->
 
-			<!--<div class="inform_list">
-				<h2>
-					<img src="../../assets/images/kdy.png" />
-					<span>新订单发货提醒</span>
-					<label>14:15:25</label>
-				</h2>
-				<div class="inform_jtds">
-					<h4>新用户注册成功</h4>
-					<span>新用户 何小何 扫描 员工 吴龙 二维码注册成功</span>
-					<label>2019.10.07 14:15:25</label>
-					<p>查看详情</p>
-				</div>
-			</div>-->
-		</div>
-  
+    <div class="content04 abcd">
+      <div class="valurang">
+        <div class="val_bt">医生信息</div>
+        <div class="val_xq">
+        <div class="val_list d-flex">
+          <div class="val_list_tit">医生名称</div>
+          <div class="flex-grow-1">{{info.doctorName}}</div>
+        </div>
+
+        <div class="val_list d-flex">
+          <div class="val_list_tit">手机号码</div>
+          <div class="flex-grow-1">{{info.ContactPhone}}</div>
+        </div>
+
+        <div class="val_list d-flex">
+          <div class="val_list_tit">性别</div>
+          <div class="flex-grow-1">{{info.sex}}</div>
+        </div>
+
+        <div class="val_list d-flex">
+          <div class="val_list_tit">职称</div>
+          <div class="flex-grow-1"> {{info.position}}</div>
+        </div>
+
+        <div class="val_list d-flex">
+          <div class="val_list_tit">医院名称</div>
+          <div class="flex-grow-1">{{info.hospitalName}}</div>
+        </div>
+
+        <div class="val_list d-flex">
+          <div class="val_list_tit">科室</div>
+          <div class="flex-grow-1">{{info.Department}}</div>
+        </div>
+
+        <div class="val_list d-flex">
+          <div class="val_list_tit">申请时间</div>
+          <div class="flex-grow-1">{{info.create_time}}</div>
+        </div>
+        <div class="val_list d-flex">
+          <div class="val_list_tit">申请状态</div>
+          <div class="flex-grow-1">{{info.status}}</div>
+        </div>
+        </div>
+
+        <div class="val_btm" v-if="info.status == '待审核'">
+          <div class="d-flex">
+            <div class="czButton">
+            <mt-button type="primary" class="theme-button button-radio " size="large">取消审核
+            </mt-button>
+          </div>
+          <div class="bcButton flex-grow-1">
+            <mt-button type="primary" class="theme-button button-radio " size="large" @click.native="submit">通过审核
+            </mt-button>
+          </div></div>
+        </div>
+      </div>
+      <!-- <div v-else>
+        <div class="news_list_xq">
+          <div class="xq_title">{{this.currentObj.status}}
+            <p class="xq_time">
+            {{this.currentObj.createtime}}
+          </p>
+          </div>
+          <div class="xq_nr">
+            {{this.currentObj.remarks}}
+          </div>
+
+        </div>
+      </div> -->
+    </div>
+
 	</div>
 </template>
 
 <script>
-	import loadMore from "@/components/common/loadMore.vue"; //加载更多组件
-	export default {
-		name: "newa-list",
-		data: () => ({
-			list: [],
-      popupVisible: false,
-      titlerg:'医生注册成功审核',
-      newlisrnr:'',
-      currentObj: {},  //当前点击对象
-      reviewed:'待审核',//审核状态
-      reviewedId:'0',//审核状态ID
-			param: {
-				"pagesize": 10,
-				"pagecount": 0,
-			}
-		}),
-		methods: {
-			//获取列表
-			// getList(success) {
-			// 	let url = "UserInterface/channel/ChannelHomePageHeadlineList.ashx";
-			// 	if(this.param.pagecount == 1) {
-			// 		this.list = [];
-			// 	}
-			// 	this.$post(url, this.param).then((data) => {
-			// 		if(data.rspcode != 1) {
-			// 			return;
-			// 		}
-			// 		let modelList = data.data;
-			// 		this.list = [...this.list, ...modelList]
-			// 		//加载更多组件触发回调
-			// 		if(success) {
-			// 			success(modelList, this.list)
-			// 		}
-			// 	})
-			// },
-      toggleModal (type) {
-        var state = (type == 'show' ? true : false)
-        this.popupVisible = state
-      },
-      openModal (item) {
-        this.titlerg=item.title
-        this.currentObj=item
-        this.toggleModal('show')
-        if(this.titlerg=="医生成功注册"){
-          this.newlisrnr='1'
+export default {
+  data: () => ({
+    info: {}
+  }),
+  methods: {
+    getInfo () {
+      let url = 'UserInterface/channel/SelectDoctorInfo.ashx'
+      this.$post(url, {doctorSkey: this.$route.query.userskey}).then((data) => {
+        if (data.rspcode != 1) {
+          this.$Toast(data.rspdesc)
+          return
         }
-        else {
-          this.newlisrnr='0'
-        }
-        // this.renderQuestion(item)
-      },
-      reset(){
-        this.toggleModal('hide')
-      },
-      submit(){
-        this.toggleModal('hide')
-        this.reviewed='已审核'
-        this.reviewedId='1'
-      },
-			getList() {
-				let url = "UserInterface/channel/ChannelHomePageHeadlineList.ashx";
-				this.$post(url).then((data) => {
-					if(data.rspcode != 1) {
-						return;
-					}
-					let modelList = data.data;
-					this.list = modelList;
-				})
-			},
-		},
-		mounted(){
-			// this.getList();
-		},
-    beforeRouteEnter(to, form, next){
-      next((vm) => {
-        if(form.name == 'home'){
-          vm.getList();
-        }
+        this.info = data.data
       })
     },
-		components: {
-			loadMore
-		}
-	}
+    // 通过审核
+    submit () {
+      let url = 'UserInterface/channel/DoctorApproval.ashx'
+      this.$post(url, {doctorSkey: this.$route.query.userskey}).then((data) => {
+        this.$Toast(data.rspdesc)
+        if (data.rspcode == 1) {
+          this.getInfo()
+        }
+      })
+    }
+  },
+  mounted () {
+    this.getInfo()
+  }
+}
 </script>
 <style lang="scss">
 

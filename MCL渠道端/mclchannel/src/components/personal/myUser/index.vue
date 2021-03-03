@@ -18,9 +18,9 @@
           <em>人</em>
 			</div>
       <div class="d-flex justify-content-around card_count">
-        <div class="card_cou_data"><span>{{totalcount}}</span><em>人</em><p>渠道经理</p></div>
-        <div class="card_cou_data"><span>{{totalcount}}</span><em>人</em><p>医生人数</p></div>
-        <div class="card_cou_data"><span>{{totalcount}}</span><em>人</em><p>员工人数</p></div>
+        <div class="card_cou_data"><span>{{newchannel}}</span><em>人</em><p>渠道经理</p></div>
+        <div class="card_cou_data"><span>{{newdoctor}}</span><em>人</em><p>医生人数</p></div>
+        <div class="card_cou_data"><span>{{newstaff}}</span><em>人</em><p>员工人数</p></div>
       </div>
 			<div class="card_alist">
 			 本月新增
@@ -47,33 +47,24 @@
 			<loadMore :param="param" @triggerGetList="getList" ref="loadMoreE" class="padding-footer">
 				<div slot="content">
 					<div class="callddh" v-for="(item,index) in list" :key="index">
-<!--					 <mt-cell :title="item.nickname" :label="item.create_date" class="borderBottom">-->
-<!--							<div class="right text-right">-->
-<!--								<span>已推广 : {{item.nickname}}人</span>-->
-<!--								<span class="mint-cell-label">已消费 : ¥{{item.money}}</span>-->
-<!--							</div>-->
-<!--						</mt-cell>-->
-<!--						<img src="../../../assets/images/bohao@2x.png" class="calldh" />-->
-<!--						<div class="content">-->
-<!--							<p class="left">{{item.contactphone}}</p>-->
-<!--							<p class="center">{{item.usertypename}}</p>-->
-<!--							<p class="right">{{item.create_date}}</p>-->
-<!--						</div>-->
             <div class="card_cont">
               <div class="card_cont_tit">
                 <div class="card_img">
-                <img src="../../../assets/images/qdjl.png"/>
+                	<img v-if="param.type == 1" src="../../../assets/images/qdjl.png"/>
+                	<img v-if="param.type == 2" src="../../../assets/images/kdy.png"/>
+                	<img v-if="param.type == 3" src="../../../assets/images/yha.png"/>
                 </div>
-                <div class="card_cont_txt"><span>{{item.usertypename}}</span>{{item.contactphone}}</div>
+                <div class="card_cont_txt"><span>{{item.contactname}}</span>{{item.contactphone}}</div>
               </div>
               <div class="card_cont_xq d-flex justify-content-between align-items-center">
                 <div class="card_cont_xqwb flex-grow-1">
-                  <p>医生人数：{{item.usertypename}}</p>
-                  <p>业绩金额：{{item.contactphone}}</p>
+                  <p v-if="param.type == 2">病人人数：{{item.userCount}}人</p>
+                  <p v-else>医生人数：{{item.userCount}}人</p>
+                  <p>业绩金额：{{item.achievementMoney}}元</p>
                   <p>创建时间：{{item.create_date}}</p>
                 </div>
                 <div class="card_cont_btn">
-                  <mt-button type="danger" size="large" @click="loginbtn">查看详情</mt-button>
+                  <mt-button type="danger" size="large">查看详情</mt-button>
                 </div>
               </div>
             </div>
@@ -91,6 +82,9 @@
 		data: () => ({
 			selected: "tab0",
 			totalcount: "", //总人数
+			newchannel: "", //渠道经理
+			newdoctor: "", //医生人数
+			newstaff: "", //员工人数
 			newcount: "", // 本月新增
 			list: [],
 			param: {
@@ -114,7 +108,7 @@
 			},
 			// 下面流水
 			getList(success) {
-				let url = "UserInterface/channel/StaffPromotionList.ashx";
+				let url = "UserInterface/channel/ChannelMyUserAchievementInfo.ashx";
 				if(this.param.pagecount == 1) {
 					this.list = [];
 				}
@@ -123,10 +117,12 @@
 						return;
 					}
 					let modelList = data.data;
-					console.log(modelList)
 					this.list = [...this.list, ...modelList]
 					this.totalcount = data.totalcount
 					this.newcount = data.newcount
+					this.newchannel = data.newchannel
+					this.newdoctor = data.newdoctor
+					this.newstaff = data.newstaff
 					//加载更多组件触发回调
 					if(success) {
 						success(modelList, this.list)
