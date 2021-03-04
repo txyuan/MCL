@@ -14,7 +14,7 @@
 
         <div class="title2 bg-white titlTop">如果有请选择情况<em>(可多选)</em>
         </div>
-        <mt-checklist :options="attribute_value_02.option" v-model="attribute_value_02.value" class="checklist qkxz_style_a" style="position: relative; padding-top: 0.02rem"></mt-checklist>
+        <mt-checklist :options="attribute_value_02.option" v-model="attribute_value_02.value" class="checklist yjk_style_a" style="position: relative; padding-top: 0.02rem"></mt-checklist>
       </div>
       <div class="splitLine">
         <div class="title2 bg-white titleBtm">是否有基础疾病
