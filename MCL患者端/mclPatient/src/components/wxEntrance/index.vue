@@ -31,7 +31,7 @@
         {name:"首页",path:"home",pathy:"home"},
 			  {name:"自测",path:"selfTest",pathy:"mesage"},
 				{name:"社区",path:"community",pathy:"community"},
-				{name:"服务",path:"service",pathy:"service"},
+				{name:"商城",path:"service",pathy:"service"},
 //      {name:"消息",path:"mesage",pathy:"mesage"},
         {name:"我的",path:"personal",pathy:"personal"}
       ]

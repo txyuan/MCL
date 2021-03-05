@@ -135,7 +135,7 @@
 	}
 </script>
 
-<style>
+<style scoped lang="scss">
 	.passnum {
 		margin-top: 0.1rem;
 	}

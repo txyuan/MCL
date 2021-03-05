@@ -44,7 +44,7 @@
 				</div>
 				<i>{{responseData.nutritionremarks}}</i>
 			</div>
-			<div class="nut_list">
+			<div class="nut_list" v-show="responseData.pgsgaShow">
 				<div class="nut_li">
 					<h2>
 						<span>营养评估（PG-SGA）</span>
@@ -113,7 +113,8 @@ export default {
       mnasfvalue: '', // MNASF分值
       mnasfresult: '', // MNASF结果
       mnasfremarks: '', // MNASF备注
-      mnasfShow: false
+      mnasfShow: false,
+      pgsgaShow: false
     }
   }),
   methods: {
@@ -132,6 +133,11 @@ export default {
           this.responseData.mnasfShow = false
         } else {
           this.responseData.mnasfShow = true
+        }
+        if ((data.pgsgavalue == null) || (data.pgsgavalue == '分')) {
+          this.responseData.pgsgaShow = false
+        } else {
+          this.responseData.pgsgaShow = true
         }
       })
     },

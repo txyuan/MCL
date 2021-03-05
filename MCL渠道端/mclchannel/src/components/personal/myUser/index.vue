@@ -10,21 +10,28 @@
 			</mt-header>
 		</div>
 		<div class="card_achieve">
-			<div class="card_alist">
-				<p>总人数</p>
-				<span>
+			<div class="card_total">
+				 我的用户总人数：
+          <strong>
 					{{totalcount}}
-				</span>
+				</strong>
+          <em>人</em>
 			</div>
+      <div class="d-flex justify-content-around card_count">
+        <div class="card_cou_data"><span>{{totalcount}}</span><em>人</em><p>渠道经理</p></div>
+        <div class="card_cou_data"><span>{{totalcount}}</span><em>人</em><p>医生人数</p></div>
+        <div class="card_cou_data"><span>{{totalcount}}</span><em>人</em><p>员工人数</p></div>
+      </div>
 			<div class="card_alist">
-				<p>本月新增</p>
+			 本月新增
 				<span>{{newcount}}</span>
+          <em>人</em>
 			</div>
 		</div>
-		<div id="navbar" class="borderBottom" style="margin-top: 0.06rem;">
+		<div id="navbar" class="card_navbar">
 			<mt-navbar v-model="selected">
 				<mt-tab-item id="tab0" @click.native="tabClick('1')">
-					<p>渠道</p>
+					<p>渠道经理</p>
 				</mt-tab-item>
 				<mt-tab-item id="tab1" @click.native="tabClick('2')">
 					<p>医生</p>
@@ -40,18 +47,36 @@
 			<loadMore :param="param" @triggerGetList="getList" ref="loadMoreE" class="padding-footer">
 				<div slot="content">
 					<div class="callddh" v-for="(item,index) in list" :key="index">
-						<!-- <mt-cell :title="item.nickname" :label="item.create_date" class="borderBottom">
-							<div class="right text-right">
-								<span>已推广 : {{item.nickname}}人</span>
-								<span class="mint-cell-label">已消费 : ¥{{item.money}}</span>
-							</div>
-						</mt-cell>
-						<img src="../../../assets/images/bohao@2x.png" class="calldh" /> -->
-						<div class="content">
-							<p class="left">{{item.contactphone}}</p>
-							<p class="center">{{item.usertypename}}</p>
-							<p class="right">{{item.create_date}}</p>
-						</div>
+<!--					 <mt-cell :title="item.nickname" :label="item.create_date" class="borderBottom">-->
+<!--							<div class="right text-right">-->
+<!--								<span>已推广 : {{item.nickname}}人</span>-->
+<!--								<span class="mint-cell-label">已消费 : ¥{{item.money}}</span>-->
+<!--							</div>-->
+<!--						</mt-cell>-->
+<!--						<img src="../../../assets/images/bohao@2x.png" class="calldh" />-->
+<!--						<div class="content">-->
+<!--							<p class="left">{{item.contactphone}}</p>-->
+<!--							<p class="center">{{item.usertypename}}</p>-->
+<!--							<p class="right">{{item.create_date}}</p>-->
+<!--						</div>-->
+            <div class="card_cont">
+              <div class="card_cont_tit">
+                <div class="card_img">
+                <img src="../../../assets/images/qdjl.png"/>
+                </div>
+                <div class="card_cont_txt"><span>{{item.usertypename}}</span>{{item.contactphone}}</div>
+              </div>
+              <div class="card_cont_xq d-flex justify-content-between align-items-center">
+                <div class="card_cont_xqwb flex-grow-1">
+                  <p>医生人数：{{item.usertypename}}</p>
+                  <p>业绩金额：{{item.contactphone}}</p>
+                  <p>创建时间：{{item.create_date}}</p>
+                </div>
+                <div class="card_cont_btn">
+                  <mt-button type="danger" size="large" @click="loginbtn">查看详情</mt-button>
+                </div>
+              </div>
+            </div>
 					</div>
 				</div>
 			</loadMore>
@@ -98,6 +123,7 @@
 						return;
 					}
 					let modelList = data.data;
+					console.log(modelList)
 					this.list = [...this.list, ...modelList]
 					this.totalcount = data.totalcount
 					this.newcount = data.newcount
@@ -123,7 +149,7 @@
 		align-items: center;
 		align-content: center;
 	}
-	
+
 	.right.text-right {
 		color: $color60;
 		font-size: 0.15rem;
@@ -131,7 +157,7 @@
 			margin-top: 5px;
 		}
 	}
-	
+
 	.buttons {
 		overflow: hidden;
 		label {
@@ -149,35 +175,83 @@
 			margin-left: 6%;
 		}
 	}
-	
+
 	.card_achieve {
 		overflow: hidden;
-		background: #fff;
+    background: url(../../../assets/images/my-user-bg.jpg) no-repeat bottom center;
+    background-size: 100% 100%;
+    color: #ffcece;
+    .card_total{
+      padding: 0.15rem 0.05rem 0.25rem 0.2rem;
+      font-size: 0.16rem;
+      strong{
+        font-size: 0.325rem;
+        font-weight: 400;
+        display: inline-block;
+        vertical-align: sub;
+        color: #FFFFFF;
+        padding-right: 0.02rem;
+      }
+      em{
+         font-style: normal;
+         font-size: 0.15rem;
+        vertical-align: middle;
+       }
+    }
+    .card_count{
+      text-align: center;
+      font-size: 0.145rem;
+      span{
+        font-size: 0.2rem;
+        display: inline-block;
+        padding-left: 0.05rem;
+        padding-bottom: 0.075rem;
+        color: #FFFFFF;
+      }
+      em{
+        padding-left: 0.05rem;
+        font-style: normal;
+        font-size: 0.13rem;
+        color: #ffcece;
+      }
+      p{
+        font-size: 0.145rem;
+        padding: 0;
+      }
+
+    }
 		.card_alist {
-			width: 50%;
-			padding: 0.12rem 0;
-			float: left;
-			p {
-				font-size: 0.14rem;
-				color: #606060;
-				text-align: center;
-			}
-			span {
-				font-size: 0.3rem;
-				color: #333333;
-				text-align: center;
-				display: block;
-				padding: 0.06rem;
-			}
+      padding-left: 0.2rem;
+      margin-top: 0.25rem;
+      font-size: 0.155rem;
+      border-top: 1px solid #e57676;
+      color: #ffcece;
+      line-height: 0.4rem;
+      letter-spacing: 1px;
+      span{
+        font-size: 0.2rem;
+        display: inline-block;
+        padding:0 0.015rem;
+        color: #FFFFFF;
+        vertical-align: middle;
+      }
+      em{
+        font-style: normal;
+        font-size: 0.13rem;
+        color: #ffcece;
+      }
 		}
 	}
-	
+  .card_navbar{
+    margin-top: 0.1rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
 	.shaixuan {
 		height: 0.2rem;
 		width: 0.2rem;
 		margin-top: 0.08rem;
 	}
-	
+
 	.callddh {
 		position: relative;
 		.calldh {
@@ -197,6 +271,68 @@
 		font-size: 14px;
 		border-bottom: 1px solid #eee;
 	}
+  .borderpay{
+    background-color: #FFFFFF;
+    padding-top: 0.05rem;
+    .card_cont{
+      width: 88%;
+      margin: 0.2rem auto;
+      box-shadow: 1px 3px 6px 0px rgba(0,0,0,0.1);
+      border-radius: 0.1rem;
+      padding: 0.05rem 0;
+      .card_cont_tit{
+        border-bottom: 1px solid #e5e5e5;
+        position: relative;
+        display: block;
+        .card_img{
+          display: inline-block;
+          position: absolute;
+          left:0.1rem ;
+          top: 0.04rem;
+          img{
+            width: 0.32rem;
+            height: 0.32rem;
+          }
+        }
+        .card_cont_txt{
+          height: 0.4rem;
+          padding-left: 0.52rem;
+          line-height: 0.4rem;
+          font-size: 0.16rem;
+          span{
+            font-size: 0.17rem;
+            display: inline-block;
+            padding-right: 0.1rem;
+            color: #202020;
+          }
+        }
+      }
+      .card_cont_xq{
+        padding: 0.1rem 0.15rem 0.1rem 0.52rem;
+        .card_cont_xqwb{
+          font-size: 0.145rem;
+          color: #666666;
+          line-height: 1.6;
+        }
+        .card_cont_btn{
+          .mint-button{
+            height: auto;
+            font-size: 0.13rem;
+            padding: 0.02rem 0 0.025rem 0;
+            text-align: center;
+            border-radius: 6px;
+            width: 0.7rem;
+          }
+        }
+      }
+    }
+  }
+  #navbar .mint-navbar .mint-tab-item{
+    padding: 0 0.05rem;
+  }
+    #navbar .mint-navbar p{
+    font-size: 0.16rem!important;
+  }
 </style>
 <style lang="scss">
 	.person_data_root {
@@ -218,4 +354,24 @@
 			text-align: center;
 		}
 	}
+  .d-flex {
+    display: -ms-flexbox!important;
+    display: flex!important;
+  }
+  .justify-content-around {
+    -ms-flex-pack: distribute!important;
+    justify-content: space-around!important;
+  }
+  .justify-content-between {
+    -ms-flex-pack: justify!important;
+    justify-content: space-between!important;
+  }
+  .align-items-center {
+    -ms-flex-align: center!important;
+    align-items: center!important;
+  }
+  .flex-grow-1 {
+    -ms-flex-positive: 1!important;
+    flex-grow: 1!important;
+  }
 </style>

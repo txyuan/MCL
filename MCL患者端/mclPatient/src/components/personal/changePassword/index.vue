@@ -31,8 +31,8 @@
 				<mt-field label="新密码：" type="password" placeholder="请输入新密码" v-model="newpassword"></mt-field>
 			</div>
 			<!-- <p class="ets">温馨提示：点击图片更换图片验证码！</p> -->
-			<div class="btn">
-				<mt-button type="danger" size="large" @click="loginbtn">确认</mt-button>
+			<div class="changePassbtn">
+				<mt-button size="large" class="determineBtn" @click="loginbtn">确认</mt-button>
 			</div>
 		</div>
 	</div>
@@ -136,61 +136,92 @@
 		}
 	}
 </script>
+<style scoped lang="scss">
+
+  .mint-header {
+    height: 0.44rem;
+    border-bottom: 1px solid #eee;
+  }
+  .username-root{
+
+    .edit_pass{
+      margin-top: 0.1rem;
+      position: relative;
+
+      .phonenum,.codenum,.passnum{
+        position: relative;
+        padding:0.015rem 0.015rem 0.015rem 0.1rem;
+        background-color: #FFFFFF;
+      }
+      .phonenum::after {
+        background-color: #000;
+        content: " ";
+        opacity: 0.1;
+        right: 0;
+        bottom: 0;
+        left: 0.2rem;
+        position: absolute;
+        height: 1px;
+      }
+      .passnum{
+        margin-top: 0.1rem;
+      }
+      .changePassbtn{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        .determineBtn{
+          background-color: #0AC5C9;
+          color: #FFFFFF;
+          border-radius: 0;
+          height: 0.44rem;
+          font-size: 0.165rem;
+          letter-spacing: 2px;
+        }
+      }
+    .codenum u {
+      display: inline-block;
+      text-decoration: none;
+      padding: 0 0.15rem;
+      text-align: center;
+      color: #fd9419;
+      font-size: 0.13rem;
+      border-radius: 0.13rem;
+      line-height:2;
+      border: 1px solid #fd9419;
+    }
+
+    .codenum u i {
+      font-style: normal;
+    }
+
+    .ets {
+      padding-left: 3%;
+      font-size: 0.13rem;
+      color: #F78335;
+      padding-top: 0.1rem;
+    }
+
+  }
+    .verify-box {
+      line-height: 0.3rem;
+    }
+
+    .verify-box>div {
+      min-width: 75px;
+    }
+  }
+
+
+</style>
 
 <style>
-	.passnum {
-		margin-top: 0.1rem;
-	}
-
-	.phonenum {
-		margin-top: 0.1rem;
-		border-bottom: 1px solid #ddd;
-	}
-
-	.codenum {
-		border-bottom: 1px solid #d9d9d9;
-	}
-
-	.codenum u {
-		display: inline-block;
-		text-decoration: none;
-		width: 1.0rem;
-		text-align: center;
-		color: #F78335;
-		font-size: 0.12rem;
-		border-radius: 0.13rem;
-		height: 0.26rem;
-		line-height: 0.27rem;
-		border: 1px solid #F78335;
-	}
-
-	.codenum u i {
-		font-style: normal;
-	}
-
-	.username-root input {
-		border: none;
-	}
-
-	.username-root .btn {
-		margin: 0 0.20rem;
-		border-radius: 22px;
-		overflow: hidden;
-		margin-top: 0.5rem;
-	}
-
-	.ets {
-		padding-left: 3%;
-		font-size: 0.13rem;
-		color: #F78335;
-		padding-top: 0.1rem;
-	}
-
-	.verify-box {
-		line-height: 0.3rem;
-	}
-
-	.verify-box>div {
-		min-width: 75px;
-	}
+  .username-root .edit_pass input[type=text] {
+    border: 0;
+    color: #666666;
+  }
+  .username-root .edit_pass a.mint-cell .mint-cell-text {
+    color: #666666;
+  }
 </style>

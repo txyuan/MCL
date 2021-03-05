@@ -30,72 +30,76 @@
 </template>
 
 <script>
-	import logoImg from '@/assets/images/mclogo.png'
-	export default {
-		name: "index",
-		data: () => ({
-			phone: '',
-			code: '',
-			agrn: false,
-			logoImg: logoImg
-		}),
-		methods: {
-			//注册
-			registbtn() {
-				this.$router.push('/termsService');
-			},
-			//           agre(){
-			//             this.agrn=!this.agrn;
-			//           },
-			//登录
-			loginbtn() {
-				let myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
-				if (!myreg.test(this.phone)) {
-					this.$Toast('请输入格式正确的手机号');
-					return;
-				}
-				if (this.code == "") {
-					this.$Toast('请输入验证码');
-					return;
-				}
-				//             if(!this.agrn){
-				//               this.$Toast('请勾选阅读并同意金拓条款须知');
-				//               return;
-				//             }
-				let url = "UserInterface/UserLogin.ashx";
-				let param = {
-					"userphone": this.phone,
-					"userpassword": this.code
-				}
-				this.$post(url, param).then((data) => {
-					if (data.rspcode != 1) {
-						this.$Toast('登录失败请检查账号密码');
-						return;
-					}
-					//存登录信息
-					localStorage.userInfo = JSON.stringify({
-						UserKey: data.data.userKey,
-						SessionId: data.data.sessionId,
-						UserType: data.data.userType,
-					})
-					this.$Toast('登录成功');
-					if(this.$route.query.redirect){
-						this.$router.replace(this.$route.query.redirect);
-					}else{
-						this.$router.push('/wx_Entrance/home');
-					}
-				})
-			}
-		},
-		created: function(){
-			if(localStorage.userInfo){
-				this.$router.push("/")
-			}
-		},
-		mounted: function() {
+import logoImg from '@/assets/images/mclogo.png'
+export default {
+  name: 'index',
+  data: () => ({
+    phone: '',
+    code: '',
+    agrn: false,
+    logoImg: logoImg
+  }),
+  methods: {
+    // 注册
+    registbtn () {
+      this.$router.push('/termsService')
+    },
+    //           agre(){
+    //             this.agrn=!this.agrn;
+    //           },
+    // 登录
+    loginbtn () {
+      let myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
+      if (!myreg.test(this.phone)) {
+        this.$Toast('请输入格式正确的手机号')
+        return
+      }
+      if (this.code == '') {
+        this.$Toast('请输入验证码')
+        return
+      }
+      //             if(!this.agrn){
+      //               this.$Toast('请勾选阅读并同意金拓条款须知');
+      //               return;
+      //             }
+      let url = 'UserInterface/UserLogin.ashx'
+      let param = {
+        'userphone': this.phone,
+        'userpassword': this.code
+      }
+      this.$post(url, param).then((data) => {
+        if (data.rspcode != 1) {
+          this.$Toast('登录失败请检查账号密码')
+          return
+        }
+        if ((data.data.userType == 5) || (data.data.userType == 6) || (data.data.userType == 7) || (data.data.userType == 8)) {
+          // 存登录信息
+          localStorage.userInfo = JSON.stringify({
+            UserKey: data.data.userKey,
+            SessionId: data.data.sessionId,
+            UserType: data.data.userType
+          })
+          this.$Toast('登录成功')
+          if (this.$route.query.redirect) {
+            this.$router.replace(this.$route.query.redirect)
+          } else {
+            this.$router.push('/wx_Entrance/home')
+          }
+        } else {
+          this.$Toast('该账号权限不匹配')
+        }
+      })
+    }
+  },
+  created: function () {
+    if (localStorage.userInfo) {
+      this.$router.push('/')
+    }
+  },
+  mounted: function () {
 
-		}
-	}
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -107,13 +111,13 @@
 		height: 100vh;
 		background: #fff;
 	}
-	
+
 	.login_logo {
 		position: relative;
 		left: 0;
 		top: 0.52rem;
 	}
-	
+
 	.login_logo img {
 		width: 1.5rem;
 		position: absolute;
@@ -121,13 +125,13 @@
 		right: 0;
 		margin: 0 auto;
 	}
-	
+
 	.login_inpt {
 		width: 88%;
 		margin: 0 auto;
 		padding-top: 2.0rem;
 	}
-	
+
 	.login_inpt li {
 		width: 94%;
 		overflow: hidden;
@@ -138,7 +142,7 @@
 		padding: 0 3%;
 		border-radius: 0.25rem;
 	}
-	
+
 	.login_inpt img {
 		float: left;
 		height: 0.2rem;
@@ -146,7 +150,7 @@
 		margin-right: 0.08rem;
 		margin-top: 0.15rem;
 	}
-	
+
 	.login_inpt input {
 		width: 80%;
 		height: 0.5rem;
@@ -154,7 +158,7 @@
 		padding: 0 0.1rem;
 		font-size: 0.14rem;
 	}
-	
+
 	.login_inpt span {
 		width: 1.0rem;
 		height: 0.32rem;
@@ -171,14 +175,14 @@
 			font-style: normal;
 		}
 	}
-	
+
 	.add_btn {
 		width: 86%;
 		position: relative;
 		margin-top: 0.2rem;
 		margin-bottom: 0.12rem;
 	}
-	
+
 	.login_service {
 		clear: both;
 		width: 86%;
@@ -187,11 +191,11 @@
 		font-size: 0.14rem;
 		padding-top: 0.2rem;
 	}
-	
+
 	.login_service a {
 		color: #FF3D3D;
 	}
-	
+
 	.agreen {
 		clear: both;
 		font-size: 0.12rem;

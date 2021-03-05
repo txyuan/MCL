@@ -137,7 +137,7 @@
       </div>
       <div class="fotter-send">
         <a-textarea
-          v-model="message"
+          v-model.trim="message"
           equired
           placeholder="消息"
           class="sengTxt"
@@ -217,7 +217,6 @@ export default {
     }),
     msgList: function(){
       let currentMsgs = this.$store.state.chat.currentMsgs;
-	  console.log(currentMsgs)
       return currentMsgs;
     },
     userList() {

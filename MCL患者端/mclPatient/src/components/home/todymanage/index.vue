@@ -11,7 +11,7 @@
 			<div class="bj_inform">
 				<img :src="picurl" />
 				<span>{{uname}}</span>
-				<p @click="$router.push('/wellcome_personInfo?type=look')">完善资料</p>
+				<p @click="type_disease ? $router.push(`/wellcome_personInfo?type=look&diseasetype=${type_disease}`): ()=>{}">完善资料</p>
 			</div>
 			<div class="tody_ul">
 				<div class="tody_list">
@@ -140,6 +140,7 @@ export default {
   data: () => ({
     picurl: '',
     uname: '',
+    type_disease: '', // 完善资料的类型
     isLoad: false,
     messageInfo: {}
     // foods: false,
@@ -188,6 +189,7 @@ export default {
         if (data.rspcode == 1) {
           this.picurl = data.data.ImgUrl
           this.uname = data.data.Nickname
+          this.type_disease = data.data.type_disease
         }
       })
     },
