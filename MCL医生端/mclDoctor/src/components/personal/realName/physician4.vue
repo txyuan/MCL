@@ -36,7 +36,14 @@
       </div>
     </div>
       <div class="img_wrap">
-        <div class="tits"><em></em>请上传医师认证资料 <span style="color: #1cb0b9;font-size: 0.14rem">（至少选一证件上传）</span></div>
+        <div class="tits"><em></em>请上传医师认证资料 <span style="color: #1cb0b9;font-size: 12px">（至少选一证件上传或者输入省份证码）</span></div>
+				<div class="form">
+					<div class="form_bname  d-flex align-items-center">
+						<div>身份证号</div>
+						<div class="flex-grow-1"><input type="" placeholder="请输入身份证码" v-model="param.IdNumber"/></div>
+					</div>
+				</div>
+				
         <div class="img text-center" style="margin-bottom: 10px">
           <div class="defaultImg" v-if="isShowDefalutIdCardA">
             <img :src="idCardA" alt="">
@@ -112,6 +119,7 @@
 			idCardC: "https://resource.jtsc.club/zhengmian@2x.png", //默认正面
 			idCardD: "https://resource.jtsc.club/beimian@2x.png", //默认反面
 			param: {
+				IdNumber: "", //身份证号
 				practisingimg: "", //医师执业证
 				workcardimg: "", //医生工牌
 				qualificationsimg: "", //医师资格证
@@ -278,16 +286,29 @@
 			//提交
 			submit() {
 				const param = this.param;
-				let { UserKey,SessionId } = this.$route.query;
-				let url = `UserInterface/doctor/InsertDoctorInfo3.ashx?UserKey=${UserKey}&SessionId=${SessionId}`;
-				this.$post(url, this.param).then((data) => {
-					this.$Toast(data.rspdesc);
-					if (data.rspcode != 1) {
-						return;
-					}
-					this.$router.push('/wxFollowPage');
-					// this.$router.push('/appDown');
-				})
+				if((param.IdNumber !='') && IsCard(param.IdNumber) == false){
+					this.$Toast("请输入有效的身份证码")
+					return
+				}
+				if (IsCard(param.IdNumber) || (param.practisingimg != "") || (param.workcardimg != "") || (param.qualificationsimg != "") || (param.professionalimg != "")) {
+					let { UserKey,SessionId } = this.$route.query;
+					let url = `UserInterface/doctor/InsertDoctorInfo3.ashx?UserKey=${UserKey}&SessionId=${SessionId}`;
+					this.$post(url, this.param).then((data) => {
+						this.$Toast(data.rspdesc);
+						if (data.rspcode != 1) {
+							return;
+						}
+						this.$router.push('/wxFollowPage');
+						// this.$router.push('/appDown');
+					})
+				}else{
+					this.$Toast("请至少选一证件上传或者输入省份证码")
+				}
+				function IsCard(str) {
+					var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+					return reg.test(str);
+				}
+				
 			},
 			//input 添加失去焦点事件
 			inputInputBulr() {
@@ -310,7 +331,7 @@
 				method: this.openAlbum
 			}]
 			//初始化input的事件
-			this.inputInputBulr()
+			// this.inputInputBulr()
 		}
 	}
 </script>
@@ -369,6 +390,9 @@
 			font-size: 0.15rem;
 			color: #333535;
 			line-height: 0.5rem;
+			white-space: nowrap;
+			font-size: 14px;
+			overflow: hidden;
       em{
         display: inline-block;
         width: 0.035rem;
@@ -617,4 +641,30 @@
     -ms-flex-align: center!important;
     align-items: center!important;
   }
+	.form_bname {
+		background: #fff;
+		border-bottom: 1px solid #eee;
+    font-size: 14px;
+		margin-bottom: 10px;
+		span {
+			font-size:0.13rem;
+      color: #999999;
+      margin-left: 0.05rem;
+      em{
+        font-size: 0.16rem;
+        color: #FF1E41;
+        margin-right: 0.02rem;
+        vertical-align: sub;
+      }
+		}
+
+		input {
+			width: 100%;
+			text-align: right;
+			height: 0.44rem;
+			font-size: 0.14rem;
+      margin-right: 0.2rem;
+      color: #787878;
+		}
+	}
 </style>

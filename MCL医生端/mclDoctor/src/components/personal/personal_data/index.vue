@@ -35,6 +35,10 @@
 			<mt-cell title="职称" is-link to="/workTitle">
 				<span>{{repData.Title}}</span>
 			</mt-cell>
+			<mt-cell title="是否同意将本人信息展示患者端" is-link @click.native="popupVisibleInfo = true">
+				<span v-if="repData.displayFlag === ''">请选择</span>
+				<span v-else>{{repData.displayFlag == 1 ? '显示' : '不显示'}}</span>
+			</mt-cell>
 			<router-link tag="div" to="/goodAt" class="person_margs">
 				<p>擅长</p>
 				<textarea readonly="readonly">{{repData.begoodat}}</textarea>
@@ -79,7 +83,17 @@
 			<mt-picker :slots="sexSlots" :showToolbar="true" :visibleItemCount="3" ref="sexPicker">
 				<div class="picker_bar">
 					<div class="cancel" @click="pickerToggle('hide')">取消</div>
-					<div class="confrim" @click="editUserInfo">确定</div>
+					<div class="confrim" @click="confirmSex">确定</div>
+				</div>
+			</mt-picker>
+		</mt-popup>
+
+		<!-- 是否同意将本人信息展示患者端  -->
+		<mt-popup v-model="popupVisibleInfo" position="bottom">
+			<mt-picker :slots="sexSlotInfo" valueKey="name" :showToolbar="true" :visibleItemCount="3" ref="infoPicker">
+				<div class="picker_bar">
+					<div class="cancel" @click="popupVisibleInfo = false">取消</div>
+					<div class="confrim" @click="confirmInfo">确定</div>
 				</div>
 			</mt-picker>
 		</mt-popup>
@@ -87,175 +101,190 @@
 </template>
 
 <script>
-	import axios from 'axios'
-	export default {
-		name: "index",
-		data: () => ({
-			repData: {
-				ImgUrl: "", //头像
-				ContactName: "", //姓名
-				ContactPhone: "", //手机号
-				Sex: "", //性别
-				UserType: "" //用户会员类型    1.图片会员   2.vip会员   3.合伙人
-			},
-			userActions: [{
-				name: '更换头像',
-				method: ""
-			}],
-			sheetVisible: false, //是否显示上传头像
-			popupVisible: false, //是否显示性别picker
-			sexSlots: [{
-				flex: 1,
-				values: ['男', '女'],
-				className: 'slot1',
-				textAlign: 'center'
-			}],
-			names: '1',
-			anios: 1
-		}),
-		methods: {
-			downApp() {
-				let ua = navigator.userAgent.toLowerCase();
-				//Android终端
-				let isAndroid = ua.indexOf('Android') > -1 || ua.indexOf('Adr') > -1;
-				//Ios终端
-				let isiOS = !!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-					this.anios = 2;
-					//Ios
-				} else if (/(Android)/i.test(navigator.userAgent)) {
-					this.anios = 1;
-					//Android终端
-				}
-			},
-			//个人信息
-			information() {
-				// this.$Indicator.loading();
-				let url = "UserInterface/GetUserShowInfo.ashx";
-				this.$post(url).then((data) => {
-					this.$Indicator.close();
-					let model = data.data;
-					this.repData = model;
-					const {
-						sexPicker
-					} = this.$refs;
-					let sex = (model.Sex == "1" ? '男' : '女');
-					sexPicker.setSlotValue(0, sex)
-				})
-			},
-			//显示头像
-			actionsheetToggle(state) {
-				if (state == "show") {
-					this.sheetVisible = true;
-				}
-				if (state == "hide") {
-					this.sheetVisible = false;
-				}
-			},
-			openAlbum() {
-				const {
-					userImg
-				} = this.$refs;
-				return userImg.click();
-			},
-			change(e) {
-				let file = e.target.files[0];
-				let url = URL.createObjectURL(file);
-				let config = {
-					headers: {
-						'Content-Type': 'multipart/form-data'
-					}
-				}; //添加请求头
-				let params = new FormData(); //创建form对象
-				params.append('uploadedFile', file); //通过append向form对象添加数据
-				this.repData.ImgUrl = url;
-				axios.post('UserInterface/UploadFile.ashx', params, config).then(response => {
-					if (response.data.rspcode != 1) {
-						return;
-					}
-					this.repData.ImgUrl = response.data.url;
-					let url = "UserInterface/UserEdit.ashx";
-					this.$post(url, {
-						HeadImageUrl: this.repData.ImgUrl
-					}).then((data) => {
-						this.$Toast(data.rspdesc);
-						if (data.rspcode == 1) {
-							this.information()
-						}
-					})
-				})
-			},
-			changes() {
-				window.back.clickOnAndroidSelectPhoto();
-			},
-			showbg(name) {
-				let url = "UserInterface/UploadPhotos.ashx";
-				this.$post(url, {
-					BinaryStream: name
-				}).then((data) => {
-					if (data.rspcode == 0) {
-						return;
-					}
-					this.repData.ImgUrl = data.data.imgUrl;
-					let urls = "UserInterface/UserEdit.ashx";
-					this.$post(urls, {
-						HeadImageUrl: this.repData.ImgUrl
-					}).then((data) => {
-						this.$Toast(data.rspdesc);
-						if (data.rspcode == 1) {
-							this.information()
-						}
-					});
-				})
-			},
-			//显示性别picker
-			pickerToggle(state) {
-				if (state == "show") {
-					this.popupVisible = true;
-				}
-				if (state == "hide") {
-					this.popupVisible = false;
-				}
-			},
-			//编辑个人信息
-			editUserInfo() {
-				const {
-					sexPicker
-				} = this.$refs;
-				let sex = sexPicker.getSlotValue(0);
-				sex = (sex == "男" ? 1 : 2);
-				let url = "UserInterface/UserEdit.ashx";
-				this.$post(url, {
-					Sex: sex
-				}).then((data) => {
-					this.$Toast(data.rspdesc);
-					if (data.rspcode == 1) {
-						this.information()
-						this.pickerToggle('hide');
-					}
-				})
-			},
-			//退出登录
-			signOut() {
-				localStorage.clear();
-				this.$router.push("/login");
-			}
-		},
-		// created(){
-		//   window.showbg = this.showbg;
-		// },
-		mounted() {
-			this.downApp();
-			window.showbg = this.showbg;
-			let that = this;
-			this.information();
-			//头像的弹窗
-			this.userActions = [{
-				name: '更换头像',
-				method: this.openAlbum
-			}]
-		}
-	}
+import axios from 'axios'
+export default {
+  name: 'index',
+  data: () => ({
+    repData: {
+      ImgUrl: '', // 头像
+      ContactName: '', // 姓名
+      ContactPhone: '', // 手机号
+      Sex: '', // 性别
+      UserType: '', // 用户会员类型    1.图片会员   2.vip会员   3.合伙人
+      displayFlag: ''
+    },
+    userActions: [{
+      name: '更换头像',
+      method: ''
+    }],
+    sheetVisible: false, // 是否显示上传头像
+    popupVisible: false, // 是否显示性别picker
+    popupVisibleInfo: false, // 是否同意将本人信息展示患者端
+    sexSlots: [{
+      flex: 1,
+      values: ['男', '女'],
+      className: 'slot1',
+      textAlign: 'center'
+    }],
+    sexSlotInfo: [{
+      flex: 1,
+      values: [{name: '显示', id: '1'}, {name: '不显示', id: '2'}],
+      className: 'slot1',
+      textAlign: 'center'
+    }],
+    names: '1',
+    anios: 1
+  }),
+  methods: {
+    downApp () {
+      let ua = navigator.userAgent.toLowerCase()
+      // Android终端
+      let isAndroid = ua.indexOf('Android') > -1 || ua.indexOf('Adr') > -1
+      // Ios终端
+      let isiOS = !!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        this.anios = 2
+        // Ios
+      } else if (/(Android)/i.test(navigator.userAgent)) {
+        this.anios = 1
+        // Android终端
+      }
+    },
+    // 个人信息
+    information () {
+      // this.$Indicator.loading();
+      let url = 'UserInterface/GetUserShowInfo.ashx'
+      this.$post(url).then((data) => {
+        this.$Indicator.close()
+        let model = data.data
+        this.repData = model
+        const {
+          sexPicker
+        } = this.$refs
+        let sex = (model.Sex == '1' ? '男' : '女')
+        sexPicker.setSlotValue(0, sex)
+      })
+    },
+    // 显示头像
+    actionsheetToggle (state) {
+      if (state == 'show') {
+        this.sheetVisible = true
+      }
+      if (state == 'hide') {
+        this.sheetVisible = false
+      }
+    },
+    openAlbum () {
+      const {
+        userImg
+      } = this.$refs
+      return userImg.click()
+    },
+    change (e) {
+      let file = e.target.files[0]
+      let url = URL.createObjectURL(file)
+      let config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      } // 添加请求头
+      let params = new FormData() // 创建form对象
+      params.append('uploadedFile', file) // 通过append向form对象添加数据
+      this.repData.ImgUrl = url
+      axios.post('UserInterface/UploadFile.ashx', params, config).then(response => {
+        if (response.data.rspcode != 1) {
+          return
+        }
+        this.repData.ImgUrl = response.data.url
+        let url = 'UserInterface/UserEdit.ashx'
+        this.$post(url, {
+          HeadImageUrl: this.repData.ImgUrl
+        }).then((data) => {
+          this.$Toast(data.rspdesc)
+          if (data.rspcode == 1) {
+            this.information()
+          }
+        })
+      })
+    },
+    changes () {
+      window.back.clickOnAndroidSelectPhoto()
+    },
+    showbg (name) {
+      let url = 'UserInterface/UploadPhotos.ashx'
+      this.$post(url, {
+        BinaryStream: name
+      }).then((data) => {
+        if (data.rspcode == 0) {
+          return
+        }
+        this.repData.ImgUrl = data.data.imgUrl
+        let urls = 'UserInterface/UserEdit.ashx'
+        this.$post(urls, {
+          HeadImageUrl: this.repData.ImgUrl
+        }).then((data) => {
+          this.$Toast(data.rspdesc)
+          if (data.rspcode == 1) {
+            this.information()
+          }
+        })
+      })
+    },
+    // 显示性别picker
+    pickerToggle (state) {
+      if (state == 'show') {
+        this.popupVisible = true
+      }
+      if (state == 'hide') {
+        this.popupVisible = false
+      }
+    },
+    // 编辑个人信息
+    editUserInfo (param) {
+      let url = 'UserInterface/UserEdit.ashx'
+      return this.$post(url, param).then((data) => {
+        this.$Toast(data.rspdesc)
+        if (data.rspcode == 1) {
+          this.information()
+        }
+      })
+    },
+    confirmSex () {
+      const {
+        sexPicker
+      } = this.$refs
+      let sex = sexPicker.getSlotValue(0)
+      sex = (sex == '男' ? 1 : 2)
+			this.editUserInfo({ Sex: sex }).then(() => { this.pickerToggle('hide') })
+    },
+    confirmInfo () {
+      const {
+        infoPicker
+      } = this.$refs
+      let sex = infoPicker.getSlotValue(0)
+			this.editUserInfo({ displayFlag: sex.id }).then(() => { this.popupVisibleInfo = false })
+    },
+    // 退出登录
+    signOut () {
+      localStorage.clear()
+      this.$router.push('/login')
+    }
+  },
+  // created(){
+  //   window.showbg = this.showbg;
+  // },
+  mounted () {
+    this.downApp()
+    window.showbg = this.showbg
+    let that = this
+    this.information()
+    // 头像的弹窗
+    this.userActions = [{
+      name: '更换头像',
+      method: this.openAlbum
+    }]
+  }
+}
 </script>
 
 <style scoped lang="scss">
