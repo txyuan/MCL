@@ -264,9 +264,9 @@
       diettabooRadiozwc: {
         option: [
           {label: '米面为主+素菜', value: '38'},
-          {label: '米面为主+浑素 ', value: '39'},
+          {label: '米面为主+荤素 ', value: '39'},
           {label: '素食为主+米面', value: '40'},
-          {label: '浑素为主+米面', value: '41'},
+          {label: '荤素为主+米面', value: '41'},
           {label: '米汤', value: '42'},
           {label: '菜汤', value: '51'},
           {label: '肉汤', value: '52'},
@@ -278,9 +278,9 @@
       diettabooRadiowsc: {
         option: [
           {label: '米面为主+素菜', value: '53'},
-          {label: '米面为主+浑素 ', value: '54'},
+          {label: '米面为主+荤素 ', value: '54'},
           {label: '素食为主+米面', value: '55'},
-          {label: '浑素为主+米面', value: '56'},
+          {label: '荤素为主+米面', value: '56'},
           {label: '米汤', value: '57'},
           {label: '菜汤', value: '58'},
           {label: '肉汤', value: '59'},

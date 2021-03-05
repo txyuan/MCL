@@ -7,7 +7,7 @@
 				</header-back>
 			</div>
 		</mt-header>
-				
+
 		<div class="detile_lunbo">
 			<mt-swipe :auto="4000" :style="{height:screenWidth+'px'}" class="swiper">
 				<mt-swipe-item v-for="(item,index) in responseData.goodsImageList" :key="index">
@@ -15,35 +15,35 @@
 				</mt-swipe-item>
 			</mt-swipe>
 		</div>
-		
+
 		<div class="detile_shopname">
-			<p>{{responseData.goodsName}}</p>
+			<p style="font-size:0.165rem;padding-left: 0.05rem;line-height: 1.6">{{responseData.goodsName}}</p>
 			<div class="detile_money">
-				<span>{{responseData.marketPrice}}</span>
-				<span style="font-size: 0.14rem; color: #999999; text-decoration: line-through;margin-top: 0.02rem;margin-left: 0.1rem">原价：{{responseData.origPrice}}</span>
+				<span>￥{{responseData.marketPrice}}</span>
+<!--				<span style="font-size: 0.14rem; color: #999999; text-decoration: line-through;margin-top: 0.02rem;margin-left: 0.1rem">原价：{{responseData.origPrice}}</span>-->
 				<label>销量：{{responseData.hasBuyCount}}</label>
 				<div class="clear"></div>
 			</div>
 		</div>
-		
-		
-		<div class="detile_num" v-if="responseData.ismanage == 1">
-			<h3>管理天数</h3>
-			<div class="detile_nummay">
-				<label>{{responseData.manageDays}}天</label>
-			</div>
-		</div>
-			
+
+
+<!--		<div class="detile_num" v-if="responseData.ismanage == 1">-->
+<!--			<h3>管理天数</h3>-->
+<!--			<div class="detile_nummay">-->
+<!--				<label>{{responseData.manageDays}}天</label>-->
+<!--			</div>-->
+<!--		</div>-->
+
 		<div class="detile_num">
 			<h3>选择购买份数</h3>
 			<div class="detile_nummay">
 				<addSubtraction v-model="num" :item="item" @change="inputChange" class="input" />
 			</div>
 		</div>
-		
+
 		<!--   详情页   -->
 		<div class="com_detail" v-html="responseData.goodsMemo" ref="detailImg"></div>
-		
+
 		<!--按钮-->
 		<div class="detile_btn">
 			<div class="btn-group">
@@ -84,7 +84,7 @@
 			inputChange(val){
 				this.num = val
 			},
-			
+
 			//获取详情信息
 			getDetailInfo(sKey) {
 				let url = "/UserInterface/mall/getProductDetails.ashx";
@@ -96,7 +96,7 @@
 					return data;
 				})
 			},
-			
+
 			//加入购物车
 			// addshop() {
 			// 	let url = "/UserInterface/cart/updateGoodsNum.ashx";
@@ -118,7 +118,7 @@
 			// 		this.$emit('render', data)
 			// 	})
 			// },
-			
+
 			// 加入购物车
 			addshopcar() {
 				let url = "UserInterface/cart/updateGoodsNum.ashx";
@@ -193,7 +193,7 @@
 			// 	}
 			// 	return scrollPos;
 			// },
-			
+
 		},
 		mounted() {
 			let sKey = this.$route.params.sKey;
@@ -210,11 +210,12 @@
 </script>
 <style lang="scss">
 	.com_detail {
-		margin-top: 0.06rem;
+		margin-top: 0.1rem;
 		p,
 		img {
 			display: block;
 			width: 100%;
+      margin-left: 0!important;
 		}
 	}
 </style>
@@ -424,7 +425,7 @@
 		width: 94%;
 		padding: 0 3%;
 		background: #fff;
-		margin-top: 0.06rem;
+		margin-top: 0.1rem;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
