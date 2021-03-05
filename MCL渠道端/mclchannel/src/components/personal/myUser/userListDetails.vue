@@ -275,16 +275,16 @@ export default {
         .card_cont_txt{
           padding-left: 0.62rem;
           font-size: 0.16rem;
-          color: #404040;
+          color: #666666;
           span{
-            font-size: 0.165rem;
+            font-size: 0.16rem;
             display: inline-block;
             padding-right: 0.1rem;
             color: #202020;
           }
           p{
-            font-size: 0.14rem;
-            color: #666666;
+            font-size: 0.135rem;
+            color: #787878;
             padding-top: 0.025rem;
           }
         }

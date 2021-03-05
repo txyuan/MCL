@@ -325,6 +325,9 @@ export default {
   .mint-cell-wrapper{
     font-size: 0.16rem;
   }
+  .mint-field-core{
+    font-size: 0.16rem;
+  }
   .mint-button {
     font-size: 0.165rem;
     letter-spacing: 2px;
@@ -369,6 +372,9 @@ export default {
   }
   .mint-cell-wrapper{
     font-size:16px;
+  }
+  .mint-field-core{
+    font-size: 0.16px;
   }
   .mint-button {
     font-size: 18px;
@@ -417,4 +423,5 @@ export default {
       }
     }
   }
+
 </style>

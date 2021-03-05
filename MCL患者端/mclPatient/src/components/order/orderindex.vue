@@ -194,7 +194,6 @@ export default {
       }
       const orderType = this.$route.query.orderType
       let url = 'UserInterface/IPayment/CZWPaymentRequest_vshop.ashx'
-	  alert(localStorage.openId)
       let param = {
         'RechargeAmount': Number(this.orderInfo.orderAmount),
         'OpenID': localStorage.openId,
@@ -207,17 +206,20 @@ export default {
         this.$Indicator.close()
         this.$Toast(data.rspdesc)
         // 2：管理套餐
-        if (param.PaymentType == 2) {
-          this.$router.push({
-            path: '/managePackage'
-          })
-        }
-        // 3：商品订单
-        if (param.PaymentType == 3) {
-          this.$router.push({
-            path: '/personalgetproduct'
-          })
-        }
+        // if (param.PaymentType == 2) {
+        //   this.$router.push({
+        //     path: '/managePackage'
+        //   })
+        // }
+        // // 3：商品订单
+        // if (param.PaymentType == 3) {
+        //   this.$router.push({
+        //     path: '/personalgetproduct'
+        //   })
+        // }
+		this.$router.push({
+		  path: '/wx_Entrance/personal'
+		})
       }, (data) => {
         this.$Indicator.close()
         this.$Toast(data.rspdesc)

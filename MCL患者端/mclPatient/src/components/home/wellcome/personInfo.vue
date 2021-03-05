@@ -645,7 +645,9 @@ export default {
     border: none !important;
     color: #999999;
   }
-
+  .personInfo_root .splitLine input.mint-field-core{
+    font-size: 0.16rem!important;
+  }
   .personInfo_root  .page_text_left input {
     text-align: left;
   }
@@ -708,9 +710,13 @@ export default {
       max-width: 66%;
     }
   .personInfo_root  .qkxz_style_a .mint-cell {
-      margin: 0 1%;
-      min-width: 48%;
-    }
+    margin: 0 1%;
+    min-width: 48%;
+  }
+  .personInfo_root  .yjk_style_a .mint-cell {
+    margin: 0 1%;
+    min-width: 50%;
+  }
   .personInfo_root  .gltz_style_a .mint-cell {
       margin: 0 1%;
       min-width: 24%;
@@ -883,8 +889,9 @@ export default {
     }
 
     .personInfo_root  .mint-radiolist .mint-cell {
-      margin: 0 1%;
-      min-width: 43%;
+
+      margin: 0 0 0 1%;
+      min-width: 48%;
     }
   }
 

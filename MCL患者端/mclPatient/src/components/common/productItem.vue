@@ -27,7 +27,7 @@
 					 <p>¥ {{item.marketPrice}}</p>
 					  <!-- <router-link :to="`/${detailPage}/${item.goodsId}`" class="img_wrap"> -->
 						<router-link :to="`/${detailPage}/${item.goodsId}`" class="img_wrap">
-					    <span>立即抢购</span>
+					    <span>立即购买</span>
 					  </router-link>
 				 </div>
         </div>
