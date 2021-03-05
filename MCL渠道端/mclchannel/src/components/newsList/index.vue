@@ -10,7 +10,7 @@
 		<div class="inform_cont">
 			<!-- <loadMore :param="param" @triggerGetList="getList" ref="loadMoreE" class="padding-footer"> -->
 				<div slot="content">
-					<div class="inform_list" v-for="(item, index) in list" :key="index">
+					<div class="inform_list" v-for="(item, index) in list" :key="index" @click="$router.push(`/newsDetail?userskey=${item.userskey}&sKey=${item.sKey}&title=${item.title}`)">
 						<h2>
 							<img :src="item.imgurl" />
 							<span>{{item.title}}</span>
@@ -20,7 +20,7 @@
 							<h4>{{item.status}}</h4>
 							<span>{{item.remarks}}</span>
 							<label>{{item.createtime}}</label>
-							<mt-cell title="查看详情" is-link :to="`/newsDetail?userskey=${item.userskey}&sKey=${item.sKey}&title=${item.title}`"></mt-cell>
+							<mt-cell title="查看详情" is-link></mt-cell>
 						</div>
 					</div>
 				</div>
@@ -40,95 +40,78 @@
 				</div>
 			</div>-->
 		</div>
-  
+
 	</div>
 </template>
 
 <script>
-	import loadMore from "@/components/common/loadMore.vue"; //加载更多组件
-	export default {
-		name: "newa-list",
-		data: () => ({
-			list: [],
-      popupVisible: false,
-      titlerg:'医生注册成功审核',
-      newlisrnr:'',
-      currentObj: {},  //当前点击对象
-      reviewed:'待审核',//审核状态
-      reviewedId:'0',//审核状态ID
-			param: {
-				"pagesize": 10,
-				"pagecount": 0,
-			}
-		}),
-		methods: {
-			//获取列表
-			// getList(success) {
-			// 	let url = "UserInterface/channel/ChannelHomePageHeadlineList.ashx";
-			// 	if(this.param.pagecount == 1) {
-			// 		this.list = [];
-			// 	}
-			// 	this.$post(url, this.param).then((data) => {
-			// 		if(data.rspcode != 1) {
-			// 			return;
-			// 		}
-			// 		let modelList = data.data;
-			// 		this.list = [...this.list, ...modelList]
-			// 		//加载更多组件触发回调
-			// 		if(success) {
-			// 			success(modelList, this.list)
-			// 		}
-			// 	})
-			// },
-      toggleModal (type) {
-        var state = (type == 'show' ? true : false)
-        this.popupVisible = state
-      },
-      openModal (item) {
-        this.titlerg=item.title
-        this.currentObj=item
-        this.toggleModal('show')
-        if(this.titlerg=="医生成功注册"){
-          this.newlisrnr='1'
-        }
-        else {
-          this.newlisrnr='0'
-        }
-        // this.renderQuestion(item)
-      },
-      reset(){
-        this.toggleModal('hide')
-      },
-      submit(){
-        this.toggleModal('hide')
-        this.reviewed='已审核'
-        this.reviewedId='1'
-      },
-			getList() {
-				let url = "UserInterface/channel/ChannelHomePageHeadlineList.ashx";
-				this.$post(url).then((data) => {
-					if(data.rspcode != 1) {
-						return;
-					}
-					let modelList = data.data;
-					this.list = modelList;
-				})
-			},
-		},
-		mounted(){
-			// this.getList();
-		},
-    beforeRouteEnter(to, form, next){
-      next((vm) => {
-        if(form.name == 'home'){
-          vm.getList();
-        }
-      })
+import loadMore from '@/components/common/loadMore.vue' // 加载更多组件
+export default {
+  name: 'newa-list',
+  data: () => ({
+    isLoad: false, // 是否加载过接口
+    list: [],
+    popupVisible: false,
+    titlerg: '医生注册成功审核',
+    newlisrnr: '',
+    currentObj: {}, // 当前点击对象
+    reviewed: '待审核', // 审核状态
+    reviewedId: '0', // 审核状态ID
+    param: {
+      'pagesize': 10,
+      'pagecount': 0
+    }
+  }),
+  methods: {
+    toggleModal (type) {
+      var state = (type == 'show')
+      this.popupVisible = state
     },
-		components: {
-			loadMore
-		}
-	}
+    openModal (item) {
+      this.titlerg = item.title
+      this.currentObj = item
+      this.toggleModal('show')
+      if (this.titlerg == '医生成功注册') {
+        this.newlisrnr = '1'
+      } else {
+        this.newlisrnr = '0'
+      }
+    },
+    reset () {
+      this.toggleModal('hide')
+    },
+    submit () {
+      this.toggleModal('hide')
+      this.reviewed = '已审核'
+      this.reviewedId = '1'
+    },
+    getList () {
+      let url = 'UserInterface/channel/ChannelHomePageHeadlineList.ashx'
+      this.$post(url).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        let modelList = data.data
+        this.list = modelList
+        this.isLoad = true
+      })
+    }
+  },
+  beforeRouteEnter (to, form, next) {
+    next((vm) => {
+      // 从详情页面返回
+      if (form.name === 'newsDetail' && !vm.isLoad) {
+        // 列表接口如果没有被加载过，需要加载接口
+        vm.getList()
+      } else {
+        vm.getList()
+      }
+    })
+  },
+  components: {
+    loadMore
+  }
+}
 </script>
 <style lang="scss">
 

@@ -88,7 +88,7 @@ const router = new Router({
     { path:"/searchproduct", name:"searchProduct", component: search_product },
     { path:"/personaldata", name:"personaldata", component: personal_data },
     { path:"/username", name:"username", component: username },
-    { path:"/myUser", name:"myUser", component: myUser },
+    { path:"/myUser", name:"myUser", component: myUser, meta:{ keepAlive: true} },
     { path:"/userListDetails", name:"userListDetails", component: userListDetails },
 	  { path:"/consultation", name:"consultation", component: consultation },
 	  { path:"/rechademon", name:"rechademon", component: rechademon },  //余额  充值

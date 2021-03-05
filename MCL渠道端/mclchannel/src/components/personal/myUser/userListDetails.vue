@@ -1,7 +1,7 @@
 <template>
 	<div class="padding-header person_data_root">
 		<div id="class_header" class="myassets">
-			<mt-header title="渠道经理—王一涵" fixed class="borderBottom">
+			<mt-header :title="`${typeObj[$route.query.type]}—${$route.query.contactname}`" fixed class="borderBottom">
 				<div slot="left">
 					<header-back>
 						<mt-button icon="back"></mt-button>
@@ -13,88 +13,41 @@
 			<div class="card_total">
         业绩累计收入
         <strong>
-          5000.00
+          {{totalAchievementMoney}}
           <em>元</em>
 				</strong>
 			</div>
       <div class="d-flex card_count">
-        <div class="card_cou_data"><p>筛查评估：<strong>100.30</strong><em>元</em></p></div>
-        <div class="card_cou_data"><p>会员管理：<strong>1021.60</strong><em>元</em></p></div>
+        <div class="card_cou_data"><p>筛查评估：<strong>{{screeningMoney}}</strong><em>元</em></p></div>
+        <div class="card_cou_data"><p>会员管理：<strong>{{memberMoney}}</strong><em>元</em></p></div>
       </div>
       <div class="d-flex card_count">
-        <div class="card_cou_data"><p>零售产品：<strong>2100.30</strong><em>元</em></p></div>
-        <div class="card_cou_data"><p>套餐管理：<strong>1776.80</strong><em>元</em></p></div>
+        <div class="card_cou_data"><p>零售产品：<strong>{{retailMoney}}</strong><em>元</em></p></div>
+        <div class="card_cou_data"><p>套餐管理：<strong>{{setMealMoney}}</strong><em>元</em></p></div>
       </div>
 		</div>
-		<div class="borderpay">
+		<div class="borderpay" v-show="param.type != 2">
       <div class="card_navbar">
       <strong>医生列表</strong></div>
 			<!-- tab-container -->
-			<loadMore :param="param" @triggerGetList="getList" ref="loadMoreE" class="padding-footer">
+			<loadMore :param="param" :isDefaultLoading="false" @triggerGetList="getList" ref="loadMoreE" class="padding-footer">
 				<div slot="content">
 					<div class="card_cont">
-            <div class="card_cont_list">
+            <div class="card_cont_list" v-for="(item, index) in list" :key="index">
               <div class="card_img">
-                <img src="../../../assets/images/kdy.png"/>
+                <!-- 显示默认图片 -->
+                <div v-if="item.ImgUrl.indexOf('/upload') == -1">
+                	<img v-if="param.type == 1" src="../../../assets/images/qdjl.png"/>
+                	<img v-if="param.type == 2" src="../../../assets/images/kdy.png"/>
+                	<img v-if="param.type == 3" src="../../../assets/images/yha.png"/>
+                </div>
+								<!-- 显示实际图片 -->
+								<div v-else>
+									<img :src="item.ImgUrl"/>
+                </div>
               </div>
-              <div class="card_cont_txt"><span>王一涵</span>18523051325
-                <p>创建时间：2020-12-11 14:47</p></div>
-            </div>
-            <div class="card_cont_list">
-              <div class="card_img">
-                <img src="../../../assets/images/kdy.png"/>
-              </div>
-              <div class="card_cont_txt"><span>王一涵</span>18523051325
-                <p>创建时间：2020-12-11 14:47</p></div>
-            </div>
-            <div class="card_cont_list">
-              <div class="card_img">
-                <img src="../../../assets/images/kdy.png"/>
-              </div>
-              <div class="card_cont_txt"><span>王一涵</span>18523051325
-                <p>创建时间：2020-12-11 14:47</p></div>
-            </div>
-            <div class="card_cont_list">
-              <div class="card_img">
-                <img src="../../../assets/images/kdy.png"/>
-              </div>
-              <div class="card_cont_txt"><span>王一涵</span>18523051325
-                <p>创建时间：2020-12-11 14:47</p></div>
-            </div>
-            <div class="card_cont_list">
-              <div class="card_img">
-                <img src="../../../assets/images/kdy.png"/>
-              </div>
-              <div class="card_cont_txt"><span>王一涵</span>18523051325
-                <p>创建时间：2020-12-11 14:47</p></div>
-            </div>
-            <div class="card_cont_list">
-              <div class="card_img">
-                <img src="../../../assets/images/kdy.png"/>
-              </div>
-              <div class="card_cont_txt"><span>王一涵</span>18523051325
-                <p>创建时间：2020-12-11 14:47</p></div>
-            </div>
-            <div class="card_cont_list">
-              <div class="card_img">
-                <img src="../../../assets/images/kdy.png"/>
-              </div>
-              <div class="card_cont_txt"><span>王一涵</span>18523051325
-                <p>创建时间：2020-12-11 14:47</p></div>
-            </div>
-            <div class="card_cont_list">
-              <div class="card_img">
-                <img src="../../../assets/images/kdy.png"/>
-              </div>
-              <div class="card_cont_txt"><span>王一涵</span>18523051325
-                <p>创建时间：2020-12-11 14:47</p></div>
-            </div>
-            <div class="card_cont_list">
-              <div class="card_img">
-                <img src="../../../assets/images/kdy.png"/>
-              </div>
-              <div class="card_cont_txt"><span>王一涵</span>18523051325
-                <p>创建时间：2020-12-11 14:47</p></div>
+              <div class="card_cont_txt"><span>{{item.contactname}}</span>{{item.contactphone}}
+                <p>创建时间：{{item.create_date}}</p></div>
             </div>
 					</div>
 				</div>
@@ -104,62 +57,72 @@
 </template>
 
 <script>
-	import loadMore from "@/components/common/loadMore.vue";  //加载更多组件
-	export default {
-		name: "commission",
-		data: () => ({
-			selected: "tab0",
-			totalcount: "", //总人数
-			newcount: "", // 本月新增
-			list: [],
-			param: {
-				"pagesize": 10,
-				"pagecount": 0,
-				"type": 1, //状态（1：渠道;2：医生;3：患者）
-				"flag": 1, //1：我的用户，2：员工用户）
-				"staffskey": "", //员工主键
-			},
-		}),
-		methods: {
-			//tab切换
-			tabClick(val) {
-				this.$Indicator.loading();
-				this.param.type = val;
-				this.param.pagecount = 0;
-				this.$refs.loadMoreE.getList();
-				setTimeout(() => {
-					this.$Indicator.close()
-				}, 200)
-			},
-			// 下面流水
-			getList(success) {
-				let url = "UserInterface/channel/StaffPromotionList.ashx";
-				if(this.param.pagecount == 1) {
-					this.list = [];
-				}
-				this.$post(url, this.param).then((data) => {
-					if(data.rspcode != 1) {
-						return;
-					}
-					let modelList = data.data;
-					console.log(modelList)
-					this.list = [...this.list, ...modelList]
-					this.totalcount = data.totalcount
-					this.newcount = data.newcount
-					//加载更多组件触发回调
-					if(success) {
-						success(modelList, this.list)
-					}
-				})
-			}
-		},
-		mounted() {
-
-		},
-		components: {
-			loadMore
-		}
-	}
+import loadMore from '@/components/common/loadMore.vue' // 加载更多组件
+export default {
+  data: function () {
+    const {sKey, type} = this.$route.query
+    return {
+      selected: 'tab0',
+      totalAchievementMoney: '', // 业绩累计收入
+      screeningMoney: '', // 筛查评估
+      memberMoney: '', // 会员管理
+      retailMoney: '', // 零售产品
+      setMealMoney: '', // 套餐管理
+      list: [],
+      param: {
+        'pagesize': 10,
+        'pagecount': 0,
+        'type': type, // 状态（1：渠道;2：医生;3：患者）
+        'sKey': sKey // 员工主键
+      },
+      typeObj:{
+        '1': '渠道',
+        '2': '医生',
+        '3': '患者'
+      }
+    }
+  },
+  methods: {
+    // tab切换
+    reset () {
+      this.$Indicator.loading()
+      this.param.pagecount = 0
+      this.$refs.loadMoreE.getList()
+      setTimeout(() => {
+        this.$Indicator.close()
+      }, 200)
+    },
+    // 下面流水
+    getList (success) {
+      let url = 'UserInterface/channel/ChannelUserAchievementDetailInfo.ashx'
+      if (this.param.pagecount == 1) {
+        this.list = []
+      }
+      this.$post(url, this.param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        let modelList = data.data
+        this.list = [...this.list, ...modelList]
+        this.totalAchievementMoney = data.totalAchievementMoney // 业绩累计收入
+        this.screeningMoney = data.screeningMoney // 筛查评估
+        this.memberMoney = data.memberMoney // 会员管理
+        this.retailMoney = data.retailMoney // 零售产品
+        this.setMealMoney = data.setMealMoney // 套餐管理
+        // 加载更多组件触发回调
+        if (success) {
+          success(modelList, this.list)
+        }
+      })
+    }
+  },
+  mounted () {
+    this.reset()
+  },
+  components: {
+    loadMore
+  }
+}
 </script>
 <style scoped lang="scss">
 	@import "@/assets/css/base.scss";
@@ -306,6 +269,7 @@
           img{
             width: 0.38rem;
             height: 0.38rem;
+            border-radius: 50%;
           }
         }
         .card_cont_txt{
