@@ -73,7 +73,15 @@
             <mt-cell title="" is-link @click.native="pickerTogglez('show')" >
               <span>{{param.title || '请选择您的角色'}}</span>
             </mt-cell>
-<!--            <input type="" placeholder="请选择角色" v-model="param.title" />-->
+          </div>
+				</div>
+				<div class="form_bname d-flex align-items-center">
+					<div>是否同意将本人信息展示患者端<span>(<em>*</em>必填)</span></div>
+          <div class="flex-grow-1">
+            <mt-cell title="" is-link @click.native="popupVisibleInfo = true" >
+              <span v-if="param.displayFlag === ''">请选择</span>
+							<span v-else>{{param.displayFlag == 1 ? '显示' : '不显示'}}</span>
+            </mt-cell>
           </div>
 				</div>
 				<!-- <mt-cell title="医院" is-link @click.native="pickerToggle('show')" style="border-bottom: 1px solid #eee">
@@ -179,6 +187,16 @@
 			</mt-picker>
 		</mt-popup>
 
+		<!-- 是否同意将本人信息展示患者端  -->
+		<mt-popup v-model="popupVisibleInfo" position="bottom">
+			<mt-picker :slots="sexSlotInfo" valueKey="name" :showToolbar="true" :visibleItemCount="3" ref="infoPicker">
+				<div class="picker_bar">
+					<div class="cancel" @click="popupVisibleInfo = false">取消</div>
+					<div class="confrim" @click="confirmInfo">确定</div>
+				</div>
+			</mt-picker>
+		</mt-popup>
+	
 		<cityPicker @confrim="cityPickerChange" ref="cityPicker"/>
 	</div>
 </template>
@@ -203,6 +221,7 @@
 				hospital: "", //医院
 				title: "", //职称
 				city:"",  //城市
+				displayFlag: ""
 			},
 			pdsfz: 1, //判断身份证正反面
 			anios: 1,
@@ -213,6 +232,7 @@
 			popupVisibles: false, //是否显示性别picker
 			popupVisiblek: false, //是否显示科室picker
 			popupVisiblez: false, //是否显示职称picker
+			popupVisibleInfo: false, //是否同意将本人信息展示患者端 
 			sexSlots: [{
 				flex: 1,
 				values: ['中国工商银行', '中国农业银行', '中国银行', '中国建设银行', '交通银行', '中信银行', '中国光大银行', '华夏银行', '中国民生银行', '广发银行', '深圳发展银行',
@@ -239,6 +259,12 @@
 				flex: 1,
 				values: [ '主任医师', '副主任医师','主治医师', '医师',  '护士', '医学顾问', '营养师'
 				],
+				className: 'slot1',
+				textAlign: 'center'
+			}],
+			sexSlotInfo: [{
+				flex: 1,
+				values: [{name: '显示', id: '1'}, {name: '不显示', id: '2'}],
 				className: 'slot1',
 				textAlign: 'center'
 			}],
@@ -448,6 +474,14 @@
 				this.param.title = sex;
 				this.pickerTogglez('hide');
 			},
+			confirmInfo(){
+				const {
+					infoPicker
+				} = this.$refs;
+				let sex = infoPicker.getSlotValue(0);
+				this.param.displayFlag = sex.id;
+				this.popupVisibleInfo = false
+			},
 			//提交
 			submit() {
 				const param = this.param;
@@ -464,7 +498,11 @@
 					return;
 				}
 				if (param.title == "") {
-					this.$Toast("请输入所属职称")
+					this.$Toast("请选择角色")
+					return;
+				}
+				if (param.displayFlag == "") {
+					this.$Toast("请选择是否同意将本人信息展示患者端")
 					return;
 				}
 				let { UserKey,SessionId } = this.$route.query;
@@ -476,7 +514,7 @@
 					}
 					this.$router.push(`/physician2?UserKey=${UserKey}&SessionId=${SessionId}`);
 				})
-			},
+    },
 			//input 添加失去焦点事件
 			inputInputBulr() {
 				var inputDoms = document.querySelectorAll(".form input");

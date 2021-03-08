@@ -18,9 +18,9 @@
           <em>人</em>
 			</div>
       <div class="d-flex justify-content-around card_count">
-        <div class="card_cou_data"><span>{{totalcount}}</span><em>人</em><p>渠道经理</p></div>
-        <div class="card_cou_data"><span>{{totalcount}}</span><em>人</em><p>医生人数</p></div>
-        <div class="card_cou_data"><span>{{totalcount}}</span><em>人</em><p>员工人数</p></div>
+        <div class="card_cou_data"><span>{{newchannel}}</span><em>人</em><p>渠道经理</p></div>
+        <div class="card_cou_data"><span>{{newdoctor}}</span><em>人</em><p>医生人数</p></div>
+        <div class="card_cou_data"><span>{{newstaff}}</span><em>人</em><p>员工人数</p></div>
       </div>
 			<div class="card_alist">
 			 本月新增
@@ -47,33 +47,29 @@
 			<loadMore :param="param" @triggerGetList="getList" ref="loadMoreE" class="padding-footer">
 				<div slot="content">
 					<div class="callddh" v-for="(item,index) in list" :key="index">
-<!--					 <mt-cell :title="item.nickname" :label="item.create_date" class="borderBottom">-->
-<!--							<div class="right text-right">-->
-<!--								<span>已推广 : {{item.nickname}}人</span>-->
-<!--								<span class="mint-cell-label">已消费 : ¥{{item.money}}</span>-->
-<!--							</div>-->
-<!--						</mt-cell>-->
-<!--						<img src="../../../assets/images/bohao@2x.png" class="calldh" />-->
-<!--						<div class="content">-->
-<!--							<p class="left">{{item.contactphone}}</p>-->
-<!--							<p class="center">{{item.usertypename}}</p>-->
-<!--							<p class="right">{{item.create_date}}</p>-->
-<!--						</div>-->
             <div class="card_cont">
               <div class="card_cont_tit">
-                <div class="card_img">
-                <img src="../../../assets/images/qdjl.png"/>
+								<!-- 显示默认图片 -->
+                <div class="card_img" v-if="item.ImgUrl.indexOf('/upload') == -1">
+                	<img v-if="param.type == 1" src="../../../assets/images/qdjl.png"/>
+                	<img v-if="param.type == 2" src="../../../assets/images/kdy.png"/>
+                	<img v-if="param.type == 3" src="../../../assets/images/yha.png"/>
                 </div>
-                <div class="card_cont_txt"><span>{{item.usertypename}}</span>{{item.contactphone}}</div>
+								<!-- 显示实际图片 -->
+								<div class="card_img" v-else>
+									<img :src="item.ImgUrl"/>
+                </div>
+                <div class="card_cont_txt"><span>{{item.contactname}}</span>{{item.contactphone}}</div>
               </div>
               <div class="card_cont_xq d-flex justify-content-between align-items-center">
                 <div class="card_cont_xqwb flex-grow-1">
-                  <p>医生人数：{{item.usertypename}}</p>
-                  <p>业绩金额：{{item.contactphone}}</p>
+                  <p v-if="param.type == 2">病人人数：{{item.userCount}}人</p>
+                  <p v-else>医生人数：{{item.userCount}}人</p>
+                  <p>业绩金额：{{item.achievementMoney}}元</p>
                   <p>创建时间：{{item.create_date}}</p>
                 </div>
                 <div class="card_cont_btn">
-                  <mt-button type="danger" size="large" @click="loginbtn">查看详情</mt-button>
+                  <mt-button type="danger" size="large" @click="$router.push(`/userListDetails?sKey=${item.sKey}&type=${param.type}&contactname=${item.contactname}`)">查看详情</mt-button>
                 </div>
               </div>
             </div>
@@ -85,62 +81,88 @@
 </template>
 
 <script>
-	import loadMore from "@/components/common/loadMore.vue";  //加载更多组件
-	export default {
-		name: "commission",
-		data: () => ({
-			selected: "tab0",
-			totalcount: "", //总人数
-			newcount: "", // 本月新增
-			list: [],
-			param: {
-				"pagesize": 10,
-				"pagecount": 0,
-				"type": 1, //状态（1：渠道;2：医生;3：患者）
-				"flag": 1, //1：我的用户，2：员工用户）
-				"staffskey": "", //员工主键
-			},
-		}),
-		methods: {
-			//tab切换
-			tabClick(val) {
-				this.$Indicator.loading();
-				this.param.type = val;
-				this.param.pagecount = 0;
-				this.$refs.loadMoreE.getList();
-				setTimeout(() => {
-					this.$Indicator.close()
-				}, 200)
-			},
-			// 下面流水
-			getList(success) {
-				let url = "UserInterface/channel/StaffPromotionList.ashx";
-				if(this.param.pagecount == 1) {
-					this.list = [];
-				}
-				this.$post(url, this.param).then((data) => {
-					if(data.rspcode != 1) {
-						return;
-					}
-					let modelList = data.data;
-					console.log(modelList)
-					this.list = [...this.list, ...modelList]
-					this.totalcount = data.totalcount
-					this.newcount = data.newcount
-					//加载更多组件触发回调
-					if(success) {
-						success(modelList, this.list)
-					}
-				})
-			}
-		},
-		mounted() {
-
-		},
-		components: {
-			loadMore
-		}
-	}
+import loadMore from '@/components/common/loadMore.vue' // 加载更多组件
+export default {
+  name: 'commission',
+  data: () => ({
+    isLoad: false, // 是否加载过接口
+    selected: 'tab0',
+    totalcount: '', // 总人数
+    newchannel: '', // 渠道经理
+    newdoctor: '', // 医生人数
+    newstaff: '', // 员工人数
+    newcount: '', // 本月新增
+    list: [],
+    param: {
+      'pagesize': 10,
+      'pagecount': 0,
+      'type': 1, // 状态（1：渠道;2：医生;3：患者）
+      'flag': 1, // 1：我的用户，2：员工用户）
+      'staffskey': '' // 员工主键
+    }
+  }),
+  methods: {
+    // tab切换
+    tabClick (val) {
+      this.$Indicator.loading()
+      this.param.type = val
+      this.param.pagecount = 0
+      this.$refs.loadMoreE.getList()
+      setTimeout(() => {
+        this.$Indicator.close()
+      }, 200)
+    },
+    // 下面流水
+    getList (success) {
+      let url = 'UserInterface/channel/ChannelMyUserAchievementInfo.ashx'
+      if (this.param.pagecount == 1) {
+        this.list = []
+      }
+      this.$post(url, this.param).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.isLoad = true
+        let modelList = data.data
+        this.list = [...this.list, ...modelList]
+        this.totalcount = data.totalcount
+        this.newcount = data.newcount
+        this.newchannel = data.newchannel
+        this.newdoctor = data.newdoctor
+        this.newstaff = data.newstaff
+        // 加载更多组件触发回调
+        if (success) {
+          success(modelList, this.list)
+        }
+      })
+    }
+  },
+  beforeRouteEnter (to, form, next) {
+    next((vm) => {
+      // 从详情页面返回，解锁加载更多
+      if (form.name === 'userListDetails') {
+        vm.$refs.loadMoreE.isLock = true
+      }
+      // 从详情页面返回
+      // if (form.name === 'userListDetails' && !vm.isLoad) {
+      //   // 列表接口如果没有被加载过，需要加载接口
+      //   // vm.tabClick('1')
+      // } else {
+      //   vm.tabClick('1')
+      // }
+    })
+  },
+  beforeRouteLeave (to, form, next) {
+    // 去详情页面，关锁加载更多
+    if (to.name === 'userListDetails') {
+      this.$refs.loadMoreE.isLock = false
+    }
+    next()
+  },
+  components: {
+    loadMore
+  }
+}
 </script>
 <style scoped lang="scss">
 	@import "@/assets/css/base.scss";
@@ -292,6 +314,7 @@
           img{
             width: 0.32rem;
             height: 0.32rem;
+						border-radius: 50%;
           }
         }
         .card_cont_txt{

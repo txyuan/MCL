@@ -7,8 +7,8 @@ import router from '@/router/index.js' // 路由
 let baseURL = '/'
 // 开发模式
 if (process.env.NODE_ENV == 'development') {
- baseURL = 'http://123.57.89.89:6333'
-  // baseURL = 'http://clicha.marryhealthscience.com' // 'http://192.168.1.134:38899/'https://webapp.jtsc.club/http://39.98.89.216/
+//  baseURL = 'http://123.57.89.89:6333'
+  baseURL = 'http://clicha.marryhealthscience.com' // 'http://192.168.1.134:38899/'https://webapp.jtsc.club/http://39.98.89.216/
 }
 axios.defaults.baseURL = baseURL
 

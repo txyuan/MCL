@@ -1,6 +1,6 @@
 <template>
 	<div class="username-root">
-		<mt-header title="修改医生介绍">
+		<mt-header title="擅长">
 			<div slot="left">
 				<header-back>
 					<mt-button icon="back"></mt-button>
@@ -37,7 +37,7 @@
 				let url = "UserInterface/UserEdit.ashx";
 				let NickName = this.usernames;
 				if (NickName == "") {
-					this.$Toast("用户名不能为空");
+					this.$Toast("擅长内容不能为空");
 					return;
 				}
 				this.$post(url, {
