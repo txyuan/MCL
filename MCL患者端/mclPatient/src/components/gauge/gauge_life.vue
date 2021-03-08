@@ -8,26 +8,26 @@
       </div>
     </mt-header>
     <div class="gaugeLife">
-      <div class="gaugelifeList">
-        <div class="title2">1、过敏史</div>
-        <div class="contData">
-          <div class="listTitle">（1）是否有食物过敏 </div>
-          <mt-radio :options="diettabooRadiolists.option" v-model="param.check_01"></mt-radio>
-          <div class="lh-ys">
-            过敏食物:<input type="text" class="line-input" v-model="param.check_02">
-          </div>
-        </div>
-        <div class="contData">
-          <div class="listTitle">（2）是否有药物过敏</div>
-          <mt-radio :options="diettabooRadiolists.option" v-model="param.check_03"></mt-radio>
-          <div class="lh-ys">
-            过敏药物:<input type="text" class="line-input" v-model="param.check_04">
-          </div>
-        </div>
-      </div>
+<!--      <div class="gaugelifeList">-->
+<!--        <div class="title2">1、过敏史</div>-->
+<!--        <div class="contData">-->
+<!--          <div class="listTitle">（1）是否有食物过敏 </div>-->
+<!--          <mt-radio :options="diettabooRadiolists.option" v-model="param.check_01"></mt-radio>-->
+<!--          <div class="lh-ys">-->
+<!--            过敏食物:<input type="text" class="line-input" v-model="param.check_02">-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="contData">-->
+<!--          <div class="listTitle">（2）是否有药物过敏</div>-->
+<!--          <mt-radio :options="diettabooRadiolists.option" v-model="param.check_03"></mt-radio>-->
+<!--          <div class="lh-ys">-->
+<!--            过敏药物:<input type="text" class="line-input" v-model="param.check_04">-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
 
       <div class="gaugelifeList">
-        <div class="title2">2、生活习惯</div>
+        <div class="title2">1、生活习惯</div>
         <div class="contData">
           <div class="listTitle">（1）每天使用手机</div>
           <mt-radio :options="diettabooRadiosj.option" v-model="param.check_26"></mt-radio>
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div class="gaugelifeList">
-        <div class="title2">3、饮食</div>
+        <div class="title2">2、饮食</div>
         <div class="contData">
           <div class="listTitle">（1）饮食餐次</div>
           <mt-radio :options="diettabooRadioyscc.option" v-model="param.check_05"></mt-radio>
@@ -104,9 +104,13 @@
             （8）每天饮水：<input type="tel" class="line-input" v-model="param.check_08">ml/天
           </div>
         </div>
+        <div class="contData">
+          <div class="listTitle">（9）对营养补充剂是否有认识<em class="gayYs">（多选）</em></div>
+          <mt-checklist :options="diettabooRadioyyrz.option" v-model="diettabooRadioyyrz.value"></mt-checklist>
+        </div>
       </div>
       <div class="gaugelifeList">
-        <div class="title2">4、运动</div>
+        <div class="title2">3、运动</div>
         <div class="contData">
           <div class="listTitle">（1）户外活动时间</div>
           <mt-radio :options="diettabooRadioyw.option" v-model="param.check_09"></mt-radio>
@@ -146,7 +150,7 @@
         </div>
       </div>
       <div class="gaugelifeList" style="padding-bottom: 0.25rem">
-        <div class="title2">5、心理</div>
+        <div class="title2">4、心理</div>
         <div class="contData">
           <div class="listTitle">（1）工作压力</div>
           <mt-radio :options="diettabooRadioyw.option" v-model="param.check_61"></mt-radio>
@@ -300,12 +304,23 @@
         value: [],
         checklist: true
       },
-  diettabooRadioysxg: {
+      diettabooRadioysxg: {
         option: [
           {label: '居家饮食为主', value: '71'},
           {label: '外卖及外出就餐为主 ', value: '72'},
           {label: '喜爱甜食', value: '73'},
           {label: '喜爱碱味', value: '74'},
+        ],
+        value: [],
+        checklist: true
+      },
+      diettabooRadioyyrz: {
+        option: [
+          {label: '有认识，长期选择部分补充', value: '75'},
+          {label: '没有认识，但坚持选择部分补充 ', value: '76'},
+          {label: '没有认识，别人介绍，偶有补充 ', value: '77'},
+          {label: '没有认识，也不愿补充', value: '78'},
+          {label: '有意识补充，但不知道怎么辨认', value: '79'},
         ],
         value: [],
         checklist: true
