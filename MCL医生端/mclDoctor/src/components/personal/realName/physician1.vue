@@ -42,7 +42,7 @@
           <div class="flex-grow-1"><input type="" placeholder="请输入真实姓名" v-model="param.name" /></div>
 				</div>
         <div class="form_bname d-flex align-items-center">
-          <div>性别</div>
+          <div>性别<span>(<em>*</em>必填)</span></div>
           <div class="flex-grow-1"><mt-cell  is-link @click.native="pickerToggles('show')" >
 					<!-- <span v-if="param.sex == 1">男</span>
 					<span v-if="param.sex == 2">女</span> -->
@@ -51,8 +51,7 @@
         </div>
 
         <div class="form_bname d-flex align-items-center">
-
-          <div>地区</div>
+          <div>地区<span>(<em>*</em>必填)</span></div>
           <div class="flex-grow-1"><mt-cell title="" is-link @click.native="openCityPicker('show')" >
 					<span>{{param.city || '请选择您所在地区'}}</span>
 				</mt-cell>
@@ -487,6 +486,14 @@
 				const param = this.param;
 				if (param.name == "") {
 					this.$Toast("请输入有效的真实姓名")
+					return;
+				}
+				if (param.sex == "") {
+					this.$Toast("请选择性别")
+					return;
+				}
+				if (param.city == "") {
+					this.$Toast("请选择城市")
 					return;
 				}
 				if (param.hospital == "") {

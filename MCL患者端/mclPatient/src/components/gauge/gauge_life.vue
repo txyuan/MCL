@@ -13,64 +13,21 @@
         <div class="contData">
           <div class="listTitle">（1）是否有食物过敏 </div>
           <mt-radio :options="diettabooRadiolists.option" v-model="param.check_01"></mt-radio>
-          <div class="lh-ys">
+          <div class="lh-ys" v-show="param.check_01 === '是'">
             过敏食物:<input type="text" class="line-input" v-model="param.check_02">
           </div>
         </div>
         <div class="contData">
           <div class="listTitle">（2）是否有药物过敏</div>
           <mt-radio :options="diettabooRadiolists.option" v-model="param.check_03"></mt-radio>
-          <div class="lh-ys">
+          <div class="lh-ys" v-show="param.check_03 === '是'">
             过敏药物:<input type="text" class="line-input" v-model="param.check_04">
           </div>
         </div>
       </div>
 
       <div class="gaugelifeList">
-        <div class="title2">2、生活习惯</div>
-        <div class="contData">
-          <div class="listTitle">（1）每天使用手机</div>
-          <mt-radio :options="diettabooRadiosj.option" v-model="param.check_26"></mt-radio>
-        </div>
-        <div class="contData">
-          <div class="listTitle">（2）每天工作时间多长</div>
-          <mt-radio :options="diettabooRadiogzsj.option" v-model="param.check_28"></mt-radio>
-        </div>
-        <div class="contData">
-          <div class="listTitle">（3）经常午休</div>
-          <mt-radio :options="diettabooRadiowxsj.option" v-model="param.check_29"></mt-radio>
-        </div>
-        <div class="contData">
-          <div class="listTitle">（4）晚上入睡时间</div>
-          <mt-radio :options="diettabooRadiorssj.option" v-model="param.check_30"></mt-radio>
-          <div class="lh-ys">
-            睡眠时间大约：<input type="tel" class="line-input" v-model="param.check_31">小时
-          </div>
-        </div>
-        <div class="contData">
-          <div class="listTitle">（5）吸烟</div>
-          <mt-radio :options="diettabooRadioxy.option" v-model="param.check_32"></mt-radio>
-          <div class="lh-ys">
-            吸过已断:<input type="tel" class="line-input" v-model="param.check_67">年
-          </div>
-        </div>
-        <div class="contData">
-          <div class="listTitle">（6）饮酒</div>
-          <mt-radio :options="diettabooRadioyj.option" v-model="param.check_33"></mt-radio>
-          <div class="lh-ys">
-            红酒:  <input type="tel" class="line-input" v-model="param.check_68">ml/天 </div>
-          <div class="lh-ys">
-            白酒:  <input type="tel" class="line-input" v-model="param.check_69"> 两/天</div>
-          <div class="lh-ys">
-            啤酒:  <input type="tel" class="line-input" v-model="param.check_70"> 两/天</div>
-        </div>
-        <div class="contData">
-          <div class="listTitle">（7）陪伴人员</div>
-          <mt-radio :options="diettabooRadiopbry.option" v-model="param.check_27"></mt-radio>
-        </div>
-      </div>
-      <div class="gaugelifeList">
-        <div class="title2">3、饮食</div>
+        <div class="title2">2、饮食</div>
         <div class="contData">
           <div class="listTitle">（1）饮食餐次</div>
           <mt-radio :options="diettabooRadioyscc.option" v-model="param.check_05"></mt-radio>
@@ -84,13 +41,13 @@
           <mt-checklist :options="diettabooRadiozc.option" v-model="diettabooRadiozc.value"></mt-checklist>
         </div>
         <div class="contData">
-          <div class="listTitle">（4）中餐食物结构<em class="gayYs">（多选）</em></div>
+          <div class="listTitle">（4）中晚餐食物结构<em class="gayYs">（多选）</em></div>
           <mt-checklist :options="diettabooRadiozwc.option" v-model="diettabooRadiozwc.value"></mt-checklist>
         </div>
-        <div class="contData">
+        <!-- <div class="contData">
           <div class="listTitle">（5）晚餐食物结构<em class="gayYs">（多选）</em></div>
           <mt-checklist :options="diettabooRadiowsc.option" v-model="diettabooRadiowsc.value"></mt-checklist>
-        </div>
+        </div> -->
         <div class="contData">
           <div class="listTitle">（6）菜的烹调习惯<em class="gayYs">（多选）</em></div>
           <mt-checklist :options="diettabooRadioztxg.option" v-model="diettabooRadioztxg.value"></mt-checklist>
@@ -101,51 +58,99 @@
         </div>
         <div class="contData">
           <div class="listTitle">
-            （8）每天饮水：<input type="tel" class="line-input" v-model="param.check_08">ml/天
+            （8）每天饮水：<input type="tel" class="line-input" v-model="param.check_24">ml/天
           </div>
         </div>
       </div>
       <div class="gaugelifeList">
-        <div class="title2">4、运动</div>
+        <div class="title2">3、运动</div>
         <div class="contData">
           <div class="listTitle">（1）户外活动时间</div>
-          <mt-radio :options="diettabooRadioyw.option" v-model="param.check_09"></mt-radio>
-          <div class="lh-ys">
-            <p>大约 <input type="tel" class="line-input-x" v-model="param.check_10">小时/天,</p>
-            <p>或<input type="tel" class="line-input-x" v-model="param.check_11">次/周,</p>
-            <p>或<input type="tel" class="line-input-x" v-model="param.check_12">小时/周 </p></div>
+          <mt-radio :options="diettabooRadioyw.option" v-model="param.check_25"></mt-radio>
+          <div class="lh-ys" v-show="param.check_25 === '有'">
+            <p>大约 <input type="tel" class="line-input-x" v-model="param.check_26">小时/天,</p>
+            <p>或<input type="tel" class="line-input-x" v-model="param.check_27">次/周,</p>
+            <p>或<input type="tel" class="line-input-x" v-model="param.check_28">小时/周 </p></div>
         </div>
         <div class="contData">
           <div class="listTitle">（2）坚持体育锻炼</div>
-          <mt-radio :options="diettabooRadioyw.option" v-model="param.check_13"></mt-radio>
-          <div class="lh-ys">
-            <p>大约 <input type="tel" class="line-input-x" v-model="param.check_14">小时/天,</p>
-            <p>或<input type="tel" class="line-input-x" v-model="param.check_15">次/周,</p>
-            <p>或<input type="tel" class="line-input-x" v-model="param.check_16">小时/周 </p></div>
+          <mt-radio :options="diettabooRadioyw.option" v-model="param.check_29"></mt-radio>
+          <div class="lh-ys" v-show="param.check_29 === '有'">
+            <p>大约 <input type="tel" class="line-input-x" v-model="param.check_30">小时/天,</p>
+            <p>或<input type="tel" class="line-input-x" v-model="param.check_31">次/周,</p>
+            <p>或<input type="tel" class="line-input-x" v-model="param.check_32">小时/周 </p></div>
         </div>
         <div class="contData">
           <div class="listTitle">（3）体育锻炼类型</div>
 
           <div class="listTitle">a、有氧运动</div>
-          <mt-radio :options="diettabooRadioyyyd.option" v-model="param.check_17"></mt-radio>
+          <mt-radio :options="diettabooRadioyyyd.option" v-model="param.check_33"></mt-radio>
           <div class="lh-ys">
-            <p>大约 <input type="tel" class="line-input-x" v-model="param.check_18">小时/天,</p>
-            <p>或<input type="tel" class="line-input-x" v-model="param.check_19">次/周,</p>
-            <p>或<input type="tel" class="line-input-x" v-model="param.check_20">小时/周 </p></div>
+            <p>大约 <input type="tel" class="line-input-x" v-model="param.check_34">小时/天,</p>
+            <p>或<input type="tel" class="line-input-x" v-model="param.check_35">次/周,</p>
+            <p>或<input type="tel" class="line-input-x" v-model="param.check_36">小时/周 </p></div>
 
         <div class="listTitle">b、无氧运动<em class="gayYs">（指肌肉锻炼） </em></div>
-        <mt-radio :options="diettabooRadioyw.option" v-model="param.check_21"></mt-radio>
-        <div class="lh-ys">
-          <p>大约 <input type="tel" class="line-input-x" v-model="param.check_22">小时/天,</p>
-          <p>或<input type="tel" class="line-input-x" v-model="param.check_23">次/周,</p>
-          <p>或<input type="tel" class="line-input-x" v-model="param.check_24">小时/周 </p></div>
+        <mt-radio :options="diettabooRadioyw.option" v-model="param.check_37"></mt-radio>
+        <div class="lh-ys" v-show="param.check_37 === '有'">
+          <p>大约 <input type="tel" class="line-input-x" v-model="param.check_38">小时/天,</p>
+          <p>或<input type="tel" class="line-input-x" v-model="param.check_39">次/周,</p>
+          <p>或<input type="tel" class="line-input-x" v-model="param.check_40">小时/周 </p></div>
       </div>
         <div class="contData">
           <div class="listTitle">（4）其它运动爱好</div>
-          <mt-radio :options="diettabooRadioydah.option" v-model="param.check_25"></mt-radio>
+          <mt-radio :options="diettabooRadioydah.option" v-model="param.check_41"></mt-radio>
         </div>
       </div>
-      <div class="gaugelifeList" style="padding-bottom: 0.25rem">
+
+      <div class="gaugelifeList">
+        <div class="title2">4、生活习惯</div>
+        <div class="contData">
+          <div class="listTitle">（1）每天使用手机</div>
+          <mt-radio :options="diettabooRadiosj.option" v-model="param.check_42"></mt-radio>
+        </div>
+        <div class="contData">
+          <div class="listTitle">（2）陪伴人员</div>
+          <mt-radio :options="diettabooRadiopbry.option" v-model="param.check_43"></mt-radio>
+          <div class="lh-ys" v-show="param.check_43 === '其他'">
+            其他:  <input type="tel" class="line-input" v-model="param.check_44">
+          </div>
+        </div>
+        <div class="contData">
+          <div class="listTitle">（3）每天工作时间多长</div>
+          <mt-radio :options="diettabooRadiogzsj.option" v-model="param.check_45"></mt-radio>
+        </div>
+        <div class="contData">
+          <div class="listTitle">（4）经常午休</div>
+          <mt-radio :options="diettabooRadiowxsj.option" v-model="param.check_46"></mt-radio>
+        </div>
+        <div class="contData">
+          <div class="listTitle">（5）晚上入睡时间</div>
+          <mt-radio :options="diettabooRadiorssj.option" v-model="param.check_47"></mt-radio>
+          <div class="lh-ys">
+            睡眠时间大约：<input type="tel" class="line-input" v-model="param.check_48">小时
+          </div>
+        </div>
+        <div class="contData">
+          <div class="listTitle">（6）吸烟</div>
+          <mt-radio :options="diettabooRadioxy.option" v-model="param.check_48"></mt-radio>
+          <div class="lh-ys" v-if="param.check_48 === '吸过已断'">
+            吸过已断:<input type="tel" class="line-input" v-model="param.check_49">年
+          </div>
+        </div>
+        <div class="contData">
+          <div class="listTitle">（7）饮酒</div>
+          <mt-radio :options="diettabooRadioyj.option" v-model="param.check_50"></mt-radio>
+          <div class="lh-ys" v-if="param.check_50 === '红酒'">
+            红酒:  <input type="tel" class="line-input" v-model="param.check_51">ml/天 </div>
+          <div class="lh-ys" v-if="param.check_50 === '白酒'">
+            白酒:  <input type="tel" class="line-input" v-model="param.check_52"> 两/天</div>
+          <div class="lh-ys" v-if="param.check_50 === '啤酒'">
+            啤酒:  <input type="tel" class="line-input" v-model="param.check_53"> 两/天</div>
+        </div>
+      </div>
+
+      <!-- <div class="gaugelifeList" style="padding-bottom: 0.25rem">
         <div class="title2">5、心理</div>
         <div class="contData">
           <div class="listTitle">（1）工作压力</div>
@@ -168,7 +173,7 @@
             <mt-radio :options="diettabooRadiodx.option" v-model="param.check_66"></mt-radio>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="fix_bottom">
         <mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit">保存</mt-button>
       </div>
@@ -177,243 +182,228 @@
 </template>
 
 <script>
-  export default {
-    name: 'gauge_life',
-    data: () => ({
-      diettabooRadiolists: {
-        option: ['是', '否'],
-        value: '',
-        radiolist: true
-      },
-      diettabooRadioyscc: {
-        option: ['一日三餐', '一日二餐','一日一餐'],
-        value: '',
-        radiolist: true
-      },
-      diettabooRadioysff: {
-        option: ['早', '中','晚'],
-        value: '',
-        radiolist: true
-      },
-      diettabooRadioyyyd: {
-        option: ['走路','跑步','游泳','爬山','其它'],
-        value: '',
-        radiolist: true
-      },
-      diettabooRadioydah: {
-        option: ['经常唱歌','经常跳舞','经常打各种球','其它'],
-        value: '',
-        radiolist: true
-      },
-      diettabooRadiosj: {
-        option: ['无','小于3小时','3～5小时','大于5小时'],
-        value: '',
-        radiolist: true
-      },
-      diettabooRadiopbry: {
-        option: ['无','配偶','子女','父母','保姆','医务护士','其他'],
-        value: '',
-        radiolist: true
-      },
-      diettabooRadiogzsj: {
-        option: ['6小时内','6-8小时','8-10小时','大于10小时'],
-        value: '',
-        radiolist: true
-      },
-      diettabooRadiowxsj: {
-        option: ['0.5小时','1小时','1.5小时','2小时','2小时以上','无'],
-        value: '',
-        radiolist: true
-      },
-      diettabooRadiorssj: {
-        option: ['9点前','9-11点','11-凌晨1点','凌晨1点-凌晨2点','凌晨2点以后'],
-        value: '',
-        radiolist: true
-      },
-      diettabooRadioxy: {
-        option: ['从不', '吸过已断','半包/天','1包/天','2包/天','2包/天以上'],
-        value: '',
-        radiolist: true
-      },
-      diettabooRadioyj: {
-        option: ['从不', '红酒', '白酒', '啤酒'],
-        value: '',
-        radiolist: true
-      },
-      diettabooRadioyw: {
-        option: ['有', '无'],
-        value: '',
-        radiolist: true
-      },
-      diettabooRadiodx: {
-        option: ['大', '中','小'],
-        value: '',
-        radiolist: true
-      },
-      diettabooRadiozc: {
-        option: [
-          {label: '不吃', value: '34'},
-          {label: '经常不吃 ', value: '50'},
-          {label: '米面为主 ', value: '35'},
-          {label: '鸡蛋牛奶谷粉', value: '36'},
-          {label: '有水果疏菜', value: '37'},
-        ],
-        value: [],
-        checklist: true
-      },
-      diettabooRadiozwc: {
-        option: [
-          {label: '米面为主+素菜', value: '38'},
-          {label: '米面为主+荤素 ', value: '39'},
-          {label: '素食为主+米面', value: '40'},
-          {label: '荤素为主+米面', value: '41'},
-          {label: '米汤', value: '42'},
-          {label: '菜汤', value: '51'},
-          {label: '肉汤', value: '52'},
-          {label: '水果', value: '43'},
-        ],
-        value: [],
-        checklist: true
-      },
-      diettabooRadiowsc: {
-        option: [
-          {label: '米面为主+素菜', value: '53'},
-          {label: '米面为主+荤素 ', value: '54'},
-          {label: '素食为主+米面', value: '55'},
-          {label: '荤素为主+米面', value: '56'},
-          {label: '米汤', value: '57'},
-          {label: '菜汤', value: '58'},
-          {label: '肉汤', value: '59'},
-          {label: '水果', value: '60'},
-        ],
-        value: [],
-        checklist: true
-      },
-      diettabooRadioztxg: {
-        option: [
-          {label: '蒸', value: '44'},
-          {label: '煮', value: '45'},
-          {label: '炒', value: '46'},
-          {label: '煎', value: '47'},
-          {label: '经常吃烧烤', value: '48'},
-        ],
-        value: [],
-        checklist: true
-      },
-  diettabooRadioysxg: {
-        option: [
-          {label: '居家饮食为主', value: '71'},
-          {label: '外卖及外出就餐为主 ', value: '72'},
-          {label: '喜爱甜食', value: '73'},
-          {label: '喜爱碱味', value: '74'},
-        ],
-        value: [],
-        checklist: true
-      },
-      param: {
-        skey: '',
-        check_01: '',
-        check_02: '',
-        check_03: '',
-        check_04: '',
-        check_05: '',
-        check_06: '',
-        check_07: '',
-        check_08: '',
-        check_09: '',
-        check_10: '',
-        check_11: '',
-        check_12: '',
-        check_13: '',
-        check_14: '',
-        check_15: '',
-        check_16: '',
-        check_17: '',
-        check_18: '',
-        check_19: '',
-        check_20: '',
-        check_21: '',
-        check_22: '',
-        check_23: '',
-        check_24: '',
-        check_25: '',
-        check_26: '',
-        check_27: '',
-        check_28: '',
-        check_29: '',
-        check_30: '',
-        check_31: '',
-        check_32: '',
-        check_33: '',
-        check_61: '',
-        check_62: '',
-        check_63: '',
-        check_64: '',
-        check_65: '',
-        check_66: '',
-        check_67: '',
-        check_68: '',
-        check_69: '',
-        check_70: '',
-      }
-    }),
-    watch: {
-      //
-      'diettabooRadioss.value': {
-        handler: function (list) {
-          // 重置
-          this.diettabooRadioss.option.forEach((item) => {
-            this.param[`check_${item.value}`] = '0'
-          })
-          // 选中项
-          list.forEach((item) => {
-            this.param[`check_${item}`] = '1'
-          })
-        },
-        deep: true
-      },
-      'diettabooRadiodyy.value': {
-        handler: function (list) {
-          // 重置
-          this.diettabooRadiodyy.option.forEach((item) => {
-            this.param[`check_${item.value}`] = '0'
-          })
-          // 选中项
-          list.forEach((item) => {
-            this.param[`check_${item}`] = '1'
-          })
-        },
-        deep: true
-      }
+export default {
+  name: 'gauge_life',
+  data: () => ({
+    diettabooRadiolists: {
+      option: ['是', '否'],
+      value: '',
+      radiolist: true
     },
-    methods: {
-      getSkey () {
-        let url = 'UserInterface/GenerateItmekey.ashx'
-        this.$post(url).then((data) => {
-          if (data.rspcode != 1) {
-            return
-          }
-          this.param.skey = data.itmekey
-        })
-      },
-      // 提交
-      submit () {
-        let url = 'UserInterface/PatientLifeSurveyInsert.ashx'
-        this.$post(url, this.param).then((data) => {
-          if (data.rspcode != 1) {
-            this.$Toast(data.rspdesc)
-            return
-          }
-          this.$Toast('保存成功')
-          // 查看报告
-          // this.$router.push("/nutrition");
-        })
-      }
+    diettabooRadioyscc: {
+      option: ['一日三餐', '一日二餐', '一日一餐'],
+      value: '',
+      radiolist: true
     },
-    mounted () {
-      this.getSkey()
+    diettabooRadioysff: {
+      option: ['早', '中', '晚'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadioyyyd: {
+      option: ['走路', '跑步', '游泳', '爬山', '其它'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadioydah: {
+      option: ['经常唱歌', '经常跳舞', '经常打各种球', '其它'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadiosj: {
+      option: ['无', '小于3小时', '3～5小时', '大于5小时'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadiopbry: {
+      option: ['无', '配偶', '子女', '父母', '保姆', '医务护士', '其他'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadiogzsj: {
+      option: ['6小时内', '6-8小时', '8-10小时', '大于10小时'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadiowxsj: {
+      option: ['0.5小时', '1小时', '1.5小时', '2小时', '2小时以上', '无'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadiorssj: {
+      option: ['9点前', '9-11点', '11-凌晨1点', '凌晨1点-凌晨2点', '凌晨2点以后'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadioxy: {
+      option: ['从不', '吸过已断', '半包/天', '1包/天', '2包/天', '2包/天以上'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadioyj: {
+      option: ['从不', '红酒', '白酒', '啤酒'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadioyw: {
+      option: ['有', '无'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadiodx: {
+      option: ['大', '中', '小'],
+      value: '',
+      radiolist: true
+    },
+    diettabooRadiozc: {
+      option: [
+        {label: '不吃', value: 'check_07'},
+        // {label: '经常不吃 ', value: '50'},
+        {label: '米面为主 ', value: 'check_08'},
+        {label: '鸡蛋牛奶谷粉', value: 'check_09'},
+        {label: '有水果疏菜', value: 'check_10'}
+      ],
+      value: [],
+      checklist: true
+    },
+    diettabooRadiozwc: {
+      option: [
+        {label: '米面为主+素菜', value: 'check_11'},
+        {label: '米面为主+荤素 ', value: 'check_12'},
+        {label: '素食为主+米面', value: 'check_13'},
+        {label: '荤素为主+米面', value: 'check_14'},
+        {label: '米汤或汤', value: 'check_15'},
+        {label: '水果', value: 'check_16'}
+      ],
+      value: [],
+      checklist: true
+    },
+    // diettabooRadiowsc: {
+    //   option: [
+    //     {label: '米面为主+素菜', value: '53'},
+    //     {label: '米面为主+荤素 ', value: '54'},
+    //     {label: '素食为主+米面', value: '55'},
+    //     {label: '荤素为主+米面', value: '56'},
+    //     {label: '米汤', value: '57'},
+    //     {label: '菜汤', value: '58'},
+    //     {label: '肉汤', value: '59'},
+    //     {label: '水果', value: '60'},
+    //   ],
+    //   value: [],
+    //   checklist: true
+    // },
+    diettabooRadioztxg: {
+      option: [
+        {label: '蒸', value: 'check_17'},
+        {label: '煮', value: 'check_18'},
+        {label: '炒', value: 'check_19'},
+        {label: '煎', value: 'check_20'},
+        {label: '经常吃烧烤', value: 'check_21'}
+      ],
+      value: [],
+      checklist: true
+    },
+    diettabooRadioysxg: {
+      option: [
+        {label: '居家饮食为主', value: 'check_22'},
+        {label: '外卖及外出就餐为主 ', value: 'check_23'}
+        // {label: '喜爱甜食', value: '73'},
+        // {label: '喜爱碱味', value: '74'},
+      ],
+      value: [],
+      checklist: true
+    },
+    param: {
+      skey: ''
     }
+  }),
+  watch: {
+    // 监听所有的多选框
+    // 早餐
+    'diettabooRadiozc.value': {
+      handler: function (list) {
+        // 重置
+        this.diettabooRadiozc.option.forEach((item) => {
+          this.param[item.value] = '0'
+        })
+        // 选中项
+        list.forEach((value) => {
+          this.param[value] = '1'
+        })
+      },
+      deep: true
+    },
+    // 菜的烹调习惯
+    'diettabooRadioztxg.value': {
+      handler: function (list) {
+        // 重置
+        this.diettabooRadioztxg.option.forEach((item) => {
+          this.param[item.value] = '0'
+        })
+        // 选中项
+        list.forEach((value) => {
+          this.param[value] = '1'
+        })
+      },
+      deep: true
+    },
+    // 中晚餐食物结构
+    'diettabooRadiozwc.value': {
+      handler: function (list) {
+        // 重置
+        this.diettabooRadiozwc.option.forEach((item) => {
+          this.param[item.value] = '0'
+        })
+        // 选中项
+        list.forEach((value) => {
+          this.param[value] = '1'
+        })
+      },
+      deep: true
+    },
+    // 饮食习惯
+    'diettabooRadioysxg.value': {
+      handler: function (list) {
+        // 重置
+        this.diettabooRadioysxg.option.forEach((item) => {
+          this.param[item.value] = '0'
+        })
+        // 选中项
+        list.forEach((value) => {
+          this.param[value] = '1'
+        })
+      },
+      deep: true
+    }
+  },
+  methods: {
+    getSkey () {
+      let url = 'UserInterface/GenerateItmekey.ashx'
+      this.$post(url).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.param.skey = data.itmekey
+      })
+    },
+    // 提交
+    submit () {
+      let url = 'UserInterface/PatientLifeSurveyInsert.ashx'
+      this.$post(url, this.param).then((data) => {
+        if (data.rspcode != 1) {
+          this.$Toast(data.rspdesc)
+          return
+        }
+        this.$Toast('保存成功')
+        // 查看报告
+        // this.$router.push("/nutrition");
+      })
+    }
+  },
+  mounted () {
+    this.getSkey()
   }
+}
 </script>
 
 <style scoped lang="scss">

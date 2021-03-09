@@ -86,6 +86,7 @@ export default {
       this.reviewedId = '1'
     },
     getList () {
+      this.list = []
       let url = 'UserInterface/channel/ChannelHomePageHeadlineList.ashx'
       this.$post(url).then((data) => {
         if (data.rspcode != 1) {
@@ -99,11 +100,12 @@ export default {
   },
   beforeRouteEnter (to, form, next) {
     next((vm) => {
-      // 从详情页面返回
+      // 从详情页面返回，列表接口如果没有被加载过，需要加载接口
       if (form.name === 'newsDetail' && !vm.isLoad) {
-        // 列表接口如果没有被加载过，需要加载接口
         vm.getList()
-      } else {
+      }
+      // 非详情页面进来
+      if (form.name !== 'newsDetail') {
         vm.getList()
       }
     })

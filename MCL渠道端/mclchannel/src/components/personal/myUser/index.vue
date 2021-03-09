@@ -30,13 +30,13 @@
 		</div>
 		<div id="navbar" class="card_navbar">
 			<mt-navbar v-model="selected">
-				<mt-tab-item id="tab0" @click.native="tabClick('1')">
+				<mt-tab-item id="tab1" @click.native="tabClick('1')">
 					<p>渠道经理</p>
 				</mt-tab-item>
-				<mt-tab-item id="tab1" @click.native="tabClick('2')">
+				<mt-tab-item id="tab2" @click.native="tabClick('2')">
 					<p>医生</p>
 				</mt-tab-item>
-				<mt-tab-item id="tab2" @click.native="tabClick('3')">
+				<mt-tab-item id="tab3" @click.native="tabClick('3')">
 					<p>员工</p>
 				</mt-tab-item>
 			</mt-navbar>
@@ -44,7 +44,7 @@
 
 		<div class="borderpay">
 			<!-- tab-container -->
-			<loadMore :param="param" @triggerGetList="getList" ref="loadMoreE" class="padding-footer">
+			<loadMore :param="param" :isDefaultLoading="false" @triggerGetList="getList" ref="loadMoreE" class="padding-footer">
 				<div slot="content">
 					<div class="callddh" v-for="(item,index) in list" :key="index">
             <div class="card_cont">
@@ -86,7 +86,7 @@ export default {
   name: 'commission',
   data: () => ({
     isLoad: false, // 是否加载过接口
-    selected: 'tab0',
+    selected: 'tab1',
     totalcount: '', // 总人数
     newchannel: '', // 渠道经理
     newdoctor: '', // 医生人数
@@ -105,6 +105,7 @@ export default {
     // tab切换
     tabClick (val) {
       this.$Indicator.loading()
+      this.selected = `tab${val}`
       this.param.type = val
       this.param.pagecount = 0
       this.$refs.loadMoreE.getList()
@@ -139,17 +140,16 @@ export default {
   },
   beforeRouteEnter (to, form, next) {
     next((vm) => {
-      // 从详情页面返回，解锁加载更多
-      if (form.name === 'userListDetails') {
-        vm.$refs.loadMoreE.isLock = true
+      // 解锁加载更多
+      vm.$refs.loadMoreE.isLock = true
+      // 从详情页面返回，列表接口如果没有被加载过，需要加载接口
+      if (form.name === 'userListDetails' && !vm.isLoad) {
+        vm.tabClick('1')
       }
-      // 从详情页面返回
-      // if (form.name === 'userListDetails' && !vm.isLoad) {
-      //   // 列表接口如果没有被加载过，需要加载接口
-      //   // vm.tabClick('1')
-      // } else {
-      //   vm.tabClick('1')
-      // }
+      // 非详情页面进来
+      if (form.name !== 'userListDetails') {
+        vm.tabClick('1')
+      }
     })
   },
   beforeRouteLeave (to, form, next) {

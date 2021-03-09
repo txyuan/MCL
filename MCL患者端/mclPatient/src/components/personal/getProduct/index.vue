@@ -47,30 +47,34 @@
 						<span slot="type">{{item.buyTime}}</span>
 						<span class="themeRed" slot="dateType">{{item.stateText}}</span>
 						<div slot="footer" class="foot">
-							<div class="logisticsInfo">合计：
-								<span class="themeRed">¥ {{item.orderMoney}}</span>
-							</div>
-							<div class="btn-group">
-								<div v-if="item.state == '1'" style="overflow: hidden;">
-									<!--<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
-										<span>查看物流</span>
-									</div>-->
-									<div class="f-btn ok" style="float: left;" @click="shopsh(item)">
-										<span>确认收货</span>
+							<div class="row" style="flex: 1">
+								<div class="logisticsInfo">合计：
+									<span class="themeRed">¥ {{item.orderMoney}}</span>
+								</div>
+								<div class="btn-group">
+									<div v-if="item.state == '1'" style="overflow: hidden;">
+										<!--<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
+											<span>查看物流</span>
+										</div>-->
+										<div class="f-btn ok" style="float: left;" @click="shopsh(item)">
+											<span>确认收货</span>
+										</div>
+									</div>
+									<div v-else-if="item.state  == '2'" style="overflow: hidden;">
+										<!-- <div class="f-btn ok laood" style="float: left;" @click="delmoy(item,3)">
+											<span>删除订单</span>
+										</div> -->
+										<!--<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
+											<span>查看物流</span>
+										</div>-->
+										<!--<div class="f-btn ok" style="float: left;" @click="againsh(item)">
+											<span>再次购买</span>
+										</div>-->
 									</div>
 								</div>
-								<div v-else-if="item.state  == '2'" style="overflow: hidden;">
-									<div class="f-btn ok laood" style="float: left;" @click="delmoy(item,3)">
-										<span>删除订单</span>
-									</div>
-									<!--<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
-										<span>查看物流</span>
-									</div>-->
-									<!--<div class="f-btn ok" style="float: left;" @click="againsh(item)">
-										<span>再次购买</span>
-									</div>-->
-								</div>
 							</div>
+							
+							<div class="logistics_number" v-if="item.logistics_number">{{item.logistics_number}}</div>
 						</div>
 					</productItem>
 				</mt-tab-container-item>
@@ -355,13 +359,17 @@ export default {
 		}
 	}
 
+	.logistics_number{
+		padding-top: 0.05rem;
+	}
 	.foot {
 		margin-top: 0.08rem;
-		display: flex;
-		justify-content: space-between;
 		font-size: 0.14rem;
 		color: $color60;
-
+		.row{
+			display: flex;
+			justify-content: space-between;
+		}
 		.logisticsInfo {
 			display: flex;
 			align-items: center;

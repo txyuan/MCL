@@ -1,7 +1,7 @@
 <template>
 	<div class="padding-header person_data_root">
 		<div id="class_header" class="myassets">
-			<mt-header :title="`${typeObj[$route.query.type]}—${$route.query.contactname}`" fixed class="borderBottom">
+			<mt-header :title="`${userType}—${$route.query.contactname}`" fixed class="borderBottom">
 				<div slot="left">
 					<header-back>
 						<mt-button icon="back"></mt-button>
@@ -75,11 +75,7 @@ export default {
         'type': type, // 状态（1：渠道;2：医生;3：患者）
         'sKey': sKey // 员工主键
       },
-      typeObj:{
-        '1': '渠道',
-        '2': '医生',
-        '3': '患者'
-      }
+      userType: ''
     }
   },
   methods: {
@@ -109,6 +105,7 @@ export default {
         this.memberMoney = data.memberMoney // 会员管理
         this.retailMoney = data.retailMoney // 零售产品
         this.setMealMoney = data.setMealMoney // 套餐管理
+        this.userType = data.userType
         // 加载更多组件触发回调
         if (success) {
           success(modelList, this.list)

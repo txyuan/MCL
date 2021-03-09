@@ -36,7 +36,7 @@
       </div>
     </div>
       <div class="img_wrap">
-        <div class="tits"><em></em>请上传医师认证资料 <span style="color: #1cb0b9;font-size: 12px">（至少选一证件上传或者输入省份证码）</span></div>
+        <div class="tits"><em></em>请上传医师认证资料 <span style="color: #1cb0b9;font-size: 12px">（至少选一证件上传或者输入身份证号）</span></div>
 				<div class="form">
 					<div class="form_bname  d-flex align-items-center">
 						<div>身份证号</div>
@@ -290,25 +290,32 @@
 					this.$Toast("请输入有效的身份证码")
 					return
 				}
+				
 				if (IsCard(param.IdNumber) || (param.practisingimg != "") || (param.workcardimg != "") || (param.qualificationsimg != "") || (param.professionalimg != "")) {
-					let { UserKey,SessionId } = this.$route.query;
-					let url = `UserInterface/doctor/InsertDoctorInfo3.ashx?UserKey=${UserKey}&SessionId=${SessionId}`;
-					this.$post(url, this.param).then((data) => {
-						this.$Toast(data.rspdesc);
-						if (data.rspcode != 1) {
-							return;
-						}
-						this.$router.push('/wxFollowPage');
-						// this.$router.push('/appDown');
-					})
 				}else{
-					this.$Toast("请至少选一证件上传或者输入省份证码")
+					this.$Toast("请至少至少选一证件上传或者输入身份证号")
+					return
 				}
+
+				if((param.begoodat =='')){
+					this.$Toast("输入专业领域、擅长病种等信息")
+					return
+				}
+				
+				let { UserKey,SessionId } = this.$route.query;
+				let url = `UserInterface/doctor/InsertDoctorInfo3.ashx?UserKey=${UserKey}&SessionId=${SessionId}`;
+				this.$post(url, this.param).then((data) => {
+					this.$Toast(data.rspdesc);
+					if (data.rspcode != 1) {
+						return;
+					}
+					this.$router.push('/wxFollowPage');
+					// this.$router.push('/appDown');
+				})
 				function IsCard(str) {
 					var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
 					return reg.test(str);
 				}
-				
 			},
 			//input 添加失去焦点事件
 			inputInputBulr() {

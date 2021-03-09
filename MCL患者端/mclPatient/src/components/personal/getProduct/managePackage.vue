@@ -44,16 +44,19 @@
 							<span slot="type">{{item.buyTime}}</span>
 							<span class="themeRed" slot="dateType">{{item.stateText}}</span>
 							<div slot="footer" class="foot">
-								<div class="logisticsInfo">合计：
-									<span class="themeRed">¥ {{item.orderMoney}}</span>
-								</div>
-								<div class="btn-group">
-									<div v-if="item.state  == '3'" style="overflow: hidden;">
-										<div class="f-btn ok laood" style="float: left;" @click="delmoy(item,3)">
-											<span>删除订单</span>
+								<div class="row">
+									<div class="logisticsInfo">合计：
+										<span class="themeRed">¥ {{item.orderMoney}}</span>
+									</div>
+									<div class="btn-group">
+										<div v-if="item.state  == '3'" style="overflow: hidden;">
+											<div class="f-btn ok laood" style="float: left;" @click="delmoy(item,3)">
+												<span>删除订单</span>
+											</div>
 										</div>
 									</div>
 								</div>
+								<div class="logistics_number" v-if="item.logistics_number">{{item.logistics_number}}</div>
 							</div>
 						</productItem>
 					</mt-tab-container-item>
@@ -327,13 +330,17 @@
 		}
 	}
 
+	.logistics_number{
+		padding-top: 0.05rem;
+	}
 	.foot {
 		margin-top: 0.08rem;
-		display: flex;
-		justify-content: space-between;
 		font-size: 0.14rem;
 		color: $color60;
-
+		.row{
+			display: flex;
+			justify-content: space-between;
+		}
 		.logisticsInfo {
 			display: flex;
 			align-items: center;
