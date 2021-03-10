@@ -14,7 +14,17 @@
 						<h2>
 							<img :src="item.imgurl" />
 							<span>{{item.title}}</span>
-							<label>{{item.time}}</label>
+<!--							<label>{{item.time}}</label>-->
+            <div class="audit">
+                <p class="audit_bg">
+                </p>
+                <em class="audit_status" style="">待审核</em>
+              </div>
+<!--              <div class="audit audit_active">-->
+<!--              <p class="audit_bg">-->
+<!--              </p>-->
+<!--              <em class="audit_status" style="">已审核</em>-->
+<!--            </div>-->
 						</h2>
 						<div class="inform_jtds">
 							<h4>{{item.status}}</h4>
@@ -25,20 +35,7 @@
 					</div>
 				</div>
 			<!-- </loadMore> -->
-
-			<!--<div class="inform_list">
-				<h2>
-					<img src="../../assets/images/kdy.png" />
-					<span>新订单发货提醒</span>
-					<label>14:15:25</label>
-				</h2>
-				<div class="inform_jtds">
-					<h4>新用户注册成功</h4>
-					<span>新用户 何小何 扫描 员工 吴龙 二维码注册成功</span>
-					<label>2019.10.07 14:15:25</label>
-					<p>查看详情</p>
-				</div>
-			</div>-->
+ 
 		</div>
 
 	</div>
@@ -51,40 +48,12 @@ export default {
   data: () => ({
     isLoad: false, // 是否加载过接口
     list: [],
-    popupVisible: false,
-    titlerg: '医生注册成功审核',
-    newlisrnr: '',
-    currentObj: {}, // 当前点击对象
-    reviewed: '待审核', // 审核状态
-    reviewedId: '0', // 审核状态ID
     param: {
       'pagesize': 10,
       'pagecount': 0
     }
   }),
   methods: {
-    toggleModal (type) {
-      var state = (type == 'show')
-      this.popupVisible = state
-    },
-    openModal (item) {
-      this.titlerg = item.title
-      this.currentObj = item
-      this.toggleModal('show')
-      if (this.titlerg == '医生成功注册') {
-        this.newlisrnr = '1'
-      } else {
-        this.newlisrnr = '0'
-      }
-    },
-    reset () {
-      this.toggleModal('hide')
-    },
-    submit () {
-      this.toggleModal('hide')
-      this.reviewed = '已审核'
-      this.reviewedId = '1'
-    },
     getList () {
       let url = 'UserInterface/channel/ChannelHomePageHeadlineList.ashx'
       this.$post(url).then((data) => {
@@ -328,5 +297,31 @@ export default {
       line-height: 1.6;
       font-weight: 400;
     }
+  }
+  .audit{
+    position: relative;
+    .audit_bg{
+      display: inline-block;
+      padding: 0 0.1rem;
+      float: right;
+      border-bottom: 100px solid #0AC5C9;
+      border-left: 100px solid transparent;
+      width: 50px
+    }
+ .audit_status {
+    position: absolute;
+   display: inline-block;
+   line-height: 0.44rem;
+   color: #FFFFFF;
+   font-style: normal;
+    right: 0.15rem;
+   top: 0;
+   font-size: 0.16rem;
+  }
+  }
+  .audit_active{
+    .audit_bg{
+    border-bottom-color:#cccccc;
+  }
   }
 </style>
