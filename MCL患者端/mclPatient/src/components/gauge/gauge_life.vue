@@ -96,8 +96,8 @@
           <mt-checklist :options="diettabooRadioztxg.option" v-model="diettabooRadioztxg.value"></mt-checklist>
         </div>
         <div class="contData">
-          <div class="listTitle">（7）饮食习惯<em class="gayYs">（多选）</em></div>
-          <mt-checklist :options="diettabooRadioysxg.option" v-model="diettabooRadioysxg.value"></mt-checklist>
+          <div class="listTitle">（7）饮食习惯</div>
+          <mt-radio :options="diettabooRadioysxg.option" v-model="param.check_71"></mt-radio>
         </div>
         <div class="contData">
           <div class="listTitle">
@@ -254,6 +254,12 @@
         value: '',
         radiolist: true
       },
+
+      diettabooRadioysxg: {
+        option: ['居家饮食为主', '外卖及外出就餐为主','喜爱甜食','喜爱碱味'],
+        value:'',
+        radiolist: true
+      },
       diettabooRadiozc: {
         option: [
           {label: '不吃', value: '34'},
@@ -300,16 +306,6 @@
           {label: '炒', value: '46'},
           {label: '煎', value: '47'},
           {label: '经常吃烧烤', value: '48'},
-        ],
-        value: [],
-        checklist: true
-      },
-      diettabooRadioysxg: {
-        option: [
-          {label: '居家饮食为主', value: '71'},
-          {label: '外卖及外出就餐为主 ', value: '72'},
-          {label: '喜爱甜食', value: '73'},
-          {label: '喜爱碱味', value: '74'},
         ],
         value: [],
         checklist: true
@@ -370,6 +366,7 @@
         check_68: '',
         check_69: '',
         check_70: '',
+        check_71: '',
       }
     }),
     watch: {
