@@ -2,7 +2,7 @@
 	<div style="background: #f8f8f8;">
 		<div id="body_main" style="padding-bottom: 0;padding-top:45px;">
 
-			<mt-header title="服务" fixed></mt-header>
+			<mt-header title="商城" fixed></mt-header>
 			<div class="titlebt">
 				<h3>会员卡</h3>
 			</div>
