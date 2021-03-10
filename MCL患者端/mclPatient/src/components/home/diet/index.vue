@@ -297,17 +297,17 @@
                   <ul>
                     <li>
 <!--                      <img src="@/assets/images/danbaizhi@2x.png" alt=""/>-->
-                      <p class="zonghe_mb protein_br"><span> {{parseFloat(protein).toFixed(0)}}g</span><em>20%</em></p>
+                      <p class="zonghe_mb protein_br"><span> {{parseFloat(protein).toFixed(0)}}g</span><em>{{proteinProportion}}%</em></p>
                       <p class="zonghe_bt">蛋白质</p>
                     </li>
                     <li>
 <!--                      <img src="@/assets/images/zhifang@2x.png" alt=""/>-->
-                      <p class="zonghe_mb fat_br"><span> {{parseFloat(fat).toFixed(0)}}g</span><em>40%</em></p>
+                      <p class="zonghe_mb fat_br"><span> {{parseFloat(fat).toFixed(0)}}g</span><em>{{fatProportion}}%</em></p>
                       <p class="zonghe_bt">脂肪</p>
                     </li>
                     <li>
 <!--                      <img src="@/assets/images/tanshuihuahewu@2x.png" alt=""/>-->
-                      <p class="zonghe_mb carbohydrate_br"><span> {{parseFloat(carbohydrate).toFixed(0)}}g</span><em>40%</em></p>
+                      <p class="zonghe_mb carbohydrate_br"><span> {{parseFloat(carbohydrate).toFixed(0)}}g</span><em>{{carbohydrateProportion}}%</em></p>
                       <p class="zonghe_bt">碳水化合物</p>
                     </li>
                   </ul>
@@ -530,7 +530,9 @@
       dataflag: 0,
       energyBalance: '',
       actualIntake: '',
-
+      carbohydrateProportion: '',
+      fatProportion: '',
+      proteinProportion: '',
       aleta: false,
       aletData: {}
     }),
@@ -779,7 +781,6 @@
           if (data.rspcode != 1) {
             return
           }
-          console.log(data)
           this.dataflag = data.dataflag
           this.targetenergy = data.targetenergy
           this.protein = data.protein
@@ -793,7 +794,9 @@
           this.actualIntake = data.actualIntake
           this.energyBalance = data.energyBalance
           this.mealaddition = data.mealadditiondata
-
+          this.carbohydrateProportion = data.carbohydrateProportion
+          this.fatProportion = data.fatProportion
+          this.proteinProportion = data.proteinProportion
           if (data.breakfastdata && data.breakfastdata.length != 0) {
             this.breakfast_time = data.breakfastdata[0].breakfast_time
           }
