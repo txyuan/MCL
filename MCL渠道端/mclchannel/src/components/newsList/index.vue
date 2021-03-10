@@ -20,11 +20,16 @@
                 </p>
                 <em class="audit_status" style="">待审核</em>
               </div>
-<!--              <div class="audit audit_active">-->
-<!--              <p class="audit_bg">-->
-<!--              </p>-->
-<!--              <em class="audit_status" style="">已审核</em>-->
-<!--            </div>-->
+              <!--              <div class="audit audit_a1">-->
+              <!--              <p class="audit_bg">-->
+              <!--              </p>-->
+              <!--              <em class="audit_status" style="">已审核</em>-->
+              <!--            </div>-->
+<!--                            <div class="audit audit_a2">-->
+<!--                            <p class="audit_bg">-->
+<!--                            </p>-->
+<!--                            <em class="audit_status" style="">未填写</em>-->
+<!--                          </div>-->
 						</h2>
 						<div class="inform_jtds">
 							<h4>{{item.status}}</h4>
@@ -35,7 +40,7 @@
 					</div>
 				</div>
 			<!-- </loadMore> -->
- 
+
 		</div>
 
 	</div>
@@ -319,9 +324,14 @@ export default {
    font-size: 0.16rem;
   }
   }
-  .audit_active{
+  .audit_a1{
     .audit_bg{
-    border-bottom-color:#cccccc;
+      border-bottom-color:#cccccc;
+    }
   }
+  .audit_a2{
+    .audit_bg{
+      border-bottom-color:#ff3d54;
+    }
   }
 </style>
