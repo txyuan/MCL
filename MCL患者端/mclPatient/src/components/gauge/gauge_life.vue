@@ -479,7 +479,7 @@
     em.gayYs{
       font-style: normal;
       font-size: 0.135rem;
-      color: #787878;
+      color: #0AC5C9;
       padding: 0 0.02rem;
     }
   }
