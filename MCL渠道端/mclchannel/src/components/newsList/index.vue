@@ -10,26 +10,24 @@
 		<div class="inform_cont">
 			<!-- <loadMore :param="param" @triggerGetList="getList" ref="loadMoreE" class="padding-footer"> -->
 				<div slot="content">
-					<div class="inform_list" v-for="(item, index) in list" :key="index" @click="$router.push(`/newsDetail?userskey=${item.userskey}&sKey=${item.sKey}&title=${item.title}`)">
+					<div class="inform_list" v-for="(item, index) in list" :key="index" @click="goDetail(item)">
 						<h2>
 							<img :src="item.imgurl" />
 							<span>{{item.title}}</span>
 <!--							<label>{{item.time}}</label>-->
-            <div class="audit">
+              <div div class="audit" v-if="item.doctorStatus == 1">
                 <p class="audit_bg">
                 </p>
                 <em class="audit_status" style="">待审核</em>
               </div>
-              <!--              <div class="audit audit_a1">-->
-              <!--              <p class="audit_bg">-->
-              <!--              </p>-->
-              <!--              <em class="audit_status" style="">已审核</em>-->
-              <!--            </div>-->
-<!--                            <div class="audit audit_a2">-->
-<!--                            <p class="audit_bg">-->
-<!--                            </p>-->
-<!--                            <em class="audit_status" style="">未填写</em>-->
-<!--                          </div>-->
+              <div class="audit audit_a1" v-if="item.doctorStatus == 2">
+                <p class="audit_bg"></p>
+                <em class="audit_status" style="">已审核</em>
+              </div>
+              <div class="audit audit_a2" v-if="item.doctorStatus == 0">
+                <p class="audit_bg"></p>
+                <em class="audit_status" style="">未填写</em>
+              </div>
 						</h2>
 						<div class="inform_jtds">
 							<h4>{{item.status}}</h4>
@@ -70,6 +68,13 @@ export default {
         this.list = modelList
         this.isLoad = true
       })
+    },
+    goDetail (item) {
+      if (item.doctorStatus == 0) {
+        this.$Toast('该医生未完善资料')
+        return
+      }
+      this.$router.push(`/newsDetail?userskey=${item.userskey}&sKey=${item.sKey}&title=${item.title}`)
     }
   },
   beforeRouteEnter (to, form, next) {

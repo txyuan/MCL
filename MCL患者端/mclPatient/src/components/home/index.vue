@@ -75,9 +75,9 @@
               </div>
             </div>
             <div class="adr">
-              <span>{{messageInfo.HospitalName}}</span><span v-show="messageInfo.DoctorFlag == 1">&nbsp;&nbsp;|&nbsp;&nbsp;{{messageInfo.Department}}</span>
+              <span>{{messageInfo.HospitalName}}</span><span v-show="messageInfo.displayFlag == 1">&nbsp;&nbsp;|&nbsp;&nbsp;{{messageInfo.Department}}</span>
             </div>
-            <div class="des huiFont"> <span v-show="messageInfo.DoctorFlag == 1">擅长：</span>{{messageInfo.BeGoodAt}}</div>
+            <div class="des huiFont"> <span v-show="messageInfo.displayFlag == 1">擅长：</span>{{messageInfo.BeGoodAt}}</div>
 
           </div>
 

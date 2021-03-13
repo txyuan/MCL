@@ -53,11 +53,11 @@
         </div>
 
         <div class="val_btm" v-if="info.status == '待审核'">
-          <div class="d-flex">
+          <!-- <div class="d-flex">
             <div class="czButton">
             <mt-button type="primary" class="theme-button button-radio " size="large">取消审核
             </mt-button>
-          </div>
+          </div> -->
           <div class="bcButton flex-grow-1">
             <mt-button type="primary" class="theme-button button-radio " size="large" @click.native="submit">通过审核
             </mt-button>

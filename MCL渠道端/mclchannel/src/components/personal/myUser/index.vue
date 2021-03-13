@@ -65,6 +65,7 @@
                 <div class="card_cont_xqwb flex-grow-1">
                   <p v-if="param.type == 2">病人人数：{{item.userCount}}人</p>
                   <p v-else>医生人数：{{item.userCount}}人</p>
+                  <p v-if="param.type == 2">邀请医生：{{item.invitationDoctorCount}}人</p>
                   <p>业绩金额：{{item.achievementMoney}}元</p>
                   <p>创建时间：{{item.create_date}}</p>
                 </div>
