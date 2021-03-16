@@ -19,7 +19,8 @@
             <div class="mag_icon"> <img src="@/assets/images/icons/icon-jkda.png" /></div>
             <div class="mag_text flex-grow-1">
               <strong>健康档案</strong>
-              <span>立即完善</span>
+              <span>完善我的健康档案</span>
+              <span>已完善</span>
             </div>
           </div>
         </div>
@@ -29,7 +30,8 @@
               <div class="mag_icon">  <img src="@/assets/images/icons/icon-tzjl.png" /></div>
               <div class="mag_text flex-grow-1">
                 <strong>体重记录</strong>
-                <span>立即完善</span>
+                <span>记录今日体重</span>
+                <span>今日已完成</span>
               </div>
             </div>
           </router-link>
@@ -45,7 +47,8 @@
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-ysjl.png" />	</div>
               <div class="mag_text flex-grow-1">
                 <strong>饮食记录</strong>
-                <span>立即完善</span>
+                <span>记录今日饮食</span>
+                <span>今日已完成</span>
               </div>
             </div>
           </router-link>
@@ -61,7 +64,8 @@
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-ydjl.png" />	</div>
               <div class="mag_text flex-grow-1">
                 <strong>运动记录</strong>
-                <span>立即完善</span>
+                <span>记录今日运动</span>
+                <span>今日已完成</span>
               </div>
             </div>
           </router-link>
@@ -77,7 +81,8 @@
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-yyjl.png" />	</div>
               <div class="mag_text flex-grow-1">
                 <strong>营养记录</strong>
-                <span>立即完善</span>
+                <span>记录今日营养</span>
+                <span>今日已完成</span>
               </div>
             </div>
           </router-link>
@@ -87,29 +92,30 @@
             </div>
           </router-link> -->
         </div>
-        <div class="tody_list">
-          <router-link :to="{path: messageInfo.xqglFlag==0||messageInfo.IsMember==0 ? `/welcomexqgl` : `/mood`}">
-            <div class="d-flex align-items-center mag_list" @click="ishow(5)">
-              <div class="mag_icon"> <img src="@/assets/images/icons/icon-xqjl.png" />	</div>
-              <div class="mag_text flex-grow-1">
-                <strong>心情记录</strong>
-                <span>立即完善</span>
-              </div>
-            </div>
-          </router-link>
-          <!-- <router-link to="/mood">
-            <div class="eat_ka" v-show="lauthy">
-              <label> </label>
-            </div>
-          </router-link> -->
-        </div>
+<!--        <div class="tody_list">-->
+<!--          <router-link :to="{path: messageInfo.xqglFlag==0||messageInfo.IsMember==0 ? `/welcomexqgl` : `/mood`}">-->
+<!--            <div class="d-flex align-items-center mag_list" @click="ishow(5)">-->
+<!--              <div class="mag_icon"> <img src="@/assets/images/icons/icon-xqjl.png" />	</div>-->
+<!--              <div class="mag_text flex-grow-1">-->
+<!--                <strong>心情记录</strong>-->
+<!--                <span>立即完善</span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </router-link>-->
+<!--          &lt;!&ndash; <router-link to="/mood">-->
+<!--            <div class="eat_ka" v-show="lauthy">-->
+<!--              <label> </label>-->
+<!--            </div>-->
+<!--          </router-link> &ndash;&gt;-->
+<!--        </div>-->
         <div class="tody_list">
           <router-link to="/gauge_life">
             <div class="d-flex align-items-center mag_list" @click="ishow(7)">
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-shfs.png" />	</div>
               <div class="mag_text flex-grow-1">
                 <strong>生活方式</strong>
-                <span>立即完善</span>
+                <span>完善我的生活方式</span>
+                <span>已完善</span>
               </div>
             </div>
           </router-link>
@@ -125,7 +131,7 @@
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-zzgl.png" />	</div>
               <div class="mag_text flex-grow-1">
                 <strong>症状管理</strong>
-                <span>立即完善</span>
+                <span>记录我的并发症症状</span>
               </div>
             </div>
           </router-link>
@@ -141,7 +147,7 @@
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-blsc.png" />	</div>
               <div class="mag_text flex-grow-1">
                 <strong>病历上传</strong>
-                <span>立即完善</span>
+                <span>上传我的病历报告</span>
               </div>
             </div>
           </router-link>
@@ -157,7 +163,7 @@
               <div class="mag_icon"> 	<img src="@/assets/images/icons/icon-scpg.png" /> 	</div>
               <div class="mag_text flex-grow-1">
                 <strong>筛查评估</strong>
-                <span>立即完善</span>
+                <span>评估我的营养状况</span>
               </div>
             </div>
           </router-link>
