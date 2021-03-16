@@ -20,7 +20,7 @@
             <div class="mag_text flex-grow-1">
               <strong>健康档案</strong>
               <span>完善我的健康档案</span>
-              <span>已完善</span>
+              <span>查看详情</span>
             </div>
           </div>
         </div>
