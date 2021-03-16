@@ -34,12 +34,12 @@
               <a-menu-item @click="ulClick('1')">
                 <a href="javascript:;">添加好友</a>
               </a-menu-item>
-              <!--<a-menu-item @click="ulClick('2')">
+              <a-menu-item @click="ulClick('2')">
                 <a href="javascript:;">申请入群</a>
               </a-menu-item>
               <a-menu-item @click="ulClick('3')">
                 <a href="javascript:;">创建群组</a>
-              </a-menu-item>-->
+              </a-menu-item>
             </a-menu>
           </a-dropdown>
         </span>
@@ -58,12 +58,12 @@
           <!-- 信息提示 -->
           <div class="tip-style" v-if="getUnread('contact').contact">&nbsp;</div>
         </a-menu-item>
-        <!--<a-menu-item key="group">
+        <a-menu-item key="group">
           <a-icon type="team" class="navMenu-icon" />
           <span class="navMenu-text">群组</span>
           <div class="tip-style" v-if="getUnread('group').group">&nbsp;</div>
         </a-menu-item>
-        <a-menu-item key="chatroom">
+        <!--<a-menu-item key="chatroom">
           <a-icon type="usergroup-add" class="navMenu-icon" />
           <span class="navMenu-text">聊天室</span>
         </a-menu-item>-->

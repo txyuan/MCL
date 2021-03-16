@@ -1,6 +1,6 @@
 <template>
   <div class="messagebox" v-show="activedKey[type]!= ''">
-    <!--<div class="messagebox-header">
+    <div class="messagebox-header">
       <div>
         <a-icon type="left" class="user-goback" v-show="broken" @click="showUserList" />
         <span>{{`${activedKey[type].name } &nbsp;&nbsp; ${activedKey[type].groupid || ''}`}}</span>
@@ -19,7 +19,7 @@
           </a-menu>
         </a-dropdown>
       </div>
-    </div>-->
+    </div>
 
     <div class="messagebox-content" ref="msgContent">
       <div class="moreMsgs" @click="loadMoreMsgs">{{loadText}}</div>

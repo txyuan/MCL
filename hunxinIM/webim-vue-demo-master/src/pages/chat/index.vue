@@ -3,9 +3,9 @@
 	width: 100%;
 	overflow: hidden;
 	height: 100%;">
-    <!--<a-layout-header class="layout-header">
+    <a-layout-header class="layout-header">
       <div class="header">
-        <span class="setting">
+        <!-- <span class="setting">
           <a-dropdown>
             <span class="ant-dropdown-link" href="#">
               <a-icon type="setting" />
@@ -23,7 +23,7 @@
               </a-menu-item>
             </a-menu>
           </a-dropdown>
-        </span>
+        </span> -->
 
         <span class="setting">
           <a-dropdown>
@@ -31,9 +31,9 @@
               <a-icon type="plus-circle" />
             </span>
             <a-menu slot="overlay">
-              <a-menu-item @click="ulClick('1')">
+              <!-- <a-menu-item @click="ulClick('1')">
                 <a href="javascript:;">添加好友</a>
-              </a-menu-item>
+              </a-menu-item> -->
               <a-menu-item @click="ulClick('2')">
                 <a href="javascript:;">申请入群</a>
               </a-menu-item>
@@ -63,12 +63,12 @@
           <span class="navMenu-text">群组</span>
           <div class="tip-style" v-if="getUnread('group').group">&nbsp;</div>
         </a-menu-item>
-        <a-menu-item key="chatroom">
+        <!-- <a-menu-item key="chatroom">
           <a-icon type="usergroup-add" class="navMenu-icon" />
           <span class="navMenu-text">聊天室</span>
-        </a-menu-item>
+        </a-menu-item> -->
       </a-menu>
-    </a-layout-header>-->
+    </a-layout-header>
 
     <a-layout>
       <a-layout-sider
@@ -280,3 +280,16 @@ export default {
   }
 };
 </script>
+<style scoped>
+.layout-header .header{
+  height: 0;
+  line-height: 0;
+  display: block;
+  position: absolute;
+  right: 0px;
+  top: 16px;
+}
+.layout-header{
+  height: 52px !important;
+}
+</style>

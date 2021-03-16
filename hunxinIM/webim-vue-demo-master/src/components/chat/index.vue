@@ -93,13 +93,13 @@
 				msgList: "onGetCurrentChatObjMsg"
 			}),
 			userList() {
-				let logoSinge=this.$route.query.logoSinge
-				if ((this.type == 'contact') && (this.contact.length >= 1)) {
-					if(logoSinge==1){
-						var item = this.contact[0];
-						this.select2(item, this.getKey(item));
-					}
-				}
+				// let logoSinge=this.$route.query.logoSinge
+				// if ((this.type == 'contact') && (this.contact.length >= 1)) {
+				// 	if(logoSinge==1){
+				// 		var item = this.contact[0];
+				// 		this.select2(item, this.getKey(item));
+				// 	}
+				// }
 				return {
 					contact: this.contact.filter(item => {
 						this.$set(item, 'meum', this.getUnreadNum(item))
