@@ -75,9 +75,9 @@
               </div>
             </div>
             <div class="adr">
-              <span>{{messageInfo.HospitalName}}</span> | <span>{{messageInfo.Department}}</span>
+              <span>{{messageInfo.HospitalName}}</span><span v-show="messageInfo.displayFlag == 1">&nbsp;&nbsp;|&nbsp;&nbsp;{{messageInfo.Department}}</span>
             </div>
-            <div class="des huiFont"> 擅长：{{messageInfo.BeGoodAt}}</div>
+            <div class="des huiFont"> <span v-show="messageInfo.displayFlag == 1">擅长：</span>{{messageInfo.BeGoodAt}}</div>
 
           </div>
 
@@ -89,7 +89,7 @@
         </div>
       </router-link>
       <!-- 处方查看  -->
-      <classified class="home-cell" style=" margin: 0 auto 0.1rem auto; "/>
+      <classified class="home-cell" :messageInfo="messageInfo" style=" margin: 0 auto 0.1rem auto; "/>
 
       <!-- 今日提醒 -->
       <div class="home-cell ">
@@ -551,17 +551,13 @@ export default {
   mounted () {
 	  let base=0;
 	  if(localStorage.mesnum){
-		  console.log(localStorage.mesnum)
 	  	base=Number(localStorage.mesnum)
-		console.log(base)
 		this.messageNumber=base
 	  }
 	  window.addEventListener('message',e=>{
 		  if(e.data>=1){
 			  this.messageNumber=Number(e.data)+base
 			  localStorage.mesnum=this.messageNumber
-			  console.log(e.data)
-			  console.log(localStorage.mesnum)
 		  }
 	  },false)
 	  this.informations()

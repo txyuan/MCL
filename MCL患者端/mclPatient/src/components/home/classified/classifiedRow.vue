@@ -83,21 +83,27 @@
 <script>
 	export default {
 		name: "classified-row",
+		props: ['messageInfo'],
 		data: () => ({
-			messageInfo:'',
+			// messageInfo:'',
 			isLoad: false
 		}),
+		watch: {
+			messageInfo: function (){
+				this.isLoad = true
+			}
+		},
 		methods: {
-			getMsgInfo() {
-				let url = "UserInterface/PatientHomePageEssentialInfo.ashx";
-				this.$post(url).then((data) => {
-					if (data.rspcode != 1) {
-						return;
-					}
-					this.messageInfo = data;
-					this.isLoad = true
-				})
-			},
+			// getMsgInfo() {
+			// 	let url = "UserInterface/PatientHomePageEssentialInfo.ashx";
+			// 	this.$post(url).then((data) => {
+			// 		if (data.rspcode != 1) {
+			// 			return;
+			// 		}
+			// 		this.messageInfo = data;
+			// 		this.isLoad = true
+			// 	})
+			// },
 			doLink(url){
 				if(this.isLoad){
 					this.$router.push(url)
@@ -105,7 +111,7 @@
 			}
 		},
 		mounted(){
-			this.getMsgInfo();
+			// this.getMsgInfo();
 		},
 	}
 </script>
