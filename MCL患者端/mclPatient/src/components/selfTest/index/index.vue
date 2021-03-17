@@ -3,7 +3,7 @@
 		<div id="body_main" style="padding-bottom: 0;padding-top:43px;">
 
 			<mt-header title="自测" fixed></mt-header>
-			
+
 			<!-- 商品列表  -->
 			<div class="shop_list">
 				<div class="shop_li">
@@ -22,17 +22,17 @@
 												</div>
 												<div class="left float_left">
 													<div class="tit font14">
-														<p>在线营养筛查</p>
+														<p>在线筛查评估</p>
 														<!-- <span class="borderBottom"></span> -->
 													</div>
 													<p class="des font12">测一测我是否存在营养风险</p>
 												</div>
-												
+
 											</div>
 										</router-link>
 										<!-- <router-link tag="li" to="/menuRecog" class="float_left">
 											<div class="li-inner clear">
-												
+
 												<div class="float_left imgwrap">
 													<img src="@/assets/images/caipucfsb.png" width="39" />
 												</div>
@@ -73,15 +73,15 @@
 												</div>
 											</div>
 										</router-link> -->
-										
+
 									</ul>
-								</div> 
+								</div>
 
 								<!-- 商品分类  导航条  -->
 								<!--<div class="type_block" ref="type_block">
 									<nav-bar :param="param" @triggerLoad="startLoad" @resetParam="resetParam" :isFixed="navIsFixed"/>
 								</div>-->
-								
+
 								<!-- 商品列表  -->
 								<!--<loadMore :param="param" @triggerGetList="loadData" ref="loadMoreE" :isDefaultLoading="false" style="padding-bottom: 55px;">
 									<div class="content bodycont clear" slot="content">
@@ -118,7 +118,7 @@
 				"firstSubjectType":1
 			},
 			list: [],
-			
+
 		}),
 		methods: {
 			//触发加载更多
@@ -163,9 +163,9 @@
 //				const type_block = this.$refs.type_block;
 //				const {y} = type_block.getBoundingClientRect();
 //				if(y < 45){
-//					this.navIsFixed = true;	
+//					this.navIsFixed = true;
 //				}else{
-//				   this.navIsFixed = false;		
+//				   this.navIsFixed = false;
 //				}
 //			},
 		},
@@ -222,9 +222,9 @@
 	/*服务分类*/
 	.service-type {
 		margin-top: 10px;
-			
+
 		ul>li {
-			width: 100%;	
+			width: 100%;
 		}
 
 		.li-inner {

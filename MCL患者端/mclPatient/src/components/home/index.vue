@@ -40,7 +40,7 @@
           </div>
           <div>
             <router-link to="/todymanage" class="info_jrgl">
-              <span class="mint-cell-allow-right">今日管理</span>
+              <span class="mint-cell-allow-right">健康管理</span>
             </router-link>
           </div>
           <!-- <img :src="messageInfo.PatientImg" alt=""> -->
