@@ -107,7 +107,12 @@
 							return item;
 						}
 					}),
-					group: this.group,
+					group: this.group.filter(item => {
+						this.$set(item, 'meum', this.getUnreadNum(item))
+						if (item && !this.blackList.includes(item.name)) {
+							return item;
+						}
+					}),
 					chatroom: this.chatroom
 				};
 			},
