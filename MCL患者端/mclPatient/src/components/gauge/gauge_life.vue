@@ -25,7 +25,7 @@
         <div class="contData">
           <div class="listTitle">（4）晚上入睡时间</div>
           <mt-radio :options="diettabooRadiorssj.option" v-model="param.check_04"></mt-radio>
-          <div class="lh-ys">
+          <div class="lh-ys" v-show="param.check_04">
             睡眠时间大约：<input type="tel" class="line-input" v-model="param.check_05">小时
           </div>
         </div>
@@ -41,9 +41,9 @@
           <mt-radio :options="diettabooRadioyj.option" v-model="param.check_08"></mt-radio>
           <div class="lh-ys" v-show="param.check_08 == '红酒'">
             红酒:  <input type="tel" class="line-input" v-model="param.check_09">ml/天 </div>
-          <div class="lh-ys" v-show="param.check_09 == '白酒'">
+          <div class="lh-ys" v-show="param.check_08 == '白酒'">
             白酒:  <input type="tel" class="line-input" v-model="param.check_10"> 两/天</div>
-          <div class="lh-ys" v-show="param.check_10 == '啤酒'">
+          <div class="lh-ys" v-show="param.check_08 == '啤酒'">
             啤酒:  <input type="tel" class="line-input" v-model="param.check_11"> 两/天</div>
         </div>
         <div class="contData">
@@ -114,7 +114,7 @@
 
           <div class="listTitle">a、有氧运动</div>
           <mt-radio :options="diettabooRadioyyyd.option" v-model="param.check_56"></mt-radio>
-          <div class="lh-ys">
+          <div class="lh-ys" v-show="param.check_56">
             <p>大约 <input type="tel" class="line-input-x" v-model="param.check_57">小时/天,</p>
             <p>或<input type="tel" class="line-input-x" v-model="param.check_58">次/周,</p>
             <p>或<input type="tel" class="line-input-x" v-model="param.check_59">小时/周 </p></div>
