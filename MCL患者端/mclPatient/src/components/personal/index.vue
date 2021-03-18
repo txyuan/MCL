@@ -32,8 +32,8 @@
 			</router-link>
         <div class="per_member d-flex align-items-center justify-content-around">
             <div class="per_mbr_img"><img src="@/assets/images/personal/per-member@3x.png"  alt=""></div>
-            <div class="per_mbr_txt"><span>医随康，幸福健康随您来！</span></div>
-            <div class="per_mbr_lik">	<router-link to="/vipOrder">查看详情></router-link></div>
+            <div class="per_mbr_txt"><span>每天1元钱，专家陪伴您全年！</span></div>
+            <div class="per_mbr_lik">	<router-link to="/vipOrder">查看详情</router-link></div>
           </div>
     </div>
       <div class="person_box"></div>
@@ -388,8 +388,8 @@
     background-size:100% 100%;
     padding: 0.175rem 0.10rem 0 0.10rem;
     .per_tp_icon{
-      width: 0.2rem;
-      height: 0.2rem;
+      width: 0.225rem;
+      height: 0.225rem;
       margin-right: 0.1rem;
       position: relative;
       em{
@@ -427,6 +427,7 @@
          width:100%;
          height: 100%;
          border-radius: 50%;
+         display: inline-block;
        }
       }
 
@@ -505,7 +506,7 @@
       height: 0.48rem;
       padding: 0 1%;
       .per_mbr_img{
-        height: 0.16rem;
+        height: 0.15rem;
         img{
           height: 100%;
           width: auto;
@@ -521,11 +522,11 @@
       }
       .per_mbr_lik{
         a{
-          font-size: 0.135rem;
+          font-size: 0.13rem;
           background-color: #f8dab9;
           border-radius: 0.1rem;
           display: inline-block;
-          padding: 0.035rem 0.05rem;
+          padding: 0.035rem 0.075rem;
           color: #413b37;
         }
       }

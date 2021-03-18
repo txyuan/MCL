@@ -25,7 +25,7 @@
 														<p>在线筛查评估</p>
 														<!-- <span class="borderBottom"></span> -->
 													</div>
-													<p class="des font12">测一测我是否存在营养风险</p>
+													<p class="des font13">评估我的营养状况</p>
 												</div>
 
 											</div>
@@ -54,7 +54,7 @@
 														<p>简易膳食调查</p>
 														<!-- <span class="borderBottom"></span> -->
 													</div>
-													<p class="des font12">评估一下您每天的饮食是否达到要求</p>
+													<p class="des font13">评估我的饮食情况</p>
 												</div>
 											</div>
 										</router-link>
@@ -221,7 +221,7 @@
 
 	/*服务分类*/
 	.service-type {
-		margin-top: 10px;
+		margin-top:0.1rem;
 
 		ul>li {
 			width: 100%;
