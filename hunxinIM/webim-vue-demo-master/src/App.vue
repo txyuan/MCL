@@ -43,7 +43,7 @@ export default{
     margin-top: 60px;
   }
   .el-message-box{
-	  width: 50%;
+	  width: 80%;
 	  max-width: 400px;
   }
 

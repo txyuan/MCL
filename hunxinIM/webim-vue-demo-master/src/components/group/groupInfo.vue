@@ -1,108 +1,108 @@
 <template>
-  <el-drawer
-    title="群组信息"
-    :modal="true"
-    :append-to-body="true"
-    :visible.sync="showGroupInfoModel"
-    lable="rtl"
-    size="350px"
-    style="margin-top: 95px; list-style-type:none;"
-    :wrapperClosable="true"
-  >
-    <div class="info-modal">
-      <div>
-        <!-- <span class="groInfoName">群组名称</span> -->
-        <div>
-          <i class="groInfoName">群组名称</i>
-        </div>
-        <span class="groupName">{{groupinfoList.name}}</span>
-      </div>
-      <div class="memberBox">
-        <div>
-          <span class="groInfoName">群组成员</span>
-        </div>
-        <div class="info-user">
-          <div>
-            <div
-              class="listItem"
-              v-for="(item,index) in groupinfoList.members.filter((i)=>{if(!i.owner){return i}})"
-              id="index"
-              :key="index"
-              @click="select(item)"
-            >
-              <span v-if="!item.owner" class="info-name">{{item.member}}</span>
+	<el-drawer
+		title="群组信息"
+		:modal="true"
+		:append-to-body="true"
+		:visible.sync="showGroupInfoModel"
+		lable="rtl"
+		size="350px"
+		style="margin-top: 50px; list-style-type:none;"
+		:wrapperClosable="true"
+	>
+		<div class="info-modal">
+		<div>
+			<!-- <span class="groInfoName">群组名称</span> -->
+			<div>
+			<i class="groInfoName">群组名称：{{groupinfoList.name}}</i>
+			</div>
+			<span class="groupName"></span>
+		</div>
+		<div class="memberBox">
+			<div>
+			<span class="groInfoName">群组成员</span>
+			</div>
+			<div class="info-user">
+			<div>
+				<div
+				class="listItem"
+				v-for="(item,index) in groupinfoList.members.filter((i)=>{if(!i.owner){return i}})"
+				id="index"
+				:key="index"
+				@click="select(item)"
+				>
+				<span v-if="!item.owner" class="info-name">{{item.member}}</span>
 
-              <span v-if="!item.owner&&(adminList.includes(username) || groupinfoList.admin == username)&&username != item.member" class="info-icon">
+				<span v-if="!item.owner&&(adminList.includes(username) || groupinfoList.admin == username)&&username != item.member" class="info-icon">
 
-                <!-- 设置管理员 -->
-                <el-tooltip
-                  class="item"
-                  effect="dark"
-                  :content="setAdminIcon"
-                  placement="bottom-start"
-                  v-show="!adminList.includes(item.member)&&groupinfoList.admin == username"
-                >
-                  <i class="el-icon-top" @click="openSetAdmin"></i>
-                </el-tooltip>
+					<!-- 设置管理员 -->
+					<el-tooltip
+					class="item"
+					effect="dark"
+					:content="setAdminIcon"
+					placement="bottom-start"
+					v-show="!adminList.includes(item.member)&&groupinfoList.admin == username"
+					>
+					<i class="el-icon-top" @click="openSetAdmin"></i>
+					</el-tooltip>
 
-                <!-- 移除管理员 -->
-                <el-tooltip
-                  class="item"
-                  effect="dark"
-                  :content="removeAdminIcon"
-                  placement="bottom-start"
-                  v-show="adminList.includes(item.member)&&groupinfoList.admin == username"
-                >
-                  <i class="el-icon-bottom" @click="openRemoveAdmin"></i>
-                </el-tooltip>
+					<!-- 移除管理员 -->
+					<el-tooltip
+					class="item"
+					effect="dark"
+					:content="removeAdminIcon"
+					placement="bottom-start"
+					v-show="adminList.includes(item.member)&&groupinfoList.admin == username"
+					>
+					<i class="el-icon-bottom" @click="openRemoveAdmin"></i>
+					</el-tooltip>
 
-                <!-- 设置禁言 -->
-                <el-tooltip
-                  class="item"
-                  effect="dark"
-                  :content="setMute"
-                  placement="bottom-start"
-                  v-show="muteList.filter((muteItem)=>{ return muteItem.user == item.member }).length == 0"
-                >
-                  <i class="el-icon-lock" @click="openSetMute"></i>
-                </el-tooltip>
+					<!-- 设置禁言 -->
+					<el-tooltip
+					class="item"
+					effect="dark"
+					:content="setMute"
+					placement="bottom-start"
+					v-show="muteList.filter((muteItem)=>{ return muteItem.user == item.member }).length == 0"
+					>
+					<i class="el-icon-lock" @click="openSetMute"></i>
+					</el-tooltip>
 
-                <!-- 移除禁言 -->
-                <el-tooltip
-                  class="item"
-                  effect="dark"
-                  :content="removeMute"
-                  placement="bottom-start"
-                  v-show="muteList.filter((muteItem)=>{ return muteItem.user == item.member }).length != 0"
-                >
-                  <i class="el-icon-unlock" @click="openRemoveMute"></i>
-                </el-tooltip>
+					<!-- 移除禁言 -->
+					<el-tooltip
+					class="item"
+					effect="dark"
+					:content="removeMute"
+					placement="bottom-start"
+					v-show="muteList.filter((muteItem)=>{ return muteItem.user == item.member }).length != 0"
+					>
+					<i class="el-icon-unlock" @click="openRemoveMute"></i>
+					</el-tooltip>
 
-                <!-- 加黑名单 -->
-                <el-tooltip class="item" effect="dark" :content="setBlack" placement="bottom-start">
-                  <i class="el-icon-warning-outline" @click="openGroupBlack"></i>
-                </el-tooltip>
+					<!-- 加黑名单 -->
+					<el-tooltip class="item" effect="dark" :content="setBlack" placement="bottom-start">
+					<i class="el-icon-warning-outline" @click="openGroupBlack"></i>
+					</el-tooltip>
 
-                <!-- 移出群 -->
-                <el-tooltip
-                  class="item"
-                  effect="dark"
-                  :content="setRemove"
-                  placement="bottom-start"
-                >
-                  <i class="el-icon-circle-close" @click="openRemoveGroupUser"></i>
-                </el-tooltip>
+					<!-- 移出群 -->
+					<el-tooltip
+					class="item"
+					effect="dark"
+					:content="setRemove"
+					placement="bottom-start"
+					>
+					<i class="el-icon-circle-close" @click="openRemoveGroupUser"></i>
+					</el-tooltip>
 
-              </span>
-            </div>
+				</span>
+				</div>
 
-            <div class="listItem">{{groupinfoList.admin}}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <GetGroupSetting ref="groupSettingModel" @closeGroupSet="closeGroupSet"/>
-  </el-drawer>
+				<div class="listItem">{{groupinfoList.admin}}</div>
+			</div>
+			</div>
+		</div>
+		</div>
+		<GetGroupSetting ref="groupSettingModel" @closeGroupSet="closeGroupSet"/>
+	</el-drawer>
 </template>
 
 <script>
@@ -331,7 +331,7 @@ export default{
 </script>
 <style scoped>
 .info-modal {
-  padding: 0 10px;
+  padding: 0 20px;
   height: 100%;
   /* width: 350px !important; */
   /* cursor: pointer; */

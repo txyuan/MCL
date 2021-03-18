@@ -9,13 +9,14 @@
     >
       <div class="setting" v-show="setInfo">
         <ul class="setting">
-          <li @click="openInvite">
+          <!-- <li @click="openInvite">
             <i class="el-icon-user">邀请群成员</i>
-          </li>
+          </li> -->
           <li v-if="showAdminIcon">
-            <i class="el-icon-edit-outline" @click="updatedGroupInfo">修改群信息</i>
-            <i class="el-icon-warning" @click="changeBlackModel">群组黑名单</i>
-            <i class="el-icon-switch-button" @click="dissolution">解散群组</i>
+            <i class="el-icon-user" @click="openInvite" style="margin-bottom: 5px">  邀请群成员</i>
+            <i class="el-icon-edit-outline" @click="updatedGroupInfo" style="margin-bottom: 5px">  修改群信息</i>
+            <i class="el-icon-warning" @click="changeBlackModel" style="margin-bottom: 5px">  群组黑名单</i>
+            <i class="el-icon-switch-button" @click="dissolution" style="margin-bottom: 5px">  解散群组</i>
           </li>
 
           <li v-if="showCloseIcon" @click="quitGroup">
@@ -167,8 +168,8 @@ export default {
 }
 .set-icon {
   position: absolute;
-  top: 100px;
-  right: 20px;
+  top: 10%;
+  right: 28px;
   cursor: pointer;
 }
 </style>

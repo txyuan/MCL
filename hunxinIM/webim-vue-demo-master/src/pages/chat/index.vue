@@ -34,9 +34,9 @@
               <!-- <a-menu-item @click="ulClick('1')">
                 <a href="javascript:;">添加好友</a>
               </a-menu-item> -->
-              <a-menu-item @click="ulClick('2')">
+              <!-- <a-menu-item @click="ulClick('2')">
                 <a href="javascript:;">申请入群</a>
-              </a-menu-item>
+              </a-menu-item> -->
               <a-menu-item @click="ulClick('3')">
                 <a href="javascript:;">创建群组</a>
               </a-menu-item>
