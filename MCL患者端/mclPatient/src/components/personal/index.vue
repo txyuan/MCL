@@ -24,7 +24,8 @@
 					<div class="info">
 						<p class="name">
               <span>{{repData.Nickname}}</span>
-              <em class="info_member info_member_no"></em></p>
+              <em v-if="repData.IsMember==1" class="info_member"></em>
+              <em v-else class="info_member info_member_no"></em>  </p>
 						<p class="tel">{{repData.Account}}</p>
 					</div>
 				</div>

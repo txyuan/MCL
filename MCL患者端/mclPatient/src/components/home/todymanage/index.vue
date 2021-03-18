@@ -19,8 +19,9 @@
             <div class="mag_icon"> <img src="@/assets/images/icons/icon-jkda.png" /></div>
             <div class="mag_text flex-grow-1">
               <strong>健康档案</strong>
-              <span>完善我的健康档案</span>
-              <span>查看详情</span>
+              <span>查看、修改我的健康信息</span>
+<!--              <span>完善我的健康档案</span>-->
+<!--              <span>查看详情</span>-->
             </div>
           </div>
         </div>
@@ -30,8 +31,9 @@
               <div class="mag_icon">  <img src="@/assets/images/icons/icon-tzjl.png" /></div>
               <div class="mag_text flex-grow-1">
                 <strong>体重记录</strong>
-                <span>记录今日体重</span>
-                <span>今日已完成</span>
+                <span>记录今日体重情况</span>
+<!--                <span>记录今日体重</span>-->
+<!--                <span>今日已完成</span>-->
               </div>
             </div>
           </router-link>
@@ -47,8 +49,9 @@
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-ysjl.png" />	</div>
               <div class="mag_text flex-grow-1">
                 <strong>饮食记录</strong>
-                <span>记录今日饮食</span>
-                <span>今日已完成</span>
+                <span>记录今日饮食情况</span>
+<!--                <span>记录今日饮食</span>-->
+<!--                <span>今日已完成</span>-->
               </div>
             </div>
           </router-link>
@@ -64,8 +67,9 @@
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-ydjl.png" />	</div>
               <div class="mag_text flex-grow-1">
                 <strong>运动记录</strong>
-                <span>记录今日运动</span>
-                <span>今日已完成</span>
+                <span>记录今日运动情况</span>
+<!--                <span>记录今日运动</span>-->
+<!--                <span>今日已完成</span>-->
               </div>
             </div>
           </router-link>
@@ -81,8 +85,9 @@
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-yyjl.png" />	</div>
               <div class="mag_text flex-grow-1">
                 <strong>营养记录</strong>
-                <span>记录今日营养</span>
-                <span>今日已完成</span>
+                <span>记录今日营养服用情况</span>
+<!--                <span>记录今日营养</span>-->
+<!--                <span>今日已完成</span>-->
               </div>
             </div>
           </router-link>
@@ -114,8 +119,9 @@
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-shfs.png" />	</div>
               <div class="mag_text flex-grow-1">
                 <strong>生活方式</strong>
-                <span>完善我的生活方式</span>
-                <span>已完善</span>
+                <span>记录我的生活方式</span>
+<!--                <span>完善我的生活方式</span>-->
+<!--                <span>已完善</span>-->
               </div>
             </div>
           </router-link>

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="fix_top">
-			<mt-header title="营养筛查订单" fixed class="borderBottom">
+			<mt-header title="筛查评估订单" fixed class="borderBottom">
 				<div slot="left">
 					<router-link to="/wx_Entrance/personal" style="color: initial;">
 						<mt-button icon="back"></mt-button>
