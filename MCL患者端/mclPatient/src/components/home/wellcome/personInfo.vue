@@ -111,7 +111,7 @@ function getTime (d) {
   date = (date < 10 ? `0${date}` : date)
   return `${year}-${month}-${date}`
 }
-
+let vm;
 export default {
   name: 'personInfo_root',
   data: () => ({
@@ -389,13 +389,36 @@ export default {
       })
     }
   },
+  watch: {
+    popupVisible: function(val){
+      if(!val){
+        this.openTouch()
+      }
+    },
+    sportVisible: function(val){
+      if(!val){
+        this.openTouch()
+      }
+    },
+  },
   components: {
-    cityPicker: () => import(/* webpackChunkName: "cityData2" */ './../../common/cityPicker2.vue'),
+    cityPicker: () => import(/* webpackChunkName: "cityData2" */ './../../common/cityPicker2.vue').then(function(res){
+      // 监听省市区插件的关闭
+      setTimeout(() => {
+        vm.$watch('$refs.cityPicker.showPicker',function(val){
+          if(!val){
+            vm.openTouch()
+          }
+        })
+      }, 0)
+      return res
+    }),
     weightTab,
     healthTab,
     zlTab
   },
   mounted () {
+    vm = this
     this.openTouch()
     // 回显表单数据
     if (this.$route.query.type === 'look') {
@@ -404,6 +427,13 @@ export default {
     } else {
       this.sportConfirm() // 设置默认的管理类型
     }
+    
+    // 监听时间插件的关闭
+    this.$watch('$refs.DatetimePicker.visible',function(val){
+      if(!val){
+        this.openTouch()
+      }
+    })
   }
 }
 </script>
