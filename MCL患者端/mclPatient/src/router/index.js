@@ -430,7 +430,7 @@ const router = new Router({
     // { path:"/homeComments/:sKey", name:"homeComments", component: home_comments },
     // { path:"/personalcollage", name:"personalcollage", component: personal_collage },
     // { path:"/personalluckycode", name:"personalluckycode", component: personal_lucky_code },
-    { path:"/personalgetproduct", name:"personalgetproduct", component: personal_get_product },
+    { path:"/personalgetproduct", name:"personalgetproduct", component: personal_get_product, meta:{keepAlive: true}},
     { path:"/refund", name:"refund", component: refund },
 	{ path:"/personalnutrition", name:"personalnutrition", component: personalnutrition },
 	{ path:"/eyeconme", name:"eyeconme", component: eyeconme },

@@ -9,26 +9,37 @@
     </mt-header>
     <div class="content">
         <div>
-            <productOrderItem class="productRow"/>
+            <productOrderItem class="productRow" :itemData="detail"/>
             <div class="cell_group">
-                <mt-cell title="退款原因" is-link>
-                    <span>请选择</span>
+                <mt-cell title="退款原因" is-link @click.native="popupVisible = true">
+                    <span v-if="param.RefundReason">{{param.RefundReason}}</span>
+                    <span v-else>请选择</span>
                 </mt-cell>
                 <mt-cell title="退款金额" class="left">
-                    <span class="yellow">¥360.00</span>
+                    <span class="yellow">¥{{detail.orderMoney}}</span>
                 </mt-cell>
             </div>
             <div class="note">
-                不可修改，最多¥360.00，含发货邮费¥0.00
+                不可修改，最多¥{{detail.orderMoney}}，含发货邮费¥0.00
             </div>
             <div class="filed_group">
-                <mt-field label="退款说明" placeholder="选填，最多200字" class="borderBottom"></mt-field>
+                <mt-field v-model="param.RefundExplain" label="退款说明" placeholder="选填，最多200字" class="borderBottom"></mt-field>
             </div>
         </div>
     </div>
     <div class="fix_bottom">
-        <mt-button type="primary" class="theme-button" size="large" @click.native="submit">提交</mt-button>
+        <mt-button type="primary" class="theme-button" size="large" @click.native="submit" :disabled="disabled">提交</mt-button>
     </div>
+
+    <!-- 性别picker  -->
+    <mt-popup v-model="popupVisible" position="bottom" class="picker_style">
+        <mt-picker :slots="slots" :showToolbar="true" :visibleItemCount="3" ref="picker">
+            <div class="picker_bar">
+                <div class="cancel" @click="popupVisible = false">取消</div>
+                <div class="confrim" @click="pickerConfirm">确定</div>
+            </div>
+        </mt-picker>
+    </mt-popup>
   </div>
 </template>
 
@@ -37,8 +48,68 @@ import productOrderItem from './productOrderItem.vue'
 export default {
   props: ['itemData'],
   data: () => ({
-      param: {}
+      param: {
+        sKey: '',
+        RefundReason: '',
+        RefundExplain: '',
+        //   sKey（订单主键），RefundReason（退款原因），RefundExplain（退款说明）
+      },
+      detail: {},
+      popupVisible: false, // 是否显示性别picker
+      slots: [{
+        flex: 1,
+        values: ['拍错/多拍/不喜欢', '未按约定时间发货', '协商一致退款', '地址/电话填错了', '送达时间选错了', '其他'],
+        className: 'slot1',
+        textAlign: 'center'
+      }],
+      disabled: false
   }),
+  methods:{
+      getDetail(){
+        let url = 'UserInterface/mall/getRefundOrderDetails.ashx'
+        this.$post(url, {orderkey: this.param.sKey}).then((data) => {
+            if (data.rspcode != 1) {
+                return
+            }
+            const source = data.data
+            this.detail = {
+                goodsName: source.goodsName,
+                goodsImage: source.goodsImage,
+                buyTime: '',
+                buyCount: source.ProCount,
+                orderMoney: source.OrderMoney
+            }
+        })
+      },
+      pickerConfirm(){
+        const { picker } = this.$refs
+        let value = picker.getSlotValue(0)
+        this.param.RefundReason = value
+        this.popupVisible = false
+      },
+      submit(){
+        if(!this.param.RefundReason){
+            this.$Toast('请选择退款原因')
+            return
+        }
+        this.disabled = true
+        let url = 'UserInterface/order/RefundOrder.ashx'
+        this.$post(url, this.param).then((data) => {
+            this.disabled = false
+            if (data.rspCode != 1) {
+                this.$Toast(data.rspDesc)
+                return
+            }
+            this.$Toast('提交成功')
+            this.$router.back()
+        })
+      }
+  },
+  created(){
+    const orderkey = this.$route.query.orderkey
+    this.param.sKey = orderkey
+    this.getDetail()
+  },
   components: {
     productOrderItem
   }
@@ -93,7 +164,27 @@ export default {
     .theme-button {
         height: 48px;
     }
+    
 }
+.mint-popup-bottom {
+	width: 100%;
+}
+
+.picker_style{
+    .picker_bar {
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        line-height: 40px;
+        padding: 0 20px;
+        border-bottom: solid 1px #eaeaea;
+
+        .confrim {
+            color: #26a2ff;
+        }
+    }
+}
+
 </style>
 <style scoped>
 .content{
@@ -104,5 +195,8 @@ export default {
     line-height: 0.4rem;
     font-size: 0.12rem;
     color: #999;
+}
+.productRow /deep/ .right .name {
+    margin-top: 0.06rem !important;
 }
 </style>

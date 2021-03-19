@@ -11,7 +11,7 @@
 
 			<!-- mt-navbar -->
 			<div id="navbar">
-				<mt-navbar>
+				<mt-navbar class="navbar">
 					<mt-tab-item id="" v-for="item in tabs" :key="item.type" :class="(param.status == item.type) && 'is-selected'"
 					 @click.native="tab(item.type)">
 						<p>{{item.name}}</p>
@@ -22,7 +22,7 @@
 
 		<div id="content" style="padding-top: 0.87rem">
 			<!-- tab-container -->
-			<loadMore :param="param" @triggerGetList="shoplist" ref="loadMoreE" :isDefaultLoading="false">
+			<loadMore :param="param" @triggerGetList="shoplist" ref="loadMoreE">
 			<mt-tab-container slot="content">
 				<mt-tab-container-item>
 					<div class="product_item" v-for="(item,index) in list" :key="index" :item="item">
@@ -40,11 +40,11 @@
 								<div class="btn-group">
 									<div style="overflow: hidden;">
 										<!--<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
-											<span>查看物流</span>
+											<span>查看物流</span>  
 										</div>-->
-										<!-- <div v-if="item.BuyState == '0'" class="f-btn ok laood f-btn-default" style="float: left;" @click="$router.push(`/refund?id=${item.orderId}`)">
+										<div v-if="item.BuyState == '0'" class="f-btn ok laood f-btn-default" style="float: left;" @click="$router.push(`/refund?orderkey=${item.orderId}`)">
 											<span>申请退款</span>
-										</div> -->
+										</div>
 										<div v-if="item.state == '1'" class="f-btn ok" style="float: left;" @click="shopsh(item)">
 											<span>确认收货</span>
 										</div>
@@ -62,7 +62,6 @@
 									</div>-->
 								</div>
 							</div>
-							
 						</div>
 					</div>
 				</mt-tab-container-item>
@@ -79,6 +78,7 @@ import productItem from './productOrderItem.vue' // 商品列表
 export default {
   name: 'index',
   data: () => ({
+	isLoad: false, // 是否加载过接口
 	title: '',
     selected: 'tab-container1',
     tabs: [{
@@ -105,6 +105,7 @@ export default {
   }),
   methods: {
     tab (val) {
+	  this.setPage()
       this.$Indicator.loading()
       this.param.status = val
       this.param.pagecount = 0
@@ -123,6 +124,7 @@ export default {
         if (data.rspcode != 1) {
           return
         }
+		this.isLoad = true
         let modelList = data.goodsList
         this.list = [...this.list, ...modelList]
         // 加载更多组件触发回调
@@ -165,9 +167,8 @@ export default {
         this.$Toast('确认收货成功')
         this.tab(this.param.status)
       })
-    }
-  },
-  created(){
+    },
+	setPage(){
 	  const query = this.$route.query
 	  this.param.orderType = query.orderType
 	  if(this.param.orderType == 2){
@@ -176,17 +177,27 @@ export default {
 	  if(this.param.orderType == 3){
 		this.title = '商品订单'
 	  }
+	}
   },
-  mounted () {
-    this.param.pagecount = 0
-    this.$refs.loadMoreE.getList()
+  beforeRouteEnter (to, form, next) {
+    next((vm) => {
+      // 解锁加载更多
+      vm.$refs.loadMoreE.isLock = true
+      // 从详情页面返回，列表接口如果没有被加载过，需要加载接口
+      if (form.name === 'refund' && !vm.isLoad) {
+        vm.tab('-1')
+      }
+      // 非详情页面进来
+      if (form.name !== 'refund') {
+        vm.tab('-1')
+      }
+    })
   },
-  beforeRouteLeave (to, from, next) {
-    // // 不能返回支付成功页面
-    // if (to.name == 'panicBuyingAreaPaySuccess') {
-    //   next('/wx_Entrance/personal')
-    //   return
-    // }
+  beforeRouteLeave (to, form, next) {
+    // 去详情页面，关锁加载更多
+    if (to.name === 'refund') {
+      this.$refs.loadMoreE.isLock = false
+    }
     next()
   },
   components: {
@@ -234,8 +245,9 @@ export default {
 			padding: 0.1rem 0;
 			margin: 0 0.1rem;
 			border-bottom: 1px solid #e1e1e1;
+			font-size: 0.14rem;
 			.logistics_number{float: left;}
-			.dateType{float: right;display: block;color: #999;font-size: 0.14rem;}
+			.dateType{float: right;display: block;color: #999;}
 		}
 	}
 	.product_row{
@@ -257,7 +269,7 @@ export default {
 			border-radius: 0.13rem;
 			margin-bottom: 0.15rem;
 			margin-right: 0.1rem;
-			font-size: 0.12rem;
+			font-size: 0.14rem;
 			span {
 				/*vertical-align: middle;*/
 			}
@@ -477,4 +489,10 @@ export default {
 			color: #999 !important;
 		}
 	}
+	.navbar{
+		border-bottom-left-radius: 0.1rem;
+		border-bottom-right-radius: 0.1rem;
+	}
+
+
 </style>
