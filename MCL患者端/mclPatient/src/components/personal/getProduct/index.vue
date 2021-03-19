@@ -107,7 +107,7 @@ export default {
   }),
   methods: {
     tab (val) {
-	  this.setPage()
+	//   this.setPage()
       this.$Indicator.loading()
       this.param.status = val
       this.param.pagecount = 0
@@ -181,27 +181,30 @@ export default {
 	  }
 	}
   },
-  beforeRouteEnter (to, form, next) {
-    next((vm) => {
-      // 解锁加载更多
-      vm.$refs.loadMoreE.isLock = true
-      // 从详情页面返回，列表接口如果没有被加载过，需要加载接口
-      if (form.name === 'refund' && !vm.isLoad) {
-        vm.tab('-1')
-      }
-      // 非详情页面进来
-      if (form.name !== 'refund') {
-        vm.tab('-1')
-      }
-    })
+  created(){
+	this.setPage()
   },
-  beforeRouteLeave (to, form, next) {
-    // 去详情页面，关锁加载更多
-    if (to.name === 'refund') {
-      this.$refs.loadMoreE.isLock = false
-    }
-    next()
-  },
+//   beforeRouteEnter (to, form, next) {
+//     next((vm) => {
+//       // 解锁加载更多
+//       vm.$refs.loadMoreE.isLock = true
+//       // 从详情页面返回，列表接口如果没有被加载过，需要加载接口
+//       if (form.name === 'refund' && !vm.isLoad) {
+//         vm.tab('-1')
+//       }
+//       // 非详情页面进来
+//       if (form.name !== 'refund') {
+//         vm.tab('-1')
+//       }
+//     })
+//   },
+//   beforeRouteLeave (to, form, next) {
+//     // 去详情页面，关锁加载更多
+//     if (to.name === 'refund') {
+//       this.$refs.loadMoreE.isLock = false
+//     }
+//     next()
+//   },
   components: {
     productItem,
     loadMore
