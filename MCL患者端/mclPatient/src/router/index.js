@@ -186,6 +186,7 @@ const noticeClause3= () => import(/* webpackChunkName: "noticeClause3" */ '@/com
 // const personal_collage = () => import(/* webpackChunkName: "personal_collage" */ '@/components/personal/myCollage/index.vue')  //我的拼购
 // const personal_lucky_code = () => import(/* webpackChunkName: "personal_luckyCode" */ '@/components/personal/myCollage/luckyCode/index.vue')  //幸运专项码
 const personal_get_product = () => import(/* webpackChunkName: "personal_getproduct" */ '@/components/personal/getProduct/index.vue')  //商品订单
+const refund = () => import(/* webpackChunkName: "refund" */ '@/components/personal/getProduct/refund.vue')  //商品订单
 const personalnutrition = () => import(/* webpackChunkName: "personalnutrition" */ '@/components/personal/getProduct/nutrition.vue')  //营养筛查
 const eyeconme = () => import(/* webpackChunkName: "eyeconme" */ '@/components/personal/eyeconme/index.vue')  //营养筛查查看报告
 const nuteye = () => import(/* webpackChunkName: "nuteye" */ '@/components/personal/getProduct/nuteye/index.vue')  //营养筛查报告
@@ -430,6 +431,7 @@ const router = new Router({
     // { path:"/personalcollage", name:"personalcollage", component: personal_collage },
     // { path:"/personalluckycode", name:"personalluckycode", component: personal_lucky_code },
     { path:"/personalgetproduct", name:"personalgetproduct", component: personal_get_product },
+    { path:"/refund", name:"refund", component: refund },
 	{ path:"/personalnutrition", name:"personalnutrition", component: personalnutrition },
 	{ path:"/eyeconme", name:"eyeconme", component: eyeconme },
 	{ path:"/delorder/:skey", name:"delorder", component: delorder },

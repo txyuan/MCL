@@ -1,15 +1,12 @@
 <template>
 	<div>
 		<div class="fix_top">
-			<mt-header title="商品订单" class="borderBottom">
+			<mt-header :title="title" class="borderBottom">
 				<div slot="left">
 					<router-link to="/wx_Entrance/personal" style="color: initial;">
 						<mt-button icon="back"></mt-button>
 					</router-link>
 				</div>
-				<!-- <div slot="right">
-            <img class="shaixuan" @click="filterToggleFn(true)" src="https://resource.jtsc.club/shaixuan@2x.png" />
-          </div> -->
 			</mt-header>
 
 			<!-- mt-navbar -->
@@ -23,60 +20,51 @@
 			</div>
 		</div>
 
-		<div id="mark" style="top: 42px;z-index: 99999;" ref="mark" @click="filterToggleFn(false)">
-			<div class="content" @click.stop="">
-				<ul class="clear">
-					<li class="float_left" v-for="(item,index) in filterList" :key="index" :class="(filterActive == index) && 'active'"
-					 @click="filterActiveFn(index,item.types)">
-						<div class="item text-center">
-							<div>
-								<p>{{item.names}}</p>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-
 		<div id="content" style="padding-top: 0.87rem">
 			<!-- tab-container -->
 			<loadMore :param="param" @triggerGetList="shoplist" ref="loadMoreE" :isDefaultLoading="false">
 			<mt-tab-container slot="content">
 				<mt-tab-container-item>
-					<productItem v-for="(item,index) in list" :key="index" :item="item">
-						<span slot="type">{{item.buyTime}}</span>
-						<span class="themeRed" slot="dateType">{{item.stateText}}</span>
-						<div slot="footer" class="foot">
-							<div class="row" style="flex: 1">
-								<div class="logisticsInfo">合计：
+					<div class="product_item" v-for="(item,index) in list" :key="index" :item="item">
+						<div class="title">
+							<div class="logistics_number" v-if="item.logistics_number">{{item.logistics_number}}</div>
+							<!-- <span class="express">{{item.buyTime}}</span> -->
+							<span class="dateType">{{item.stateText}}</span>
+						</div>
+						<productItem :itemData="item"/>
+						<div class="foot">
+							<div class="row">
+								<!-- <div class="logisticsInfo">合计：
 									<span class="themeRed">¥ {{item.orderMoney}}</span>
-								</div>
+								</div> -->
 								<div class="btn-group">
-									<div v-if="item.state == '1'" style="overflow: hidden;">
+									<div style="overflow: hidden;">
 										<!--<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
 											<span>查看物流</span>
 										</div>-->
-										<div class="f-btn ok" style="float: left;" @click="shopsh(item)">
+										<!-- <div v-if="item.BuyState == '0'" class="f-btn ok laood f-btn-default" style="float: left;" @click="$router.push(`/refund?id=${item.orderId}`)">
+											<span>申请退款</span>
+										</div> -->
+										<div v-if="item.state == '1'" class="f-btn ok" style="float: left;" @click="shopsh(item)">
 											<span>确认收货</span>
 										</div>
 									</div>
-									<div v-else-if="item.state  == '2'" style="overflow: hidden;">
-										<!-- <div class="f-btn ok laood" style="float: left;" @click="delmoy(item,3)">
+									<!-- <div v-else-if="item.state  == '2'" style="overflow: hidden;">
+										<div class="f-btn ok laood" style="float: left;" @click="delmoy(item,3)">
 											<span>删除订单</span>
-										</div> -->
-										<!--<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
+										</div> 
+										<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
 											<span>查看物流</span>
-										</div>-->
-										<!--<div class="f-btn ok" style="float: left;" @click="againsh(item)">
+										</div>
+										<div class="f-btn ok" style="float: left;" @click="againsh(item)">
 											<span>再次购买</span>
-										</div>-->
-									</div>
+										</div>
+									</div>-->
 								</div>
 							</div>
 							
-							<div class="logistics_number" v-if="item.logistics_number">{{item.logistics_number}}</div>
 						</div>
-					</productItem>
+					</div>
 				</mt-tab-container-item>
 			</mt-tab-container>
 			</loadMore>
@@ -87,14 +75,11 @@
 
 <script>
 import loadMore from '@/components/common/loadMore.vue' // 加载更多组件
-import productItem from './../myCollage/productItem.vue' // 商品列表
+import productItem from './productOrderItem.vue' // 商品列表
 export default {
   name: 'index',
   data: () => ({
-    // selected:"",
-    hideadress: false,
-    listadres: [],
-    isactv: 0,
+	title: '',
     selected: 'tab-container1',
     tabs: [{
       name: '全部',
@@ -109,57 +94,14 @@ export default {
       name: '已收货',
       type: '2'
     }], //
-    filterList: [{
-      names: '全部',
-      types: '-1'
-    }, {
-      names: '抢购商品',
-      types: '1'
-    }, {
-      names: '批发提货',
-      types: '4'
-    }, {
-      names: '零售商品',
-      types: '3'
-    }],
-    filterActive: '0',
     param: {
       pagesize: 10,
       pagecount: 0,
-      status: '-1'
+      status: '-1',
+	  orderType: '3' // 2：管理套餐；3：商品订单
     },
     orderkey: '', // 提货使用到的商品key
-    list: [{
-      orderId: 11,
-      buyTime: '2018-09-11 11:31:54',
-      orderMoney: '2000',
-      state: 1,
-      goodsName: '营养筛查检测并且营养筛查检测订单完成时间营养筛查',
-      showPrice: '2000',
-      stateText: '待收货',
-      shownum: 2
-    },
-    {
-      orderId: 11,
-      buyTime: '2018-09-11 11:31:54',
-      orderMoney: '2000',
-      state: 2,
-      goodsName: '营养筛查检测并且营养筛查检测订单完成时间营养筛查',
-      showPrice: '2000',
-      stateText: '待发货',
-      shownum: 1
-    },
-    {
-      orderId: 11,
-      buyTime: '2018-09-11 11:31:54',
-      orderMoney: '2000',
-      state: 3,
-      goodsName: '营养筛查检测并且营养筛查检测订单完成时间营养筛查',
-      showPrice: '2000',
-      stateText: '已完成',
-      shownum: 1
-    }
-    ]
+    list: []
   }),
   methods: {
     tab (val) {
@@ -189,83 +131,23 @@ export default {
         }
       })
     },
-    upshop (item) {
-      this.getAdrList()
-      this.hideadress = true
-      this.orderkey = item.orderId
-    },
-    okupshop () {
-      let url = 'UserInterface/order/UpdateOrderAddressInfo.ashx'
-      let param = {
-        orderkey: this.orderkey,
-        addresskey: this.adreskey
-      }
-      this.$post(url, param).then((data) => {
-        if (data.rspcode != 1) {
-          this.$Toast('提货失败！')
-          return
-        }
-        this.$Toast('提货成功！')
-        this.hideadress = false
-        this.$Indicator.loading()
-        this.param.pagecount = 0
-        this.$refs.loadMoreE.getList() // 触发加载更多
-        setTimeout(() => {
-          this.$Indicator.close()
-        }, 200)
-      })
-    },
-    // 隐藏地址
-    hideadrs () {
-      this.hideadress = false
-    },
-    edit (item) {
-      this.$router.push(`/personaladdadress/edit?skey=${item.sKey}`)
-    },
-    // 选择地址
-    setDefaultAdr (index, skey) {
-      this.isactv = index
-      this.adreskey = skey
-    },
-    // 获取地址列表
-    getAdrList () {
-      let url = 'UserInterface/GetUserAddressList.ashx'
-      let param = {
-        'PageSize': 100,
-        'PageCount': 1,
-        'OrderBy': 0
-      }
-      this.$post(url, param).then((data) => {
-        if (data.rspcode != 1) {
-          return
-        }
-        let modelList = data.VUserAddressInfo
-        this.listadres = [...modelList]
-        for (var i in modelList) {
-          if (modelList[i].isDefault == 1) {
-            this.isactv = i
-            this.adreskey = modelList[i].sKey
-          }
-        }
-      })
-    },
     // 取消订单
-    delmoy (item, protype) {
-      this.$Indicator.loading()
-      let url = 'UserInterface/DeleteOrderInfo.ashx'
-      let param = {
-        orderskey: item.orderId
-      }
-      this.$post(url, param).then((data) => {
-        this.$Indicator.close()
-        if (data.rspcode != 1) {
-          this.$Toast(data.rspdesc)
-          return
-        }
-        this.$Toast('删除订单成功')
-        this.tab(this.param.status)
-      })
-    },
+    // delmoy (item, protype) {
+    //   this.$Indicator.loading()
+    //   let url = 'UserInterface/DeleteOrderInfo.ashx'
+    //   let param = {
+    //     orderskey: item.orderId
+    //   }
+    //   this.$post(url, param).then((data) => {
+    //     this.$Indicator.close()
+    //     if (data.rspcode != 1) {
+    //       this.$Toast(data.rspdesc)
+    //       return
+    //     }
+    //     this.$Toast('删除订单成功')
+    //     this.tab(this.param.status)
+    //   })
+    // },
     //  确认收货
     shopsh (item) {
       this.$Indicator.loading()
@@ -283,43 +165,28 @@ export default {
         this.$Toast('确认收货成功')
         this.tab(this.param.status)
       })
-    },
-    filterToggleFn (type) {
-      var $mark = this.$refs.mark
-      $mark.style.display = 'none'
-      if (type) {
-        $mark.style.display = 'block'
-      }
-    },
-    filterActiveFn (index, types) {
-      this.filterActive = index
-      this.param.orderType = types
-      this.$Indicator.loading()
-      this.param.pagecount = 0
-      this.$refs.loadMoreE.getList() // 触发加载更多
-      setTimeout(() => {
-        this.$Indicator.close()
-      }, 200)
     }
   },
+  created(){
+	  const query = this.$route.query
+	  this.param.orderType = query.orderType
+	  if(this.param.orderType == 2){
+		this.title = '管理套餐'
+	  }
+	  if(this.param.orderType == 3){
+		this.title = '商品订单'
+	  }
+  },
   mounted () {
-    let type = this.$route.query.type
-    if (type) {
-      this.filterList.forEach((item, index) => {
-        if (type == item.types) {
-          this.filterActiveFn(index, item.types)
-        }
-      })
-    }
     this.param.pagecount = 0
     this.$refs.loadMoreE.getList()
   },
   beforeRouteLeave (to, from, next) {
-    // 不能返回支付成功页面
-    if (to.name == 'panicBuyingAreaPaySuccess') {
-      next('/wx_Entrance/personal')
-      return
-    }
+    // // 不能返回支付成功页面
+    // if (to.name == 'panicBuyingAreaPaySuccess') {
+    //   next('/wx_Entrance/personal')
+    //   return
+    // }
     next()
   },
   components: {
@@ -358,23 +225,29 @@ export default {
 			border-radius: 2px;
 		}
 	}
-
-	.logistics_number{
-		padding-top: 0.05rem;
+	.product_item{
+		background: #FFF;
+		border-radius: 0.1rem;
+		margin-top: 0.1rem;
+		.title{
+			overflow: hidden;
+			padding: 0.1rem 0;
+			margin: 0 0.1rem;
+			border-bottom: 1px solid #e1e1e1;
+			.logistics_number{float: left;}
+			.dateType{float: right;display: block;color: #999;font-size: 0.14rem;}
+		}
+	}
+	.product_row{
+		padding-top: 0.2rem !important;
+		padding-bottom: 0.2rem !important;
 	}
 	.foot {
-		margin-top: 0.08rem;
 		font-size: 0.14rem;
 		color: $color60;
 		.row{
-			display: flex;
-			justify-content: space-between;
+			overflow: hidden;
 		}
-		.logisticsInfo {
-			display: flex;
-			align-items: center;
-		}
-
 		.f-btn {
 			width: 0.72rem;
 			height: 0.26rem;
@@ -382,7 +255,9 @@ export default {
 			text-align: center;
 			box-sizing: border-box;
 			border-radius: 0.13rem;
-
+			margin-bottom: 0.15rem;
+			margin-right: 0.1rem;
+			font-size: 0.12rem;
 			span {
 				/*vertical-align: middle;*/
 			}
@@ -394,8 +269,6 @@ export default {
 
 			&.ok {
 				background: $themeColor;
-				margin-left: 5px;
-
 				span {
 					color: white;
 				}
@@ -413,9 +286,7 @@ export default {
 		}
 
 		.btn-group {
-			display: flex;
-			justify-content: flex-start;
-			white-space: normal;
+			float: right;
 		}
 	}
 
@@ -599,5 +470,11 @@ export default {
 
 	.myc_addadrs a {
 		color: #FF3D3D;
+	}
+	.f-btn-default{
+		border-color: #999 !important;
+		span{
+			color: #999 !important;
+		}
 	}
 </style>

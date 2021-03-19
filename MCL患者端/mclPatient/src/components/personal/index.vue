@@ -50,7 +50,8 @@
 						</div>
 					</router-link>
 
-					<router-link :to="'/managePackage'">
+          <!-- '/managePackage' -->
+					<router-link to="/personalgetproduct?orderType=2">
 						<div class="cell">
 							<div class="row">
 								<img src="@/assets/images/icons/icon-gltc.png"  alt="">
@@ -59,7 +60,7 @@
 						</div>
 					</router-link>
 
-					<router-link :to="'/personalgetproduct'">
+					<router-link to="/personalgetproduct?orderType=3">
 						<div class="cell">
 							<div class="row">
 								<img src="@/assets/images/icons/icon-spdd.png"  alt="">
