@@ -42,9 +42,11 @@
 										<!--<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
 											<span>查看物流</span>  
 										</div>-->
-										<div v-if="item.BuyState == '0'" class="f-btn ok laood f-btn-default" style="float: left;" @click="$router.push(`/refund?orderkey=${item.orderId}`)">
+										<!-- displayRefundFlag（1：可以申请退款，2：不能申请退款） BuyState（//0：可以申请退款，1：退款申请中，2：已退款） -->
+										<div v-if="(item.displayRefundFlag == 1) && (item.BuyState == '0')" class="f-btn ok laood f-btn-default" style="float: left;" @click="$router.push(`/refund?orderkey=${item.orderId}`)">
 											<span>申请退款</span>
 										</div>
+										<div v-if="(item.displayRefundFlag == 1) && (item.BuyState == '1')" style="float: left;" class="btn_note">退款申请中</div>
 										<div v-if="item.state == '1'" class="f-btn ok" style="float: left;" @click="shopsh(item)">
 											<span>确认收货</span>
 										</div>
@@ -82,7 +84,7 @@ export default {
 	title: '',
     selected: 'tab-container1',
     tabs: [{
-      name: '全部',
+      name: '全部', 
       type: '-1'
     }, {
       name: '待发货',
@@ -493,6 +495,11 @@ export default {
 		border-bottom-left-radius: 0.1rem;
 		border-bottom-right-radius: 0.1rem;
 	}
-
+	.btn_note{
+		line-height: 0.26rem;
+		margin-right: 0.1rem;
+		color: #999;
+		margin-bottom: 0.15rem;
+	}
 
 </style>
