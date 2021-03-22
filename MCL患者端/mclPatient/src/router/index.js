@@ -8,7 +8,8 @@ const wxFollowPage = () => import(/* webpackChunkName: "wxFollowPage" */ '@/comp
 //首页
 const home = () => import(/* webpackChunkName: "home" */ '@/components/home/index.vue')  //首页
 const wellcome = () => import(/* webpackChunkName: "wellcome" */ '@/components/home/wellcome/index.vue')  //首页  欢迎页面
-const wellcome_personInfo = () => import(/* webpackChunkName: "wellcome_personInfo" */ '@/components/home/wellcome/personInfo.vue')  //首页  个人信息录入
+const wellcome_personInfo = () => import(/* webpackChunkName: "wellcome_personInfo" */ '@/components/home/wellcome/personInfo.vue')  //首页  完善个人信息
+const wellcome_personInfoRegister = () => import(/* webpackChunkName: "wellcome_personInfoRegister" */ '@/components/home/wellcome/personInfoRegister.vue')  //注册时候进入 个人信息录入
 const message2 = () => import(/* webpackChunkName: "message2" */ '@/components/mesage/message2.vue')  //营养评估简介
 // const home2 = () => import(/* webpackChunkName: "home2" */ '@/components/home/index2.vue')  //首页
 const yearCard = () => import(/* webpackChunkName: "yearCard" */ '@/components/home/yearCard/index.vue')  //首页 购买年卡
@@ -270,7 +271,8 @@ const router = new Router({
 
     //首页页面
     { path:"/wellcome", name:"wellcome", component: wellcome },  //欢迎页面
-    { path:"/wellcome_personInfo", name:"wellcome_personInfo", component: wellcome_personInfo },  //欢迎页面   个人信息录入
+    { path:"/wellcome_personInfo", name:"wellcome_personInfo", component: wellcome_personInfo },  //首页   完善个人信息
+    { path:"/wellcome_personInfoRegister", name:"wellcome_personInfoRegister", component: wellcome_personInfoRegister },  //注册成功之后  个人信息录入
     { path:"/message2", name:"message2", component: message2 },  //营养评估简介
 	  { path:"/todymanage", name:"todymanage", component: todymanage },  //今日管理
     { path:"/caseUpload", name:"caseUpload", component: caseUpload },  //病例上传 welcomebl

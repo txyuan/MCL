@@ -28,7 +28,7 @@ export default {
       if (redirect) {
         this.$router.push(redirect)
       } else {
-        this.$router.push('/wellcome_personInfo')
+        this.$router.push('/wellcome_personInfoRegister')
       }
     }
   }
