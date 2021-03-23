@@ -25,7 +25,7 @@
           </a-dropdown>
         </span>
 
-        <span class="setting">
+        <!-- <span class="setting">
           <a-dropdown>
             <span class="ant-dropdown-link" href="#">
               <a-icon type="plus-circle" />
@@ -42,7 +42,7 @@
               </a-menu-item>
             </a-menu>
           </a-dropdown>
-        </span>
+        </span> -->
       </div>
 
       <a-menu
@@ -82,6 +82,7 @@
         @breakpoint="onBreakpoint"
       >
         <el-input placeholder="搜索" v-model.trim="userListKeyword" style="margin: 15px 0;width: 90%"></el-input>
+        <MessageBox :type="activeKey" :select="select" :filterKeyword="userListKeyword" ref="messageBox" @getInfo="getDoctorInfo"  />
         <MessageBox :type="activeKey" :select="select" :filterKeyword="userListKeyword" ref="messageBox" @getInfo="getDoctorInfo"  />
         <!-- <MessageBox v-if="activeKey == 'chatroom'"  type="chatroom" />
         <MessageBox v-if="activeKey == 'group'" type="group" />-->
@@ -265,7 +266,8 @@ export default {
   computed: {
     chatList() {
       return this.$store.state.chat.msgList;
-    }
+    },
+    userInfo: () => localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo")),
   },
   methods: {
     ...mapActions(["onLogout", "onGetFirendBlack"]),

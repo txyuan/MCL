@@ -1,6 +1,33 @@
 <template>
 	<div class="userlist">
-		<a-menu style="width: 100%; border-right: 0;" mode="vertical" :selectedKeys="selectedKeys">
+		<a-menu v-if="userInfo.userId == '18234149410'" style="width: 100%; border-right: 0;" mode="inline" :selectedKeys="selectedKeys">
+			<a-sub-menu v-for="(item, index) in friendList" :key="getKey(item)" @click="select2(item, getKey(item))">
+				<span slot="title">
+					{{ item.name}} ({{item.username.userName}})
+				</span>
+				<a-menu-item key="1">
+					Option 1
+				</a-menu-item>
+				<a-menu-item key="2">
+					Option 2
+				</a-menu-item>
+			</a-sub-menu>
+			<!-- <a-menu-item style="height: 80px; position: relative; textAlign: left; borderBottom: 1px solid #eee; margin: 0"
+			 v-for="(item,index) in friendList" :key="getKey(item)" @click="select2(item, getKey(item))">
+				<span class="custom-title" v-if="item.username.userName">
+					<i class="el-icon-star-on" v-if="item.username.isMember==1"></i>
+					{{ item.name}} ({{item.username.userName}})
+				</span>
+				<span class="custom-title" v-else><i class="el-icon-star-on" v-if="item.username.isMember==1"></i>{{ item.name}}</span>
+				<div class="icon-style" v-if="item.meum != 0">
+					<span class="unreadNum">{{item.meum}}</span>
+				</div>
+				<span class="time-style" style="float:right">{{getLastMsg(item).msgTime}}</span>
+				<div>{{getLastMsg(item).lastMsg}}</div>
+			</a-menu-item> -->
+		</a-menu>
+
+		<a-menu v-else style="width: 100%; border-right: 0;" mode="vertical" :selectedKeys="selectedKeys">
 			<a-menu-item style="height: 80px; position: relative; textAlign: left; borderBottom: 1px solid #eee; margin: 0"
 			 v-for="(item,index) in friendList" :key="getKey(item)" @click="select2(item, getKey(item))">
 				<!-- v-for="(item) in userList[type]" -->
@@ -16,6 +43,8 @@
 				<div>{{getLastMsg(item).lastMsg}}</div>
 			</a-menu-item>
 		</a-menu>
+		
+
 		<div v-if="friendList.length == 0" style="margin-top: 15px;">没有好友信息</div>
 	</div>
 </template>
@@ -95,7 +124,6 @@
 				chatroom: "onGetChatroomUserList",
 				msgList: "onGetCurrentChatObjMsg"
 			}),
-			userInfo: () => localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo")),
 			userList() {
 				const temp = {
 					contact: this.contact.filter(item => {
