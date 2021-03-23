@@ -25,24 +25,24 @@
           </a-dropdown>
         </span> -->
 
-        <span class="setting">
+        <!-- <span class="setting">
           <a-dropdown>
             <span class="ant-dropdown-link" href="#">
               <a-icon type="plus-circle" />
             </span>
             <a-menu slot="overlay">
-              <!-- <a-menu-item @click="ulClick('1')">
+              <a-menu-item @click="ulClick('1')">
                 <a href="javascript:;">添加好友</a>
-              </a-menu-item> -->
-              <!-- <a-menu-item @click="ulClick('2')">
+              </a-menu-item> 
+              <a-menu-item @click="ulClick('2')">
                 <a href="javascript:;">申请入群</a>
-              </a-menu-item> -->
+              </a-menu-item>
               <a-menu-item @click="ulClick('3')">
                 <a href="javascript:;">创建群组</a>
               </a-menu-item>
             </a-menu>
           </a-dropdown>
-        </span>
+        </span> -->
       </div>
 
       <a-menu
@@ -88,7 +88,7 @@
 
       <a-layout-content style="overflow: visible">
         <Message
-          :type="activeKey"
+          type="group"
           :broken="broken"
           :hideUserList="hideUserList"
           :showUserList="showUserList"

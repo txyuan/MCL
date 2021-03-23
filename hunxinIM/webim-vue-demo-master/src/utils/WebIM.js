@@ -44,6 +44,7 @@ WebIM.conn.listen({
 		const logoSinge=Vue.$router.history.current.query.logoSinge
 		const redirectUrl = `${path}?username=${username}&logoSinge=${logoSinge}`;
 		Vue.$router.push({ path: redirectUrl });
+		console.log(WebIM.conn.token)
 	},
 	onClosed: function (message) {
 		

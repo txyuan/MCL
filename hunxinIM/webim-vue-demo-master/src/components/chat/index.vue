@@ -93,13 +93,14 @@
 				msgList: "onGetCurrentChatObjMsg"
 			}),
 			userList() {
-				// let logoSinge=this.$route.query.logoSinge
-				// if ((this.type == 'contact') && (this.contact.length >= 1)) {
-				// 	if(logoSinge==1){
-				// 		var item = this.contact[0];
-				// 		this.select2(item, this.getKey(item));
-				// 	}
-				// }
+				// 患者只有一个好友，直接进入好友聊天页面
+				let logoSinge=this.$route.query.logoSinge
+				if ((this.type == 'contact') && (this.contact.length >= 1)) {
+					if(logoSinge==1){
+						var item = this.contact[0];
+						this.select2(item, this.getKey(item));
+					}
+				}
 				return {
 					contact: this.contact.filter(item => {
 						this.$set(item, 'meum', this.getUnreadNum(item))
@@ -200,6 +201,7 @@
 				return unReadNum;
 			},
 			select2(key, index) {
+				key.groupid = '143004672262146'
 				this.$data.selectedKeys = [index];
 				this.select(key);
 				this.$data.activedKey[this.type] = key;
