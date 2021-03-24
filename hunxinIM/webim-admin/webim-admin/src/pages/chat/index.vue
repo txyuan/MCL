@@ -82,8 +82,9 @@
         @breakpoint="onBreakpoint"
       >
         <el-input placeholder="搜索" v-model.trim="userListKeyword" style="margin: 15px 0;width: 90%"></el-input>
-        <MessageBox :type="activeKey" :select="select" :filterKeyword="userListKeyword" ref="messageBox" @getInfo="getDoctorInfo"  />
-        <MessageBox :type="activeKey" :select="select" :filterKeyword="userListKeyword" ref="messageBox" @getInfo="getDoctorInfo"  />
+        <!-- 判断是否后台总管理的的账号，总管理账号需要显示客服列表，患者列表 -->
+        <MessageBoxCompany v-if="userInfo.userId == '18234149410'" :type="activeKey" :select="select" :filterKeyword="userListKeyword" ref="messageBox" @getInfo="getDoctorInfo" />
+        <MessageBox v-else :type="activeKey" :select="select" :filterKeyword="userListKeyword" ref="messageBox" @getInfo="getDoctorInfo" />
         <!-- <MessageBox v-if="activeKey == 'chatroom'"  type="chatroom" />
         <MessageBox v-if="activeKey == 'group'" type="group" />-->
       </a-layout-sider>
@@ -190,6 +191,7 @@
 <script>
 import Vue from "vue";
 import MessageBox from "../../components/chat/index.vue";
+import MessageBoxCompany from "../../components/chat/indexCompany.vue";
 import Message from "../../components/chat/message.vue";
 import AddFriend from "../../components/addModal/addFriend.vue";
 import GetFriendRequest from "../../components/addModal/getFriendRequest.vue";
@@ -482,6 +484,7 @@ export default {
   },
   components: {
     MessageBox,
+    MessageBoxCompany,
     Message,
     AddFriend,
     GetFriendRequest,

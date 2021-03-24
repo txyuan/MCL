@@ -41,10 +41,9 @@ WebIM.conn.listen({
 		// 登录或注册成功后 跳转到好友页面
 		const username = Vue.$store.state.login.username || localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo")).userId;
 		const path = location.pathname.indexOf("login") !== -1 || location.pathname.indexOf("register") !== -1 ? "/contact" : location.pathname;
-		const logoSinge=Vue.$router.history.current.query.logoSinge
-		const redirectUrl = `${path}?username=${username}&logoSinge=${logoSinge}`;
+		const logoSinge = Vue.$router.history.current.query.logoSinge
+		let redirectUrl = `${path}?username=${username}&logoSinge=${logoSinge}`;
 		Vue.$router.push({ path: redirectUrl });
-		console.log(WebIM.conn.token)
 	},
 	onClosed: function (message) {
 		
