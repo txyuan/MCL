@@ -29,6 +29,7 @@
 	import AddAVMemberModal from "../emediaModal/addAVMemberModal";
 	import MultiAVModal from "../emediaModal/multiAVModal";
 	import GetGroupInfo from "../group/groupInfo.vue";
+	import { getUserInfo } from "@/api/app.js"
 
 	export default {
 		data() {
@@ -93,19 +94,17 @@
 				msgList: "onGetCurrentChatObjMsg"
 			}),
 			userList() {
-				// 患者只有一个好友，直接进入好友聊天页面
-				let logoSinge = this.$route.query.logoSinge
-				if ((this.type == 'contact') && (this.contact.length >= 1)) {
-					// 患者端：直接进入群组页面
-					if(logoSinge==1){
-						var item = this.group[0];
-						this.select2(item, this.getKey(item));
-					}else{
-					// 医生端：展示好友列表，点击好友列表进入，群组页面
-
-					}
+				// 患者端：直接进入群组页面
+				if ((this.group.length >= 1) && (localStorage.getItem('logoSinge') == 1)) {
+					var item = this.group[0];
+					this.select2(item, this.getKey(item));
 				}
-				console.log(this.contact, this.group)
+				// 管理系统端：直接进入聊天页面
+				if ((this.group.length >= 1) && (localStorage.getItem('groupId'))) {
+					const list = this.group.filter(item => item.groupid == localStorage.getItem('groupId'))
+					this.select2(list[0], this.getKey(list[0]));
+				}
+
 				return {
 					contact: this.contact.filter(item => {
 						this.$set(item, 'meum', this.getUnreadNum(item))

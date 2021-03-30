@@ -1,33 +1,21 @@
 <template>
 	<div class="userlist">
 		<a-menu style="width: 100%; border-right: 0;" mode="inline" :selectedKeys="selectedKeys">
-			<a-sub-menu v-for="(item) in userList[type]" :key="getKey(item)" @click="select2(item, getKey(item))">
-				<span slot="title">
-					{{ item.name}} ({{item.username.userName}})
+			<a-menu-item style="height: 80px; position: relative; textAlign: left; borderBottom: 1px solid #eee; margin: 0"
+			 v-for="(item,index) in groupAjaxTempList" :key="getKey(item)" @click="select2(item, getKey(item))">
+				<span class="custom-title">
+					{{ item.name }}
 				</span>
-				<a-menu-item key="1">
-					Option 1
-				</a-menu-item>
-				<a-menu-item key="2">
-					Option 2
-				</a-menu-item>
-			</a-sub-menu>
-			<!-- <a-menu-item style="height: 80px; position: relative; textAlign: left; borderBottom: 1px solid #eee; margin: 0"
-			 v-for="(item,index) in friendList" :key="getKey(item)" @click="select2(item, getKey(item))">
-				<span class="custom-title" v-if="item.username.userName">
-					<i class="el-icon-star-on" v-if="item.username.isMember==1"></i>
-					{{ item.name}} ({{item.username.userName}})
-				</span>
-				<span class="custom-title" v-else><i class="el-icon-star-on" v-if="item.username.isMember==1"></i>{{ item.name}}</span>
-				<div class="icon-style" v-if="item.meum != 0">
+				<!-- <div class="icon-style" v-if="item.meum != 0">
 					<span class="unreadNum">{{item.meum}}</span>
-				</div>
-				<span class="time-style" style="float:right">{{getLastMsg(item).msgTime}}</span>
-				<div>{{getLastMsg(item).lastMsg}}</div>
-			</a-menu-item> -->
+				</div> -->
+				<!-- <span class="time-style" style="float:right">{{getLastMsg(item).msgTime}}</span>
+				<div>{{getLastMsg(item).lastMsg}}</div> -->
+			</a-menu-item>
+			
 		</a-menu>
 
-		<div v-if="friendList.length == 0" style="margin-top: 15px;">没有好友信息</div>
+		<div v-if="groupAjaxTempList.length == 0" style="margin-top: 15px;">没有好友信息</div>
 	</div>
 </template>
 
@@ -43,11 +31,14 @@
 	//import AddAVMemberModal from "../emediaModal/addAVMemberModal";
 	//import MultiAVModal from "../emediaModal/multiAVModal";
 	import GetGroupInfo from "../group/groupInfo.vue";
+	import {getHuanXinGroups} from '@/api/app.js';
 
 	export default {
 		data() {
 			return {
-				friendList: [], // 好友列表
+				groupAjaxList: [], // 群组列表
+				groupAjaxTempList: [], // 群组列表
+
 				activedKey: {
 					contact: "",
 					group: "",
@@ -95,6 +86,9 @@
 			// 取到黑名单列表值将黑名单匹配用户列表进行筛选
 			let blackList = this.$store.state.friendModule.blackList;
 			this.$store.commit("changeUserList", blackList);
+
+			// 通过环信ajax获取所有的群组
+			this.getGroupByAjax()
 		},
 		updated() {
 			this.scollBottom();
@@ -146,18 +140,12 @@
 			"filterKeyword"
 		],
 		watch: {
-			'userList.contact': function(value) {
-				this.friendList = value
+			'groupAjaxList': function(value) {
+				this.groupAjaxTempList = value
 			},
 			filterKeyword: function(value) {
-
-				this.friendList = this.userList.contact.filter((item) => {
-					if (item.username) {
-						if ((item.name.indexOf(value) != -1) || ((item.username.sUserName && item.username.sUserName.indexOf(value)) != -1)) {
-							return (item.name.indexOf(value) != -1) || ((item.username.sUserName && item.username.sUserName.indexOf(value)) != -1)
-						}
-					}
-
+				this.groupAjaxTempList = this.groupAjaxList.filter((item) => {
+					return (item.name.indexOf(value) != -1)
 				})
 			}
 		},
@@ -232,7 +220,7 @@
 				this.select(key);
 				this.$data.activedKey[this.type] = key;
 				//医生和患者信息
-				this.$emit("getInfo", index)
+				this.$emit("getInfo", key.name.split("(")[0])
 			},
 			loadMoreMsgs() {
 				const me = this;
@@ -422,6 +410,14 @@
 					message: item
 				});
 			},
+			getGroupByAjax(){
+				getHuanXinGroups().then(({data}) => {
+					data.data.forEach((item) => {
+						item.name = item.groupname
+					})
+					this.groupAjaxList = data.data
+				})
+			}
 		}
 	};
 </script>

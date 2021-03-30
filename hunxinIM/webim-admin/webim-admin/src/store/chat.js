@@ -582,15 +582,15 @@ const Chat = {
 										time: time,
 										type: 'txt',
 										mid: item.msgKey,
-										from:item.msgTo,
+										from: item.sender,
 										status: "read"
 									};
-									// if(payload.isGroup){
-									// 	msg.chatId = item.to;
-									// }
-									// else{
-									// 	msg.chatId = bySelf ? item.msgTo : item.sender
-									// }
+									if(payload.isGroup){
+										msg.chatId = item.msgTo;
+									}
+									else{
+										msg.chatId = bySelf ? item.msgTo : item.sender
+									}
 								}
 								else if(item.msgType == 2){ // 为图片的情况
 									msg = {
@@ -601,15 +601,15 @@ const Chat = {
 										type: "img",
 										time: time,
 										mid: item.msgKey,
-										from:item.msgTo,
+										from:item.sender,
 										status: "read"
 									};
-									// if(payload.isGroup){
-									// 	msg.chatId = item.to;
-									// }
-									// else{
-									// 	msg.chatId = bySelf ? item.to : item.from;
-									// }
+									if(payload.isGroup){
+										msg.chatId = item.msgTo;
+									}
+									else{
+										msg.chatId = bySelf ? item.msgTo : item.from;
+									}
 								}
 								msg.isHistory = true;
 								context.commit("updateMsgList", msg);

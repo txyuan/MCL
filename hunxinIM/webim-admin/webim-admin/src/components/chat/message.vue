@@ -4,7 +4,8 @@
       <!-- <div>{{type}}</div> -->
       <div>
         <a-icon type="left" class="user-goback" v-show="broken" @click="showUserList" />
-        <span>{{`${activedKey[type].name } &nbsp;&nbsp; ${activedKey[type].groupid || ''}`}}</span>
+        <span>{{`${activedKey[type].name }`}}</span>
+        <!--  &nbsp;&nbsp; ${activedKey[type].groupid || ''} -->
         <!--<a-icon v-if="type=='group'" type="ellipsis" class="user-ellipsis" @click="changeMenus" />-->
         <!--<a-dropdown v-else-if="type=='contact'">
           <a class="ant-dropdown-link user-ellipsis" href="#" @click="changeMenus">
@@ -22,7 +23,7 @@
       </div>
     </div>
 
-    <div class="messagebox-content" ref="msgContent">
+    <div class="messagebox-content" :class="{company: userInfo.userId == 'company'}" ref="msgContent">
       <div class="moreMsgs" @click="loadMoreMsgs">{{loadText}}</div>
       <div
         v-for="(item,i) in msgList"
@@ -31,7 +32,9 @@
         :style="{'float':item.bySelf ? 'right':'left'}"
       >
         <!-- <h4 style="text-align: left;margin:0">{{ item.from}} ({{$root.getUserNameByPhone(String(item.from)).userName}})</h4> -->
-		<h4 :style="{'text-align':item.bySelf ? 'right':'left',margin:0}">{{ item.chatId}}</h4>
+		    <h4 :style="{'text-align':item.bySelf ? 'right':'left',margin:0}">{{ item.from }} 
+          <span v-if="$root.kefuMap[item.from]">({{$root.kefuMap[item.from].userName}})</span>
+        </h4>
 		
         <!-- 撤回消息 -->
         <div v-if="item.status == 'recall'" class="recallMsg">{{item.msg}}</div>
@@ -109,7 +112,7 @@
         >{{renderTime(item.time)}} {{item.bySelf?status[item.status]:''}}</div>
       </div>
     </div>
-    <div class="messagebox-footer">
+    <div class="messagebox-footer" v-if="userInfo.userId !== 'company'">
       <div class="footer-icon">
         <!-- 表情组件 -->
         <ChatEmoji v-on:selectEmoji="selectEmoji" :inpMessage="message" :messposnum="messpos" :messposnumend="messposend" />
@@ -217,6 +220,17 @@ export default {
     }),
     msgList: function(){
       let currentMsgs = this.$store.state.chat.currentMsgs;
+      if(currentMsgs instanceof Array){
+        currentMsgs.forEach((item)=>{
+           this.$root.getKeFuInfo([item.from], 'user')
+        })
+      }
+      if(currentMsgs && (JSON.stringify(currentMsgs).indexOf("{") == 0) ){
+        console.log(currentMsgs, [ ...currentMsgs ]);
+        Object.keys(currentMsgs).forEach((key)=>{
+          this.$root.getKeFuInfo([currentMsgs[key].from], 'user')
+        })
+      }
       return currentMsgs;
     },
     userList() {
@@ -228,7 +242,8 @@ export default {
     },
     selectedKeys() {
       return [this.getKey(this.activedKey[this.type]) || ""];
-    }
+    },
+    userInfo: () => localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo")),
   },
   props: [
     "type", // 聊天类型 contact, group, chatroom

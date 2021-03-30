@@ -1,3 +1,13 @@
+/****
+患者端和医生端使用本系统
+1. 患者端：不显示，好友列表，直接进入聊天窗口。不显示聊天窗口的header。（http://localhost:8081/login?username=18622247200&logoSinge=1）
+2. 医生端：显示好友列表。显示聊天窗口的header（http://localhost:8081/login?username=15310323518）
+
+后台管理系统客服使用本系统的聊天窗口页面（示例地址：http://localhost:8081/login?username=15310323518&groupId=143919303163907）
+不显示好友列表，直接进入，聊天窗口页面。不显示聊天窗口的header的返回按钮
+*****/ 
+
+
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
@@ -6,7 +16,7 @@ import router from './router'
 import vant from 'vant';
 import WebIM from './utils/WebIM';
 import store from './store';
-import {getKeFuInfo} from './api/app.js';
+import {getUserInfo} from './api/app.js';
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 
@@ -44,27 +54,33 @@ window.Vue = new Vue({
       // token: "",
       kefuMap:{
         
-      }
+      },
+      lock: false
     },
     methods: {
       //获取客服的账号信息
-      getKeFuInfo: function(username){        
-        if(!username){return}
-        //不存在当前客服
-        if(!this.kefuMap[username]){
-          getKeFuInfo(username).then((data) => {
-            if(data.rspcode == 1){
-              this.kefuMap[username] = data.name
-              localStorage.kefuMap = JSON.stringify(this.kefuMap)
-            }
-          })
+      getKeFuInfo: function(username){
+        if(!username){return ''}
+        if((this.kefuMap[username] === '') || (this.kefuMap[username])){
+          return this.kefuMap
         }
+        this.kefuMap[username] = ''  
+        //不存在当前客服
+        getUserInfo([username]).then(({data}) => {
+          if(data.rspcode == 1 && data.data.length > 0){
+            this.$set(this.kefuMap, username, data.data[0].userName)
+            this.kefuMap = {...this.kefuMap}
+            // this.kefuMap[username] = data.data[0].userName
+            // localStorage.kefuMap = JSON.stringify(this.kefuMap)
+          }
+        })
+        return this.kefuMap
       }
     },
     created(){
-      if(localStorage.kefuMap){
-        this.kefuMap = JSON.parse(localStorage.kefuMap)
-      }
+      // if(localStorage.kefuMap){
+      //   this.kefuMap = JSON.parse(localStorage.kefuMap)
+      // }
     },
     router,
     components: { App },
@@ -73,3 +89,6 @@ window.Vue = new Vue({
     WebIM,
     render: h => h(App)
 })
+
+
+

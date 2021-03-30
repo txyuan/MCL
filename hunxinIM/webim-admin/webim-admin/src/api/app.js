@@ -1,5 +1,6 @@
-import {BASEURLAPP,BASEURL} from '../configURL';
+import {BASEURLAPP,BASEURL,HX_Config} from '../configURL';
 import axios from 'axios'
+import router from '@/router/index.js';
 import qs from 'qs';
 
 let axiosInstance = axios.create({
@@ -35,6 +36,12 @@ export function getUserInfo ( rphone ) {
 
 // 记录聊天内容
 export function saveChatData ( data ) {
+    const currentRoute = router.history.current
+    let groupId = ''
+    if(currentRoute.name == "group"){
+        groupId = currentRoute.params.id
+    }
+    data.groupId = groupId
     let url = `UserInterface/user/customServiceChat.ashx`;
     data.sender = JSON.parse(localStorage.userInfo).userId
     return new Promise((resolve, reject) => {
@@ -64,6 +71,12 @@ export function userSendMessage (rphone) {
 
 // 读取聊天内容
 export function getChatData ( data ) {
+    const currentRoute = router.history.current
+    let groupId = ''
+    if(currentRoute.name == "group"){
+        groupId = currentRoute.params.id
+    }
+    data.groupId = groupId
     data.user = JSON.parse(localStorage.userInfo).userId
     let url = `${BASEURLAPP}/UserInterface/user/getCustomServiceChatList.ashx`;
     return new Promise((resolve, reject) => {
@@ -87,3 +100,61 @@ export function uploadChatimg ( file ) {
     }) 
 }
 
+
+let axiosInstance2 = axios.create({
+    baseURL: BASEURLAPP,
+	headers:{
+		'Content-Type': 'application/json'
+	}
+});
+
+let access_token = "";
+// 获取环信token
+function getHuanXinToken () {
+    if(access_token == ""){
+        let url = `http://a1.easemob.com/${HX_Config.org_name}/${HX_Config.app_name}/token`;
+        let param = {
+            "grant_type": "client_credentials",
+            "client_id": HX_Config.client_id,
+            "client_secret": HX_Config.client_secret
+        }
+        return new Promise((resolve, reject) => {
+            axiosInstance2.post(url, param).then((res)=>{
+                access_token = res.data.access_token
+                return resolve(access_token)
+            }, reject)
+        })
+    }else{
+        return new Promise((resolve, reject) => {
+            resolve(access_token)
+        })
+    }
+}
+
+// 获取环信所有群组
+export async function getHuanXinGroups () {
+    await getHuanXinToken()
+    let url = `http://a1.easemob.com/${HX_Config.org_name}/${HX_Config.app_name}/chatgroups`;
+    const config = {
+        headers:{
+            Authorization: `Bearer ${access_token}`,
+        }
+    }
+    return new Promise((resolve, reject) => {
+        axiosInstance2.get(url, {headers: config.headers} ).then(resolve, reject)
+    }) 
+}
+
+// 获取一个用户参与的所有群组
+export async function getHuanXinGroupsByUser (username) {
+    await getHuanXinToken()
+    let url = `http://a1.easemob.com/${HX_Config.org_name}/${HX_Config.app_name}/users/${username}/joined_chatgroups`;
+    const config = {
+        headers:{
+            Authorization: `Bearer ${access_token}`,
+        }
+    }
+    return new Promise((resolve, reject) => {
+        axiosInstance2.get(url, {headers: config.headers} ).then(resolve, reject)
+    }) 
+}

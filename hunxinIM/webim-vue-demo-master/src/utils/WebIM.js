@@ -40,9 +40,24 @@ WebIM.conn.listen({
 	onOpened: function (message) { // 连接成功回调
 		// 登录或注册成功后 跳转到好友页面
 		const username = Vue.$store.state.login.username || localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo")).userId;
-		const path = location.pathname.indexOf("login") !== -1 || location.pathname.indexOf("register") !== -1 ? "/contact" : location.pathname;
-		const logoSinge = Vue.$router.history.current.query.logoSinge
-		let redirectUrl = `${path}?username=${username}&logoSinge=${logoSinge}`;
+		let path = location.pathname.indexOf("login") !== -1 || location.pathname.indexOf("register") !== -1 ? "/group" : location.pathname;
+		const currentRoute = Vue.$router.history.current;
+		
+		if(currentRoute.name == 'login'){
+			// 用来区分：患者端和医生端；logoSinge：1（患者端）
+			if(currentRoute.query.logoSinge){
+				localStorage.setItem('logoSinge', currentRoute.query.logoSinge)
+			}else{
+				localStorage.removeItem('logoSinge')
+			}
+			// 携带参数groupId，直接进入聊天窗口页面
+			if(currentRoute.query.groupId){
+				localStorage.setItem('groupId', currentRoute.query.groupId)
+			}else{
+				localStorage.removeItem('groupId')
+			}
+		}
+		let redirectUrl = `${path}?username=${username}`;
 		Vue.$router.push({ path: redirectUrl });
 	},
 	onClosed: function (message) {
@@ -63,6 +78,7 @@ WebIM.conn.listen({
 			msg: message.data,
 			bySelf: false,
 			from: message.from,
+			time: new Date().getTime(),
 			mid: message.id
 		});
 		type === 'chat' && ack(message);

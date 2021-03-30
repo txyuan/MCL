@@ -1,3 +1,10 @@
+/****
+ * 后台管理系统客服
+ * 账号分类：company（总管理账号），其他都是客服账号
+ * 客服账号：聊天窗口使用iframe显示app客服系统的地址（clics.marryhealthscience.com/login?username=15310323518&groupId=143919303163907 ）
+ * 
+ *  *****/
+
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
@@ -47,7 +54,7 @@ window.Vue = new Vue({
     },
     methods: {
       //获取客服的账号信息
-      getKeFuInfo: function(names, type){      
+      getKeFuInfo: function(names, type){
         if(names.length == 0){ return }
         const ajax = {
           'kefu': getKeFuInfo,
@@ -58,6 +65,7 @@ window.Vue = new Vue({
         const arr = names.filter((username) => !this.kefuMap.hasOwnProperty(String(username)))
         if(arr.length == 0){ return }
         ajax[type](arr).then(({data}) => {
+          console.log(data)
           let users = []
           if(type === 'kefu'){
             users = [{userPhone: String(arr[0]), userName: data.name}]
@@ -68,7 +76,7 @@ window.Vue = new Vue({
           users.forEach(item => {
             this.$set(this.kefuMap, String(item.userPhone), item)
           });
-          localStorage.kefuMap = JSON.stringify(this.kefuMap)
+          // localStorage.kefuMap = JSON.stringify(this.kefuMap)
         })
       },
       getUserNameByPhone(phone){
@@ -77,9 +85,9 @@ window.Vue = new Vue({
       }
     },
     created(){
-      if(localStorage.kefuMap){
-        Object.assign(this.kefuMap, JSON.parse(localStorage.kefuMap))
-      }
+      // if(localStorage.kefuMap){
+      //   Object.assign(this.kefuMap, JSON.parse(localStorage.kefuMap))
+      // }
     },
     router,
     components: { App },

@@ -3,8 +3,8 @@
 	width: 100%;
 	overflow: hidden;
 	height: 100%;">
-    <a-layout-header class="layout-header">
-      <div class="header">
+    <!-- <a-layout-header class="layout-header"> -->
+      <!-- <div class="header"> -->
         <!-- <span class="setting">
           <a-dropdown>
             <span class="ant-dropdown-link" href="#">
@@ -43,9 +43,9 @@
             </a-menu>
           </a-dropdown>
         </span> -->
-      </div>
+      <!-- </div> -->
 
-      <a-menu
+      <!-- <a-menu
         v-model="current"
         mode="horizontal"
         :defaultSelectedKeys="['contact']"
@@ -63,18 +63,18 @@
           <span class="navMenu-text">群组</span>
           <div class="tip-style" v-if="getUnread('group').group">&nbsp;</div>
         </a-menu-item>
-        <!-- <a-menu-item key="chatroom">
+        <a-menu-item key="chatroom">
           <a-icon type="usergroup-add" class="navMenu-icon" />
           <span class="navMenu-text">聊天室</span>
-        </a-menu-item> -->
-      </a-menu>
-    </a-layout-header>
+        </a-menu-item>
+      </a-menu> -->
+    <!-- </a-layout-header> -->
 
     <a-layout>
       <a-layout-sider
         style="background: #fff"
         :width="broken ? '100%' : 350"
-        breakpoint="lg"
+        breakpoint="xxl"
         collapsedWidth="0"
         :trigger="null"
         v-model="collapsed"
@@ -88,7 +88,7 @@
 
       <a-layout-content style="overflow: visible">
         <Message
-          type="group"
+          :type="activeKey"
           :broken="broken"
           :hideUserList="hideUserList"
           :showUserList="showUserList"
@@ -128,7 +128,7 @@ export default {
       groupRead: false,
       contactRead: false,
       showSettingOptions: false,
-      activeKey: "contact",
+      activeKey: "group",
       selectedItem: "",
       showAddOptions: false,
       addList: [
