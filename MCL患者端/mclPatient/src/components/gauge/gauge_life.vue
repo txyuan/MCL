@@ -394,8 +394,9 @@ export default {
           return
         }
         this.$Toast('保存成功')
-        // 查看报告
-        // this.$router.push("/nutrition");
+        setTimeout(() => {
+          this.$router.back();
+        }, 2000)
       })
     }
   },
