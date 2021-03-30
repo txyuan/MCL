@@ -218,6 +218,8 @@ const Chat = {
 			context.commit("updateCurrentMsgList", context.state.msgList[type][id]);
 		},
 		onSendText: function(context, payload){
+			const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+			const userId = userInfo && userInfo.userId;
 			const { chatType, chatId, message } = payload;
 			const id = WebIM.conn.getUniqueId();
 			const time = +new Date();
@@ -243,6 +245,7 @@ const Chat = {
 						bySelf: true,
 						time: time,
 						mid: id,
+						from: userId,
 						status: "sending"
 					});
 				},
@@ -267,6 +270,8 @@ const Chat = {
 		sendImgMessage: function(context, payload){
 			const { chatType, chatId, roomType, file, callback } = payload;
 			const id = WebIM.conn.getUniqueId();
+			const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+			const userId = userInfo && userInfo.userId;
 			const jid = {
 				contact: "name",
 				group: "groupid",
@@ -292,6 +297,7 @@ const Chat = {
 						type: "img",
 						time: data.timestamp,
 						mid: id,
+						from: userId,
 						status: "sending"
 					});
 					callback();
@@ -317,6 +323,8 @@ const Chat = {
 		sendFileMessage: function(context, payload){
 			const { chatType, chatId, roomType, file, callback } = payload;
 			const id = WebIM.conn.getUniqueId();
+			const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+			const userId = userInfo && userInfo.userId;
 			const jid = {
 				contact: "name",
 				group: "groupid",
@@ -347,6 +355,7 @@ const Chat = {
 						file_length: file.data.size,
 						time: data.timestamp,
 						mid: id,
+						from: userId,
 						status: "sending"
 					});
 					callback();
@@ -585,14 +594,15 @@ const Chat = {
 										time: time,
 										type: 'txt',
 										mid: item.msgKey,
+										from: item.sender,
 										status: "read"
 									};
-									// if(payload.isGroup){
-									// 	msg.chatId = item.to;
-									// }
-									// else{
-									// 	msg.chatId = bySelf ? item.msgTo : item.sender
-									// }
+									if(payload.isGroup){
+										msg.chatId = item.msgTo;
+									}
+									else{
+										msg.chatId = bySelf ? item.msgTo : item.sender
+									}
 								}
 								else if(item.msgType == 2){ // 为图片的情况
 									msg = {
@@ -603,14 +613,15 @@ const Chat = {
 										type: "img",
 										time: time,
 										mid: item.msgKey,
+										from: item.sender,
 										status: "read"
 									};
-									// if(payload.isGroup){
-									// 	msg.chatId = item.to;
-									// }
-									// else{
-									// 	msg.chatId = bySelf ? item.to : item.from;
-									// }
+									if(payload.isGroup){
+										msg.chatId = item.msgTo;
+									}
+									else{
+										msg.chatId = bySelf ? item.to : item.from;
+									}
 								}
 								msg.isHistory = true;
 								context.commit("updateMsgList", msg);
@@ -623,7 +634,6 @@ const Chat = {
 					}
 				})
 			}
-			
 		},
 
 		recallMessage: function(context, payload){

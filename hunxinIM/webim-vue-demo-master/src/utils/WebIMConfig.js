@@ -46,9 +46,8 @@ var config = {
     /*
      * Application AppKey
      */
-    // appkey:"1101200519042884#mcl",
-    // appkey: "1105200109113529#ceshi",
-	appkey: "1105200109113529#app",
+    // appkey: "1105200109113529#app",
+    appkey:"1101200519042884#mcl",
     /*
      * Application Host
      */

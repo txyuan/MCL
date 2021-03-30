@@ -1,11 +1,12 @@
 <template>
   <div class="messagebox" v-show="activedKey[type]!= ''">
-    <!--<div class="messagebox-header">
+    <div class="messagebox-header" v-if="localStorage.getItem('logoSinge') != 1">
       <div>
-        <a-icon type="left" class="user-goback" v-show="broken" @click="showUserList" />
-        <span>{{`${activedKey[type].name } &nbsp;&nbsp; ${activedKey[type].groupid || ''}`}}</span>
-        <a-icon v-if="type=='group'" type="ellipsis" class="user-ellipsis" @click="changeMenus" />
-        <a-dropdown v-else-if="type=='contact'">
+        <a-icon type="left" class="user-goback" v-show="!localStorage.getItem('groupId')&& broken" @click="showUserList" />
+        <span>{{`${activedKey[type].name }`}}</span>
+         <!-- &nbsp;&nbsp; ${activedKey[type].groupid || ''} -->
+        <!-- <a-icon v-if="type=='group'" type="ellipsis" class="user-ellipsis" @click="changeMenus" /> -->
+        <!-- <a-dropdown v-else-if="type=='contact'">
           <a class="ant-dropdown-link user-ellipsis" href="#" @click="changeMenus">
             <a-icon type="ellipsis" />
           </a>
@@ -17,11 +18,11 @@
               <a href="javascript:;">删除好友</a>
             </a-menu-item>
           </a-menu>
-        </a-dropdown>
+        </a-dropdown> -->
       </div>
-    </div>-->
+    </div>
 
-    <div class="messagebox-content" ref="msgContent">
+    <div class="messagebox-content" ref="msgContent" :class="{doctor: localStorage.getItem('logoSinge') != 1}">
       <div class="moreMsgs" @click="loadMoreMsgs">{{loadText}}</div>
       <div
         v-for="(item,i) in msgList"
@@ -29,7 +30,9 @@
         class="message-group"
         :style="{'float':item.bySelf ? 'right':'left'}"
       >
-        <h4 style="text-align: left;margin:0">{{$root.kefuMap[item.from] || item.from}}</h4> 
+        <h4 :style="{'text-align':item.bySelf ? 'right':'left',margin:0}">{{ item.from }} 
+          <span v-if="$root.kefuMap[item.from]">({{$root.kefuMap[item.from]}})</span>
+        </h4>
         <!-- 撤回消息 -->
         <div v-if="item.status == 'recall'" class="recallMsg">{{item.msg}}</div>
         <div v-if="item.status == 'recall'" class="recallMsg">{{renderTime(item.time)}}</div>
@@ -188,7 +191,8 @@ export default {
         sent: "已发送",
         read: "已读"
       },
-      nowIsVideo: false
+      nowIsVideo: false,
+      localStorage: window.localStorage
     };
   },
 
@@ -202,9 +206,7 @@ export default {
     }
   },
   updated() {
-    // console.log("数据", this.$store);
     this.scollBottom();
-    console.log()
   },
   computed: {
     ...mapGetters({
@@ -218,6 +220,12 @@ export default {
       if(currentMsgs instanceof Array){
         currentMsgs.forEach((item)=>{
            this.$root.getKeFuInfo(item.from)
+        })
+      }
+      if(currentMsgs && (JSON.stringify(currentMsgs).indexOf("{") == 0) ){
+        console.log(currentMsgs, [ ...currentMsgs ]);
+        Object.keys(currentMsgs).forEach((key)=>{
+          this.$root.getKeFuInfo(currentMsgs[key].from)
         })
       }
       return currentMsgs;

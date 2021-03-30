@@ -1,6 +1,6 @@
 <template>
-  <el-dialog title="群组黑名单" :visible.sync="showGroupBlackModel" :modal=false>
-    <div>
+  <el-dialog title="群组黑名单" :visible.sync="showGroupBlackModel" :modal=false class="groupBlack">
+    <div class="groupBlackList">
       <ul v-for="item in groupBlackList" :key="item">
         {{item}}
         <label class="delete-icon">
@@ -38,9 +38,22 @@ export default{
 	}
 };
 </script>
-<style scoped>
+<style scoped lang="less">
 .delete-icon {
   position: absolute;
   right: 40px;
+}
+.groupBlack::v-deep{
+	.el-dialog{
+		width: 55%;	
+	}
+}
+.groupBlackList{
+	text-align: left;
+	ul,li{
+		list-style: none;
+		margin: 0;
+    	padding: 0;
+	}
 }
 </style>

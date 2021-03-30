@@ -1,5 +1,8 @@
-import {BASEURLAPP} from '../configURL';
+import {BASEURLAPP,BASEURL} from '../configURL';
+import router from '@/router/index.js';
 import axios from 'axios'
+import qs from 'qs';
+
 let axiosInstance = axios.create({
     baseURL: BASEURLAPP
 });
@@ -16,10 +19,28 @@ export function getKeFuInfo ( username ) {
     }) 
 }
 
+// 通过手机号，获取用户的姓名
+export function getUserInfo ( rphone ) {
+    let url = `${BASEURL}/Pages/OnLineAppManage/GetCustomerUserName.ashx`;
+    //不存在当前客服
+    return new Promise((resolve, reject) => {
+        let data = {
+            rphone: rphone.join()
+        }
+        axiosInstance.post(url, qs.stringify(data)).then(resolve, reject)
+    }) 
+}
+
 // 记录聊天内容
 export function saveChatData ( data ) {
+    const currentRoute = router.history.current
+    let groupId = ''
+    if(currentRoute.name == "group"){
+        groupId = currentRoute.params.id
+    }
     let url = `UserInterface/user/customServiceChat.ashx`;
     data.sender = JSON.parse(localStorage.userInfo).userId
+    data.groupId = groupId
     return new Promise((resolve, reject) => {
         if(data.msgType == 1){
             axiosInstance.get(url, {params: data}).then(resolve, reject)
@@ -35,7 +56,13 @@ export function saveChatData ( data ) {
 
 // 读取聊天内容
 export function getChatData ( data ) {
+    const currentRoute = router.history.current
+    let groupId = ''
+    if(currentRoute.name == "group"){
+        groupId = currentRoute.params.id
+    }
     data.user = JSON.parse(localStorage.userInfo).userId
+    data.groupId = groupId
     let url = `${BASEURLAPP}/UserInterface/user/getCustomServiceChatList.ashx`;
     return new Promise((resolve, reject) => {
         axiosInstance.get(url, {params: data}).then(resolve, reject)

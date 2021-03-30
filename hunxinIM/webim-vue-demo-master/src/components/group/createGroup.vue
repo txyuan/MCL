@@ -98,4 +98,7 @@ export default{
 };
 </script>
 <style scoped>
+.groPub{
+  margin-top: 15px;
+}
 </style>

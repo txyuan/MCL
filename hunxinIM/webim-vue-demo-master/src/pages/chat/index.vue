@@ -3,9 +3,9 @@
 	width: 100%;
 	overflow: hidden;
 	height: 100%;">
-    <!--<a-layout-header class="layout-header">
-      <div class="header">
-        <span class="setting">
+    <!-- <a-layout-header class="layout-header"> -->
+      <!-- <div class="header"> -->
+        <!-- <span class="setting">
           <a-dropdown>
             <span class="ant-dropdown-link" href="#">
               <a-icon type="setting" />
@@ -23,9 +23,9 @@
               </a-menu-item>
             </a-menu>
           </a-dropdown>
-        </span>
+        </span> -->
 
-        <span class="setting">
+        <!-- <span class="setting">
           <a-dropdown>
             <span class="ant-dropdown-link" href="#">
               <a-icon type="plus-circle" />
@@ -33,7 +33,7 @@
             <a-menu slot="overlay">
               <a-menu-item @click="ulClick('1')">
                 <a href="javascript:;">添加好友</a>
-              </a-menu-item>
+              </a-menu-item> 
               <a-menu-item @click="ulClick('2')">
                 <a href="javascript:;">申请入群</a>
               </a-menu-item>
@@ -42,10 +42,10 @@
               </a-menu-item>
             </a-menu>
           </a-dropdown>
-        </span>
-      </div>
+        </span> -->
+      <!-- </div> -->
 
-      <a-menu
+      <!-- <a-menu
         v-model="current"
         mode="horizontal"
         :defaultSelectedKeys="['contact']"
@@ -67,14 +67,14 @@
           <a-icon type="usergroup-add" class="navMenu-icon" />
           <span class="navMenu-text">聊天室</span>
         </a-menu-item>
-      </a-menu>
-    </a-layout-header>-->
+      </a-menu> -->
+    <!-- </a-layout-header> -->
 
     <a-layout>
       <a-layout-sider
         style="background: #fff"
         :width="broken ? '100%' : 350"
-        breakpoint="lg"
+        breakpoint="xxl"
         collapsedWidth="0"
         :trigger="null"
         v-model="collapsed"
@@ -128,7 +128,7 @@ export default {
       groupRead: false,
       contactRead: false,
       showSettingOptions: false,
-      activeKey: "contact",
+      activeKey: "group",
       selectedItem: "",
       showAddOptions: false,
       addList: [
@@ -280,3 +280,16 @@ export default {
   }
 };
 </script>
+<style scoped>
+.layout-header .header{
+  height: 0;
+  line-height: 0;
+  display: block;
+  position: absolute;
+  right: 0px;
+  top: 16px;
+}
+.layout-header{
+  height: 52px !important;
+}
+</style>

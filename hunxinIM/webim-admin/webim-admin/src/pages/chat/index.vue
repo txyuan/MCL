@@ -9,7 +9,7 @@
           <a-dropdown>
             <span class="ant-dropdown-link" href="#">
               <!--<a-icon type="setting" />-->
-              <span class="username">{{$root.kefuMap[String(this.userName)].userName}}</span>
+              <span class="username">{{$root.kefuMap[String(this.userName)].userName || this.userName}}</span>
             </span>
             <!--<a-menu slot="overlay">
               <a-menu-item @click="recEmedia">
@@ -25,7 +25,7 @@
           </a-dropdown>
         </span>
 
-        <span class="setting">
+        <!-- <span class="setting">
           <a-dropdown>
             <span class="ant-dropdown-link" href="#">
               <a-icon type="plus-circle" />
@@ -34,36 +34,35 @@
               <a-menu-item @click="ulClick('1')">
                 <a href="javascript:;">添加好友</a>
               </a-menu-item>
-              <!--<a-menu-item @click="ulClick('2')">
+              <a-menu-item @click="ulClick('2')">
                 <a href="javascript:;">申请入群</a>
               </a-menu-item>
               <a-menu-item @click="ulClick('3')">
                 <a href="javascript:;">创建群组</a>
-              </a-menu-item>-->
+              </a-menu-item>
             </a-menu>
           </a-dropdown>
-        </span>
+        </span> -->
       </div>
 
       <a-menu
         v-model="current"
         mode="horizontal"
-        :defaultSelectedKeys="['contact']"
+        :defaultSelectedKeys="['group']"
         :style="{ lineHeight: '50px', background: '#434648', color: '#fff', textAlign: 'left'}"
         @click="contactTypeChange"
       >
-        <a-menu-item key="contact">
+        <!-- <a-menu-item key="contact">
           <a-icon type="user" class="navMenu-icon" />
           <span class="navMenu-text">患者</span>
-          <!-- 信息提示 -->
           <div class="tip-style" v-if="getUnread('contact').contact">&nbsp;</div>
-        </a-menu-item>
-        <!--<a-menu-item key="group">
+        </a-menu-item> -->
+        <a-menu-item key="group">
           <a-icon type="team" class="navMenu-icon" />
-          <span class="navMenu-text">群组</span>
+          <span class="navMenu-text">患者</span>
           <div class="tip-style" v-if="getUnread('group').group">&nbsp;</div>
         </a-menu-item>
-        <a-menu-item key="chatroom">
+        <!--<a-menu-item key="chatroom">
           <a-icon type="usergroup-add" class="navMenu-icon" />
           <span class="navMenu-text">聊天室</span>
         </a-menu-item>-->
@@ -82,20 +81,27 @@
         @breakpoint="onBreakpoint"
       >
         <el-input placeholder="搜索" v-model.trim="userListKeyword" style="margin: 15px 0;width: 90%"></el-input>
-        <MessageBox :type="activeKey" :select="select" :filterKeyword="userListKeyword" ref="messageBox" @getInfo="getDoctorInfo"  />
+        <!-- 判断是否后台总管理的的账号，总管理账号需要显示客服列表，患者列表 -->
+        <MessageBoxCompany v-if="userInfo.userId == 'company'" :select="select" :type="activeKey" :filterKeyword="userListKeyword" ref="messageBox" @getInfo="getDoctorInfo" />
+        <MessageBox v-else type="contact" :select="select" :filterKeyword="userListKeyword" ref="messageBox" @getInfo="getDoctorInfo" />
         <!-- <MessageBox v-if="activeKey == 'chatroom'"  type="chatroom" />
         <MessageBox v-if="activeKey == 'group'" type="group" />-->
       </a-layout-sider>
 
       <a-layout-content style="overflow: visible; flex: 1;">
         <Message
-          :type="activeKey"
+          v-if="userInfo.userId == 'company'"
+          type="group"
           :broken="broken"
           :hideUserList="hideUserList"
           :showUserList="showUserList"
           ref="messageList"
         />
-
+        <!-- clics.marryhealthscience.com/login -->
+        <div v-else style="width: 100%; height: 100%">
+          <iframe ref="messageIframe" src="" frameborder="0" style="width: 100%; height: 100%"></iframe>
+        </div>
+        
         <AddFriend ref="addFriendMethods" />
         <GetFriendRequest />
         <FirendBlack ref="firendModel" />
@@ -189,6 +195,7 @@
 <script>
 import Vue from "vue";
 import MessageBox from "../../components/chat/index.vue";
+import MessageBoxCompany from "../../components/chat/indexCompany.vue";
 import Message from "../../components/chat/message.vue";
 import AddFriend from "../../components/addModal/addFriend.vue";
 import GetFriendRequest from "../../components/addModal/getFriendRequest.vue";
@@ -234,7 +241,7 @@ export default {
       groupRead: false,
       contactRead: false,
       showSettingOptions: false,
-      activeKey: "contact",
+      activeKey: "group",
       selectedItem: "",
       showAddOptions: false,
       addList: [
@@ -259,13 +266,14 @@ export default {
         JSON.parse(localStorage.getItem("userInfo")).userId,
       collapsed: false,
       broken: false,
-      current: ["contact"]
+      current: ["group"]
     };
   },
   computed: {
     chatList() {
       return this.$store.state.chat.msgList;
-    }
+    },
+    userInfo: () => localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo")),
   },
   methods: {
     ...mapActions(["onLogout", "onGetFirendBlack"]),
@@ -289,7 +297,12 @@ export default {
       this.$data.collapsed = false;
     },
     select(i) {
-      this.$refs.messageList.select(i);
+      if(this.userInfo.userId == 'company'){
+        this.$refs.messageList.select(i);
+      }else{
+        this.$refs.messageIframe.setAttribute('src', `http://clics.marryhealthscience.com/login?username=${i.parentName}&groupId=${i.groupid}`)
+      }
+      
       if (this.broken) {
         this.$data.collapsed = true;
       }
@@ -480,6 +493,7 @@ export default {
   },
   components: {
     MessageBox,
+    MessageBoxCompany,
     Message,
     AddFriend,
     GetFriendRequest,

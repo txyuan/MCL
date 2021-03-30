@@ -29,6 +29,7 @@
 	import AddAVMemberModal from "../emediaModal/addAVMemberModal";
 	import MultiAVModal from "../emediaModal/multiAVModal";
 	import GetGroupInfo from "../group/groupInfo.vue";
+	import { getUserInfo } from "@/api/app.js"
 
 	export default {
 		data() {
@@ -93,13 +94,17 @@
 				msgList: "onGetCurrentChatObjMsg"
 			}),
 			userList() {
-				let logoSinge=this.$route.query.logoSinge
-				if ((this.type == 'contact') && (this.contact.length >= 1)) {
-					if(logoSinge==1){
-						var item = this.contact[0];
-						this.select2(item, this.getKey(item));
-					}
+				// 患者端：直接进入群组页面
+				if ((this.group.length >= 1) && (localStorage.getItem('logoSinge') == 1)) {
+					var item = this.group[0];
+					this.select2(item, this.getKey(item));
 				}
+				// 管理系统端：直接进入聊天页面
+				if ((this.group.length >= 1) && (localStorage.getItem('groupId'))) {
+					const list = this.group.filter(item => item.groupid == localStorage.getItem('groupId'))
+					this.select2(list[0], this.getKey(list[0]));
+				}
+
 				return {
 					contact: this.contact.filter(item => {
 						this.$set(item, 'meum', this.getUnreadNum(item))
@@ -107,7 +112,12 @@
 							return item;
 						}
 					}),
-					group: this.group,
+					group: this.group.filter(item => {
+						this.$set(item, 'meum', this.getUnreadNum(item))
+						if (item && !this.blackList.includes(item.name)) {
+							return item;
+						}
+					}),
 					chatroom: this.chatroom
 				};
 			},
