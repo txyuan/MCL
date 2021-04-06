@@ -31,20 +31,20 @@
 			</div>
 			<div class="home_follow">
 				<p @click="myinform">
-					<img src="../../assets/images/xiaoxi.png" />
+					<img src="../../assets/images/mynew.png" />
 					<span>我的消息</span>
 					<label></label>
 				</p>
 				<p>
 					<router-link to="/groupManage">
-						<img src="@/assets/images/fenzuguanli@2x.png" />
+						<img src="@/assets/images/fenzuguanli.png" />
 						<span>分组管理</span>
 						<label></label>
 					</router-link>
 				</p>
 				<p class="poton">
 					<router-link to="/appointment">
-						<img src="@/assets/images/gongju.png" />
+						<img src="@/assets/images/fuzhenyuyue.png" />
 						<span>复诊预约</span>
 						<label></label>
 						<i v-if="ishsow"></i>
@@ -59,7 +59,9 @@
 				<ul>
 					<li v-for="(items,i) in item.clists" :key="i">
 						<router-link :to="'/chatCenter?skey='+items.patientskey">
-							<img :src="items.imgurl" />
+							<div class="home_img">
+                <img :src="items.imgurl" />
+              </div>
 							<div class="home_li">
 								<span>
 									<i>{{items.patientname}}</i>
@@ -312,13 +314,12 @@ export default {
 			}
 		}
 		.home_follow {
-			width: 84%;
-			margin: 0 auto;
+			width: 88%;
+			margin: 0.1rem auto;
 			border-radius: 8px;
 			overflow: hidden;
-			padding: 0.12rem 5% 0.06rem 5%;
+			padding: 0.13rem 3% 0.13rem 3%;
 			box-shadow: 4px 2px 10px #ddd;
-			margin-top: 0.1rem;
 			background: #fff;
 			p {
 				width: 33.33%;
@@ -327,7 +328,7 @@ export default {
 				position: relative;
 
 				img {
-					width: 0.28rem;
+					width: 0.325rem;
 					display: block;
 					position: absolute;
 					left: 50%;
@@ -335,11 +336,11 @@ export default {
 				}
 
 				span {
-					line-height: 0.4rem;
-					font-size: 0.15rem;
+					line-height: 0.3rem;
+					font-size: 0.145rem;
 					color: #333535;
 					display: block;
-					margin-top: 0.34rem;
+					margin-top: 0.325rem;
 				}
 
 				label {
@@ -377,7 +378,7 @@ export default {
 
 	.home_ul {
 		background: #fff;
-		padding: 0 2%;
+		/*padding: 0 2%;*/
 		margin-top: 0.1rem;
 		.home_list {
 			border-top: 1px solid #DFE6E7;
@@ -406,22 +407,31 @@ export default {
 
 		ul {
 			li {
-				height: 0.68rem;
-				border-bottom: 1px solid #DFE6E7;
-
-				img {
-					display: block;
-					float: left;
-					width: 0.52rem;
-					height: 0.52rem;
-					border-radius: 50%;
-					margin-left: 0.1rem;
-					margin-top: 0.07rem;
-				}
-
+				/*height: 0.68rem;*/
+				/*border-bottom: 1px solid #DFE6E7;*/
+        padding: 0.08rem 0;
+        position: relative;
+        >a{
+          display: flex;
+          align-items: center!important;
+        }
+        .home_img{
+          width: 0.38rem;
+          height: 0.38rem;
+          border-radius: 50%;
+          margin-left: 0.1rem;
+          margin-top: 0.07rem;
+          border: 1px solid #d8f3f4;
+          background-color:#eeffff;
+          img {
+            display: block;
+            width:100%;
+            height: 100%;
+            border-radius: 50%;
+          }
+        }
 				.home_li {
 					width: 76%;
-					float: left;
 					margin-left: 3%;
 					margin-top: 0.07rem;
 
@@ -457,6 +467,16 @@ export default {
 					border-bottom: none;
 				}
 			}
+      li::after{
+        background-color: #000;
+        content: " ";
+        opacity: 0.1;
+        right: 0;
+        top: 0;
+        left: 0.1rem;
+        height: 1px;
+        position: absolute;
+      } 
 		}
 	}
 </style>
