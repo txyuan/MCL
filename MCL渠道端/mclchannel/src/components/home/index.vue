@@ -9,7 +9,7 @@
 							<img src="../../assets/images/home_logo.png" alt="" class="logo" />
 						</div>
 						<div class="search_wrap">
-							<img src="../../assets/images/sousuo@2x.png" alt="" />
+							<img src="../../assets/images/sousuo_bs@2x.png" alt="" />
 							<input type="search" placeholder="搜索商品名称" />
 						</div>
 					</div>
@@ -47,8 +47,8 @@
 				<!-- 消息 -->
 				<div class="home_inform">
 					<router-link to="/newsList">
-						<img src="../../assets/images/jintt.png" />
-						<ul v-if="newList.length==1" style="padding-top: 0.14rem;">
+						<img src="../../assets/images/tongzhi@3x.png" />
+						<ul v-if="newList.length==1" style="padding-top: 0.16rem;">
 							<li v-for="(item, index) in newList" :key="index">
 								<span></span>
 								<p>{{item.remarks}}</p>
@@ -472,45 +472,43 @@ export default {
 		margin-top: 0.1rem;
 
 		img {
-			height: 0.36rem;
-			float: left;
-			margin-top: 0.18rem;
+      height: 0.2rem;
+      float: left;
+      margin-top: 0.15rem;
 		}
 
 		ul {
-			width: 76%;
+			width: 80%;
 			float: left;
-			margin-left: 0.2rem;
-
+			margin-left: 0.05rem;
 			li {
-				margin-top: 0.12rem;
+        line-height: 0.2rem;
 				overflow: hidden;
-
-				span {
-					display: block;
-					width: 8px;
-					height: 8px;
-					background: #000;
-					float: left;
-					border-radius: 4px;
-					margin-top: 0.06rem;
-				}
+				/*span {*/
+				/*	display: block;*/
+				/*	width: 8px;*/
+				/*	height: 8px;*/
+				/*	background: #000;*/
+				/*	float: left;*/
+				/*	border-radius: 4px;*/
+				/*	margin-top: 0.06rem;*/
+				/*}*/
 
 				p {
 					width: 48%;
-					font-size: 0.13rem;
-					color: #333;
+					font-size: 0.145rem;
+					color: #404040;
 					float: left;
 					text-overflow: ellipsis;
 					overflow: hidden;
 					white-space: nowrap;
-					margin-left: 0.14rem;
+					margin-left: 0.1rem;
 				}
 
 				label {
 					display: block;
 					font-size: 0.13rem;
-					color: #636768;
+					color: #787878;
 					float: right;
 					// margin-left: 0.12rem;
 				}
@@ -525,9 +523,10 @@ export default {
 
 		.mmy_ded {
 			overflow: hidden;
-
+      padding-left: 0.05rem;
+      margin: 0.05rem auto;
 			span {
-				height: 0.22rem;
+				height: 0.15rem;
 				display: block;
 				width: 0.04rem;
 				border-radius: 0.02rem;
@@ -537,17 +536,17 @@ export default {
 
 			p {
 				float: left;
-				margin-left: 0.18rem;
+				margin-left: 0.1rem;
 				font-size: 0.15rem;
 				color: #333;
-				line-height: 0.22rem;
+				line-height: 0.16rem;
 			}
 
 			label {
 				font-size: 0.12rem;
-				color: #636768;
+				color: #999;
 				display: block;
-				line-height: 0.22rem;
+				line-height: 0.15rem;
 				margin-right: 0.1rem;
 				float: right;
 				background: url(../../assets/images/jixu@2x.png) no-repeat right center;
@@ -596,7 +595,7 @@ export default {
 
 				p {
 					color: #636768;
-					font-size: 0.12rem;
+					font-size: 0.13rem;
 					padding-top: 0.08rem;
 				}
 			}
@@ -610,6 +609,7 @@ export default {
 
 		.home_my .home_li span {
 			color: #FF9000;
+      font-size: 0.175rem;
 		}
 	}
 
@@ -620,6 +620,7 @@ export default {
 
 		.home_my .home_li span {
 			color: #58AD9D;
+      font-size: 0.175rem;
 		}
 	}
 
@@ -702,21 +703,25 @@ export default {
 			align-items: center;
 			height: 30px;
 			padding: 0 0.08rem;
-			background: #80D0F5;
+			background: rgba(0,0,0,0.1);
 			border-radius: 15px;
 			overflow: hidden;
 
 			img {
-				width: 0.2rem;
-				height: 0.2rem;
-				margin-right: 0.08rem
+				width: 0.16rem;
+				height: 0.16rem;
+				margin-right: 0.08rem;
+        margin-left: 0.08rem;
 			}
 
 			input {
 				flex: 1;
 				border: 0;
-				color: #666;
+				color: #f0f0f0;
 			}
+      input::-webkit-input-placeholder {
+        color: #f0f0f0;
+      }
 		}
 	}
 

@@ -493,7 +493,7 @@ export default {
         left: 0.1rem;
         height: 1px;
         position: absolute;
-      } 
+      }
 		}
 	}
 </style>
