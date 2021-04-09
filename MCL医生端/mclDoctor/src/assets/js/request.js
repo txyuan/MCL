@@ -1,14 +1,16 @@
 import axios from 'axios';
 import Qs from 'qs'
 import router from '@/router/index.js' //路由
-import { BASEURL as baseURL } from '@/configURL.js'
+import { BASEURL } from '@/configURL.js'
+import {logout} from '@/assets/js/user.js' // 退出登录
 // axios.defaults.timeout = 5000;
 
-//开发模式
-if(process.env.NODE_ENV=="development"){
-  // baseURL = 'http://mcluser.kaopudian.cn'; 
+// 开发模式
+if (process.env.NODE_ENV == 'development') {
+  axios.defaults.baseURL = BASEURL
+}else{
+  axios.defaults.baseURL = '/'
 }
-axios.defaults.baseURL = baseURL;
 
 //http request 拦截器
 axios.interceptors.request.use(
@@ -59,10 +61,7 @@ axios.interceptors.response.use(
     if((response.data.rspcode == 999) || (response.data.rspCode == 999)){
       localStorage.clear();
       if(router.currentRoute.path != "/login"){
-        router.push({
-          path:"/login",
-          query:{redirect: router.currentRoute.fullPath}//从哪个页面跳转
-        });
+        logout()
       }
     }
     return response;

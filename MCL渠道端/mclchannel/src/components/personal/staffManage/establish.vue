@@ -67,7 +67,7 @@ export default {
       let values = ['推广员', '发货员']
       let valuess = ['推广员']
       const userInfo = JSON.parse(localStorage.userInfo)
-      if (userInfo.UserType == '8') {
+      if (userInfo.userType == '8') {
         this.sexSlots[0].values = valuess
       } else {
         this.sexSlots[0].values = values

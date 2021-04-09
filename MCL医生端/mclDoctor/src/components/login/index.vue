@@ -79,7 +79,8 @@ export default {
           // 存登录信息
           localStorage.userInfo = JSON.stringify({
             UserKey: data.data.userKey,
-            SessionId: data.data.sessionId
+            SessionId: data.data.sessionId,
+			userType: data.data.userType
           })
           this.$Toast('登录成功')
           if (this.$route.query.redirect) {

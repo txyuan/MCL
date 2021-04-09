@@ -52,7 +52,7 @@
         </div>
         </div>
 
-        <div class="val_btm" v-if="info.status == '待审核'">
+        <div class="val_btm" v-if="(info.status == '待审核') && (userInfo.userType == 5)">
           <!-- <div class="d-flex">
             <div class="czButton">
             <mt-button type="primary" class="theme-button button-radio " size="large">取消审核
@@ -87,6 +87,9 @@ export default {
   data: () => ({
     info: {}
   }),
+  computed: {
+    userInfo: () => JSON.parse(localStorage.getItem('userInfo'))
+  },
   methods: {
     getInfo () {
       let url = 'UserInterface/channel/SelectDoctorInfo.ashx'

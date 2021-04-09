@@ -11,11 +11,13 @@ const KFCONFIG = {
 }
 
 // 接口地址
- const BASEURL = 'http://clidoc.marryhealthscience.com'
+ const BASEURL = 'http://cli.marryhealthscience.com'
 // const BASEURL = 'http://123.57.89.89:6333'
+const PATIENTURL = 'http://cli.marryhealthscience.com/patient/index.html' // 患者端域名
 
 export {
   KFURL,
   KFCONFIG,
-  BASEURL
+  BASEURL,
+  PATIENTURL
 }

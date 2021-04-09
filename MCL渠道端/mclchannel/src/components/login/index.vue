@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import {getUserType} from '@/assets/js/user.js'
 import logoImg from '@/assets/images/mclogo.png'
 export default {
   name: 'index',
@@ -78,7 +77,7 @@ export default {
           localStorage.userInfo = JSON.stringify({
             UserKey: data.data.userKey,
             SessionId: data.data.sessionId,
-            UserType: data.data.userType
+            userType: data.data.userType
           })
           this.$Toast('登录成功')
           if (this.$route.query.redirect) {

@@ -4,18 +4,12 @@ import { DOCTORURL, CHANNELURL} from '@/configURL.js'
 // 退出登录
 export function logout(){
     localStorage.removeItem('userInfo')
-    // 开发模式
-    if (process.env.NODE_ENV == 'development') {
-        router.replace({
-            path: '/login',
-            query: {
-                redirect: router.currentRoute.name == 'login' ? '/': router.currentRoute.fullPath // 从哪个页面跳转
-            }
-        })
-    // 正式环境 跳转到患者的登录页面    
-    } else {
-        location.replace(`${PATIENTURL}#login?redirect=${router.currentRoute.name == 'login' ? '/': router.currentRoute.fullPath}`)
-    }
+    router.replace({
+        path: '/login',
+        query: {
+            redirect: router.currentRoute.name == 'login' ? '/': router.currentRoute.fullPath // 从哪个页面跳转
+        }
+    })
 }
 
 // 获取用户类型

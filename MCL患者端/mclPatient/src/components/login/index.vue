@@ -85,7 +85,7 @@ export default {
           const PatientDistinguish = data.data.PatientDistinguish // 是否录入基本信息0：未录入，1：已录入
           // 0：未录入 2：线上
           if ((PatientDistinguish == 2) && (userinfoflag == 0)) {
-            this.$router.push('/wellcome')
+            this.$router.replace('/wellcome')
             return
           };
           if (redirect) {
@@ -93,10 +93,10 @@ export default {
             if (redirect == '/eyeconme') {
               this.$router.replace('/wellcome?redirect=/eyeconme')
             } else {
-              this.$router.replace(userType == 'patient' ? redirect : '/')
+              this.$router.replace('/')
             }
           } else {
-            this.$router.push('/wx_Entrance/home')
+            this.$router.replace('/wx_Entrance/home')
           }
 		// 渠道端
         } else if (getUserType() == 'channel') {
@@ -104,7 +104,7 @@ export default {
 				if (redirect) {
 					location.replace(`${CHANNELURL}#${redirect}`)
 				} else {
-					location.href = `${CHANNELURL}#/wx_Entrance/home`
+					location.replace(`${CHANNELURL}#/wx_Entrance/home`)
 				}
 			},2000)
 			
@@ -114,7 +114,7 @@ export default {
 				if (redirect) {
             		location.replace(`${DOCTORURL}#${redirect}`)
 				} else {
-					location.href = `${DOCTORURL}#/wx_Entrance/home`
+					location.replace(`${DOCTORURL}#/wx_Entrance/home`)
 				}
 			},2000)
 		}

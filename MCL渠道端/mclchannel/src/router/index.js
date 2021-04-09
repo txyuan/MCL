@@ -130,6 +130,7 @@ const router = new Router({
 	 { path:"/customerfer", name:"customerfer", component: customerfer },
 	 { path:"/staticMonth", name:"staticMonth", component: staticMonth },
 	 { path:"/monthDetail", name:"monthDetail", component: monthDetail },
+   { path: '*', redirect: "/"}  // 404页面重定向
   ],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
@@ -146,13 +147,13 @@ const whiteRouteList = [ 'login', 'changePass', 'termsService', 'noticeClause', 
 router.beforeEach((to, from, next) => {
   // 不在白名单内，没有登录信息的情况跳转登录页面
   if ((whiteRouteList.indexOf(to.name) == -1) && !localStorage.userInfo) {
-    logout()
+    logout(to.fullPath)
     return
   }
  
   // 已经登录，用户不是渠道端。（跳转到系统首页）
   if ((localStorage.userInfo) && (getUserType() != 'channel')) {
-    logout()
+    logout(to.fullPath)
     return
   }
   

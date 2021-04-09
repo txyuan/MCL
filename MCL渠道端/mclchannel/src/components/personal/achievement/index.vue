@@ -124,7 +124,7 @@
 			//员工或渠道经理账号权限：不分佣金类型
 			if (localStorage.userInfo) {
 				const UserInfo = JSON.parse(localStorage.userInfo);
-				const UserType = UserInfo.UserType; //6  推广员工   7 发货员工  8  渠道经理 
+				const UserType = UserInfo.userType; //6  推广员工   7 发货员工  8  渠道经理 
 				if (UserType == "6" || UserType == "7" || UserType == "8") {
 					this.isShowBar = false;
 					this.param.direction = "";

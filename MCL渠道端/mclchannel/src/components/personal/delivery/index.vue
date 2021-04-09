@@ -179,7 +179,7 @@ export default {
     // 是否可发货
     isshopfh () {
       const userInfo = JSON.parse(localStorage.userInfo)
-      if ((userInfo.UserType == '5') || (userInfo.UserType == '7')) {
+      if ((userInfo.userType == '5') || (userInfo.userType == '7')) {
         this.btnfh = true
       } else {
         this.btnfh = false

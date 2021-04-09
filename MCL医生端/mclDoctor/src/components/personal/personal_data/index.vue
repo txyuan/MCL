@@ -3,7 +3,7 @@
 		<mt-header fixed title="个人资料">
 			<div slot="left">
 				<header-back>
-					<mt-button icon="back"></mt-button>
+					<mt-button icon="back" @click.native="$route.push('/wx_Entrance/personal')"></mt-button>
 				</header-back>
 			</div>
 		</mt-header>
@@ -101,6 +101,7 @@
 </template>
 
 <script>
+import { logout } from '@/assets/js/user.js'
 import axios from 'axios'
 export default {
   name: 'index',
@@ -266,8 +267,7 @@ export default {
     },
     // 退出登录
     signOut () {
-      localStorage.clear()
-      this.$router.push('/login')
+      logout()
     }
   },
   // created(){

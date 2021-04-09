@@ -2,9 +2,7 @@
 	<div class="person_data_root">
 		<mt-header title="个人资料">
 			<div slot="left">
-				<header-back>
-					<mt-button icon="back"></mt-button>
-				</header-back>
+				<mt-button icon="back" @click.native="$route.push('/wx_Entrance/personal')"></mt-button>
 			</div>
 		</mt-header>
 

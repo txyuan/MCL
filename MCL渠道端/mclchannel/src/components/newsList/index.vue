@@ -74,6 +74,7 @@ export default {
         this.$Toast('该医生未完善资料')
         return
       }
+
       this.$router.push(`/newsDetail?userskey=${item.userskey}&sKey=${item.sKey}&title=${item.title}`)
     }
   },

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { getUserType, goHome, logout } from '@/assets/js/user.js' //用户类型
 
 //导入页面
 const wx_Entrance = () => import(/* webpackChunkName: "wx_Entrance" */ '@/components/wxEntrance/index.vue')
@@ -67,20 +68,20 @@ const appdetails = () => import(/* webpackChunkName: "appdetails" */ '@/componen
 Vue.use(Router)
 
 const router = new Router({
-  routes: [
-	{ path:"/", redirect: "/wx_Entrance/home"},
-    { path:"/wxFollowPage", name:"wxFollowPage", component: wxFollowPage },  //关注微信的二维码页面
-    { path:"/login", name:"login", component: login },
-    { path:"/wx_Entrance", name:"wx_Entrance", component: wx_Entrance,
-      children:[
-        { path:"home", name:"home", component: home, meta:{keepAlive: true}},
-				{ path:"share", name:"share", component: share},
-        { path:"dynamic", name:"dynamic", component: dynamic },
-        { path:"news", name:"news", component: news },
-				{ path:"personal", name:"personal", component: personal }
-      ]
-    },
-	  { path:"/share", name:"share", component: share },  
+  	routes: [
+		{ path:"/", redirect: "/wx_Entrance/home"},
+		{ path:"/wxFollowPage", name:"wxFollowPage", component: wxFollowPage },  //关注微信的二维码页面
+		{ path:"/login", name:"login", component: login },
+		{ path:"/wx_Entrance", name:"wx_Entrance", component: wx_Entrance,
+		children:[
+			{ path:"home", name:"home", component: home, meta:{keepAlive: true}},
+					{ path:"share", name:"share", component: share},
+			{ path:"dynamic", name:"dynamic", component: dynamic },
+			{ path:"news", name:"news", component: news },
+					{ path:"personal", name:"personal", component: personal }
+		]
+		},
+		{ path:"/share", name:"share", component: share },  
 		{ path:"/termsService", name:"termsService", component: termsService},
 		{ path:"/chatSet", name:"chatSet", component: chatSet},
 		{ path:"/chatCenter", name:"chatCenter", component: chatCenter},
@@ -103,7 +104,7 @@ const router = new Router({
 		{ path:"/myAchieve", name:"myAchieve", component: myAchieve },
 		{ path:"/achieves", name:"achieves", component: achieves },
 		{ path:"/packService", name:"packService", component: packService },
-//		{ path:"/inviteFriends", name:"inviteFriends", component: inviteFriends },
+	//		{ path:"/inviteFriends", name:"inviteFriends", component: inviteFriends },
 		{ path:"/capitalRecord", name:"capitalRecord", component: capitalRecord },
 		{ path:"/addbcard", name:"addbcard", component: addbcard },
 		{ path:"/bankCard", name:"bankCard", component: bankCard },
@@ -130,29 +131,39 @@ const router = new Router({
 		{ path:"/physicians", name:"physicians", component: physicians},
 		{ path:"/appointment", name:"appointment", component: appointment},
 		{ path:"/appdetails", name:"appdetails", component: appdetails},
-	],
+		{ path: '*', redirect: "/"}  // 404页面重定向
+  	],
 	scrollBehavior (to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
-    } else {
-      return { x: 0, y: 0 }
-    }
+		if (savedPosition) {
+			return savedPosition
+		} else {
+			return { x: 0, y: 0 }
+		}
 	}
 })
 
-router.beforeEach((to, from, next) => {
-  //免登陆设置
-  //localStorage.userInfo  登录信息
-//if( (to.path == "/login") && (from.path == "/") && localStorage.userInfo){
-//  next({path:'/wx_Entrance/home',replace:true})
-//  return
-//}
+// 白名单（不需要验证登录信息）
+const whiteRouteList = [ 'login', 'changePass', 'termsService', 'noticeClause', 'wxFollowPage', 'share', 'personalshare', 'physician', 'physician1', 'physician2', 'physician3', 'physician4' ]
 
-//	if(to.path != "/notice"){
-//	next({path:"/notice",replace:true}) //
-//}else{
-  	next()
-//}
+router.beforeEach((to, from, next) => {
+  // 不在白名单内，没有登录信息的情况跳转登录页面
+  if ((whiteRouteList.indexOf(to.name) == -1) && !localStorage.userInfo) {
+    logout(to.fullPath)
+    return
+  }
+ 
+  // 已经登录，用户不是渠道端。（跳转到系统首页）
+  if ((localStorage.userInfo) && (getUserType() != 'doctor')) {
+    logout(to.fullPath)
+    return
+  }
+  
+  // 已经登录，不能再进入登录页面（跳转到系统首页）
+  if ((localStorage.userInfo) && (to.name == 'login')) {
+    goHome()
+    return
+  }
+  next()
 })
 
 export default router

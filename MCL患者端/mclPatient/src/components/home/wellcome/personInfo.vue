@@ -9,16 +9,16 @@
     </mt-header>
     <!-- <div class="tip">请保证录入信息真实有效</div>-->
     <div class="splitLine base">
-      <mt-field label="姓名" placeholder="请输入姓名" class="borderBottom" v-model.trim="param.name"></mt-field>
-      <mt-cell title="性别" is-link @click.native="sexPickerToggle('show')" class="borderBottom">
+      <mt-field label="姓名" placeholder="请输入姓名" class="borderBottom required" v-model.trim="param.name"></mt-field>
+      <mt-cell title="性别" is-link @click.native="sexPickerToggle('show')" class="borderBottom required">
         <span v-if="param.sex == '男'">男</span>
         <span v-if="param.sex == '女'">女</span>
       </mt-cell>
-      <mt-cell title="出生日期" is-link @click.native="openTimePicker('param.birth')" class="borderBottom">
+      <mt-cell title="出生日期" is-link @click.native="openTimePicker('param.birth')" class="borderBottom required">
         <span>{{param.birth || '请选择出生日期'}}</span>
       </mt-cell>
 
-      <mt-cell is-link class="borderBottom sportEvaluation-wrap" @click.native="openCityPicker">
+      <mt-cell is-link class="borderBottom sportEvaluation-wrap required" @click.native="openCityPicker">
         <div slot="title" class="titleWrap">
           <span class="mint-cell-text">您所在地区</span>
         </div>
@@ -26,17 +26,17 @@
           {{param.location|| '请选择您所在地区'}}
         </div>
       </mt-cell>
-      <mt-field label="身高" placeholder="请输入身高" class="borderBottom" v-model.trim="param.height"
+      <mt-field label="身高" placeholder="请输入身高" class="borderBottom required" v-model.trim="param.height"
                 @change="doBMI">&nbsp;cm
       </mt-field>
-      <mt-field label="体重" placeholder="请输入体重" class="borderBottom" v-model.trim="param.weight"
+      <mt-field label="体重" placeholder="请输入体重" class="borderBottom required" v-model.trim="param.weight"
                 @change="doBMI">&nbsp;kg
       </mt-field>
-      <mt-field label="BMI" placeholder="BMI" class="borderBottom" :readonly="true" v-model.trim="param.bmi"></mt-field>
+      <mt-field label="BMI" placeholder="BMI" class="borderBottom required" :readonly="true" v-model.trim="param.bmi"></mt-field>
     </div>
 
     <div class="splitLine base">
-      <mt-cell is-link class="sportEvaluation-wrap borderBottom" @click.native="$route.query.type === 'look' ? $Toast('不能修改管理类型') : sportPickerToggles('show')">
+      <mt-cell is-link class="sportEvaluation-wrap borderBottom required" @click.native="$route.query.type === 'look' ? $Toast('不能修改管理类型') : sportPickerToggles('show')">
         <div slot="title" class="titleWrap">
           <span class="mint-cell-text">管理类型</span>
         </div>
@@ -323,14 +323,14 @@ export default {
         this.$Toast('请输入体重')
         return false
       }
-      if (param.location == '') {
-        this.$Toast('请选择您所在地区')
-        return false
-      }
-      if (param.birth == '') {
-        this.$Toast('请选择出生日期')
-        return false
-      }
+      // if (param.location == '') {
+      //   this.$Toast('请选择您所在地区')
+      //   return false
+      // }
+      // if (param.birth == '') {
+      //   this.$Toast('请选择出生日期')
+      //   return false
+      // }
       // 验证管理类型的三个tab（体重管理，健康管理，肿瘤管理）
       const { weightTab, healthTab, zlTab } = this.$refs
       const diseasetype = this.param.diseasetype
@@ -441,7 +441,7 @@ export default {
 
 <style scoped lang="scss">
   .base.splitLine >>> {
-    .mint-cell-text::after{
+    .required .mint-cell-text::after{
       content: "*";
       color: red;
       margin-top: 6px;

@@ -2,9 +2,7 @@
     <div class="person_data_root">
         <mt-header title="个人资料">
           <div slot="left">
-            <header-back>
-                <mt-button icon="back"></mt-button>
-            </header-back>
+            <mt-button icon="back" @click.native="$route.push('/wx_Entrance/personal')"></mt-button>
           </div>
         </mt-header>
 
@@ -118,7 +116,7 @@
               let model = data.data;
               if(localStorage.userInfo){
                 const userInfo = JSON.parse( localStorage.userInfo);
-                model.userType = this.$root.getUserType(userInfo.UserType);
+                model.userType = this.$root.getUserType(userInfo.userType);
               }
               this.repData = model;
               const {sexPicker} = this.$refs;
