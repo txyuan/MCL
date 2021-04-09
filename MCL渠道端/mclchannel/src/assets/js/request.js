@@ -1,16 +1,17 @@
 import axios from 'axios'
 import Qs from 'qs'
 import router from '@/router/index.js' // 路由
+import {logout} from '@/assets/js/user.js' // 退出登录
+import {BASEURL} from '@/configURL.js' // 退出登录
 
 // axios.defaults.timeout = 5000;
 
-let baseURL = '/'
 // 开发模式
 if (process.env.NODE_ENV == 'development') {
-//  baseURL = 'http://123.57.89.89:6333'
-  baseURL = 'http://clicha.marryhealthscience.com' // 'http://192.168.1.134:38899/'https://webapp.jtsc.club/http://39.98.89.216/
+  axios.defaults.baseURL = BASEURL
+}else{
+  axios.defaults.baseURL = '/'
 }
-axios.defaults.baseURL = baseURL
 
 // http request 拦截器
 axios.interceptors.request.use(
@@ -58,12 +59,8 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   response => {
     if ((response.data.rspcode == 999) || (response.data.rspCode == 999)) {
-      localStorage.clear()
       if (router.currentRoute.path != '/login') {
-        router.push({
-          path: '/login',
-          query: {redirect: router.currentRoute.fullPath}// 从哪个页面跳转
-        })
+        logout()
       }
     }
     return response

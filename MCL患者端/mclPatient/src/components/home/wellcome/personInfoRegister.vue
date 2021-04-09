@@ -257,6 +257,7 @@ export default {
         } 
         this.$post(url, param).then((data) => {
           if (data.rspcode != 1) {
+            this.$Toast(data.rspdesc)
             return
           }
           this.$Toast('保存成功')
@@ -333,6 +334,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  .splitLine >>> {
+    .mint-cell-text::after{
+      content: "*";
+      color: red;
+      margin-top: 6px;
+      margin-left: 2px;
+      height: 9px;
+      display: inline-block;
+    }
+  }
   .personInfo_root{
     background-color: #f1f1f1;
     padding-top: 0.44rem;

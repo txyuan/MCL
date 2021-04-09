@@ -30,7 +30,8 @@
 </template>
 
 <script>
-
+import { DOCTORURL, CHANNELURL } from '@/configURL.js'
+import { getUserType } from '@/assets/js/uesr.js' //用户类型
 import logoImg from '@/assets/images/mclogo.png'
 export default {
   name: 'index',
@@ -59,12 +60,7 @@ export default {
         this.$Toast('请输入验证码')
         return
       }
-      //             if(!this.agrn){
-      //               this.$Toast('请勾选阅读并同意金拓条款须知');
-      //               return;
-      //             }
       let url = 'UserInterface/UserLogin.ashx'
-
       let param = {
         'userphone': this.phone,
         'userpassword': this.code,
@@ -75,14 +71,16 @@ export default {
           this.$Toast('登录失败请检查账号密码')
           return
         }
-        if ((data.data.userType == 1) || (data.data.userType == 2) || (data.data.userType == 3)) {
-          // 存登录信息
-          localStorage.userInfo = JSON.stringify({
-            UserKey: data.data.userKey,
-            SessionId: data.data.sessionId,
-            userType: data.data.userType
-          })
-          this.$Toast('登录成功')
+		// 存登录信息
+		localStorage.userInfo = JSON.stringify({
+			UserKey: data.data.userKey,
+			SessionId: data.data.sessionId,
+			userType: data.data.userType
+		})
+		this.$Toast('登录成功')
+		const redirect = this.$route.query.redirect
+		// 患者端
+        if (getUserType() == 'patient') {
           const userinfoflag = data.data.userinfoflag // 1:线下，2：线上
           const PatientDistinguish = data.data.PatientDistinguish // 是否录入基本信息0：未录入，1：已录入
           // 0：未录入 2：线上
@@ -90,27 +88,40 @@ export default {
             this.$router.push('/wellcome')
             return
           };
-          const redirect = this.$route.query.redirect
           if (redirect) {
             // 报告查询页面
             if (redirect == '/eyeconme') {
               this.$router.replace('/wellcome?redirect=/eyeconme')
             } else {
-              this.$router.replace(redirect)
+              this.$router.replace(userType == 'patient' ? redirect : '/')
             }
           } else {
             this.$router.push('/wx_Entrance/home')
           }
-        } else {
-          this.$Toast('该账号权限不匹配')
-        }
+		// 渠道端
+        } else if (getUserType() == 'channel') {
+			setTimeout(() => {
+				if (redirect) {
+					location.replace(`${CHANNELURL}#${redirect}`)
+				} else {
+					location.href = `${CHANNELURL}#/wx_Entrance/home`
+				}
+			},2000)
+			
+		// 医生端	
+        } else if(getUserType() == 'doctor'){
+			setTimeout(() => {
+				if (redirect) {
+            		location.replace(`${DOCTORURL}#${redirect}`)
+				} else {
+					location.href = `${DOCTORURL}#/wx_Entrance/home`
+				}
+			},2000)
+		}
       })
     }
   },
   created: function () {
-    if (localStorage.userInfo) {
-      this.$router.push('/')
-    }
   },
   mounted: function () {
 

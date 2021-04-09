@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import {getUserType} from '@/assets/js/user.js'
 import logoImg from '@/assets/images/mclogo.png'
 export default {
   name: 'index',

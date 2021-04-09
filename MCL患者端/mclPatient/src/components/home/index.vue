@@ -225,7 +225,6 @@ export default {
     doctorName: false, // 是否有主治医生
     isShowCode: false,
     UserKey: '',
-    SessionId: '',
     messageInfo: {
       Time: '',
       PatientName: '',
@@ -555,8 +554,8 @@ export default {
 		this.messageNumber=base
 	  }
 	  window.addEventListener('message',e=>{
-		  if(e.data>=1){
-			  this.messageNumber=Number(e.data)+base
+		  if(e.data.meum>=1 && (e.data.type == 'add')){
+			  this.messageNumber=Number(e.data.meum)+base
 			  localStorage.mesnum=this.messageNumber
 		  }
 	  },false)
@@ -575,9 +574,6 @@ export default {
   created () {
     if (localStorage.userInfo) {
       this.UserKey = JSON.parse(localStorage.userInfo).UserKey
-      this.SessionId = JSON.parse(localStorage.userInfo).SessionId
-    } else {
-      this.$router.push('/login')
     }
     // this.information();
     // 获取token

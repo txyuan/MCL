@@ -425,12 +425,6 @@ export default {
     cityPicker: () => import(/* webpackChunkName: "cityData" */ '../common/cityPicker.vue')
   },
   created () {
-    // 			if(localStorage.userInfo){
-    // 				this.UserKey=JSON.parse( localStorage.userInfo).UserKey;
-    // 				this.SessionId=JSON.parse( localStorage.userInfo).SessionId;
-    // 			}else{
-    // 				this.$router.push('/login');
-    // 			}
     // this.information();
   }
 }

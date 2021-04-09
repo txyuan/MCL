@@ -109,9 +109,9 @@
 
           },
           //关闭
-          closere(){
-            this.$router.push('/login');
-          },
+          // closere(){
+          //   this.$router.push('/login');
+          // },
           agre(){
             this.agrn=!this.agrn;
           },

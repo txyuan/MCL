@@ -8,7 +8,7 @@
       </div>
     </mt-header>
     <!-- <div class="tip">请保证录入信息真实有效</div>-->
-    <div class="splitLine">
+    <div class="splitLine base">
       <mt-field label="姓名" placeholder="请输入姓名" class="borderBottom" v-model.trim="param.name"></mt-field>
       <mt-cell title="性别" is-link @click.native="sexPickerToggle('show')" class="borderBottom">
         <span v-if="param.sex == '男'">男</span>
@@ -35,7 +35,7 @@
       <mt-field label="BMI" placeholder="BMI" class="borderBottom" :readonly="true" v-model.trim="param.bmi"></mt-field>
     </div>
 
-    <div class="splitLine">
+    <div class="splitLine base">
       <mt-cell is-link class="sportEvaluation-wrap borderBottom" @click.native="$route.query.type === 'look' ? $Toast('不能修改管理类型') : sportPickerToggles('show')">
         <div slot="title" class="titleWrap">
           <span class="mint-cell-text">管理类型</span>
@@ -299,6 +299,7 @@ export default {
         }
         this.$post(url, param).then((data) => {
           if (data.rspcode != 1) {
+            this.$Toast(data.rspdesc)
             return
           }
           this.$Toast('保存成功')
@@ -439,6 +440,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  .base.splitLine >>> {
+    .mint-cell-text::after{
+      content: "*";
+      color: red;
+      margin-top: 6px;
+      margin-left: 2px;
+      height: 9px;
+      display: inline-block;
+    }
+  }
   .personInfo_root{
     background-color: #f1f1f1;
     padding-top: 0.44rem;

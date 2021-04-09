@@ -100,7 +100,7 @@
               </mt-button>
             </div> -->
             <div class="bcButton flex-grow-1">
-              <mt-button type="primary" class="theme-button button-radio " style="background: #fff;color: #FD6C75;" size="large" @click.native="submit">确定
+              <mt-button type="primary" class="theme-button button-radio " size="large" @click.native="submit">确定
               </mt-button>
             </div>
           </div>
@@ -1179,7 +1179,7 @@
   }
   .numrang{
 	  height: calc( 100vh - 272px);
-	  background: rgba(000,000,000,0.6);
+	  background: url(../../../assets/images/symptom-bg.jpg) no-repeat center center;
 	  p{
 		  color: #fff;
 		  font-size: 72px;

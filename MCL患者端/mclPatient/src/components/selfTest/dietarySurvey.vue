@@ -431,12 +431,6 @@
 			},
 		},
 		created(){
-			if(!localStorage.userInfo){
-				this.$router.push({
-					path:"/login",
-					query:{redirect: this.$router.currentRoute.fullPath}//从哪个页面跳转
-				});
-			}
 		},
 		mounted(){
 			const id = this.$route.query.id;

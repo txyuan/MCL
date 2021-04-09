@@ -34,6 +34,7 @@
 					<img src="../../assets/images/xiaoxi.png" />
 					<span>我的消息</span>
 					<label></label>
+					<i class="num">{{$root.keFuTotal}}</i>
 				</p>
 				<p>
 					<router-link to="/groupManage">
@@ -371,6 +372,22 @@ export default {
 						right: 35%;
 					}
 				}
+			}
+			
+			.num{
+				color: #FFF;
+				width: 0.15rem;
+				height: 0.15rem;
+				line-height: 0.15rem;
+				border-radius: 50%;
+				text-align: center;
+				font-style: normal;
+				font-size: 12px;
+				display: block;
+				background: red;
+				position: absolute;
+				right: 28%;
+				top: -4px;
 			}
 		}
 	}

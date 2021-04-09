@@ -74,6 +74,7 @@
 </template>
 
 <script>
+import { logout } from '@/assets/js/uesr.js' // 退出登录
 import axios from 'axios'
 export default {
   name: 'index',
@@ -223,8 +224,7 @@ export default {
     },
     // 退出登录
     signOut () {
-      localStorage.removeItem('userInfo')
-      this.$router.push('/login')
+      logout()
     }
   },
   // created(){

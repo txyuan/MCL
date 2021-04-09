@@ -63,6 +63,7 @@
 </template>
 
 <script>
+    import { logout } from '@/assets/js/user.js' // 退出登录
   	import axios from 'axios'
     export default {
         name: "index",
@@ -206,8 +207,7 @@
           },
           //退出登录
           signOut(){
-            localStorage.clear();
-            this.$router.push("/login");
+            logout()
           }
         },
         // created(){

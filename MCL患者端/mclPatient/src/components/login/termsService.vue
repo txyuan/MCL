@@ -192,13 +192,13 @@ export default {
       })
     },
     // 关闭
-    closere () {
-      if (this.$route.query.form) {
-        this.$router.back()
-      } else {
-        this.$router.push('/login')
-      }
-    },
+    // closere () {
+    //   if (this.$route.query.form) {
+    //     this.$router.back()
+    //   } else {
+    //     this.$router.push('/login')
+    //   }
+    // },
     agre () {
       this.agrn = !this.agrn
     },
@@ -252,15 +252,15 @@ export default {
           } else if (this.role == 4) {
             // 实名认证
             if ((data.doctorflag == '1') || (!data.doctorflag)) {
-              location.href = `${DOCTORURL}/doctor/index.html#/physician1?UserKey=${data.userkey}&SessionId=${data.session_id}`
+              location.href = `${DOCTORURL}#/physician1?UserKey=${data.userkey}&SessionId=${data.session_id}`
             }
             // 医师认证
             if (data.doctorflag == '2') {
-              location.href = `${DOCTORURL}/doctor/index.html#/physician1?UserKey=${data.userkey}&SessionId=${data.session_id}`
+              location.href = `${DOCTORURL}#/physician1?UserKey=${data.userkey}&SessionId=${data.session_id}`
             }
           } else if (this.role == 5 || this.role == 6 || this.role == 7 || this.role == 8) {
             // 渠道端
-            location.href = `${CHANNELURL}/channel/index.html#/wxFollowPage` // appDown
+            location.href = `${CHANNELURL}#/wxFollowPage`
           }
         }
       })
