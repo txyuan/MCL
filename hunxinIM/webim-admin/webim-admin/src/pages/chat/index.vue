@@ -9,7 +9,7 @@
           <a-dropdown>
             <span class="ant-dropdown-link" href="#">
               <!--<a-icon type="setting" />-->
-              <span class="username">{{$root.kefuMap[String(this.userName)].userName || this.userName}}</span>
+              <span class="username">{{($root.kefuMap[String(this.userName)]&&$root.kefuMap[String(this.userName)].userName) || this.userName}}</span>
             </span>
             <!--<a-menu slot="overlay">
               <a-menu-item @click="recEmedia">
@@ -83,25 +83,19 @@
         <el-input placeholder="搜索" v-model.trim="userListKeyword" style="margin: 15px 0;width: 90%"></el-input>
         <!-- 判断是否后台总管理的的账号，总管理账号需要显示客服列表，患者列表 -->
         <MessageBoxCompany v-if="userInfo.userId == 'company'" :select="select" :type="activeKey" :filterKeyword="userListKeyword" ref="messageBox" @getInfo="getDoctorInfo" />
-        <MessageBox v-else type="contact" :select="select" :filterKeyword="userListKeyword" ref="messageBox" @getInfo="getDoctorInfo" />
+        <MessageBox v-else type="group" :select="select" :filterKeyword="userListKeyword" ref="messageBox" @getInfo="getDoctorInfo" />
         <!-- <MessageBox v-if="activeKey == 'chatroom'"  type="chatroom" />
         <MessageBox v-if="activeKey == 'group'" type="group" />-->
       </a-layout-sider>
 
       <a-layout-content style="overflow: visible; flex: 1;">
         <Message
-          v-if="userInfo.userId == 'company'"
           type="group"
           :broken="broken"
           :hideUserList="hideUserList"
           :showUserList="showUserList"
           ref="messageList"
         />
-        <!-- clics.marryhealthscience.com/login -->
-        <div v-else style="width: 100%; height: 100%">
-          <iframe ref="messageIframe" src="" frameborder="0" style="width: 100%; height: 100%"></iframe>
-        </div>
-        
         <AddFriend ref="addFriendMethods" />
         <GetFriendRequest />
         <FirendBlack ref="firendModel" />
@@ -118,8 +112,10 @@
       		<div class="content">
       			<div class="touxing" style="margin-bottom: 10px;margin-top: 20px;">
       				<!-- <img :src="doctorInfo.doctorImg" class="img"/> -->
-              <div style="overflow: hidden"><p style="float: left">姓名：{{doctorInfo.doctorName}}</p> <el-button size="mini" type="primary" @click="openDoctorChartPage(doctorInfo.phone)" style="float: right" v-show="doctorInfo.flag == 0">沟通</el-button></div>  
-              <div><p>简介：{{doctorInfo.content}}</p></div>  
+              <div style="overflow: hidden"><p style="float: left">医生姓名：{{doctorInfo.doctorName}}</p> 
+              <!-- <el-button size="mini" type="primary" @click="openDoctorChartPage(doctorInfo.phone)" style="float: right" v-show="doctorInfo.flag == 0">沟通</el-button> -->
+              </div>  
+              <div><p>医生简介：{{doctorInfo.content}}</p></div>  
       			</div>
       		</div>
       	</div>
@@ -128,16 +124,18 @@
       		<div class="title">患者信息</div>
       		<div class="content">
       			<div class="huanzhe">
-      				<span>姓名：{{huanzheInfo.name}}</span>
+      				<span>患者姓名：{{huanzheInfo.name}}</span>
 	      			<span>性别：{{huanzheInfo.sex}}</span>
-	      			<span>年龄：{{huanzheInfo.age}}</span>
-	      			<span>身高：{{huanzheInfo.height}}cm</span>
-	      			<br />
-	      			<span>体重：{{huanzheInfo.weight}}kg</span>
+	      			<span>年龄（岁）：{{huanzheInfo.age}}</span>
+              <br />
+	      			<span>身高（cm）：{{huanzheInfo.height}}cm</span>
+	      			<span>体重（kg）：{{huanzheInfo.weight}}kg</span>
 	      			<span>BMI：{{huanzheInfo.bmi}}</span>
+              <br />
 	      			<span>临床诊断：{{huanzheInfo.clinicalDiagnosis}}</span>
-	      			<span>注册天数：{{huanzheInfo.registrationDays}}天</span>
-	      			<span>剩余会员天数：{{huanzheInfo.memberDays}}天</span>
+              <br />
+	      			<span>注册天数（天）：{{huanzheInfo.registrationDays}}</span>
+	      			<span>会员天数（天）：{{huanzheInfo.memberDays}}</span>
       			</div>
       
             <div class="btn—wrap">
@@ -148,12 +146,13 @@
 							  <el-button size="mini" type="primary" @click="sendIframe('活动订单', '/Pages/OnLinePatientManage/MyObtainedProductList.aspx')">活动订单</el-button>
 
 							  <el-button size="mini" type="primary" @click="sendIframe('商品订单', '/Pages/OnLineAppManage/OrderList.aspx')">商品订单</el-button>
-							  <el-button size="mini" type="primary" @click="sendIframe('管理套餐订单', '/Pages/OnLinePatientManage/ManagementPackage.aspx')">管理套餐订单</el-button>
-							  <el-button size="mini" type="primary" @click="sendIframe('会员年卡订单', '/Pages/OnLinePatientManage/OnLineMemberManage.aspx')">会员年卡订单</el-button>
+							  <el-button size="mini" type="primary" @click="sendIframe('套餐订单', '/Pages/OnLinePatientManage/ManagementPackage.aspx')">套餐订单</el-button>
+							  <el-button size="mini" type="primary" @click="sendIframe('会员信息', '/Pages/OnLinePatientManage/OnLineMemberManage.aspx')">会员信息</el-button>
                 
 							  <el-button size="mini" type="primary" @click="sendIframe('饮食记录', `/Pages/PatientManage/DietarySurveyList.aspx?patient_skey=${huanzheInfo.patientkey}&headerSkey=undefined`)">饮食记录</el-button>
 							  <el-button size="mini" type="primary" @click="sendIframe('营养处方', '/Pages/OnLinePatientManage/OnLineNutritionPlanInfo.aspx')">营养处方</el-button>
 							  <el-button size="mini" type="primary" @click="sendIframe('运动处方', '/Pages/OnLinePatientManage/OnLineMotionPlanInfo.aspx')">运动处方</el-button>
+							  <el-button size="mini" type="primary" @click="sendIframe('消费流水', `/Pages/OnLineAppManage/UserBasicRechargeRecordList.aspx?${huanzheInfo.patientkey ? `patient_skey=${huanzheInfo.patientkey}` : ``}`)">消费流水</el-button>
 							</el-row>
       			</div>
       		</div>
@@ -297,15 +296,11 @@ export default {
       this.$data.collapsed = false;
     },
     select(i) {
-      if(this.userInfo.userId == 'company'){
-        this.$refs.messageList.select(i);
-      }else{
-        this.$refs.messageIframe.setAttribute('src', `http://clics.marryhealthscience.com/login?username=${i.parentName}&groupId=${i.groupid}`)
-      }
-      
+      this.$refs.messageList.select(i);
       if (this.broken) {
         this.$data.collapsed = true;
       }
+      this.userListKeyword = ''
     },
     GetFirendBlack() {
       this.onGetFirendBlack();
@@ -482,14 +477,19 @@ export default {
     },
     //量表点击跳转
     sendIframe(title, page){
-      var pageSrc = `${title},${page}?phone=${this.usernamePhone}`
+      if(page.indexOf('?') !== -1){
+        page += `&phone=${this.usernamePhone}`
+      }else{
+        page += `?phone=${this.usernamePhone}`
+      }
+      var pageSrc = `${title},${page}`
       top.parent.postMessage(pageSrc, "*"); 
     }
     
   },
   created(){
     //获取昵称
-    this.$root.getKeFuInfo([this.userName], 'kefu')
+    this.$root.getKeFuInfo([this.userName])
   },
   components: {
     MessageBox,
@@ -508,7 +508,7 @@ export default {
 </script>
 <style>
 	#right_box{
-		width: 450px;
+		width: 451px;
 		background: #FFF;
 		text-align: left;
 	}

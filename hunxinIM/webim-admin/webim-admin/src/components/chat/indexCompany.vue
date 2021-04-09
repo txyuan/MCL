@@ -6,6 +6,7 @@
 				<span class="custom-title">
 					{{ item.name }}
 				</span>
+				<div style="line-height: 30px">消费金额：{{item.account}}</div>
 				<!-- <div class="icon-style" v-if="item.meum != 0">
 					<span class="unreadNum">{{item.meum}}</span>
 				</div> -->
@@ -31,7 +32,7 @@
 	//import AddAVMemberModal from "../emediaModal/addAVMemberModal";
 	//import MultiAVModal from "../emediaModal/multiAVModal";
 	import GetGroupInfo from "../group/groupInfo.vue";
-	import {getHuanXinGroups} from '@/api/app.js';
+	import {getHuanXinGroups, getUserInfo} from '@/api/app.js';
 
 	export default {
 		data() {
@@ -112,7 +113,6 @@
 					group: this.group,
 					chatroom: this.chatroom
 				}
-			
 				// for (let i = 0; i < temp.contact.length; i++) {
 				// 	let atyop = temp.contact[i]
 				// 	if (temp.contact[i].meum != 0) {
@@ -412,10 +412,18 @@
 			},
 			getGroupByAjax(){
 				getHuanXinGroups().then(({data}) => {
-					data.data.forEach((item) => {
+					const sourceData = data.data
+					const names = sourceData.map(item => {
 						item.name = item.groupname
+						return item.name.split("(")[0]
 					})
-					this.groupAjaxList = data.data
+					// 添加消费金额
+					getUserInfo([...names], 'user').then(({data}) => {
+						data.data.forEach((item, index) => {
+							this.$set(sourceData[index], 'account', item.account)
+						})
+					})
+					this.groupAjaxList = sourceData
 				})
 			}
 		}

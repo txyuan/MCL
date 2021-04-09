@@ -4,9 +4,6 @@
 			<a-menu-item style="height: 80px; position: relative; textAlign: left; borderBottom: 1px solid #eee; margin: 0"
 			 v-for="(item) in userList[type]" :key="getKey(item)" @click="select2(item, getKey(item))">
 				<span class="custom-title">{{item.name}}</span>
-				<!-- <div class="icon-style" v-if="getUnreadNum(item) != 0">
-					<span class="unreadNum">{{getUnreadNum(item)}}</span>
-				</div> -->
 				<div class="icon-style" v-if="item.meum != 0">
 					<span class="unreadNum">{{item.meum}}</span>
 				</div>
@@ -199,8 +196,8 @@
 						unReadNum++;
 					}
 				});
-				if(unReadNum>=1){
-					window.parent.postMessage(unReadNum,"*");
+				if(unReadNum >= 1){
+					window.parent.postMessage({meum: unReadNum, name: item.name, type: 'add'},"*");
 				}
 				return unReadNum;
 			},
@@ -208,6 +205,10 @@
 				this.$data.selectedKeys = [index];
 				this.select(key);
 				this.$data.activedKey[this.type] = key;
+				// 清空该群组的未读消息提示
+				this.$nextTick(() => {
+					window.parent.postMessage({meum: 0, name: key.name, type: 'delete'},"*");
+				})
 			},
 			loadMoreMsgs() {
 				const me = this;
