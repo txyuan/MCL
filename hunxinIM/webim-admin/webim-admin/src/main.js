@@ -1,7 +1,6 @@
 /****
  * 后台管理系统客服
  * 账号分类：company（总管理账号），其他都是客服账号
- * 客服账号：聊天窗口使用iframe显示app客服系统的地址（clics.marryhealthscience.com/login?username=15310323518&groupId=143919303163907 ）
  * 
  *  *****/
 
@@ -54,25 +53,14 @@ window.Vue = new Vue({
     },
     methods: {
       //获取客服的账号信息
-      getKeFuInfo: function(names, type){
+      getKeFuInfo: function(names){
         if(names.length == 0){ return }
-        const ajax = {
-          'kefu': getKeFuInfo,
-          'user': getUserInfo,
-        }
-
         // 找到不在缓存中的数据
-        const arr = names.filter((username) => !this.kefuMap.hasOwnProperty(String(username)))
-        if(arr.length == 0){ return }
-        ajax[type](arr).then(({data}) => {
-          console.log(data)
-          let users = []
-          if(type === 'kefu'){
-            users = [{userPhone: String(arr[0]), userName: data.name}]
-          }else{
-            users = data.data
-          }
-          // 储存客服信息  
+        // const arr = names.filter((username) => !this.kefuMap.hasOwnProperty(String(username)))
+        if(names.length == 0){ return }
+        getUserInfo(names).then(({data}) => {
+          let users = users = data.data
+          // 储存客服信息
           users.forEach(item => {
             this.$set(this.kefuMap, String(item.userPhone), item)
           });

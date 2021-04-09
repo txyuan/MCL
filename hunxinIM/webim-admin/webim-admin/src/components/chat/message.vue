@@ -32,8 +32,9 @@
         :style="{'float':item.bySelf ? 'right':'left'}"
       >
         <!-- <h4 style="text-align: left;margin:0">{{ item.from}} ({{$root.getUserNameByPhone(String(item.from)).userName}})</h4> -->
-		    <h4 :style="{'text-align':item.bySelf ? 'right':'left',margin:0}">{{ item.from }} 
-          <span v-if="$root.kefuMap[item.from]">({{$root.kefuMap[item.from].userName}})</span>
+		    <h4 :style="{'text-align':item.bySelf ? 'right':'left',margin:0}">
+          <span v-if="$root.kefuMap[item.from]">{{$root.kefuMap[item.from].userName}}</span>
+          <span v-else>{{ item.from }}</span>
         </h4>
 		
         <!-- 撤回消息 -->
@@ -222,13 +223,12 @@ export default {
       let currentMsgs = this.$store.state.chat.currentMsgs;
       if(currentMsgs instanceof Array){
         currentMsgs.forEach((item)=>{
-           this.$root.getKeFuInfo([item.from], 'user')
+           this.$root.getKeFuInfo([item.from])
         })
       }
       if(currentMsgs && (JSON.stringify(currentMsgs).indexOf("{") == 0) ){
-        console.log(currentMsgs, [ ...currentMsgs ]);
         Object.keys(currentMsgs).forEach((key)=>{
-          this.$root.getKeFuInfo([currentMsgs[key].from], 'user')
+          this.$root.getKeFuInfo([currentMsgs[key].from])
         })
       }
       return currentMsgs;
@@ -309,7 +309,6 @@ export default {
       //     });
       //     me.roomId = ''
       //   }
-
       if (this.type === "group") {
         this.$router.push({ name: this.type, params: { id: key.groupid } });
         this.onGetCurrentChatObjMsg({ type: this.type, id: key.groupid });

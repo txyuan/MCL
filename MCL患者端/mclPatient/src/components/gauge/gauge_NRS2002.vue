@@ -260,11 +260,6 @@
 
 		},
 		created() {
-			if (localStorage.userInfo) {
-				
-			} else {
-				this.$router.push('/login');
-			}
 		}
 	}
 </script>

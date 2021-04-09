@@ -1,6 +1,6 @@
 <template>
 <div>
-<iframe :src="`${KFURL}/login?username=${repData.ContactPhone}&userkey=${userkey}`" width="100%" style="height: calc(100vh - 55px);border: none;"></iframe>
+<!-- <iframe :src="`${KFURL}/login?username=${repData.ContactPhone}&userkey=${userkey}`" width="100%" style="height: calc(100vh - 55px);border: none;"></iframe> -->
 <!-- <div class="mesage-root">
 	<mt-header title="消息" fixed></mt-header>
 	<div id="body_main">

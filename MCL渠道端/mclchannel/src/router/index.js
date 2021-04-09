@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { getUserType, goHome, logout } from '@/assets/js/user.js' //用户类型
 
 //导入页面
 const wx_Entrance = () => import(/* webpackChunkName: "wx_Entrance" */ '@/components/wxEntrance/index.vue')
@@ -139,19 +140,28 @@ const router = new Router({
   }
 })
 
-router.beforeEach((to, from, next) => {
-  //免登陆设置
-  //localStorage.userInfo  登录信息
-//if( (to.path == "/login") && (from.path == "/") && localStorage.userInfo){
-//  next({path:'/wx_Entrance/home',replace:true})
-//  return
-//}
+// 白名单（不需要验证登录信息）
+const whiteRouteList = [ 'login', 'changePass', 'termsService', 'noticeClause', 'wxFollowPage', 'share', 'personalshare' ]
 
-//	if(to.path != "/notice"){
-//	next({path:"/notice",replace:true}) //
-//}else{
-  	next()
-//}
+router.beforeEach((to, from, next) => {
+  // 不在白名单内，没有登录信息的情况跳转登录页面
+  if ((whiteRouteList.indexOf(to.name) == -1) && !localStorage.userInfo) {
+    logout()
+    return
+  }
+ 
+  // 已经登录，用户不是渠道端。（跳转到系统首页）
+  if ((localStorage.userInfo) && (getUserType() != 'channel')) {
+    logout()
+    return
+  }
+  
+  // 已经登录，不能再进入登录页面（跳转到系统首页）
+  if ((localStorage.userInfo) && (to.name == 'login')) {
+    goHome()
+    return
+  }
+  next()
 })
 
 export default router

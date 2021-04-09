@@ -456,7 +456,6 @@ const Chat = {
 				isGroup: payload.isGroup,
 				count: 10, // 每次获取消息条数
 				success: function(msgs){
-					console.log(msgs,payload)
 					try{
 						payload.success && payload.success(msgs);
 						if(msgs.length){

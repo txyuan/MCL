@@ -39,7 +39,18 @@ var vm = new Vue({
     productTimer:[],  //product 商品组件的倒计时
     //客服的配置
     ...KFCONFIG,
-		token: ""
+    token: "",
+    keFuMessage: {},  // 客服的未读消息
+  },
+  computed: {
+    // 客服的未读消息
+    keFuTotal: function(){
+      let num = 0;
+      Object.keys(this.keFuMessage).forEach(key => {
+        num += Number(this.keFuMessage[key])
+      })
+      return num
+    }
   },
   methods:{
     windowScrollTop:function () {
@@ -83,6 +94,11 @@ var vm = new Vue({
     		clearInterval(timer)
     	})
     	this.productTimer = [];
+    },
+    // 重置客服的未读消息
+    resetKeFuMsg(){
+      this.keFuMessage = {}
+      // localStorage.removeItem('doctorMsg')
     }
   },
   router,
@@ -90,6 +106,22 @@ var vm = new Vue({
   template: '<App/>',
   mounted(){
     payType.getOpendId();  //获取openid
+
+    // 监听医生端未读消息
+    window.addEventListener('message',e=>{
+		  if((e.data.meum > 0 && this.keFuMessage[e.data.name] != e.data.meum) && (e.data.type == 'add')){
+        this.$set(this.keFuMessage, e.data.name, e.data.meum);
+			  // this.messageNumber=Number(e.data.meum)+base
+			  // localStorage.setItem('doctorMsg', localStorage.setItem('doctorMsg'))
+      }
+      if(e.data.type == 'delete'){
+        this.$set(this.keFuMessage, e.data.name, 0);
+      }
+    },false)
+    
+    // if(localStorage.getItem('doctorMsg')){
+    //   // this.keFuMessage = JSON.parse(localStorage.doctorMsg)
+    // }
   }
 })
 

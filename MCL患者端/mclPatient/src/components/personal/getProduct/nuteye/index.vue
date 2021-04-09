@@ -142,10 +142,10 @@ export default {
       })
     },
     back () {
-		 // 如果从登陆或者自测过来的，返回直接到个人中心
+	  // 如果从登陆或者自测过来的，返回直接到个人中心
       const fromPage = this.$route.query.from
       if ((fromPage == 'self') || (fromPage == 'login')) {
-        this.$router.push('/login')
+        this.$router.push('/wx_Entrance/personal')
       } else {
         this.$router.back()
       }

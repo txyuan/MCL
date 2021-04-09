@@ -16,5 +16,6 @@ const HX_Config = {
 export {
     BASEURL,
     BASEURLAPP,
-    HX_Config
+    HX_Config,
+    KFURL
 }

@@ -30,8 +30,9 @@
         class="message-group"
         :style="{'float':item.bySelf ? 'right':'left'}"
       >
-        <h4 :style="{'text-align':item.bySelf ? 'right':'left',margin:0}">{{ item.from }} 
+        <h4 :style="{'text-align':item.bySelf ? 'right':'left',margin:0}">
           <span v-if="$root.kefuMap[item.from]">({{$root.kefuMap[item.from]}})</span>
+          <span v-else>{{ item.from }}</span>
         </h4>
         <!-- 撤回消息 -->
         <div v-if="item.status == 'recall'" class="recallMsg">{{item.msg}}</div>
@@ -223,7 +224,6 @@ export default {
         })
       }
       if(currentMsgs && (JSON.stringify(currentMsgs).indexOf("{") == 0) ){
-        console.log(currentMsgs, [ ...currentMsgs ]);
         Object.keys(currentMsgs).forEach((key)=>{
           this.$root.getKeFuInfo(currentMsgs[key].from)
         })

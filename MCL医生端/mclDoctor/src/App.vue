@@ -1,5 +1,10 @@
 <template>
   <div id="app">
+    <!-- 消息页面的客服 -->
+    <div v-show="$route.name == 'news'">
+      <iframe :src="JSON.stringify(repData) == '{}' ? '' : `${KFURL}/login?username=${repData.ContactPhone}`" width="100%" style="height: calc(100vh - 55px);border: none;"></iframe>
+      <!-- &userkey=${userkey} -->
+    </div>
     <keep-alive>
       <router-view  id="main_router" v-if="$route.meta.keepAlive"/>
     </keep-alive>
@@ -8,8 +13,33 @@
 </template>
 
 <script>
+import { KFURL } from '@/configURL.js'
 export default {
-  name: 'App'
+  name: 'App',
+  data: () => ({
+    KFURL,
+    repData:{},
+    timer: 0
+  }),
+  methods: {
+    //个人信息
+    information() {
+      let url = "UserInterface/GetUserShowInfo.ashx";
+      this.$post(url).then((data) => {
+        this.$Indicator.close();
+        let model = data.data;
+        this.repData = model;
+      })
+    },
+  },
+  mounted(){
+    this.timer = setInterval(() => {
+      if(localStorage.getItem('userInfo')){
+        this.information();
+        clearInterval(this.timer)
+      }
+    }, 1500);
+  }
 }
 
 //适配rem布局
