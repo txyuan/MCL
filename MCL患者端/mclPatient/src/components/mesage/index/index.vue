@@ -73,6 +73,7 @@ import doctorDefaultPic from '@/assets/images/doctorPic.png'
 import { KFURL } from '@/configURL.js'
 export default {
   name: 'mesage',
+
   data: () => ({
     KFURL,
     docinf1: false,
@@ -145,7 +146,7 @@ export default {
 	  if(localStorage.mesnum){
 		  localStorage.removeItem('mesnum')
 	  }
-	  
+
     this.$Indicator.loading()
     this.information()
     this.getupshop()
@@ -300,4 +301,11 @@ export default {
 		flex:3;
 		font-size: 0.16rem;
 	}
+  .messp .messagebox .messagebox-content{
+    background-color: #F5F5F5;
+  }
+  .messp  .messagebox .messagebox-content .message-group p.byself {
+    background: #72ced0;
+    float: right;
+  }
 </style>
