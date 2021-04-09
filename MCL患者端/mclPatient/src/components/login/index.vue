@@ -93,7 +93,7 @@ export default {
             if (redirect == '/eyeconme') {
               this.$router.replace('/wellcome?redirect=/eyeconme')
             } else {
-              this.$router.replace('/')
+              this.$router.replace(redirect)
             }
           } else {
             this.$router.replace('/wx_Entrance/home')
