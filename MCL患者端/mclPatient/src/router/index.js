@@ -507,15 +507,15 @@ router.beforeEach((to, from, next) => {
   }
  
   // 已经登录，用户不是患者端。（跳转到系统首页）
-  if ((localStorage.userInfo) && (getUserType() != 'patient')) {
-    // 开发环境，退出重新登录。正式环境，返回首页
-    if (process.env.NODE_ENV == 'development') {
-      logout()
-    }else{
-      goHome()
-    }
-    return
-  }
+  // if ((localStorage.userInfo) && (getUserType() != 'patient')) {
+  //   // 开发环境，退出重新登录。正式环境，返回首页
+  //   if (process.env.NODE_ENV == 'development') {
+  //     logout()
+  //   }else{
+  //     goHome()
+  //   }
+  //   return
+  // }
   
   // 已经登录，不能再进入登录页面（跳转到系统首页）
   if ((localStorage.userInfo) && (to.name == 'login')) {
