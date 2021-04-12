@@ -38,10 +38,11 @@ export function goHome() {
     if(getUserType() == 'patient'){
         router.replace({path: '/'})
     // 渠道端
-    }else if(getUserType() == 'channel'){
-        location.replace(`${CHANNELURL}#/`)
-    // 医生端
-    }else if(getUserType() == 'doctor'){
-        location.replace(`${DOCTORURL}#/`) 
     }
+    // else if(getUserType() == 'channel'){
+    //     location.replace(`${CHANNELURL}#/`)
+    // // 医生端
+    // }else if(getUserType() == 'doctor'){
+    //     location.replace(`${DOCTORURL}#/`) 
+    // }
 }

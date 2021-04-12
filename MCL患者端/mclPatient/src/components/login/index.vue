@@ -77,10 +77,10 @@ export default {
 			SessionId: data.data.sessionId,
 			userType: data.data.userType
 		})
-		this.$Toast('登录成功')
 		const redirect = this.$route.query.redirect
 		// 患者端
         if (getUserType() == 'patient') {
+		this.$Toast('登录成功')
           const userinfoflag = data.data.userinfoflag // 1:线下，2：线上
           const PatientDistinguish = data.data.PatientDistinguish // 是否录入基本信息0：未录入，1：已录入
           // 0：未录入 2：线上
@@ -98,26 +98,29 @@ export default {
           } else {
             this.$router.replace('/wx_Entrance/home')
           }
-		// 渠道端
-        } else if (getUserType() == 'channel') {
-			setTimeout(() => {
-				if (redirect) {
-					location.replace(`${CHANNELURL}#${redirect}`)
-				} else {
-					location.replace(`${CHANNELURL}#/wx_Entrance/home`)
-				}
-			},2000)
+        } else {
+          this.$Toast('该账号权限不匹配')
+        }
+		// // 渠道端
+		// else if (getUserType() == 'channel') {
+		// 	setTimeout(() => {
+		// 		if (redirect) {
+		// 			location.replace(`${CHANNELURL}#${redirect}`)
+		// 		} else {
+		// 			location.replace(`${CHANNELURL}#/wx_Entrance/home`)
+		// 		}
+		// 	},2000)
 			
-		// 医生端	
-        } else if(getUserType() == 'doctor'){
-			setTimeout(() => {
-				if (redirect) {
-            		location.replace(`${DOCTORURL}#${redirect}`)
-				} else {
-					location.replace(`${DOCTORURL}#/wx_Entrance/home`)
-				}
-			},2000)
-		}
+		// // 医生端	
+        // } else if(getUserType() == 'doctor'){
+		// 	setTimeout(() => {
+		// 		if (redirect) {
+        //     		location.replace(`${DOCTORURL}#${redirect}`)
+		// 		} else {
+		// 			location.replace(`${DOCTORURL}#/wx_Entrance/home`)
+		// 		}
+		// 	},2000)
+		// }
       })
     }
   },

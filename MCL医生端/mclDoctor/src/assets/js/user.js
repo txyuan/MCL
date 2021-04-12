@@ -3,18 +3,24 @@ import {PATIENTURL} from '@/configURL.js'
 
 export function logout(redirect = router.currentRoute.fullPath){
     localStorage.removeItem('userInfo')
+    router.replace({
+        path: '/login',
+        query: {
+            redirect // 从哪个页面跳转
+        }
+    })
     // 开发模式
-    if (process.env.NODE_ENV == 'development') {
-        router.replace({
-            path: '/login',
-            query: {
-                redirect // 从哪个页面跳转
-            }
-        })
-    // 正式环境 跳转到患者的登录页面    
-    } else {
-        location.replace(`${PATIENTURL}#login?redirect=${redirect}`)
-    }
+    // if (process.env.NODE_ENV == 'development') {
+    //     router.replace({
+    //         path: '/login',
+    //         query: {
+    //             redirect // 从哪个页面跳转
+    //         }
+    //     })
+    // // 正式环境 跳转到患者的登录页面    
+    // } else {
+    //     location.replace(`${PATIENTURL}#login?redirect=${redirect}`)
+    // }
 }
 
 // 获取用户类型
@@ -39,11 +45,12 @@ export function getUserType(){
 
 // 跳转到系统首页
 export function goHome() {
+    router.replace({path: '/'})
     // 开发模式
-    if (process.env.NODE_ENV == 'development') {
-        router.replace({path: '/'})
-    // 正式环境 跳转到患者的登录页面    
-    } else {
-        location.href = `${PATIENTURL}#/`
-    }
+    // if (process.env.NODE_ENV == 'development') {
+    //     router.replace({path: '/'})
+    // // 正式环境 跳转到患者的登录页面    
+    // } else {
+    //     location.href = `${PATIENTURL}#/`
+    // }
 }
