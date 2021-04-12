@@ -259,6 +259,7 @@ const Chat = {
 				to: chatId[jid[chatType]], //消息接收人
 				msgType: '1', //消息类型 1,文字；2,图片
 				msgContent: message, //消息内容
+				name: chatId.name
 			}
 			saveChatData(data)
 		},
@@ -309,6 +310,7 @@ const Chat = {
 				to: chatId[jid[chatType]], //消息接收人
 				msgType: '2', //消息类型 1,文字；2,图片
 				msgContent: file, //消息内容
+				name: chatId.name
 			}
 			saveChatData(data)
 		},

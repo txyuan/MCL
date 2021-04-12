@@ -47,7 +47,7 @@ export function saveChatData ( data ) {
     return new Promise((resolve, reject) => {
         if(data.msgType == 1){
             axiosInstance.post(url, qs.stringify(data)).then(() => {
-                userSendMessage(data.to) // 微信公众号推送消息
+                userSendMessage(data.name.split('(')[0]) // 微信公众号推送消息
                 resolve()
             }, reject)
         }
