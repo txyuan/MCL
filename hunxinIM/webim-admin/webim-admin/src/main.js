@@ -62,6 +62,7 @@ window.Vue = new Vue({
           let users = users = data.data
           // 储存客服信息
           users.forEach(item => {
+            item.userName = item.userName.replace(/@/g, '')
             this.$set(this.kefuMap, String(item.userPhone), item)
           });
           // localStorage.kefuMap = JSON.stringify(this.kefuMap)

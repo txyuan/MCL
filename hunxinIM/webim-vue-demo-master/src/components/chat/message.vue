@@ -31,7 +31,7 @@
         :style="{'float':item.bySelf ? 'right':'left'}"
       >
         <h4 :style="{'text-align':item.bySelf ? 'right':'left',margin:0}">
-          <span v-if="$root.kefuMap[item.from]">({{$root.kefuMap[item.from]}})</span>
+          <span v-if="$root.kefuMap[item.from]">{{$root.kefuMap[item.from]}}</span>
           <span v-else>{{ item.from }}</span>
         </h4>
         <!-- 撤回消息 -->

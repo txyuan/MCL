@@ -14,8 +14,8 @@ const KFCONFIG = {
 const BASEURL = 'http://cli.marryhealthscience.com'
 
 const PATIENTURL = 'http://cli.marryhealthscience.com/patient/index.html' // 患者端域名
-const DOCTORURL = 'http://cli.marryhealthscience.com/doctor/index.html' // 医生端域名
-const CHANNELURL = 'http://cli.marryhealthscience.com/channel/index.html' // 渠道端域名
+const DOCTORURL = 'http://clidoc.marryhealthscience.com/doctor/index.html' // 医生端域名
+const CHANNELURL = 'http://clicha.marryhealthscience.com/channel/index.html' // 渠道端域名
 
 export {
   KFURL,

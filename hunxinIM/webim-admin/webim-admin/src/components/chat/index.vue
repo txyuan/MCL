@@ -140,22 +140,21 @@
 					item.name = item.groupname
 					return item.name.split("(")[0]
 				})
+
 				getUserInfo([...names], 'user').then(({data}) => {
 					data.data.forEach((item, index) => {
 						this.$set(sourceData[index], 'account', item.account)
 					})
 				})
-				// temp.contact.forEach((item) => {
 
-				//    })
-				// for (let i = 0; i < temp.contact.length; i++) {
-				// 	let atyop = temp.contact[i]
-				// 	if (temp.contact[i].meum != 0) {
-
-				// 		temp.contact.splice(i, 1)
-				// 		temp.contact.unshift(atyop)
-				// 	}
-				// }
+				// 未读消息的好友，放到列表的前边
+				for (let i = 0; i < temp.group.length; i++) {
+					let atyop = temp.group[i]
+					if (temp.group[i].meum != 0) {
+						temp.group.splice(i, 1)
+						temp.group.unshift(atyop)
+					}
+				}
 				return temp;
 			},
 			blackList() {

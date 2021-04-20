@@ -181,6 +181,7 @@ const shop_detail = () => import(/* webpackChunkName: "shop_detail" */ '@/compon
 // const home_indetails = () => import(/* webpackChunkName: "home_indetails" */ '@/components/home/inDetails/index.vue')  //积分详情
 // const home_zlpay = () => import(/* webpackChunkName: "home_zlpay" */ '@/components/home/zlpay/index.vue')  //证联支付
 const login= () => import(/* webpackChunkName: "login" */ '@/components/login/index.vue')  //登录
+const selectRegister= () => import(/* webpackChunkName: "selectRegister" */ '@/components/login/selectRegister.vue')  //选择医生/用户注册
 const noticeClause= () => import(/* webpackChunkName: "noticeClause" */ '@/components/login/noticeClause.vue')  //条款须知
 const noticeClause2= () => import(/* webpackChunkName: "noticeClause2" */ '@/components/login/noticeClause2.vue')  //条款须知
 const noticeClause3= () => import(/* webpackChunkName: "noticeClause3" */ '@/components/login/noticeClause3.vue')  //条款须知
@@ -252,6 +253,7 @@ const router = new Router({
 //		{ path:"/", redirect: "/notice"},
 		// { path:"/notice", name:"notice", component: notice },
     { path:"/login", name:"login", component: login },   //登录
+    { path:"/selectRegister", name:"selectRegister", component: selectRegister },   //登录
     { path:"/noticeClause", name:"noticeClause", component: noticeClause },
     { path:"/noticeClause2", name:"noticeClause2", component: noticeClause2 },
     { path:"/noticeClause3", name:"noticeClause3", component: noticeClause3 },
@@ -497,7 +499,7 @@ const router = new Router({
 })
 
 // 白名单（不需要验证登录信息）
-const whiteRouteList = [ 'login', 'changePass', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'inviteFriends' ]
+const whiteRouteList = [ 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'inviteFriends' ]
 
 router.beforeEach((to, from, next) => {
   // 不在白名单内，没有登录信息的情况跳转登录页面

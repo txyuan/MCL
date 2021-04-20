@@ -19,21 +19,21 @@
             <div class="mag_icon"> <img src="@/assets/images/icons/icon-jkda.png" /></div>
             <div class="mag_text flex-grow-1">
               <strong>健康档案</strong>
-              <span>查看、修改我的健康信息</span>
-<!--              <span>完善我的健康档案</span>-->
-<!--              <span>查看详情</span>-->
+              <!-- <span>查看、修改我的健康信息</span> -->
+              <span v-if="statusInfo.jkdaFlag == 0">完善我的健康档案</span>
+              <span v-if="statusInfo.jkdaFlag == 1">查看详情</span>
             </div>
           </div>
         </div>
         <div class="tody_list">
           <router-link :to="{path: `/weight`}">
-            <div class="d-flex align-items-center mag_list" @click="ishow(2)">
+            <div class="d-flex align-items-center mag_list">
               <div class="mag_icon">  <img src="@/assets/images/icons/icon-tzjl.png" /></div>
               <div class="mag_text flex-grow-1">
                 <strong>体重记录</strong>
-                <span>记录今日体重情况</span>
-<!--                <span>记录今日体重</span>-->
-<!--                <span>今日已完成</span>-->
+                <!-- <span>记录今日体重情况</span> -->
+               <span v-if="statusInfo.tzFlag == 0">记录今日体重</span>
+               <span v-if="statusInfo.tzFlag == 1">今日已完成</span>
               </div>
             </div>
           </router-link>
@@ -45,13 +45,13 @@
         </div>
         <div class="tody_list">
           <router-link :to="{path: messageInfo.lbFlag==0||messageInfo.IsMember==0 ? `/buyfood/饮食` : `/diet`}">
-            <div class="d-flex align-items-center mag_list" @click="ishow(1)">
+            <div class="d-flex align-items-center mag_list">
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-ysjl.png" />	</div>
               <div class="mag_text flex-grow-1">
                 <strong>饮食记录</strong>
-                <span>记录今日饮食情况</span>
-<!--                <span>记录今日饮食</span>-->
-<!--                <span>今日已完成</span>-->
+                <!-- <span>记录今日饮食情况</span> -->
+                <span v-if="statusInfo.lbFlag==0">记录今日饮食</span>
+                <span v-if="statusInfo.lbFlag==1">今日已完成</span>
               </div>
             </div>
           </router-link>
@@ -63,13 +63,13 @@
         </div>
         <div class="tody_list">
           <router-link :to="{path: messageInfo.ydlbFlag==0||messageInfo.IsMember==0 ? `/buyfood/运动` : `/sport`}">
-            <div class="d-flex align-items-center mag_list" @click="ishow(3)">
+            <div class="d-flex align-items-center mag_list">
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-ydjl.png" />	</div>
               <div class="mag_text flex-grow-1">
                 <strong>运动记录</strong>
-                <span>记录今日运动情况</span>
-<!--                <span>记录今日运动</span>-->
-<!--                <span>今日已完成</span>-->
+                <!-- <span>记录今日运动情况</span> -->
+                <span v-if="statusInfo.ydlbFlag==0">记录今日运动</span>
+                <span v-if="statusInfo.ydlbFlag==1">今日已完成</span>
               </div>
             </div>
           </router-link>
@@ -81,13 +81,13 @@
         </div>
         <div class="tody_list">
           <router-link :to="{path: messageInfo.yylbFlag==0||messageInfo.IsMember==0 ? `/buyfood/营养` : `/nutrition`}">
-            <div class="d-flex align-items-center mag_list" @click="ishow(4)">
+            <div class="d-flex align-items-center mag_list">
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-yyjl.png" />	</div>
               <div class="mag_text flex-grow-1">
                 <strong>营养记录</strong>
-                <span>记录今日营养服用情况</span>
-<!--                <span>记录今日营养</span>-->
-<!--                <span>今日已完成</span>-->
+                <!-- <span>记录今日营养服用情况</span> -->
+               <span v-if="statusInfo.yylbFlag==0">记录今日营养</span>
+               <span v-if="statusInfo.yylbFlag==1">今日已完成</span>
               </div>
             </div>
           </router-link>
@@ -99,7 +99,7 @@
         </div>
 <!--        <div class="tody_list">-->
 <!--          <router-link :to="{path: messageInfo.xqglFlag==0||messageInfo.IsMember==0 ? `/welcomexqgl` : `/mood`}">-->
-<!--            <div class="d-flex align-items-center mag_list" @click="ishow(5)">-->
+<!--            <div class="d-flex align-items-center mag_list">-->
 <!--              <div class="mag_icon"> <img src="@/assets/images/icons/icon-xqjl.png" />	</div>-->
 <!--              <div class="mag_text flex-grow-1">-->
 <!--                <strong>心情记录</strong>-->
@@ -114,14 +114,14 @@
 <!--          </router-link> &ndash;&gt;-->
 <!--        </div>-->
         <div class="tody_list">
-          <router-link to="/gauge_life">
-            <div class="d-flex align-items-center mag_list" @click="ishow(7)">
+          <router-link :to="`/gauge_life?type=${statusInfo.shfsFlag == 0 ? 'add' : 'look'}`">
+            <div class="d-flex align-items-center mag_list">
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-shfs.png" />	</div>
               <div class="mag_text flex-grow-1">
                 <strong>生活方式</strong>
-                <span>记录我的生活方式</span>
-<!--                <span>完善我的生活方式</span>-->
-<!--                <span>已完善</span>-->
+                <!-- <span>记录我的生活方式</span> -->
+                <span v-if="statusInfo.shfsFlag==0">完善我的生活方式</span>
+                <span v-if="statusInfo.shfsFlag==1">已完善</span>
               </div>
             </div>
           </router-link>
@@ -133,7 +133,7 @@
         </div>
         <div class="tody_list">
           <router-link :to="{path: messageInfo.zzglFlag==0||messageInfo.IsMember==0 ? `/welcomezz` : `/symptom`}">
-            <div class="d-flex align-items-center mag_list" @click="ishow(6)">
+            <div class="d-flex align-items-center mag_list">
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-zzgl.png" />	</div>
               <div class="mag_text flex-grow-1">
                 <strong>症状管理</strong>
@@ -149,7 +149,7 @@
         </div>
         <div class="tody_list">
           <router-link :to="{path: messageInfo.blscFlag==0||messageInfo.IsMember==0 ? `/welcomebl` : `/physician`}">
-            <div class="d-flex align-items-center mag_list" @click="ishow(8)">
+            <div class="d-flex align-items-center mag_list">
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-blsc.png" />	</div>
               <div class="mag_text flex-grow-1">
                 <strong>病历上传</strong>
@@ -165,7 +165,7 @@
         </div>
         <div class="tody_list">
           <router-link to="/gauge_PG_SGA">
-            <div class="d-flex align-items-center mag_list" @click="ishow(9)">
+            <div class="d-flex align-items-center mag_list">
               <div class="mag_icon"> 	<img src="@/assets/images/icons/icon-scpg.png" /> 	</div>
               <div class="mag_text flex-grow-1">
                 <strong>筛查评估</strong>
@@ -190,47 +190,10 @@
       uname: '',
       type_disease: '', // 完善资料的类型
       isLoad: false,
-      messageInfo: {}
-      // foods: false,
-      // weigt: false,
-      // sport: false,
-      // eatp: false,
-      // lauthy: false,
-      // tbgt: false,
-      // noezk: false,
-      // jianceye: false,
-      // scbgd: false
+      messageInfo: {},
+      statusInfo: {} // 状态信息
     }),
     methods: {
-      ishow (nums) {
-        // if(nums==1){
-        // 	this.foods=!this.foods;
-        // }
-        // if(nums==2){
-        // 	this.weigt=!this.weigt;
-        // }
-        // if(nums==3){
-        // 	this.sport=!this.sport;
-        // }
-        // if(nums==4){
-        // 	this.eatp=!this.eatp;
-        // }
-        // if(nums==5){
-        // 	this.lauthy=!this.lauthy;
-        // }
-        // if(nums==6){
-        // 	this.tbgt=!this.tbgt;
-        // }
-        // if(nums==7){
-        // 	this.noezk=!this.noezk;
-        // }
-        // if(nums==8){
-        // 	this.jianceye=!this.jianceye;
-        // }
-        // if(nums==9){
-        // 	this.scbgd=!this.scbgd;
-        // }
-      },
       getinform () {
         let url = 'UserInterface/GetUserShowInfo.ashx'
         this.$post(url).then((data) => {
@@ -250,11 +213,22 @@
           this.messageInfo = data
           this.isLoad = true
         })
+      },
+      getStatus(){
+        let url = 'UserInterface/PatientManagementTodayInfo.ashx'
+        this.$post(url).then((data) => {
+          if (data.rspcode != 1) {
+            return
+          }
+          this.statusInfo = data
+        })
       }
     },
     created () {
       this.getinform()
       this.getMsgInfo()
+      // 获取健康管理的页面的状态
+      this.getStatus()
     }
   }
 </script>

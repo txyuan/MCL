@@ -385,6 +385,31 @@ export default {
         this.param.skey = data.itmekey
       })
     },
+    // 获取页面的默认值
+    getInfo(){
+      const _that = this
+      let url = 'UserInterface/SelectPatientLifeSurveyInfo.ashx'
+      this.$post(url).then((data) => {
+        if (data.rspcode != 1) {
+          return
+        }
+        this.param = {...this.param, ...data}
+        // 早餐(多选)
+        checked(this.diettabooRadiozc)
+        checked(this.diettabooRadiozwc)
+        checked(this.diettabooRadiowsc)
+        checked(this.diettabooRadioztxg)
+        checked(this.diettabooRadioyyrz)
+        function checked({option, value}){
+          option.forEach((item) => {
+            if(_that.param[`${item.value}`] == 1){
+              value.push(item.value)
+            }
+          })
+        }
+
+      })
+    },
     // 提交
     submit () {
       let url = 'UserInterface/PatientLifeSurveyInsert.ashx'
@@ -402,6 +427,10 @@ export default {
   },
   mounted () {
     this.getSkey()
+    // 获取默认信息
+    if(this.$route.query.type == 'look'){
+      this.getInfo()
+    }
   }
 }
 </script>

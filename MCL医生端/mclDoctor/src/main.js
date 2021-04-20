@@ -122,6 +122,19 @@ var vm = new Vue({
     // if(localStorage.getItem('doctorMsg')){
     //   // this.keFuMessage = JSON.parse(localStorage.doctorMsg)
     // }
+    
+    // 检测浏览器路由改变页面不刷新问题,hash模式的工作原理是hashchange事件
+    // 调用router.push并不会触发onhashchange事件，但是调用router.go()却能正常触发，
+    window.addEventListener(
+      'hashchange',
+      () => {
+        const currentPath = window.location.hash.slice(1)
+        if (this.$route.fullPath !== currentPath) {
+          this.$router.push(currentPath)
+        }
+      },
+      false
+    )
   }
 })
 

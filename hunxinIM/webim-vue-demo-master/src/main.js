@@ -68,7 +68,7 @@ window.Vue = new Vue({
         //不存在当前客服
         getUserInfo([username]).then(({data}) => {
           if(data.rspcode == 1 && data.data.length > 0){
-            this.$set(this.kefuMap, username, data.data[0].userName)
+            this.$set(this.kefuMap, username, data.data[0].userName.replace(/@/g, ''))
             this.kefuMap = {...this.kefuMap}
             // this.kefuMap[username] = data.data[0].userName
             // localStorage.kefuMap = JSON.stringify(this.kefuMap)
