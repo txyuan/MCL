@@ -95,6 +95,7 @@
           :hideUserList="hideUserList"
           :showUserList="showUserList"
           ref="messageList"
+          @send="send"
         />
         <AddFriend ref="addFriendMethods" />
         <GetFriendRequest />
@@ -484,12 +485,17 @@ export default {
       }
       var pageSrc = `${title},${page}`
       top.parent.postMessage(pageSrc, "*"); 
+    },
+    send(){
+      // 移动该好友的顺序
+      if(this.$refs.messageBox.movePositon){
+        this.$refs.messageBox.movePositon()
+      }
     }
-    
   },
   created(){
     //获取昵称
-    this.$root.getKeFuInfo([this.userName])
+    this.$root.getKeFuInfo(this.userName)
   },
   components: {
     MessageBox,

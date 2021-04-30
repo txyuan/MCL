@@ -245,6 +245,16 @@ const watch_repot = () => import(/* webpackChunkName: "watch_repot" */ '@/compon
 const gauge_life = () => import(/* webpackChunkName: "gauge_life" */ '@/components/gauge/gauge_life.vue')  //生活状况
 //导入页面
 
+// 小工具
+const singlePage_home = () => import(/* webpackChunkName: "singlePage_home" */ '@/components/singlePage/home.vue')  //入口页面
+const singlePage_height = () => import(/* webpackChunkName: "singlePage_height" */ '@/components/singlePage/height.vue')  //标准体重
+const singlePage_BMI = () => import(/* webpackChunkName: "singlePage_BMI" */ '@/components/singlePage/BMI.vue')  //BMI
+const singlePage_protein = () => import(/* webpackChunkName: "singlePage_protein" */ '@/components/singlePage/protein.vue')  //每日所需蛋白质
+const singlePage_energy = () => import(/* webpackChunkName: "singlePage_energy" */ '@/components/singlePage/energy.vue')  //每日所需能量
+const singlePage_energy2 = () => import(/* webpackChunkName: "singlePage_energy2" */ '@/components/singlePage/energy2.vue')  //每日所需能量
+const singlePage_intakeNenrgy = () => import(/* webpackChunkName: "singlePage_intakeNenrgy" */ '@/components/singlePage/intakeNenrgy.vue')  //每日实际摄入所需能量
+const singlePage_water = () => import(/* webpackChunkName: "singlePage_water" */ '@/components/singlePage/water.vue')  //每日所需最低饮水量
+
 Vue.use(Router)
 
 const router = new Router({
@@ -482,12 +492,23 @@ const router = new Router({
 	//{ path:"/notOpen", name:"notOpen", component: notOpen},
     { path:"/notopenq", name:"notopenq", component: notopenq},
     { path:"/inviteFriends", name:"inviteFriends", component: inviteFriends},
-    { path: '*', redirect: "/"}  // 404页面重定向
+    
+    // 小工具
+    { path:"/singlePage_home", name:"singlePage_home", component: singlePage_home},
+    { path:"/singlePage_height", name:"singlePage_height", component: singlePage_height},
+    { path:"/singlePage_BMI", name:"singlePage_BMI", component: singlePage_BMI},
+    { path:"/singlePage_protein", name:"singlePage_protein", component: singlePage_protein},
+    { path:"/singlePage_energy", name:"singlePage_energy", component: singlePage_energy},
+    { path:"/singlePage_energy2", name:"singlePage_energy2", component: singlePage_energy2},
+    { path:"/singlePage_water", name:"singlePage_water", component: singlePage_water},
+    { path:"/singlePage_intakeNenrgy", name:"singlePage_intakeNenrgy", component: singlePage_intakeNenrgy},
+    
     /*
     { path:"/wheel", name:"wheel", component: wheel},
     { path:"/record", name:"record", component: record},
     { path:"/extractProduct", name:"extractProduct", component: extractProduct},
     */
+    { path: '*', redirect: "/"}  // 404页面重定向
   ],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {

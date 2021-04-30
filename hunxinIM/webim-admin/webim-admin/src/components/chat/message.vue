@@ -223,12 +223,12 @@ export default {
       let currentMsgs = this.$store.state.chat.currentMsgs;
       if(currentMsgs instanceof Array){
         currentMsgs.forEach((item)=>{
-           this.$root.getKeFuInfo([item.from])
+           this.$root.getKeFuInfo(item.from)
         })
       }
       if(currentMsgs && (JSON.stringify(currentMsgs).indexOf("{") == 0) ){
         Object.keys(currentMsgs).forEach((key)=>{
-          this.$root.getKeFuInfo([currentMsgs[key].from])
+          this.$root.getKeFuInfo(currentMsgs[key].from)
         })
       }
       return currentMsgs;
@@ -440,6 +440,9 @@ export default {
         chatId: this.$data.activedKey[this.type],
         message: this.$data.message
       });
+      this.$nextTick(() => {
+        this.$emit('send')
+      })
       this.$data.message = "";
     },
 

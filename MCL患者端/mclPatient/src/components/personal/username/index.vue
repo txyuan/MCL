@@ -11,7 +11,7 @@
       <mt-field placeholder="请输入用户名" v-model.trim="usernames" class="marginTop5"></mt-field>
 
       <div class="btn">
-         <mt-button type="danger" size="large" @click="userEdit">确定</mt-button>
+         <mt-button type="danger" size="large" @click="userEdit($event)">确定</mt-button>
       </div>
 
     </div>
@@ -31,7 +31,8 @@
               this.usernames = data.data.ContactName;
             })
           },
-          userEdit(){
+          userEdit(target){
+            console.log(target)
             let url = "UserInterface/UserEdit.ashx";
             let NickName = this.usernames;
             if(NickName == ""){

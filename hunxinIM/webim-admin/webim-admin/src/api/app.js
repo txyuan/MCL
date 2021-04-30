@@ -24,14 +24,16 @@ export function getKeFuInfo ( username ) {
 
 // 通过手机号，获取用户的姓名
 export function getUserInfo ( rphone ) {
-    let url = `${BASEURL}/Pages/OnLineAppManage/GetCustomerUserName.ashx`;
-    //不存在当前客服
-    return new Promise((resolve, reject) => {
-        let data = {
-            rphone: rphone.join()
-        }
-        axiosInstance.post(url, qs.stringify(data)).then(resolve, reject)
-    }) 
+    if(rphone){
+        let url = `${BASEURL}/Pages/OnLineAppManage/GetCustomerUserName.ashx`;
+        //不存在当前客服
+        return new Promise((resolve, reject) => {
+            let data = {
+                rphone: rphone
+            }
+            axiosInstance.post(url, qs.stringify(data)).then(resolve, reject)
+        }) 
+    }
 }
 
 // 记录聊天内容

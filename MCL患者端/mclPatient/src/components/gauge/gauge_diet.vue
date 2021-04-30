@@ -57,7 +57,7 @@
         <mt-radio :options="activeRadiolist.option" v-model="param.coefficienttype"></mt-radio>
       </div>
       <div class="fix_bottom">
-        <mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit">提交申请</mt-button>
+        <mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit" v-preventReClick>提交申请</mt-button>
       </div>
     </div>
   </div>

@@ -20,7 +20,6 @@
 /*  示例
     <cityPicker @confrim="cityPickerChange" ref="cityPicker"/>
    */
-import adrData from './../../assets/js/address3.json'
 
 export default {
   name: 'city-picker',
@@ -32,14 +31,14 @@ export default {
     slots: [
       {
         flex: 1,
-        values: adrData,
+        values: [],
         className: 'slot1',
         textAlign: 'center',
         defaultIndex: 0
       },
       {
         flex: 1,
-        values: adrData[0].children,
+        values: [],
         className: 'slot2',
         textAlign: 'center',
         defaultIndex: 0
@@ -104,6 +103,12 @@ export default {
       this.$emit('confrim', values)
       this.hide()
     }
+  },
+  created(){
+    import(/* webpackChunkName: "cityData" */ '@/assets/js/address3.json').then((data) => {
+      this.slots[0].values = data
+      this.slots[1].values = data[0].children
+    })
   }
 }
 </script>

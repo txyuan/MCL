@@ -57,8 +57,7 @@
 
     <div class=""></div>
     <div class="fix_bottom">
-      <mt-button v-if="($route.query.type == 'look')" type="primary" class="theme-button button-radio " size="large"
-                 @click.native="editSubmit">保存
+      <mt-button v-if="($route.query.type == 'look')" type="primary" class="theme-button button-radio " size="large" @click.native="editSubmit" v-preventReClick>保存
       </mt-button>
       <mt-button v-else type="primary" class="theme-button button-radio " size="large" @click.native="addSubmit">下一步
       </mt-button>
@@ -103,6 +102,8 @@
 import weightTab from './tabs/weightTab' // 体重管理
 import healthTab from './tabs/healthTab' // 健康管理
 import zlTab from './tabs/zlTab' // 肿瘤管理
+import cityPicker from '@/components/common/cityPicker2.vue'
+
 function getTime (d) {
   let year = d.getFullYear()
   let month = (d.getMonth() + 1)
@@ -400,20 +401,10 @@ export default {
       if(!val){
         this.openTouch()
       }
-    },
+    }
   },
   components: {
-    cityPicker: () => import(/* webpackChunkName: "cityData2" */ './../../common/cityPicker2.vue').then(function(res){
-      // 监听省市区插件的关闭
-      setTimeout(() => {
-        vm.$watch('$refs.cityPicker.showPicker',function(val){
-          if(!val){
-            vm.openTouch()
-          }
-        })
-      }, 0)
-      return res
-    }),
+    cityPicker,
     weightTab,
     healthTab,
     zlTab
@@ -431,6 +422,13 @@ export default {
     
     // 监听时间插件的关闭
     this.$watch('$refs.DatetimePicker.visible',function(val){
+      if(!val){
+        this.openTouch()
+      }
+    })
+
+    // 监听省市区插件的关闭
+    this.$watch('$refs.cityPicker.showPicker',function(val){
       if(!val){
         this.openTouch()
       }

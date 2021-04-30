@@ -25,6 +25,7 @@
 </template>
 
 <script>
+    import cityPicker from '@/components/common/cityPicker.vue'
     export default {
       name: "index",
       data:()=>({
@@ -138,7 +139,7 @@
         this.inputInputBulr();
       },
       components:{
-        cityPicker: () => import(/* webpackChunkName: "cityData" */"./../../common/cityPicker.vue")
+        cityPicker
       }
     }
 </script>

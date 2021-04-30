@@ -156,7 +156,8 @@
 
       </div>
       <div class="footer_btn">
-        <p class="medicat_btn" @click="setpost">确定并增加</p></div>
+        <mt-button type="primary" class="theme-button" size="large" @click.native="setpost" v-preventReClick>确定并增加</mt-button>
+      </div>
     </div>
     <!-- 每日用药picker  -->
     <mt-popup v-model="popupVisible" position="bottom">
@@ -1030,7 +1031,7 @@
       background: #fff;
       color: #FFFFFF;
 
-      .medicat_btn {
+      .theme-button {
         width: 100%;
         height: 48px;
         line-height: 48px;

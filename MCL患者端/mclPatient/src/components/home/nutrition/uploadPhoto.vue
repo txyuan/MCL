@@ -64,7 +64,7 @@
 			</div> -->
 
 			<div class="fix_bottom fix_bottom_area">
-				<mt-button type="primary" class="theme-button button-radio " size="large" @click.native="save">保存</mt-button>
+				<mt-button type="primary" class="theme-button button-radio " size="large" @click.native="save" v-preventReClick>保存</mt-button>
 			</div>
 		</div>
 

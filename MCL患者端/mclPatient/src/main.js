@@ -17,6 +17,10 @@ import router from './router' //路由
 import VueBus from 'vue-bus';
 import vueTouch from 'vue-plugin-touch';
 import { KFCONFIG } from '@/configURL.js'
+import preventReClick from '@/directive/preventReClick.js' // 指令
+
+// 异步预加载省市区三级联动的数据 
+import(/* webpackChunkName: "cityData" */ '@/assets/js/address3.json')
 
 //定义全局变量
 Vue.prototype.$post = post;
@@ -117,6 +121,7 @@ var vm = new Vue({
 			},
 			false
 		)
+
 	}
 })
 
@@ -125,3 +130,4 @@ var vm = new Vue({
 window.showLoc = function(aa) {
 	vm.longLat = aa;
 }
+

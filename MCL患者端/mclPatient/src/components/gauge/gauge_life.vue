@@ -156,7 +156,7 @@
         </div>
       </div>
       <div class="fix_bottom">
-        <mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit">保存</mt-button>
+        <mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit"  v-preventReClick>保存</mt-button>
       </div>
     </div>
   </div>
@@ -421,7 +421,7 @@ export default {
         this.$Toast('保存成功')
         setTimeout(() => {
           this.$router.back();
-        }, 2000)
+        }, 600)
       })
     }
   },

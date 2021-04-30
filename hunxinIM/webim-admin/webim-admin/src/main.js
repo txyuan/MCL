@@ -53,19 +53,24 @@ window.Vue = new Vue({
     },
     methods: {
       //获取客服的账号信息
-      getKeFuInfo: function(names){
-        if(names.length == 0){ return }
-        // 找到不在缓存中的数据
-        // const arr = names.filter((username) => !this.kefuMap.hasOwnProperty(String(username)))
-        if(names.length == 0){ return }
-        getUserInfo(names).then(({data}) => {
+      getKeFuInfo: function(phone){
+        console.log(phone)
+        if(!phone){ return }
+        if(this.kefuMap[phone]){
+          return
+        }
+        this.$set(this.kefuMap, String(phone), {})
+        getUserInfo(phone).then(({data}) => {
           let users = users = data.data
-          // 储存客服信息
-          users.forEach(item => {
-            item.userName = item.userName.replace(/@/g, '')
-            this.$set(this.kefuMap, String(item.userPhone), item)
-          });
-          // localStorage.kefuMap = JSON.stringify(this.kefuMap)
+          if(data.rspcode == 1){
+             // 储存客服信息
+            users.forEach(item => {
+              item.userName = item.userName.replace(/@/g, '')
+              this.$set(this.kefuMap, String(item.userPhone), item)
+            });
+            // localStorage.kefuMap = JSON.stringify(this.kefuMap)
+          }
+         
         })
       },
       getUserNameByPhone(phone){

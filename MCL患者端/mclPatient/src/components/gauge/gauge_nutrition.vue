@@ -52,7 +52,7 @@
 			<div class="title2 bg-white">2、您现在的身体症状有哪些？<em class="text_bt">(必填)</em></div>
 			<mt-checklist :options="diettabooRadiolist.option" v-model="diettabooRadiolist.value"></mt-checklist>
 			<div class="fix_bottom fix_bottom_area">
-				<mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit">提交申请</mt-button>
+				<mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit"  v-preventReClick>提交申请</mt-button>
 			</div>
 		</div>
 	</div>

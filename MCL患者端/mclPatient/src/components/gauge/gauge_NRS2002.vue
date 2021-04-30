@@ -62,7 +62,7 @@
 		</mt-field>
 
 		<div class="fix_bottom fix_bottom_area">
-			<mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit">下一步</mt-button>
+			<mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit"  v-preventReClick>下一步</mt-button>
 		</div>
 	</div>
 </template>

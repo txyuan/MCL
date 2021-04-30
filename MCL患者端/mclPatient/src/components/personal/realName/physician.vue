@@ -139,7 +139,7 @@
 			</div>
 		</div>
 		<div class="btn_ok" v-if="showButton">
-			<span @click="submit">确认上传</span>
+			<mt-button type="primary" class="theme-button" size="large" @click.native="submit" v-preventReClick>保存</mt-button>
 		</div>
 
 		<!-- 状态picker  -->
@@ -792,21 +792,20 @@
 		position: fixed;
 		bottom: 0;
 		left: 0;
-    line-height: 0.44rem;
-    height: 0.44rem;
+		line-height: 0.44rem;
+		height: 0.44rem;
 		background: #fff;
 		font-size: 0.15rem;
 		color: #FFFFFF;
 		text-align: center;
-
-      span {
-        display: block;
-        background-color: #0AC5C9;
-        border-radius: 0;
-        width: 100%;
-        line-height: 0.44rem;
-        height: 0.44rem;
-      }
+		.theme-button {
+			display: block;
+			background-color: #0AC5C9;
+			border-radius: 0;
+			width: 100%;
+			line-height: 0.44rem;
+			height: 0.44rem;
+		}
 	}
 	.img_wrap.eyepic .img{
 		height: auto;

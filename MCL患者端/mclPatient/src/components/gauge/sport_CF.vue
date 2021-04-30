@@ -33,12 +33,12 @@
 			<div class="title2 ">5、肺功能测试<em class="text_bt">(必填)</em></div>
 			<mt-radio :options="diettlist.option" v-model="param.lung_test"></mt-radio><!-- mt-checklist -->
 			<div class="fix_bottom">
-				<mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit">保存</mt-button>
+				<mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit"  v-preventReClick>保存</mt-button>
 			</div>
 			<div class="title2 ">6、认知障碍<em class="text_bt">(必填)</em></div>
 			<mt-radio :options="obstaclelist.option" v-model="param.obstacle"></mt-radio><!-- mt-checklist -->
 			<div class="fix_bottom">
-				<mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit">提交申请</mt-button>
+				<mt-button type="primary" class="theme-button button-radio" size="large" @click.native="submit"  v-preventReClick>提交申请</mt-button>
 			</div>
 		</div>
 	</div>

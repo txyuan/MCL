@@ -46,8 +46,11 @@
 	export default {
 		data() {
 			return {
+				isLoading: false,
+				consumptionLoad: false, // 获取金额接口只能加载一次
 				groupAjaxList: [], // 群组列表
 				groupAjaxTempList: [], // 群组列表
+				groupSourceList: [], // 群组原来数据列表
 				activedKey: {
 					contact: "",
 					group: "",
@@ -134,27 +137,9 @@
 					chatroom: this.chatroom
 				}
 
-				// 添加消费金额
-				const sourceData = temp.group 
-				const names = sourceData.map(item => {
-					item.name = item.groupname
-					return item.name.split("(")[0]
-				})
+				// 获取消费金额
+				this.getConsumption(temp.group)
 
-				getUserInfo([...names], 'user').then(({data}) => {
-					data.data.forEach((item, index) => {
-						this.$set(sourceData[index], 'account', item.account)
-					})
-				})
-
-				// 未读消息的好友，放到列表的前边
-				for (let i = 0; i < temp.group.length; i++) {
-					let atyop = temp.group[i]
-					if (temp.group[i].meum != 0) {
-						temp.group.splice(i, 1)
-						temp.group.unshift(atyop)
-					}
-				}
 				return temp;
 			},
 			blackList() {
@@ -175,7 +160,10 @@
 		],
 		watch: {
 			'userList.group': function(value) {
-				this.groupAjaxTempList = value
+				// 好友列表根据未读消息排序，缓存好友列表顺序
+				const newValue = this.userListSortByMessage([...value])
+				this.groupAjaxTempList = newValue
+				this.groupSourceList = newValue
 			},
 			filterKeyword: function(value) {
 				let groupAjaxList = this.userList.group.filter(item => item.name.indexOf(value) != -1)
@@ -454,6 +442,89 @@
 				// 	}
 				// })
 			// },
+
+			// 主动给好友聊天的时候，该好友置顶（未读消息的下边）
+			movePositon(){
+				let groupid = this.$route.params.id
+				for(let i = 0; i < this.groupSourceList.length; i++){
+					let item = this.groupSourceList[i]
+					if((item.groupid == groupid) && (i != 0)){
+						this.groupSourceList.splice(i, 1)
+						this.groupSourceList.unshift(item)
+						break
+					}
+				}
+				// 缓存好友列表数据
+				if(this.groupSourceList.length > 0){
+					localStorage.setItem('uesrList', JSON.stringify(this.groupSourceList))
+				}
+			},
+
+			// 好友列表根据未读消息排序，缓存好友列表顺序
+			userListSortByMessage(sourceData){
+				// 读取缓存中的好友列表（根据缓存排序）
+				if(localStorage.getItem('uesrList') && (sourceData.length > 0)){
+					// 数组转换为对象，方便取值
+					const temObj = {}
+					sourceData.forEach(item => temObj[item.groupid] = item)
+					// 遍历缓存中的数据
+					const newUserList = []
+					const userList = JSON.parse(localStorage.getItem('uesrList'))
+					for(let i = 0; i< userList.length; i++){
+						let item = userList[i]
+						if(temObj[item.groupid]){
+							newUserList.push(temObj[item.groupid])
+							delete temObj[item.groupid]
+						}
+					}
+					// 新增的用户数据（对比缓存数据）
+					Object.keys(temObj).forEach((groupid) => newUserList.push(temObj[groupid]))
+					sourceData = newUserList
+				}
+
+				// 未读消息的好友，放到列表的前边（根据未读消息排序）
+				const weiduList = [] // 有未读消息的好友
+				const oldList = [] // 没有未读消息的好友
+				for(let i = 0; i< sourceData.length; i++){
+					let tempItem = sourceData[i]
+					if(tempItem.meum > 0){
+						weiduList.push(tempItem)
+					}else{
+						// 查找当前聊天的好友
+						// if((this.$route.name == "group") && (this.$route.params.id == tempItem.groupid)){
+						// 	oldList.unshift(tempItem)
+						// }else{
+						// 其他好友	
+							oldList.push(tempItem)
+						// }
+					}
+				}
+
+				// 未读消息排序
+				weiduList.sort((a, b) => b.meum - a.meum)
+				
+				// 拼接数组
+				sourceData = [...weiduList, ...oldList]
+				// 缓存好友列表数据
+				if(sourceData.length > 0){
+					localStorage.setItem('uesrList', JSON.stringify(sourceData))
+				}
+				return sourceData
+			},
+			// 获取消费金额
+			getConsumption(sourceData){
+				if(this.consumptionLoad == true){return}
+				this.consumptionLoad = true
+				const names = sourceData.map(item => {
+					item.name = item.groupname
+					return item.name.split("(")[0]
+				})
+				getUserInfo([...names], 'user').then(({data}) => {
+					data.data.forEach((item, index) => {
+						this.$set(sourceData[index], 'account', item.account)
+					})
+				})
+			}
 		}
 	};
 </script>

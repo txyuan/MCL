@@ -54,7 +54,7 @@
 
     <div class=""></div>
     <div class="fix_bottom">
-      <mt-button type="primary" class="theme-button button-radio " size="large" @click.native="addSubmit">下一步
+      <mt-button type="primary" class="theme-button button-radio " size="large" @click.native="addSubmit"  v-preventReClick>下一步
       </mt-button>
     </div>
 
@@ -94,6 +94,8 @@
 </template>
 
 <script>
+import cityPicker from '@/components/common/cityPicker2.vue'
+
 function getTime (d) {
   let year = d.getFullYear()
   let month = (d.getMonth() + 1)
@@ -306,17 +308,7 @@ export default {
     },
   },
   components: {
-    cityPicker: () => import(/* webpackChunkName: "cityData2" */ '../../common/cityPicker2.vue').then(function(res){
-      // 监听省市区插件的关闭
-      setTimeout(() => {
-        vm.$watch('$refs.cityPicker.showPicker',function(val){
-          if(!val){
-            vm.openTouch()
-          }
-        })
-      }, 0)
-      return res
-    })
+    cityPicker
   },
   mounted () {
     vm = this
@@ -326,6 +318,13 @@ export default {
     
     // 监听时间插件的关闭
     this.$watch('$refs.DatetimePicker.visible',function(val){
+      if(!val){
+        this.openTouch()
+      }
+    })
+
+    // 监听省市区插件的关闭
+    this.$watch('$refs.cityPicker.showPicker',function(val){
       if(!val){
         this.openTouch()
       }
