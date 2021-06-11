@@ -1,0 +1,55 @@
+
+//项目变量
+$themeColor:#0ac5ca;
+$themeColor2:#FFD9DF;
+$color90: #909090;
+$color60: #606060;
+$color63: #636768;
+$color66: #666666;
+$color99: #999999;
+$color92: #929898;
+$color40: #404040;
+$color33: #333333;
+$color20: #202020;
+$yellow:  #F78335;
+
+
+$bgF8: #F8F8F8;
+$boderE: #EEEEEE;
+$boderE0:#E0E0E0;
+
+//项目变量
+
+//形状
+//正方体
+@mixin cube($val){
+  width: $val;
+  height: $val;
+}
+//圆形
+@mixin circular($val){
+  @include cube($val);
+  border-radius: 50%;
+}
+//边框
+@mixin border{
+  border: 1px solid $boderE;
+}
+//圆角
+@mixin radio($val){
+  border-radius: $val;
+}
+//省略号
+@mixin ellipsis($row:2){
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box; /** 对象作为伸缩盒子模型显示 **/
+
+  /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+  /*! autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+
+  -webkit-line-clamp: $row; /** 显示的行数 **/
+  overflow: hidden;  /** 隐藏超出的内容 **/
+}

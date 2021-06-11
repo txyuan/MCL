@@ -1,0 +1,596 @@
+.mint-header {
+    height: 0.48rem;
+    font-size: 0.16rem;
+  }
+
+  .neirong {
+    margin-top: 0.1rem;
+  }
+
+  .home-cell {
+    & > .name {
+      line-height: 0.44rem;
+      padding: 0 0.12rem;
+      background: #FFFFFF;
+    }
+
+    .more {
+      float: right;
+      color: #958F8F;
+      font-size: 0.12rem;
+    }
+  }
+
+  /*今日提醒*/
+  .remindList {
+    padding-left: 3%;
+
+    & > li {
+      padding: 0.13rem 0.1rem 0.13rem 0.05rem;
+      background: #FFFFFF;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed #e5e5e5;
+    }
+
+    & > li .left {
+      .rowTop .icon {
+        width: 0.16rem;
+        vertical-align: middle;
+        /*margin-right: 5px;*/
+      }
+    }
+
+    & > li .right {
+      text-align: right;
+      margin-top: 0.1rem;
+    }
+
+    .rowTop {
+      margin-bottom: 0.05rem;
+    }
+
+    .rowTop > * {
+      vertical-align: middle;
+    }
+  }
+
+  .completeState {
+    padding: 0.12rem;
+
+    .float_left {
+      width: 40%;
+    }
+
+    .float_right {
+      width: 60%;
+    }
+  }
+
+  /* 早餐列表 */
+  .yinshhi_list {
+
+    .home-cell {
+
+      background: #FFFFFF;
+    }
+
+    .title {
+      line-height: 45px;
+      background: #FFFFFF;
+    }
+
+    /*.title_icon1 {*/
+    /*  background: url(../../../assets/images/yinshis.png) #fafafa no-repeat 0.1rem center;*/
+    /*  background-size: 0.2rem;*/
+    /*}*/
+
+    /*.title_icon2 {*/
+    /*  background: url(../../../assets/images/shenghuozhuangkuang@2x.png) #fafafa no-repeat 0.1rem center;*/
+    /*  background-size: 0.2rem;*/
+    /*}*/
+
+    .wrap {
+      padding-left: 0.15rem;
+      padding-right: 34px;
+    }
+
+    .wrap > * {
+      vertical-align: middle;
+    }
+
+    /*.wrap>.icon{margin-right: 5px;}*/
+  }
+
+  .titleWrap {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .mint-cell {
+    min-height: 66px;
+  }
+
+  .mt-progress {
+    height: 7px;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 0.10rem;
+  }
+
+  .solution {
+    /*padding: 0.13rem 0.20rem;*/
+    background: #FFFFFF;
+    position: relative;
+    padding: 0.275rem 3% 0.185rem 3%;
+    margin-bottom: 0.1rem;
+   .solution_bg{
+
+     background-color: #0ac5ca;
+     background-size: auto 100%;
+    color: #FFFFFF;
+    font-size: 11px;
+     min-height: 62%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 3%;
+  }
+    }
+
+    .solution_details{
+      position: relative;
+      /*background: #FFFFFF;*/
+      /*padding: 2%;*/
+      border-radius: 0.1rem;
+      .pogress {
+        line-height: 18px;
+        background:#FFFFFF;
+        border-bottom: 1px dashed #e5e5e5;
+        border-radius: 8px 8px 0 0;
+        box-shadow: 0px -4px 5px rgba(0,0,0,0.1);
+        p{
+          font-size: 0.145rem;
+          padding: 0.1rem 0.15rem;
+          color: #666666;
+        }
+        .btys{
+          font-size: 0.185rem;
+          padding:0.12rem 0.05rem;
+          color: #14a4a7;
+          em{
+            font-style: normal;
+            font-size: 0.145rem;
+            padding-left: 0.05rem;
+            color: #666666;
+          }
+        }
+      }
+      .pog_inform {
+        font-size: 0.13rem;
+        color: #666;
+        padding: 0.15rem 5% 0.1rem 5%;
+        background-color: #FFFFFF;
+        border-radius: 8px;
+        margin-bottom: 0.165rem;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        h3 {
+          font-size: 0.15rem;
+          color: #484848;
+          text-align: center;
+          font-weight: 500;
+          padding-bottom: 0.05rem;
+        }
+        p {
+          text-indent: 0.75em;
+          line-height: 0.22rem;
+          color: #787878;
+          font-size: 0.14rem;
+        }
+      }
+
+
+      .zonghe {
+        padding: 0.05rem 3% 0.025rem 3%;
+        background: #FFFFFF;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        border-radius:0 0 8px 8px ;
+        ul {
+          display: flex;
+          justify-content: space-between;
+          text-align: center;
+          padding:0.15rem 1%;
+
+          li{
+            width: 33%;
+            img{
+              width: 0.575rem;
+              height: 0.575rem;
+            }
+            .zonghe_mb {
+                color: #666666;
+               font-size: 0.14rem;
+              width: 0.5rem;
+              height: 0.5rem;
+              border-style: solid;
+              border-width: 4px;
+              border-radius: 50%;
+              position: relative;
+              margin: 0px auto;
+              span{
+                display: block;
+                background-color: #FFFFFF;
+                height: 0.25rem;
+                line-height: 0.275rem;
+                border-radius: 0.25rem 0.25rem 0 0;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0.25rem;
+              }
+              em{
+                font-style: normal;
+                padding-top: 0.25rem;
+                display: inline-block;
+                line-height: 0.25rem;
+                color: #FFFFFF;
+                font-weight: 600;
+                font-size: 0.14rem;
+                padding-left: 0.05rem;
+              }
+              }
+            .protein_br{
+              border-color:#f5c543 ;
+              background-color:#f5c543;
+            }
+            .fat_br{
+              border-color:#ef918f;
+              background-color:#ef918f ;
+            }
+            .carbohydrate_br{
+              border-color:#86c4fa;
+              background-color: #86c4fa;
+            }
+            .zonghe_bt{
+              color: #484848;
+              font-size: 0.14rem;
+              font-weight: 500;
+              margin-top: 0.1rem;
+            }
+          }
+
+        }
+      }
+  }
+
+
+  .noalready {
+    padding-top: 0.4rem;
+
+    img {
+      width: 1.0rem;
+      margin: 0 auto;
+      display: block;
+    }
+
+    p {
+      text-align: center;
+      color: #666;
+      font-size: 0.14rem;
+      padding-top: 0.2rem;
+    }
+  }
+
+  .page {
+    padding-top: 0;
+    padding-bottom: 0.1rem;
+    background: #FFFFFF;
+    margin-top: 0.1rem;
+
+    .title {
+      padding-left: 0.15rem;
+      line-height: 45px;
+
+      border-bottom: 1px solid #e5e5e5;
+
+      span {
+        padding-left: 0.1rem;
+        border-left: 4px solid #0ac5ca;
+      }
+    }
+  }
+
+  .title:before {
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 11px;
+    background: #0ac5ca;
+    border-radius: 3px;
+    margin-left: -5px;
+    margin-right: 5px;
+  }
+
+  .title {
+    /*padding-left: 5px;*/
+    /*margin-top: 20px;*/
+  }
+
+  .panel {
+    /*height:3.22rem;*/
+    background: rgba(255, 255, 255, 1);
+    /*box-shadow: 0px 2px 8px 0px rgba(55, 61, 83, 0.51);*/
+    border-radius: 15px;
+    padding: 0.1rem 0.15rem;
+    line-height: 1.6;
+  }
+
+  .list {
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .list li {
+    float: left;
+    width: 20%;
+    box-sizing: border-box;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 0.18rem;
+    line-height: 0.27rem;
+    height: 0.27rem;
+  }
+
+  .list li.active {
+    border: 0.02px solid #48546E;
+    color: #48546E;
+    line-height: 0.25rem;
+  }
+
+  .pane-state {
+    margin-top: 0.1rem;
+    color: #7786E4;
+  }
+
+  .panel-list {
+    line-height: 1.5;
+    border-bottom: 1px solid #EDEDF5;
+    padding-bottom: 0.15rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .note {
+    color: #CDCFDE;
+    line-height: 1.5;
+  }
+
+  /*时间栏目*/
+  .time-pick {
+    background: #0ac5ca;
+    height: 44px;
+  }
+
+  .time-inner {
+    width: 200px;
+    text-align: center;
+    padding-top: 10px;
+    margin: 0 auto;
+  }
+
+  .time-show {
+    display: inline-block;
+    width: 116px;
+    font-size: 12px;
+    line-height: 25px;
+    background: #0ac5ca;
+    color: #FFFFFF;
+    text-align: center;
+    border-radius: 5px;
+    overflow: hidden;
+
+    input {
+      width: 100%;
+      font-size: 12px;
+      color: #fff;
+      text-align: center;
+    }
+  }
+
+  /*第一个进度条*/
+  .huan {
+    height: 150px;
+    width: 150px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .text-huan {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+    padding-top: 75px;
+  }
+
+  /*第二个饼图*/
+  #pie,
+  #pie2 {
+    /*width: 200px;*/
+    height: 300px;
+    margin: 0 auto;
+  }
+
+  .panel table.bgtable {
+    width: 100%;
+    font-size: 0.12rem;
+    line-height: 0.25rem;
+    text-align: left;
+    background: #F5F6FA;
+    border-radius: 6px;
+    padding: 0.08rem;
+    text-align: center;
+  }
+
+  .panel table.bgtable th {
+    font-weight: normal;
+    color: #008b8e;
+    font-size: 0.135rem;
+    font-weight: 500;
+  }
+
+  .panel table.bgtable .line td {
+    padding: 5px 0;
+  }
+
+  .geTable {
+    width: 100%;
+    font-size: 0.12rem;
+    line-height: 0.25rem;
+    text-align: left;
+    /*padding: 5px 10px;*/
+  }
+
+  .panel table.geTable th {
+    font-weight: normal;
+    color: #7484E4;
+  }
+
+  .geTable th,
+  .geTable td {
+    border-bottom: 1px solid #eee;;
+  }
+
+  .geTable tr:last-of-type td {
+    border: none;
+  }
+
+  /* 菜单 */
+  .menulist {
+    margin-top: 0.3rem;
+  }
+
+  .menulist ul {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    font-size: 0.12rem;
+  }
+
+  .menulist ul img {
+    width: 0.35rem;
+    display: block;
+  }
+
+  .diet_alety {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9990000;
+    background: rgba(000, 000, 000, 0.6);
+
+    .diet_aletw {
+      width: 78%;
+      background: #fff;
+      border-radius: 8px;
+      position: relative;
+      top: 50%;
+      margin-top: -1.5rem;
+      margin-left: auto;
+      margin-right: auto;
+      .diet_aleta{
+        text-align: center;
+        padding: 0.1rem 0;
+        border-bottom: 1px solid #e5e5e5;
+        width: 100%;
+      }
+      .diet_aletc {
+        padding: 0.15rem 0.15rem 0.25rem 0.15rem;
+
+        p {
+          font-size: 0.145rem;
+          color: #666;
+          margin-top: 0.08rem;
+          min-width: 48%;
+          display: inline-block;
+        }
+
+        img {
+          width: 100%;
+          max-height: 1.0rem;
+          margin-top: 0.1rem;
+        }
+      }
+
+      .diet_aleto {
+        height: 0.42rem;
+        line-height: 0.42rem;
+        font-size: 0.15rem;
+        color: #FFFFFF;
+        width: 100%;
+        text-align: center;
+        background-color: #0ac5ca;
+        border-radius:0 0 8px 8px ;
+      }
+    }
+  }
+
+  .yinshhi_list .title:before {
+    content: none;
+  }
+
+  #navbar .mint-navbar .mint-tab-item.is-selected {
+    border-bottom: 2px solid #0ac5ca;
+    color: #0ac5ca;
+  }
+
+  .mint-badge.is-size-small {
+    font-size: 0.125rem;
+    background-color: #0ac5ca;
+    padding: 0.02rem 0.1rem;
+    border-radius: 0.1rem;
+  }
+
+  .huiFont {
+    color: #484848;
+  }
+
+  .light_gray {
+
+    color: #787878;
+  }
+
+  #navbar .mint-navbar {
+    border-bottom: 1px solid #f1f1f1;
+  }
+
+  .remindList:last-child li {
+    border-bottom: 0;
+  }
+  .buttons{
+    height: 0.44rem;
+    border: 0;
+    z-index: 3;
+    .add_btns{
+      background-color: #0ac5ca;
+      width: 100%;
+      height: 0.44rem;
+      line-height:0.44rem;
+      border-radius: 0;
+      margin: 0 auto;
+    }
+  }
+  .meal_sort{
+    margin-bottom: 0.1rem;
+    .mint-cell{
+      img{
+        border-radius: 4px;
+      }
+    }
+  }

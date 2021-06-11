@@ -1,0 +1,250 @@
+.form-panel label {
+    margin-right: 0.1rem;
+    margin-left: 0.1rem;
+  }
+  input {
+    outline-color: invert;
+    outline-style: none;
+    outline-width: 0px;
+    border: none;
+    border-style: none;
+    text-shadow: none;
+    -webkit-appearance: none;
+    -webkit-user-select: text;
+    outline-color: transparent;
+    box-shadow: none;
+  }
+  input[type="radio"],
+  input[type="checkbox"] {
+    cursor: pointer;
+    position: relative;
+    width: 18px;
+    height: 18px;
+    font-size: 14px;
+  }
+  
+  input[type="radio"]::after,
+  input[type="checkbox"]::after {
+    position: absolute;
+    top: 0;
+    background-color: #fff;
+    border: 1px solid #999;
+    color: #000;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    visibility: visible;
+    padding-left: 0px;
+    text-align: center;
+    content: " ";
+  }
+  
+  input[type="radio"]:checked::after,
+  input[type="checkbox"]:checked::after {
+    content: "✓";
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    width: 18px;
+    height: 18px;
+    border: 0;
+    background-color: #0ac5ca;
+  }
+  
+  input[type="radio"]::after {
+    border-radius: 50%;
+  }
+  
+  input[type="checkbox"]::after {
+    border-radius: 3px;
+  }
+  .form-panel {
+    width: 100%;
+    margin: 0 auto 0 auto;
+    border-radius: 8px;
+  
+    .askTitle {
+      width: 100%;
+      height: 46px;
+      line-height: 48px;
+      background-color: #0ac5ca;
+      color: #fff;
+      border-radius: 8px 8px 0 0;
+      margin-top: 0.15rem;
+  
+      strong {
+        padding-left: 0.1rem;
+        font-weight: 400;
+      }
+    }
+  
+    .answerUl {
+      padding: 0.1rem 0.1rem 0.15rem 0.06rem;
+      min-height: 100px;
+      background-color: #fff;
+      border-radius: 0 0 8px 8px;
+  
+      li {
+        padding: 0.1rem 0.1rem;
+        color: #484848;
+        font-size: 0.145rem;
+        /*border-bottom: 1px solid #e5e5e5;*/
+        input[type="text"],input[type="number"] {
+          border-bottom: 1px solid #999;
+          border-width: 0 0 1px 0;
+          display: inline-block;
+          max-width: 72px;
+          font-size: 0.15rem;
+          color: #666666;
+          text-align: center;
+        }
+  
+        input[type="radio"],
+        input[type="checkbox"] {
+          top: 2px;
+        }
+      }
+  
+      li.d-flex {
+        display: flex !important;
+  
+        .flex-grow-1 {
+          -ms-flex-positive: 1 !important;
+          flex-grow: 1 !important;
+        }
+      }
+  
+      li:after {
+      }
+  
+      li:last-child {
+        border-bottom: 0;
+      }
+    }
+  
+    .dhysUl {
+      li {
+        margin-top: 0.25rem;
+        font-size: 0.145rem;
+      }
+    }
+  
+    .dflexUl {
+      .dflexLeft {
+        min-width: 72px;
+  
+        label {
+          display: inline-block;
+          margin: 0 0 0 0.1rem;
+        }
+      }
+  
+      li.d-flex {
+        display: flex !important;
+  
+        .flex-grow-1 {
+          -ms-flex-positive: 1 !important;
+          flex-grow: 1 !important;
+        }
+      }
+    }
+  
+    .explainUl {
+      padding: 0.1rem;
+  
+      li {
+        padding: 0.02rem 0.1rem 0.02rem 0.15rem;
+        font-size: 0.14rem;
+        color: #777;
+  
+        label {
+          min-width: 92px;
+          display: inline-block;
+          margin: 0;
+        }
+      }
+  
+      li:first-child {
+        padding: 0.05rem 0.1rem 0.05rem 0.05rem;
+        color: #555;
+      }
+  
+      li.d-flex {
+        display: flex !important;
+  
+        .flex-grow-1 {
+          -ms-flex-positive: 1 !important;
+          flex-grow: 1 !important;
+        }
+      }
+    }
+  }
+
+// 有滑块的页面样式
+.rangeNum{
+    width: 100%;
+    li{
+        width: 9%;
+        float: left;
+        text-align: center;
+        font-weight: 600;
+        color: #666;
+    }
+}
+.numrang{
+    height: calc( 100vh - 272px);
+    background: url(../../../assets/images/symptom-bg.jpg) no-repeat center center;
+    p{
+        color: #fff;
+        font-size: 72px;
+        text-align: center;
+        padding-top: calc( (100vh - 276px)/2 );
+        margin-top: -70px;
+        float: left;
+        width: 100%;
+    }
+    span{
+        display: block;
+        font-size: 0.17rem;
+        color: #fff;
+        text-align: center;
+        padding-top: 0.1rem;
+        clear: both;
+    }
+}
+.fszrg{
+    width: 80%;
+    padding: 0 10%;
+    background: #fff;
+    height: 176px;
+    h3{
+        font-size: 0.17rem;
+        font-weight: 500;
+        text-align: center;
+        padding-top: 30px;
+        padding-bottom: 26px;
+    }
+    ul{
+        padding-top: 12px;
+    }
+}
+
+.mt-range >>>{
+    .mt-range-runway{
+        border-top-color: #F4D9D2;
+      border-radius: 5px;
+      right: -24px;
+    }
+    .mt-range-progress{
+        background-color: #FD6C75;
+        border-radius: 5px 0 0 5px;
+    }
+    .mt-range-thumb{
+        width: 24px;
+        height: 24px;
+        border: 1px solid #E58391;
+    }
+    .mt-range-content{
+        margin-right: 24px;
+    }
+}

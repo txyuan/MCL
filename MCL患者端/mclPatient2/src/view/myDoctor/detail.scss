@@ -1,0 +1,86 @@
+@import "@/assets/css/base.scss";
+.content{
+    background: #FFF;
+    overflow: hidden;
+    margin-bottom: 0.15rem;
+}
+// 卡片样式
+.card{
+    background: #FFF;
+    margin: 0.15rem;
+    // padding: 0.1rem 0;
+    padding-top: 0.1rem;
+    // border-radius: 0.08rem;
+    .info{
+        display: flex;
+        align-items: center;
+        .doctorPic{
+            width: 0.6rem;
+            height: 0.6rem;
+            border-radius: 0.3rem;
+            margin-right: 0.15rem;
+        }
+        .right{
+            flex: 1;
+            font-size: 0.14rem;
+        }
+        .name{
+            font-size: 0.18rem;
+            margin-bottom: 0.06rem;
+            span{
+                font-size: 0.14rem;
+                margin-left: 0.15rem;
+            }
+        }
+    }
+    .hospital{
+        font-size: 0.14rem;
+        margin: 0.1rem 0;
+    }
+    .des{
+        font-size: 14px;
+        color: #999;
+        p{
+            height: 37px;
+            @include ellipsis(2);
+        }
+    }
+    .num{
+       display: flex;
+       justify-content: space-around;
+       font-size: 0.14rem;
+    }
+}
+
+.panel{
+    padding: 0.15rem;
+    background: #FFF;
+    font-size: 0.14rem;
+    .panel-title{
+        font-size: 0.18rem;
+        margin-bottom: 0.15rem;
+    }
+    li{
+        position: relative;
+        padding-left: 0.15rem;
+    }
+    li::before{
+        content: "";
+        display: block;
+        width: 0.08rem;
+        height: 0.08rem;
+        border-radius: 50%;
+        background: #0ac5ca;
+        position: absolute;
+        top: 0.06rem;
+        left: 0;
+    }
+    .panel-des{
+        color: #666;
+        font-size: 0.12rem;
+        padding: 0.1rem;
+        margin-top: 0.15rem;
+        border-radius: 0.04rem;
+        background: #E5F7F6;
+    }
+}

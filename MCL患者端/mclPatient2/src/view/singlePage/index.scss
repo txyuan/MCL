@@ -1,0 +1,150 @@
+.page{
+    min-height: 100vh;
+    // overflow: hidden;
+    background: url("../../assets/images/singlePage/page2.png") no-repeat center 2.8%, url("../../assets/images/singlePage/singleHome.jpg") no-repeat center top;
+    background-size: 91% auto,  100% auto;
+    position: relative;
+    padding: 1px;
+    box-sizing: border-box;
+}
+.home.page{
+    background: url("../../assets/images/singlePage/page1.png") no-repeat center top, url("../../assets/images/singlePage/singleHome.jpg") no-repeat center top;
+    background-size: 100% auto,  100% auto;
+}
+.panel{
+    margin: 39.5% 5% 10% 5%;
+    background: rgba(255,255,255,0.5);
+    border-radius: 10px;
+    min-height: 4.3rem;
+    padding: 1px;
+    padding-bottom: 0.15rem;
+    .title{
+        width: 80% !important;
+        margin: 0 auto;
+        margin-top: -20px;
+    }
+
+    .blue-button{
+        margin-top: 0.3rem;
+        margin-bottom: 0.3rem;
+    }
+    .note{
+        width: 90%;
+        padding: 0.2rem 0;
+        margin: 0.2rem auto;
+        font-size: 0.18rem;
+        text-align: center;
+        border: 1px dashed #B4BCBB;
+        border-radius: 16px;
+        span{
+            font-size: 0.22rem;
+            color: #E54792;
+            margin: 0 3px;
+        }
+    }
+    .link{
+        text-align: center;
+        a{
+            color: #44B1D5;
+            text-decoration: underline;
+        }
+    }
+}
+.btn-panal{
+    width: 2.7rem;
+    margin: auto;
+    margin-top: 89%;
+    overflow: hidden;
+    padding-bottom: 0.2rem;
+}
+.btn-panal >>> .mint-button{
+    margin-bottom: 0.2rem;
+}
+>>> .mint-button{
+    height: 45px;
+    background-color: #E54792;
+}
+.blue-button{
+    width: 55%;
+    margin: 0 auto;
+    border-radius: 6px;
+    background-color: #32C3D8;
+}
+
+// 输入框样式
+.input_item{
+    width: 48%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 0.3rem;
+    .name{
+        font-size: 0.18rem;
+        margin-bottom: 0.15rem;
+        span{
+            font-size: 0.14rem;
+        }
+    }
+    input{
+        width: 100%;
+        text-align: center;
+        color: #666;
+        height: 0.30rem;
+        font-size: 0.14rem;
+        border-bottom: 1px solid #ABAFAB;
+    }
+    input::placeholder{
+        text-align: center;
+    }
+}
+
+// 单选框样式
+.radio-title{
+    font-size: 0.16rem;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 0.15rem;
+    margin-bottom: 0.1rem;
+}
+.radio—item{
+    margin: 0.05rem 0.05rem 0.03rem 10%;
+    display: flex;
+    .radio{
+        width: 0.24rem;
+        height: 0.24rem;
+        margin-right: 0.15rem;
+        margin-top: 0.05rem;
+        box-sizing: border-box;
+        display: inline-block;
+        border: 1px solid #B4BCBB;
+        border-radius: 50%;
+        position: relative;
+    }
+    .radio.checked::before{
+        content: "";
+        display: block;
+        width: 0.14rem;
+        height: 0.14rem;
+        border-radius: 50%;
+        box-sizing: border-box;
+        background-color: #E54792;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+    .content{
+        flex: 1;
+    }
+    .label{
+        font-size: 0.16rem;
+    }
+    .des{
+        font-size: 12px;
+        color: #666;
+    }
+}
+
+
+

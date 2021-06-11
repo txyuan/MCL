@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title></title>
+	<style type="text/css">
+		#easemob-iframe-cf3dc09d-8b8f-40f3-ba66-c9161f3d668e .em-mobile{display: none !important; }
+		#header_mark{height: 41px; background: #FFFFFF;position: absolute;top: 0;width: 100%;display: block !important;z-index: 999999;}
+	</style>
+	<script type="text/javascript">
+		//获取url的参数
+		function getUrlParam(name) {   
+		      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");   
+		      var r = window.location.search.substr(1).match(reg);   
+		      if (r != null) return decodeURI(r[2]); return null;   
+		}  
+	</script>
+</head>
+<body id="body">
+	<div id="header_mark"></div>
+	<a href='javascript:;' id="chat" onclick="easemobim.bind(window.easemobim.config)"></a>
+    <script src='//kefu.easemob.com/webim/easemob.js'></script>
+</body>
+<!--<script src='//kefu.easemob.com/webim/easemob.js?configId=952850fd-5ff4-4e6c-b8c6-978ec49aaef8'></script>-->
+<script type="text/javascript">
+	
+	var timer; //定时器	
+    function openChat() {
+        document.getElementById("chat").onclick();
+        var chat_body = document.getElementById("chat_body");
+        unreadMessageCount = 0;
+        _updateDom(unreadMessageCount);
+        timer = setInterval(function () {
+            var classList = [].slice.call(chat_body.classList);
+            var isOPenChat = classList.indexOf('easemobim-mobile-body');
+            if (isOPenChat == (-1)) {
+                clearInterval(timer);
+                window.parent.document.getElementById("chatIframe").classList.remove("show")
+            }
+        }, 500)
+    };
+
+    // 本例中聊天窗口默认是打开的
+    var isChatWindowOpen = true;
+    var unreadMessageCount = 0;
+
+    // 添加事件监听，用于获取聊天窗口是否最小化
+    // 如需兼容IE8 需要使用attachEvent，并且evt.data是JSON string 需要解析
+    // 这个是文档未公开的方式，不保证以后的版本都能兼容
+    window.addEventListener("message", function (evt) {
+        var data = evt.data;
+        var eventName = data && data.event;
+
+        switch (eventName) {
+            case "showChat":
+                isChatWindowOpen = true;
+                unreadMessageCount = 0;
+                console.log("showChat")
+                _updateDom(unreadMessageCount);
+                break;
+            case "closeChat":
+                isChatWindowOpen = false;
+                break;
+            default:
+                break;
+        }
+    });
+
+   
+    // 添加收消息回调
+    window.easemobim = window.easemobim || {};
+    window.easemobim.config = {
+        configId: 'fb8e4296-5281-4927-a99f-9982bf7a0f30',
+        domain: "//kefu.easemob.com",
+        onmessage: _onMessageReceive,
+        autoConnect: true,
+        hide: true,
+        visitor: {
+        	trueName: getUrlParam("name"),
+        	phone: getUrlParam("phone"),
+        	
+        },
+        onready: function () {
+            openTimer()
+        }
+        //eventCollector: true
+    };
+     
+     
+    function _updateDom(count) {
+        var dom = window.parent.document.getElementById("unreadNum");
+        dom.innerText = count;
+        dom.style.display = "block";
+        if (count == 0) {
+            dom.style.display = "none";
+        }
+    }
+//
+    function _onMessageReceive(msg) {
+
+        if (!isChatWindowOpen) {
+            unreadMessageCount++;
+            _updateDom(unreadMessageCount);
+        }
+    }
+
+    document.getElementById('chat').onclick();
+
+    var timer = "";
+    function openTimer() {
+        timer = setInterval(function () {
+            var body = document.getElementById("body");
+            if (!body.classList[0]) {
+                clearInterval(timer);
+                //window.history.go(-1);
+            }
+        }, 200)
+    }
+    
+
+
+
+</script>
+</html>
