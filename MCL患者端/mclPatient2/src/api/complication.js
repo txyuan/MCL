@@ -17,3 +17,15 @@ export function save(param){
     let url = "UserInterface/complication/getComplicationSave.ashx";
     return post(url, param)
 }
+
+//  饮食建议接口
+export function getDietAdviceList(param){
+    let url = "UserInterface/complication/GetDietAdviceList.ashx";
+    return post(url, param)
+}
+
+// 饮食建议的自测工具列表和十五种并发症
+export function getDietSuggestionList(param){
+    let url = "UserInterface/complication/DietSuggestionList.ashx";
+    return post(url, param)
+}

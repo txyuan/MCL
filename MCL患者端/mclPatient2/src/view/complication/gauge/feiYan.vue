@@ -9,7 +9,26 @@
     </mt-header>
 
     <div class="form-panel">
-      <div data-v-7891f84c="" class=""><div class="q" id="49"><div align="" class="auto-style3"><div class="askTitle"><strong>1、放射性肺炎</strong></div></div></div> <ul class="answerUl"><li><input type="checkbox" style=" margin-left: 6px;" name="49" value="0" id="checkbox490"><label for="checkbox490">有诊断，但较轻微无明显症状</label></li><li><input type="checkbox" style=" margin-left: 6px;" name="49" value="1" id="checkbox491"><label for="checkbox491">偶有刺激性干咳</label></li><li><input type="checkbox" style=" margin-left: 6px;" name="49" value="2" id="checkbox492"><label for="checkbox492">干咳，活动后加重（多数在放射治疗2～3个月后出现）</label></li><li><input type="checkbox" style=" margin-left: 6px;" name="49" value="3" id="checkbox493"><label for="checkbox493">干咳频繁</label></li><li><input type="checkbox" style=" margin-left: 6px;" name="49" value="4" id="checkbox494"><label for="checkbox494">伴有气喘、气急</label></li><li><input type="checkbox" style=" margin-left: 6px;" name="49" value="5" id="checkbox495"><label for="checkbox495">伴有胸痛</label></li><li><input type="checkbox" style=" margin-left: 6px;" name="49" value="6" id="checkbox496"><label for="checkbox496">伴有心悸、心慌</label></li><li><input type="checkbox" style=" margin-left: 6px;" name="49" value="7" id="checkbox497"><label for="checkbox497">伴有发热</label></li><li><input type="checkbox" style=" margin-left: 6px;" name="49" value="8" id="checkbox498"><label for="checkbox498">呼吸困难，或伴有低氧血症</label></li><li><input type="checkbox" style=" margin-left: 6px;" name="49" value="9" id="checkbox499"><label for="checkbox499">并发支气管炎</label></li><li><input type="checkbox" style=" margin-left: 6px;" name="49" value="10" id="checkbox4910"><label for="checkbox4910">并发肺气肿</label></li></ul></div>
+      <div data-v-7891f84c="" class="">
+        <div class="q" id="49">
+          <div align="" class="auto-style3">
+            <div class="askTitle"><strong>1、放射性肺炎</strong></div>
+          </div>
+        </div> 
+        <ul class="answerUl">
+          <li><input type="checkbox" style=" margin-left: 6px;" name="49" value="0" id="checkbox490"><label for="checkbox490">有诊断，但较轻微无明显症状</label></li>
+          <li><input type="checkbox" style=" margin-left: 6px;" name="49" value="1" id="checkbox491"><label for="checkbox491">偶有刺激性干咳</label></li>
+          <li><input type="checkbox" style=" margin-left: 6px;" name="49" value="1" id="checkbox492"><label for="checkbox492">干咳，活动后加重（多数在放射治疗2～3个月后出现）</label></li>
+          <li><input type="checkbox" style=" margin-left: 6px;" name="49" value="1" id="checkbox493"><label for="checkbox493">干咳频繁</label></li>
+          <li><input type="checkbox" style=" margin-left: 6px;" name="49" value="1" id="checkbox494"><label for="checkbox494">伴有气喘、气急</label></li>
+          <li><input type="checkbox" style=" margin-left: 6px;" name="49" value="1" id="checkbox495"><label for="checkbox495">伴有胸痛</label></li>
+          <li><input type="checkbox" style=" margin-left: 6px;" name="49" value="1" id="checkbox496"><label for="checkbox496">伴有心悸、心慌</label></li>
+          <li><input type="checkbox" style=" margin-left: 6px;" name="49" value="1" id="checkbox497"><label for="checkbox497">伴有发热</label></li>
+          <li><input type="checkbox" style=" margin-left: 6px;" name="49" value="1" id="checkbox498"><label for="checkbox498">呼吸困难，或伴有低氧血症</label></li>
+          <li><input type="checkbox" style=" margin-left: 6px;" name="49" value="1" id="checkbox499"><label for="checkbox499">并发支气管炎</label></li>
+          <li><input type="checkbox" style=" margin-left: 6px;" name="49" value="1" id="checkbox4910"><label for="checkbox4910">并发肺气肿</label></li>
+        </ul>
+      </div>
     </div>
     <mt-button
       type="primary"

@@ -1,5 +1,5 @@
 <template>
-    <div class="padding-header padding-footer page-bg-white">
+    <div class="padding-header page-bg-white">
         <mt-header :title="title" fixed>
             <div slot="left">
                 <header-back>
@@ -8,43 +8,20 @@
             </div>
         </mt-header>
         
-        <img src="@/assets/images/selfTestTool/banner2.jpg" alt="" width="100%">
-
-        <!-- <div class="banner">
-            <img v-lazy="ImageUrl" alt="" width="100%">
-        </div> -->
-
-        <div class="content">
-            <div class="section" v-html="SubjectMemo"></div>
-            <!-- <div class="section">
-                <div class="section-title"><span>什么是BMI自测？</span></div>
-                <div class="section-content">水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水</div>
+        <div class="content" :class="$route.query.type">
+            <div class="panel">
+               <div class="panel-title">{{title}}</div>
+               <div class="section" v-html="SubjectMemo"></div>
+               <img v-if="$route.query.type == 'BMI'" src="@/assets/images/selfTestTool/bg/BMI.png" alt="" width="100%" class="bgImg">
+               <img v-if="$route.query.type == 'energy'" src="@/assets/images/selfTestTool/bg/每日所需能量.png" alt="" width="100%" class="bgImg">
+               <img v-if="$route.query.type == 'protein'" src="@/assets/images/selfTestTool/bg/每日所需蛋白量.png" alt="" width="100%" class="bgImg">
+               <img v-if="$route.query.type == 'water'" src="@/assets/images/selfTestTool/bg/每日所需饮水量.png" alt="" width="100%" class="bgImg">
+               <img v-if="$route.query.type == 'weight'" src="@/assets/images/selfTestTool/bg/标准体重.png" alt="" width="100%" class="bgImg">
+               <img v-if="$route.query.type == 'actualIntake'" src="@/assets/images/selfTestTool/bg/每日实际摄入量.png" alt="" width="100%" class="bgImg">
+               <mt-button type="primary" class="theme-button" size="large" @click.native="$router.push({name: 'toolHome', query: $route.query, params:{type: $route.query.type}})">立即自测 <!--  <span style="font-size: 12px">（1元1次）</span>--> </mt-button>
             </div>
-            <div class="section">
-                <div class="section-title"><span>你是否有以下症状</span></div>
-                <div class="section-content">
-                    <p>1. 水来与各种食物和饮水水来</p>
-                    <p>2. 水来与各种食物和饮水水来</p>
-                    <p>3. 水来与各种食物和饮水水来</p>
-                    <p>4. 水来与各种食物和饮水水来</p>
-                </div>
-            </div>
-            <div class="section">
-                <div class="section-title"><span>我们将会提供</span></div>
-                <div class="section-content">水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水</div>
-            </div>
-            <div class="section">
-                <div class="section-title"><span>适用人群</span></div>
-                <div class="section-content">
-                    <p>1. 水来与各种食物和饮水水来</p>
-                    <p>2. 水来与各种食物和饮水水来</p>
-                    <p>3. 水来与各种食物和饮水水来</p>
-                    <p>4. 水来与各种食物和饮水水来</p>
-                </div>
-            </div> -->
         </div>
 
-        <mt-button type="primary" class="theme-button fix_bottom" size="large" @click.native="$router.push({name: 'toolHome', query: $route.query, params:{type: $route.query.type}})">立即自测 <!--  <span style="font-size: 12px">（1元1次）</span>--> </mt-button>
     </div>
 </template>
 
@@ -54,7 +31,6 @@ export default {
     data() {
         return {
             ImageUrl: "",
-            PageUrl: "",
             SubjectMemo: "",
         }
     },
@@ -80,9 +56,77 @@ export default {
    padding: 0.15rem;
    padding-bottom: 0;
 }
-.section{
-  padding: 0.1rem 0.15rem;
+.content{
+    height: calc(100vh - 43px);
+    overflow: hidden;
+    overflow-y: scroll;
+    background: url("../../assets/images/selfTestTool/bg/BMIbg.jpg") no-repeat;
+    background-size: 100% auto;
+    &.BMI{
+        background-image: url("../../assets/images/selfTestTool/bg/BMIbg.jpg");
+        .panel .panel-title,.theme-button,.section{color: #505a88;}
+    }
+    &.energy{
+        background-image: url("../../assets/images/selfTestTool/bg/每日所需能量bg.jpg");
+        .panel .panel-title,.theme-button,.section{color: #7056b2;}
+    }
+    &.protein{
+        background-image: url("../../assets/images/selfTestTool/bg/每日所需蛋白量bg.jpg");
+        .panel .panel-title,.theme-button,.section{color: #38b5b9;}
+    }
+    &.water{
+        background-image: url("../../assets/images/selfTestTool/bg/每日所需饮水量bg.jpg");
+        .panel .panel-title,.theme-button,.section{color: #88a531;}
+    }
+    &.weight{
+        background-image: url("../../assets/images/selfTestTool/bg/标准体重bg.jpg");
+        .panel .panel-title,.theme-button,.section{color: #69b273;}
+    }
+    &.actualIntake{
+        background-image: url("../../assets/images/selfTestTool/bg/每日实际摄入量bg.jpg");
+        .panel .panel-title,.theme-button,.section{color: #ac7f29;}
+        .panel {padding-bottom: 0.10rem;}
+    }
 }
+.panel{
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 0.8rem;
+    margin-bottom: 0.3rem;
+    padding-top: 1px;
+    
+    background: rgba(255,255,255, 0.4);
+    border-radius: 0.15rem;
+    box-sizing: border-box;
+    position: relative;
+    .theme-button{
+        width: 65%;
+        background: #FFF;
+        color: #505a88;
+        border-radius: 20px;
+        position: absolute;
+        bottom: -20px;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+    .bgImg{
+        display: block;
+    }
+    .panel-title{
+        color: #505a88;
+        font-size: 0.26rem;
+        margin-top: -0.15rem;
+        margin-left: 0.15rem;
+        letter-spacing: 1px;
+    }
+}
+.section{
+    font-size: 0.13rem;
+    color: #505a88;
+    padding: 0.1rem 0.15rem;
+}
+
 .section-title {
   line-height: 0.55rem;
   font-weight: bold;

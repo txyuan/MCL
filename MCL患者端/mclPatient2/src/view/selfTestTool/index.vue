@@ -210,7 +210,8 @@ export default {
     text-align: left;
     background: #F0F4FD;
     border-radius: 0.05rem;
-    height: 0.9rem;
+    // height: 0.9rem;
+    height: 1.1rem;
     font-size: 0.16rem;
     padding: 0.15rem;
     box-sizing: border-box;
@@ -222,6 +223,7 @@ export default {
   .item-des{
     font-size: 0.12rem;
     color: #666;
+    height: 0.32rem;
     margin-bottom: 0.05rem;
   }
   .item-icon{

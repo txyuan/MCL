@@ -116,6 +116,12 @@ var vm = new Vue({
 		App
 	},
 	template: '<App/>',
+	created(){
+		//获取openid
+		if((process.env.NODE_ENV == 'production') && this.isWeiXin()){
+			payType.getOpendId();
+		}
+	},
 	mounted() {
 		payType.getOpendId(); //获取openid
 

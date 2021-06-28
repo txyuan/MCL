@@ -1,5 +1,5 @@
 <template>
-  <div class="padding-header padding-footer page-bg-white">
+  <div class="padding-header padding-footer page-hui-white">
     <mt-header :title="title" fixed>
       <div slot="left">
         <header-back>
@@ -8,28 +8,36 @@
       </div>
     </mt-header>
 
-    <div class="result">
-      <div id="echart"></div>
-      <p class="echart-title">{{data.scoreResult}}</p>
-      <div class="note">
-        <p class="title">注：{{title}}分级标准为：</p>
-        <p v-html="data.remarks">1.轻度贫血：Hb男性90~120L，女性Hb90-110L</p>
-        <!-- <p>2.中度贫血：Hb60~90L</p> -->
-      </div>
-    </div>
-    <div class="bg"></div>
-    <div class="solution">
-      <div class="solution-title"><span>推荐方案</span></div>
-      <div class="solution-list">
-        <ul>
-          <li @click="solution">饮食建议</li>
-          <li @click="solution">营养方案</li>
-        </ul>
-      </div>
+    <img src="@/assets/images/complication/banner4.jpg" alt="" width="100%">
+    <div class="content">
+        <div class="section result-box">
+            <div class="section-title"><span>{{title}}风险评测</span></div>
+            <div class="score-box" v-if="data.score">
+                <div class="score-content"><span>{{data.score}}</span></div>
+            </div>
+            <div class="section-result">
+                <div class="result-title">
+                    <span v-if="data.scoreResult">您的{{title}}风险评测分值为<span class="score-num">{{data.score}}</span>，</span><span v-if="data.scoreResult">评测结果为：</span>
+                </div>
+                <div class="result-des" v-if="data.scoreResult">{{data.scoreResult}}</div>
+                <div class="result-des-note">请遵医嘱，或尽快联系在线医生！</div>
+                <div class="bg"></div>
+                <div class="result-note" v-html="data.remarks"></div>
+            </div>
+        </div>
+        <div class="section" v-if="productList.length != 0">
+            <div class="section-title"><span>营养方案</span></div>
+            <div class="section-content">
+              <div class="section-view">
+                <productItem v-for="item in productList" :key="item.goodsId" :item="item" detailPage="serviceDetail"/>
+              </div>
+            </div>
+        </div>
     </div>
 
     <div class="fix_bottom">
-        <mt-button type="primary" class="theme-button" size="large" @click.native="$root.goMessage">个性化定制</mt-button>
+        <mt-button type="primary" class="theme-button" size="large" @click.native="proposal">查看饮食建议</mt-button>
+        <mt-button type="default" size="large" @click.native="$root.goMessage">个性化定制</mt-button>
     </div>
     
   </div>
@@ -38,62 +46,20 @@
 <script>
 import { getSelfTestToolResult } from "@/api/selfTest.js"
 import { GetProductList } from "@/api/shopCar.js"
+import productItem from "./productItem.vue"
 export default {
+  components:{
+    productItem
+  },
   data () { 
     const {title} = this.$route.query
     return {
       title,
       data: {},
-      option: {
-        color: ["#0ac5ca", "#eeeeee"],
-        series: [
-          {
-            name: "访问来源",
-            type: "pie",
-            silent: true,
-            radius: ["80%", "100%"],
-            avoidLabelOverlap: false,
-            hoverAnimation: false, //关闭放大动画
-            selectedOffset: 0, //选中块的偏移量
-            label: {
-              show: false,
-              position: "center",
-              formatter: "",
-            },
-            emphasis: {
-              label: {
-                show: true,
-                fontSize: "40",
-                // fontWeight: "bold",
-              },
-            },
-            labelLine: {
-              show: false,
-            },
-            data: [
-              {
-                value: 0,
-                name: "直接访问",
-                // selected: true, //默认选中第一块
-                label: {
-                  show: true, //默认显示第一块
-                  fontSize: "40",
-                  formatter: "0",
-                  // fontWeight: "bold",
-                },
-              },
-              { value: 0, name: "邮件营销" },
-            ],
-          },
-        ],
-      },
+      productList: []
     }
   },
   methods:{
-    initEchart() {
-      var chart = this.$echarts.init(document.getElementById('echart'));
-      chart.setOption(this.option)
-    },
     async getInfo(){
         const query = this.$route.query
         const param = {
@@ -102,9 +68,6 @@ export default {
         }
         const res = await getSelfTestToolResult(param)
         this.data = res
-        this.option.series[0].data[0].value = res.score
-        this.option.series[0].data[1].value = (res.score >= 100 ? 0 : 100 - res.score)
-        this.option.series[0].data[0].label.formatter = res.score
     },
     // 解决方案
     async solution(){
@@ -120,100 +83,203 @@ export default {
         goodsName, // 疾病，症状，商品
         secondSymptomName, // 
       }
-      const {count, goodsList} = await GetProductList(param)
-      if(count == 1){
-        this.$router.push({name: "serviceDetail", params: {sKey: goodsList[0].goodsId}})
-      }else{
-        this.$router.push({name: 'searchProduct', query:{q: goodsName, secondSymptomName}})
+      const data = await GetProductList(param)
+      if(data.rspcode == 1){
+        this.productList = data.goodsList
       }
+      // if(count == 1){
+      //   this.$router.push({name: "serviceDetail", params: {sKey: goodsList[0].goodsId}})
+      // }else{
+      //   this.$router.push({name: 'searchProduct', query:{q: goodsName, secondSymptomName}})
+      // }
+    },
+    // 建议
+    proposal(){
+      const goodsName = this.data.ResultTypeName
+      const secondSymptomName = this.data.scoreResult
+      this.$router.push({name: "proposalDetail", query:{label: goodsName, labelSecond: secondSymptomName}})
     }
   },
   async mounted(){
     await this.getInfo()
-    this.initEchart()
+    await this.solution()
   }
 };
 </script>
 
 <style  scoped lang="scss">
-.result {
-  padding: 0.15rem;
-  padding-top: 0.35rem;
-  .note {
-    font-size: 0.14rem;
-    color: #666;
-    // & p:not(.title) {
-      // text-indent: 0.25rem;
-    // }
-  }
-}
-#echart {
-  height: 1.5rem;
-}
-.echart-title{
-  text-align: center;
-  color: #0ac5ca;
-  font-size: 0.18rem;
-  padding: 0.15rem 0;
-}
-.bg {
-  height: 0.1rem;
-  background: #f1f1f1;
+
+.result-box{
+    margin-top: -1.8rem !important;
+    margin-bottom: 0.2rem !important;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
 }
 
-// 解决方法
-.solution {
-  padding: 0 0.15rem;
+.score-box{
+    width: 1.7rem;
+    height: 1.5rem;
+    margin: 0 auto;
+    margin-bottom: 0.2rem;
+    background: url("../../assets/images/complication/scoreBg.png") no-repeat;
+    background-size: 100% auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .score-content{
+        text-align: center;
+        color: #FFFFFF;
+        text-indent: 0.1rem;
+    }
+    span {
+        font-size: 0.35rem;
+    }
 }
-.solution-title {
+.content{
+    padding-top: 0.2rem;
+}
+
+.section{
+  padding: 0 0.15rem;
+  padding-bottom: 0.15rem;
+  margin: 0.15rem;
+  margin-bottom: 0.15rem;
+  background: #FFFFFF;
+  border-radius: 0.08rem;
+}
+.section-title {
   line-height: 0.55rem;
   font-weight: bold;
 }
-.solution-title span {
-  margin-left: 0.1rem;
-}
-.solution-title::before {
-  content: "";
-  width: 4px;
-  height: 0.18rem;
-  border-radius: 2px;
-  margin-top: -1px;
-  display: inline-block;
-  vertical-align: middle;
-  background: #0ac5ca;
-}
-.solution-list ul {
-  display: flex;
-  li {
-    width: 50%;
-    color: #fff;
-    text-align: center;
-    background: #0ac5ca;
-    border-radius: 4px;
-    line-height: 1rem;
-  }
-
-  li:first-child {
-    margin-right: 0.07rem;
-  }
-  li:last-child {
-    margin-left: 0.07rem;
-  }
-}
-// .fix_bottom{
-    // display: flex;
-    // background: #FFFFFF;
-    // padding: 0.1rem 0.15rem;
-    // .theme-button{
-    //   border-radius: 0;
-    // }
-    // .theme-button:first-child{
-    //   border-top-left-radius: 6px;
-    //   border-bottom-left-radius: 6px;
-    // }
-    // .theme-button:last-child{
-    //   border-top-right-radius: 6px;
-    //   border-bottom-right-radius: 6px;
-    // }
+// .section-title span {
+//   margin-left: 0.1rem;
 // }
+// .section-title::before {
+//   content: "";
+//   width: 4px;
+//   height: 0.18rem;
+//   border-radius: 2px;
+//   margin-top: -1px;
+//   display: inline-block;
+//   vertical-align: middle;
+//   background: #0ac5ca;
+// }
+.section-content{
+    font-size: 0.14rem;
+    overflow: hidden;
+    overflow-x: scroll;
+    .section-view{
+      white-space: nowrap;
+      margin: 0 -0.05rem;
+    }
+}
+
+
+
+.section-result{
+    font-size: 0.14rem;
+    .result-title{
+        // display: flex;
+        // justify-content: space-between;
+        color: #666;
+        // padding-right: 0.95rem;
+    }
+    .result-des{
+        font-size: 0.14rem;
+        font-weight: bold;
+        margin: 0.1rem 0;
+    }
+    .result-des::before{
+        content: "";
+        display: inline-block;
+        width: 0.08rem;
+        height: 0.08rem;
+        border-radius: 50%;
+        background: #0ac5ca;
+        vertical-align: middle;
+        margin-right: 0.05rem;
+        margin-top: -0.02rem;
+    }
+    .result-des-note{
+      font-size: 0.12rem;
+      color: #E05956;
+      padding: 0.1rem;
+      background: #FFDDDC;
+      border-radius: 0.08rem;
+    }
+    .score-num{
+      color: #0ac5ca;
+      padding: 0 3px;
+    }
+    
+    // 轻度背景
+    &.qingDu{
+      .score-num{color: #C9E15A;}
+      .result-des::before{background: #C9E15A;}
+    }
+    // 正常背景
+    &.zhengChang{
+      .score-num{color: #00C9CB;}
+      .result-des::before{background: #00C9CB;}
+    }
+    // 中度背景
+    &.zhognDu{
+      .score-num{color: #E8893D;}
+      .result-des::before{background: #E8893D;}
+    }
+    // 极重度背景
+    &.jiZhong{
+      .score-num{color: #C83636;}
+      .result-des::before{background: #C83636;}
+    }
+    // 重度背景
+    &.zhongDu{
+      .score-num{color: #E1523F;}
+      .result-des::before{background: #E1523F;}
+    }
+
+    .bg{
+        margin: 0.15rem -0.15rem;
+        border-top: 1px dashed #f5f5f5;
+        position: relative;
+    }
+    .bg::before,.bg::after{
+        content: "";
+        display: inline-block;
+        width: 0.18rem;
+        height: 0.18rem;
+        background: #f5f5f5;
+        border-radius: 50%;
+        position: absolute;
+        top: -0.09rem;
+    }
+    .bg::before{
+        left: -0.09rem;
+    }
+    .bg::after{
+        right: -0.09rem;
+    }
+
+    .result-note{
+        font-size: 0.12rem;
+        color: #666;
+        padding: 0.1rem;
+        background: #F6F7FB;
+        border-radius: 0.08rem;
+    }
+}
+.fix_bottom >>> {
+    display: flex;
+    background: #FFFFFF;
+    .mint-button{
+        border-radius: 0;
+    }
+    .mint-button--default{
+      background: #FFFFFF;
+    }
+    .mint-button{
+      height: 48px;
+    }
+}
 </style>

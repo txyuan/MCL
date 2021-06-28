@@ -29,10 +29,13 @@
       <!-- 内容 -->
       <div class="neirong">
         <!-- 今日饮食 -->
-        <todayDiet :hidden="ABflag == 2"/>
+        <todayDiet v-show="ABflag == 1"/>
         
         <!-- 饮食方案 -->
-        <cases :hidden="ABflag == 1"/>
+        <cases v-show="ABflag == 2"/>
+
+        <!-- 饮食建议 -->
+        <complication v-show="ABflag == 3"/>
       </div>
     </div>
   </div>
@@ -41,11 +44,12 @@
 <script>
 import cases from "./case.vue";
 import todayDiet from "./todayDiet.vue";
+import complication from "./complication.vue";
 export default {
     data() {
         return {
             ABflag: 1,
-            navbarList: [{name: '今日饮食', type: 1}, {name: '饮食处方', type: 2}],
+            navbarList: [{name: '今日饮食', type: 1}, {name: '饮食处方', type: 2}, {name: '饮食建议', type: 3}],
         }
     },
     methods: {
@@ -63,7 +67,8 @@ export default {
     },
     components:{
       cases,
-      todayDiet
+      todayDiet,
+      complication
     }
 }
 </script>

@@ -45,6 +45,7 @@
 			<!--   详情页   -->
 			<div class="com_detail" v-html="responseData.goodsMemo" ref="detailImg"></div>
 		</div>
+
 		<!--按钮-->
 		<div class="detile_btn">
 			<div class="share_bnts">
@@ -60,7 +61,7 @@
 
 		<!-- 分享页面 -->
 		<transition name="fade">
-			<div id="mark" style="display: block;z-index: 999" v-show="showPanel" @click="showPanel = false">
+			<div id="mark" style="display: block;" v-show="showPanel" @click="showPanel = false">
 				<div class="img-view" @click.stop="">
 					<div class="tip">长按图片保存</div>
 					<div ref="shareImgDom" class="img-dom"></div>
@@ -69,9 +70,9 @@
 					<p class="tit">分享当前图片到</p>
 					<div class="share_type">
 						<ul>
-							<li><img src="@/assets/images/shoppingMall/wx.png" alt=""><p>微信好友</p></li>
-							<li><img src="@/assets/images/shoppingMall/wx_friend.png" alt=""><p>朋友圈</p></li>
-							<li><img src="@/assets/images/shoppingMall/QQ.png" alt=""><p>QQ好友</p></li>
+							<li @click="shareType = '给微信好友'; isSmark = true"><img src="@/assets/images/shoppingMall/wx.png" alt=""><p>微信好友</p></li>
+							<li @click="shareType = '到朋友圈'; isSmark = true"><img src="@/assets/images/shoppingMall/wx_friend.png" alt=""><p>朋友圈</p></li>
+							<!-- <li @click="shareType = '给QQ好友'; isSmark = true"><img src="@/assets/images/shoppingMall/QQ.png" alt=""><p>QQ好友</p></li> -->
 							<li @click="$Toast('长按图片保存')"><img src="@/assets/images/shoppingMall/down.png" alt=""><p>保存图片</p></li>
 						</ul>
 					</div>
@@ -82,8 +83,17 @@
 
 		<!-- 购物车入口 -->
 		<router-link tag="div" to="/shopcar">
-		<img src="@/assets/images/shoppingMall/car2.png" alt="" class="buyCar" />
+			<img src="@/assets/images/shoppingMall/car2.png" alt="" class="buyCar" />
 		</router-link>
+
+		<!--  分享蒙版  -->
+		<div id="mark" style="display: block;" v-on:click="isSmark = false" v-show="isSmark" class="shareMark">
+			<img src="@/assets/images/share.png" />
+			<div class="bottom">
+				<p class="tip" style="margin-bottom: 100px;font-size: 20px">请点击右上角分享<span>{{shareType}}</span></p>
+				<p class="btn">我知道了</p>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -91,6 +101,11 @@
 	import addSubtraction from "@/components/shopCar/productItem/addSubtraction.vue";
 	import { drawCanvas } from "@/utils/html2img.js"
 	import { updateUserCollection } from "@/api/shopCar.js"
+	/*引入微信js-sdk */
+	import remoteJs from "@/components/common/remote-js.js"
+	remoteJs('https://res.wx.qq.com/open/js/jweixin-1.1.0.js');
+	//系统logo
+	import logoImg from '@/assets/images/mclogo.png';
 	export default {
 		name: "index",
 		data: () => ({
@@ -110,7 +125,15 @@
 			},
 
 			// 分享的弹出框
-			showPanel: false
+			showPanel: false,
+			isSmark: false,
+			shareType: '',
+			WechatParm: {}, //公众号信息
+			shareObj: { //分享信息内容配置
+				title: 'MCL',
+				link: "", //系统地址
+				imgUrl: (location.origin + logoImg)
+			},
 		}),
 		computed: {
 			screenWidth: function() {
@@ -132,6 +155,8 @@
 					data.data.collectionFlag = data.collectionFlag
 					this.responseData = data.data
 					this.title = this.responseData.ismanage == 1 ? "管理套餐": "产品详情";
+					this.WechatParm = data.WechatParm;
+					this.shareObj.link = `${location.origin}/${location.hash}`
 					return data;
 				})
 			},
@@ -248,12 +273,50 @@
 			// 	}
 			// 	return scrollPos;
 			// },
-
+			//微信配置
+			wxConfig() {
+				let WechatParm = this.WechatParm;
+				wx.config({
+					debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+					appId: WechatParm.AppId, // 必填，公众号的唯一标识
+					timestamp: WechatParm.Timestamp, // 必填，生成签名的时间戳
+					nonceStr: WechatParm.NonceStr, // 必填，生成签名的随机串
+					signature: WechatParm.Signature, // 必填，签名，
+					jsApiList: ['checkJsApi', 'onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo']
+				});
+			},
+			//微信read回调
+			wxRead() {
+				wx.ready(() => {
+					this.ShareTimeline();
+					this.ShareAppMessage();
+					this.ShareQQ();
+					this.ShareWeibo();
+				})
+			},
+			// 2.3 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+			ShareTimeline() {
+				wx.onMenuShareTimeline(this.shareObj)
+			},
+			// 2.3 监听“分享给朋友”按钮点击、自定义分享内容及分享结果接口
+			ShareAppMessage() {
+				wx.onMenuShareAppMessage(this.shareObj)
+			},
+			// 2.3 监听“分享到QQ”按钮点击、自定义分享内容及分享结果接口
+			ShareQQ() {
+				wx.onMenuShareQQ(this.shareObj)
+			},
+			// 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
+			ShareWeibo() {
+				wx.onMenuShareWeibo(this.shareObj)
+			}
 		},
-		mounted() {
+		async mounted() {
 			let sKey = this.$route.params.sKey;
 			this.productkey = sKey
-			this.getDetailInfo()
+			await this.getDetailInfo()
+			this.wxConfig(); // 微信配置
+			this.wxRead(); // 微信read回调
 		},
 		destroyed() {
 			// window.removeEventListener("scroll", this.scrollBottom, false)
@@ -1100,4 +1163,37 @@
 			overflow-y: scroll;
 		}
 	}
+
+
+	.shareMark{
+		img {
+			position: absolute;
+			right: 10%;
+			top: 30px;
+			width: 40%;
+		}
+
+		.bottom {
+			position: absolute;
+			bottom: 80px;
+			color: #ffffff;
+			width: 100%;
+			text-align: center;
+		}
+
+		.bottom .tip {
+			margin-bottom: 30px;
+		}
+
+		.bottom .btn {
+			display: inline-block;
+			border: 1px solid #ffffff;
+			border-radius: 3px;
+			text-align: center;
+			margin: 0 auto;
+			padding: 7px 15px;
+			line-height: 1;
+		}
+	}
+	
 </style>

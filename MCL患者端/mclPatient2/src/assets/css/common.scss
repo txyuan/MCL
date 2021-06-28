@@ -48,7 +48,7 @@ a {
 }
 
 body {
-  background-color: #f5f5f5;
+  background-color: #fcfcfd;
   font-size: 0.16rem;
   color: #333333;
   font-family: "pingfang-sc-regular","Helvetica Neue", "Helvetica", "STHeiTi", "sans-serif";
@@ -128,7 +128,7 @@ body {
 }
 .page-bg-hui{
   min-height: 100vh;
-  background: #f5f5f5;
+  background: #fcfcfd;
   box-sizing: border-box;
 }
 //浮动
@@ -301,7 +301,7 @@ body {
   bottom: 0;
   background: rgba(0,0,0,0.5);
   display: none;
-  z-index: 10;
+  z-index: 100;
 }
 
 .content.classificationContent{

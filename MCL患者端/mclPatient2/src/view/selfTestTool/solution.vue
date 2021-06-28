@@ -16,50 +16,28 @@
                 <div class="section-result">
                     <div class="result-title">
                         <p>{{data.EvaluationResults}}</p>
-                        <!-- <p>您的评测结果分值为<span class="num">{{data.score}}</span>分， </p> -->
-                        <p>评测结果为：</p>
+                        <p  v-if="data.scoreResult">评测结果为：</p>
                     </div>
                     <div class="result-des" v-if="data.scoreResult">{{data.scoreResult}}</div>
                      <div class="bg"></div>
                     <div class="result-note" v-html="data.remarks">
-                        <!-- 注：总分>3分：无营养风险，需每周复查；总分≥3分：有营养风险，需要营养支持治疗。 -->
                     </div>
                 </div>
-                <div class="score-box">
+                <div class="score-box" v-if="data.score">
                     <div class="score-content"><span>{{data.score}}</span></div>
                 </div>
             </div>
             <div class="section">
                 <div class="section-title"><span>{{data.ResultTile}}</span></div>
                 <div class="section-content">
-                    <!-- <img src="@/assets/images/bohaiyinhang.png" alt="" width="100%"> -->
                     <div v-html="data.Memo"></div>
-                    <!-- <div class="item">
-                        <p class="item-title">1.总热量</p>
-                        <p class="item-content">碳水化合物每克产热4千卡，是热量的主要来源，现认为碳水化合物应占饮食总热量的55%～65%。</p>
-                    </div>
-                    <div class="item">
-                        <p class="item-title">2.碳水化合物</p>
-                        <p class="item-content">总热量的需要量要根据患者的年龄、性别、身高、体重、体力活动量、病情等综合因素来确定。首先要算出每个人的标准体重，可参照下述公式：标准体重（kg）=身高（cm）-105或标准体重（kg）=[身高（cm）-100]×0.9；女性的标准体重应再减去2kg。也可根据年龄、性别、身高查表获得。</p>
-                    </div>
-                    <div class="item">
-                        <p class="item-title">3.蛋白质</p>
-                        <p class="item-content">蛋白质每克产热量4千卡。占总热量的12%～15%。蛋白质的需要量在成人每千克体重约1g。在儿童，孕妇，哺乳期妇女，营养不良，消瘦，有消耗性疾病者宜增加至每千克体重1.5～2.0g。</p>
-                    </div>
-                    <div class="item">
-                        <p class="item-title">4.脂肪</p>
-                        <p class="item-content">脂肪的能量较高，每克产热量9千卡。约占总热量25%，</p>
-                    </div> -->
                 </div>
             </div>
         </div>
 
-        <div class="fix_bottom">
-            <mt-button type="primary" class="theme-button" size="large" @click.native="solution">
-                <span v-if="$route.query.type == 'protein'">营养建议</span>
-                <span v-else>饮食建议</span>
-            </mt-button>
-            <mt-button type="default" class="theme-button" size="large" @click.native="$root.goMessage">个性化定制</mt-button>
+        <div class="fix_bottom" v-if="($route.query.type != 'water') && ($route.query.type != 'weight')">
+            <mt-button type="primary" class="theme-button" size="large" @click.native="solution" v-if="$route.query.type != 'actualIntake'">查看饮食建议</mt-button>
+            <mt-button type="default" size="large" @click.native="$root.goMessage">个性化定制</mt-button>
         </div>
     </div>
 </template>
@@ -135,7 +113,7 @@ export default {
 .score-box{
     width: 1.2rem;
     height: 1.2rem;
-    background: url("../../assets/images/selfTestTool/scoreBg.png") no-repeat 0.05rem -0.25rem;
+    background: url("../../assets/images/complication/scoreBg.png") no-repeat 0.05rem -0.25rem;
     background-size: 1.4rem auto;
     position: absolute;
     top: -0rem;
@@ -243,20 +221,17 @@ export default {
         border-radius: 0.08rem;
     }
 }
-.fix_bottom{
+.fix_bottom >>> {
     display: flex;
     background: #FFFFFF;
-    padding: 0.1rem 0.15rem;
-    .theme-button{
+    .mint-button{
         border-radius: 0;
     }
-    .theme-button:first-child{
-        border-top-left-radius: 6px;
-        border-bottom-left-radius: 6px;
+    .mint-button--default{
+      background: #FFFFFF;
     }
-    .theme-button:last-child{
-        border-top-right-radius: 6px;
-        border-bottom-right-radius: 6px;
+    .mint-button{
+      height: 48px;
     }
 }
 </style>

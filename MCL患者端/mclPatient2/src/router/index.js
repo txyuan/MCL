@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import {isWeiXin} from "@/utils/utils.js"
+import {APPID} from "@/configURL.js"
+import payType from "@/assets/js/payType.js" //支付
 import { getUserType, goHome, logout } from '@/assets/js/uesr.js' //用户类型
 //导入页面
 const wx_Entrance = () => import(/* webpackChunkName: "wx_Entrance" */ '@/components/wxEntrance/index.vue')
@@ -298,6 +301,8 @@ const router = new Router({
 	  { path:"/addmedicat", name:"addmedicat", component: addmedicat },
 	  { path:"/eyemedicat", name:"eyemedicat", component: eyemedicat },
     { path:"/diet", name:"diet", component: diet },  //饮食
+    { path:"/proposalDetail", name:"proposalDetail", component: () => import(/* webpackChunkName: "proposalDetail" */ '@/components/home/diet/detail/proposalDetail.vue') },  // 饮食建议并发性详情页面
+    { path:"/proposal/:type", name:"proposalToolDetail", component: () => import(/* webpackChunkName: "proposalDetail" */ '@/components/home/diet/detail/main.vue') },  // 饮食建议自测工具详情页面
     { path:"/dietCase", name:"dietCase", component: () => import(/* webpackChunkName: "dietCase" */ '@/components/home/diet/dietCase.vue') },  //饮食处方
 	  { path:"/buyfood/:names", name:"buyfood", component: buyfood },  //饮食
     { path:"/diet_supplement", name:"diet_supplement", component: diet_supplement },  //饮食
@@ -551,6 +556,13 @@ const router = new Router({
 const whiteRouteList = [ 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'inviteFriends' ]
 
 router.beforeEach((to, from, next) => {
+
+  // 生产环境获取openid
+  // if((process.env.NODE_ENV == 'production') && isWeiXin() && (payType.getUrlParam('code') == null)){
+  //   location.replace(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${encodeURIComponent(location.href)}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`)
+  //   return
+  // }
+
   // 不在白名单内，没有登录信息的情况跳转登录页面
   if ((whiteRouteList.indexOf(to.name) == -1) && !localStorage.userInfo) {
     next({path: '/login',  query: {redirect: to.fullPath}})

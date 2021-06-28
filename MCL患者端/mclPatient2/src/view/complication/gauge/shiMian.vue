@@ -39,7 +39,7 @@
               type="checkbox"
               style="margin-left: 6px"
               name="18"
-              value="2"
+              value="1"
               id="checkbox182"
             /><label for="checkbox182">入睡困难</label>
           </li>
@@ -48,7 +48,7 @@
               type="checkbox"
               style="margin-left: 6px"
               name="18"
-              value="3"
+              value="1"
               id="checkbox183"
             /><label for="checkbox183">早醒</label>
           </li>
@@ -57,7 +57,7 @@
               type="checkbox"
               style="margin-left: 6px"
               name="18"
-              value="4"
+              value="1"
               id="checkbox184"
             /><label for="checkbox184">多梦</label>
           </li>
@@ -66,7 +66,7 @@
               type="checkbox"
               style="margin-left: 6px"
               name="18"
-              value="5"
+              value="1"
               id="checkbox185"
             /><label for="checkbox185">睡眠浅，易醒</label>
           </li>
@@ -75,7 +75,7 @@
               type="checkbox"
               style="margin-left: 6px"
               name="18"
-              value="6"
+              value="1"
               id="checkbox186"
             /><label for="checkbox186">醒后不易睡着</label>
           </li>
@@ -84,7 +84,7 @@
               type="checkbox"
               style="margin-left: 6px"
               name="18"
-              value="7"
+              value="1"
               id="checkbox187"
             /><label for="checkbox187">睡后有疲惫感</label>
           </li>
@@ -93,7 +93,7 @@
               type="checkbox"
               style="margin-left: 6px"
               name="18"
-              value="8"
+              value="1"
               id="checkbox188"
             /><label for="checkbox188">睡眠时间小于6小时</label>
           </li>
@@ -102,7 +102,7 @@
               type="checkbox"
               style="margin-left: 6px"
               name="18"
-              value="9"
+              value="1"
               id="checkbox189"
             /><label for="checkbox189">伴有头痛、头晕等症状</label>
           </li>
@@ -111,7 +111,7 @@
               type="checkbox"
               style="margin-left: 6px"
               name="18"
-              value="10"
+              value="1"
               id="checkbox1810"
             /><label for="checkbox1810">睡眠障碍时间超过1周</label>
           </li>
