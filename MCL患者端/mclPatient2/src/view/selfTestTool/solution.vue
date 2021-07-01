@@ -36,7 +36,7 @@
         </div>
 
         <div class="fix_bottom" v-if="($route.query.type != 'water') && ($route.query.type != 'weight')">
-            <mt-button type="primary" class="theme-button" size="large" @click.native="solution" v-if="$route.query.type != 'actualIntake'">查看饮食建议</mt-button>
+            <mt-button type="primary" class="theme-button" size="large" @click.native="proposal" v-if="$route.query.type != 'actualIntake'">查看饮食建议</mt-button>
             <mt-button type="default" size="large" @click.native="$root.goMessage">个性化定制</mt-button>
         </div>
     </div>
@@ -69,26 +69,12 @@ export default {
             const res = await getSelfTestToolResult(param)
             this.data = res
         },
-        // 解决方案
-        async solution(){
+        // 建议
+        proposal(){
             const goodsName = this.data.ResultTypeName
-            const secondSymptomName = this.data.ResultTypeNameTwo
-            const param = {
-                saleorder: "", // 0，销量降序;1，销量升序
-                priceOrder: "", // 0，价格降序;1，价格升序
-                pagecount: 1,
-                pagesize: 10,
-                secondSubjectType: "", // 一级分类主键
-                firstSubjectType: "", // 二级分类主键
-                goodsName, // 疾病，症状，商品
-                secondSymptomName, // 
-            }
-            const {count, goodsList} = await GetProductList(param)
-            if(count == 1){
-                this.$router.push({name: "serviceDetail", params: {sKey: goodsList[0].goodsId}})
-            }else{
-                this.$router.push({name: 'searchProduct', query:{q: goodsName, secondSymptomName}})
-            }
+            const secondSymptomName = this.data.scoreResult
+            const pageUrl = this.$route.query.type
+            this.$router.push({name: "proposalDetail", query:{label: goodsName, labelSecond: secondSymptomName, pageUrl }})
         }
     },
     created() {
@@ -103,8 +89,8 @@ export default {
 /* @import url(); 引入css类 */
 
 .result-box{
-    margin-top: -1.4rem !important;
-    margin-bottom: 0.2rem !important;
+    // margin-top: -1.4rem !important;
+    // margin-bottom: 0.2rem !important;
     overflow: hidden;
     position: relative;
     z-index: 1;
@@ -113,7 +99,7 @@ export default {
 .score-box{
     width: 1.2rem;
     height: 1.2rem;
-    background: url("../../assets/images/complication/scoreBg.png") no-repeat 0.05rem -0.25rem;
+    background: url("../../assets/images/complication/scoreBg2.png") no-repeat 0.05rem -0.25rem;
     background-size: 1.4rem auto;
     position: absolute;
     top: -0rem;
@@ -129,7 +115,11 @@ export default {
     }
 }
 .content{
-    padding-top: 0.2rem;
+    position: absolute;
+    top: 1.5rem;
+    left: 0;
+    right: 0;
+    margin-bottom: 0.5rem;
 }
 
 .section{
@@ -215,7 +205,7 @@ export default {
 
     .result-note{
         font-size: 0.12rem;
-        color: #666;
+        color: #9194a5;
         padding: 0.1rem;
         background: #F6F7FB;
         border-radius: 0.08rem;
@@ -226,12 +216,11 @@ export default {
     background: #FFFFFF;
     .mint-button{
         border-radius: 0;
+        font-size: 16px;
+        height: 41px;
     }
     .mint-button--default{
       background: #FFFFFF;
-    }
-    .mint-button{
-      height: 48px;
     }
 }
 </style>

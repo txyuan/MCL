@@ -10,8 +10,8 @@
 
     <img src="@/assets/images/complication/banner4.jpg" alt="" width="100%">
     <div class="content">
-        <div class="section result-box">
-            <div class="section-title"><span>{{title}}风险评测</span></div>
+        <div class="section result-box" :class="'color_'+data.ColorDiscriminationFlag">
+            <!-- <div class="section-title"><span>{{title}}风险评测</span></div> -->
             <div class="score-box" v-if="data.score">
                 <div class="score-content"><span>{{data.score}}</span></div>
             </div>
@@ -20,24 +20,27 @@
                     <span v-if="data.scoreResult">您的{{title}}风险评测分值为<span class="score-num">{{data.score}}</span>，</span><span v-if="data.scoreResult">评测结果为：</span>
                 </div>
                 <div class="result-des" v-if="data.scoreResult">{{data.scoreResult}}</div>
-                <div class="result-des-note">请遵医嘱，或尽快联系在线医生！</div>
+                <div class="result-des-note" v-if="data.medicalAdviceFlag == '1'">请遵医嘱，或尽快联系在线医生！</div>
                 <div class="bg"></div>
                 <div class="result-note" v-html="data.remarks"></div>
             </div>
         </div>
-        <div class="section" v-if="productList.length != 0">
+        <div class="section" v-if="(data.medicalAdviceFlag == '0') && (productList.length != 0)">
             <div class="section-title"><span>营养方案</span></div>
             <div class="section-content">
               <div class="section-view">
-                <productItem v-for="item in productList" :key="item.goodsId" :item="item" detailPage="serviceDetail"/>
+                <productItem v-for="(item, index) in productList" :key="index" :item="item" detailPage="serviceDetail"/>
               </div>
             </div>
         </div>
     </div>
 
-    <div class="fix_bottom">
-        <mt-button type="primary" class="theme-button" size="large" @click.native="proposal">查看饮食建议</mt-button>
-        <mt-button type="default" size="large" @click.native="$root.goMessage">个性化定制</mt-button>
+    <div class="fix_bottom" v-if="data.ColorDiscriminationFlag != undefined">
+        <mt-button v-if="data.ColorDiscriminationFlag != '1'" type="primary" class="theme-button" size="large" @click.native="proposal">查看饮食建议</mt-button>
+        <mt-button type="default" size="large" @click.native="$root.goMessage">
+          <span v-if="data.medicalAdviceFlag == '1'">联系在线医生</span>
+          <span v-else>个性化定制</span>
+        </mt-button>
     </div>
     
   </div>
@@ -85,7 +88,7 @@ export default {
       }
       const data = await GetProductList(param)
       if(data.rspcode == 1){
-        this.productList = data.goodsList
+        this.productList = [...data.goodsList]
       }
       // if(count == 1){
       //   this.$router.push({name: "serviceDetail", params: {sKey: goodsList[0].goodsId}})
@@ -97,7 +100,8 @@ export default {
     proposal(){
       const goodsName = this.data.ResultTypeName
       const secondSymptomName = this.data.scoreResult
-      this.$router.push({name: "proposalDetail", query:{label: goodsName, labelSecond: secondSymptomName}})
+      const pageUrl = this.$route.query.type
+      this.$router.push({name: "proposalDetail", query:{label: goodsName, labelSecond: secondSymptomName, pageUrl }})
     }
   },
   async mounted(){
@@ -110,19 +114,16 @@ export default {
 <style  scoped lang="scss">
 
 .result-box{
-    margin-top: -1.8rem !important;
-    margin-bottom: 0.2rem !important;
+    // margin-top: -1.8rem !important;
+    // margin-bottom: 0.2rem !important;
     overflow: hidden;
-    position: relative;
-    z-index: 1;
 }
 
 .score-box{
-    width: 1.7rem;
-    height: 1.5rem;
-    margin: 0 auto;
-    margin-bottom: 0.2rem;
-    background: url("../../assets/images/complication/scoreBg.png") no-repeat;
+    width: 1.5rem;
+    height: 1.3rem;
+    margin: 0.15rem auto;
+    background: url("../../assets/images/complication/scoreBg2.png") no-repeat;
     background-size: 100% auto;
     display: flex;
     flex-direction: column;
@@ -137,16 +138,52 @@ export default {
     }
 }
 .content{
-    padding-top: 0.2rem;
+  position: absolute;
+  top: 0.8rem;
+  left: 0;
+  right: 0;
+  margin-bottom: 0.5rem;
 }
 
 .section{
-  padding: 0 0.15rem;
-  padding-bottom: 0.15rem;
+  padding: 0.15rem;
+  padding-top: 0;
   margin: 0.15rem;
   margin-bottom: 0.15rem;
   background: #FFFFFF;
   border-radius: 0.08rem;
+
+  // 正常背景
+  &.color_1{
+    .score-num,.result-des-note{color: #00C9CB;}
+    .result-des::before{background: #00C9CB;}
+    .score-box{background-image: url("../../assets/images/complication/scoreBg2.png");}
+  }
+  // 轻度背景
+  &.color_2{
+    .score-num,.result-des-note{color: #C9E15A;}
+    .result-des::before{background: #C9E15A;}
+    .score-box{background-image: url("../../assets/images/complication/scoreBg1.png");}
+
+  }
+  // 中度背景
+  &.color_3{
+    .score-num,.result-des-note{color: #E8893D;}
+    .result-des::before{background: #E8893D;}
+    .score-box{background-image: url("../../assets/images/complication/scoreBg3.png");}
+  }
+  // 极重度背景
+  &.color_4{
+    .score-num,.result-des-note{color: #C83636;}
+    .result-des::before{background: #C83636;}
+    .score-box{background-image: url("../../assets/images/complication/scoreBg4.png");}
+  }
+  // 重度背景
+  &.color_5{
+    .score-num,.result-des-note{color: #E1523F;}
+    .result-des::before{background: #E1523F;}
+    .score-box{background-image: url("../../assets/images/complication/scoreBg5.png");}
+  }
 }
 .section-title {
   line-height: 0.55rem;
@@ -171,8 +208,14 @@ export default {
     overflow-x: scroll;
     .section-view{
       white-space: nowrap;
-      margin: 0 -0.05rem;
+      >>> .item:first-child{
+        padding-left: 0;
+      }
+      >>> .item:last-child{
+        padding-right: 0;
+      }
     }
+    
 }
 
 
@@ -213,32 +256,6 @@ export default {
       padding: 0 3px;
     }
     
-    // 轻度背景
-    &.qingDu{
-      .score-num{color: #C9E15A;}
-      .result-des::before{background: #C9E15A;}
-    }
-    // 正常背景
-    &.zhengChang{
-      .score-num{color: #00C9CB;}
-      .result-des::before{background: #00C9CB;}
-    }
-    // 中度背景
-    &.zhognDu{
-      .score-num{color: #E8893D;}
-      .result-des::before{background: #E8893D;}
-    }
-    // 极重度背景
-    &.jiZhong{
-      .score-num{color: #C83636;}
-      .result-des::before{background: #C83636;}
-    }
-    // 重度背景
-    &.zhongDu{
-      .score-num{color: #E1523F;}
-      .result-des::before{background: #E1523F;}
-    }
-
     .bg{
         margin: 0.15rem -0.15rem;
         border-top: 1px dashed #f5f5f5;
@@ -263,7 +280,7 @@ export default {
 
     .result-note{
         font-size: 0.12rem;
-        color: #666;
+        color: #9194a5;
         padding: 0.1rem;
         background: #F6F7FB;
         border-radius: 0.08rem;
@@ -274,12 +291,11 @@ export default {
     background: #FFFFFF;
     .mint-button{
         border-radius: 0;
+        font-size: 16px;
+        height: 41px;
     }
     .mint-button--default{
       background: #FFFFFF;
-    }
-    .mint-button{
-      height: 48px;
     }
 }
 </style>

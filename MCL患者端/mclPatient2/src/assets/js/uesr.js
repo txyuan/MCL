@@ -1,15 +1,26 @@
 import router from '@/router/index.js' // 路由
-import { DOCTORURL, CHANNELURL} from '@/configURL.js'
+// import { DOCTORURL, CHANNELURL} from '@/configURL.js'
+import {APPID} from "@/configURL.js"
+import {isWeiXin} from "@/utils/utils.js"
 
 // 退出登录
 export function logout(){
     localStorage.removeItem('userInfo')
-    router.replace({
-        path: '/login',
+    const redirect = router.currentRoute.name == 'login' ? '/': router.currentRoute.fullPath  // 从哪个页面跳转
+    const loginRoute = {
+        name: "login",
         query: {
-            redirect: router.currentRoute.name == 'login' ? '/': router.currentRoute.fullPath // 从哪个页面跳转
+            redirect
         }
-    })
+    }
+    // 生产环境获取openid
+    if((process.env.NODE_ENV == 'production') && isWeiXin()){
+        const {href} = router.resolve(loginRoute);
+        location.replace(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${encodeURIComponent(location.origin + href)}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`)
+        return
+    } else {
+        router.replace(loginRoute)
+    }
 }
 
 // 获取用户类型

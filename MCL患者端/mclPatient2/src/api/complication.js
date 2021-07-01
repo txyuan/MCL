@@ -29,3 +29,15 @@ export function getDietSuggestionList(param){
     let url = "UserInterface/complication/DietSuggestionList.ashx";
     return post(url, param)
 }
+
+// 饮食建议的每日所需能量
+export function getSelfTestToolDietList(param){
+    let url = "UserInterface/selfTestTool/getSelfTestToolDietList.ashx";
+    return post(url, param)
+}
+
+// 饮食建议的所需蛋白量
+export function getSelfTestToolDietProteinList(param){
+    let url = "UserInterface/selfTestTool/getSelfTestToolDietProteinList.ashx";
+    return post(url, param)
+}

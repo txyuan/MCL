@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import {isWeiXin} from "@/utils/utils.js"
-import {APPID} from "@/configURL.js"
-import payType from "@/assets/js/payType.js" //支付
+// import {isWeiXin} from "@/utils/utils.js"
+// import {APPID} from "@/configURL.js"
+// import payType from "@/assets/js/payType.js" //支付
 import { getUserType, goHome, logout } from '@/assets/js/uesr.js' //用户类型
 //导入页面
 const wx_Entrance = () => import(/* webpackChunkName: "wx_Entrance" */ '@/components/wxEntrance/index.vue')
@@ -302,7 +302,6 @@ const router = new Router({
 	  { path:"/eyemedicat", name:"eyemedicat", component: eyemedicat },
     { path:"/diet", name:"diet", component: diet },  //饮食
     { path:"/proposalDetail", name:"proposalDetail", component: () => import(/* webpackChunkName: "proposalDetail" */ '@/components/home/diet/detail/proposalDetail.vue') },  // 饮食建议并发性详情页面
-    { path:"/proposal/:type", name:"proposalToolDetail", component: () => import(/* webpackChunkName: "proposalDetail" */ '@/components/home/diet/detail/main.vue') },  // 饮食建议自测工具详情页面
     { path:"/dietCase", name:"dietCase", component: () => import(/* webpackChunkName: "dietCase" */ '@/components/home/diet/dietCase.vue') },  //饮食处方
 	  { path:"/buyfood/:names", name:"buyfood", component: buyfood },  //饮食
     { path:"/diet_supplement", name:"diet_supplement", component: diet_supplement },  //饮食
@@ -505,14 +504,14 @@ const router = new Router({
     { path:"/inviteFriends", name:"inviteFriends", component: inviteFriends},
     
     /*  自测小工具（还没用） */
-    { path:"/singlePage_home", name:"singlePage_home", component: () => import(/* webpackChunkName: "singlePage_home" */ '@/view/singlePage/home.vue')},  //入口页面
-    { path:"/singlePage_height", name:"singlePage_height", component: () => import(/* webpackChunkName: "singlePage_height" */ '@/view/singlePage/height.vue')}, //标准体重
-    { path:"/singlePage_BMI", name:"singlePage_BMI", component: () => import(/* webpackChunkName: "singlePage_BMI" */ '@/view/singlePage/BMI.vue')}, //BMI
-    { path:"/singlePage_protein", name:"singlePage_protein", component: () => import(/* webpackChunkName: "singlePage_protein" */ '@/view/singlePage/protein.vue')}, //每日所需蛋白质
-    { path:"/singlePage_energy", name:"singlePage_energy", component: () => import(/* webpackChunkName: "singlePage_energy" */ '@/view/singlePage/energy.vue') }, //每日所需能量
-    { path:"/singlePage_energy2", name:"singlePage_energy2", component: () => import(/* webpackChunkName: "singlePage_energy2" */ '@/view/singlePage/energy2.vue')}, //每日所需能量
-    { path:"/singlePage_water", name:"singlePage_water", component: () => import(/* webpackChunkName: "singlePage_water" */ '@/view/singlePage/water.vue')},  //每日所需最低饮水量
-    { path:"/singlePage_intakeNenrgy", name:"singlePage_intakeNenrgy", component: () => import(/* webpackChunkName: "singlePage_intakeNenrgy" */ '@/view/singlePage/intakeNenrgy.vue')},  //每日实际摄入所需能量
+    // { path:"/singlePage_home", name:"singlePage_home", component: () => import(/* webpackChunkName: "singlePage_home" */ '@/view/singlePage/home.vue')},  //入口页面
+    // { path:"/singlePage_height", name:"singlePage_height", component: () => import(/* webpackChunkName: "singlePage_height" */ '@/view/singlePage/height.vue')}, //标准体重
+    // { path:"/singlePage_BMI", name:"singlePage_BMI", component: () => import(/* webpackChunkName: "singlePage_BMI" */ '@/view/singlePage/BMI.vue')}, //BMI
+    // { path:"/singlePage_protein", name:"singlePage_protein", component: () => import(/* webpackChunkName: "singlePage_protein" */ '@/view/singlePage/protein.vue')}, //每日所需蛋白质
+    // { path:"/singlePage_energy", name:"singlePage_energy", component: () => import(/* webpackChunkName: "singlePage_energy" */ '@/view/singlePage/energy.vue') }, //每日所需能量
+    // { path:"/singlePage_energy2", name:"singlePage_energy2", component: () => import(/* webpackChunkName: "singlePage_energy2" */ '@/view/singlePage/energy2.vue')}, //每日所需能量
+    // { path:"/singlePage_water", name:"singlePage_water", component: () => import(/* webpackChunkName: "singlePage_water" */ '@/view/singlePage/water.vue')},  //每日所需最低饮水量
+    // { path:"/singlePage_intakeNenrgy", name:"singlePage_intakeNenrgy", component: () => import(/* webpackChunkName: "singlePage_intakeNenrgy" */ '@/view/singlePage/intakeNenrgy.vue')},  //每日实际摄入所需能量
     
     /*
     { path:"/wheel", name:"wheel", component: wheel},
@@ -540,6 +539,8 @@ const router = new Router({
     { path:"/myDoctor", name:"myDoctor", component: () => import( /* webpackChunkName: "myDoctor" */ '@/view/myDoctor/myDoctor.vue')},
     // { path:"/myDoctorService", name:"myDoctorService", component: () => import( /* webpackChunkName: "myDoctorService" */ '@/view/myDoctor/service.vue')},
     
+    // 移动端调试页面
+    { path:"/VConsole", name:"VConsole", component: () => import( /* webpackChunkName: "VConsole" */ '@/view/VConsole/index.vue')},
     // 404页面重定向
     { path: '*', redirect: "/"} 
   ],

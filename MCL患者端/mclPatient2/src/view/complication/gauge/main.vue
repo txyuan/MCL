@@ -22,7 +22,7 @@ export default {
                value
             }
             const res = await save(param)
-            this.$router.push({name: 'complicationResult', query:{ResultSkey: res.ResultSkey, ...query}})
+            this.$router.push({name: 'complicationResult', query:{ResultSkey: res.ResultSkey, type: this.name, ...query}})
         }
     },
     components:{

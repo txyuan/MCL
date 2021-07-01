@@ -1,11 +1,11 @@
 <template>
   <div class="page-bg-white">
     <div class="content">
+
       <div class="title"><span>常规饮食建议</span></div>
         <ul>
             <li v-for="(item, index) in tool" :key="index">
-                <div class="li_block" >
-                  <!-- @click="$router.push({name: 'selfTestDetail', query:{type: item.PageUrl, skey: item.sKey, SubjectName: item.name}})" -->
+                <div class="li_block" @click="$router.push({name: 'proposalDetail', query:{label: item.name, labelSecond: '', pageUrl: item.PageUrl}})">
                     <img :src="item.ImageUrl" alt="">
                     <span> {{item.name}} </span>
                 </div>    
@@ -15,7 +15,7 @@
         <div class="title"><span>十五种并发症</span></div>
         <ul>
             <li v-for="(item, index) in list" :key="index">
-                <div class="li_block" @click="$router.push({name: 'proposalDetail', query:{label: item.name, labelSecond: ''}})">
+                <div class="li_block" @click="$router.push({name: 'proposalDetail', query:{label: item.name, labelSecond: '', pageUrl: item.PageUrl}})">
                     <img :src="item.ImageUrl" alt="">
                     <span> {{item.name}} </span>
                 </div>    

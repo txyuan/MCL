@@ -1,0 +1,139 @@
+.content{
+  position: absolute;
+  top: 1.5rem;
+  left: 0.15rem;
+  right: 0.15rem;
+  padding-bottom: 0.8rem;
+  border-radius: 0.16rem;
+  background-color: #fcfcfc;
+}
+.page{
+  min-height: 100vh;
+  background-color: #fcfcfc;
+}
+.section{
+  padding: 0.15rem;
+  margin-bottom: 0.15rem;
+  background: #FFFFFF;
+  border-radius: 0.16rem;
+  color: #51566f;
+  line-height: 1.5;
+  font-size: 0.14rem;
+  position: relative;
+  .title{
+    position: absolute;
+    top: -0.45rem;
+    color: #FFFFFF;
+    font-size: 0.24rem;
+  }
+  >>> img{
+    width: 100%;
+  }
+}
+.section-title {
+  line-height: 0.5rem;
+  font-weight: bold;
+  margin-top: -0.15rem;
+  font-size: 0.18rem;
+}
+// .section-title span {
+//   margin-left: 0.1rem;
+// }
+// .section-title::before {
+//   content: "";
+//   width: 4px;
+//   height: 0.18rem;
+//   border-radius: 2px;
+//   margin-top: -1px;
+//   display: inline-block;
+//   vertical-align: middle;
+//   background: #0ac5ca;
+// }
+.note{
+  font-size: 0.16rem;
+  color: #4F6594;
+  margin-top: 0.15rem;
+}
+.note-text{
+  margin-bottom: 0.15rem;
+}
+.result-note{
+    background-color: #f5f7fb;
+    padding: 0.15rem;
+    border-radius: 0.12rem;
+    line-height: 1.5;
+    margin-bottom: 0.15rem;
+    
+    table{
+      width: 100%;
+      text-align: center;
+      font-size: 0.12rem;
+      border-radius: 0.08rem;
+      margin: 0.1rem 0;
+      th{
+        font-weight: normal;
+      }
+    }
+
+    .note-title{
+      font-size: 0.16rem;
+      margin-bottom: 0.05rem;
+      img{
+        width: 0.1rem;
+        margin-right: 0.08rem;
+        vertical-align: baseline;
+      }
+    }
+
+    table.diet-header{
+      font-size: 0.14rem;
+    }
+    table.diet-list{
+      padding: 0.05rem 0;
+    }
+    
+    .diet-list{
+      background-image: linear-gradient(to right, #f3efbc, transparent);
+    }
+    .diet-list:nth-child(1){
+      background-image: linear-gradient(to right, #f3efbc, transparent);
+    }
+    .diet-list:nth-child(2){
+      background-image: linear-gradient(to right, #dcf2b1, transparent);
+    }
+    .diet-list:nth-child(3){
+      background-image: linear-gradient(to right, #b5ddf8, transparent);
+    }
+    .diet-list:nth-child(4){
+      background-image: linear-gradient(to right, #efdbab, transparent);
+    }
+    .diet-list:nth-child(5){
+      background-image: linear-gradient(to right, #ebc5a8, transparent);
+    }
+    .diet-list:last-child{
+      margin-bottom: 0;
+      background-image: linear-gradient(to right, #ebc5a8, transparent);
+    }
+}
+.fix_bottom {
+    background: #fcfcfc;
+    padding: 0.15rem;
+    .btn_BMI{ background-color: #96CBCD; }
+    .btn_energy{ background-color: #98BECD; }
+    .btn_protein{ background-color: #CDC39B; }
+    .btn_pinXue{ background-color: #D4B0B3; }
+    .btn_tengTong{ background-color: #B0AFD1; }
+    .btn_shiMian{ background-color: #D3C0D5; }
+    .btn_fuXie{ background-color: #CDCCAB; }
+    .btn_bianMi{ background-color: #BDCEAC; }
+    .btn_piLao{ background-color: #A6D2D3; }
+    .btn_tunYanKunNan{ background-color: #E1CEBA; }
+    .btn_eXinOuTu{ background-color: #DBD4BB; }
+    .btn_xiaoHuaBuLiang{ background-color: #E0DEC4; }
+    .btn_tiZhongDiuShi{ background-color: #B4D4D0; }
+    .btn_diDanBai{ background-color: #B8CAD3; }
+    .btn_baiXiBao{ background-color: #B4D3C1; }
+    .btn_kouQiang{ background-color: #C6D2B8; }
+    .btn_xueXiaoBan{ background-color: #DDBCB2; }
+    .btn_feiYan{ background-color: #D6DDBE; }
+}

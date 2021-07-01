@@ -1,16 +1,16 @@
 <template>
-  <div class="item clear">
+  <div class="item">
     <router-link tag="div" :to="`/${detailPage}/${item.goodsId}`">
-      <div :to="`/${detailPage}/${item.goodsId}`" class="img_wrap float_left">
-        <img src="" v-lazy="item.goodsImage" alt="" class="product_pic">
+      <div class="img_wrap">
+        <img v-lazy="item.goodsImage" alt="" class="product_pic">
       </div>
-      <div class="content float_left">
+      <div class="content">
         <div class="product_title" :class="item.price ? '' : 'product_titles' ">
           <p class="product_name">{{item.goodsName}}</p>
-				 <div class="product_mpny">
-					 <p>¥ {{item.marketPrice}}</p>
+          <!-- <div class="product_mpny">
+            <p>¥ {{item.marketPrice}}</p>
             <img src="@/assets/images/shoppingMall/car1.png" alt="" class="buyCar"/>
-				 </div>
+          </div> -->
         </div>
       </div>
     </router-link>
@@ -19,16 +19,10 @@
 
 <script>
   /*  首页，零售，汇兑  */
-  // import productImg from "@/assets/images/product.jpg";
   export default {
     name: "productItem",
-    data:()=>({
-      productImg:'https://resource.jtsc.club/product.jpg'
-    }),
+    data:()=>({}),
     props:['item',"detailPage"],
-    methods:{
-
-    }
   }
 </script>
 
@@ -41,7 +35,6 @@
     &>div{
       @include border;
       overflow: hidden;
-      display: flex;
     }
   }
   .img_wrap{
@@ -63,8 +56,7 @@
   }
   .content{
     background: #ffffff;
-    padding: 0.05rem 0.1rem;
-    padding-bottom: 0;
+    padding: 0.05rem;
     .time{
       white-space: nowrap;
       font-size: 12px;
@@ -78,9 +70,9 @@
     // height: 0.64rem;
     position: relative;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: space-between;
     .price{
       margin-top: 0.04rem;
     }
@@ -90,17 +82,16 @@
   }
   .product_pic{
     width: 100%;
-    width: 0.8rem;
-    height: 0.8rem;
+    width: 1rem;
+    height: 1rem;
     display: block;
   }
   .product_name{
-    width: 0.9rem;
-		height: 35px;
     font-size: 13px;
     color: #333535;
-    white-space: normal;
-    @include ellipsis(2);
+    white-space: nowrap;
+    text-align: center;
+    @include ellipsis(1);
   }
   .price span{
     font-size: 0.13rem;

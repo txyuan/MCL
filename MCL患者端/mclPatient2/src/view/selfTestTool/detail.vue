@@ -64,26 +64,32 @@ export default {
     background-size: 100% auto;
     &.BMI{
         background-image: url("../../assets/images/selfTestTool/bg/BMIbg.jpg");
+        background-color: #A5BFF2;
         .panel .panel-title,.theme-button,.section{color: #505a88;}
     }
     &.energy{
         background-image: url("../../assets/images/selfTestTool/bg/每日所需能量bg.jpg");
+        background-color: #CAC7F4;
         .panel .panel-title,.theme-button,.section{color: #7056b2;}
     }
     &.protein{
         background-image: url("../../assets/images/selfTestTool/bg/每日所需蛋白量bg.jpg");
+        background-color: #B2F1E9;
         .panel .panel-title,.theme-button,.section{color: #38b5b9;}
     }
     &.water{
         background-image: url("../../assets/images/selfTestTool/bg/每日所需饮水量bg.jpg");
+        background-color: #C6E3A9;
         .panel .panel-title,.theme-button,.section{color: #88a531;}
     }
     &.weight{
         background-image: url("../../assets/images/selfTestTool/bg/标准体重bg.jpg");
+        background-color: #BCF2DA;
         .panel .panel-title,.theme-button,.section{color: #69b273;}
     }
     &.actualIntake{
         background-image: url("../../assets/images/selfTestTool/bg/每日实际摄入量bg.jpg");
+        background-color: #F0DEB8;
         .panel .panel-title,.theme-button,.section{color: #ac7f29;}
         .panel {padding-bottom: 0.10rem;}
     }
