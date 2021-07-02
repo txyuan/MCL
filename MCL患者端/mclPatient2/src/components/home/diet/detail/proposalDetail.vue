@@ -7,7 +7,7 @@
         </header-back>
       </div>
     </mt-header>
-    
+
     <img v-if="pageUrl == 'BMI'" src="@/assets/images/diet/_0017_BMI.jpg" alt="" width="100%">
     <img v-if="pageUrl == 'energy'" src="@/assets/images/diet/_0016_能量.jpg" alt="" width="100%">
     <img v-if="pageUrl == 'protein'" src="@/assets/images/diet/_0015_蛋白质.jpg" alt="" width="100%">
@@ -28,7 +28,7 @@
     <img v-if="pageUrl == 'feiYan'" src="@/assets/images/diet/_0000_放射性肺炎.jpg" alt="" width="100%">
 
     <div class="content">
-        <div class="section">
+        <div class="section" style="padding: 0.2rem">
           <div class="title">{{title}}</div>
           <div v-html="content"></div>
         </div>
@@ -128,7 +128,7 @@
     <div class="fix_bottom">
         <mt-button type="primary" class="theme-button button-radio" :class="'btn_'+pageUrl" size="large" @click.native="$root.goMessage">个性化定制</mt-button>
     </div>
-    
+
   </div>
 </template>
 
