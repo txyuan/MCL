@@ -45,8 +45,8 @@
                           <th width="40">餐次</th>
                           <th width="58">食物名称</th>
                           <th width="40">重量</th>
-                          <th width="60">能量(cal)</th>
-                          <th width="45">总能量</th>
+                          <th width="70">能量(Kcal)</th>
+                          <th width="80">总能量(Kcal)</th>
                         </tr>
                       </table>
                       <div>
@@ -56,8 +56,8 @@
                             <td v-if="trIndex == 0" :rowspan="dItem.length" width="40">{{tr.name}}</td>
                             <td width="58">{{tr.foodName}}</td>
                             <td width="40">{{tr.foodQuantity}}</td>
-                            <td width="60">{{tr.foodEnergy}}</td>
-                            <td v-if="trIndex == 0" :rowspan="dItem.length" width="45" v-html="tr.foodEnergySum"></td>
+                            <td width="70">{{tr.foodEnergy}}</td>
+                            <td v-if="trIndex == 0" :rowspan="dItem.length" width="80" v-html="tr.foodEnergySum"></td>
                           </tr>
                         </table>
                         <!-- 汇总能量数据 -->
@@ -66,14 +66,14 @@
                             <td width="40">膳食</td>
                             <td width="58">碳水</td>
                             <td width="40">蛋白质</td>
-                            <td width="60">脂肪</td>
-                            <td width="45" :rowspan="2" v-html="item.foodEnergy.replace('Kcal', '<br /> Kcal')"></td>
+                            <td width="70">脂肪</td>
+                            <td width="80" :rowspan="2" v-html="item.foodEnergy.replace('Kcal', '')"></td>
                           </tr>
                           <tr>
                             <td width="40">分析</td>
                             <td width="58">{{item.Carbohydrate}}</td>
                             <td width="40">{{item.Protein}}</td>
-                            <td width="60">{{item.Fat}}</td>
+                            <td width="70">{{item.Fat}}</td>
                           </tr>
                         </table>
                       </div>
@@ -170,7 +170,7 @@ export default {
         let temp = [], all = [];
         let flag = ""
         arr.forEach((item, index) => {
-          item.foodEnergySum = item.foodEnergySum.replace("Kcal", "<br /> Kcal")
+          item.foodEnergySum = item.foodEnergySum.replace("Kcal", "")
           if(flag == ""){
             flag = item.mealType
           }
