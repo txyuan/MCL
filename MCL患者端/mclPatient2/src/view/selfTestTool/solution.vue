@@ -63,7 +63,7 @@ export default {
         async getInfo(){
             const query = this.$route.query
             const param = {
-               skey: query.skey, 
+               skey: query.skey,
                ResultSkey: query.ResultSkey
             }
             const res = await getSelfTestToolResult(param)
@@ -116,7 +116,7 @@ export default {
 }
 .content{
     position: absolute;
-    top: 1.5rem;
+    top: 1.275rem;
     left: 0;
     right: 0;
     margin-bottom: 0.5rem;
