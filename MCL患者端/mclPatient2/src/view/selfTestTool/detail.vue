@@ -7,7 +7,7 @@
                 </header-back>
             </div>
         </mt-header>
-        
+
         <div class="content" :class="$route.query.type">
             <div class="panel">
                <div class="panel-title">{{title}}</div>
@@ -95,12 +95,10 @@ export default {
     }
 }
 .panel{
-    width: 90%;
-    margin: 0 auto;
-    margin-top: 0.8rem;
-    margin-bottom: 0.3rem;
+    width: 84%;
+    margin: 0.6rem auto  0.3rem;
     padding-top: 1px;
-    
+
     background: rgba(255,255,255, 0.4);
     border-radius: 0.15rem;
     box-sizing: border-box;
@@ -131,6 +129,14 @@ export default {
     font-size: 0.13rem;
     color: #505a88;
     padding: 0.1rem 0.15rem;
+  min-height: 1.15rem;
+  >>>p{
+
+    line-height: 1.5!important;
+  }
+>>>span{
+  font-size: 0.13rem!important;
+}
 }
 
 .section-title {

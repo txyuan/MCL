@@ -7,26 +7,26 @@
         </header-back>
       </div>
     </mt-header>
-
-    <img v-if="pageUrl == 'BMI'" src="@/assets/images/diet/_0017_BMI.jpg" alt="" width="100%">
-    <img v-if="pageUrl == 'energy'" src="@/assets/images/diet/_0016_能量.jpg" alt="" width="100%">
-    <img v-if="pageUrl == 'protein'" src="@/assets/images/diet/_0015_蛋白质.jpg" alt="" width="100%">
-    <img v-if="pageUrl == 'pinXue'" src="@/assets/images/diet/_0014_贫血.jpg" alt="" width="100%">
-    <img v-if="pageUrl == 'tengTong'" src="@/assets/images/diet/_0013_疼痛.jpg" alt="" width="100%">
-    <img v-if="pageUrl == 'shiMian'" src="@/assets/images/diet/_0012_失眠.jpg" alt="" width="100%">
-    <img v-if="pageUrl == 'fuXie'" src="@/assets/images/diet/_0011_腹泻.jpg" alt="" width="100%">
-    <img v-if="pageUrl == 'bianMi'" src="@/assets/images/diet/_0010_便秘.jpg" alt="" width="100%">
-    <img v-if="pageUrl == 'piLao'" src="@/assets/images/diet/_0009_疲劳.jpg" alt="" width="100%">
-    <img v-if="pageUrl == 'tunYanKunNan'" src="@/assets/images/diet/_0008_吞咽困难.jpg" alt="" width="100%">
-    <img v-if="pageUrl == 'eXinOuTu'" src="@/assets/images/diet/_0007_恶心呕吐.jpg" alt="" width="100%">
-    <img v-if="pageUrl == 'xiaoHuaBuLiang'" src="@/assets/images/diet/_0006_消化不良.jpg" alt="" width="100%">
-    <img v-if="pageUrl == 'tiZhongDiuShi'" src="@/assets/images/diet/_0005_体重丢失.jpg" alt="" width="100%">
-    <img v-if="pageUrl == 'diDanBai'" src="@/assets/images/diet/_0004_低蛋白血症.jpg" alt="" width="100%">
-    <img v-if="pageUrl == 'baiXiBao'" src="@/assets/images/diet/_0003_白细胞减少.jpg" alt="" width="100%">
-    <img v-if="pageUrl == 'kouQiang'" src="@/assets/images/diet/_0002_口腔黏膜炎.jpg" alt="" width="100%">
-    <img v-if="pageUrl == 'xueXiaoBan'" src="@/assets/images/diet/_0001_血小板计数降低.jpg" alt="" width="100%">
-    <img v-if="pageUrl == 'feiYan'" src="@/assets/images/diet/_0000_放射性肺炎.jpg" alt="" width="100%">
-
+    <div class="header_bg">
+        <img v-if="pageUrl == 'BMI'" src="@/assets/images/diet/_0017_BMI.jpg" alt="" width="100%">
+        <img v-if="pageUrl == 'energy'" src="@/assets/images/diet/_0016_能量.jpg" alt="" width="100%">
+        <img v-if="pageUrl == 'protein'" src="@/assets/images/diet/_0015_蛋白质.jpg" alt="" width="100%">
+        <img v-if="pageUrl == 'pinXue'" src="@/assets/images/diet/_0014_贫血.jpg" alt="" width="100%">
+        <img v-if="pageUrl == 'tengTong'" src="@/assets/images/diet/_0013_疼痛.jpg" alt="" width="100%">
+        <img v-if="pageUrl == 'shiMian'" src="@/assets/images/diet/_0012_失眠.jpg" alt="" width="100%">
+        <img v-if="pageUrl == 'fuXie'" src="@/assets/images/diet/_0011_腹泻.jpg" alt="" width="100%">
+        <img v-if="pageUrl == 'bianMi'" src="@/assets/images/diet/_0010_便秘.jpg" alt="" width="100%">
+        <img v-if="pageUrl == 'piLao'" src="@/assets/images/diet/_0009_疲劳.jpg" alt="" width="100%">
+        <img v-if="pageUrl == 'tunYanKunNan'" src="@/assets/images/diet/_0008_吞咽困难.jpg" alt="" width="100%">
+        <img v-if="pageUrl == 'eXinOuTu'" src="@/assets/images/diet/_0007_恶心呕吐.jpg" alt="" width="100%">
+        <img v-if="pageUrl == 'xiaoHuaBuLiang'" src="@/assets/images/diet/_0006_消化不良.jpg" alt="" width="100%">
+        <img v-if="pageUrl == 'tiZhongDiuShi'" src="@/assets/images/diet/_0005_体重丢失.jpg" alt="" width="100%">
+        <img v-if="pageUrl == 'diDanBai'" src="@/assets/images/diet/_0004_低蛋白血症.jpg" alt="" width="100%">
+        <img v-if="pageUrl == 'baiXiBao'" src="@/assets/images/diet/_0003_白细胞减少.jpg" alt="" width="100%">
+        <img v-if="pageUrl == 'kouQiang'" src="@/assets/images/diet/_0002_口腔黏膜炎.jpg" alt="" width="100%">
+        <img v-if="pageUrl == 'xueXiaoBan'" src="@/assets/images/diet/_0001_血小板计数降低.jpg" alt="" width="100%">
+        <img v-if="pageUrl == 'feiYan'" src="@/assets/images/diet/_0000_放射性肺炎.jpg" alt="" width="100%">
+    </div>
     <div class="content">
         <div class="section" style="padding: 0.2rem">
           <div class="title">{{title}}</div>
