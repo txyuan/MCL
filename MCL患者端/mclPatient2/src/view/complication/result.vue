@@ -20,7 +20,7 @@
                     <span v-if="data.scoreResult">您的{{title}}风险评测分值为<span class="score-num">{{data.score}}</span>，</span><span v-if="data.scoreResult">评测结果为：</span>
                 </div>
                 <div class="result-des" v-if="data.scoreResult">{{data.scoreResult}}</div>
-                <div class="result-des-note" v-if="data.medicalAdviceFlag == '1'">请遵医嘱，或尽快联系在线医生！</div>
+                <div class="result-des-note" v-if="data.medicalAdviceFlag == '1'">请遵医嘱，或尽快联系平台医生！</div>
                 <div class="bg"></div>
                 <div class="result-note" v-html="data.remarks"></div>
             </div>
@@ -36,9 +36,9 @@
     </div>
 
     <div class="fix_bottom" v-if="data.ColorDiscriminationFlag != undefined">
-        <mt-button v-if="data.ColorDiscriminationFlag != '1'" type="primary" class="theme-button" size="large" @click.native="proposal">查看饮食建议</mt-button>
+        <mt-button v-if="(data.ColorDiscriminationFlag != '1') && (data.ColorDiscriminationFlag != '0')" type="primary" class="theme-button" size="large" @click.native="proposal">查看饮食建议</mt-button>
         <mt-button type="default" size="large" @click.native="$root.goMessage">
-          <span v-if="data.medicalAdviceFlag == '1'">联系在线医生</span>
+          <span v-if="(data.medicalAdviceFlag == '1') || (data.ColorDiscriminationFlag == '0')">联系平台医生</span>
           <span v-else>个性化定制</span>
         </mt-button>
     </div>

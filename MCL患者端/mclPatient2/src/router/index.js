@@ -1,8 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import {isWeiXin} from "@/utils/utils.js"
-// import {APPID} from "@/configURL.js"
-// import payType from "@/assets/js/payType.js" //支付
 import { getUserType, goHome, logout } from '@/assets/js/uesr.js' //用户类型
 //导入页面
 const wx_Entrance = () => import(/* webpackChunkName: "wx_Entrance" */ '@/components/wxEntrance/index.vue')
@@ -566,7 +563,7 @@ router.beforeEach((to, from, next) => {
 
   // 不在白名单内，没有登录信息的情况跳转登录页面
   if ((whiteRouteList.indexOf(to.name) == -1) && !localStorage.userInfo) {
-    next({path: '/login',  query: {redirect: to.fullPath}})
+    logout(to.fullPath)
     return
   }
  

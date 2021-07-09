@@ -300,7 +300,7 @@ export default {
       //   }
 
       if (this.type === "group") {
-        this.$router.push({ name: this.type, params: { id: key.groupid } });
+        this.$router.replace({ name: this.type, params: { id: key.groupid } });
         this.onGetCurrentChatObjMsg({ type: this.type, id: key.groupid });
 
         setTimeout(() => {
@@ -315,7 +315,7 @@ export default {
           this.getHistoryMessage({ name: key.groupid, isGroup: true });
         }
       } else if (this.type === "contact") {
-        this.$router.push({ name: this.type, params: { id: key.name } });
+        this.$router.replace({ name: this.type, params: { id: key.name } });
         this.onGetCurrentChatObjMsg({ type: this.type, id: key.name });
         setTimeout(() => {
           Vue.$store.commit("updateMessageStatus", {
@@ -332,7 +332,7 @@ export default {
         const me = this;
         // me.roomId = key.id
 
-        this.$router.push({ name: this.type, params: { id: key.id } });
+        this.$router.replace({ name: this.type, params: { id: key.id } });
         this.onGetCurrentChatObjMsg({ type: this.type, id: key.id });
 
         WebIM.conn.joinChatRoom({

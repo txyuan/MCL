@@ -18,13 +18,13 @@
                         <p>{{data.EvaluationResults}}</p>
                         <p  v-if="data.scoreResult">评测结果为：</p>
                     </div>
-                    <div class="result-des" v-if="data.scoreResult">{{data.scoreResult}}</div>
+                    <div class="result-des" v-if="data.scoreResult">{{data.scoreResult}}{{unit[pageUrl]}}</div>
                      <div class="bg"></div>
                     <div class="result-note" v-html="data.remarks">
                     </div>
                 </div>
                 <div class="score-box" v-if="data.score">
-                    <div class="score-content"><span>{{data.score}}</span></div>
+                    <div class="score-content">{{data.score}}<span>{{unit[pageUrl]}}</span> </div>
                 </div>
             </div>
             <div class="section">
@@ -47,6 +47,7 @@ import { getSelfTestToolResult } from "@/api/selfTest.js"
 import { GetProductList } from "@/api/shopCar.js"
 export default {
     data() {
+        const pageUrl = this.$route.query.type
         return {
             data:{
                 // string	ResultTypeName	分类名称
@@ -56,6 +57,15 @@ export default {
                 // string	ResultTile	结果标题
                 // string	ImageUrl	图片
                 // string	Memo	备注
+            },
+            pageUrl,
+            unit: {
+                energy: "Kcal",
+                protein: "克",
+                water: "ml",
+                weight: "（公斤）",
+                actualIntake: "",
+                BMI: "",
             }
         }
     },
@@ -73,8 +83,7 @@ export default {
         proposal(){
             const goodsName = this.data.ResultTypeName
             const secondSymptomName = this.data.scoreResult
-            const pageUrl = this.$route.query.type
-            this.$router.push({name: "proposalDetail", query:{label: goodsName, labelSecond: secondSymptomName, pageUrl }})
+            this.$router.push({name: "proposalDetail", query:{label: goodsName, labelSecond: secondSymptomName, pageUrl: this.pageUrl }})
         }
     },
     created() {
@@ -98,20 +107,21 @@ export default {
 
 .score-box{
     width: 1.2rem;
-    height: 1.2rem;
+    height: 1rem;
     background: url("../../assets/images/complication/scoreBg2.png") no-repeat 0.05rem -0.25rem;
     background-size: 1.4rem auto;
     position: absolute;
     top: -0rem;
     right: -0rem;
+    text-align: center;
+    line-height: 0.85rem;
     .score-content{
-        text-align: center;
         color: #FFFFFF;
-        margin-left: 0.3rem;
-        margin-top: 0.2rem;
+        font-size: 0.2rem;
+        margin-left: 0.25rem;
     }
     span {
-        font-size: 0.35rem;
+        font-size: 12px;
     }
 }
 .content{

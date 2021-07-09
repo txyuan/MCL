@@ -1,5 +1,5 @@
 <template>
-  <div class="padding-footer">
+  <div class="padding-footer"  v-if="isLoad">
     <mt-header title="诊疗" fixed></mt-header>
     <div class="todymag">
       <div class="tody_ul">
@@ -191,6 +191,10 @@
             this.picurl = data.data.ImgUrl
             this.uname = data.data.Nickname
             this.type_disease = data.data.type_disease
+            if(data.data.type_disease == null){
+              // this.$router.replace("/wellcome_personInfoRegister")
+            }
+            this.isLoad = true
           }
         })
       },
@@ -201,7 +205,7 @@
             return
           }
           this.messageInfo = data
-          this.isLoad = true
+          
         })
       },
       getStatus(){

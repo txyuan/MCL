@@ -58,7 +58,7 @@ WebIM.conn.listen({
 			}
 		}
 		let redirectUrl = `${path}?username=${username}`;
-		Vue.$router.push({ path: redirectUrl });
+		Vue.$router.replace({ path: redirectUrl });
 	},
 	onClosed: function (message) {
 		

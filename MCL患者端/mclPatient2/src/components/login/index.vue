@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import { DOCTORURL, CHANNELURL } from '@/configURL.js'
-import { getUserType } from '@/assets/js/uesr.js' //用户类型
+// import { DOCTORURL, CHANNELURL } from '@/configURL.js'
+// import { getUserType } from '@/assets/js/uesr.js' //用户类型
 import logoImg from '@/assets/images/mclogo.png'
 export default {
   name: 'index',

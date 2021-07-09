@@ -3,7 +3,7 @@
 		<mt-header title="小美医助为您提供实时指导" fixed >
 			<!-- @click.native="slide = !slide" -->
 			<div slot="left">
-				<mt-button icon="back" @click="close"></mt-button>
+				<mt-button icon="back" @click="$router.back()"></mt-button>
 			</div>
 		</mt-header>
 		<div id="body_main" style="padding-bottom: 0">
@@ -141,13 +141,29 @@ export default {
         this.ServicePatient = data.ServicePatient
       })
     },
-	close(){
-		const {historyLength} = this.$route.query
-		this.$router.go(-(history.length - historyLength))
-	}
+	// close(){
+	// 	const {historyLength} = this.$route.query
+	// 	if( history.length > historyLength){
+	// 		this.$router.go(-(history.length - historyLength))
+	// 	}else{
+	// 		this.$router.back()
+	// 	}
+	// },
+	// backChange() {
+    //   const that = this;
+    //   alert("监听到了");
+	// }
   },
   created () {
     this.userkey = JSON.parse(localStorage.getItem('userInfo')).UserKey
+
+	// 如果支持 popstate 一般移动端都支持了
+	// if (window.history && window.history.pushState) {
+	// 	// 往历史记录里面添加一条新的当前页面的url
+	// 	history.pushState(null, null, document.URL);
+	// 	// 给 popstate 绑定一个方法 监听页面刷新
+	// 	window.addEventListener('popstate', this.backChange, false);//false阻止默认事件
+	// }
   },
   async mounted () {
 	if(localStorage.mesnum){
@@ -163,7 +179,11 @@ export default {
 	this.$refs.kefuView.contentWindow.location.replace(`${this.KFURL}/login?username=${this.repData.ContactPhone}&userkey=${this.userkey}&logoSinge=1`) 
     this.getupshop()
     this.getthisnf()
-  }
+  },
+  destroyed(){
+	this.$Indicator.close()
+	// window.removeEventListener('popstate', this.backChange, false);//false阻止默认事件
+  },
 
 }
 </script>

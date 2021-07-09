@@ -4,13 +4,13 @@ import {APPID} from "@/configURL.js"
 import {isWeiXin} from "@/utils/utils.js"
 
 // 退出登录
-export function logout(){
+export function logout(redirectUrl){
     localStorage.removeItem('userInfo')
     const redirect = router.currentRoute.name == 'login' ? '/': router.currentRoute.fullPath  // 从哪个页面跳转
     const loginRoute = {
         name: "login",
         query: {
-            redirect
+            redirect: redirectUrl ? redirectUrl :  redirect
         }
     }
     // 生产环境获取openid
@@ -45,11 +45,12 @@ export function getUserType(){
 
 // 跳转到系统首页
 export function goHome() {
+    router.replace({path: '/'})
     // 患者端
-    if(getUserType() == 'patient'){
-        router.replace({path: '/'})
+    // if(getUserType() == 'patient'){
+    //     router.replace({path: '/'})
     // 渠道端
-    }
+    // }
     // else if(getUserType() == 'channel'){
     //     location.replace(`${CHANNELURL}#/`)
     // // 医生端

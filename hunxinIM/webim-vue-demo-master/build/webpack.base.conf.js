@@ -21,6 +21,11 @@ module.exports = {
         publicPath: process.env.NODE_ENV === 'production' ?
             config.build.assetsPublicPath : config.dev.assetsPublicPath
     },
+    externals: {
+        'vue': 'Vue',
+        'element-ui': 'ELEMENT',
+        'vue-antd-ui': 'antd'
+    },
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {

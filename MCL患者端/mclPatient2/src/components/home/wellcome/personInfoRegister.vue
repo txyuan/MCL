@@ -54,8 +54,7 @@
 
     <div class=""></div>
     <div class="fix_bottom">
-      <mt-button type="primary" class="theme-button button-radio " size="large" @click.native="addSubmit"  v-preventReClick>下一步
-      </mt-button>
+      <mt-button type="primary" class="theme-button button-radio " size="large" @click.native="addSubmit"  v-preventReClick>保存</mt-button>
     </div>
 
     <!-- 性别picker  -->
@@ -263,7 +262,7 @@ export default {
             return
           }
           this.$Toast('保存成功')
-          this.$router.push(`/message2`)
+          this.$router.push(`/wx_Entrance/todymanage`)
         })
       }
     },

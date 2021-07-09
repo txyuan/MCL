@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { DOCTORURL, CHANNELURL } from '@/configURL.js'
+// import { DOCTORURL, CHANNELURL } from '@/configURL.js'
 import identify from '@/components/common/identify.vue'
 import logoImg from '@/assets/images/mclogo.png'
 

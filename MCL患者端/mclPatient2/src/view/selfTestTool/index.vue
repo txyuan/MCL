@@ -13,11 +13,11 @@
     <div class="banner">
       <div class="note">
         <div class="note-title"><span>为什么要做自测？</span></div>
-        <div class="note-view" :class="{'auto': isOpen}">
+        <div class="note-view" :class="{'auto': isOpen}" ref="noteView">
           <!-- <div class="note-content">水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水 水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水 水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水</div> -->
           <div v-html="memo" class="note-content"></div>
         </div>
-        <div class="note-icon" :class="{'open': isOpen}" @click="isOpen = !isOpen"></div>
+        <div v-show="isShowIcon" class="note-icon" :class="{'open': isOpen}" @click="isOpen = !isOpen"></div>
       </div>
     </div>
     <div class="tool">
@@ -43,6 +43,7 @@ export default {
   data() {
     return {
       isOpen: false,
+      isShowIcon: false,
       memo: "",
       list: [
         // {
@@ -101,7 +102,15 @@ export default {
       const data = await getSelfTestList();
       this.img = data.img;
       this.memo = data.memo;
-      this.list = data.data
+      this.list = data.data;
+      this.$nextTick(() => {
+        const noteView = this.$refs.noteView
+        const viewHeight = noteView.offsetHeight
+        const contentHeight = noteView.querySelector('.note-content').offsetHeight
+        if(contentHeight > viewHeight){
+          this.isShowIcon = true
+        }
+      })
     }
   },
   created(){
