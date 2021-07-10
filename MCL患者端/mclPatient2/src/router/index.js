@@ -551,22 +551,22 @@ const router = new Router({
 })
 
 // 白名单（不需要验证登录信息）
-const whiteRouteList = [ 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'inviteFriends' ]
+const whiteRouteList = [ 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'inviteFriends', 'serviceDetail' ]
 
 router.beforeEach((to, from, next) => {
 
-  // 生产环境获取openid
-  // if((process.env.NODE_ENV == 'production') && isWeiXin() && (payType.getUrlParam('code') == null)){
-  //   location.replace(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${encodeURIComponent(location.href)}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`)
-  //   return
-  // }
+  // 重定向到哇咔咔系统首页
+  if(to.name == 'home'){
+    location.href = "https://wx12ed81f322f0f7b5.wx.wakkaa.com/appMjAzNDg1?t=1"
+    return
+  }
 
   // 不在白名单内，没有登录信息的情况跳转登录页面
   if ((whiteRouteList.indexOf(to.name) == -1) && !localStorage.userInfo) {
     logout(to.fullPath)
     return
   }
- 
+
   // 已经登录，用户不是患者端。（跳转到系统首页）
   // if ((localStorage.userInfo) && (getUserType() != 'patient')) {
   //   // 开发环境，退出重新登录。正式环境，返回首页

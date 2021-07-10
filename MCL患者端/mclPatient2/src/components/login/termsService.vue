@@ -59,7 +59,7 @@
 </template>
 
 <script>
-// import { DOCTORURL, CHANNELURL } from '@/configURL.js'
+import { DOCTORURL, CHANNELURL } from '@/configURL.js'
 import identify from '@/components/common/identify.vue'
 import logoImg from '@/assets/images/mclogo.png'
 
@@ -80,6 +80,7 @@ export default {
     // 医生分享给 患者和医生
     // 渠道分享给 医生，渠道，
     roleMap: {
+      role0: '1,2',
       role1: '1,2',
       role2: '2,1',
       role3: '',
@@ -275,12 +276,11 @@ export default {
     let role = this.$route.query.role
     if (role) {
       let JurisdictionRole = this.roleMap['role' + role].split(',') // 这个用户可以选择注册的角色
-      console.log(JurisdictionRole)
-	  if (role == 5) {
-		  if (rphone != 15523523851) {
-			  JurisdictionRole.splice(1, 1)
-		  }
-	  }
+	    if (role == 5) {
+        if (rphone != 15523523851) {
+          JurisdictionRole.splice(1, 1)
+        }
+      }
       this.role = JurisdictionRole[0]
       this.roleList.forEach((item, index) => {
         if (JurisdictionRole.indexOf(String(item.value)) == -1) {
@@ -385,23 +385,22 @@ export default {
 	// }
 	.login_inpt .yzmcode {
 		display: flex;
+    align-items: center;
 	}
-	.login_inpt .yzmcode input {
-		width: 48%;
-	}
-
+  .login_inpt .yzmcode img{
+    margin-top: 0;
+  }
 	.login_inpt span {
 		width: 1.0rem;
-		height: 0.29rem;
+		height: 0.32rem;
+		border-left: 1px solid #eee;
 		box-sizing: border-box;
 		display: block;
 		float: right;
-		line-height: 0.3rem;
-		color: #F78335;
+		line-height: 0.325rem;
+		color: #24b7c0;
 		text-align: center;
 		font-size: 0.14rem;
-		margin-top: 0.08rem;
-		border-left: 1px solid #EEEEEE;
 
 		i {
 			font-style: normal;
@@ -450,5 +449,19 @@ export default {
 				background-size: 0.16rem;
 			}
 		}
+	}
+
+  .login_inpt .yzmcode input {
+		flex: 1;
+	}
+
+	.yzmcode {
+		display: flex;
+		align-items: center;
+	}
+
+	.yzmcode .input_warp {
+		flex: 1;
+		display: flex;
 	}
 </style>

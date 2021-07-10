@@ -146,3 +146,5 @@ window.showLoc = function(aa) {
 	vm.longLat = aa;
 }
 
+// 替换浏览器的alert
+window.alert = function(s){console.log(s)};

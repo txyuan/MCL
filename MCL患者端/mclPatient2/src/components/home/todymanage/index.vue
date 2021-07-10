@@ -27,7 +27,7 @@
           </router-link>
         </div>
         <div class="tody_list">
-          <router-link :to="{path: messageInfo.blscFlag==0||messageInfo.IsMember==0 ? `/welcomebl` : `/physician`}">
+          <router-link :to="`/physician`">
             <div class="d-flex  mag_list">
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-blsc.png" />	</div>
               <div class="mag_text ">
@@ -52,7 +52,7 @@
           </router-link>
         </div>
         <div class="tody_list">
-          <router-link :to="{path: messageInfo.zzglFlag==0||messageInfo.IsMember==0 ? `/welcomezz` : `/symptom`}">
+          <router-link :to="`/symptom`">
             <div class="d-flex  mag_list">
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-zzgl.png" />	</div>
               <div class="mag_text ">
@@ -80,7 +80,7 @@
         </div>
 
         <div class="tody_list">
-          <router-link :to="{path: messageInfo.fzyyFlag==0||messageInfo.IsMember==0 ? `/welcomefzyy` : `/appointment`}">
+          <router-link :to="`/appointment`">
             <div class="d-flex  mag_list">
               <div class="mag_icon">  <img src="@/assets/images/icons/icon-fzyy.png" /></div>
               <div class="mag_text ">
@@ -95,7 +95,7 @@
         </div>
 
         <div class="tody_list">
-          <router-link :to="{path: messageInfo.yyjlFlag==0||messageInfo.IsMember==0 ? `/welcomeyy` : `/medicatRecord`}">
+          <router-link :to="`/medicatRecord`">
             <div class="d-flex  mag_list">
               <div class="mag_icon">  <img src="@/assets/images/icons/icon-yyjl.png" /></div>
               <div class="mag_text ">
@@ -122,51 +122,6 @@
             </div>
           </router-link>
         </div>
-
-        <!--
-        <div class="tody_list">
-          <router-link :to="{path: messageInfo.lbFlag==0||messageInfo.IsMember==0 ? `/buyfood/饮食` : `/diet`}">
-            <div class="d-flex  mag_list">
-              <div class="mag_icon"> <img src="@/assets/images/icons/icon-ysjl.png" />	</div>
-              <div class="mag_text ">
-                <strong>饮食记录</strong>
-                <span v-if="statusInfo.lbFlag==0">记录今日饮食</span>
-                <span v-if="statusInfo.lbFlag==1">今日已完成</span>
-                <img src="@/assets/images/icons/icon-arrow.png" alt="" class="icon">
-              </div>
-            </div>
-          </router-link>
-        </div>
-        <div class="tody_list">
-          <router-link :to="{path: messageInfo.ydlbFlag==0||messageInfo.IsMember==0 ? `/buyfood/运动` : `/sport`}">
-            <div class="d-flex  mag_list">
-              <div class="mag_icon"> <img src="@/assets/images/icons/icon-ydjl.png" />	</div>
-              <div class="mag_text ">
-                <strong>运动记录</strong>
-                <span v-if="statusInfo.ydlbFlag==0">记录今日运动</span>
-                <span v-if="statusInfo.ydlbFlag==1">今日已完成</span>
-                <img src="@/assets/images/icons/icon-arrow.png" alt="" class="icon">
-              </div>
-            </div>
-          </router-link>
-        </div>
-        
-        <div class="tody_list">
-          <router-link :to="{path: messageInfo.yylbFlag==0||messageInfo.IsMember==0 ? `/buyfood/营养` : `/nutrition`}">
-            <div class="d-flex  mag_list">
-              <div class="mag_icon"> <img src="@/assets/images/icons/icon-yyjl.png" />	</div>
-              <div class="mag_text ">
-                <strong>营养记录</strong>
-               <span v-if="statusInfo.yylbFlag==0">记录今日营养</span>
-               <span v-if="statusInfo.yylbFlag==1">今日已完成</span>
-               <img src="@/assets/images/icons/icon-arrow.png" alt="" class="icon">
-              </div>
-            </div>
-          </router-link>
-        </div> -->
-        
-        
-        
       </div>
     </div>
   </div>
@@ -192,7 +147,7 @@
             this.uname = data.data.Nickname
             this.type_disease = data.data.type_disease
             if(data.data.type_disease == null){
-              // this.$router.replace("/wellcome_personInfoRegister")
+              this.$router.replace("/wellcome_personInfoRegister")
             }
             this.isLoad = true
           }

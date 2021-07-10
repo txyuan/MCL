@@ -538,10 +538,6 @@ export default {
     // 	})
     // }
   },
-  // 重定向到哇咔咔系统首页
-  beforeRouteEnter(){
-    location.href = "https://wx12ed81f322f0f7b5.wx.wakkaa.com/appMjAzNDg1?t=1"
-  },
   beforeRouteLeave (to, from, next) {
     // 导航离开该组件的对应路由时调用
     let keepAlive = (to.name == 'classdetail')

@@ -15,7 +15,7 @@
 				</li> -->
 				<li class="yzmcode">
 					<div class="input_warp">
-						<img src="@/assets/images/mima@2x.png" />
+						<img src="@/assets/images/yanzhengma@2x.png" />
 						<input type="tel" v-model.trim="code" @focus="$root.windowRecordScroll" @blur="$root.windowScrollTop" placeholder="请输入验证码" />
 					</div>
 					<span v-on:click="phonet()">
@@ -77,19 +77,14 @@ export default {
 			this.$Toast('请输入格式正确的手机号');
 			return;
 		}
-		// const identify = this.$refs.identify;
-		// if ((this.picodes === "") || (this.picodes != identify.code)) {
-		// 	this.$Toast('图片验证码填写有误！');
-		// 	return;
-		// }
-		let jmnum = this.$root.getjmw(this.phone);
+		let jmnum = this.$root.getjmw(userphone);
 		let datass = this.$root.$getCode(jmnum);
 		if (this.isDown) {
 			return;
 		}
 		this.isDown = true;
 		let param = {
-			"userphone": this.phone,
+			"userphone": userphone,
 			"ucode": encodeURI(datass).replace(/\+/g, '%2B')
 		}
 		this.$post(url, param).then((data) => {

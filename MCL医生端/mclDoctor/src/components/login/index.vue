@@ -9,19 +9,29 @@
 					<img src="@/assets/images/zhanghao@2x.png" />
 					<input type="tel" v-model.trim="phone" @focus="$root.windowRecordScroll" @blur="$root.windowScrollTop" placeholder="请输入手机号" />
 				</li>
-				<li>
+				<!-- <li>
 					<img src="@/assets/images/mima@2x.png" />
 					<input type="password" v-model.trim="code" @focus="$root.windowRecordScroll" @blur="$root.windowScrollTop"
 					 placeholder="请输入密码" />
+				</li> -->
+				<li class="yzmcode">
+					<div class="input_warp">
+						<img src="@/assets/images/yanzhengma@2x.png" />
+						<input type="tel" v-model.trim="code" @focus="$root.windowRecordScroll" @blur="$root.windowScrollTop" placeholder="请输入验证码" />
+					</div>
+					<span v-on:click="phonet()">
+						<i v-if="isDown"> {{time}}</i>
+						<i v-else>{{getCode}}</i>
+					</span>
 				</li>
 			</ul>
 			<p class="agreen">
 				<!-- <span v-if="agrn" class="axz" @click="agre"></span>
           <span v-else @click="agre"></span>
           阅读并同意<router-link to="/noticeClause" style="text-decoration: underline;color: #FF3D3D;margin-left: 0.02rem;">金拓商城用户协议</router-link> -->
-				<label>
+				<!-- <label>
 					<router-link to="/changePass">忘记密码？</router-link>
-				</label>
+				</label> -->
 			</p>
 			<!-- <p class="login_service"></p> -->
 			<!--<router-link to="/wx_Entrance/home">-->
@@ -40,9 +50,51 @@ export default {
     phone: '',
     code: '',
     agrn: false,
-    logoImg: logoImg
+    logoImg: logoImg,
+	getCode: '获取验证码',
+    VerificationCode: 60,
+    isDown: false
   }),
+  computed: {
+    time: function () {
+      setTimeout(() => {
+        if (this.VerificationCode <= 0) {
+          this.isDown = false
+          this.VerificationCode = 60
+          return
+        }
+        this.VerificationCode--
+      }, 1000)
+      return `${this.VerificationCode}s后发送`
+    }
+  },
   methods: {
+	// 验证码
+	phonet() {
+		let url = "UserInterface/UserRegeditCode.ashx";
+		let userphone = this.phone;
+		let myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+		if (!myreg.test(this.phone)) {
+			this.$Toast('请输入格式正确的手机号');
+			return;
+		}
+		let jmnum = this.$root.getjmw(userphone);
+		let datass = this.$root.$getCode(jmnum);
+		if (this.isDown) {
+			return;
+		}
+		this.isDown = true;
+		let param = {
+			"userphone": userphone,
+			"ucode": encodeURI(datass).replace(/\+/g, '%2B')
+		}
+		this.$post(url, param).then((data) => {
+			this.$Toast(data.rspdesc);
+			if (data.rspcode != 1) {
+				return;
+			}
+		})
+	},
     // 注册
     registbtn () {
       this.$router.push('/termsService')
@@ -58,13 +110,14 @@ export default {
         return
       }
       if (this.code == '') {
-        this.$Toast('请输入密码')
+        this.$Toast('请输入验证码')
         return
       }
       let url = 'UserInterface/UserLogin.ashx'
       let param = {
         'userphone': this.phone,
-        'userpassword': this.code
+        'vercode': this.code,
+        'openid': localStorage.openId
       }
       this.$post(url, param).then((data) => {
         if (data.rspcode == 0) {
@@ -166,15 +219,14 @@ export default {
 	.login_inpt span {
 		width: 1.0rem;
 		height: 0.32rem;
-		border: 1px solid #FF1E41;
+		border-left: 1px solid #eee;
 		box-sizing: border-box;
 		display: block;
 		float: right;
 		line-height: 0.325rem;
-		color: #FF1E41;
+		color: #24b7c0;
 		text-align: center;
 		font-size: 0.14rem;
-		border-radius: 4px;
 
 		i {
 			font-style: normal;
@@ -234,5 +286,19 @@ export default {
 				font-size: 0.14rem;
 			}
 		}
+	}
+
+	.login_inpt .yzmcode input {
+		flex: 1;
+	}
+
+	.yzmcode {
+		display: flex;
+		align-items: center;
+	}
+
+	.yzmcode .input_warp {
+		flex: 1;
+		display: flex;
 	}
 </style>

@@ -11,7 +11,7 @@
       <div class="tody_ul">
         
         <div class="tody_list">
-          <router-link :to="{path: messageInfo.lbFlag==0||messageInfo.IsMember==0 ? `/buyfood/饮食` : `/diet`}">
+          <router-link :to="`/diet`">
             <div class="d-flex  mag_list">
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-ysjl.png" />	</div>
               <div class="mag_text ">
@@ -25,7 +25,7 @@
         </div>
 
         <div class="tody_list">
-          <router-link :to="{path: messageInfo.ydlbFlag==0||messageInfo.IsMember==0 ? `/buyfood/运动` : `/sport`}">
+          <router-link :to="`/sport`">
             <div class="d-flex  mag_list">
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-ydjl.png" />	</div>
               <div class="mag_text ">
@@ -39,7 +39,7 @@
         </div>
         
         <div class="tody_list">
-          <router-link :to="{path: messageInfo.yylbFlag==0||messageInfo.IsMember==0 ? `/buyfood/营养` : `/nutrition`}">
+          <router-link :to="`/nutrition`">
             <div class="d-flex  mag_list">
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-yyjl.png" />	</div>
               <div class="mag_text ">
@@ -53,7 +53,7 @@
         </div>
         
         <div class="tody_list">
-          <router-link :to="{path: messageInfo.xqglFlag==0||messageInfo.IsMember==0 ? `/welcomexqgl` : `/mood`}">
+          <router-link :to="`/mood`">
             <div class="d-flex  mag_list">
               <div class="mag_icon"> <img src="@/assets/images/icons/icon-yyjl.png" />	</div>
               <div class="mag_text ">

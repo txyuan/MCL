@@ -14,8 +14,8 @@ const KFCONFIG = {
 const BASEURL = 'http://cli.marryhealthscience.com/'  // 测试接口地址
 
 // const PATIENTURL = 'http://cli.marryhealthscience.com/patient/index.html' // 患者端域名
-// const DOCTORURL = 'http://clidoc.marryhealthscience.com/doctor/index.html' // 医生端域名
-// const CHANNELURL = 'http://clicha.marryhealthscience.com/channel/index.html' // 渠道端域名
+const DOCTORURL = 'http://clidoc.marryhealthscience.com/doctor/index.html' // 医生端域名
+const CHANNELURL = 'http://clicha.marryhealthscience.com/channel/index.html' // 渠道端域名
 
 // 微信公众号appid
 const APPID = 'wx12ed81f322f0f7b5'
@@ -25,7 +25,7 @@ export {
   KFCONFIG,
   BASEURL,
   // PATIENTURL,
-  // DOCTORURL,
-  // CHANNELURL,
+  DOCTORURL,
+  CHANNELURL,
   APPID
 } 
