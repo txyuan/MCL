@@ -7,7 +7,7 @@
         </header-back>
       </div>
     </mt-header>
-    
+
     <div class="navbar">
         <ul>
             <li v-for="(item, index) in list" :key="index" :class="{'active': index == navIndex}" @click="toggle(item, index)">{{item.parentName}}</li>
@@ -15,12 +15,14 @@
     </div>
     <div class="content" v-html="content">
     </div>
-    <mt-button type="primary" class="theme-button fix_bottom" size="large" @click.native="$router.push({name: 'complicationHome', params: {type: list[0].self_test_url}, query: $route.query})">立即自测</mt-button>
+    <div class="fix_bottom">
+    <mt-button type="primary" class="theme-button" size="large" @click.native="$router.push({name: 'complicationHome', params: {type: list[0].self_test_url}, query: $route.query})">立即自测</mt-button>
+    </div>
   </div>
 </template>
 
 <script>
-import {getList2} from "@/api/complication" 
+import {getList2} from "@/api/complication"
 export default {
     data: function() {
         const {title, skey} = this.$route.query
@@ -54,19 +56,25 @@ export default {
     margin: 0 0.15rem;
     overflow: hidden;
     overflow-x: scroll;
-    ul{white-space: nowrap;}
+
+    ul{white-space: nowrap;
+      display: -ms-flexbox!important;
+      display: flex!important;
+      -ms-flex-pack: justify!important;
+      justify-content: space-between!important;
+    }
     li{
         display: inline-block;
         line-height: 0.4rem;
-        height: 0.4rem;
+        height: 0.425rem;
         box-sizing: border-box;
-        margin-right: 0.15rem;
-        color: #666;
-        font-size: 0.15rem;
-        border-bottom: 2px solid transparent;
+        color: #565656;
+        font-size: 0.155rem;
+        border-bottom: 3px solid transparent;
+        padding:0.05rem 0.02rem 0 0.02rem;
     }
     li.active{
-        color: #000;
+        color: #0ac5ca;
         border-color: #0ac5ca;
     }
 }
@@ -77,5 +85,15 @@ export default {
    >>> img{
      width: 100%;
    }
+}
+  .theme-button{
+    height: 0.44rem;
+    line-height: 0.44rem;
+    border-radius:8px;
+
+  }
+.fix_bottom{
+  background: #ffffff;
+  padding: 0.1rem 0.15rem;
 }
 </style>
