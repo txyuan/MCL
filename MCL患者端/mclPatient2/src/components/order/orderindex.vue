@@ -93,30 +93,34 @@ import juanj from '@/assets/images/zsyh.png'
 import w_yue from '@/assets/images/yepay.png'
 export default {
   name: 'index',
-  data: () => ({
-    note: '',
-    isShow: false, // 显示隐藏支付方式
-    payList: [{
-      imgs: juanj,
-      names: '招商银行储蓄卡(0771)',
-      ptype: 2
-    },
-    {
-      imgs: w_yue,
-      names: '积分支付',
-      ptype: 1
-    }
-    ],
-    isShowpay: 0,
-    paymoney: '微信', // 支付方式
-    payFlag: 1,
-    ABflag: '',
-    erjpass: '', // 二级密码
-    isDefaultAdr: false, // 是否有默认地址
-    defaultAdr: {}, // 默认地址信息
-    goodsList: [], // 商品列表
-    orderInfo: {} // 订单信息
-  }),
+  data: function () {
+	  const {ABflag, orderFrom} = this.$route.query
+	  return{
+		note: '',
+		isShow: false, // 显示隐藏支付方式
+		payList: [{
+		imgs: juanj,
+		names: '招商银行储蓄卡(0771)',
+		ptype: 2
+		},
+		{
+		imgs: w_yue,
+		names: '积分支付',
+		ptype: 1
+		}
+		],
+		isShowpay: 0,
+		paymoney: '微信', // 支付方式
+		payFlag: 1,
+		ABflag,
+		orderFrom,
+		erjpass: '', // 二级密码
+		isDefaultAdr: false, // 是否有默认地址
+		defaultAdr: {}, // 默认地址信息
+		goodsList: [], // 商品列表
+		orderInfo: {} // 订单信息
+	}
+  },
   methods: {
     // 添加默认地址
     addAdr () {
@@ -125,9 +129,12 @@ export default {
     // 获取订单信息
     getOrderInfo () {
       this.$Indicator.loading()
+	  const {ABflag, orderFrom} = this
       let url = 'UserInterface/cart/orderConfirm.ashx'
-      let ABflag = this.$route.query.ABflag
-      this.ABflag = ABflag
+	  // orderFrom  0: 购物车过来的; 1: 立即购买
+	  if(orderFrom == "1"){
+		  url = 'UserInterface/cart/orderConfirmImmediately.ashx'
+	  }
       let param = {
         'addressId': '',
         ABflag
@@ -192,12 +199,13 @@ export default {
         this.$Toast('请完善收货地址')
         return
       }
-      const orderType = this.$route.query.orderType
+	  const {orderFrom} = this
       let url = 'UserInterface/IPayment/CZWPaymentRequest_vshop.ashx'
       let param = {
         'RechargeAmount': Number(this.orderInfo.orderAmount),
         'OpenID': localStorage.openId,
-        'PaymentType': 2, // 【1：营养筛查；2：管理套餐；3：商品订单；4：活动订单；5：会员年卡】
+        'PaymentType': 3, // 【1：营养筛查；2：管理套餐；3：商品订单；4：活动订单；5：会员年卡】
+		'orderFlag': orderFrom == 0 ? 0 : 1,  // orderFrom  0: 购物车过来的; 1: 立即购买
         'addressId': this.defaultAdr.addressId
       }
       this.$Indicator.loading()

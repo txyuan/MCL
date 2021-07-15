@@ -16,7 +16,7 @@ export function logout(redirectUrl){
     // 生产环境获取openid
     if((process.env.NODE_ENV == 'production') && isWeiXin()){
         const {href} = router.resolve(loginRoute);
-        location.replace(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${encodeURIComponent(location.origin + href)}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`)
+        location.replace(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${encodeURIComponent(location.origin + location.pathname + href)}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`)
         return
     } else {
         router.replace(loginRoute)

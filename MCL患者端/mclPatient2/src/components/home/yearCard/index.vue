@@ -188,6 +188,7 @@ export default {
         'RechargeAmount': Number(item.Price),
         'OpenID': localStorage.openId,
         'PaymentType': 5, // 【1：营养筛查；2：管理套餐；3：商品订单；4：活动订单；5：会员年卡】
+        'orderFlag': 0,
         'serviceKey': item.skey
       }
       this.$Indicator.loading()
