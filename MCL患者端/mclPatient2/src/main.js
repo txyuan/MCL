@@ -109,7 +109,15 @@ var vm = new Vue({
 			// });
 			this.$router.push({name: 'mesage', query: {historyLength: history.length}})
 			// window.open(href, '_blank');
-		}
+		},
+		// 打开和关闭移动端调试功能
+		openMobileConsole(){
+			localStorage.setItem('MobileConsole', 'true')
+			new window.VConsole()
+		},
+		closeMobileConsole(){
+			localStorage.removeItem('MobileConsole')
+		},
 	},
 	router,
 	components: {
@@ -117,6 +125,10 @@ var vm = new Vue({
 	},
 	template: '<App/>',
 	created(){
+		// 打开移动端调试功能
+		if(localStorage.getItem('MobileConsole') == 'true'){
+			this.openMobileConsole()
+		}
 		//获取openid
 		if((process.env.NODE_ENV == 'production') && this.isWeiXin()){
 			payType.getOpendId();

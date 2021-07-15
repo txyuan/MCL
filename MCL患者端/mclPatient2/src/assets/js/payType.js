@@ -14,6 +14,7 @@ const pay = {
   // 获取openid
   getOpendId () {
     let code = this.getUrlParam('code')
+    console.log(code);
     if (code == null) {
       return
     }

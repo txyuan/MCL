@@ -551,7 +551,7 @@ const router = new Router({
 })
 
 // 白名单（不需要验证登录信息）
-const whiteRouteList = [ 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'inviteFriends', 'serviceDetail' ]
+const whiteRouteList = [ 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'inviteFriends', 'serviceDetail', 'VConsole' ]
 
 router.beforeEach((to, from, next) => {
 

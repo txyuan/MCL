@@ -221,7 +221,7 @@
 					this.$router.push({
 						path: "/orderindex",
 						query: {
-							orderFrom: 0,
+							orderFrom: 1,
 							ABflag: 1,
 							orderType: this.responseData.ismanage == 1 ? 2 : 3
 						}

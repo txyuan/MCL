@@ -176,7 +176,9 @@ export default {
         this.$Indicator.close()
 	  }, 1000)
     }
-	this.$refs.kefuView.contentWindow.location.replace(`${this.KFURL}/login?username=${this.repData.ContactPhone}&userkey=${this.userkey}&logoSinge=1`) 
+	
+	this.$refs.kefuView.contentWindow.location.replace(`${this.KFURL}/login?username=${this.repData.ContactPhone}&userkey=${this.userkey}&logoSinge=1`)
+
     this.getupshop()
     this.getthisnf()
   },
