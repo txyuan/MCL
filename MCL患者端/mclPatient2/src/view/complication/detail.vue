@@ -1,5 +1,5 @@
 <template>
-  <div class="padding-header padding-footer page-bg-white">
+  <div class="padding-header padding-footer page-bg-white" style="padding-bottom: 0.6rem">
     <mt-header :title="title" fixed>
       <div slot="left">
         <header-back>
@@ -64,14 +64,16 @@ export default {
       justify-content: space-between!important;
     }
     li{
-        display: inline-block;
-        line-height: 0.4rem;
-        height: 0.425rem;
-        box-sizing: border-box;
-        color: #565656;
-        font-size: 0.155rem;
-        border-bottom: 3px solid transparent;
-        padding:0.05rem 0.02rem 0 0.02rem;
+      display: inline-block;
+      line-height: 0.38rem;
+      height: 0.425rem;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      color: #666666;
+      font-size: 0.155rem;
+      border-bottom: 3px solid transparent;
+      padding: 0.05rem 0.01rem 0 0.01rem;
+      font-family: 微软雅黑, "Microsoft YaHei";
     }
     li.active{
         color: #0ac5ca;
@@ -94,6 +96,6 @@ export default {
   }
 .fix_bottom{
   background: #ffffff;
-  padding: 0.1rem 0.15rem;
+  padding: 0.075rem 0.15rem;
 }
 </style>
