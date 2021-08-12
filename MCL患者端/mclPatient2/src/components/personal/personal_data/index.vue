@@ -27,9 +27,9 @@
 <!--				<span>{{repData.height}}<em style="font-style:normal; padding-left: 2px">cm</em></span>-->
 <!--			</mt-cell>-->
       </div>
-			<div class="person_marg">
+			<!-- <div class="person_marg">
 				<mt-cell title="修改登录密码" is-link to="/changePass"></mt-cell>
-			</div>
+			</div> -->
 			<!-- <div class="person_marg" style="margin-top: 0">
 				<mt-cell title="修改支付密码" is-link to="/twopass"></mt-cell>
 			</div> -->

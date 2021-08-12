@@ -52,15 +52,11 @@ window.Vue = new Vue({
       }
     },
     methods: {
-      //获取客服的账号信息
-      getKeFuInfo: function(phone){
-        console.log(phone)
-        if(!phone){ return }
-        if(this.kefuMap[phone]){
-          return
-        }
-        this.$set(this.kefuMap, String(phone), {})
-        getUserInfo(phone).then(({data}) => {
+      // 获取用户的账号信息
+      getUserInfo: function(phoneArr){
+        const phoneA = this.removeRepeat(phoneArr)  // 去掉重复的手机号码
+        if(phoneA.length == 0) {return}
+        getUserInfo(phoneA).then(({data}) => {
           let users = users = data.data
           if(data.rspcode == 1){
              // 储存客服信息
@@ -68,21 +64,27 @@ window.Vue = new Vue({
               item.userName = item.userName.replace(/@/g, '')
               this.$set(this.kefuMap, String(item.userPhone), item)
             });
-            // localStorage.kefuMap = JSON.stringify(this.kefuMap)
           }
-         
         })
       },
+      // 通过手机号获取用户信息
       getUserNameByPhone(phone){
 		    return this.$root.kefuMap[String(phone)] ? this.$root.kefuMap[String(phone)] : {}
-        // return this.$root.kefuMap.hasOwnProperty(String(phone)) ? `(${this.$root.kefuMap[String(phone)]})` : ''
+      },
+      // 去掉重复的手机号码（已经获取用户信息的的手机号）
+      removeRepeat(arr){
+        // 首先去掉arr中重复的数据
+        const temp = [], set = new Set(arr);
+        // kefuMap对象中如果没有缓存该手机号的信息，再去请求接口
+        [...set].forEach((phone) => {
+          if(!this.kefuMap.hasOwnProperty(phone)){
+            temp.push(phone)
+          }
+        })
+        return temp
       }
     },
-    created(){
-      // if(localStorage.kefuMap){
-      //   Object.assign(this.kefuMap, JSON.parse(localStorage.kefuMap))
-      // }
-    },
+    created(){},
     router,
     components: { App },
     template: '<App/>',

@@ -14,14 +14,13 @@
 		<a-menu style="width: 100%; border-right: 0;" mode="inline" :selectedKeys="selectedKeys" >
 			<a-menu-item style="height: 80px; position: relative; textAlign: left; borderBottom: 1px solid #eee; margin: 0"
 			v-for="(item) in groupAjaxTempList" :key="getKey(item)" @click="select2(item, getKey(item))">
-				<span class="custom-title">
-					{{ item.name }}
-				</span>
+				<span v-if="type == 'contact'" class="custom-title">{{ $root.getUserNameByPhone(item.name).userName }}</span>
+				<span v-else class="custom-title">{{ item.name }}</span>
 				<div class="icon-style" v-if="item.meum != 0">
 					<span class="unreadNum">{{item.meum}}</span>
 				</div>
 				<span class="time-style" style="float:right">{{getLastMsg(item).msgTime}}</span>
-				<div style="line-height: 30px">消费金额：{{item.account}}</div>
+				<div style="line-height: 30px" v-if="type == 'contact'">消费金额：{{$root.getUserNameByPhone(item.name).account}}</div>
 				<div>{{getLastMsg(item).lastMsg}}</div>
 			</a-menu-item>
 		</a-menu>
@@ -121,14 +120,15 @@
 			userList() {
 				const temp = {
 					contact: this.contact.filter(item => {
-						this.$set(item, 'username', this.$root.getUserNameByPhone(String(item.name)))
+						let userName = this.$root.getUserNameByPhone(String(item.name)).userName
+						this.$set(item, 'username', userName ? userName : "")
 						this.$set(item, 'meum', this.getUnreadNum(item))
 						if (item && !this.blackList.includes(item.name)) {
 							return item;
 						}
 					}),
 					group: this.group.filter(item => {
-						this.$set(item, 'username', this.$root.getUserNameByPhone(String(item.name)))
+						this.$set(item, 'username', item.name)
 						this.$set(item, 'meum', this.getUnreadNum(item))
 						if (item && !this.blackList.includes(item.name)) {
 							return item;
@@ -136,10 +136,6 @@
 					}),
 					chatroom: this.chatroom
 				}
-
-				// 获取消费金额
-				this.getConsumption(temp.group)
-
 				return temp;
 			},
 			blackList() {
@@ -159,16 +155,34 @@
 			"filterKeyword"
 		],
 		watch: {
-			'userList.group': function(value) {
-				// 好友列表根据未读消息排序，缓存好友列表顺序
-				const newValue = this.userListSortByMessage([...value])
-				this.groupAjaxTempList = newValue
-				this.groupSourceList = newValue
+			'userList.contact': function(value) {
+				if(this.type == "contact"){
+					// 好友列表根据未读消息排序，缓存好友列表顺序
+					const newValue = this.userListSortByMessage([...value])
+					this.groupAjaxTempList = newValue
+					this.groupSourceList = newValue
+					// 获取消费金额
+					this.getConsumption(newValue)
+				}
 			},
-			filterKeyword: function(value) {
-				let groupAjaxList = this.userList.group.filter(item => item.name.indexOf(value) != -1)
-				this.groupAjaxTempList = groupAjaxList
-			}
+			'userList.group': function(value) {
+				if(this.type == "group"){
+					// 好友列表根据未读消息排序，缓存好友列表顺序
+					const newValue = this.userListSortByMessage([...value])
+					this.groupAjaxTempList = newValue
+					this.groupSourceList = newValue
+				}
+			},
+			filterKeyword: (function(){
+				let timer = 0
+				return function(value) {
+					clearTimeout(timer)
+					timer = setTimeout(() => {
+						let groupAjaxList = this.userList[this.type].filter(item => item.username.indexOf(value) != -1)
+						this.groupAjaxTempList = groupAjaxList
+					}, 800)
+				}
+			})()
 		},
 		methods: {
 			...mapActions([
@@ -237,11 +251,16 @@
 				return unReadNum;
 			},
 			select2(key) {
-				this.$data.selectedKeys = [key.groupid];
+				const {	name } = this.$route;
+				let userId = "";
+				if (name == "contact") {
+					userId = "name";
+				} else if (name == "group") {
+					userId = "groupid";
+				}
+				this.$data.selectedKeys = [userId];
 				this.select(key);
 				this.$data.activedKey[this.type] = key;
-				//医生和患者信息
-				this.$emit("getInfo", key.name.split("(")[0])
 			},
 			loadMoreMsgs() {
 				const me = this;
@@ -444,37 +463,49 @@
 			// },
 
 			// 主动给好友聊天的时候，该好友置顶（未读消息的下边）
-			movePositon(){
-				let groupid = this.$route.params.id
-				for(let i = 0; i < this.groupSourceList.length; i++){
-					let item = this.groupSourceList[i]
-					if((item.groupid == groupid) && (i != 0)){
-						this.groupSourceList.splice(i, 1)
-						this.groupSourceList.unshift(item)
-						break
-					}
-				}
-				// 缓存好友列表数据
-				if(this.groupSourceList.length > 0){
-					localStorage.setItem('uesrList', JSON.stringify(this.groupSourceList))
-				}
-			},
+			// movePositon(){
+			// 	let groupid = this.$route.params.id
+			// 	for(let i = 0; i < this.groupSourceList.length; i++){
+			// 		let item = this.groupSourceList[i]
+			// 		if((item.groupid == groupid) && (i != 0)){
+			// 			this.groupSourceList.splice(i, 1)
+			// 			this.groupSourceList.unshift(item)
+			// 			break
+			// 		}
+			// 	}
+			// 	// 缓存好友列表数据
+			// 	if(this.groupSourceList.length > 0){
+			// 		localStorage.setItem('uesrList', JSON.stringify(this.groupSourceList))
+			// 	}
+			// },
 
 			// 好友列表根据未读消息排序，缓存好友列表顺序
-			userListSortByMessage(sourceData){
+			userListSortByMessage(sourceData, key){
+				// 区分好友和群组。localStorage的缓存key。好友列表的id。
+				const {	name } = this.$route;
+				let userId = "";
+				let storgeKey = ""
+				if (name == "contact") {
+					storgeKey = "uesrContactList"
+					userId = "name";
+				} else if (name == "group") {
+					storgeKey = "uesrList"
+					userId = "groupid";
+				}
+
 				// 读取缓存中的好友列表（根据缓存排序）
-				if(localStorage.getItem('uesrList') && (sourceData.length > 0)){
+				if(localStorage.getItem(storgeKey) && (sourceData.length > 0)){
 					// 数组转换为对象，方便取值
 					const temObj = {}
-					sourceData.forEach(item => temObj[item.groupid] = item)
+					sourceData.forEach(item => temObj[item[userId]] = item)
 					// 遍历缓存中的数据
 					const newUserList = []
-					const userList = JSON.parse(localStorage.getItem('uesrList'))
+					const userList = JSON.parse(localStorage.getItem(storgeKey))
 					for(let i = 0; i< userList.length; i++){
 						let item = userList[i]
-						if(temObj[item.groupid]){
-							newUserList.push(temObj[item.groupid])
-							delete temObj[item.groupid]
+						if(temObj[item[userId]]){
+							newUserList.push(temObj[item[userId]])
+							delete temObj[item[userId]]
 						}
 					}
 					// 新增的用户数据（对比缓存数据）
@@ -507,7 +538,7 @@
 				sourceData = [...weiduList, ...oldList]
 				// 缓存好友列表数据
 				if(sourceData.length > 0){
-					localStorage.setItem('uesrList', JSON.stringify(sourceData))
+					localStorage.setItem(storgeKey, JSON.stringify(sourceData))
 				}
 				return sourceData
 			},
@@ -515,15 +546,7 @@
 			getConsumption(sourceData){
 				if(this.consumptionLoad == true){return}
 				this.consumptionLoad = true
-				const names = sourceData.map(item => {
-					item.name = item.groupname
-					return item.name.split("(")[0]
-				})
-				getUserInfo([...names], 'user').then(({data}) => {
-					data.data.forEach((item, index) => {
-						this.$set(sourceData[index], 'account', item.account)
-					})
-				})
+				this.$root.getUserInfo([...sourceData.map(item => item.name )])
 			}
 		}
 	};

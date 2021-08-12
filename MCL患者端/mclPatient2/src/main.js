@@ -22,6 +22,9 @@ import echarts from "echarts"
 // 异步预加载省市区三级联动的数据 
 import(/* webpackChunkName: "cityData" */ '@/assets/js/address3.json')
 
+// QR码生成器
+import vueQr from "vue-qr"; //引入二维码生成组件
+
 //定义全局变量
 Vue.prototype.$post = post;
 Vue.prototype.$get = get;
@@ -30,6 +33,7 @@ Vue.prototype.$get = get;
 Vue.component(emptyData.name, emptyData)
 Vue.use(VueBus);
 Vue.use(vueTouch);
+Vue.component(vueQr.name, vueQr)
 
 //支付方式
 Vue.prototype.$pay = payType;

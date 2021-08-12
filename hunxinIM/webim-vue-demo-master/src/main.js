@@ -53,37 +53,43 @@ window.Vue = new Vue({
 			// client_secret: "YXA6ps2p92dCu2dv9yY1DrITmmI8rMQ",
       // token: "",
       kefuMap:{
-        
       },
       lock: false
     },
     methods: {
-      //获取客服的账号信息
-      getKeFuInfo: function(username){
-        if(!username){return ''}
-        if((this.kefuMap[username] === '') || (this.kefuMap[username])){
-          return this.kefuMap
-        }
-        this.kefuMap[username] = ''  
-        //不存在当前客服
-        getUserInfo([username]).then(({data}) => {
-          if(data.rspcode == 1 && data.data.length > 0){
-            this.$set(this.kefuMap, username, data.data[0].userName.replace(/@/g, ''))
-            this.kefuMap = {...this.kefuMap}
-            // this.kefuMap[username] = data.data[0].userName
-            // localStorage.kefuMap = JSON.stringify(this.kefuMap)
+      // 获取用户的账号信息
+      getUserInfo: function(phoneArr){
+        const phoneA = this.removeRepeat(phoneArr)  // 去掉重复的手机号码
+        if(phoneA.length == 0) {return}
+        getUserInfo(phoneA).then(({data}) => {
+          let users = users = data.data
+          if(data.rspcode == 1){
+             // 储存客服信息
+            users.forEach(item => {
+              item.userName = item.userName.replace(/@/g, '')
+              this.$set(this.kefuMap, String(item.userPhone), item)
+            });
           }
         })
-        return this.kefuMap
+      },
+      // 通过手机号获取用户信息
+      getUserNameByPhone(phone){
+		    return this.$root.kefuMap[String(phone)] ? this.$root.kefuMap[String(phone)] : {}
+      },
+      // 去掉重复的手机号码（已经获取用户信息的的手机号）
+      removeRepeat(arr){
+        // 首先去掉arr中重复的数据
+        const temp = [], set = new Set(arr);
+        // kefuMap对象中如果没有缓存该手机号的信息，再去请求接口
+        [...set].forEach((phone) => {
+          if(!this.kefuMap.hasOwnProperty(phone)){
+            temp.push(phone)
+          }
+        })
+        return temp
       }
     },
-    created(){
-      console.log(this);
-
-      // if(localStorage.kefuMap){
-      //   this.kefuMap = JSON.parse(localStorage.kefuMap)
-      // }
-    },
+    created(){},
     router,
     components: { App },
     template: '<App/>',

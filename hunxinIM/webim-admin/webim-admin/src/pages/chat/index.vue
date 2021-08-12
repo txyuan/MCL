@@ -9,7 +9,7 @@
           <a-dropdown>
             <span class="ant-dropdown-link" href="#">
               <!--<a-icon type="setting" />-->
-              <span class="username">{{($root.kefuMap[String(this.userName)]&&$root.kefuMap[String(this.userName)].userName) || this.userName}}</span>
+              <span class="username">{{$root.getUserNameByPhone(userName).userName}}</span>
             </span>
             <!--<a-menu slot="overlay">
               <a-menu-item @click="recEmedia">
@@ -25,41 +25,41 @@
           </a-dropdown>
         </span>
 
-        <!-- <span class="setting">
+        <span class="setting">
           <a-dropdown>
             <span class="ant-dropdown-link" href="#">
               <a-icon type="plus-circle" />
             </span>
             <a-menu slot="overlay">
-              <a-menu-item @click="ulClick('1')">
+              <!-- <a-menu-item @click="ulClick('1')">
                 <a href="javascript:;">添加好友</a>
-              </a-menu-item>
-              <a-menu-item @click="ulClick('2')">
+              </a-menu-item> -->
+              <!-- <a-menu-item @click="ulClick('2')">
                 <a href="javascript:;">申请入群</a>
-              </a-menu-item>
+              </a-menu-item> -->
               <a-menu-item @click="ulClick('3')">
                 <a href="javascript:;">创建群组</a>
               </a-menu-item>
             </a-menu>
           </a-dropdown>
-        </span> -->
+        </span>
       </div>
 
       <a-menu
         v-model="current"
         mode="horizontal"
-        :defaultSelectedKeys="['group']"
+        :defaultSelectedKeys="['contact']"
         :style="{ lineHeight: '50px', background: '#434648', color: '#fff', textAlign: 'left'}"
         @click="contactTypeChange"
       >
-        <!-- <a-menu-item key="contact">
+        <a-menu-item key="contact">
           <a-icon type="user" class="navMenu-icon" />
           <span class="navMenu-text">患者</span>
           <div class="tip-style" v-if="getUnread('contact').contact">&nbsp;</div>
-        </a-menu-item> -->
+        </a-menu-item>
         <a-menu-item key="group">
           <a-icon type="team" class="navMenu-icon" />
-          <span class="navMenu-text">患者</span>
+          <span class="navMenu-text">群组</span>
           <div class="tip-style" v-if="getUnread('group').group">&nbsp;</div>
         </a-menu-item>
         <!--<a-menu-item key="chatroom">
@@ -82,15 +82,15 @@
       >
         <el-input placeholder="搜索" v-model.trim="userListKeyword" style="margin: 15px 0;width: 90%"></el-input>
         <!-- 判断是否后台总管理的的账号，总管理账号需要显示客服列表，患者列表 -->
-        <MessageBoxCompany v-if="userInfo.userId == 'company'" :select="select" :type="activeKey" :filterKeyword="userListKeyword" ref="messageBox" @getInfo="getDoctorInfo" />
-        <MessageBox v-else type="group" :select="select" :filterKeyword="userListKeyword" ref="messageBox" @getInfo="getDoctorInfo" />
+        <!-- <MessageBoxCompany v-if="userInfo.userId == 'company'" :select="select" :type="activeKey" :filterKeyword="userListKeyword" ref="messageBox" /> -->
+        <MessageBox :select="select" :type="activeKey" :filterKeyword="userListKeyword" ref="messageBox"/>
         <!-- <MessageBox v-if="activeKey == 'chatroom'"  type="chatroom" />
         <MessageBox v-if="activeKey == 'group'" type="group" />-->
       </a-layout-sider>
 
       <a-layout-content style="overflow: visible; flex: 1;">
         <Message
-          type="group"
+          :type="activeKey"
           :broken="broken"
           :hideUserList="hideUserList"
           :showUserList="showUserList"
@@ -188,6 +188,11 @@
       		</div>
       	</div>
       </div>
+
+      <div class="tips" @click="numClick">
+        <span class="num" v-if="getAllUnread() > 0">{{allNum}}</span>
+        <i class="el-icon-chat-dot-round icon"></i>
+      </div>
     </a-layout>
   </a-layout>
 </template>
@@ -216,8 +221,8 @@ export default {
     	rightShow: false, //右侧信息窗口显示
     	keyword: "",  //搜索关键字
       questionList: [],  //问题列表
-      //患者手机号
-      usernamePhone: "",
+      allNum: 0, // 未读消息的总条数
+      
     	//医生和患者信息
     	doctorInfo: {
         flag: "", //0：患者，1：医生
@@ -241,7 +246,7 @@ export default {
       groupRead: false,
       contactRead: false,
       showSettingOptions: false,
-      activeKey: "group",
+      activeKey: "contact",
       selectedItem: "",
       showAddOptions: false,
       addList: [
@@ -261,12 +266,10 @@ export default {
           icon: "comment"
         }
       ],
-      userName:
-        localStorage.getItem("userInfo") &&
-        JSON.parse(localStorage.getItem("userInfo")).userId,
+      userName: localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo")).userId,
       collapsed: false,
       broken: false,
-      current: ["group"]
+      current: ["contact"]
     };
   },
   computed: {
@@ -302,6 +305,8 @@ export default {
         this.$data.collapsed = true;
       }
       this.userListKeyword = ''
+      //医生和患者信息
+      this.getDoctorInfo(i)
     },
     GetFirendBlack() {
       this.onGetFirendBlack();
@@ -360,6 +365,7 @@ export default {
         contact: false,
         group: false
       };
+      
       if (JSON.stringify(chatList) != "{}") {
         for (const item in chatList) {
           chatList[item].map((v, k) => {
@@ -375,26 +381,62 @@ export default {
           });
         }
       }
+
       return {
         contact: obj.contact,
         group: obj.group
       };
     },
-    
+    // 获取总的未读消息
+    getAllUnread() {
+
+      const getNum =(type) => {
+        let num = 0;
+        const chatList = this.chatList[type];
+        if (JSON.stringify(chatList) != "{}") {
+          for (const item in chatList) {
+            let itemNum = 0
+            chatList[item].map((v, k) => {
+              if (v.status === "unread") {
+                itemNum += 1
+              }
+            });
+            num += itemNum
+          }
+        }
+        return num;
+      }
+      const allNum = getNum("contact") + getNum("group")
+      this.allNum = allNum
+      return allNum;
+    },
+
     //医生和患者信息
-    getDoctorInfo(username){
-      this.usernamePhone = username
+    async getDoctorInfo(key){
     	this.rightShow = true
-      getInfo(0).then(function(){
-        getInfo(1)
-      }).then(function(){
+      let username = "";
+      const {	name } = this.$route;
+      if (name == "contact") {
+        username = [key.name].join(",");
+      } else if (name == "group") {
+        // 群组的组成成员列表
+        await this.$refs.messageList.getGroupInfo()  // 群组的信息
+        const groupInfo = this.$store.state.group.groupInfo
+        const { members } = groupInfo
+        username = members.map(item => item.member).join(",")
+      }
+      
+      // 获取患者和医生的数据
+      const vm = this
+      await getInfo(0);
+      await getInfo(1);
+      this.$nextTick(() => {
         var height = $("#right_box").height();
         var cellHeight = $("#right_box .doctor").height()+$("#right_box .huanzhe").height()
         $("#right_box .question .listWrap").height(height-cellHeight-98)
-      })  
+      })
       
       // 0 患者  1医生
-      var vm = this
       function getInfo(flag){
         let url = `${BASEURL}/Pages/OnLineAppManage/GetSelectInfoList.ashx`;
         return new Promise(function(reslove,reject){
@@ -479,23 +521,79 @@ export default {
     //量表点击跳转
     sendIframe(title, page){
       if(page.indexOf('?') !== -1){
-        page += `&phone=${this.usernamePhone}`
+        page += `&phone=${this.huanzheInfo.LoginPhone}`
       }else{
-        page += `?phone=${this.usernamePhone}`
+        page += `?phone=${this.huanzheInfo.LoginPhone}`
       }
       var pageSrc = `${title},${page}`
-      top.parent.postMessage(pageSrc, "*"); 
+      parent.postMessage(pageSrc, "*"); 
     },
     send(){
       // 移动该好友的顺序
       if(this.$refs.messageBox.movePositon){
         this.$refs.messageBox.movePositon()
       }
+    },
+    // 未读消息的总条数的点击事件
+    numClick(){
+
+      if(this.allNum == 0){
+        return;
+      }
+
+      // 获取每个好友的第一条未读消息
+      const getMessage = (type) => {
+        const chatList = this.chatList[type], hisroryList = [];
+        if (JSON.stringify(chatList) != "{}") {
+          for (const item in chatList) {
+            let historyObj = {}, useritem = chatList[item]
+            for (let i =0; i < useritem.length; i++ ) {
+              const itemMessage = useritem[i]
+              if (itemMessage.status === "unread") {
+                historyObj = itemMessage
+                break
+              }
+            }
+            // 每个用户未读的消息对象
+            if(JSON.stringify(historyObj) != "{}"){
+              hisroryList.push(historyObj)
+            }
+          }
+        }
+        return hisroryList;
+      }
+      
+      const list = [...getMessage("contact"), ...getMessage("group")].sort((a, b) => b.time - a.time)
+      
+      if(list.length > 0){
+        // 模拟点击患者和群组菜单。
+        const chatId = list[0].chatId
+        const chatType = list[0].chatType
+        this.current = [chatType]
+        this.contactTypeChange({key: chatType})
+        // 根据（好友/群组）id查找左侧菜单对应的菜单，执行对应菜单的点击事件。
+        this.$nextTick(() => {
+          const userList = this.$refs.messageBox.userList[chatType]
+          for(let i=0; i<userList.length; i++){
+            const item = userList[i]
+            let itemId = ""
+            if(chatType == "contact"){
+              itemId = item.name
+            }else if(chatType == "group"){
+              itemId = item.groupid
+            }
+            if(itemId == chatId){
+              this.$refs.messageBox.select2(item)
+              break
+            }
+          }
+        })
+      }
     }
   },
   created(){
     //获取昵称
-    this.$root.getKeFuInfo(this.userName)
+    this.$root.getUserInfo([this.userName])
   },
   components: {
     MessageBox,
@@ -575,4 +673,35 @@ export default {
     text-overflow: ellipsis;
     overflow: hidden;
 	}
+
+  .tips{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    font-size: 30px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    background: #FFF;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 1px 1px 10px 3px #CCCCCC;
+  }
+  .tips .icon{
+    font-size: 28px;
+    vertical-align: middle;
+  }
+  .tips .num{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    min-width: 20px;
+    height: 20px;
+    color: #FFF;
+    text-align: center;
+    line-height: 20px;
+    border-radius: 50%;
+    background: #f04134;
+    font-size: 12px;
+  }
 </style>
