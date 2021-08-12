@@ -31,6 +31,7 @@
 	width   : 100%;
 	height  : 100%;
 	position: relative;
+	overflow: hidden;
 
 	.messagebox-header {
 		border-bottom: 1px solid #d6dce0;
@@ -48,6 +49,11 @@
 		font-size    : 12px;
 		overflow     : hidden;
 		text-overflow: ellipsis;
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+
 
 		.user-ellipsis {
 			float      : right;
@@ -77,11 +83,13 @@
 	}
 	.messagebox-content {
 		width     : 100%;
-		height    : calc(100% - 131px);
-		top       : 50px;
+		margin-top: 50px;
+		margin-bottom: 131px;
+		height: calc(100% - 50px - 131px);
 		background: #fff;
 		padding   : 10px 16px;
 		overflow  : scroll;
+		
 
 		.message-group {
 			padding-top: 3px;
@@ -121,12 +129,14 @@
 
 .messagebox-footer {
 	border-top   : 1px solid #d6dce0;
-	position     : absolute;
-	bottom       : 0;
 	width        : 100%;
 	// height    : 150px;
 	color        : rgba(0, 0, 0, 0.65);
 	background   : #fff;
+	position: absolute;
+	bottom       : 0;
+	right: 0;
+	left: 0;
 
 	.footer-icon {
 		padding   : 15px 10px;

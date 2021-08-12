@@ -569,11 +569,19 @@
 	}
 
 	.noalready {
-		text-align: center;
-		margin-top: 30px;
+		padding-top: 0.4rem;
 
 		img {
-			margin-bottom: 15px;
+		width: 1.0rem;
+		margin: 0 auto;
+		display: block;
+		}
+
+		p {
+		text-align: center;
+		color: #666;
+		font-size: 0.14rem;
+		padding-top: 0.2rem;
 		}
 	}
 

@@ -10,6 +10,7 @@
 // var location = {
 //     protocol: "https"
 // }
+import { HX_Config } from "@/configURL"
 
 function getUrl(){
     var apiUrl = (window.location.protocol === "https:" ? "https:" : "http:") + "//a1.easemob.com"
@@ -46,7 +47,7 @@ var config = {
     /*
      * Application AppKey
      */
-    appkey: "1105200109113529#app",
+    appkey: `${HX_Config.org_name}#${HX_Config.app_name}`,
     // appkey:"1101200519042884#mcl",
     /*
      * Application Host

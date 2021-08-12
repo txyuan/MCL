@@ -195,12 +195,12 @@ const Group = {
 				groupId: inviteGroupId,
 				invitee: username,
 				success: function (resp) {
-					Message({
-						type: "success",
-						message: "已同意加入群组！"
-					})
+					// Message({
+					// 	type: "success",
+					// 	message: "已同意加入群组！"
+					// })
 					Vue.$store.dispatch('onGetGroupUserList')
-					this.$forceUpdate();
+					// this.$forceUpdate();
 				},
 				error: function (e) { }
 			}

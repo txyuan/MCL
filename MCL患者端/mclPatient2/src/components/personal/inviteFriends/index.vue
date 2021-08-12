@@ -87,7 +87,7 @@
 					this.InvitationCode = data.data.InvitationCode;
 					this.QRCodeImg = data.data.QRCodeImg;
 					this.WechatParm = data.WechatParm;
-					this.shareObj.link = `${location.origin}/#/inviteFriends?UserKey=${UserKey}&SessionId=${SessionId}&from=share`
+					this.shareObj.link = `${href}#/inviteFriends?UserKey=${UserKey}&SessionId=${SessionId}&from=share`
 				})
 			},
 			//点击分享

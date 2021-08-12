@@ -1,9 +1,9 @@
 <template>
 	<div class="userlist">
 		<a-menu style="width: 100%; border-right: 0;" mode="vertical" :selectedKeys="selectedKeys">
-			<a-menu-item style="height: 80px; position: relative; textAlign: left; borderBottom: 1px solid #eee; margin: 0"
-			 v-for="(item) in userList[type]" :key="getKey(item)" @click="select2(item, getKey(item))">
-				<span class="custom-title">{{item.name}}</span>
+			<a-menu-item style="height: 80px; position: relative; textAlign: left; borderBottom: 1px solid #eee; margin: 0" v-for="(item) in userList[type]" :key="getKey(item)" @click="select2(item, getKey(item))">
+				<span v-if="type == 'contact'" class="custom-title">{{ $root.getUserNameByPhone(item.name).userName }}</span>
+				<span v-else class="custom-title">{{ item.name }}</span>
 				<div class="icon-style" v-if="item.meum != 0">
 					<span class="unreadNum">{{item.meum}}</span>
 				</div>
@@ -57,7 +57,8 @@
 					read: "已读"
 				},
 				isCollapse: true,
-				unRead: ""
+				unRead: "",
+				consumptionLoad: false
 				// selectedKeys: [ this.getKey(this.activedKey[this.type]) ]
 			};
 		},
@@ -78,7 +79,6 @@
 			// 取到黑名单列表值将黑名单匹配用户列表进行筛选
 			let blackList = this.$store.state.friendModule.blackList;
 			this.$store.commit("changeUserList", blackList);
-
 		},
 		updated() {
 			this.scollBottom();
@@ -92,16 +92,15 @@
 			}),
 			userList() {
 				// 患者端：直接进入群组页面
-				if ((this.group.length >= 1) && (localStorage.getItem('logoSinge') == 1)) {
-					var item = this.group[0];
-					this.select2(item, this.getKey(item));
-				}
-				// 管理系统端：直接进入聊天页面
-				if ((this.group.length >= 1) && (localStorage.getItem('groupId'))) {
-					const list = this.group.filter(item => item.groupid == localStorage.getItem('groupId'))
-					this.select2(list[0], this.getKey(list[0]));
-				}
-
+				// if ((this.group.length >= 1) && (localStorage.getItem('logoSinge') == 1)) {
+				// 	var item = this.group[0];
+				// 	this.select2(item, this.getKey(item));
+				// }
+				// // 管理系统端：直接进入聊天页面
+				// if ((this.group.length >= 1) && (localStorage.getItem('groupId'))) {
+				// 	const list = this.group.filter(item => item.groupid == localStorage.getItem('groupId'))
+				// 	this.select2(list[0], this.getKey(list[0]));
+				// }
 				return {
 					contact: this.contact.filter(item => {
 						this.$set(item, 'meum', this.getUnreadNum(item))
@@ -133,6 +132,14 @@
 			"username", // 选中的聊天对象
 			"select"
 		],
+		watch: {
+			'userList.contact': function(value) {
+				if(this.type == "contact"){
+					// 获取消费金额
+					this.getConsumption(value)
+				}
+			},
+		},
 		methods: {
 			...mapActions([
 				"onGetContactUserList",
@@ -397,6 +404,12 @@
 					to: name,
 					message: item
 				});
+			},
+			// 获取消费金额
+			getConsumption(sourceData){
+				if(this.consumptionLoad == true){return}
+				this.consumptionLoad = true
+				this.$root.getUserInfo([...sourceData.map(item => item.name )])
 			}
 		}
 	};

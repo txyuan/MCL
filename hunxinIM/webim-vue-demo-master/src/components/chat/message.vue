@@ -1,9 +1,10 @@
 <template>
   <div class="messagebox" v-show="activedKey[type]!= ''">
-    <div class="messagebox-header" v-if="localStorage.getItem('logoSinge') != 1">
+    <div class="messagebox-header">  <!-- v-if="localStorage.getItem('logoSinge') != 1" -->
       <div>
-        <a-icon type="left" class="user-goback" v-show="!localStorage.getItem('groupId')&& broken" @click="showUserList" />
-        <span>{{`${activedKey[type].name }`}}</span>
+        <a-icon type="left" class="user-goback"  @click="showUserList" /> <!-- v-show="!localStorage.getItem('groupId') && broken" -->
+        <span v-if="type == 'contact'">{{`${$root.getUserNameByPhone(String(activedKey[type].name)).userName}`}}</span>
+        <span v-else>{{`${String(activedKey[type].name)}`}}</span>
          <!-- &nbsp;&nbsp; ${activedKey[type].groupid || ''} -->
         <!-- <a-icon v-if="type=='group'" type="ellipsis" class="user-ellipsis" @click="changeMenus" /> -->
         <!-- <a-dropdown v-else-if="type=='contact'">
@@ -31,8 +32,8 @@
         :style="{'float':item.bySelf ? 'right':'left'}"
       >
         <h4 :style="{'text-align':item.bySelf ? 'right':'left',margin:0}">
-          <span v-if="$root.kefuMap[item.from]">{{$root.kefuMap[item.from]}}</span>
-          <span v-else>{{ item.from }}</span>
+          <span v-if="item.from">{{$root.getUserNameByPhone(String(item.from)).userName}}</span>
+          <span v-else>{{$root.getUserNameByPhone(String(userInfoName)).userName}}</span>
         </h4>
         <!-- 撤回消息 -->
         <div v-if="item.status == 'recall'" class="recallMsg">{{item.msg}}</div>
@@ -138,7 +139,7 @@
           :style="nowIsVideo?'pointer-events: none':'cursor: pointer'"
         ></i>
         <div style="flex: 1; text-align: right;"></div>
-        <a-button type="primary" size="small" style="margin-top: -3px;" @click="onSendTextMsg">发送</a-button>
+        <a-button type="primary" size="small" style="margin-top: -3px;background: #0ac5ca;border-color: #0ac5ca;" @click="onSendTextMsg">发送</a-button>
       </div>
       <div class="fotter-send">
         <a-textarea
@@ -219,14 +220,10 @@ export default {
     msgList: function(){
       let currentMsgs = this.$store.state.chat.currentMsgs;
       if(currentMsgs instanceof Array){
-        currentMsgs.forEach((item)=>{
-           this.$root.getKeFuInfo(item.from)
-        })
+        this.$root.getUserInfo([...currentMsgs.map(item => item.from)])
       }
       if(currentMsgs && (JSON.stringify(currentMsgs).indexOf("{") == 0) ){
-        Object.keys(currentMsgs).forEach((key)=>{
-          this.$root.getKeFuInfo(currentMsgs[key].from)
-        })
+        this.$root.getUserInfo([...Object.keys(currentMsgs).map(key => currentMsgs[key].from)])
       }
       return currentMsgs;
     },

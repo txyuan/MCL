@@ -13,11 +13,20 @@
         <div class="section result-box" :class="'color_'+data.ColorDiscriminationFlag">
             <!-- <div class="section-title"><span>{{title}}风险评测</span></div> -->
             <div class="score-box" v-if="data.score">
-                <div class="score-content"><span>{{data.score}}</span></div>
+                <div v-if="(pageUrl == 'tiZhongDiuShi') || (pageUrl == 'kouQiang')" class="score-content"><span style="font-size: 0.14rem">{{data.scoreResult}}</span></div>
+                <div v-else-if="(pageUrl == 'diDanBai')" class="score-content"><span>{{data.score}}</span>g/L</div>
+                <div v-else-if="(pageUrl == 'baiXiBao') || (pageUrl == 'xueXiaoBan')" class="score-content"><span>{{data.score}}<sup style="">9</sup></span>/L</div>
+                <div v-else class="score-content"><span>{{data.score}}</span></div>
             </div>
             <div class="section-result">
                 <div class="result-title">
-                    <span v-if="data.scoreResult">您的{{title}}风险评测分值为<span class="score-num">{{data.score}}</span>，</span><span v-if="data.scoreResult">评测结果为：</span>
+                    <span v-if="data.scoreResult && ((pageUrl != 'tiZhongDiuShi') && (pageUrl != 'kouQiang'))">
+                      <span v-if="pageUrl == 'diDanBai'">您的白蛋白为<span class="score-num">{{data.score}}g/L</span>，</span>
+                      <span v-else-if="pageUrl == 'baiXiBao'">您的白细胞计数为<span class="score-num">{{data.score}}×10^9/L</span>，</span>
+                      <span v-else-if="pageUrl == 'xueXiaoBan'">您的血小板计数为<span class="score-num">{{data.score}}×10^9/L</span>，</span>
+                      <span v-else>您的{{title}}风险评测分值为<span class="score-num">{{data.score}}</span>，</span>
+                    </span>
+                    <span v-if="data.scoreResult">评测结果为：</span>
                 </div>
                 <div class="result-des" v-if="data.scoreResult">{{data.scoreResult}}</div>
                 <div class="result-des-note" v-if="data.medicalAdviceFlag == '1'">请遵医嘱，或尽快联系平台医生！</div>
@@ -55,9 +64,10 @@ export default {
     productItem
   },
   data () { 
-    const {title} = this.$route.query
+    const {title, type} = this.$route.query
     return {
       title,
+      pageUrl: type,
       data: {},
       productList: []
     }
@@ -100,8 +110,7 @@ export default {
     proposal(){
       const goodsName = this.data.ResultTypeName
       const secondSymptomName = this.data.scoreResult
-      const pageUrl = this.$route.query.type
-      this.$router.push({name: "proposalDetail", query:{label: goodsName, labelSecond: secondSymptomName, pageUrl }})
+      this.$router.push({name: "proposalDetail", query:{label: goodsName, labelSecond: secondSymptomName, pageUrl: this.pageUrl }})
     }
   },
   async mounted(){

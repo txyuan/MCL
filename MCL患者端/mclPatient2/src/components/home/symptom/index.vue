@@ -137,26 +137,29 @@
 
         {id: 'attribute_value_01', itemindex: '32', name: '贫血'},
         {id: 'attribute_value_02', itemindex: '33', name: '疼痛'},
-		{id: 'attribute_value_03', itemindex: '17', name: '吞咽困难'},
-        {id: 'attribute_value_04', itemindex: '34', name: '食欲下降、厌食'},
+        {id: 'attribute_value_11', itemindex: '18', name: '失眠'},  //修改问题了
+        {id: 'attribute_value_07', itemindex: '48', name: '腹泻'},
+        {id: 'attribute_value_09', itemindex: '44', name: '便秘'},
+        {id: 'attribute_value_10', itemindex: '46', name: '癌性疲劳'},
+		    {id: 'attribute_value_03', itemindex: '17', name: '吞咽困难'},
         {id: 'attribute_value_05', itemindex: '11,12,37', name: '恶心呕吐'},
         {id: 'attribute_value_06', itemindex: '36', name: '消化不良'},
-		{id: 'attribute_value_07', itemindex: '48', name: '腹泻'},
-        {id: 'attribute_value_08', itemindex: '39', name: '化疗后腹胀'},
-		{id: 'attribute_value_09', itemindex: '44', name: '便秘'},
-		{id: 'attribute_value_10', itemindex: '46', name: '疲劳'},
-		{id: 'attribute_value_11', itemindex: '18', name: '睡眠障碍(失眠)'},  //修改问题了
-		{id: 'attribute_value_12', itemindex: '41', name: '白细胞减少'},
-		{id: 'attribute_value_13', itemindex: '54', name: '低蛋白血症'},   //新加问题
-		{id: 'attribute_value_14', itemindex: '31', name: '体重丢失'},
-		{id: 'attribute_value_15', itemindex: '49', name: '放射性肺炎'},   //新加弹窗
-		{id: 'attribute_value_16', itemindex: '45', name: '口腔溃疡'},
-		{id: 'attribute_value_17', itemindex: '50', name: '血小板减少'},   //新加问题
-		{id: 'attribute_value_18', itemindex: '52', name: '放射性肠炎'},  //47新加问题
-		{id: 'attribute_value_19', itemindex: '53', name: '肺部感染'},  //新增项
-        {id: 'attribute_value_20', itemindex: '40', name: '肢体肿胀'},
-		{id: 'attribute_value_21', itemindex: '42', name: '脱发'},
+        {id: 'attribute_value_14', itemindex: '31', name: '体重丢失'},
+        {id: 'attribute_value_13', itemindex: '54', name: '低蛋白血症'},   //新加问题
+        {id: 'attribute_value_12', itemindex: '41', name: '白细胞减少'},
+        {id: 'attribute_value_16', itemindex: '45', name: '口腔黏膜炎'},
+        {id: 'attribute_value_17', itemindex: '50', name: '血小板计数降低'},   //新加问题
+        {id: 'attribute_value_15', itemindex: '49', name: '放射性肺炎'},   //新加弹窗
+
+        // {id: 'attribute_value_04', itemindex: '34', name: '食欲下降、厌食'},
+        // {id: 'attribute_value_08', itemindex: '39', name: '化疗后腹胀'},
         
+        // {id: 'attribute_value_18', itemindex: '52', name: '放射性肠炎'},  //47新加问题
+        // {id: 'attribute_value_19', itemindex: '53', name: '肺部感染'},  //新增项
+        // {id: 'attribute_value_20', itemindex: '40', name: '肢体肿胀'},
+		    // {id: 'attribute_value_21', itemindex: '42', name: '脱发'},
+        
+
         // {id: 'cb_attribute_value_38', itemindex: '43', name: '骨髓抑制'},
         // {id: 'cb_attribute_value_165', itemindex: '', name: '皮肤损伤'},   //没有这个弹窗
         // {id: 'cb_attribute_value_26', itemindex: '35', name: '吞咽困难'},
@@ -216,7 +219,7 @@
         'id42': {questions: '1、您现在的落发严重程度', answer1: '1'},
         'id43': {questions: '1、骨髓抑制情况'},
         'id44': {questions: '1、您现在便秘的严重程度', answer1: '1'},
-        'id45': {questions: '1、您现在口腔黏膜炎的严重程'},
+        'id45': {questions: '1、您现在口腔黏膜炎的严重程度'},
 
         'id46': {questions: '1、您现在的疲劳程度', answer1: '1'},
         'id47': {questions: '1、您现在的口干严重程度', answer1: '1'},

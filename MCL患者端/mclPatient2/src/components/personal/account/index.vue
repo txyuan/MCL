@@ -19,13 +19,16 @@
 					<label>{{item.RelativesTel}}</label>
 				</div>
 			</div>
+			
+			<!-- 空数据 -->
+			<emptyData v-if="load && (list.length == 0)"/>
 
-			<router-link tag="div" :to="'termsService?role=2&form=account&rphone='+repData.ContactPhone">
+			<!-- <router-link tag="div" :to="'termsService?role=2&form=account&rphone='+repData.ContactPhone">
 				<div class="add_id">
 					<img src="../../../assets/images/fabu@2x.png" />
 					<p>添加新的账号</p>
 				</div>
-			</router-link>
+			</router-link> -->
 
 			<!-- </div>
 			</loadMore>			 -->
@@ -54,7 +57,7 @@
 </template>
 
 <script>
-	import loadMore from "@/components/common/loadMore.vue"; //加载更多组件
+	import emptyData from "@/components/common/emptyData.vue"; //加载更多组件
 	export default {
 		name: "index",
 		data: () => ({
@@ -63,7 +66,8 @@
 				pagecount: 100
 			},
 			list: [],
-			repData:{}
+			repData:{},
+			load: false
 		}),
 		methods: {
 			//个人信息
@@ -82,6 +86,7 @@
 			getList(success) {
 				let url = "UserInterface/RelativesAccountInfo.ashx";
 				this.$post(url, this.param).then((data) => {
+					this.load = true
 					if (data.rspcode != 1) {
 						return;
 					}
@@ -103,7 +108,7 @@
 			this.getList()
 		},
 		components: {
-			loadMore
+			emptyData
 		}
 	}
 </script>

@@ -2,9 +2,7 @@
 	<div class="paddimg padding-header">
 		<mt-header :title="title" fixed>
 			<div slot="left">
-				<header-back>
-					<mt-button icon="back"></mt-button>
-				</header-back>
+				<mt-button icon="back" @click="back"></mt-button>
 			</div>
 		</mt-header>
 		
@@ -12,7 +10,7 @@
 			<div class="detile_lunbo">
 				<mt-swipe :auto="4000" :style="{height:screenWidth+'px'}" class="swiper">
 					<mt-swipe-item v-for="(item,index) in responseData.goodsImageList" :key="index">
-						<img v-lazy="item.goodsImage" src="" alt="" width="100%" :height="screenWidth" crossOrigin="anonymous">
+						<img :src="item.goodsImage" alt="" width="100%" :height="screenWidth" crossOrigin="anonymous">
 					</mt-swipe-item>
 				</mt-swipe>
 			</div>
@@ -64,7 +62,18 @@
 			<div id="mark" style="display: block;" v-show="showPanel" @click="showPanel = false">
 				<div class="img-view" @click.stop="">
 					<div class="tip">长按图片保存</div>
-					<div ref="shareImgDom" class="img-dom"></div>
+					<div ref="shareImgDom" class="img-dom">
+
+						<img :src="responseData.goodsImage" alt="" class="productImg">
+						<div class="productInfo">
+							<span class="productPrice">￥{{responseData.marketPrice}}</span>
+							<span class="productName">{{responseData.goodsName}}</span>
+						</div>
+						<div class="qrcodeWrap">
+							<vue-qr :logoSrc="logoImg" :text="shareObj.link" class="qrcode"></vue-qr>
+							<p class="qrTip">长按或者扫描查看</p>
+						</div>
+					</div>
 				</div>
 				<div class="bottom_panel" @click.stop="">
 					<p class="tit">分享当前图片到</p>
@@ -108,33 +117,40 @@
 	import logoImg from '@/assets/images/mclogo.png';
 	export default {
 		name: "index",
-		data: () => ({
-			title:"",
-			productkey: "",  //产品主键
-			responseData:{
-				goodsId:"",  //产品主键
-				goodsDetailId: "",  //
-				goodsName:"",  // 产品名称
-				price:"",  // 产品价格
-				goodsImageList: [],  // 产品图片List
-				goodsMemo:"",  // 产品描述
-			},
-			num:"1",
-			item: {
-				goodsNum: 1
-			},
+		data() {
+			let pageHref = window.location.href.split('#')[0];
+			return {
+				title:"",
+				productkey: "",  //产品主键
+				responseData:{
+					goodsId:"",  //产品主键
+					goodsDetailId: "",  //
+					goodsName:"",  // 产品名称
+					price:"",  // 产品价格
+					goodsImageList: [],  // 产品图片List
+					goodsMemo:"",  // 产品描述
+				},
+				num:"1",
+				item: {
+					goodsNum: 1
+				},
 
-			// 分享的弹出框
-			showPanel: false,
-			isSmark: false,
-			shareType: '',
-			WechatParm: {}, //公众号信息
-			shareObj: { //分享信息内容配置
-				title: 'MCL',
-				link: "", //系统地址
-				imgUrl: (location.origin + logoImg)
-			},
-		}),
+				// 分享的弹出框
+				showPanel: false,
+				isSmark: false,
+				shareType: '',
+				WechatParm: {}, //公众号信息
+				shareObj: { //分享信息内容配置
+					title: 'MCL',
+					desc: '我在医随康发现一个不错的商品，赶快来看看吧。', // 分享描述
+					link: `${pageHref}#${this.$route.path}?from=share`, //系统地址
+					imgUrl: ''
+				},
+				pageHref,
+				logoImg,
+				html2canavsUrl: ""
+			}
+		},
 		computed: {
 			screenWidth: function() {
 				return window.innerWidth;
@@ -147,16 +163,18 @@
 			},
 
 			//获取详情信息
-			getDetailInfo(sKey) {
+			getDetailInfo() {
 				let url = "/UserInterface/mall/getProductDetails.ashx";
 				return this.$post(url, {
-					productkey: this.productkey
+					productkey: this.productkey,
+					Url: this.pageHref
 				}).then((data) => {
 					data.data.collectionFlag = data.collectionFlag
 					this.responseData = data.data
 					this.title = this.responseData.ismanage == 1 ? "管理套餐": "产品详情";
 					this.WechatParm = data.WechatParm;
-					this.shareObj.link = `${location.origin}/${location.hash}`
+					this.shareObj.imgUrl = data.data.goodsImage;
+					this.shareObj.title = data.data.goodsName;
 					return data;
 				})
 			},
@@ -232,10 +250,12 @@
 			showShare(){
 				this.showPanel = true
 				document.scrollingElement.scrollTop = 0;//让页面滚动到最顶部
-				drawCanvas(".container").then((res) => {
-					const shareImgDom = this.$refs.shareImgDom
-					shareImgDom.innerHTML = ""
-					shareImgDom.appendChild(res)
+				this.$nextTick(() => {
+					drawCanvas(".img-dom").then((res) => {
+						const shareImgDom = this.$refs.shareImgDom
+						shareImgDom.innerHTML = ""
+						shareImgDom.appendChild(res)
+					})
 				})
 			},
 			// 收藏
@@ -244,10 +264,17 @@
 				await updateUserCollection({key: this.productkey})
 				this.responseData.collectionFlag = (this.responseData.collectionFlag == 1 ? "0" : 1)
 			},
+			back(){
+				if(this.$route.query.from == "share"){
+					this.$router.push("/wx_Entrance/service")
+				}else{
+					this.$router.back()
+				}
+			},
 			//回顶部
-			// goWindowTop() {
-			// 	window.scrollTo(0, 0)
-			// },
+			goWindowTop() {
+				window.scrollTo(0, 0)
+			},
 			//滑动底部
 			// scrollBottom() {
 			// 	//是否显示头部
@@ -277,7 +304,7 @@
 			wxConfig() {
 				let WechatParm = this.WechatParm;
 				wx.config({
-					debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+					debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
 					appId: WechatParm.AppId, // 必填，公众号的唯一标识
 					timestamp: WechatParm.Timestamp, // 必填，生成签名的时间戳
 					nonceStr: WechatParm.NonceStr, // 必填，生成签名的随机串
@@ -312,6 +339,7 @@
 			}
 		},
 		async mounted() {
+			this.goWindowTop()
 			let sKey = this.$route.params.sKey;
 			this.productkey = sKey
 			await this.getDetailInfo()
@@ -333,7 +361,7 @@
 		img {
 			display: block;
 			width: 100%;
-      margin-left: 0!important;
+      		margin-left: 0!important;
 		}
 	}
 </style>
@@ -1123,7 +1151,7 @@
 		}
 		.share_type{
 			padding: 0.1rem;
-			margin-bottom: 0.15rem;
+			margin-bottom: 0.05rem;
 			ul{
 				display: flex;
 				justify-content: space-around;
@@ -1138,15 +1166,16 @@
 	}
 	.img-view{
 		position: absolute;
-		top: 10%;
-		bottom: 2.5rem;
+		top: 40px;
+		bottom: 2.2rem;
 		left: 0;
 		right: 0;
-		width: 60%;
+		width: 200px;
 		margin: auto;
 		>>>img{
 			width: 100%;
 			height: auto;
+			display: block;
 		}
 		.tip{
 			font-size: 0.12rem;
@@ -1160,7 +1189,41 @@
 			bottom: 0;
 			left: 0;
 			right: 0;
-			overflow-y: scroll;
+			background: #FFFFFF;
+			border-radius: 5px;
+    		overflow: hidden;
+			// padding: 0.05rem 0;
+			.productImg{
+				height: 200px;
+				width: 200px;
+			}
+			.productInfo{
+				padding: 0.1rem;
+			}
+			.productName{
+				font-size: 14px;
+				display: block;
+				height: 40px;
+				overflow: hidden;
+			}
+			.productPrice{
+				color: #EC5D4E;
+    			font-size: 0.18rem;
+				display: block;
+			}
+			.qrcodeWrap{
+				text-align: center;
+				margin-top: -5px;
+				.qrcode{
+					width: 42%;
+					display: block !important;
+					margin: 0 auto;
+				}
+				.qrTip{
+					font-size: 0.12rem;
+				}
+			}
+			
 		}
 	}
 

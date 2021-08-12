@@ -29,7 +29,7 @@ export function getUserInfo ( rphone ) {
         //不存在当前客服
         return new Promise((resolve, reject) => {
             let data = {
-                rphone: rphone
+                rphone: rphone.join()
             }
             axiosInstance.post(url, qs.stringify(data)).then(resolve, reject)
         }) 
@@ -77,8 +77,8 @@ export function getChatData ( data ) {
     let groupId = ''
     if(currentRoute.name == "group"){
         groupId = currentRoute.params.id
+        data.groupId = groupId
     }
-    data.groupId = groupId
     data.user = JSON.parse(localStorage.userInfo).userId
     let url = `${BASEURLAPP}/UserInterface/user/getCustomServiceChatList.ashx`;
     return new Promise((resolve, reject) => {

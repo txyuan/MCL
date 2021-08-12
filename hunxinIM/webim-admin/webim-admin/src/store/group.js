@@ -89,7 +89,7 @@ const Group = {
 				},
 				error: function () { }
 			};
-			WebIM.conn.getGroupInfo(options)
+			return WebIM.conn.getGroupInfo(options)
 		},
 		//申请加入群组
 		onJoinGroup: function (context, payload) {

@@ -22,11 +22,12 @@
         <el-radio v-model="form.radiopom" label="2">随便加</el-radio>
       </div>
       <div class="groPost">
-        <el-button type="success" @click="chenageCreateModel">下一步</el-button>
+        <el-button type="primary" size="small" @click="chenageCreateModel">下一步</el-button>
       </div>
     </el-form>
     <div v-if="showFriendListModel == true">
-      <div class="groPub">
+      <div class="groPub membersList">
+        <p>患者列表：</p>
         <el-checkbox-group v-model="form.membersList">
           <li v-for="item in firendList" :key="item.name" class="friendItem">
             <el-checkbox  :key="item.name" :label="item.name">
@@ -40,7 +41,7 @@
           <i>返回</i>
         </div>
         <div class="groCreate">
-          <el-button type="success" @click="postCreateGroup">创建群组</el-button>
+          <el-button type="primary" size="small" @click="postCreateGroup">创建群组</el-button>
         </div>
       </div>
     </div>
