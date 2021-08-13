@@ -1,6 +1,6 @@
 <template>
     <div class="diet-root">
-    <div id="" style="padding-top:0.93rem; background-color: #f1f1f1">
+    <div id="" style="padding-top:0.93rem; background-color: #f6f6f9">
       <!-- <mt-header title="饮食" fixed>
         <div slot="left">
           <router-link to="/wx_Entrance/home" style="color: inherit;">

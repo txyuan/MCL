@@ -1,4 +1,5 @@
-import html2canvas from 'html2canvas'
+// import html2canvas from 'html2canvas'
+const { html2canvas } = require("@/lib/html2canvas");
 
 /* 根据window.devicePixelRatio获取像素比
     */

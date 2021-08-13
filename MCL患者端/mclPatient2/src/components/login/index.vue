@@ -133,19 +133,24 @@ export default {
 		})
 		const redirect = this.$route.query.redirect
 		this.$Toast('登录成功')
+		// const userinfoflag = data.data.userinfoflag // 1:线下，2：线上
+		// const PatientDistinguish = data.data.PatientDistinguish // 是否录入基本信息0：未录入，1：已录入
+		// // 0：未录入 2：线上
+		// if ((PatientDistinguish == 2) && (userinfoflag == 0)) {
+		// 	this.$router.replace('/wellcome')
+		// 	return
+		// };
 		const userinfoflag = data.data.userinfoflag // 1:线下，2：线上
-		const PatientDistinguish = data.data.PatientDistinguish // 是否录入基本信息0：未录入，1：已录入
-		// 0：未录入 2：线上
-		if ((PatientDistinguish == 2) && (userinfoflag == 0)) {
+		if (userinfoflag == 0) {
 			this.$router.replace('/wellcome')
 			return
-		};
+		}
 		if (redirect) {
 			// 报告查询页面
 			if (redirect == '/eyeconme') {
-			this.$router.replace('/wellcome?redirect=/eyeconme')
+				this.$router.replace('/wellcome?redirect=/eyeconme')
 			} else {
-			this.$router.replace(redirect)
+				this.$router.replace(redirect)
 			}
 		} else {
 			this.$router.replace('/wx_Entrance/home')

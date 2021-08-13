@@ -27,17 +27,17 @@
 						<i v-else>{{getCode}}</i>
 					</span>
 				</li>
-				<li>
+				<!-- <li>
 					<img src="@/assets/images/mima@2x.png" />
 					<input type="password" v-model.trim="userpwd" @focus="$root.windowRecordScroll" @blur="$root.windowScrollTop"
 					 placeholder="请设置密码" />
-				</li>
+				</li> -->
 				<li style="display: none;">
 					<img src="@/assets/images/tuijianren@2x.png" />
 					<input type="tel" v-model.trim="rphone" @focus="$root.windowRecordScroll" @blur="$root.windowScrollTop"
 					 placeholder="邀请人手机号" />
 				</li>
-				<li>
+				<li v-show="$route.query.role == 4">
 					<img src="@/assets/images/shenfen@2x.png" />
 					<select name="role" v-model.trim="role" @focus="$root.windowRecordScroll" @blur="$root.windowScrollTop" style="appearance: menulist-button">
 						<option v-for="(item,index) in roleList" :value="item.value" :key="index" v-if="item.show">{{item.name}}</option>
@@ -69,7 +69,7 @@ export default {
     rphone: '',
     phone: '',
     code: '',
-    userpwd: '',
+    // userpwd: '',
     getCode: '获取验证码',
     VerificationCode: 60,
     isDown: false,
@@ -80,12 +80,12 @@ export default {
     // 医生分享给 患者和医生
     // 渠道分享给 医生，渠道，
     roleMap: {
-      role0: '1,2',
-      role1: '1,2',
-      role2: '2,1',
+      // role0: '1,2',
+      role1: '2',
+      role2: '2',
       role3: '',
       role4: '1,4',
-      role5: '4,5,8',
+      role5: '4',
       role6: '4',
       role7: '4',
       role8: '4'
@@ -218,10 +218,10 @@ export default {
         this.$Toast('请输入验证码')
         return
       }
-      if (this.userpwd == '') {
-        this.$Toast('请输入您的密码')
-        return
-      }
+      // if (this.userpwd == '') {
+      //   this.$Toast('请输入您的密码')
+      //   return
+      // }
       if (!this.agrn) {
         this.$Toast('请勾选阅读并同意用户注册协议')
         return
@@ -231,8 +231,8 @@ export default {
         'rphone': this.rphone,
         'userphone': this.phone,
         'vercode': this.code,
-        'userpwd': this.userpwd,
-        'role': this.role,
+        // 'userpwd': this.userpwd,
+        'role': ((this.$route.query.role == 5) && (this.rphone == "15523523851")) ? 5 : this.role,
         'openid': localStorage.openId
       }
       this.$post(url, param).then((data) => {
@@ -276,17 +276,17 @@ export default {
     let role = this.$route.query.role
     if (role) {
       let JurisdictionRole = this.roleMap['role' + role].split(',') // 这个用户可以选择注册的角色
-	    if (role == 5) {
-        if (rphone != 15523523851) {
-          JurisdictionRole.splice(1, 1)
-        }
-      }
+	    // if (role == 5) {
+      //   if (rphone != 15523523851) {
+      //     JurisdictionRole.splice(1, 1)
+      //   }
+      // }
       this.role = JurisdictionRole[0]
-      this.roleList.forEach((item, index) => {
-        if (JurisdictionRole.indexOf(String(item.value)) == -1) {
-          item.show = false
-        }
-      })
+      // this.roleList.forEach((item, index) => {
+      //   if (JurisdictionRole.indexOf(String(item.value)) == -1) {
+      //     item.show = false
+      //   }
+      // })
     }
   },
   beforeRouteEnter (to, from, next) {

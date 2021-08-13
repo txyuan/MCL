@@ -39,12 +39,17 @@
 				</div>
 				<div class="matterDetails">
 					<div class="title2 bg-white">
-						3、近期<em>（1-3月）</em>体重是否下降超过5%？<em> (（原体重-现体重）/原体重 *100%)</em>
+						3、近期<em>（1-3月）</em>体重是否下降？
+            <!-- 超过5%<em> (（原体重-现体重）/原体重 *100%)</em> -->
 					</div>
 					<mt-radio :options="attribute_value_06.option" v-model="attribute_value_06.state" class="radio-nowrap"></mt-radio>
+          <mt-field label="目前体重" placeholder="请输入体重" class="" v-model.trim="attribute_value_061.value" v-show="attribute_value_06.show" style="padding-bottom: 0">
+						<span>kg</span>
+					</mt-field>
 					<mt-field label="体重下降了" placeholder="请输入体重" class="" v-model.trim="attribute_value_06.value" v-show="attribute_value_06.show">
 						<span>kg</span>
 					</mt-field>
+
 					<mt-radio :options="attribute_value_05.option" v-model="attribute_value_05.value" class="radio-nowrap" v-show="attribute_value_06.show"></mt-radio>
 					<mt-field label="1个月前体重" placeholder="请输入体重" class="" v-model.trim="attribute_value_04.value">
 						<span>kg</span>
@@ -251,6 +256,9 @@ const formDataObj = {
     state: '',
     value: '',
     radiolist: true
+  },
+  attribute_value_061: {
+    value: '',
   },
   value_05_flag: {
     value: ''
@@ -659,6 +667,7 @@ export default {
     },
     'attribute_value_06.state': function (val) {
       this.attribute_value_06.value = ''
+      this.attribute_value_061.value = ''
       this.attribute_value_05.value = ''
       this.value_05_flag.value = val
       if (val == '是') {
@@ -777,6 +786,10 @@ export default {
         return
       }
       if (formDataObj.attribute_value_06.show) {
+        if (param.attribute_value_061 == '') {
+          this.$Toast('请填写目前体重')
+          return
+        }
         if (param.attribute_value_06 == '') {
           this.$Toast('请填写体重下降了')
           return
@@ -1050,6 +1063,7 @@ export default {
 					display: flex;
 					align-items: flex-start;
 					padding: 0.075rem 0;
+          align-items: center;
 				}
 
 				.mint-radiolist .mint-radio-label,

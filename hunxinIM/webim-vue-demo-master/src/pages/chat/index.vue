@@ -9,7 +9,7 @@
           <a-dropdown>
             <span class="ant-dropdown-link" href="#">
               <a-icon type="setting" />
-              <span class="username">{{userName}}</span>
+              <span class="username">{{$root.getUserNameByPhone(userName).userName}}</span>
             </span>
             <a-menu slot="overlay">
               <a-menu-item @click="recEmedia">
@@ -51,23 +51,22 @@
         :defaultSelectedKeys="['contact']"
         :style="{ lineHeight: '50px', background: '#434648', color: '#fff', textAlign: 'left'}"
         @click="contactTypeChange"
-      >
-        <a-menu-item key="contact">
+      > -->
+        <!-- <a-menu-item key="contact">
           <a-icon type="user" class="navMenu-icon" />
           <span class="navMenu-text">好友</span>
-
           <div class="tip-style" v-if="getUnread('contact').contact">&nbsp;</div>
         </a-menu-item>
         <a-menu-item key="group">
           <a-icon type="team" class="navMenu-icon" />
           <span class="navMenu-text">群组</span>
           <div class="tip-style" v-if="getUnread('group').group">&nbsp;</div>
-        </a-menu-item>
-        <a-menu-item key="chatroom">
+        </a-menu-item> -->
+        <!-- <a-menu-item key="chatroom">
           <a-icon type="usergroup-add" class="navMenu-icon" />
           <span class="navMenu-text">聊天室</span>
-        </a-menu-item>
-      </a-menu> -->
+        </a-menu-item> -->
+      <!-- </a-menu> -->
     <!-- </a-layout-header> -->
 
     <a-layout>
@@ -105,6 +104,25 @@
         <GroupInvite />
       </a-layout-content>
     </a-layout>
+    <a-layout-footer class="my_footer" v-if="localStorage.getItem('logoSinge') == 1">
+      <a-menu
+        v-model="current"
+        mode="horizontal"
+        :defaultSelectedKeys="['contact']"
+        @click="contactTypeChange"
+      >
+        <a-menu-item key="contact">
+          <div class="tip-style" v-if="getUnread('contact').contact">&nbsp;</div>
+          <a-icon type="user" class="navMenu-icon" />
+          <span class="navMenu-text">好友</span>
+        </a-menu-item>
+        <a-menu-item key="group">
+          <div class="tip-style" v-if="getUnread('group').group">&nbsp;</div>
+          <a-icon type="team" class="navMenu-icon" />
+          <span class="navMenu-text">群组</span>
+        </a-menu-item>
+      </a-menu>
+    </a-layout-footer>
   </a-layout>
 </template>
 
@@ -128,7 +146,7 @@ export default {
       groupRead: false,
       contactRead: false,
       showSettingOptions: false,
-      activeKey: "group",
+      activeKey: "contact",
       selectedItem: "",
       showAddOptions: false,
       addList: [
@@ -148,17 +166,22 @@ export default {
           icon: "comment"
         }
       ],
-      userName:
-        localStorage.getItem("userInfo") &&
-        JSON.parse(localStorage.getItem("userInfo")).userId,
+      userName:localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo")).userId,
       collapsed: false,
       broken: false,
-      current: ["contact"]
+      current: ["contact"],
+      localStorage: window.localStorage
     };
   },
   computed: {
     chatList() {
       return this.$store.state.chat.msgList;
+    }
+  },
+  mounted(){
+    // 医生，直接进入群组页面
+    if((localStorage.getItem('logoSinge') != 1)){
+      this.contactTypeChange({key: "group"})
     }
   },
   methods: {
@@ -181,6 +204,8 @@ export default {
     },
     showUserList() {
       this.$data.collapsed = false;
+      // 路由返回
+      this.$router.replace(`/${this.$data.activeKey}`);
     },
     select(i) {
       this.$refs.messageList.select(i);
@@ -197,7 +222,7 @@ export default {
     },
     contactTypeChange(type) {
       this.$data.activeKey = type.key;
-      this.$router.push(`/${type.key}`);
+      this.$router.replace(`/${type.key}`);
       if (this.broken && this.collapsed) {
         this.$data.collapsed = false;
       }
@@ -266,6 +291,10 @@ export default {
       };
     }
   },
+   created(){
+    //获取昵称
+    this.$root.getUserInfo([this.userName])
+  },
   components: {
     MessageBox,
     Message,
@@ -281,6 +310,7 @@ export default {
 };
 </script>
 <style scoped>
+
 .layout-header .header{
   height: 0;
   line-height: 0;
@@ -291,5 +321,51 @@ export default {
 }
 .layout-header{
   height: 52px !important;
+}
+</style>
+<style>
+.my_footer{
+  padding: 5px 0;
+  background: #fff;
+  border-top: 1px solid #e0e0e0;
+}
+.my_footer .ant-menu{
+  padding: 6px  0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.my_footer .ant-menu-horizontal{
+  border: none;
+  line-height: normal;
+}
+.my_footer .navMenu-icon,.my_footer .navMenu-text{
+  display: block;
+  margin-right: 0;
+  line-height: normal;
+  font-size: 12px;
+}
+.my_footer .navMenu-icon svg{
+  display: block;
+}
+.my_footer .navMenu-text{
+  margin-top: 3px;
+}
+.my_footer .ant-menu-item{
+  color: #636768;
+  border: none;
+  position: relative;
+}
+.my_footer .ant-menu-item.ant-menu-item-selected{
+  color: #0ac5ca!important;
+  border: none;
+}
+.my_footer .navMenu-icon{
+  font-size: 22px;
+}
+.my_footer .tip-style{
+  position: absolute;
+  top: 0;
+  right: 16px;
 }
 </style>

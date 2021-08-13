@@ -104,7 +104,6 @@
 			userList() {
 				const temp = {
 					contact: this.contact.filter(item => {
-						this.$set(item, 'username', this.$root.getUserNameByPhone(String(item.name)))
 						this.$set(item, 'meum', this.getUnreadNum(item))
 						if (item && !this.blackList.includes(item.name)) {
 							return item;
@@ -219,8 +218,6 @@
 				this.$data.selectedKeys = [index];
 				this.select(key);
 				this.$data.activedKey[this.type] = key;
-				//医生和患者信息
-				this.$emit("getInfo", key.name.split("(")[0])
 			},
 			loadMoreMsgs() {
 				const me = this;

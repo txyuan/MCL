@@ -4,9 +4,12 @@
       <!-- <div>{{type}}</div> -->
       <div>
         <a-icon type="left" class="user-goback" v-show="broken" @click="showUserList" />
-        <span>{{`${activedKey[type].name }`}}</span>
+        <span v-if="type == 'contact'">{{`${$root.getUserNameByPhone(String(activedKey[type].name)).userName}`}}</span>
+        <span v-else>{{`${String(activedKey[type].name)}`}}</span>
         <!--  &nbsp;&nbsp; ${activedKey[type].groupid || ''} -->
-        <!--<a-icon v-if="type=='group'" type="ellipsis" class="user-ellipsis" @click="changeMenus" />-->
+        <a-button v-if="type=='group'"  class="user-ellipsis" type="default" @click="changeMenus" title="群组信息">
+          <a-icon type="ellipsis" />
+        </a-button>
         <!--<a-dropdown v-else-if="type=='contact'">
           <a class="ant-dropdown-link user-ellipsis" href="#" @click="changeMenus">
             <a-icon type="ellipsis" />
@@ -31,10 +34,9 @@
         class="message-group demo-image__preview"
         :style="{'float':item.bySelf ? 'right':'left'}"
       >
-        <!-- <h4 style="text-align: left;margin:0">{{ item.from}} ({{$root.getUserNameByPhone(String(item.from)).userName}})</h4> -->
 		    <h4 :style="{'text-align':item.bySelf ? 'right':'left',margin:0}">
-          <span v-if="$root.kefuMap[item.from]">{{$root.kefuMap[item.from].userName}}</span>
-          <span v-else>{{ item.from }}</span>
+          <span v-if="item.from">{{$root.getUserNameByPhone(String(item.from)).userName}}</span>
+          <span v-else>{{$root.getUserNameByPhone(String(userInfoName)).userName}}</span>
         </h4>
 		
         <!-- 撤回消息 -->
@@ -186,8 +188,8 @@ export default {
         chatroom: ""
       },
       message: "",
-	  messpos:0,
-	  messposend:0,
+      messpos:0,
+      messposend:0,
       isHttps: window.location.protocol === "https:",
       loadText: "加载更多",
       status: {
@@ -195,7 +197,8 @@ export default {
         sent: "已发送",
         read: "已读"
       },
-      nowIsVideo: false
+      nowIsVideo: false,
+      userInfoName: localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo")).userId,
     };
   },
 
@@ -222,14 +225,10 @@ export default {
     msgList: function(){
       let currentMsgs = this.$store.state.chat.currentMsgs;
       if(currentMsgs instanceof Array){
-        currentMsgs.forEach((item)=>{
-           this.$root.getKeFuInfo(item.from)
-        })
+        this.$root.getUserInfo([...currentMsgs.map(item => item.from)])
       }
       if(currentMsgs && (JSON.stringify(currentMsgs).indexOf("{") == 0) ){
-        Object.keys(currentMsgs).forEach((key)=>{
-          this.$root.getKeFuInfo(currentMsgs[key].from)
-        })
+        this.$root.getUserInfo([...Object.keys(currentMsgs).map(key => currentMsgs[key].from)])
       }
       return currentMsgs;
     },
@@ -327,6 +326,7 @@ export default {
       } else if (this.type === "contact") {
         this.$router.push({ name: this.type, params: { id: key.name } });
         this.onGetCurrentChatObjMsg({ type: this.type, id: key.name });
+        
         setTimeout(() => {
           Vue.$store.commit("updateMessageStatus", {
             action: "oneUserReadMsgs",
@@ -426,7 +426,7 @@ export default {
       }
     },
     getGroupInfo() {
-      this.onGetGroupinfo({
+      return this.onGetGroupinfo({
         select_id: this.$data.activedKey[this.type].groupid
       });
     },

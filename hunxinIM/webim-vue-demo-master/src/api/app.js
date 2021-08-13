@@ -60,9 +60,9 @@ export function getChatData ( data ) {
     let groupId = ''
     if(currentRoute.name == "group"){
         groupId = currentRoute.params.id
+        data.groupId = groupId
     }
     data.user = JSON.parse(localStorage.userInfo).userId
-    data.groupId = groupId
     let url = `${BASEURLAPP}/UserInterface/user/getCustomServiceChatList.ashx`;
     return new Promise((resolve, reject) => {
         axiosInstance.get(url, {params: data}).then(resolve, reject)

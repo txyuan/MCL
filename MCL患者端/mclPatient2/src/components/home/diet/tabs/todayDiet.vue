@@ -537,48 +537,48 @@ import echarts from 'echarts'
         })
       },
       // 饮食方案
-      eachRecord () {
-        let url = 'UserInterface/SelectTodayDietPlan.ashx'
-        this.$post(url).then((data) => {
-          if (data.rspcode != 1) {
-            return
-          }
-          this.dataflag = data.dataflag
-          this.targetenergy = data.targetenergy
-          this.protein = data.protein
-          this.fat = data.fat
-          this.carbohydrate = data.carbohydrate
-          this.breakfast = data.breakfastdata
-          this.breakfastplusdata = data.breakfastplusdata
-          this.lunch = data.lunchdata
-          this.lunchplusdata = data.lunchplusdata
-          this.dinner = data.dinnerdata
-          this.actualIntake = data.actualIntake
-          this.energyBalance = data.energyBalance
-          this.mealaddition = data.mealadditiondata
-          this.carbohydrateProportion = data.carbohydrateProportion
-          this.fatProportion = data.fatProportion
-          this.proteinProportion = data.proteinProportion
-          if (data.breakfastdata && data.breakfastdata.length != 0) {
-            this.breakfast_time = data.breakfastdata[0].breakfast_time
-          }
-          if (data.breakfastplusdata && data.breakfastplusdata.length != 0) {
-            this.breakfastplus_time = data.breakfastplusdata[0].breakfast_time
-          }
-          if (data.lunchdata && data.lunchdata.length != 0) {
-            this.lunch_time = data.lunchdata[0].lunch_time
-          }
-          if (data.lunchplusdata && data.lunchplusdata.length != 0) {
-            this.lunchplus_time = data.lunchplusdata[0].lunch_time
-          }
-          if (data.dinnerdata && data.dinnerdata.length != 0) {
-            this.dinner_time = data.dinnerdata[0].dinner_time
-          }
-          if (data.mealadditiondata && data.mealadditiondata.length != 0) {
-            this.mealaddition_time = data.mealadditiondata[0].mealaddition_time
-          }
-        })
-      },
+      // eachRecord () {
+      //   let url = 'UserInterface/SelectTodayDietPlan.ashx'
+      //   this.$post(url).then((data) => {
+      //     if (data.rspcode != 1) {
+      //       return
+      //     }
+      //     this.dataflag = data.dataflag
+      //     this.targetenergy = data.targetenergy
+      //     this.protein = data.protein
+      //     this.fat = data.fat
+      //     this.carbohydrate = data.carbohydrate
+      //     this.breakfast = data.breakfastdata
+      //     this.breakfastplusdata = data.breakfastplusdata
+      //     this.lunch = data.lunchdata
+      //     this.lunchplusdata = data.lunchplusdata
+      //     this.dinner = data.dinnerdata
+      //     this.actualIntake = data.actualIntake
+      //     this.energyBalance = data.energyBalance
+      //     this.mealaddition = data.mealadditiondata
+      //     this.carbohydrateProportion = data.carbohydrateProportion
+      //     this.fatProportion = data.fatProportion
+      //     this.proteinProportion = data.proteinProportion
+      //     if (data.breakfastdata && data.breakfastdata.length != 0) {
+      //       this.breakfast_time = data.breakfastdata[0].breakfast_time
+      //     }
+      //     if (data.breakfastplusdata && data.breakfastplusdata.length != 0) {
+      //       this.breakfastplus_time = data.breakfastplusdata[0].breakfast_time
+      //     }
+      //     if (data.lunchdata && data.lunchdata.length != 0) {
+      //       this.lunch_time = data.lunchdata[0].lunch_time
+      //     }
+      //     if (data.lunchplusdata && data.lunchplusdata.length != 0) {
+      //       this.lunchplus_time = data.lunchplusdata[0].lunch_time
+      //     }
+      //     if (data.dinnerdata && data.dinnerdata.length != 0) {
+      //       this.dinner_time = data.dinnerdata[0].dinner_time
+      //     }
+      //     if (data.mealadditiondata && data.mealadditiondata.length != 0) {
+      //       this.mealaddition_time = data.mealadditiondata[0].mealaddition_time
+      //     }
+      //   })
+      // },
       getdetd (skeys) {
         this.aleta = true
         let url = 'UserInterface/goods/FoodDataDetail.ashx'
@@ -600,7 +600,7 @@ import echarts from 'echarts'
       this.getnewdate()
       this.remindToday()
       // this.todayDiet()
-      this.eachRecord()
+      // this.eachRecord()
       this.pie()
       this.pie2()
       if (this.$route.query.ABflag == 2) {

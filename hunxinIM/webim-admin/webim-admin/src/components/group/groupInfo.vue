@@ -7,6 +7,7 @@
     lable="rtl"
     size="350px"
     style="margin-top: 95px; list-style-type:none;"
+	class="draw_right"
     :wrapperClosable="true"
   >
     <div class="info-modal">
@@ -30,7 +31,8 @@
               :key="index"
               @click="select(item)"
             >
-              <span v-if="!item.owner" class="info-name">{{item.member}}</span>
+			
+              <span v-if="!item.owner" class="info-name">{{item.member}}（{{$root.getUserNameByPhone(item.member).userName}}）</span>
 
               <span v-if="!item.owner&&(adminList.includes(username) || groupinfoList.admin == username)&&username != item.member" class="info-icon">
 
@@ -96,7 +98,7 @@
               </span>
             </div>
 
-            <div class="listItem">{{groupinfoList.admin}}</div>
+            <div class="listItem">{{groupinfoList.admin}}（{{$root.getUserNameByPhone(groupinfoList.admin).userName}}）</div>
           </div>
         </div>
       </div>
@@ -329,9 +331,18 @@ export default{
 	}
 };
 </script>
+<style>
+.draw_right .el-drawer__header{
+	padding: 30px 20px 0;
+	font-size: 18px;
+}
+.draw_right .el-drawer{
+	border-radius: 5px;
+}
+</style>
 <style scoped>
 .info-modal {
-  padding: 0 10px;
+  padding: 0 20px;
   height: 100%;
   /* width: 350px !important; */
   /* cursor: pointer; */
