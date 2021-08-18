@@ -442,115 +442,115 @@ const Chat = {
 		getHistoryMessage: function(context, payload){
 			const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 			const userId = userInfo && userInfo.userId;
-			const options = {
-				queue: payload.name,
-				isGroup: payload.isGroup,
-				count: 10, // 每次获取消息条数
-				success: function(msgs){
-					try{
-						payload.success && payload.success(msgs);
-						if(msgs.length){
-							msgs.forEach((item) => {
-								let time = Number(item.time);
-								let msg = {};
-								const bySelf = item.from == userId;
-								if(!item.filename){
-									msg = {
-										chatType: payload.isGroup ? "group" : "contact",
-										chatId: bySelf ? item.to : item.from,
-										msg: item.data,
-										bySelf: bySelf,
-										time: time,
-										mid: item.id,
-										status: "read"
-									};
-									if(payload.isGroup){
-										msg.chatId = item.to;
-									}
-									else{
-										msg.chatId = bySelf ? item.to : item.from;
-									}
-								}
-								else if(!item.ext.file_length && item.filename !== "audio" && item.filename.substring(item.filename.length - 3) !== "mp4"){ // 为图片的情况
-									msg = {
-										msg: item.url,
-										chatType: payload.isGroup ? "group" : "contact",
-										chatId: bySelf ? item.to : item.from,
-										bySelf: bySelf,
-										type: "img",
-										time: time,
-										mid: item.id,
-										status: "read"
-									};
-									if(payload.isGroup){
-										msg.chatId = item.to;
-									}
-									else{
-										msg.chatId = bySelf ? item.to : item.from;
-									}
-								}
-								else if(item.filename === "audio"){
-									msg = {
-										msg: item.url,
-										chatType: payload.isGroup ? "group" : "contact",
-										chatId: bySelf ? item.to : item.from,
-										bySelf: bySelf,
-										type: "audio"
-									};
-									if(payload.isGroup){
-										msg.chatId = item.to;
-									}
-									else{
-										msg.chatId = bySelf ? item.to : item.from;
-									}
-								}
-								else if(item.filename.substring(item.filename.length - 3) === "mp4"){
-									msg = {
-										msg: item.url,
-										chatType: payload.isGroup ? "group" : "contact",
-										chatId: bySelf ? item.to : item.from,
-										bySelf: bySelf,
-										type: "video"
-									};
-									if(payload.isGroup){
-										msg.chatId = item.to;
-									}
-									else{
-										msg.chatId = bySelf ? item.to : item.from;
-									}
-								}
-								else{
-									msg = {
-										msg: item.url,
-										chatType: payload.isGroup ? "group" : "contact",
-										chatId: bySelf ? item.to : item.from,
-										bySelf: bySelf,
-										type: "file",
-										filename: item.filename,
-										file_length: item.file_length,
-										time: time,
-										mid: item.id,
-										status: "read"
-									};
-									if(payload.isGroup){
-										msg.chatId = item.to;
-									}
-									else{
-										msg.chatId = bySelf ? item.to : item.from;
-									}
-								}
-								msg.isHistory = true;
-								context.commit("updateMsgList", msg);
-							});
-							context.commit("updateMessageStatus", { action: "readMsgs" });
-						}
-					}
-					catch(e){
-						console.log("error", e);
-					}
-				},
-				fail: function(){ }
-			};
+			// const options = {
+			// 	queue: payload.name,
+			// 	isGroup: payload.isGroup,
+			// 	count: 10, // 每次获取消息条数
+			// 	success: function(msgs){
+			// 		try{
+			// 			payload.success && payload.success(msgs);
+			// 			if(msgs.length){
+			// 				msgs.forEach((item) => {
+			// 					let time = Number(item.time);
+			// 					let msg = {};
+			// 					const bySelf = item.from == userId;
+			// 					if(!item.filename){
+			// 						msg = {
+			// 							chatType: payload.isGroup ? "group" : "contact",
+			// 							chatId: bySelf ? item.to : item.from,
+			// 							msg: item.data,
+			// 							bySelf: bySelf,
+			// 							time: time,
+			// 							mid: item.id,
+			// 							status: "read"
+			// 						};
+			// 						if(payload.isGroup){
+			// 							msg.chatId = item.to;
+			// 						}
+			// 						else{
+			// 							msg.chatId = bySelf ? item.to : item.from;
+			// 						}
+			// 					}
+			// 					else if(!item.ext.file_length && item.filename !== "audio" && item.filename.substring(item.filename.length - 3) !== "mp4"){ // 为图片的情况
+			// 						msg = {
+			// 							msg: item.url,
+			// 							chatType: payload.isGroup ? "group" : "contact",
+			// 							chatId: bySelf ? item.to : item.from,
+			// 							bySelf: bySelf,
+			// 							type: "img",
+			// 							time: time,
+			// 							mid: item.id,
+			// 							status: "read"
+			// 						};
+			// 						if(payload.isGroup){
+			// 							msg.chatId = item.to;
+			// 						}
+			// 						else{
+			// 							msg.chatId = bySelf ? item.to : item.from;
+			// 						}
+			// 					}
+			// 					else if(item.filename === "audio"){
+			// 						msg = {
+			// 							msg: item.url,
+			// 							chatType: payload.isGroup ? "group" : "contact",
+			// 							chatId: bySelf ? item.to : item.from,
+			// 							bySelf: bySelf,
+			// 							type: "audio"
+			// 						};
+			// 						if(payload.isGroup){
+			// 							msg.chatId = item.to;
+			// 						}
+			// 						else{
+			// 							msg.chatId = bySelf ? item.to : item.from;
+			// 						}
+			// 					}
+			// 					else if(item.filename.substring(item.filename.length - 3) === "mp4"){
+			// 						msg = {
+			// 							msg: item.url,
+			// 							chatType: payload.isGroup ? "group" : "contact",
+			// 							chatId: bySelf ? item.to : item.from,
+			// 							bySelf: bySelf,
+			// 							type: "video"
+			// 						};
+			// 						if(payload.isGroup){
+			// 							msg.chatId = item.to;
+			// 						}
+			// 						else{
+			// 							msg.chatId = bySelf ? item.to : item.from;
+			// 						}
+			// 					}
+			// 					else{
+			// 						msg = {
+			// 							msg: item.url,
+			// 							chatType: payload.isGroup ? "group" : "contact",
+			// 							chatId: bySelf ? item.to : item.from,
+			// 							bySelf: bySelf,
+			// 							type: "file",
+			// 							filename: item.filename,
+			// 							file_length: item.file_length,
+			// 							time: time,
+			// 							mid: item.id,
+			// 							status: "read"
+			// 						};
+			// 						if(payload.isGroup){
+			// 							msg.chatId = item.to;
+			// 						}
+			// 						else{
+			// 							msg.chatId = bySelf ? item.to : item.from;
+			// 						}
+			// 					}
+			// 					msg.isHistory = true;
+			// 					context.commit("updateMsgList", msg);
+			// 				});
+			// 				context.commit("updateMessageStatus", { action: "readMsgs" });
+			// 			}
+			// 		}
+			// 		catch(e){
+			// 			console.log("error", e);
+			// 		}
+			// 	},
+			// 	fail: function(){ }
+			// };
 
 			// WebIM.conn.fetchHistoryMessages(options);
 
@@ -616,7 +616,7 @@ const Chat = {
 								msg.isHistory = true;
 								context.commit("updateMsgList", msg);
 							});
-							context.commit("updateMessageStatus", { action: "readMsgs" });
+							// context.commit("updateMessageStatus", { action: "readMsgs" });
 						}
 						
 					} catch(e){

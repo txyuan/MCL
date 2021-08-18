@@ -37,10 +37,10 @@
 					<input type="tel" v-model.trim="rphone" @focus="$root.windowRecordScroll" @blur="$root.windowScrollTop"
 					 placeholder="邀请人手机号" />
 				</li>
-				<li v-show="$route.query.role == 4">
+				<li v-show="roleList.length > 1">
 					<img src="@/assets/images/shenfen@2x.png" />
 					<select name="role" v-model.trim="role" @focus="$root.windowRecordScroll" @blur="$root.windowScrollTop" style="appearance: menulist-button">
-						<option v-for="(item,index) in roleList" :value="item.value" :key="index" v-if="item.show">{{item.name}}</option>
+						<option v-for="(item,index) in roleList" :value="item.value" :key="index">{{item.name}}</option>
 					</select>
 				</li>
 			</ul>
@@ -85,7 +85,7 @@ export default {
       role2: '2',
       role3: '',
       role4: '1,4',
-      role5: '4',
+      role5: '4,8',
       role6: '4',
       role7: '4',
       role8: '4'
@@ -232,7 +232,7 @@ export default {
         'userphone': this.phone,
         'vercode': this.code,
         // 'userpwd': this.userpwd,
-        'role': ((this.$route.query.role == 5) && (this.rphone == "15523523851")) ? 5 : this.role,
+        'role': this.role,
         'openid': localStorage.openId
       }
       this.$post(url, param).then((data) => {
@@ -271,22 +271,19 @@ export default {
     identify
   },
   mounted: function () {
-    let rphone = this.$route.query.rphone
-    this.rphone = rphone
-    let role = this.$route.query.role
+    const {rphone, role} = this.$route.query
     if (role) {
-      let JurisdictionRole = this.roleMap['role' + role].split(',') // 这个用户可以选择注册的角色
-	    // if (role == 5) {
-      //   if (rphone != 15523523851) {
-      //     JurisdictionRole.splice(1, 1)
-      //   }
-      // }
-      this.role = JurisdictionRole[0]
-      // this.roleList.forEach((item, index) => {
-      //   if (JurisdictionRole.indexOf(String(item.value)) == -1) {
-      //     item.show = false
-      //   }
-      // })
+      this.rphone = rphone
+      // 地区渠道商的手机号码
+      if((role == 5) && (rphone == "15523523851")){
+        this.role = '5';
+        this.roleList = this.roleList.filter(item => String(item.value) == "5")
+      }else{
+      // 这个用户可以选择注册的角色
+        let JurisdictionRole = this.roleMap['role' + role].split(',') 
+        this.roleList = this.roleList.filter(item => JurisdictionRole.includes(String(item.value)))  // 显示用户可以选择注册的角色
+        this.role = JurisdictionRole[0]
+      }
     }
   },
   beforeRouteEnter (to, from, next) {
