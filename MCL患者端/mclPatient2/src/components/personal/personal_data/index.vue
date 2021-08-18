@@ -315,7 +315,7 @@ export default {
     font-size: 0.175rem;
   }
   .mint-cell {
-    min-height: 0.48rem;
+    min-height: 0.52rem;
   }
   a.mint-cell .mint-cell-text {
     font-size: 0.16rem;

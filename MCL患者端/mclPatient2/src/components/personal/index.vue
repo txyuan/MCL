@@ -421,7 +421,7 @@
        img{
          width:100%;
          height: 100%;
-         border-radius: 50%;
+         border-radius: 50% !important;
          display: inline-block;
        }
       }
@@ -543,7 +543,7 @@
     border-radius: 0.125rem;
 		h3 {
 			font-size: 0.155rem;
-      border-bottom: 1px solid #e5e5e5;
+      border-bottom: 1px solid #ebebeb;
 			font-weight: normal;
 			padding:0.1rem 0.15rem;
 		}
@@ -585,8 +585,8 @@
 
     img {
       vertical-align: middle;
-      width: 0.285rem;
-      height: 0.285rem;
+      width: 0.275rem;
+      height: 0.275rem;
     }
 
     p {
@@ -596,7 +596,7 @@
   }
 
   .row:last-child {
-    margin-top: 0.08rem;
+    margin-top: 0.0625rem;
     font-size: 0.13rem;
   }
 }

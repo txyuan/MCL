@@ -255,7 +255,7 @@ export default {
           url = 'UserInterface/AddConditionDiseaseTumour.ashx'
         } else if (diseasetype === '02') {
           url = 'UserInterface/AddConditionDiseaseDisease.ashx'
-        } 
+        }
         this.$post(url, param).then((data) => {
           if (data.rspcode != 1) {
             this.$Toast(data.rspdesc)
@@ -282,7 +282,7 @@ export default {
         this.$Toast('请输入体重')
         return false
       }
-     
+
       // if (param.location == '') {
       //   this.$Toast('请选择您所在地区')
       //   return false
@@ -314,7 +314,7 @@ export default {
     this.openTouch()
     // 回显表单数据
     this.sportConfirm() // 设置默认的管理类型
-    
+
     // 监听时间插件的关闭
     this.$watch('$refs.DatetimePicker.visible',function(val){
       if(!val){
@@ -345,8 +345,8 @@ export default {
   }
   .personInfo_root{
     background-color: #f1f1f1;
-    padding-top: 0.44rem;
-    padding-bottom: 64px;
+    padding-top: 0.48rem;
+    padding-bottom:0.54rem;
     min-height: 100vh;
     box-sizing: border-box;
   }
@@ -416,7 +416,7 @@ export default {
   }
   .personInfo_root  {
     .mint-header {
-      height: 0.44rem;
+      height: 0.48rem;
       border-bottom: 1px solid #e5e5e5;
     }
 
@@ -488,7 +488,7 @@ export default {
       .titleBtm::after {
         background-color: #000;
         content: " ";
-        opacity: 0.1;
+        opacity: 0.075;
         right: 0;
         bottom: 0;
         left: 15px;
@@ -567,7 +567,7 @@ export default {
       .theme-button {
         width: 100%;
         border-radius: 0;
-        height: 0.44rem;
+        height: 0.52rem;
         font-size: 0.17rem;
         letter-spacing: 2px;
         background-color: #0ac5ca;
@@ -578,11 +578,12 @@ export default {
   .personInfo_root  input {
     text-align: right;
     border: none !important;
-    color: #999999;
+    color: #888;
+    font-size: 16px;
   }
-  .personInfo_root .splitLine input.mint-field-core{
-    font-size: 0.16rem!important;
-  }
+  /*.personInfo_root .splitLine input.mint-field-core{*/
+  /*  font-size: 0.16rem!important;*/
+  /*}*/
   .personInfo_root  .page_text_left input {
     text-align: left;
   }
@@ -595,6 +596,10 @@ export default {
     font-size: 0.145rem;
   }
 
+  .personInfo_root  .mint-cell {
+    min-height: 0.48rem;
+    height: 0.52rem;
+  }
   .personInfo_root  .mint-checklist-title,
   .personInfo_root  .mint-radiolist-title,
   .personInfo_root  .mint-cell-value.is-link {
@@ -607,8 +612,12 @@ export default {
 
   .personInfo_root  .mint-cell-wrapper {
     padding: 0 25px 0px 15px;
+    min-height: 0.48rem;
+    height: 0.52rem;
   }
-
+  .personInfo_root  .mint-cell-wrapper  .mint-cell-title .mint-cell-text{
+   color: #404040;
+  }
   .personInfo_root  .checklist,
   .personInfo_root  .mint-radiolist {
     background: #FFFFFF;
@@ -788,7 +797,7 @@ export default {
   }
 
   .personInfo_root  .splitLine .mint-field .mint-cell-value {
-    color: #999;
+    color: #888;
   }
 
   .personInfo_root  .mint-radiolist.dateSelection .mint-radio-input:checked + .mint-radio-core {
