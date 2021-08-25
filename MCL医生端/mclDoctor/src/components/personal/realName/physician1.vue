@@ -32,7 +32,7 @@
 					<label>医生执照</label>
 				</div>
 			</div>
-			<div class="form" style="margin-top: 0.1rem">
+			<div class="form" style="margin-top: 0.1rem; overflow: hidden">
 				<div class="form_bname  d-flex align-items-center">
           <div>手机号码<span>(<em>*</em>必填)</span></div>
           <div class="flex-grow-1"><input type="" placeholder="请输入手机号码" readonly="readonly" v-model="phonenum" /></div>
@@ -50,29 +50,40 @@
           </mt-cell></div>
         </div>
 
-        <div class="form_bname d-flex align-items-center">
-          <div>地区<span>(<em>*</em>必填)</span></div>
-          <div class="flex-grow-1"><mt-cell title="" is-link @click.native="openCityPicker('show')" >
-					<span>{{param.city || '请选择您所在地区'}}</span>
-				</mt-cell>
-          </div>
-        </div>
+				<div class="form_bname d-flex align-items-center">
+					<div>地区<span>(<em>*</em>必填)</span></div>
+					<div class="flex-grow-1">
+						<mt-cell title="" is-link @click.native="openCityPicker('show')" >
+							<span>{{param.city || '请选择您所在地区'}}</span>
+						</mt-cell>
+					</div>
+				</div>
 
 				<div class="form_bname d-flex align-items-center">
 					<div>医院/公司<span>(<em>*</em>必填)</span></div>
-          <div class="flex-grow-1"><input type="" placeholder="请输入所属医院/公司" v-model="param.hospital" /></div>
+          			<div class="flex-grow-1">
+						<!-- <input type="" placeholder="请输入所属医院/公司" v-model="param.hospital" /> -->
+						<mt-cell title="" is-link @click.native="pickerToggle('show')" >
+							<span>{{param.hospital || '请输入所属医院/公司'}}</span>
+						</mt-cell>
+					</div>
 				</div>
 				<div class="form_bname d-flex align-items-center">
 					<div>科室/部门<span>(<em>*</em>必填)</span></div>
-          <div class="flex-grow-1"><input type="" placeholder="请输入所属科室/部门" v-model="param.department" /></div>
+          			<div class="flex-grow-1">
+						<!-- <input type="" placeholder="请输入所属科室/部门" v-model="param.department" /> -->
+						<mt-cell title="" is-link @click.native="param.hospital ? pickerTogglek('show') : $Toast('请输入所属医院/公司')" >
+							<span>{{param.department || '请输入所属科室/部门'}}</span>
+						</mt-cell>
+					</div>
 				</div>
 				<div class="form_bname d-flex align-items-center">
 					<div>角色<span>(<em>*</em>必填)</span></div>
-          <div class="flex-grow-1">
-            <mt-cell title="" is-link @click.native="pickerTogglez('show')" >
-              <span>{{param.title || '请选择您的角色'}}</span>
-            </mt-cell>
-          </div>
+					<div class="flex-grow-1">
+						<mt-cell title="" is-link @click.native="pickerTogglez('show')" >
+							<span>{{param.title || '请选择您的角色'}}</span>
+						</mt-cell>
+					</div>
 				</div>
 				<div class="form_bname d-flex align-items-center">
 					<div>是否同意将本人信息展示患者端<span>(<em>*</em>必填)</span></div>
@@ -83,12 +94,7 @@
             </mt-cell>
           </div>
 				</div>
-				<!-- <mt-cell title="医院" is-link @click.native="pickerToggle('show')" style="border-bottom: 1px solid #eee">
-					<span>{{param.hospital}}</span>
-				</mt-cell>
-				<mt-cell title="科室" is-link @click.native="pickerTogglek('show')" style="border-bottom: 1px solid #eee;">
-					<span style="">{{param.department}}</span>
-				</mt-cell>
+				<!-- 
 				<mt-cell title="职称" is-link @click.native="pickerTogglez('show')" style="border-bottom: 1px solid #eee">
 					<span>{{param.title}}</span>
 				</mt-cell> -->
@@ -149,9 +155,10 @@
 			<textarea placeholder="输入专业领域、擅长病种等信息" v-model="param.begoodat"></textarea>
 		</div> -->
 		<div class="btn_ok" @click="submit">下一步</div>
-		<!-- 发卡银行picker  -->
+
+		<!-- 医院公司picker  -->
 		<mt-popup v-model="popupVisible" position="bottom">
-			<mt-picker :slots="sexSlots" :showToolbar="true" :visibleItemCount="3" ref="sexPicker">
+			<mt-picker :slots="sexSlots" valueKey="name"  :showToolbar="true" :visibleItemCount="3" ref="sexPicker">
 				<div class="picker_bar">
 					<div class="cancel" @click="pickerToggle('hide')">取消</div>
 					<div class="confrim" @click="editUserInfo">确定</div>
@@ -169,7 +176,7 @@
 		</mt-popup>
 		<!-- 科室picker  -->
 		<mt-popup v-model="popupVisiblek" position="bottom">
-			<mt-picker :slots="sexSlotk" :showToolbar="true" :visibleItemCount="3" ref="sexPickerk">
+			<mt-picker :slots="sexSlotk" valueKey="name" :showToolbar="true" :visibleItemCount="3" ref="sexPickerk">
 				<div class="picker_bar">
 					<div class="cancel" @click="pickerToggle('hide')">取消</div>
 					<div class="confrim" @click="editUserInfok">确定</div>
@@ -217,13 +224,15 @@
 				name: "", //真实姓名
 				sex: "", //性别
 				department: "", //科室
+				departmentskey: "", //科室
 				hospital: "", //医院
+				hospitalskey: "", //医院
 				title: "", //职称
 				city:"",  //城市
 				displayFlag: ""
 			},
 			pdsfz: 1, //判断身份证正反面
-			anios: 1,
+			anios: 2,
 			repData: {
 				Sex: "", //性别
 			},
@@ -232,11 +241,10 @@
 			popupVisiblek: false, //是否显示科室picker
 			popupVisiblez: false, //是否显示职称picker
 			popupVisibleInfo: false, //是否同意将本人信息展示患者端 
+			// 医院公司
 			sexSlots: [{
 				flex: 1,
-				values: ['中国工商银行', '中国农业银行', '中国银行', '中国建设银行', '交通银行', '中信银行', '中国光大银行', '华夏银行', '中国民生银行', '广发银行', '深圳发展银行',
-					'招商银行', '兴业银行', '上海浦东发展银行', '恒丰银行', '浙商银行', '渤海银行', '中国邮政储蓄银行', '北京银行'
-				],
+				values: [],
 				className: 'slot1',
 				textAlign: 'center'
 			}],
@@ -248,9 +256,7 @@
 			}],
 			sexSlotk: [{
 				flex: 1,
-				values: ['中国工商银行2', '中国农业银行', '中国银行', '中国建设银行', '交通银行', '中信银行', '中国光大银行', '华夏银行', '中国民生银行', '广发银行', '深圳发展银行',
-					'招商银行', '兴业银行', '上海浦东发展银行', '恒丰银行', '浙商银行', '渤海银行', '中国邮政储蓄银行', '北京银行'
-				],
+				values: [],
 				className: 'slot1',
 				textAlign: 'center'
 			}],
@@ -274,7 +280,7 @@
 			getphone(){
 				let { UserKey,SessionId } = this.$route.query;
 				let url = `UserInterface/GetUserShowInfo.ashx?UserKey=${UserKey}&SessionId=${SessionId}`;
-				this.$post(url).then((data) => {
+				return this.$post(url).then((data) => {
 					if (data.rspcode != 1) {
 						return;
 					}
@@ -286,10 +292,10 @@
 			  let cityValue = [values[0].name,values[1].name,values[2].name].toString();
 			  this.param.city = cityValue;
 			},
-      //打开citypicker
-      openCityPicker(){
-        this.$refs.cityPicker.show();
-      },
+			//打开citypicker
+			openCityPicker(){
+				this.$refs.cityPicker.show();
+			},
 			downApp() {
 //				let ua = navigator.userAgent.toLowerCase();
 //				//Android终端
@@ -441,14 +447,18 @@
 					this.param.hospital = data.data.validity_time;
 				})
 			},
-			//编辑个人信息
+			// 医院的picker的确定
 			editUserInfo() {
 				const {
 					sexPicker
 				} = this.$refs;
-				let sex = sexPicker.getSlotValue(0);
-				this.param.hospital = sex;
+				let item = sexPicker.getSlotValue(0);
+				this.param.hospital = item.name;
+				this.param.hospitalskey = item.skey;
+				this.param.department = "";
+				this.param.departmentskey = "";
 				this.pickerToggle('hide');
+				this.getDepartmentList(item.skey)
 			},
 			editUserInfos() {
 				const {sexPickers} = this.$refs;
@@ -461,8 +471,9 @@
 				const {
 					sexPickerk
 				} = this.$refs;
-				let sex = sexPickerk.getSlotValue(0);
-				this.param.department = sex;
+				let item = sexPickerk.getSlotValue(0);
+				this.param.department = item.name;
+				this.param.departmentskey = item.skey;
 				this.pickerTogglek('hide');
 			},
 			editUserInfoz() {
@@ -530,21 +541,37 @@
 					input.addEventListener("focus", this.$root.windowRecordScroll.bind(this.$root), false);
 					input.addEventListener("blur", this.$root.windowScrollTop.bind(this.$root), false);
 				})
-			}
+			},
+			// 获取医院的列表
+			getHospitalList(ParentPhone){
+				let url = `UserInterface/doctor/GetHospitalInfo.ashx`;
+				this.$post(url, {ParentPhone}).then((data) => {
+					this.sexSlots[0].values = data.data
+				})
+			},
+			// 获取部门的列表
+			getDepartmentList(HospitalSkey){
+				let url = `UserInterface/doctor/GetDepartmentInfo.ashx`;
+				this.$post(url, {HospitalSkey}).then((data) => {
+					this.sexSlotk[0].values = data.data
+				})
+			},
 		},
-		mounted() {
-			this.getphone();
+		async mounted() {
+			await this.getphone();
 			// this.showInform();
-			this.downApp();
+			// this.downApp();
 			window.showbg = this.showbg;
-			let that = this;
 			//头像的弹窗
-			this.userActions = [{
-				name: '更换头像',
-				method: this.openAlbum
-			}]
+			// this.userActions = [{
+			// 	name: '更换头像',
+			// 	method: this.openAlbum
+			// }]
 			//初始化input的事件
 			this.inputInputBulr()
+			const {parentPhone} = this.$route.query
+			// 获取医院的列表
+			this.getHospitalList(parentPhone)
 		},
 		components:{
 			cityPicker: () => import(/* webpackChunkName: "cityData" */"./../../common/cityPicker.vue")

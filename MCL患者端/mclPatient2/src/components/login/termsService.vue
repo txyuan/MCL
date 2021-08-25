@@ -85,8 +85,8 @@ export default {
       role2: '2',
       role3: '',
       role4: '1,4',
-      role5: '4,8',
-      role6: '4',
+      role5: '6',
+      role6: '1,4',
       role7: '4',
       role8: '4'
     },
@@ -253,11 +253,11 @@ export default {
           } else if (this.role == 4) {
             // 实名认证
             if ((data.doctorflag == '1') || (!data.doctorflag)) {
-              location.href = `${DOCTORURL}#/physician1?UserKey=${data.userkey}&SessionId=${data.session_id}`
+              location.href = `${DOCTORURL}#/physician1?UserKey=${data.userkey}&SessionId=${data.session_id}&parentPhone=${this.rphone}`
             }
             // 医师认证
             if (data.doctorflag == '2') {
-              location.href = `${DOCTORURL}#/physician1?UserKey=${data.userkey}&SessionId=${data.session_id}`
+              location.href = `${DOCTORURL}#/physician1?UserKey=${data.userkey}&SessionId=${data.session_id}&parentPhone=${this.rphone}`
             }
           } else if (this.role == 5 || this.role == 6 || this.role == 7 || this.role == 8) {
             // 渠道端
@@ -275,15 +275,15 @@ export default {
     if (role) {
       this.rphone = rphone
       // 地区渠道商的手机号码
-      if((role == 5) && (rphone == "15523523851")){
-        this.role = '5';
-        this.roleList = this.roleList.filter(item => String(item.value) == "5")
-      }else{
+      // if((role == 5) && (rphone == "15523523851")){
+      //   this.role = '5';
+      //   this.roleList = this.roleList.filter(item => String(item.value) == "5")
+      // }else{
       // 这个用户可以选择注册的角色
         let JurisdictionRole = this.roleMap['role' + role].split(',') 
         this.roleList = this.roleList.filter(item => JurisdictionRole.includes(String(item.value)))  // 显示用户可以选择注册的角色
         this.role = JurisdictionRole[0]
-      }
+      // }
     }
   },
   beforeRouteEnter (to, from, next) {

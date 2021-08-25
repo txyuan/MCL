@@ -33,6 +33,14 @@
                 @change="doBMI">&nbsp;kg
       </mt-field>
       <mt-field label="BMI" placeholder="BMI" class="borderBottom required" :readonly="true" v-model.trim="param.bmi"></mt-field>
+      <mt-cell is-link class="sportEvaluation-wrap borderBottom required" @click.native="$route.query.type === 'look' ? $Toast('不能修改管理类型') : doctorVisible = true">
+        <div slot="title" class="titleWrap">
+          <span class="mint-cell-text">绑定医生</span>
+        </div>
+        <div class="sportEvaluation">
+          {{doctorName}}
+        </div>
+      </mt-cell>
       <mt-cell is-link class="sportEvaluation-wrap borderBottom required" @click.native="$route.query.type === 'look' ? $Toast('不能修改管理类型') : sportPickerToggles('show')">
         <div slot="title" class="titleWrap">
           <span class="mint-cell-text">管理类型</span>
@@ -63,6 +71,16 @@
         <div class="picker_bar">
           <div class="cancel" @click="sexPickerToggle('hide')">取消</div>
           <div class="confrim" @click="sexConfirm">确定</div>
+        </div>
+      </mt-picker>
+    </mt-popup>
+
+    <!-- 医生picker  -->
+    <mt-popup class="doctorPicker" v-model="doctorVisible" position="bottom">
+      <mt-picker :slots="doctorSlot" :showToolbar="true" :visibleItemCount="3" valueKey="name" ref="doctorPickers" @change="closeTouch"  @cancel="openTouch">
+        <div class="picker_bar">
+          <div class="cancel" @click="doctorVisible = false">取消</div>
+          <div class="confrim" @click="doctorConfirm">确定</div>
         </div>
       </mt-picker>
     </mt-popup>
@@ -115,7 +133,8 @@ export default {
       weight: '', // 体重
       bmi: '', // BMI
       diseasetype: '01', // 管理类型（01：肿瘤，02：健康 03：体重）
-      location: '' // 所在地
+      location: '', // 所在地
+      doctorSkey: ''  // 医生
     },
 
     // 性别picker
@@ -135,7 +154,18 @@ export default {
       values: [{name: '肿瘤管理', id: '01'}, {name: '健康管理', id: '02'}],
       className: 'slot1',
       textAlign: 'center'
-    }]
+    }],
+
+    // 医生的picker
+    doctorName: '请选择医生',
+    doctorVisible: false,
+    doctorSlot: [{
+      flex: 1,
+      values: [],
+      className: 'slot1',
+      textAlign: 'center'
+    }],
+    
   }),
   methods: {
 
@@ -217,7 +247,17 @@ export default {
       this.param.diseasetype = state.id
       this.sportPickerToggles('hide')
     },
-
+    // 医生的picker 确定事件
+    doctorConfirm(){
+      this.openTouch()
+      const {
+        doctorPickers
+      } = this.$refs
+      let state = doctorPickers.getSlotValue(0)
+      this.doctorName = state.name
+      this.param.doctorSkey = state.skey
+      this.doctorVisible = false
+    },
     // 打开日期插件
     openTimePicker (timeField) {
       this.closeTouch()
@@ -245,6 +285,13 @@ export default {
       this.$refs.cityPicker.show()
     },
 
+    // 获取医生的列表
+    getDoctorList(ParentPhone){
+      let url = `UserInterface/doctor/GetDoctorInfo.ashx`;
+      this.$post(url).then((data) => {
+        this.doctorSlot[0].values = data.data
+      })
+    },
     // 新增提交
     addSubmit () {
       const param = Object.assign({}, this.param)
@@ -282,7 +329,10 @@ export default {
         this.$Toast('请输入体重')
         return false
       }
-
+      if (param.doctorSkey == '') {
+        this.$Toast('请选择医生')
+        return false
+      }
       // if (param.location == '') {
       //   this.$Toast('请选择您所在地区')
       //   return false
@@ -328,6 +378,9 @@ export default {
         this.openTouch()
       }
     })
+
+    // 获取医生的列表
+    this.getDoctorList()
   }
 }
 </script>

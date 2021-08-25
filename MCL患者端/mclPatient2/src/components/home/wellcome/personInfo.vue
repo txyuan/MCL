@@ -33,6 +33,7 @@
                 @change="doBMI">&nbsp;kg
       </mt-field>
       <mt-field label="BMI" placeholder="BMI" class="borderBottom required" :readonly="true" v-model.trim="param.bmi"></mt-field>
+      <mt-field label="绑定医生" placeholder="" class="borderBottom required" :readonly="true" v-model.trim="param.doctorName"></mt-field>
     </div>
 
     <div class="splitLine base">
@@ -124,7 +125,8 @@ export default {
       weight: '', // 体重
       bmi: '', // BMI
       diseasetype: '01', // 管理类型（01：肿瘤，02：健康 03：体重）
-      location: '' // 所在地
+      location: '', // 所在地
+      doctorName: ''  // 医生
     },
 
     // 性别picker

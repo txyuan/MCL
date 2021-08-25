@@ -30,7 +30,7 @@ const CHANNELURL = 'http://clichatest.marryhealthscience.com/channel/index.html'
 // 微信公众号appid
 const APPID = 'wx12ed81f322f0f7b5'
 // 测试接口地址
-const BASEURL = 'http://clicstest.marryhealthscience.com'
+const BASEURL = 'http://online.marryhealthscience.com'
 
 export {
   KFURL,
