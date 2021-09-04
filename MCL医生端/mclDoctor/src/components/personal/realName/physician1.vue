@@ -81,7 +81,7 @@
 					<div>角色<span>(<em>*</em>必填)</span></div>
 					<div class="flex-grow-1">
 						<mt-cell title="" is-link @click.native="pickerTogglez('show')" >
-							<span>{{param.title || '请选择您的角色'}}</span>
+							<span>{{doctorRole || '请选择您的角色'}}</span>
 						</mt-cell>
 					</div>
 				</div>
@@ -185,7 +185,7 @@
 		</mt-popup>
 		<!-- 职称picker  -->
 		<mt-popup v-model="popupVisiblez" position="bottom">
-			<mt-picker :slots="sexSlotz" :showToolbar="true" :visibleItemCount="3" ref="sexPickerz">
+			<mt-picker :slots="sexSlotz" valueKey="name" :showToolbar="true" :visibleItemCount="3" ref="sexPickerz">
 				<div class="picker_bar">
 					<div class="cancel" @click="pickerTogglez('hide')">取消</div>
 					<div class="confrim" @click="editUserInfoz">确定</div>
@@ -241,6 +241,7 @@
 			popupVisiblek: false, //是否显示科室picker
 			popupVisiblez: false, //是否显示职称picker
 			popupVisibleInfo: false, //是否同意将本人信息展示患者端 
+			doctorRole: "", // 角色的name
 			// 医院公司
 			sexSlots: [{
 				flex: 1,
@@ -262,8 +263,7 @@
 			}],
 			sexSlotz: [{
 				flex: 1,
-				values: [ '主任医师', '副主任医师','主治医师', '医师',  '护士', '医学顾问', '营养师'
-				],
+				values: [ '主任医师', '副主任医师','主治医师', '医师',  '护士', '医学顾问', '营养师'],
 				className: 'slot1',
 				textAlign: 'center'
 			}],
@@ -480,8 +480,9 @@
 				const {
 					sexPickerz
 				} = this.$refs;
-				let sex = sexPickerz.getSlotValue(0);
-				this.param.title = sex;
+				let item = sexPickerz.getSlotValue(0);
+				this.param.title = item.skey;
+				this.doctorRole = item.name;
 				this.pickerTogglez('hide');
 			},
 			confirmInfo(){
@@ -556,6 +557,13 @@
 					this.sexSlotk[0].values = data.data
 				})
 			},
+			// 获取角色的列表
+			getDoctorRoleList(){
+				let url = `UserInterface/doctor/GetDoctorRoleInfo.ashx`;
+				this.$post(url).then((data) => {
+					this.sexSlotz[0].values = data.data
+				})
+			},
 		},
 		async mounted() {
 			await this.getphone();
@@ -572,6 +580,8 @@
 			const {parentPhone} = this.$route.query
 			// 获取医院的列表
 			this.getHospitalList(parentPhone)
+			// 获取角色的列表
+			this.getDoctorRoleList()
 		},
 		components:{
 			cityPicker: () => import(/* webpackChunkName: "cityData" */"./../../common/cityPicker.vue")

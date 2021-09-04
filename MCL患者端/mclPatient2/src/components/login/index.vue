@@ -124,40 +124,41 @@ export default {
           return
         }
 		// 患者端
-        // if ((data.data.userType == 1) || (data.data.userType == 2) || (data.data.userType == 3)) {
-		// 存登录信息
-		localStorage.userInfo = JSON.stringify({
-			UserKey: data.data.userKey,
-			SessionId: data.data.sessionId,
-			userType: data.data.userType
-		})
-		const redirect = this.$route.query.redirect
-		this.$Toast('登录成功')
-		// const userinfoflag = data.data.userinfoflag // 1:线下，2：线上
-		// const PatientDistinguish = data.data.PatientDistinguish // 是否录入基本信息0：未录入，1：已录入
-		// // 0：未录入 2：线上
-		// if ((PatientDistinguish == 2) && (userinfoflag == 0)) {
-		// 	this.$router.replace('/wellcome')
-		// 	return
-		// };
-		const userinfoflag = data.data.userinfoflag // 1:线下，2：线上
-		if (userinfoflag == 0) {
-			this.$router.replace('/wellcome')
-			return
-		}
-		if (redirect) {
-			// 报告查询页面
-			if (redirect == '/eyeconme') {
-				this.$router.replace('/wellcome?redirect=/eyeconme')
-			} else {
-				this.$router.replace(redirect)
+		const roles = ['1', '2', '3', '4']; // 允许登录的角色。患者，患者家人，路人，医生
+        if (roles.includes(String(data.data.userType))) {
+			// 存登录信息
+			localStorage.userInfo = JSON.stringify({
+				UserKey: data.data.userKey,
+				SessionId: data.data.sessionId,
+				userType: data.data.userType
+			})
+			const redirect = this.$route.query.redirect
+			this.$Toast('登录成功')
+			// const userinfoflag = data.data.userinfoflag // 1:线下，2：线上
+			// const PatientDistinguish = data.data.PatientDistinguish // 是否录入基本信息0：未录入，1：已录入
+			// // 0：未录入 2：线上
+			// if ((PatientDistinguish == 2) && (userinfoflag == 0)) {
+			// 	this.$router.replace('/wellcome')
+			// 	return
+			// };
+			const userinfoflag = data.data.userinfoflag // 1:线下，2：线上
+			if (userinfoflag == 0) {
+				this.$router.replace('/wellcome')
+				return
 			}
-		} else {
-			this.$router.replace('/wx_Entrance/home')
-		}
-        // } else {
-        //   	this.$Toast('该账号权限不匹配')
-        // }
+			if (redirect) {
+				// 报告查询页面
+				if (redirect == '/eyeconme') {
+					this.$router.replace('/wellcome?redirect=/eyeconme')
+				} else {
+					this.$router.replace(redirect)
+				}
+			} else {
+				this.$router.replace('/wx_Entrance/home')
+			}
+        } else {
+          	this.$Toast('该账号权限不匹配')
+        }
 		// // 渠道端
 		// else if (getUserType() == 'channel') {
 		// 	setTimeout(() => {
