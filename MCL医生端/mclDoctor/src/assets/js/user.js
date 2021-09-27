@@ -1,5 +1,5 @@
 import router from '@/router/index.js' // 路由
-import {PATIENTURL} from '@/configURL.js'
+// import {PATIENTURL} from '@/configURL.js'
 
 export function logout(redirect = router.currentRoute.fullPath){
     localStorage.removeItem('userInfo')

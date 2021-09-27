@@ -68,7 +68,7 @@
 			</div>
 		</div>
 
-		<div class="fix_bottom" @click="saveOrders">
+		<div class="fix_bottom" @click="pay">
 			<mt-button type="danger" size="large">确认支付</mt-button>
 		</div>
 		<div class="pay_state" v-if="isShow">
@@ -110,7 +110,7 @@ export default {
 		}
 		],
 		isShowpay: 0,
-		paymoney: '余额', // 支付方式
+		paymoney: '微信', // 支付方式
 		payFlag: 1,
 		ABflag,
 		orderFrom,
@@ -233,33 +233,43 @@ export default {
         this.$Toast(data.rspdesc)
       })
     },
-    // 余额支付
-    saveOrders () {
-      let url = 'UserInterface/cart/orderPay.ashx'
-      let ABflag = this.$route.query.ABflag
-      this.$Indicator.loading()
-      // orderFrom  0: 购物车过来的
-      let param = {
-		"orderFrom": this.$route.query.orderFrom,
-		"addressId": "",
-		"note": "",
-		"cardsKey": '',
-		"time": "2017-12-22 18:20",
-		"orderPayType": 1,
-		// "payFlag":this.payFlag,
-		ABflag
-	  }
-      this.$post(url, param).then((data) => {
-        this.$Indicator.close()
-        this.$Toast(data.rspdesc)
-        if (data.rspcode != 1) {
-          return
-        }
-        this.$router.push({
-		  path: '/wx_Entrance/personal'
-		})
-      })
-    },
+    // 保存订单
+    // saveOrders (orderPayType) {
+    //   let url = 'UserInterface/cart/orderPayImmediately.ashx'
+    //   let addressId = (this.defaultAdr.addressId) ? this.defaultAdr.addressId : ''
+    //   let ABflag = this.$route.query.ABflag
+    //   this.$Indicator.loading()
+    //   // orderFrom  0: 购物车过来的
+    //   let param = {
+    //     'orderFrom': this.$route.query.orderFrom,
+    //     'addressId': addressId,
+    //     'note': '',
+    //     'cardsKey': '',
+    //     'time': '2017-12-22 18:20',
+    //     'orderPayType': orderPayType,
+    //     ABflag,
+    //     'orderType': this.$route.query.orderType
+    //   }
+    //   this.$post(url, param).then((data) => {
+    //     this.$Indicator.close()
+    //     this.$Toast(data.rspdesc)
+    //     if (data.rspcode != 1) {
+    //       return
+    //     }
+    //     // 2：管理套餐
+    //     if (param.orderType == 2) {
+    // 			 	this.$router.push({
+    //         path: '/managePackage'
+    //       })
+    //     }
+    //     // 3：商品订单
+    //     if (param.orderType == 3) {
+    // 			 	this.$router.push({
+    //         path: '/personalgetproduct'
+    //       })
+    //     }
+    //   })
+    // },
     showsta () {
       this.isShow = true
     },

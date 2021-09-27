@@ -1,13 +1,12 @@
 import axios from 'axios';
 import Qs from 'qs'
 import router from '@/router/index.js' //路由
-import { BASEURL } from '@/configURL.js'
 import {logout} from '@/assets/js/user.js' // 退出登录
 // axios.defaults.timeout = 5000;
 
 // 开发模式
 if (process.env.NODE_ENV == 'development') {
-  axios.defaults.baseURL = BASEURL
+  axios.defaults.baseURL = 'http://clidoctest.marryhealthscience.com'
 }else{
   axios.defaults.baseURL = '/'
 }

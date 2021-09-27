@@ -3,11 +3,10 @@ import Qs from 'qs'
 import router from '@/router/index.js' // 路由
 import { logout } from '@/assets/js/uesr.js' // 退出登录
 // axios.defaults.timeout = 5000;
-import {BASEURL} from '@/configURL.js' // 退出登录
 
 // 开发模式
 if (process.env.NODE_ENV == 'development') {
-  axios.defaults.baseURL = BASEURL
+  axios.defaults.baseURL = "http://online.marryhealthscience.com"
 }else{
   axios.defaults.baseURL = '/'
 }
