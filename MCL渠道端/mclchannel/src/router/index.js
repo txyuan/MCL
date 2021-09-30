@@ -97,7 +97,8 @@ const router = new Router({
     { path:"/personalshare", name:"personalshare", component: personal_share },
     { path:"/personal_commission", name:"personal_commission", component: personal_commission },
 	  { path:"/yjcardRefund", name:"yjcardRefund", component: yjcardRefund },
-    { path:"/personal_achievement", name:"personal_achievement", component: personal_achievement },
+    { path:"/personal_achievement", name:"personal_achievement", component: personal_achievement, meta:{keepAlive: true} },
+    { path:"/achievementDetail", name:"achievementDetail", component: () => import(/* webpackChunkName: "personal_achievement" */ '@/components/personal/achievement/achievementDetail.vue') },
     { path:"/friendachieve/:friendsKey", name:"friendachieve", component: friendachieve },
 
     { path:"/personalreceivingadress", name:"personalreceivingadress", component: personal_receivingadress },

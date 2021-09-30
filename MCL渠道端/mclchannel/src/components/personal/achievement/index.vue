@@ -1,6 +1,6 @@
 <template>
 	<div class="achievement_root padding-header">
-		<mt-header title="我的业绩" fixed class="borderBottom">
+		<mt-header title="当月业绩" fixed class="borderBottom">
 			<div slot="left">
 				<header-back>
 					<mt-button icon="back"></mt-button>
@@ -15,7 +15,7 @@
 			</p>
 		</div>
 
-		<div id="navbar" class="borderBottom" v-if="isShowBar">
+		<div id="navbar" class="card_navbar borderBottom" v-if="isShowBar">
 			<mt-navbar v-model="selected">
 				<mt-tab-item id="tab0" @click.native="tabClick('1')">
 					<p>渠道业绩</p>
@@ -30,16 +30,39 @@
 		</div>
 
 		<!-- tab-container -->
-		<loadMore :param="param" @triggerGetList="getList" ref="loadMoreE" class="padding-footer">
-			<div slot="content">
-				<mt-cell v-for="(item,index) in list" :title="item.money" :label="item.create_date" :key="index" class="borderBottom">
-					<div class="right text-right">
-						<span>{{item.remarks}}</span>
-						<span class="mint-cell-label">{{item.contactPhone}}</span>
+		<div class="borderpay">
+			<loadMore :param="param" :isDefaultLoading="false" @triggerGetList="getList" ref="loadMoreE" class="padding-footer">
+				<div slot="content">
+					<div class="callddh" v-for="(item,index) in list" :key="index">
+						<div class="card_cont">
+							<div class="card_cont_tit">
+								<div class="card_img">
+									<!-- <img v-if="param.direction == 1" src="../../../assets/images/qdjl.png"/> -->
+									<img v-if="param.direction == 2" src="../../../assets/images/kdy.png"/>
+									<img v-if="param.direction == 3" src="../../../assets/images/yha.png"/>
+								</div>
+								<!-- <div class="card_img">
+									<img :src="item.ImgUrl"/>
+								</div> -->
+								<div class="card_cont_txt"><span>{{item.name}}</span>{{item.phone}}</div>
+							</div>
+							<div class="card_cont_xq align-items-center">
+								<div class="card_cont_xqwb"  v-if="param.direction == 2">
+									<p>医院名称：{{item.HospitalName}}</p>
+								</div>
+								<div class=" d-flex justify-content-between">
+									<p class=" flex-grow-1">业绩金额：{{item.achievement}}元</p>
+									<div class="card_cont_btn" v-if="param.direction == 2">
+										<mt-button type="danger" size="large" @click="$router.push(`/achievementDetail?skey=${item.doctorsKey}`)">查看详情</mt-button>
+									</div>
+								</div>
+								
+							</div>
+						</div>
 					</div>
-				</mt-cell>
-			</div>
-		</loadMore>
+				</div>
+			</loadMore>
+		</div>
 	</div>
 </template>
 
@@ -48,13 +71,14 @@
 	export default {
 		name: "achievement",
 		data: () => ({
+			isLoad: false, // 是否加载过接口
 			selected: "tab0",
 			isShowBar: false, //是否显示分类
 			pickerVisible: false,
 			total_performance: '', //总业绩
-			personal_performance: '', //个人业绩
-			direct_performance: '', //直推业绩
-			community_performance: '', //社区业绩
+			// personal_performance: '', //个人业绩
+			// direct_performance: '', //直推业绩
+			// community_performance: '', //社区业绩
 			list: [],
 			param: {
 				"pagesize": 10,
@@ -85,39 +109,37 @@
 					this.list = [];
 				}
 				this.$post(url, this.param).then((data) => {
-					if (data.rspCode != 1) {
+					if (data.rspcode != 1) {
 						return;
 					}
+					this.isLoad = true
 					let modelList = data.data;
 					this.list = [...this.list, ...modelList]
 					//加载更多组件触发回调
 					if (success) {
 						success(modelList, this.list)
 					}
-					const {
-						total_performance,
-						personal_performance,
-						direct_performance,
-						community_performance
-					} = data;
+					const {	total_performance } = data;
 					this.total_performance = total_performance;
-					this.personal_performance = personal_performance;
-					this.direct_performance = direct_performance;
-					this.community_performance = community_performance;
-
 				})
 			},
-		},
-		mounted(){
-			const type= this.$route.query.type;
-			if(type){
-				this.tabClick(type);
-				if(type==2){
-					this.selected='tab1'
-				}else if(type==3){
-					this.selected='tab2'
+			loadPage(){
+				let type = this.$route.query.type;
+				type = type ?  type : 1
+				if(type){
+					this.tabClick(type);
+					if(type==1){
+						this.selected='tab0'
+					}else if(type==2){
+						this.selected='tab1'
+					}else if(type==3){
+						this.selected='tab2'
+					}
 				}
-			}
+			},
+		},
+		
+		mounted(){
 			
 		},
 		created() {
@@ -132,6 +154,27 @@
 					this.isShowBar = true
 				}
 			}
+		},
+		beforeRouteEnter (to, form, next) {
+			next((vm) => {
+				// 解锁加载更多
+				vm.$refs.loadMoreE.isLock = true
+				// 从详情页面返回，列表接口如果没有被加载过，需要加载接口
+				if (form.name === 'achievementDetail' && !vm.isLoad) {
+					vm.tabClick('2')
+				}
+				// 非详情页面进来
+				if (form.name !== 'achievementDetail') {
+					vm.loadPage()
+				}
+			})
+		},
+		beforeRouteLeave (to, form, next) {
+			// 去详情页面，关锁加载更多
+			if (to.name === 'achievementDetail') {
+				this.$refs.loadMoreE.isLock = false
+			}
+			next()
 		},
 		components: {
 			loadMore
@@ -195,4 +238,107 @@
 			}
 		}
 	}
+
+	.card_navbar{
+    margin-top: 0.1rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+	.callddh {
+		position: relative;
+		.calldh {
+			position: absolute;
+			height: 0.26rem;
+			top: 50%;
+			margin-top: -0.13rem;
+			left: 48%;
+		}
+	}
+	.callddh .content{
+		display: flex;
+		justify-content: space-between;
+		line-height: 45px;
+		background: #fff;
+		padding: 0 5px;
+		font-size: 14px;
+		border-bottom: 1px solid #eee;
+	}
+  .borderpay{
+    background-color: #FFFFFF;
+    padding-top: 0.05rem;
+    .card_cont{
+      width: 88%;
+      margin: 0.2rem auto;
+      box-shadow: 1px 3px 6px 0px rgba(0,0,0,0.1);
+      border-radius: 0.1rem;
+      padding: 0.05rem 0;
+      .card_cont_tit{
+        border-bottom: 1px solid #e5e5e5;
+        position: relative;
+        display: block;
+        .card_img{
+          display: inline-block;
+          position: absolute;
+          left:0.1rem ;
+          top: 0.04rem;
+          img{
+            width: 0.32rem;
+            height: 0.32rem;
+						border-radius: 50%;
+          }
+        }
+        .card_cont_txt{
+          height: 0.4rem;
+          padding-left: 0.52rem;
+          line-height: 0.4rem;
+          font-size: 0.16rem;
+          span{
+            font-size: 0.17rem;
+            display: inline-block;
+            padding-right: 0.1rem;
+            color: #202020;
+          }
+        }
+      }
+      .card_cont_xq{
+        padding: 0.1rem 0.15rem 0.1rem 0.52rem;
+        .card_cont_xqwb{
+          font-size: 0.145rem;
+          color: #666666;
+          line-height: 1.6;
+        }
+        .card_cont_btn{
+          .mint-button{
+            height: auto;
+            font-size: 0.13rem;
+            padding: 0.02rem 0 0.025rem 0;
+            text-align: center;
+            border-radius: 6px;
+            width: 0.7rem;
+          }
+        }
+      }
+    }
+  }
+
+	.d-flex {
+    display: -ms-flexbox!important;
+    display: flex!important;
+  }
+  .justify-content-around {
+    -ms-flex-pack: distribute!important;
+    justify-content: space-around!important;
+  }
+  .justify-content-between {
+    -ms-flex-pack: justify!important;
+    justify-content: space-between!important;
+  }
+  .align-items-center {
+    -ms-flex-align: center!important;
+    align-items: center!important;
+  }
+  .flex-grow-1 {
+    -ms-flex-positive: 1!important;
+    flex-grow: 1!important;
+  }
 </style>

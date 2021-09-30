@@ -98,22 +98,24 @@
 				<div class="mmy_de home_yej">
 					<div class="mmy_ded">
 						<span></span>
-						<p>我的业绩</p>
+						<p>当月业绩 
+							<i class="des">（{{performanceinfo.personalperformance}}）</i>
+						</p>
 						<router-link to="/personal_achievement">
 							<label>更多</label>
 						</router-link>
 					</div>
 					<div class="home_my">
 						<div class="home_li" @click="qdyetz">
-							<span>{{performanceinfo.personalperformance}}</span>
+							<!-- <span>{{performanceinfo.personalperformance}}</span> -->
 							<p>渠道业绩</p>
 						</div>
 						<div class="home_li" @click="qdyetz2">
-							<span>{{performanceinfo.teamperformance}}</span>
+							<!-- <span>{{performanceinfo.teamperformance}}</span> -->
 							<p>医生业绩</p>
 						</div>
 						<div class="home_li" @click="qdyetz3">
-							<span>{{performanceinfo.communityperformance}}</span>
+							<!-- <span>{{performanceinfo.communityperformance}}</span> -->
 							<p>员工业绩</p>
 						</div>
 					</div>
@@ -339,7 +341,7 @@ export default {
         this.usermanageinfo.usermanageinfo = usermanageinfo.patientcount // 新增患者
         this.usermanageinfo.usertotalcount = usermanageinfo.usertotalcount // 累计用户
 
-        // 我的业绩
+        // 当月业绩
         let performanceinfo = data.achievement
         this.performanceinfo.personalperformance = performanceinfo.personalperformance // 员工
         this.performanceinfo.teamperformance = performanceinfo.teamperformance // 医生
@@ -541,7 +543,11 @@ export default {
 				color: #333;
 				line-height: 0.16rem;
 			}
-
+			p .des{
+				font-size: 0.13rem;
+				color: #FF9000;
+				font-style: normal;
+			}
 			label {
 				font-size: 0.12rem;
 				color: #999;

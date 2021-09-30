@@ -63,13 +63,10 @@
               </div>
               <div class="card_cont_xq d-flex justify-content-between align-items-center">
                 <div class="card_cont_xqwb flex-grow-1">
-                  <p v-if="param.type == 2">病人人数：{{item.userCount}}人</p>
-                  <p v-else>医生人数：{{item.userCount}}人</p>
-                  <p v-if="param.type == 2">邀请医生：{{item.invitationDoctorCount}}人</p>
-                  <p>业绩金额：{{item.achievementMoney}}元</p>
-                  <p>创建时间：{{item.create_date}}</p>
+                  <p v-if="param.type == 2">医院名称：{{item.HospitalName}}人</p>
+                  <p>业绩金额：{{item.achievement}}元</p>
                 </div>
-                <div class="card_cont_btn">
+                <div class="card_cont_btn" v-if="param.type == 2">
                   <mt-button type="danger" size="large" @click="$router.push(`/userListDetails?sKey=${item.sKey}&type=${param.type}&contactname=${item.contactname}`)">查看详情</mt-button>
                 </div>
               </div>

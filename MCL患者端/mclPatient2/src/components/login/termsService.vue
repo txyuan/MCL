@@ -86,7 +86,7 @@ export default {
       role3: '',
       role4: '1,4',
       role5: '6',
-      role6: '4',
+      role6: '4,1',
       role7: '4',
       role8: '4'
     },

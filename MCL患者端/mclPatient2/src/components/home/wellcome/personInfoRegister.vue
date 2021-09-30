@@ -33,7 +33,7 @@
                 @change="doBMI">&nbsp;kg
       </mt-field>
       <mt-field label="BMI" placeholder="BMI" class="borderBottom required" :readonly="true" v-model.trim="param.bmi"></mt-field>
-      <mt-cell is-link class="sportEvaluation-wrap borderBottom required" @click.native="$route.query.type === 'look' ? $Toast('不能修改管理类型') : doctorVisible = true">
+      <mt-cell is-link class="sportEvaluation-wrap borderBottom required" @click.native="doctorFlag == '1' ? $Toast('不能修改绑定医生') : doctorVisible = true">
         <div slot="title" class="titleWrap">
           <span class="mint-cell-text">绑定医生</span>
         </div>
@@ -41,7 +41,7 @@
           {{doctorName}}
         </div>
       </mt-cell>
-      <mt-cell is-link class="sportEvaluation-wrap borderBottom required" @click.native="$route.query.type === 'look' ? $Toast('不能修改管理类型') : sportPickerToggles('show')">
+      <mt-cell is-link class="sportEvaluation-wrap borderBottom required" @click.native="sportPickerToggles('show')">
         <div slot="title" class="titleWrap">
           <span class="mint-cell-text">管理类型</span>
         </div>
@@ -165,7 +165,7 @@ export default {
       className: 'slot1',
       textAlign: 'center'
     }],
-    
+    doctorFlag: ""
   }),
   methods: {
 
@@ -286,10 +286,16 @@ export default {
     },
 
     // 获取医生的列表
-    getDoctorList(ParentPhone){
+    getDoctorList(){
       let url = `UserInterface/doctor/GetDoctorInfo.ashx`;
       this.$post(url).then((data) => {
         this.doctorSlot[0].values = data.data
+        this.doctorFlag = data.flag
+        // 0:没有绑定医生，1:已绑定医生（不能修改）
+        if(data.flag == 1){
+          this.doctorName = data.data[0].name
+          this.param.doctorSkey = data.data[0].skey
+        }
       })
     },
     // 新增提交
