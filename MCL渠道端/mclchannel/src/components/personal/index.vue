@@ -161,7 +161,7 @@
 							<span>{{managementData.commission}}</span>
 						</div>
 					</router-link> -->
-					<router-link :to="'/personal_achievement'">
+					<router-link to="/personal_achievement?flag=2">
 						<div class="person_gxz person_ye person_yj">
 							<img src="@/assets/images/wodeyeji@2x.png" />
 							<p>我的业绩</p>

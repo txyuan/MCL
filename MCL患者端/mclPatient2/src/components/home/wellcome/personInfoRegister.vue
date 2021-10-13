@@ -87,14 +87,14 @@
     </mt-popup>
 
     <!-- 疾病类型picker  -->
-    <mt-popup class="sportPicker" v-model="sportVisible" position="bottom">
+    <!-- <mt-popup class="sportPicker" v-model="sportVisible" position="bottom">
       <mt-picker :slots="sportSlot" :showToolbar="true" :visibleItemCount="3" valueKey="name" ref="sportPickers" @change="closeTouch"  @cancel="openTouch">
         <div class="picker_bar">
           <div class="cancel" @click="sportPickerToggles('hide')">取消</div>
           <div class="confrim" @click="sportConfirm">确定</div>
         </div>
       </mt-picker>
-    </mt-popup>
+    </mt-popup> -->
 
     <!-- 城市picker -->
     <!-- <cityPicker @confrim="cityPickerChange" ref="cityPicker" @change="closeTouch" @cancel="openTouch"/> -->
@@ -133,9 +133,9 @@ export default {
       // height: '', // 身高
       // weight: '', // 体重
       // bmi: '', // BMI
-      diseasetype: '01', // 管理类型（01：肿瘤，02：健康 03：体重）
+      // diseasetype: '01', // 管理类型（01：肿瘤，02：健康 03：体重）
       // location: '', // 所在地
-      // doctorSkey: ''  // 医生
+      doctorSkey: ''  // 医生
     },
 
     // 性别picker
@@ -227,27 +227,27 @@ export default {
     },
 
     // 疾病类型picker
-    sportPickerToggles (state) {
-      if (state == 'show') {
-        this.closeTouch()
-        this.sportVisible = true
-      }
-      if (state == 'hide') {
-        this.openTouch()
-        this.sportVisible = false
-      }
-    },
+    // sportPickerToggles (state) {
+    //   if (state == 'show') {
+    //     this.closeTouch()
+    //     this.sportVisible = true
+    //   }
+    //   if (state == 'hide') {
+    //     this.openTouch()
+    //     this.sportVisible = false
+    //   }
+    // },
     // 疾病类型picker 确定事件
-    sportConfirm () {
-      this.openTouch()
-      const {
-        sportPickers
-      } = this.$refs
-      let state = sportPickers.getSlotValue(0)
-      this.sportDefaultName = state.name
-      this.param.diseasetype = state.id
-      this.sportPickerToggles('hide')
-    },
+    // sportConfirm () {
+    //   this.openTouch()
+    //   const {
+    //     sportPickers
+    //   } = this.$refs
+    //   let state = sportPickers.getSlotValue(0)
+    //   this.sportDefaultName = state.name
+    //   this.param.diseasetype = state.id
+    //   this.sportPickerToggles('hide')
+    // },
     // 医生的picker 确定事件
     doctorConfirm(){
       this.openTouch()
@@ -302,14 +302,14 @@ export default {
     // 新增提交
     addSubmit () {
       const param = Object.assign({}, this.param)
-      const diseasetype = this.param.diseasetype // 管理类型（01：肿瘤，02：健康 03：体重）
+      // const diseasetype = this.param.diseasetype // 管理类型（01：肿瘤，02：健康 03：体重）
       if (this.diseaseSubmit()) {
-        let url = ''
-        if (diseasetype === '01') {
-          url = 'UserInterface/AddConditionDiseaseTumour.ashx'
-        } else if (diseasetype === '02') {
-          url = 'UserInterface/AddConditionDiseaseDisease.ashx'
-        }
+        let url = 'UserInterface/AddConditionDiseaseTumour.ashx'
+        // if (diseasetype === '01') {
+          // url = 'UserInterface/AddConditionDiseaseTumour.ashx'
+        // } else if (diseasetype === '02') {
+        //   url = 'UserInterface/AddConditionDiseaseDisease.ashx'
+        // }
         this.$post(url, param).then((data) => {
           if (data.rspcode != 1) {
             this.$Toast(data.rspdesc)
@@ -370,7 +370,7 @@ export default {
     vm = this
     this.openTouch()
     // 回显表单数据
-    this.sportConfirm() // 设置默认的管理类型
+    // this.sportConfirm() // 设置默认的管理类型
 
     // 监听时间插件的关闭
     this.$watch('$refs.DatetimePicker.visible',function(val){

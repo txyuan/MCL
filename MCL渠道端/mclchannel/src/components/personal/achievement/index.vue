@@ -1,6 +1,6 @@
 <template>
 	<div class="achievement_root padding-header">
-		<mt-header title="当月业绩" fixed class="borderBottom">
+		<mt-header :title="param.flag == 1 ? '当月业绩' : '我的业绩'" fixed class="borderBottom">
 			<div slot="left">
 				<header-back>
 					<mt-button icon="back"></mt-button>
@@ -14,7 +14,6 @@
 				{{total_performance}}
 			</p>
 		</div>
-
 		<div id="navbar" class="card_navbar borderBottom" v-if="isShowBar">
 			<mt-navbar v-model="selected">
 				<mt-tab-item id="tab0" @click.native="tabClick('1')">
@@ -53,7 +52,7 @@
 								<div class=" d-flex justify-content-between">
 									<p class=" flex-grow-1">业绩金额：{{item.achievement}}元</p>
 									<div class="card_cont_btn" v-if="param.direction == 2">
-										<mt-button type="danger" size="large" @click="$router.push(`/achievementDetail?skey=${item.doctorsKey}`)">查看详情</mt-button>
+										<mt-button type="danger" size="large" @click="$router.push(`/achievementDetail?flag=${param.flag}&skey=${item.doctorsKey}`)">查看详情</mt-button>
 									</div>
 								</div>
 								
@@ -70,23 +69,25 @@
 	import loadMore from "@/components/common/loadMore.vue"; //加载更多组件
 	export default {
 		name: "achievement",
-		data: () => ({
-			isLoad: false, // 是否加载过接口
-			selected: "tab0",
-			isShowBar: false, //是否显示分类
-			pickerVisible: false,
-			total_performance: '', //总业绩
-			// personal_performance: '', //个人业绩
-			// direct_performance: '', //直推业绩
-			// community_performance: '', //社区业绩
-			list: [],
-			param: {
-				"pagesize": 10,
-				"pagecount": 0,
-				"direction": "1",
-				//"years": ""  // "" : 全部,  2019-06
-			},
-		}),
+		data: function() {
+			return {
+				isLoad: false, // 是否加载过接口
+				selected: "tab0",
+				isShowBar: false, //是否显示分类
+				pickerVisible: false,
+				total_performance: '', //总业绩
+				// personal_performance: '', //个人业绩
+				// direct_performance: '', //直推业绩
+				// community_performance: '', //社区业绩
+				list: [],
+				param: {
+					"pagesize": 10,
+					"pagecount": 0,
+					"direction": "1",
+					"flag": "1"
+				},
+			}
+		},
 		methods: {
 			//tab切换
 			tabClick(val) {
@@ -124,18 +125,24 @@
 				})
 			},
 			loadPage(){
-				let type = this.$route.query.type;
-				type = type ?  type : 1
-				if(type){
-					this.tabClick(type);
-					if(type==1){
-						this.selected='tab0'
-					}else if(type==2){
+				//员工或渠道经理账号权限：不分佣金类型
+				if (localStorage.userInfo) {
+					const UserInfo = JSON.parse(localStorage.userInfo);
+					const UserType = UserInfo.userType; //6  推广员工   7 发货员工  8  渠道经理 
+					if (UserType == "6") {
+						this.isShowBar = false;
+						this.tabClick('2');
 						this.selected='tab1'
-					}else if(type==3){
-						this.selected='tab2'
+					} else {
+						this.isShowBar = true
+						this.tabClick('1');
+						this.selected='tab0'
 					}
 				}
+				
+				// 区分当月业绩和我的业绩
+				const flag = this.$route.query.flag
+				this.param.flag = flag
 			},
 		},
 		
@@ -143,17 +150,7 @@
 			
 		},
 		created() {
-			//员工或渠道经理账号权限：不分佣金类型
-			if (localStorage.userInfo) {
-				const UserInfo = JSON.parse(localStorage.userInfo);
-				const UserType = UserInfo.userType; //6  推广员工   7 发货员工  8  渠道经理 
-				if (UserType == "6" || UserType == "7" || UserType == "8") {
-					this.isShowBar = false;
-					this.param.direction = "";
-				} else {
-					this.isShowBar = true
-				}
-			}
+			
 		},
 		beforeRouteEnter (to, form, next) {
 			next((vm) => {

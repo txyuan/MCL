@@ -117,7 +117,7 @@ export default {
       let url = 'UserInterface/UserLogin.ashx'
       let param = {
         'userphone': this.phone,
-		'vercode': this.code,
+				'vercode': this.code,
         'openid': localStorage.openId
       }
       this.$post(url, param).then((data) => {
@@ -125,7 +125,8 @@ export default {
           this.$Toast(data.rspdesc)
           return
         }
-        if ((data.data.userType == 5) || (data.data.userType == 6) || (data.data.userType == 7) || (data.data.userType == 8)) {
+				//  || (data.data.userType == 7) || (data.data.userType == 8)
+        if ((data.data.userType == 5) || (data.data.userType == 6)) {
           // 存登录信息
           localStorage.userInfo = JSON.stringify({
             UserKey: data.data.userKey,

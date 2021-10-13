@@ -27,13 +27,14 @@
 	export default {
 		name: "achievement",
 		data: function(){
-			const skey= this.$route.query.skey;
+			const {skey, flag}= this.$route.query;
 			return {
 				list: [],
 				param: {
 					"pagesize": 10,
 					"pagecount": 0,
-					skey
+					skey,
+					flag
 				},
 			}
 		},
