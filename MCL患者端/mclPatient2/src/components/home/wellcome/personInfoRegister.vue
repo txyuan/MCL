@@ -1,5 +1,5 @@
 <template>
-  <div class="personInfo_root padding-header padding-footer">
+  <div class="personInfo_root padding-header ">
     <mt-header title="个人信息" fixed>
       <div slot="left">
         <header-back>
@@ -7,14 +7,14 @@
         </header-back>
       </div>
     </mt-header>
-    <!-- <div class="tip">请保证录入信息真实有效</div>-->
+    
     <div class="splitLine">
       <mt-field label="姓名" placeholder="请输入姓名" class="borderBottom required" v-model.trim="param.name"></mt-field>
       <mt-cell title="性别" is-link @click.native="sexPickerToggle('show')" class="borderBottom required">
         <span v-if="param.sex == '男'">男</span>
         <span v-if="param.sex == '女'">女</span>
       </mt-cell>
-      <mt-cell title="出生日期" is-link @click.native="openTimePicker('param.birth')" class="borderBottom required">
+      <!-- <mt-cell title="出生日期" is-link @click.native="openTimePicker('param.birth')" class="borderBottom required">
         <span>{{param.birth || '请选择出生日期'}}</span>
       </mt-cell>
 
@@ -32,7 +32,7 @@
       <mt-field label="体重" placeholder="请输入体重" class="borderBottom required" v-model.trim="param.weight"
                 @change="doBMI">&nbsp;kg
       </mt-field>
-      <mt-field label="BMI" placeholder="BMI" class="borderBottom required" :readonly="true" v-model.trim="param.bmi"></mt-field>
+      <mt-field label="BMI" placeholder="BMI" class="borderBottom required" :readonly="true" v-model.trim="param.bmi"></mt-field> -->
       <mt-cell is-link class="sportEvaluation-wrap borderBottom required" @click.native="doctorFlag == '1' ? $Toast('不能修改绑定医生') : doctorVisible = true">
         <div slot="title" class="titleWrap">
           <span class="mint-cell-text">绑定医生</span>
@@ -41,15 +41,16 @@
           {{doctorName}}
         </div>
       </mt-cell>
-      <mt-cell is-link class="sportEvaluation-wrap borderBottom required" @click.native="sportPickerToggles('show')">
+      <!-- <mt-cell is-link class="sportEvaluation-wrap borderBottom required" @click.native="sportPickerToggles('show')">
         <div slot="title" class="titleWrap">
           <span class="mint-cell-text">管理类型</span>
         </div>
         <div class="sportEvaluation">
           {{sportDefaultName}}
         </div>
-      </mt-cell>
+      </mt-cell> -->
     </div>
+    <div class="tip">请填写患者本人信息，方便精准进行管理</div>
 
     <!--  体重管理-->
     <!-- <weightTab ref="weightTab" v-show="param.diseasetype == '03'"/> -->
@@ -96,7 +97,7 @@
     </mt-popup>
 
     <!-- 城市picker -->
-    <cityPicker @confrim="cityPickerChange" ref="cityPicker" @change="closeTouch" @cancel="openTouch"/>
+    <!-- <cityPicker @confrim="cityPickerChange" ref="cityPicker" @change="closeTouch" @cancel="openTouch"/> -->
 
     <!-- 时间picker -->
     <mt-datetime-picker ref="DatetimePicker" @change="closeTouch" type="date"
@@ -111,7 +112,7 @@
 </template>
 
 <script>
-import cityPicker from '@/components/common/cityPicker2.vue'
+// import cityPicker from '@/components/common/cityPicker2.vue'
 
 function getTime (d) {
   let year = d.getFullYear()
@@ -128,13 +129,13 @@ export default {
     param: {
       name: '', // 姓名
       sex: '男', // 姓名
-      birth: '', // 出生日期
-      height: '', // 身高
-      weight: '', // 体重
-      bmi: '', // BMI
+      // birth: '', // 出生日期
+      // height: '', // 身高
+      // weight: '', // 体重
+      // bmi: '', // BMI
       diseasetype: '01', // 管理类型（01：肿瘤，02：健康 03：体重）
-      location: '', // 所在地
-      doctorSkey: ''  // 医生
+      // location: '', // 所在地
+      // doctorSkey: ''  // 医生
     },
 
     // 性别picker
@@ -363,7 +364,7 @@ export default {
     },
   },
   components: {
-    cityPicker
+    // cityPicker
   },
   mounted () {
     vm = this
@@ -405,7 +406,7 @@ export default {
   .personInfo_root{
     background-color: #f1f1f1;
     padding-top: 0.48rem;
-    padding-bottom:0.54rem;
+    // padding-bottom:0.54rem;
     min-height: 100vh;
     box-sizing: border-box;
   }
@@ -413,9 +414,10 @@ export default {
   .tip {
     font-size: 0.14rem;
     line-height: 0.45rem;
-    text-align: center;
-    background: #FFD3B5;
-    color: #F78335;
+    padding: 0 15px;
+    // text-align: center;
+    // background: #FFD3B5;
+    color: red;
   }
 
   .title,

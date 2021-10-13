@@ -12,7 +12,7 @@ const DOCTORURL = 'http://clidoc.marryhealthscience.com/doctor/index.html' // �
 const CHANNELURL = 'http://clicha.marryhealthscience.com/channel/index.html' // 渠道端域名
 
 
-/* 测试环境配置  */ 
+/* 测试环境配置  */
 // const KFURL = 'http://clicstest.marryhealthscience.com'
 // const KFCONFIG = {
 //   org_name: "1105200109113529",

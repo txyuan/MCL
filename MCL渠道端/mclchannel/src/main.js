@@ -102,7 +102,7 @@ var vm = new Vue({
     		  text = "地区渠道商";
     			break;
     		case "6":
-    		  text = "推广员工";
+    		  text = "渠道员工";
     			break;
     		case "7":
     		  text = "发货员工";

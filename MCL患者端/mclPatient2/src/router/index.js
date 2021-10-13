@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import { getUserType, goHome, logout } from '@/assets/js/uesr.js' //用户类型
+import { getUserInfo } from '@/api/person.js'
+
 //导入页面
 const wx_Entrance = () => import(/* webpackChunkName: "wx_Entrance" */ '@/components/wxEntrance/index.vue')
 const wxFollowPage = () => import(/* webpackChunkName: "wxFollowPage" */ '@/components/wxFollowPage/index.vue')  //扫码关注微信页面
@@ -567,24 +569,35 @@ router.beforeEach((to, from, next) => {
     return
   }
 
-  // 已经登录，用户不是患者端。（跳转到系统首页）
-  // if ((localStorage.userInfo) && (getUserType() != 'patient')) {
-  //   // 开发环境，退出重新登录。正式环境，返回首页
-  //   if (process.env.NODE_ENV == 'development') {
-  //     logout()
-  //   }else{
-  //     goHome()
-  //   }
-  //   return
-  // }
-
   // 已经登录，不能再进入登录页面（跳转到系统首页）
   if ((localStorage.userInfo) && (to.name == 'login')) {
     goHome()
     return
   }
+  
+  // 白名单内的页面 和 完善个人信息页面，不需要判断完善个人信息
+  if ((whiteRouteList.indexOf(to.name) == -1) && (to.name != "wellcome_personInfoRegister") && localStorage.userInfo) {
+    // 判断是否需要完善个人信息
+    perfectInfo()
+  }
+
   next()
 })
+
+// 判断是否需要完善个人信息
+let flag = false
+async function perfectInfo(){
+  if(flag){ return }
+  const data = await getUserInfo();
+  const type_disease = data.data.type_disease
+  if(type_disease == null){
+    Vue.prototype.$MessageBox.alert('请完善个人信息').then(action => {
+      router.replace("/wellcome_personInfoRegister")
+    });
+  }else{
+    flag = true
+  }
+}
 
 export default router
 

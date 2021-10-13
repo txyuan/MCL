@@ -36,11 +36,11 @@
 										<!--<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
 											<span>查看物流</span>
 										</div>-->
-										<div class="f-btn ok" style="float: left;" v-if="btnfh" @click="shopfh(item)">
+										<div class="f-btn ok" style="float: left;" @click="shopfh(item)">
 											<span>确认发货</span>
 										</div>
 									</div>
-									<div v-else-if="item.state  == '2'" style="overflow: hidden;">
+									<!-- <div v-else-if="item.state  == '2'" style="overflow: hidden;"> -->
 										<!-- <div class="f-btn ok laood" style="float: left;" @click="delmoy(item,3)">
 											<span>删除订单</span>
 										</div> -->
@@ -50,7 +50,7 @@
 										<!--<div class="f-btn ok" style="float: left;" @click="againsh(item)">
 											<span>再次购买</span>
 										</div>-->
-									</div>
+									<!-- </div> -->
 								</div>
 							</div>
 							<div slot="footer" class="foot">
@@ -164,7 +164,7 @@ export default {
       Logistics_number: '',
 	  sKey: ''
     },
-    btnfh: false
+    // btnfh: false
   }),
   methods: {
     tab (val) {
@@ -177,14 +177,14 @@ export default {
       }, 200)
     },
     // 是否可发货
-    isshopfh () {
-      const userInfo = JSON.parse(localStorage.userInfo)
-      if ((userInfo.userType == '5') || (userInfo.userType == '7')) {
-        this.btnfh = true
-      } else {
-        this.btnfh = false
-      }
-    },
+    // isshopfh () {
+    //   const userInfo = JSON.parse(localStorage.userInfo)
+    //   if ((userInfo.userType == '5') || (userInfo.userType == '7')) {
+    //     this.btnfh = true
+    //   } else {
+    //     this.btnfh = false
+    //   }
+    // },
     // 所得商品列表   UserInterface/ProductOrderDetailInfoList.ashx
     shoplist (success) {
       let url = 'UserInterface/channel/ChannelOrderDetailInfoList.ashx'

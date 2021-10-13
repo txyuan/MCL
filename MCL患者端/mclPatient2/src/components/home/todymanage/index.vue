@@ -1,10 +1,10 @@
 <template>
-  <div class="padding-footer"  v-if="isLoad">
+  <div class="padding-footer">
     <mt-header title="诊疗" fixed></mt-header>
     <div class="todymag">
       <div class="tody_ul">
         <div class="tody_list">
-          <div class="d-flex  mag_list" @click="type_disease ? $router.push(`/wellcome_personInfo?type=look&diseasetype=${type_disease}`): ()=>{}">
+          <div class="d-flex  mag_list" @click="$router.push(`/wellcome_personInfo?type=look&diseasetype=01`)">
             <div class="mag_icon"> <img src="@/assets/images/icons/icon-jkda.png" /></div>
             <div class="mag_text ">
               <strong>健康档案</strong>
@@ -131,8 +131,8 @@
   export default {
     name: 'index',
     data: () => ({
-      picurl: '',
-      uname: '',
+      // picurl: '',
+      // uname: '',
       type_disease: '', // 完善资料的类型
       isLoad: false,
       messageInfo: {},
@@ -143,8 +143,8 @@
         let url = 'UserInterface/GetUserShowInfo.ashx'
         this.$post(url).then((data) => {
           if (data.rspcode == 1) {
-            this.picurl = data.data.ImgUrl
-            this.uname = data.data.Nickname
+            // this.picurl = data.data.ImgUrl
+            // this.uname = data.data.Nickname
             this.type_disease = data.data.type_disease
             if(data.data.type_disease == null){
               this.$router.replace("/wellcome_personInfoRegister")
@@ -174,7 +174,7 @@
       }
     },
     created () {
-      this.getinform()
+      // this.getinform()
       this.getMsgInfo()
       // 获取健康管理的页面的状态
       this.getStatus()
