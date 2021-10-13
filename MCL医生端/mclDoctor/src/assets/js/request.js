@@ -4,13 +4,7 @@ import router from '@/router/index.js' //路由
 import {logout} from '@/assets/js/user.js' // 退出登录
 // axios.defaults.timeout = 5000;
 
-// 开发模式
-if (process.env.NODE_ENV == 'development') {
-  axios.defaults.baseURL = 'http://clidoctest.marryhealthscience.com'
-}else{
-  axios.defaults.baseURL = '/'
-}
-
+axios.defaults.baseURL = '/'
 //http request 拦截器
 axios.interceptors.request.use(
   config => {

@@ -10,7 +10,13 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/UserInterface': {
+        // 测试环境
+        target: 'http://clidoctest.marryhealthscience.com', // 接口域名
+        changeOrigin: true, // 是否跨域
+      }
+    },
 
     // Various Dev Server settings
     host: '0.0.0.0', // can be overwritten by process.env.HOST
