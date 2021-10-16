@@ -100,12 +100,13 @@
 				<div class="dogbz">
 					<p>物流公司</p>
 					<select v-model="params.Logistics_company">
+						<option value="">请选择</option>
 						<option v-for="(item,index) in pcsList" :key="index" :value="item.names">{{item.names}}</option>
 					</select>
 				</div>
 				<div class="dogbz">
 					<p>物流编号</p>
-					<input type="text" v-model="params.Logistics_number"/>
+					<input type="text" v-model="params.Logistics_number" placeholder="请输入物流编号"/>
 				</div>
 				<div class="btn_pk">
 					<div class="f-btn default" style="float: left;" @click="delfat()">
@@ -301,18 +302,18 @@ export default {
         return
       }
       this.$Indicator.loading()
-	  let url = 'UserInterface/order/ConfirmOrder.ashx'
-	  this.$post(url, this.params).then((data) => {
-	    this.$Indicator.close()
-	    if (data.rspCode != 1) {
-	      this.$Toast(data.rspdesc)
-	      return
-	    }
-        this.wlifshow = false
-        this.params.sKey = ''
-	    this.$Toast('确认收货成功')
-	    this.tab(this.param.status)
-	  })
+			let url = 'UserInterface/order/ConfirmOrder.ashx'
+			this.$post(url, this.params).then((data) => {
+				this.$Indicator.close()
+				if (data.rspCode != 1) {
+					this.$Toast(data.rspdesc)
+					return
+				}
+					this.wlifshow = false
+					this.params.sKey = ''
+				this.$Toast('确认发货成功')
+				this.tab(this.param.status)
+			})
     },
     //  确认收货
     shopsh (item) {
@@ -351,7 +352,7 @@ export default {
     }
   },
   mounted () {
-	  this.isshopfh()
+	  // this.isshopfh()
     let type = this.$route.query.type
     if (type) {
       this.filterList.forEach((item, index) => {
@@ -378,7 +379,9 @@ export default {
 
 <style scoped lang="scss">
 	@import "@/assets/css/base.scss";
-
+	.fix_top{
+		z-index: 50;
+	}
 	.atret{
 		width: 100%;
 		height: 100vh;
@@ -386,7 +389,7 @@ export default {
 		position: fixed;
 		left: 0;
 		top: 0;
-		z-index: 9999;
+		z-index: 99;
 		.ayutr{
 			width: 92%;
 			height: 3.0rem;
