@@ -10,7 +10,7 @@
           <i class="icons icon-doctor"></i>
 					<label>基本信息</label>
 				</div>
-				<div class="phys_list">
+				<!-- <div class="phys_list">
 					<p>
 						<span></span>
 					</p>
@@ -23,7 +23,7 @@
 					</p>
           <i class="icons icon-photo"></i>
 					<label>个人照片</label>
-				</div>
+				</div> -->
 				<div class="phys_list">
 					<p>
 						<span></span>
@@ -60,7 +60,7 @@
 				</div>
 
 				<div class="form_bname d-flex align-items-center">
-					<div>医院/公司<span>(<em>*</em>必填)</span></div>
+					<div>医院/公司<span></span></div>
           			<div class="flex-grow-1">
 						<!-- <input type="" placeholder="请输入所属医院/公司" v-model="param.hospital" /> -->
 						<mt-cell title="" is-link @click.native="pickerToggle('show')" >
@@ -69,7 +69,7 @@
 					</div>
 				</div>
 				<div class="form_bname d-flex align-items-center">
-					<div>科室/部门<span>(<em>*</em>必填)</span></div>
+					<div>科室/部门<span></span></div>
           			<div class="flex-grow-1">
 						<!-- <input type="" placeholder="请输入所属科室/部门" v-model="param.department" /> -->
 						<mt-cell title="" is-link @click.native="param.hospital ? pickerTogglek('show') : $Toast('请输入所属医院/公司')" >
@@ -229,7 +229,7 @@
 				hospitalskey: "", //医院
 				title: "", //职称
 				city:"",  //城市
-				displayFlag: ""
+				displayFlag: "1"
 			},
 			pdsfz: 1, //判断身份证正反面
 			anios: 2,
@@ -508,14 +508,14 @@
 					this.$Toast("请选择城市")
 					return;
 				}
-				if (param.hospital == "") {
-					this.$Toast("请输入所属医院")
-					return;
-				}
-				if (param.department == "") {
-					this.$Toast("请输入所属科室")
-					return;
-				}
+				// if (param.hospital == "") {
+				// 	this.$Toast("请输入所属医院")
+				// 	return;
+				// }
+				// if (param.department == "") {
+				// 	this.$Toast("请输入所属科室")
+				// 	return;
+				// }
 				if (param.title == "") {
 					this.$Toast("请选择角色")
 					return;
@@ -531,7 +531,7 @@
 					if (data.rspcode != 1) {
 						return;
 					}
-					this.$router.push(`/physician2?UserKey=${UserKey}&SessionId=${SessionId}`);
+					this.$router.push(`/physician4?UserKey=${UserKey}&SessionId=${SessionId}`);
 				})
     },
 			//input 添加失去焦点事件
@@ -837,8 +837,8 @@
     padding: 0.2rem 0;
     background-color: #FFFFFF;
     color: #666666;
+		position: relative;
 		.phys_list{
-      position: relative;
       &.aaccv{
         color: #307aed;
         .icon-doctor{
@@ -879,13 +879,14 @@
         background-image: url("../../../assets/images/icon-license.png");
       }
 			p{
-        width: 76%;
+        width: 25%;
         height: 0.02rem;
         border-bottom: 1px dashed #bababa;
         position: absolute;
-        margin-top: 0.14rem;
-        top: 0;
-        left: -80%;
+				top: 0.35rem;
+				left: 0;
+				right: 0;
+				margin: auto;
 			}
 			label{
 				display: block;

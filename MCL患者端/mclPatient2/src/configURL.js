@@ -1,5 +1,5 @@
 /* 正式环境配置  */
-const environment = "product"
+// const environment = "product"
 // app端客服地址
 const KFURL = 'http://clics.marryhealthscience.com'
 // 客服端配置信息

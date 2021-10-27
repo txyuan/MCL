@@ -14,7 +14,6 @@
       <div class="note">
         <div class="note-title"><span>为什么要做自测？</span></div>
         <div class="note-view" :class="{'auto': isOpen}" ref="noteView">
-          <!-- <div class="note-content">水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水 水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水 水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水水来与各种食物和饮水</div> -->
           <div v-html="memo" class="note-content"></div>
         </div>
         <div v-show="isShowIcon" class="note-icon" :class="{'open': isOpen}" @click="isOpen = !isOpen"></div>

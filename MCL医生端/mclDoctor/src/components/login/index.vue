@@ -125,7 +125,7 @@ export default {
           return
         }
         if ((data.data.userType == 4)) {
-          if (data.rspcode == 2) {
+          if (data.data.doctorinfoflag == 0) { // 1：已录入 0: 跳转到填写医生基本信息页面
             this.$router.push(`/physician1?UserKey=${data.data.userKey}&SessionId=${data.data.sessionId}`)
             return
           }
@@ -133,7 +133,7 @@ export default {
           localStorage.userInfo = JSON.stringify({
             UserKey: data.data.userKey,
             SessionId: data.data.sessionId,
-			userType: data.data.userType
+						userType: data.data.userType
           })
           this.$Toast('登录成功')
           if (this.$route.query.redirect) {

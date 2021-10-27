@@ -13,7 +13,7 @@
         <i class="icons icon-doctor"></i>
         <label>基本信息</label>
       </div>
-      <div class="phys_list aaccv">
+      <!-- <div class="phys_list aaccv">
         <p>
           <span></span>
         </p>
@@ -26,7 +26,7 @@
         </p>
         <i class="icons icon-photo"></i>
         <label>个人照片</label>
-      </div>
+      </div> -->
       <div class="phys_list aaccv">
         <p>
           <span></span>
@@ -47,7 +47,7 @@
         <div class="img text-center" style="margin-bottom: 10px">
           <div class="defaultImg" v-if="isShowDefalutIdCardA">
             <img :src="idCardA" alt="">
-            <p style="color: #787878"> <img src="../../../assets/images/编组 3@2x.png" style="height: 0.33rem;width: 0.46rem; margin: 0;display: block;margin: 0 auto 0.1rem auto;"/>医师执业证</p>
+            <p style="color: #787878"> <img src="../../../assets/images/编组 3@2x.png" style="height: 0.33rem;width: 0.46rem; margin: 0;display: block;margin: 0 auto 0.1rem auto;"/>工作证</p>
           </div>
           <div class="newImg" v-else>
             <img :src="param.practisingimg" alt="">
@@ -58,41 +58,33 @@
         <div class="img text-center" style="margin-bottom: 10px">
           <div class="defaultImg" v-if="isShowDefalutIdCardB">
             <img :src="idCardB" alt="" id="bb">
-            <p style="color: #787878"> <img src="../../../assets/images/编组 3@2x.png" style="height: 0.33rem;width: 0.46rem; margin: 0;display: block;margin: 0 auto 0.1rem auto;"/>医生工牌 </p>
-
+            <p style="color: #787878"> <img src="../../../assets/images/编组 3@2x.png" style="height: 0.33rem;width: 0.46rem; margin: 0;display: block;margin: 0 auto 0.1rem auto;"/>护士证 </p>
           </div>
           <div class="newImg" v-else>
             <img :src="param.workcardimg" alt="">
           </div>
-          <!-- <input v-if="anios==1" type="file" accept="image/*" @click="changes('B')" ref="idCardBFile"> -->
           <input type="file" accept="image/*" @change="change($event,'B')" ref="idCardBFile">
         </div>
-        <div class="img text-center" style="margin-bottom: 10px">
+        <!-- <div class="img text-center" style="margin-bottom: 10px">
           <div class="defaultImg" v-if="isShowDefalutIdCardC">
             <img :src="idCardC" alt="">
             <p style="color: #787878"> <img src="../../../assets/images/编组 3@2x.png" style="height: 0.33rem;width: 0.46rem; margin: 0;display: block;margin: 0 auto 0.1rem auto;"/>医师资格证 </p>
-
           </div>
           <div class="newImg" v-else>
             <img :src="param.qualificationsimg" alt="">
           </div>
-          <!-- <input v-if="anios==1" type="file" accept="image/*" name="uploadedFile" @click="changes('C')" ref="idCardAFile"> -->
           <input type="file" accept="image/*" name="uploadedFile" @change="change($event,'C')" ref="idCardAFile">
         </div>
         <div class="img text-center">
           <div class="defaultImg" v-if="isShowDefalutIdCardD">
             <img :src="idCardD" alt="" id="bb">
             <p style="color: #787878"> <img src="../../../assets/images/编组 3@2x.png" style="height: 0.33rem;width: 0.46rem; margin: 0;display: block;margin: 0 auto 0.1rem auto;"/>医师职称证 </p>
-
           </div>
           <div class="newImg" v-else>
             <img :src="param.professionalimg" alt="">
           </div>
-          <!-- <input v-if="anios==1" type="file" accept="image/*" @click="changes('D')" ref="idCardBFile"> -->
           <input type="file" accept="image/*" @change="change($event,'D')" ref="idCardBFile">
-          <!-- <input v-if="anios==3" type="file" accept="image/*" @click="changes('D')" ref="idCardBFile">
-        <input v-else type="file" accept="image/*" @change="change($event,'D')" ref="idCardBFile"> -->
-        </div>
+        </div> -->
       </div>
       <div class="shzyd">
         <div class="tits"><em></em>擅长</div>
@@ -110,8 +102,8 @@
 	export default {
 		name: "realName",
 		data: () => ({
-			isShowDefalutIdCardA: true, //是否显示默认医师执业证
-			isShowDefalutIdCardB: true, //是否显示默认医生工牌
+			isShowDefalutIdCardA: true, //是否显示默认工作证
+			isShowDefalutIdCardB: true, //是否显示默认护士证
 			isShowDefalutIdCardC: true, //是否显示默认医师资格证
 			isShowDefalutIdCardD: true, //是否显示默认医师职称证
 			idCardA: "https://resource.jtsc.club/zhengmian@2x.png", //默认正面
@@ -120,10 +112,10 @@
 			idCardD: "https://resource.jtsc.club/beimian@2x.png", //默认反面
 			param: {
 				IdNumber: "", //身份证号
-				practisingimg: "", //医师执业证
-				workcardimg: "", //医生工牌
-				qualificationsimg: "", //医师资格证
-				professionalimg: "", //医师职称证
+				practisingimg: "", //工作证
+				workcardimg: "", //护士证
+				// qualificationsimg: "", //医师资格证
+				// professionalimg: "", //医师职称证
 				begoodat:"",  //擅长
 			},
 			pdsfz: 1, //判断身份证正反面
@@ -180,29 +172,30 @@
 						}
 						this.param.workcardimg = response.data.url;
 					})
-				} else if (type == 'C') {
-					let params = new FormData(); //创建form对象
-					params.append('uploadedFile', file); //通过append向form对象添加数据
-					this.isShowDefalutIdCardC = false;
-					this.param.qualificationsimg = url;
-					axios.post(`UserInterface/UploadFile.ashx?UserKey=${UserKey}&SessionId=${SessionId}`, params, config).then(response => {
-						if (response.data.rspcode != 1) {
-							return;
-						}
-						this.param.qualificationsimg = response.data.url;
-					})
-				} else if (type == 'D') {
-					let params = new FormData(); //创建form对象
-					params.append('uploadedFile', file); //通过append向form对象添加数据
-					this.isShowDefalutIdCardD = false;
-					this.param.professionalimg = url;
-					axios.post(`UserInterface/UploadFile.ashx?UserKey=${UserKey}&SessionId=${SessionId}`, params, config).then(response => {
-						if (response.data.rspcode != 1) {
-							return;
-						}
-						this.param.professionalimg = response.data.url;
-					})
 				}
+				//  else if (type == 'C') {
+				// 	let params = new FormData(); //创建form对象
+				// 	params.append('uploadedFile', file); //通过append向form对象添加数据
+				// 	this.isShowDefalutIdCardC = false;
+				// 	this.param.qualificationsimg = url;
+				// 	axios.post(`UserInterface/UploadFile.ashx?UserKey=${UserKey}&SessionId=${SessionId}`, params, config).then(response => {
+				// 		if (response.data.rspcode != 1) {
+				// 			return;
+				// 		}
+				// 		this.param.qualificationsimg = response.data.url;
+				// 	})
+				// } else if (type == 'D') {
+				// 	let params = new FormData(); //创建form对象
+				// 	params.append('uploadedFile', file); //通过append向form对象添加数据
+				// 	this.isShowDefalutIdCardD = false;
+				// 	this.param.professionalimg = url;
+				// 	axios.post(`UserInterface/UploadFile.ashx?UserKey=${UserKey}&SessionId=${SessionId}`, params, config).then(response => {
+				// 		if (response.data.rspcode != 1) {
+				// 			return;
+				// 		}
+				// 		this.param.professionalimg = response.data.url;
+				// 	})
+				// }
 			},
 			changes(types) {
 				if (types == 'A') {
@@ -290,17 +283,17 @@
 					this.$Toast("请输入有效的身份证码")
 					return
 				}
-				
-				if (IsCard(param.IdNumber) || (param.practisingimg != "") || (param.workcardimg != "") || (param.qualificationsimg != "") || (param.professionalimg != "")) {
+				//|| (param.qualificationsimg != "") || (param.professionalimg != "")
+				if (IsCard(param.IdNumber) || (param.practisingimg != "") || (param.workcardimg != "") ) {
 				}else{
 					this.$Toast("请至少至少选一证件上传或者输入身份证号")
 					return
 				}
 
-				if((param.begoodat =='')){
-					this.$Toast("输入专业领域、擅长病种等信息")
-					return
-				}
+				// if((param.begoodat =='')){
+				// 	this.$Toast("输入专业领域、擅长病种等信息")
+				// 	return
+				// }
 				
 				let { UserKey,SessionId } = this.$route.query;
 				let url = `UserInterface/doctor/InsertDoctorInfo3.ashx?UserKey=${UserKey}&SessionId=${SessionId}`;
@@ -565,8 +558,8 @@
     padding: 0.2rem 0;
     background-color: #FFFFFF;
     color: #666666;
+		position: relative;
     .phys_list{
-      position: relative;
       &.aaccv{
         color: #307aed;
         .icon-doctor{
@@ -607,13 +600,14 @@
         background-image: url("../../../assets/images/icon-license.png");
       }
       p{
-        width: 76%;
+        width: 25%;
         height: 0.02rem;
         border-bottom: 1px dashed #bababa;
         position: absolute;
-        margin-top: 0.14rem;
-        top: 0;
-        left: -80%;
+				top: 0.35rem;
+				left: 0;
+				right: 0;
+				margin: auto;
       }
       label{
         display: block;

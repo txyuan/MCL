@@ -153,10 +153,10 @@ router.beforeEach((to, from, next) => {
   }
  
   // 已经登录，用户不是渠道端。（跳转到系统首页）
-  if ((localStorage.userInfo) && (getUserType() != 'doctor')) {
-    logout(to.fullPath)
-    return
-  }
+  // if ((localStorage.userInfo) && (getUserType() != 'doctor')) {
+  //   logout(to.fullPath)
+  //   return
+  // }
   
   // 已经登录，不能再进入登录页面（跳转到系统首页）
   if ((localStorage.userInfo) && (to.name == 'login')) {
