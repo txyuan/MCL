@@ -62,6 +62,7 @@
 import { DOCTORURL, CHANNELURL } from '@/configURL.js'
 import identify from '@/components/common/identify.vue'
 import logoImg from '@/assets/images/mclogo.png'
+import { getSelfphone } from "@/utils/storage.js"
 
 export default {
   name: 'register',
@@ -88,7 +89,7 @@ export default {
       role5: '6',
       role6: '4,1',
       role7: '4',
-      role8: '4'
+      role9: '1',
     },
     roleList: [{
       value: '',
@@ -269,6 +270,12 @@ export default {
   },
   components: {
     identify
+  },
+  created(){
+    // 从缓存读取用户输入的手机号码
+		if(getSelfphone()){
+			 this.phone = getSelfphone()
+		}
   },
   mounted: function () {
     const {rphone, role} = this.$route.query

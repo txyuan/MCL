@@ -9,7 +9,7 @@
 		</mt-header>
 		
 		<div class="textdiv">
-			<textarea v-model="usernames">{{usernames}}</textarea>
+			<textarea v-model="usernames"  placeholder="输入专业领域、擅长病种等信息"></textarea>
 		</div>
 
 		<div class="btn">

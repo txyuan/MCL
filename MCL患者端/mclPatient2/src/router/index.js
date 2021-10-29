@@ -501,6 +501,11 @@ const router = new Router({
 	//{ path:"/notOpen", name:"notOpen", component: notOpen},
     { path:"/notopenq", name:"notopenq", component: notopenq},
     { path:"/inviteFriends", name:"inviteFriends", component: inviteFriends},
+
+    // 转发小工具
+    { path:"/forwardingGadget", name:"forwardingGadget", component: () => import(/* webpackChunkName: "forwardingGadget" */ '@/components/personal/forwardingGadget/index.vue'), meta:{keepAlive: true}},
+    { path:"/getGoctorList", name:"getGoctorList", component: () => import(/* webpackChunkName: "forwardingGadget" */ '@/components/personal/forwardingGadget/doctorList.vue') },
+
     
     /*  自测小工具（还没用） */
     // { path:"/singlePage_home", name:"singlePage_home", component: () => import(/* webpackChunkName: "singlePage_home" */ '@/view/singlePage/home.vue')},  //入口页面
@@ -553,7 +558,9 @@ const router = new Router({
 })
 
 // 白名单（不需要验证登录信息）
-const whiteRouteList = [ 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'inviteFriends', 'serviceDetail', 'VConsole' ]
+const product = ['service', 'serviceDetail', 'searchProduct', 'productCategory'] // 商城模块
+const selfTestAndcomplication = ['selfTestTool', 'selfTestDetail', 'toolHome', 'selfTestSolution', 'complication', 'complicationDeatil', 'complicationResult', 'complicationHome', 'proposalDetail']  // 自测和并发症模块
+const whiteRouteList = [ 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'inviteFriends',  'VConsole', ...product, ...selfTestAndcomplication  ]
 
 router.beforeEach((to, from, next) => {
 
@@ -562,7 +569,7 @@ router.beforeEach((to, from, next) => {
     location.href = "https://wx12ed81f322f0f7b5.wx.wakkaa.com/appMjAzNDg1?t=1"
     return
   }
-
+  
   // 不在白名单内，没有登录信息的情况跳转登录页面
   if ((whiteRouteList.indexOf(to.name) == -1) && !localStorage.userInfo) {
     logout(to.fullPath)

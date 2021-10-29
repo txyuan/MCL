@@ -53,6 +53,7 @@ axios.interceptors.response.use(
     if ((response.data.rspcode == 999) || (response.data.rspCode == 999)) {
       if (router.currentRoute.path != '/login') {
         logout()
+        return {}
       }
     }
     return response

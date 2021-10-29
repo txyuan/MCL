@@ -1,3 +1,4 @@
+/*** 正式环境 ***/ 
 // 接口地址
 const BASEURL = "http://adm.marryhealthscience.com"
 // app端接口地址
@@ -11,6 +12,7 @@ const HX_Config = {
     client_secret: "YXA6S_eDRY0Ye_bFRo-U4mqpvWcmRH8"
 }
 
+/*** 测试环境 ***/
 // // 接口地址
 // const BASEURL = "http://admtest.marryhealthscience.com"
 // // app端接口地址

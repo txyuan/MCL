@@ -23,6 +23,8 @@
 
 <script>
 import {getList2} from "@/api/complication"
+import { setRhone } from "@/utils/storage.js"
+
 export default {
     data: function() {
         const {title, skey} = this.$route.query
@@ -47,6 +49,11 @@ export default {
     },
     created(){
       this.getList()
+      // 通过转发小工具转发进来的情况，获取链接上的推荐码
+      const query = this.$route.query
+      if(query.doctorPhone){
+        setRhone(query.doctorPhone)
+      }
     }
 }
 </script>

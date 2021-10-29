@@ -43,6 +43,8 @@
 // import { DOCTORURL, CHANNELURL } from '@/configURL.js'
 // import { getUserType } from '@/assets/js/uesr.js' //用户类型
 import logoImg from '@/assets/images/mclogo.png'
+import { getSelfphone } from "@/utils/storage.js"
+
 export default {
   name: 'index',
   data: () => ({
@@ -50,7 +52,7 @@ export default {
     code: '',
     agrn: false,
     logoImg: logoImg,
-	getCode: '获取验证码',
+		getCode: '获取验证码',
     VerificationCode: 60,
     isDown: false
   }),
@@ -183,6 +185,10 @@ export default {
     }
   },
   created: function () {
+		// 从缓存读取用户输入的手机号码
+		if(getSelfphone()){
+			 this.phone = getSelfphone()
+		}
   },
   mounted: function () {
 

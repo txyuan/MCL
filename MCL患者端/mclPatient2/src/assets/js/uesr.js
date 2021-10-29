@@ -1,10 +1,36 @@
+import Vue from "vue"
 import router from '@/router/index.js' // 路由
 // import { DOCTORURL, CHANNELURL} from '@/configURL.js'
 import {APPID} from "@/configURL.js"
 import {isWeiXin} from "@/utils/utils.js"
+import { getRhone, setSelfphone } from "@/utils/storage.js"
+import { checkUserInfo } from "@/api/user.js"
 
 // 退出登录
-export function logout(redirectUrl){
+export async function logout(redirectUrl){
+    // 从自测工具和15中并发症进来的用户，链接携带推荐码
+    let rPhone = getRhone() 
+    if(rPhone){
+       // 通过用户输入的手机号码来判断需要登录还是注册
+       const { value, action } = await Vue.prototype.$MessageBox.prompt('请输入您的手机号码');
+       const data = await checkUserInfo({phone: value})
+       setSelfphone(value) // 用户输入的手机号码缓存起来
+       // flag（1：存在，跳转登录页面；0：不存在：跳转注册页面）
+       if(data.flag == "1"){
+        doLogout(redirectUrl)
+       }else if(data.flag == "0"){
+        
+        router.replace({name: 'termsService', query:{rphone: rPhone,role: 9, redirect: redirectUrl}})
+       }
+       return
+    }
+    // 正常用户不携带推荐码
+    await Vue.prototype.$MessageBox.confirm('您还未登录，请先登录系统')
+    doLogout(redirectUrl)
+}
+
+// 退出登录
+export function doLogout(redirectUrl){
     localStorage.removeItem('userInfo')
     const redirect = router.currentRoute.name == 'login' ? '/': router.currentRoute.fullPath  // 从哪个页面跳转
     const loginRoute = {

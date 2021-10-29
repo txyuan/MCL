@@ -24,13 +24,13 @@
 				<span v-if="repData.Sex == 1">男</span>
 				<span v-if="repData.Sex == 2">女</span>
 			</mt-cell>
-			<mt-cell title="医院" is-link to="/hospital">
+			<mt-cell title="医院">
 				<span>{{repData.Hospital}}</span>
 			</mt-cell>
 			<mt-cell title="科室">
 				<span>{{repData.Department}}</span>
 			</mt-cell>
-			<mt-cell title="职称" is-link to="/workTitle">
+			<mt-cell title="职称">
 				<span>{{repData.Title}}</span>
 			</mt-cell>
 			<mt-cell title="是否同意将本人信息展示患者端" is-link @click.native="popupVisibleInfo = true">
@@ -39,11 +39,11 @@
 			</mt-cell>
 			<router-link tag="div" to="/goodAt" class="person_margs">
 				<p>擅长</p>
-				<textarea readonly="readonly">{{repData.begoodat}}</textarea>
+				<textarea readonly="readonly" placeholder="输入专业领域、擅长病种等信息" v-model="repData.begoodat"></textarea>
 			</router-link>
-			<div class="person_marg">
+			<!-- <div class="person_marg">
 				<mt-cell title="修改登录密码" is-link to="/changePass"></mt-cell>
-			</div>
+			</div> -->
 			<!-- <div class="person_marg" style="margin-top: 0">
 				<mt-cell title="修改支付密码" is-link to="/twopass"></mt-cell>
 			</div> -->

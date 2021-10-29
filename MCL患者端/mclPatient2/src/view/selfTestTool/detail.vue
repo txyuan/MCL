@@ -27,6 +27,8 @@
 
 <script>
 import { getDetail } from "@/api/selfTest.js"
+import { setRhone } from "@/utils/storage.js"
+
 export default {
     data() {
         return {
@@ -47,6 +49,11 @@ export default {
     },
     created() {
         this.getInfo()
+        // 通过转发小工具转发进来的情况，获取链接上的推荐码
+        const query = this.$route.query
+        if(query.doctorPhone){
+            setRhone(query.doctorPhone)
+        }
     }
 }
 </script>

@@ -204,14 +204,15 @@
               </div>
             </a>
 
-<!--            <router-link :to="'/searchIllness'">-->
-<!--              <div class="cell">-->
-<!--                <div class="row">-->
-<!--                  <img src="@/assets/images/icons/icon-bzzx.png"  alt="">-->
-<!--                </div>-->
-<!--                <p class="row">帮助中心</p>-->
-<!--              </div>-->
-<!--            </router-link>-->
+            <!-- 管理员 -->
+            <router-link v-if="repData.ZXFlag == 1" to="/forwardingGadget">
+              <div class="cell">
+                <div class="row">
+                  <img src="@/assets/images/icons/icon-qszh.png"  alt="">
+                </div>
+                <p class="row">转发小工具</p>
+              </div>
+            </router-link>
 
         </div>
       </div>
