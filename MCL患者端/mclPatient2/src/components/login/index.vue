@@ -43,7 +43,7 @@
 // import { DOCTORURL, CHANNELURL } from '@/configURL.js'
 // import { getUserType } from '@/assets/js/uesr.js' //用户类型
 import logoImg from '@/assets/images/mclogo.png'
-import { getSelfphone, removeSelfphone, removeRhone, getShoppingMallFlag } from "@/utils/storage.js"
+import { getRhone, removeRhone } from "@/utils/storage.js"
 
 export default {
   name: 'index',
@@ -121,8 +121,8 @@ export default {
         'openid': localStorage.openId
       }
 			// 通过扫码进入商城，在登录时候，传标识字段
-			if(getShoppingMallFlag() == "code"){
-				param.flag = 1
+			if(getRhone()){
+				param.doctorPhone = getRhone()
 			}
       this.$post(url, param).then((data) => {
         if (data.rspcode != 1) {
@@ -191,15 +191,10 @@ export default {
 				userType: data.userType
       })
 			// 清空sessionStorage
-			removeSelfphone()
 			removeRhone()
     }
   },
   created: function () {
-		// 通过自测工具和并发症分享进来的用户,从缓存读取用户输入的手机号码
-		if(getSelfphone()){
-			this.phone = getSelfphone()
-		}
   },
   mounted: function () {
 

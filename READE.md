@@ -6,12 +6,12 @@
 configURL.js （测试环境和正式环境的配置文件）
 ```
 
-## 2. MCL医生端（mclchannel）
+## 2. MCL医生端（mclDoctor）
 ```
  configURL.js （测试环境和正式环境的配置文件）
 ```
 
-## 3. MCL渠道端（mclDoctor）
+## 3. MCL渠道端（mclchannel）
 
 
 # 客服系统（hunxinIM）
