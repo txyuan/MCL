@@ -21,10 +21,10 @@ axios.interceptors.request.use(
       UserKey = userInfo.UserKey
       SessionId = userInfo.SessionId
     };
-
+    
     // 分享页面接口不需要挂参数
-    if (config.url.split('?').length == 1) {
-      config.params = {UserKey, SessionId}
+    if (config.url.indexOf('UserInterface/GetQRCode.ashx') == -1) {
+      config.params = {UserKey, SessionId, ...config.params}
     }
     // 拦截处理请求数据
     //  config.transformRequest = [function (data) {

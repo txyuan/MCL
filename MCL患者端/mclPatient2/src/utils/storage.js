@@ -14,7 +14,7 @@ export function removeRhone(){
 }
 
 // 用户输入的自己的手机号码
-const selfphone = "rphone";
+const selfphone = "selfphone";
 
 export function getSelfphone(){
   return sessionStorage.getItem(selfphone)
@@ -26,4 +26,19 @@ export function setSelfphone(value){
 
 export function removeSelfphone(){
   sessionStorage.removeItem(selfphone)
+}
+
+// 通过二维码进入商城的标识
+const shoppingMallFlag  = "shoppingMallFlag";
+
+export function getShoppingMallFlag(){
+  return sessionStorage.getItem(shoppingMallFlag)
+}
+
+export function setShoppingMallFlag(value){
+  sessionStorage.setItem(shoppingMallFlag, value)
+}
+
+export function removeShoppingMallFlag(){
+  sessionStorage.removeItem(shoppingMallFlag)
 }

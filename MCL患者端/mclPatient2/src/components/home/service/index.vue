@@ -85,7 +85,9 @@ import productItem from "./modules/productItem.vue"; // 商品
 import loadMore from "@/components/common/loadMore.vue"; // 加载更多组件
 import carousel from "./modules/carousel.vue";
 import { GetIndexProductList, GetProductCategoryList } from "@/api/shopCar.js"
-import {getList} from "@/api/complication"
+import { getList } from "@/api/complication"
+import { setShoppingMallFlag } from "@/utils/storage"
+
 export default {
   name: "home2",
   data: () => ({
@@ -156,6 +158,10 @@ export default {
   created(){
     this.getBFList() // 并发症
     this.getTypeList() // 产品分类
+    // 通过扫码进入商城
+    if(this.$route.query.from == "code"){
+      setShoppingMallFlag("code")
+    }
   },
   components: {
     productItem,

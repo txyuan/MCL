@@ -143,7 +143,7 @@
 				shareObj: { //分享信息内容配置
 					title: 'MCL',
 					desc: '我在医随康发现一个不错的商品，赶快来看看吧。', // 分享描述
-					link: `${pageHref}#${this.$route.path}?from=share`, //系统地址
+					link: `${location.origin}${location.pathname}#${this.$route.path}?from=share`, //系统地址
 					imgUrl: ''
 				},
 				pageHref,

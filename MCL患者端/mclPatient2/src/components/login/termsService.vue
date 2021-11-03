@@ -62,7 +62,7 @@
 import { DOCTORURL, CHANNELURL } from '@/configURL.js'
 import identify from '@/components/common/identify.vue'
 import logoImg from '@/assets/images/mclogo.png'
-import { getSelfphone } from "@/utils/storage.js"
+import { getSelfphone, getRhone, removeSelfphone, removeRhone } from "@/utils/storage.js"
 
 export default {
   name: 'register',
@@ -248,8 +248,16 @@ export default {
         } else {
           // 患者端
           if (this.role == 1 || this.role == 2 || this.role == 3) {
-            // 关注微信公众号
-            this.$router.push('/wxFollowPage')
+            // 通过自测工具和并发症分享进来的用户，从缓存读取用户输入的手机号码
+            if(getSelfphone() && getRhone()){
+              const redirect = this.$route.query.redirect
+              this.$router.replace(redirect)
+            }else{
+            // 通过好友邀请进来
+              this.$router.push('/wxFollowPage') // 关注微信公众号
+            }
+            // 存登录信息
+            this.saveLoginInfo(data)
             // 医生端
           } else if (this.role == 4) {
             // 实名认证
@@ -266,15 +274,27 @@ export default {
           }
         }
       })
+    },
+    saveLoginInfo(data){
+      // 存登录信息
+      localStorage.userInfo = JSON.stringify({
+        UserKey: data.userkey,
+        SessionId: data.session_id,
+        userType: data.userType
+      })
+      // 清空sessionStorage
+			removeSelfphone()
+			removeRhone()
     }
   },
   components: {
     identify
   },
   created(){
-    // 从缓存读取用户输入的手机号码
-		if(getSelfphone()){
-			 this.phone = getSelfphone()
+    // 通过自测工具和并发症分享进来的用户，从缓存读取用户输入的手机号码
+		if(getSelfphone() && getRhone()){
+			this.phone = getSelfphone() // 自己的手机号码
+      this.rphone = getRhone() // 推荐人的手机号码
 		}
   },
   mounted: function () {

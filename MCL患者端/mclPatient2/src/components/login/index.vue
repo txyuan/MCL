@@ -43,7 +43,7 @@
 // import { DOCTORURL, CHANNELURL } from '@/configURL.js'
 // import { getUserType } from '@/assets/js/uesr.js' //用户类型
 import logoImg from '@/assets/images/mclogo.png'
-import { getSelfphone } from "@/utils/storage.js"
+import { getSelfphone, removeSelfphone, removeRhone, getShoppingMallFlag } from "@/utils/storage.js"
 
 export default {
   name: 'index',
@@ -120,6 +120,10 @@ export default {
         'vercode': this.code,
         'openid': localStorage.openId
       }
+			// 通过扫码进入商城，在登录时候，传标识字段
+			if(getShoppingMallFlag() == "code"){
+				param.flag = 1
+			}
       this.$post(url, param).then((data) => {
         if (data.rspcode != 1) {
           this.$Toast(data.rspdesc)
@@ -129,11 +133,7 @@ export default {
 			const roles = ['1', '2', '3', '4']; // 允许登录的角色。患者，患者家人，路人，医生
 			if (roles.includes(String(data.data.userType))) {
 				// 存登录信息
-				localStorage.userInfo = JSON.stringify({
-					UserKey: data.data.userKey,
-					SessionId: data.data.sessionId,
-					userType: data.data.userType
-				})
+				this.saveLoginInfo(data.data)
 				const redirect = this.$route.query.redirect
 				this.$Toast('登录成功')
 				// const userinfoflag = data.data.userinfoflag // 1:线下，2：线上
@@ -182,12 +182,23 @@ export default {
 		// 	},2000)
 		// }
       })
+    },
+		saveLoginInfo(data){
+      // 存登录信息
+      localStorage.userInfo = JSON.stringify({
+				UserKey: data.userKey,
+				SessionId: data.sessionId,
+				userType: data.userType
+      })
+			// 清空sessionStorage
+			removeSelfphone()
+			removeRhone()
     }
   },
   created: function () {
-		// 从缓存读取用户输入的手机号码
+		// 通过自测工具和并发症分享进来的用户,从缓存读取用户输入的手机号码
 		if(getSelfphone()){
-			 this.phone = getSelfphone()
+			this.phone = getSelfphone()
 		}
   },
   mounted: function () {

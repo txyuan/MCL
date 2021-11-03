@@ -19,8 +19,7 @@ export async function logout(redirectUrl){
        if(data.flag == "1"){
         doLogout(redirectUrl)
        }else if(data.flag == "0"){
-        
-        router.replace({name: 'termsService', query:{rphone: rPhone,role: 9, redirect: redirectUrl}})
+        router.replace({name: 'termsService', query:{rphone: rPhone,role: 9, redirect: router.currentRoute.fullPath }})
        }
        return
     }
