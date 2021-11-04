@@ -9,7 +9,7 @@
 					<router-link :to="'/wx_Entrance/'+item.path" tag="div" class="tab-bar-link">
 						<i class="mint-tab-item-icon" :class="item.pathy">icon</i>
 						<p>{{item.name}}</p>
-						<!--<span class="badge" v-if="item.name=='购物车'">{{proCount}}</span>-->
+						<span class="badge" v-if="item.name=='订单'">{{proCount}}</span>
 					</router-link>
 				</mt-tab-item>
 			</mt-tabbar>
@@ -19,10 +19,16 @@
 
 <script>
 	import Bus from "@/assets/js/updateShopCar.js"; //跟新购物车数量
+	import Vue from "vue";
+	const orderNumber = Vue.observable({ count: 0 });
+
 	export default {
 		name: "wx_Entrance",
+		computed:{
+			proCount: () => orderNumber.count,
+		},
 		data: () => ({
-			proCount: "0", //商品数量
+			// proCount: 0, //商品数量
 			selected: "",
 			tabList: [{
 					name: "首页",
@@ -52,27 +58,37 @@
 				}
 			]
 		}),
-		methods: {
-			//获取商品数量
-			getShopChatQuantity() {
-				let url = "/UserInterface/GetShopChatQuantity.ashx";
-				// this.$post(url).then((data)=>{
-				//   this.setShopChatQuantity(data.proCount)
-				// })
-			},
-			setShopChatQuantity(val) {
-				this.proCount = val;
+		watch:{
+			selected: function () {
+				if(localStorage.userInfo){
+					this.updateOrderNumber()
+				}
 			}
 		},
+		methods: {
+			// 订单数量
+			updateOrderNumber() {
+				let url = "/UserInterface/channel/ChannelOrderCount.ashx";
+				this.$post(url).then((data)=>{
+					orderNumber.count = data.OrderCount
+				})
+			},
+			// setShopChatQuantity(val) {
+			// 	this.proCount = val;
+			// }
+		},
 		created() {
-			Bus.$on("updateShop", () => {
-				//有登录信息才能获取购物车数量，主要针对通过分享进来的（未登录）用户，防止系统异地登录，跳转登录页
-				if (localStorage.userInfo) {
-					this.getShopChatQuantity();
-				}
-			})
-			if (localStorage.userInfo) {
-				Bus.$emit("updateShop")
+			// Bus.$on("updateShop", () => {
+			// 	//有登录信息才能获取购物车数量，主要针对通过分享进来的（未登录）用户，防止系统异地登录，跳转登录页
+			// 	if (localStorage.userInfo) {
+			// 		this.getShopChatQuantity();
+			// 	}
+			// })
+			// if (localStorage.userInfo) {
+			// 	Bus.$emit("updateShop")
+			// }
+			if(localStorage.userInfo){
+				this.updateOrderNumber()
 			}
 		},
 		mounted: function() {
@@ -83,13 +99,13 @@
 			}
 		},
 		activated() {
-			if (localStorage.userInfo) {
-				Bus.$emit("updateShop")
-			}
+			// if (localStorage.userInfo) {
+			// 	Bus.$emit("updateShop")
+			// }
 		},
 		destroyed() {
 			//移除updateShop事件避免多次注册事件
-			Bus.$off("updateShop")
+			// Bus.$off("updateShop")
 		}
 	}
 </script>

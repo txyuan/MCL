@@ -1,10 +1,13 @@
 <template>
 	<div class="achievement_root padding-header">
-		<mt-header :title="param.flag == 1 ? '当月业绩' : '我的业绩'" fixed class="borderBottom">
+		<mt-header :title="`${param.month.split('-')[1]}月业绩`" fixed class="borderBottom">
 			<div slot="left">
 				<header-back>
 					<mt-button icon="back"></mt-button>
 				</header-back>
+			</div>
+			<div slot="right">
+				<img src="@/assets/images/date.png" width="20" alt="" @click="$refs.picker.open();">
 			</div>
 		</mt-header>
 
@@ -16,13 +19,13 @@
 		</div>
 		<div id="navbar" class="card_navbar borderBottom" v-if="isShowBar">
 			<mt-navbar v-model="selected">
-				<mt-tab-item id="tab0" @click.native="tabClick('1')">
+				<mt-tab-item id="tab1" @click.native="tabClick('1')">
 					<p>渠道业绩</p>
 				</mt-tab-item>
-				<mt-tab-item id="tab1" @click.native="tabClick('2')">
+				<mt-tab-item id="tab2" @click.native="tabClick('2')">
 					<p>医生业绩</p>
 				</mt-tab-item>
-				<mt-tab-item id="tab2" @click.native="tabClick('3')">
+				<mt-tab-item id="tab3" @click.native="tabClick('3')">
 					<p>员工业绩</p>
 				</mt-tab-item>
 			</mt-navbar>
@@ -52,7 +55,7 @@
 								<div class=" d-flex justify-content-between">
 									<p class=" flex-grow-1">业绩金额：{{item.achievement}}元</p>
 									<div class="card_cont_btn" v-if="param.direction == 2">
-										<mt-button type="danger" size="large" @click="$router.push(`/achievementDetail?flag=${param.flag}&skey=${item.doctorsKey}`)">查看详情</mt-button>
+										<mt-button type="danger" size="large" @click="$router.push(`/achievementDetail?month=${param.month}&skey=${item.doctorsKey}`)">查看详情</mt-button>
 									</div>
 								</div>
 								
@@ -62,6 +65,17 @@
 				</div>
 			</loadMore>
 		</div>
+
+		<!-- 日期控件  -->
+		<mt-datetime-picker
+		  class="my_datetime"
+			ref="picker"
+			type="date"
+			:endDate="new Date()"
+			v-model="timeValue"
+			@confirm="confirm">
+		</mt-datetime-picker>
+
 	</div>
 </template>
 
@@ -70,9 +84,10 @@
 	export default {
 		name: "achievement",
 		data: function() {
+			const date = new Date();
 			return {
 				isLoad: false, // 是否加载过接口
-				selected: "tab0",
+				selected: "tab1",
 				isShowBar: false, //是否显示分类
 				pickerVisible: false,
 				total_performance: '', //总业绩
@@ -84,8 +99,12 @@
 					"pagesize": 10,
 					"pagecount": 0,
 					"direction": "1",
-					"flag": "1"
+					"month": `${date.getFullYear()}-${date.getMonth() + 1}`
 				},
+
+				// 日期控件
+				popupVisible: false,
+				timeValue: date
 			}
 		},
 		methods: {
@@ -132,25 +151,20 @@
 					if (UserType == "6") {
 						this.isShowBar = false;
 						this.tabClick('2');
-						this.selected='tab1'
+						this.selected='tab2'
 					} else {
 						this.isShowBar = true
 						this.tabClick('1');
-						this.selected='tab0'
+						this.selected='tab1'
 					}
 				}
-				
-				// 区分当月业绩和我的业绩
-				const flag = this.$route.query.flag
-				this.param.flag = flag
 			},
-		},
-		
-		mounted(){
-			
-		},
-		created() {
-			
+			// 日期插件确定事件
+			confirm(value){
+				const picker = this.$refs.picker;
+				this.param.month = `${picker.getYear(value)}-${picker.getMonth(value)}`
+				this.tabClick(this.selected.split("tab")[1])
+			}
 		},
 		beforeRouteEnter (to, form, next) {
 			next((vm) => {
@@ -338,4 +352,9 @@
     -ms-flex-positive: 1!important;
     flex-grow: 1!important;
   }
+
+	// 隐藏日期列
+	.my_datetime >>> .picker-items .picker-slot:nth-child(3){
+		display: none;
+	}
 </style>

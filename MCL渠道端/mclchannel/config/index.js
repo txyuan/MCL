@@ -13,7 +13,8 @@ module.exports = {
     proxyTable: {
       '/UserInterface': {
         // 测试环境
-        target: 'http://clichatest.marryhealthscience.com', // 接口域名
+        target: 'http://clicha.marryhealthscience.com', // 接口域名
+        // target: 'http://clichatest.marryhealthscience.com', // 接口域名
         changeOrigin: true, // 是否跨域
       }
     },

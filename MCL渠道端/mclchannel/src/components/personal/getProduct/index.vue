@@ -54,6 +54,9 @@
 								</div>
 							</div>
 							<div slot="footer" class="foot">
+								<p>医生：{{item.doctorName}} &nbsp;&nbsp;&nbsp;&nbsp; 渠道员工：{{item.StaffContactName}}</p>
+							</div>
+							<div slot="footer" class="foot">
 								<p>{{item.RContactName}} {{item.RContactPhone}}</p>
 							</div>
 							<div slot="footer" class="foot">
