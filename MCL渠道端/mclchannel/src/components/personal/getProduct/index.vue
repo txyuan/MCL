@@ -1,8 +1,8 @@
 <template>
-	<div>
+	<div :class="{'padding-footer': $route.name == 'delivery'}">
 		<div class="fix_top">
 			<mt-header title="我的订单" class="borderBottom">
-				<div slot="left">
+				<div slot="left" v-if="$route.name == 'personalgetproduct'">
 					<router-link to="/wx_Entrance/personal" style="color: initial;">
 						<mt-button icon="back"></mt-button>
 					</router-link>

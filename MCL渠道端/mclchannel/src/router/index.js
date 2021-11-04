@@ -78,7 +78,7 @@ const router = new Router({
 		    { path:"versionB", name:"versionB", component: versionB},
         { path:"share", name:"share", component: share },
         // { path:"shopcar", name:"shopcar", component: shopcar },
-				{ path:"delivery", name:"delivery", component: delivery },
+				{ path:"delivery", name:"delivery", component: personal_get_product },
         { path:"personal", name:"personal", component: personal }
       ]
     },
