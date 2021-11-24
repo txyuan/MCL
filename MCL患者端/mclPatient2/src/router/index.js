@@ -8,7 +8,7 @@ const wx_Entrance = () => import(/* webpackChunkName: "wx_Entrance" */ '@/compon
 const wxFollowPage = () => import(/* webpackChunkName: "wxFollowPage" */ '@/components/wxFollowPage/index.vue')  //扫码关注微信页面
 
 //首页
-const home = () => import(/* webpackChunkName: "home" */ '@/components/home/index.vue')  //首页
+const home = () => import(/* webpackChunkName: "home" */ '@/components/home/main.vue')  //首页
 const wellcome = () => import(/* webpackChunkName: "wellcome" */ '@/components/home/wellcome/index.vue')  //首页  欢迎页面
 const wellcome_personInfo = () => import(/* webpackChunkName: "wellcome_personInfo" */ '@/components/home/wellcome/personInfo.vue')  //首页  完善个人信息
 const wellcome_personInfoRegister = () => import(/* webpackChunkName: "wellcome_personInfoRegister" */ '@/components/home/wellcome/personInfoRegister.vue')  //注册时候进入 个人信息录入
@@ -565,10 +565,10 @@ const whiteRouteList = [ 'login', 'changePass', 'selectRegister', 'termsService'
 router.beforeEach((to, from, next) => {
 
   // 重定向到哇咔咔系统首页
-  if(to.name == 'home'){
-    location.href = "https://wx12ed81f322f0f7b5.wx.wakkaa.com/appMjAzNDg1?t=1"
-    return
-  }
+  // if(to.name == 'home'){
+  //   location.href = "https://wx12ed81f322f0f7b5.wx.wakkaa.com/appMjAzNDg1?t=1"
+  //   return
+  // }
   
   // 不在白名单内，没有登录信息的情况跳转登录页面
   if ((whiteRouteList.indexOf(to.name) == -1) && !localStorage.userInfo) {

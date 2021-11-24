@@ -6,16 +6,13 @@
 			</div>
 			<ul class="login_inpt">
 				<li>
-					<img src="@/assets/images/zhanghao@2x.png" />
 					<input type="tel" v-model.trim="phone" @focus="$root.windowRecordScroll" @blur="$root.windowScrollTop" placeholder="请输入手机号" />
 				</li>
-				<!-- <li>
-					<img src="@/assets/images/mima@2x.png" />
-					<input type="password" v-model.trim="code" @focus="$root.windowRecordScroll" @blur="$root.windowScrollTop" placeholder="请输入密码" />
-				</li> -->
-				<li class="yzmcode">
+				<li v-if="toggle">
+					<input type="password" v-model.trim="userpassword" @focus="$root.windowRecordScroll" @blur="$root.windowScrollTop" placeholder="默认初始密码：123456" />
+				</li>
+				<li v-else class="yzmcode">
 					<div class="input_warp">
-						<img src="@/assets/images/yanzhengma@2x.png" />
 						<input type="tel" v-model.trim="code" @focus="$root.windowRecordScroll" @blur="$root.windowScrollTop" placeholder="请输入验证码" />
 					</div>
 					<span v-on:click="phonet()">
@@ -24,17 +21,26 @@
 					</span>
 				</li>
 			</ul>
-			<p class="agreen">
+			<!-- <p class="agreen"> -->
 				<!-- <span v-if="agrn" class="axz" @click="agre"></span>
           <span v-else @click="agre"></span>
           阅读并同意<router-link to="/noticeClause" style="text-decoration: underline;color: #FF3D3D;margin-left: 0.02rem;">金拓商城用户协议</router-link> -->
 				<!-- <label><router-link to="/changePass">忘记密码？</router-link></label> -->
-			</p>
+			<!-- </p> -->
 			<!-- <p class="login_service"></p> -->
 			<!--<router-link to="/wx_Entrance/home">-->
 			<mt-button type="default" class="add_btn" v-on:click="loginbtn()" size="large">登录</mt-button>
 			<!--<mt-button type="default" class="add_btnkd" v-on:click="registbtn()" size="large">注册</mt-button>-->
 			<!--</router-link>-->
+			<p class="togglePassword" @click="toggle = !toggle">
+				<span v-if="toggle">手机验证码登录</span>
+				<span v-else>密码登录</span>
+			</p>
+
+			<div class="page-footer">
+					<!-- <p>更好，从正确的生活方式开始</p> -->
+					<img src="@/assets/images/login/des.png" alt="">
+			</div>
 		</div>
 	</div>
 </template>
@@ -42,7 +48,7 @@
 <script>
 // import { DOCTORURL, CHANNELURL } from '@/configURL.js'
 // import { getUserType } from '@/assets/js/uesr.js' //用户类型
-import logoImg from '@/assets/images/mclogo.png'
+import logoImg from '@/assets/images/login/loginLogoIcon.png'
 import { getRhone, removeRhone } from "@/utils/storage.js"
 
 export default {
@@ -50,6 +56,8 @@ export default {
   data: () => ({
     phone: '',
     code: '',
+		userpassword: '',
+		toggle: true, // true: 密码登录, false: 验证码登录
     agrn: false,
     logoImg: logoImg,
 		getCode: '获取验证码',
@@ -110,20 +118,40 @@ export default {
         this.$Toast('请输入格式正确的手机号')
         return
       }
-      if (this.code == '') {
-        this.$Toast('请输入验证码')
-        return
-      }
-      let url = 'UserInterface/UserLogin.ashx'
-      let param = {
-        'userphone': this.phone,
-        'vercode': this.code,
-        'openid': localStorage.openId
-      }
+
+			let param = {}
+			const userphone = this.phone, openid = localStorage.openId
+
+			// 手机密码登录
+			if(this.toggle){
+				if (this.userpassword == '') {
+					this.$Toast('请输入登录密码')
+					return
+				}
+				param = {
+					userphone,
+					openid,
+					userpassword: this.userpassword,
+				}
+			}else{
+			// 验证码登录	
+				 if (this.code == '') {
+					this.$Toast('请输入验证码')
+					return
+				}
+				param = {
+					userphone,
+					openid,
+					vercode: this.code,
+				}
+			}
+      
 			// 通过扫码进入商城，在登录时候，传标识字段
 			if(getRhone()){
 				param.doctorPhone = getRhone()
 			}
+
+			let url = 'UserInterface/UserLogin.ashx'
       this.$post(url, param).then((data) => {
         if (data.rspcode != 1) {
           this.$Toast(data.rspdesc)
@@ -203,45 +231,34 @@ export default {
 </script>
 
 <style scoped lang="scss">
-	.add_btn{
-		background: rgb(36,183,192);
-	}
 	.login_ff {
 		width: 100%;
 		height: 100vh;
-		background: #fff;
+		background: linear-gradient(to bottom, #21B6CF, #2166CE);
 	}
 
 	.login_logo {
-		position: relative;
-		left: 0;
-		top: 0.52rem;
+		text-align: center;
+		padding: 0.40rem 0;
 	}
 
 	.login_logo img {
-		width: 1.5rem;
-		height: 1.5rem;
-		position: absolute;
-		left: 0;
-		right: 0;
-		margin: 0 auto;
+		height: 0.75rem;
 	}
 
 	.login_inpt {
 		width: 88%;
 		margin: 0 auto;
-		padding-top: 2.0rem;
 	}
 
 	.login_inpt li {
 		width: 94%;
 		overflow: hidden;
-		margin-top: 0.16rem;
-		float: left;
+		margin-bottom: 0.25rem;
 		height: 0.5rem;
-		border: 1px solid #eee;
+		border: 1px solid #fff;
 		padding: 0 3%;
-		border-radius: 0.25rem;
+		border-radius: 0.04rem;
 	}
 
 	.login_inpt img {
@@ -258,17 +275,19 @@ export default {
 		border: none;
 		padding: 0 0.1rem;
 		font-size: 0.14rem;
+		color: #fff;
 	}
-
+	.login_inpt input::placeholder{
+		color: #fff;
+	}
 	.login_inpt span {
 		width: 1.0rem;
 		height: 0.32rem;
-		border-left: 1px solid #eee;
 		box-sizing: border-box;
 		display: block;
 		float: right;
 		line-height: 0.325rem;
-		color: #24b7c0;
+		color: #fff;
 		text-align: center;
 		font-size: 0.14rem;
 
@@ -278,10 +297,13 @@ export default {
 	}
 
 	.add_btn {
-		width: 86%;
-		position: relative;
-		margin-top: 0.2rem;
-		margin-bottom: 0.12rem;
+		width: 88%;
+		color: #24b7c0;
+    background: #FFF;
+    border-radius: 0.04rem;
+		height: 0.5rem;
+		line-height: 0.5rem;
+		margin: 0 auto;
 	}
 
 	.login_service {
@@ -344,5 +366,37 @@ export default {
 	.yzmcode .input_warp {
 		flex: 1;
 		display: flex;
+	}
+
+  .togglePassword{
+		width: 88%;
+		margin: 0 auto;
+		margin-top: 0.25rem;
+		color: #FFF;
+	}
+
+	.page-footer{
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		text-align: center;
+		color: #FFF;
+	}
+	.page-footer::after{
+		content: "";
+		display: inline-block;
+		width: 30%;
+		height: 1px;
+		background: #FFF;
+		position: absolute;
+		top: 10px;
+		left: 0;
+		right: 0;
+		margin: auto;
+	}
+
+	.page-footer img{
+		width: 96%;
 	}
 </style>
