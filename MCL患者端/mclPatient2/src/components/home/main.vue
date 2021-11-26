@@ -57,6 +57,17 @@
          </li>
        </ul>
      </div>
+
+    <!-- 首页的广告部分 -->
+    <transition name="fade">
+      <div class="advertisement" v-if="show">
+        <div class="countDown" @click="skipAdvertisement">{{count}}s跳过</div>
+        <div class="view">
+          <img src="@/assets/images/home/advertisement.jpg" alt="">
+        </div>
+      </div>
+    </transition>
+     
    </div>
 </template>
 
@@ -65,11 +76,38 @@
         name:"",
         data () {
             return {
-
+              count: 4,
+              show: false,
+              timer: 0  // 计时器
             }
         },
         methods:{
-
+          // 显示广告
+          showAdvertisement(){
+            if(!sessionStorage.getItem('advertisement')){
+              this.show = true
+              sessionStorage.setItem('advertisement', '是否显示广告标识')
+              // 开始倒计时
+              this.timer = setInterval(() => {
+                if(this.count <=0 ){
+                  this.show = false
+                  return
+                }
+                this.count--
+              }, 1000)
+            }
+          },
+          // 跳过广告
+          skipAdvertisement(){
+            clearInterval(this.timer)
+            this.show = false
+          }
+        },
+        created(){
+          this.showAdvertisement()
+        },
+        destroyed(){
+          clearInterval(this.timer)
         },
         components: {
 
@@ -162,4 +200,41 @@
     display: none;
   }
 }
+
+// 广告部分
+.advertisement{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #FFF;
+  z-index: 100;
+
+  .view{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    
+  }
+  img{
+    width: 100%;
+  }
+
+  .countDown{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.4);
+    width: 75px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 15px;
+    color: #FFF;
+    text-align: center;
+    font-size: 14px;
+  }
+}
+
 </style>

@@ -8,10 +8,7 @@
 				<li>
 					<input type="tel" v-model.trim="phone" @focus="$root.windowRecordScroll" @blur="$root.windowScrollTop" placeholder="请输入手机号" />
 				</li>
-				<li v-if="toggle">
-					<input type="password" v-model.trim="userpassword" @focus="$root.windowRecordScroll" @blur="$root.windowScrollTop" placeholder="默认初始密码：123456" />
-				</li>
-				<li v-else class="yzmcode">
+				<li v-if="toggle" class="yzmcode">
 					<div class="input_warp">
 						<input type="tel" v-model.trim="code" @focus="$root.windowRecordScroll" @blur="$root.windowScrollTop" placeholder="请输入验证码" />
 					</div>
@@ -19,6 +16,9 @@
 						<i v-if="isDown"> {{time}}</i>
 						<i v-else>{{getCode}}</i>
 					</span>
+				</li>
+				<li v-else>
+					<input type="password" v-model.trim="userpassword" @focus="$root.windowRecordScroll" @blur="$root.windowScrollTop" placeholder="默认初始密码：123456" />
 				</li>
 			</ul>
 			<!-- <p class="agreen"> -->
@@ -33,8 +33,8 @@
 			<!--<mt-button type="default" class="add_btnkd" v-on:click="registbtn()" size="large">注册</mt-button>-->
 			<!--</router-link>-->
 			<p class="togglePassword" @click="toggle = !toggle">
-				<span v-if="toggle">手机验证码登录</span>
-				<span v-else>密码登录</span>
+				<span v-if="toggle">密码登录</span>
+				<span v-else>手机验证码登录</span>
 			</p>
 
 			<div class="page-footer">
@@ -57,7 +57,7 @@ export default {
     phone: '',
     code: '',
 		userpassword: '',
-		toggle: true, // true: 密码登录, false: 验证码登录
+		toggle: true, // true: 验证码登录, false: 密码登录
     agrn: false,
     logoImg: logoImg,
 		getCode: '获取验证码',
@@ -122,8 +122,19 @@ export default {
 			let param = {}
 			const userphone = this.phone, openid = localStorage.openId
 
-			// 手机密码登录
+			// 验证码登录
 			if(this.toggle){
+				if (this.code == '') {
+					this.$Toast('请输入验证码')
+					return
+				}
+				param = {
+					userphone,
+					openid,
+					vercode: this.code,
+				}
+			}else{
+			// 手机密码登录
 				if (this.userpassword == '') {
 					this.$Toast('请输入登录密码')
 					return
@@ -132,17 +143,6 @@ export default {
 					userphone,
 					openid,
 					userpassword: this.userpassword,
-				}
-			}else{
-			// 验证码登录	
-				 if (this.code == '') {
-					this.$Toast('请输入验证码')
-					return
-				}
-				param = {
-					userphone,
-					openid,
-					vercode: this.code,
 				}
 			}
       
@@ -164,51 +164,24 @@ export default {
 				this.saveLoginInfo(data.data)
 				const redirect = this.$route.query.redirect
 				this.$Toast('登录成功')
-				// const userinfoflag = data.data.userinfoflag // 1:线下，2：线上
-				// const PatientDistinguish = data.data.PatientDistinguish // 是否录入基本信息0：未录入，1：已录入
-				// // 0：未录入 2：线上
-				// if ((PatientDistinguish == 2) && (userinfoflag == 0)) {
-				// 	this.$router.replace('/wellcome')
-				// 	return
-				// };
 				const userinfoflag = data.data.userinfoflag // 1:线下，2：线上
 				if (userinfoflag == 0) {
-					this.$router.replace('/wellcome')
+					this.$router.replace('/wellcome_personInfoRegister')
 					return
 				}
 				if (redirect) {
 					// 报告查询页面
-					if (redirect == '/eyeconme') {
-						this.$router.replace('/wellcome?redirect=/eyeconme')
-					} else {
+					// if (redirect == '/eyeconme') {
+					// 	this.$router.replace('/wellcome?redirect=/eyeconme')
+					// } else {
 						this.$router.replace(redirect)
-					}
+					// }
 				} else {
 					this.$router.replace('/wx_Entrance/home')
 				}
 			} else {
 					this.$Toast('该账号权限不匹配')
 			}
-		// // 渠道端
-		// else if (getUserType() == 'channel') {
-		// 	setTimeout(() => {
-		// 		if (redirect) {
-		// 			location.replace(`${CHANNELURL}#${redirect}`)
-		// 		} else {
-		// 			location.replace(`${CHANNELURL}#/wx_Entrance/home`)
-		// 		}
-		// 	},2000)
-			
-		// // 医生端	
-        // } else if(getUserType() == 'doctor'){
-		// 	setTimeout(() => {
-		// 		if (redirect) {
-        //     		location.replace(`${DOCTORURL}#${redirect}`)
-		// 		} else {
-		// 			location.replace(`${DOCTORURL}#/wx_Entrance/home`)
-		// 		}
-		// 	},2000)
-		// }
       })
     },
 		saveLoginInfo(data){

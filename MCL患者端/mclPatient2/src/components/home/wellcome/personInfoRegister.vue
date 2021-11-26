@@ -14,52 +14,22 @@
         <span v-if="param.sex == '男'">男</span>
         <span v-if="param.sex == '女'">女</span>
       </mt-cell>
-      <!-- <mt-cell title="出生日期" is-link @click.native="openTimePicker('param.birth')" class="borderBottom required">
-        <span>{{param.birth || '请选择出生日期'}}</span>
+      <mt-field label="年龄" placeholder="请输入年龄" class="borderBottom required" v-model.trim="param.age"></mt-field>
+      <mt-cell title="民族" is-link @click.native="nationVisible = true" class="borderBottom">
+        <span>{{param.nation || '请选择民族'}}</span>
       </mt-cell>
-
-      <mt-cell is-link class="borderBottom sportEvaluation-wrap required" @click.native="openCityPicker">
-        <div slot="title" class="titleWrap">
-          <span class="mint-cell-text">您所在地区</span>
-        </div>
-        <div class="sportEvaluation">
-          {{param.location|| '请选择您所在地区'}}
-        </div>
+      <mt-cell title="婚姻状态" is-link @click.native="marriageVisible = true" class="borderBottom">
+        <span>{{param.marriage || '请选择婚姻状态'}}</span>
       </mt-cell>
-      <mt-field label="身高" placeholder="请输入身高" class="borderBottom required" v-model.trim="param.height"
-                @change="doBMI">&nbsp;cm
-      </mt-field>
-      <mt-field label="体重" placeholder="请输入体重" class="borderBottom required" v-model.trim="param.weight"
-                @change="doBMI">&nbsp;kg
-      </mt-field>
-      <mt-field label="BMI" placeholder="BMI" class="borderBottom required" :readonly="true" v-model.trim="param.bmi"></mt-field> -->
-      <mt-cell is-link class="sportEvaluation-wrap borderBottom required" @click.native="doctorFlag == '1' ? $Toast('不能修改绑定医生') : doctorVisible = true">
-        <div slot="title" class="titleWrap">
-          <span class="mint-cell-text">绑定医生</span>
-        </div>
-        <div class="sportEvaluation">
-          {{doctorName}}
-        </div>
+      <mt-cell title="文化程度" is-link @click.native="cultureVisible = true" class="borderBottom">
+        <span>{{param.culture || '请选择文化程度'}}</span>
       </mt-cell>
-      <!-- <mt-cell is-link class="sportEvaluation-wrap borderBottom required" @click.native="sportPickerToggles('show')">
-        <div slot="title" class="titleWrap">
-          <span class="mint-cell-text">管理类型</span>
-        </div>
-        <div class="sportEvaluation">
-          {{sportDefaultName}}
-        </div>
-      </mt-cell> -->
+      <mt-cell title="目前居住地" is-link @click.native="placeResidenceVisible = true" class="borderBottom">
+        <span>{{param.placeResidence || '请选择目前居住地'}}</span>
+      </mt-cell>
     </div>
     <div class="tip">请填写患者本人信息，方便精准进行管理</div>
 
-    <!--  体重管理-->
-    <!-- <weightTab ref="weightTab" v-show="param.diseasetype == '03'"/> -->
-
-    <!--  健康管理-->
-    <!-- <healthTab ref="healthTab" v-show="param.diseasetype == '02'"/> -->
-
-    <!--  肿瘤管理-->
-    <!-- <zlTab ref="zlTab" v-show="param.diseasetype == '01'"/> -->
 
     <div class=""></div>
     <div class="fix_bottom">
@@ -76,66 +46,61 @@
       </mt-picker>
     </mt-popup>
 
-    <!-- 医生picker  -->
-    <mt-popup class="doctorPicker" v-model="doctorVisible" position="bottom">
-      <mt-picker :slots="doctorSlot" :showToolbar="true" :visibleItemCount="3" valueKey="name" ref="doctorPickers" @change="closeTouch"  @cancel="openTouch">
+    <!-- 婚姻状态picker  -->
+    <mt-popup v-model="nationVisible" position="bottom">
+      <mt-picker :slots="nationSlot" :showToolbar="true" :visibleItemCount="3" ref="nationPicker" @change="closeTouch"  @cancel="openTouch">
         <div class="picker_bar">
-          <div class="cancel" @click="doctorVisible = false">取消</div>
-          <div class="confrim" @click="doctorConfirm">确定</div>
+          <div class="cancel" @click="nationVisible = false">取消</div>
+          <div class="confrim" @click="nationConfirm">确定</div>
         </div>
       </mt-picker>
     </mt-popup>
 
-    <!-- 疾病类型picker  -->
-    <!-- <mt-popup class="sportPicker" v-model="sportVisible" position="bottom">
-      <mt-picker :slots="sportSlot" :showToolbar="true" :visibleItemCount="3" valueKey="name" ref="sportPickers" @change="closeTouch"  @cancel="openTouch">
+    <!-- 婚姻状态picker  -->
+    <mt-popup v-model="marriageVisible" position="bottom">
+      <mt-picker :slots="marriageSlot" :showToolbar="true" :visibleItemCount="3" ref="marriagePicker" @change="closeTouch"  @cancel="openTouch">
         <div class="picker_bar">
-          <div class="cancel" @click="sportPickerToggles('hide')">取消</div>
-          <div class="confrim" @click="sportConfirm">确定</div>
+          <div class="cancel" @click="marriageVisible = false">取消</div>
+          <div class="confrim" @click="marriageConfirm">确定</div>
         </div>
       </mt-picker>
-    </mt-popup> -->
+    </mt-popup>
 
-    <!-- 城市picker -->
-    <!-- <cityPicker @confrim="cityPickerChange" ref="cityPicker" @change="closeTouch" @cancel="openTouch"/> -->
+    <!-- 文化程度picker  -->
+    <mt-popup v-model="cultureVisible" position="bottom">
+      <mt-picker :slots="cultureSlot" :showToolbar="true" :visibleItemCount="3" ref="culturePicker" @change="closeTouch"  @cancel="openTouch">
+        <div class="picker_bar">
+          <div class="cancel" @click="cultureVisible = false">取消</div>
+          <div class="confrim" @click="cultureConfirm">确定</div>
+        </div>
+      </mt-picker>
+    </mt-popup>
 
-    <!-- 时间picker -->
-    <mt-datetime-picker ref="DatetimePicker" @change="closeTouch" type="date"
-      :startDate="new Date(new Date().setFullYear(new Date().getFullYear() - 90))"
-      :endDate="new Date(new Date().setFullYear(new Date().getFullYear() + 3))" :value="new Date()"
-      year-format="{value} 年"
-      month-format="{value} 月" date-format="{value} 日" @confirm="confirmDatetime" @cancel="openTouch">
-    </mt-datetime-picker>
-
+    <!-- 目前居住地picker  -->
+    <mt-popup v-model="placeResidenceVisible" position="bottom">
+      <mt-picker :slots="placeResidenceSlot" :showToolbar="true" :visibleItemCount="3" ref="placeResidencePicker" @change="closeTouch"  @cancel="openTouch">
+        <div class="picker_bar">
+          <div class="cancel" @click="placeResidenceVisible = false">取消</div>
+          <div class="confrim" @click="placeResidenceConfirm">确定</div>
+        </div>
+      </mt-picker>
+    </mt-popup>
   </div>
 
 </template>
 
 <script>
-// import cityPicker from '@/components/common/cityPicker2.vue'
-
-function getTime (d) {
-  let year = d.getFullYear()
-  let month = (d.getMonth() + 1)
-  month = (month < 10 ? `0${month}` : month)
-  let date = d.getDate()
-  date = (date < 10 ? `0${date}` : date)
-  return `${year}-${month}-${date}`
-}
-let vm;
 export default {
   name: 'personInfo_root',
   data: () => ({
     param: {
       name: '', // 姓名
-      sex: '男', // 姓名
-      // birth: '', // 出生日期
-      // height: '', // 身高
-      // weight: '', // 体重
-      // bmi: '', // BMI
-      // diseasetype: '01', // 管理类型（01：肿瘤，02：健康 03：体重）
-      // location: '', // 所在地
-      doctorSkey: ''  // 医生
+      sex: '男', // 性别
+      age: '', // 年龄
+      nation: '', // 民族
+      marriage: '', // 婚姻状态
+      culture: '', // 文化程度
+      placeResidence: ''// 目前居住地
     },
 
     // 性别picker
@@ -147,26 +112,41 @@ export default {
       textAlign: 'center'
     }],
 
-    // 疾病类型picker
-    sportDefaultName: '请选择管理类型', // 页面显示的文字
-    sportVisible: false,
-    sportSlot: [{
+    // 民族picker
+    nationVisible: false,
+    nationSlot: [{
       flex: 1,
-      values: [{name: '肿瘤管理', id: '01'}, {name: '健康管理', id: '02'}],
+      values: ['汉族', '蒙古族', '回族', '藏族', '维吾尔族', '苗族', '彝族', '壮族', '布依族', '朝鲜族', '侗族', '瑶族', '白族', '土家族', '哈尼族', '满族', '其他民族'],
       className: 'slot1',
       textAlign: 'center'
     }],
 
-    // 医生的picker
-    doctorName: '请选择医生',
-    doctorVisible: false,
-    doctorSlot: [{
+    // 婚姻状态picker
+    marriageVisible: false,
+    marriageSlot: [{
       flex: 1,
-      values: [],
+      values: ['未婚', '已婚/再婚/同居', '离异', '丧偶'],
       className: 'slot1',
       textAlign: 'center'
     }],
-    doctorFlag: ""
+
+    // 文化程度 picker
+    cultureVisible: false,
+    cultureSlot: [{
+      flex: 1,
+      values: ['未曾上学', '小学', '初中', '高中（中专）', '大学', '硕士及以上'],
+      className: 'slot1',
+      textAlign: 'center'
+    }],
+
+    // 目前居住地 picker
+    placeResidenceVisible: false,
+    placeResidenceSlot: [{
+      flex: 1,
+      values: ['省会级城市', '市地级市', '县城', '乡镇', '农村'],
+      className: 'slot1',
+      textAlign: 'center'
+    }],
   }),
   methods: {
 
@@ -226,97 +206,62 @@ export default {
       this.sexPickerToggle('hide')
     },
 
-    // 疾病类型picker
-    // sportPickerToggles (state) {
-    //   if (state == 'show') {
-    //     this.closeTouch()
-    //     this.sportVisible = true
-    //   }
-    //   if (state == 'hide') {
-    //     this.openTouch()
-    //     this.sportVisible = false
-    //   }
-    // },
-    // 疾病类型picker 确定事件
-    // sportConfirm () {
-    //   this.openTouch()
-    //   const {
-    //     sportPickers
-    //   } = this.$refs
-    //   let state = sportPickers.getSlotValue(0)
-    //   this.sportDefaultName = state.name
-    //   this.param.diseasetype = state.id
-    //   this.sportPickerToggles('hide')
-    // },
-    // 医生的picker 确定事件
-    doctorConfirm(){
+    // 婚姻状态的picker 确定事件
+    nationConfirm(){
       this.openTouch()
       const {
-        doctorPickers
+        nationPicker
       } = this.$refs
-      let state = doctorPickers.getSlotValue(0)
-      this.doctorName = state.name
-      this.param.doctorSkey = state.skey
-      this.doctorVisible = false
-    },
-    // 打开日期插件
-    openTimePicker (timeField) {
-      this.closeTouch()
-      this.$refs.DatetimePicker.timeField = timeField
-      this.$refs.DatetimePicker.open()
-    },
-    confirmDatetime (value) {
-      this.openTouch()
-      let {
-        timeField
-      } = this.$refs.DatetimePicker
-      timeField = timeField.split('.')
-      this.$data[timeField[0]][timeField[1]] = getTime(new Date(value))
+      let value = nationPicker.getSlotValue(0)
+      this.param.nation = value
+      this.nationVisible = false
     },
 
-    // citypicker的确定回调
-    cityPickerChange (values) {
+    // 婚姻状态的picker 确定事件
+    marriageConfirm(){
       this.openTouch()
-      let cityValue = [values[0].name, values[1].name].join(',')
-      this.param.location = cityValue.replace(',', '')
-    },
-    // 打开citypicker
-    openCityPicker () {
-      this.closeTouch()
-      this.$refs.cityPicker.show()
+      const {
+        marriagePicker
+      } = this.$refs
+      let value = marriagePicker.getSlotValue(0)
+      this.param.marriage = value
+      this.marriageVisible = false
     },
 
-    // 获取医生的列表
-    getDoctorList(){
-      let url = `UserInterface/doctor/GetDoctorInfo.ashx`;
-      this.$post(url).then((data) => {
-        this.doctorSlot[0].values = data.data
-        this.doctorFlag = data.flag
-        // 0:没有绑定医生，1:已绑定医生（不能修改）
-        if(data.flag == 1){
-          this.doctorName = data.data[0].name
-          this.param.doctorSkey = data.data[0].skey
-        }
-      })
+    // 文化程度的picker 确定事件
+    cultureConfirm(){
+      this.openTouch()
+      const {
+        culturePicker
+      } = this.$refs
+      let value = culturePicker.getSlotValue(0)
+      this.param.culture = value
+      this.cultureVisible = false
     },
+
+    // 目前居住地的picker 确定事件
+    placeResidenceConfirm(){
+      this.openTouch()
+      const {
+        placeResidencePicker
+      } = this.$refs
+      let value = placeResidencePicker.getSlotValue(0)
+      this.param.placeResidence = value
+      this.placeResidenceVisible = false
+    },
+
     // 新增提交
     addSubmit () {
       const param = Object.assign({}, this.param)
-      // const diseasetype = this.param.diseasetype // 管理类型（01：肿瘤，02：健康 03：体重）
       if (this.diseaseSubmit()) {
         let url = 'UserInterface/AddConditionDiseaseTumour.ashx'
-        // if (diseasetype === '01') {
-          // url = 'UserInterface/AddConditionDiseaseTumour.ashx'
-        // } else if (diseasetype === '02') {
-        //   url = 'UserInterface/AddConditionDiseaseDisease.ashx'
-        // }
         this.$post(url, param).then((data) => {
           if (data.rspcode != 1) {
             this.$Toast(data.rspdesc)
             return
           }
           this.$Toast('保存成功')
-          this.$router.push(`/wx_Entrance/todymanage`)
+          this.$router.push(`/wx_Entrance/home`)
         })
       }
     },
@@ -328,26 +273,14 @@ export default {
         this.$Toast('请输入姓名')
         return false
       }
-      if (param.height == '') {
-        this.$Toast('请输入身高')
+      if (param.sex == '') {
+        this.$Toast('请输入性别')
         return false
       }
-      if (param.weight == '') {
-        this.$Toast('请输入体重')
+      if (param.age == '') {
+        this.$Toast('请输入年龄')
         return false
       }
-      if (param.doctorSkey == '') {
-        this.$Toast('请选择医生')
-        return false
-      }
-      // if (param.location == '') {
-      //   this.$Toast('请选择您所在地区')
-      //   return false
-      // }
-      // if (param.birth == '') {
-      //   this.$Toast('请选择出生日期')
-      //   return false
-      // }
       return true
     },
   },
@@ -364,30 +297,9 @@ export default {
     },
   },
   components: {
-    // cityPicker
   },
   mounted () {
-    vm = this
     this.openTouch()
-    // 回显表单数据
-    // this.sportConfirm() // 设置默认的管理类型
-
-    // 监听时间插件的关闭
-    this.$watch('$refs.DatetimePicker.visible',function(val){
-      if(!val){
-        this.openTouch()
-      }
-    })
-
-    // 监听省市区插件的关闭
-    this.$watch('$refs.cityPicker.showPicker',function(val){
-      if(!val){
-        this.openTouch()
-      }
-    })
-
-    // 获取医生的列表
-    this.getDoctorList()
   }
 }
 </script>

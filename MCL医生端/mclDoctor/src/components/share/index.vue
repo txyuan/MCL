@@ -1,17 +1,17 @@
 <template>
-	<div style="background: #fff;">
+	<div class="sharePage" style="background: #fff;">
 		<div id="class_header" ref="element">
-			<mt-header :title="title" fixed class="borderBottom">
-				<div slot="left" v-show="isShowTitleBack">
+			<mt-header v-if="isShowTitleBack" :title="title" fixed class="borderBottom">
+				<div slot="left">
 					<router-link to="/wx_Entrance/personal" style="color: initial">
 						<mt-button icon="back"></mt-button>
 					</router-link>
 				</div>
 			</mt-header>
 		</div>
-		<div :style="{height:heigt+'px'}" class="share">
+		<div class="share" :style="{'paddingTop': isShowTitleBack ? '43px' : 0}">
 			<div class="share_cont">
-				<div class="share_top">
+				<!-- <div class="share_top">
 					<h4>
 						{{informdata.name}}
 					    <span v-if="informdata.Title || informdata.Department || informdata.City">
@@ -26,13 +26,18 @@
 						<label>邀请码</label>
 						<i>{{informdata.InvitationCode}}</i>
 					</p>
+				</div> -->
+				<div class="logo">
+					<img src="@/assets/images/share/share1.jpg" alt="">
+					<img src="@/assets/images/share/share2.jpg" alt="">
 				</div>
 				<div class="share_cmd">
 					<img :src="informdata.QRCodeImg" />
-					<p>扫码成为我的好友</p>
+					<!-- <p>扫码成为我的好友</p> -->
 				</div>
+				<img src="@/assets/images/share/share3.jpg" alt="" class="imgDes">
 				<div class="share_bot" v-show="isShowBtn">
-					<span @click="shareclick"> <img src="@/assets/images/sharext.png" class="icon"/>分享</span>
+					<span @click="shareclick">分享</span>
 					<!--<label>保存到相册</label>-->
 				</div>
 			</div>
@@ -145,14 +150,14 @@
 			});
 			
 			//设置页面的高度
-			let heg = window.innerHeight;
-			let height = "";
-			if(title == "邀请好友"){
-				height = heg - 43;
-			}else if(title == "分享"){
-				height = heg - 43 - 53;
-			}
-			this.heigt = height;
+			// let heg = window.innerHeight;
+			// let height = "";
+			// if(title == "邀请好友"){
+			// 	height = heg - 43;
+			// }else if(title == "分享"){
+			// 	height = heg - 43 - 53;
+			// }
+			// this.heigt = height;
 			//返回按钮  和 分享按钮的显示
 			if(title == "邀请好友"){
 				this.isShowTitleBack = true;
@@ -177,17 +182,15 @@
 
 	.share {
 		// background-image: linear-gradient(#e66465, #9198e5);
-		background: url(../../assets/images/sharesbg.png) no-repeat center center;
-		background-size: cover;
+		// background: url(../../assets/images/sharesbg.png) no-repeat center center;
+		// background-size: cover;
 		padding-top: 43px;
 		.share_cont {
 			position: relative;
 			width: 93%;
 			margin: 0 auto;
-			height: 95%;
-			top: 2.5%;
+			margin-top: 0.15rem;
 			background: #fff;
-			border-radius: 6px;
 		}
 	}
 
@@ -240,7 +243,8 @@
 	}
 
 	.share_cmd {
-		padding-top: 0.2rem;
+		padding-top: 0.1rem;
+		padding-bottom: 0.15rem;
 
 		img {
 			width: 1.66rem;
@@ -258,9 +262,9 @@
 
 	.share_bot {
 		width: 100%;
-		font-size: 0.16rem;
-		color: #4A8EF4;
-		line-height: 0.40rem;
+		font-size: 0.17rem;
+		color: #fff;
+		line-height: 0.45rem;
 		bottom: 90px;
 		left: 0;
 		position: fixed;
@@ -269,13 +273,14 @@
 			display: inline-block;
 			width: 80%;
 			/*padding-left: 8%;*/
-			border: 1px solid #4A8EF4;
-			height: 0.40rem;
+			border: 1px solid #0ac5ca;
+			background: #0ac5ca;
+			height: 0.45rem;
 			/*float: left;*/
 			/*background: url(../../../assets/images/fenxiang@2x.png) no-repeat 32% center;*/
 			background-size: 0.2rem;
 			text-align: center;
-			border-radius: 0.21rem;
+			border-radius: 0.23rem;
 		}
 		.icon {
 			width: 20px;
@@ -330,5 +335,26 @@
 	  margin: 0 auto;
 	  padding: 7px 15px;
 	  line-height: 1;
+	}
+
+	.logo{
+		text-align: center;
+		// padding-top: 0.20rem;
+		img{
+			width: 95%;
+		}
+	}
+
+	.imgDes{
+		width: 90%;
+		margin: 0 auto;
+		display: block;
+	}
+
+	.sharePage{
+		padding-top: 1px;
+		padding-bottom: 1.5rem;
+		min-height: 100vh;
+		box-sizing: border-box;
 	}
 </style>

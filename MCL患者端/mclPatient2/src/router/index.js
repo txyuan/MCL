@@ -560,7 +560,7 @@ const router = new Router({
 // 白名单（不需要验证登录信息）
 const product = ['service', 'serviceDetail', 'searchProduct', 'productCategory'] // 商城模块
 const selfTestAndcomplication = ['selfTestTool', 'selfTestDetail', 'toolHome', 'selfTestSolution', 'complication', 'complicationDeatil', 'complicationResult', 'complicationHome', 'proposalDetail']  // 自测和并发症模块
-const whiteRouteList = [ 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'wellcome', 'inviteFriends',  'VConsole', ...product, ...selfTestAndcomplication  ]
+const whiteRouteList = ['home', 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'wellcome', 'inviteFriends',  'VConsole', ...product, ...selfTestAndcomplication  ]
 
 router.beforeEach((to, from, next) => {
 

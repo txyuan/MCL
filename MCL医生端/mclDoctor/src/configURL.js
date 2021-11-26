@@ -10,7 +10,7 @@ const KFCONFIG = {
 }
 
 
-/* 测试环境配置  */ 
+/* 测试环境配置  */
 // app端客服地址
 // const KFURL = 'http://clicstest.marryhealthscience.com'
 // // 客服端配置信息
