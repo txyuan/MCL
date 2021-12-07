@@ -213,7 +213,17 @@
                 <p class="row">转发小工具</p>
               </div>
             </router-link>
-
+        </div>
+        <!-- 管理员 -->
+        <div class="middle-cell" @click="kefuFn">
+           <router-link v-if="repData.ZXFlag == 1" to="">
+              <div class="cell">
+                <div class="row">
+                  <img src="@/assets/images/icons/icon-cskf.png"  alt="">
+                </div>
+                <p class="row">测试客服</p>
+              </div>
+            </router-link>
         </div>
       </div>
 		</div>
@@ -263,6 +273,10 @@
 			ewmshow: false
 		}),
 		methods: {
+      // 测试客服跳转
+      kefuFn() {
+        window.location.href = 'https://work.weixin.qq.com/kfid/kfcc1d21a8c8bde0fff'
+      },
 			// 是否显示事业版
 			showsy() {
 				if (this.isShow) {

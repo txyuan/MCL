@@ -29,48 +29,46 @@
 				<mt-button type="primary" class="theme-button button-radio " size="large" @click.native="save">记录体重</mt-button>
 				<mt-button type="default" class="theme-button button-radio " size="large" @click.native="$router.push({name: 'dietCase'})" style="margin-top: 15px">饮食调查</mt-button>
 			</div>
-			<div class="jiluInfo">
-				<ul>
-					<li class="font12">
-						<div class="row">
-							<p class=""> <span class="font17 num">{{startWeight}}</span> <span>公斤</span> </p>
-							<p class="">开始记录</p>
-						</div>
-						<div class="row">
-							<p class="">初始体重</p>
-							<p class="">{{startRecordDate}}</p>
-						</div>
-					</li>
-					<li class="font12">
-						<div class="row">
-							<p class=""> <span class="font17 num">{{newWeight}}</span> <span>公斤</span> </p>
-							<p class="">最新记录</p>
-						</div>
-						<div class="row">
-							<p class="">最新体重</p>
-							<p class="">{{newRecordDate}}</p>
-						</div>
-					</li>
-				</ul>
-			</div>
+		
         </div>
 
         <div class="mag10 bg-white">
           <div class="jiluInfo">
 	  		<ul>
-				<h3 class="allweit">所有体重记录</h3>
-				<loadMore :param="param" @triggerGetList="shoplist" ref="loadMoreE" :isDefaultLoading="false">
+				<h3 class="allweit">体重记录</h3>
+				<loadMore :param="param"  @triggerGetList="shoplist" ref="loadMoreE" :isDefaultLoading="false">
 					<div slot="content">
-						<li class="font12" v-for="(item,index) in list" :key="index" :item="item">
-							<div class="row">
-								<p class=""> <span class="font17 num">{{item.Weight}}</span> <span>公斤</span> </p>
-								<p class="">我的记录</p>
-							</div>
-							<div class="row">
-								<p class="">体重信息</p>
-								<p class="">{{item.RecordDate}}</p>
-							</div>
-						</li>
+					 
+		    <div class="flex ac Dark" style="color: #000;font-weight: 600;">
+		   	<div class="p-2 " style="width:33%;text-align: center;">
+				记录时间
+			  </div>
+			<div class="p-2 " style="width:33%;text-align: center;">
+				体重
+			</div>
+			<div class="p-2 " style="width:33%;text-align: center;">
+				差值
+			</div>
+		</div>
+		<div v-for="(item,index) in list" :key="index">
+			<div class="flex ac Dark"  style="color: #333;">
+				<div class="p-2 " style="width:33%;text-align: center;">
+          <template>
+	      <!-- {{item.RecordDate | formater(item.RecordDate)}} -->
+	      {{item.RecordDate}}
+          </template>
+				
+				</div>
+				<div class="p-2 " style="width:33%;text-align: right; padding-right: 0.3rem">
+				{{item.Weight}}
+				</div>
+				<div class="p-2 " style="width:33%;text-align: right;padding-right: 0.3rem">
+				{{item.Difference}}
+				</div>
+ 
+			</div>
+		</div>
+
 					</div>
 				</loadMore>
 	  		</ul>
@@ -476,4 +474,17 @@
 	  font-size: 0.16rem;
     border-bottom: 1px solid #e5e5e5;
   }
+	.p-2{
+	padding: 20rpx;
+  box-sizing: border-box;
+}
+.flex{
+	display: flex;
+}
+.ac{
+	align-items: center;
+  border-bottom: 1px solid #ccc;
+  height: 0.45rem !important;
+  line-height: 0.45rem !important;
+}
 </style>
