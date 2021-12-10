@@ -59,11 +59,14 @@
           </template>
 				
 				</div>
+				
 				<div class="p-2 " style="width:33%;text-align: right; padding-right: 0.3rem">
-				{{item.Weight}}
+				 {{item.Weight}}
 				</div>
 				<div class="p-2 " style="width:33%;text-align: right;padding-right: 0.3rem">
-				{{item.Difference}}
+				<i v-show="item.Difference < 0" class="icon iconfont icon-icon_xiangxiajiantoucuxiao"></i>
+				<i v-show="item.Difference > 0" class="icon iconfont icon-icon_xiangshangjiantoucuxiao"></i>
+				{{item.Difference.includes('-') ? item.Difference.substr(1) : item.Difference}}Kg
 				</div>
  
 			</div>
@@ -262,6 +265,7 @@
 			    if(data.rspcode != 1 ){
 			      return;
 			    }
+				
 			    let modelList = data.data;
 			    if(this.param.pagecount == 1){
 			      this.list = [...modelList];
@@ -486,5 +490,14 @@
   border-bottom: 1px solid #ccc;
   height: 0.45rem !important;
   line-height: 0.45rem !important;
+}
+.icon-icon_xiangxiajiantoucuxiao {
+	color: red;
+}
+.icon-icon_xiangshangjiantoucuxiao {
+	color: #09ac17;
+}
+.icon {
+	margin-right: -0.05rem;
 }
 </style>

@@ -19,6 +19,8 @@ import vueTouch from 'vue-plugin-touch';
 import { KFCONFIG } from '@/configURL.js'
 import preventReClick from '@/directive/preventReClick.js' // 指令
 import echarts from "echarts"
+
+import '@/assets/font/iconfont.css'
 // 异步预加载省市区三级联动的数据 
 import(/* webpackChunkName: "cityData" */ '@/assets/js/address3.json')
 
