@@ -39,6 +39,9 @@
 								</div> -->
 								<div class="btn-group">
 									<div style="overflow: hidden;">
+										<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item)">
+											<span>查看物流</span>
+									 </div>
 										<!--<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
 											<span>查看物流</span>  
 										</div>-->
@@ -50,14 +53,14 @@
 										<div v-if="item.state == '1'" class="f-btn ok" style="float: left;" @click="shopsh(item)">
 											<span>确认收货</span>
 										</div>
+										
 									</div>
+									
 									<!-- <div v-else-if="item.state  == '2'" style="overflow: hidden;">
 										<div class="f-btn ok laood" style="float: left;" @click="delmoy(item,3)">
 											<span>删除订单</span>
 										</div> 
-										<div class="f-btn ok laood" style="float: left;" @click="eyemoy(item,3)">
-											<span>查看物流</span>
-										</div>
+										
 										<div class="f-btn ok" style="float: left;" @click="againsh(item)">
 											<span>再次购买</span>
 										</div>
@@ -106,6 +109,12 @@ export default {
     list: []
   }),
   methods: {
+		// 查看物流
+		eyemoy(item) {
+			window.localStorage.removeItem('commInfo')
+			window.localStorage.setItem('commInfo',JSON.stringify(item))
+			this.$router.push('/personalgetwuliu')
+		},
     tab (val) {
 	//   this.setPage()
       this.$Indicator.loading()

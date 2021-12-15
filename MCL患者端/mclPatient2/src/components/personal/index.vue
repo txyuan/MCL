@@ -215,9 +215,9 @@
             </router-link>
         </div>
         <!-- 管理员 -->
-        <div class="middle-cell" @click="kefuFn">
+        <div class="middle-cell">
            <router-link v-if="repData.ZXFlag == 1" to="">
-              <div class="cell">
+              <div class="cell"  @click="kefuFn">
                 <div class="row">
                   <img src="@/assets/images/icons/icon-cskf.png"  alt="">
                 </div>
