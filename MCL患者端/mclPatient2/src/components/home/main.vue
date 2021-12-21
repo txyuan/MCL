@@ -49,10 +49,14 @@
          </li>
          <li>
            <div class="wrap">
-             <router-link tag="div" to="/mesage">
+            <router-link tag="div" to="">
+            <!-- <router-link tag="div" to="/mesage"> -->
+              <div @click="kefu">
               <img src="@/assets/images/home/keFu.png" alt="">
               <p>客服</p>
-             </router-link>
+              </div>
+            <!-- </router-link> -->
+            </router-link>
            </div>
          </li>
        </ul>
@@ -72,6 +76,7 @@
 </template>
 
 <script>
+import {  logout } from '@/assets/js/uesr.js'
     export default {
         name:"",
         data () {
@@ -82,6 +87,13 @@
             }
         },
         methods:{
+          kefu() {
+            if(!localStorage.userInfo) {
+               logout('/wx_Entrance/home')
+               return
+            }
+             window.location.href = 'https://work.weixin.qq.com/kfid/kfc349d1845c90759d4'
+          },
           // 显示广告
           showAdvertisement(){
             if(!sessionStorage.getItem('advertisement')){
