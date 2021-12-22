@@ -247,8 +247,8 @@ export default {
         } else {
           // 患者端
           if (this.role == 1 || this.role == 2 || this.role == 3) {
-            // this.$router.push('/wxFollowPage') // 通过好友邀请进来 关注微信公众号
-            location.href = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIyNTg3NjUwNg==&subscene=0#wechat_redirect'
+            this.$router.push('/wxFollowPage') // 通过好友邀请进来 关注微信公众号
+            // location.href = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIyNTg3NjUwNg==&subscene=0#wechat_redirect'
             this.saveLoginInfo(data) // 存登录信息
             // 医生端
           } else if (this.role == 4) {
