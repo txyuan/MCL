@@ -5,3 +5,4 @@ export function checkUserInfo(param){
     let url = "UserInterface/CheckUserInfo.ashx";
     return post(url, param)
 }
+

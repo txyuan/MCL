@@ -59,6 +59,11 @@ const expertDetail = () => import(/* webpackChunkName: "expertDetail" */ '@/comp
 const use_guide = () => import(/* webpackChunkName: "use_guide" */ '@/components/home/agree/use_guide.vue')  //MCL 使用指南
 const project_description = () => import(/* webpackChunkName: "project_description" */ '@/components/home/agree/project_description.vue')  //项目说明
 
+// 知识
+// const knowledge = () => import(/* webpackChunkName: "knowledge" */ '@/components/home/knowledge/index.vue') // 知识课程
+// const search = () => import(/* webpackChunkName: "search" */ '@/components/home/knowledge/search.vue') // 知识课程搜索
+// const knowledgeDetail = () => import(/* webpackChunkName: "knowledgeDetail" */ '@/components/home/knowledge/knowledgeDetail.vue') // 知识课程搜索
+
 //商城
 const service = () => import(/* webpackChunkName: "service" */ '@/components/home/service/index.vue')  //产品列表
 const productCategory = () => import(/* webpackChunkName: "productCategory" */ '@/components/home/service/productCategory.vue')  //更多产品列表
@@ -276,7 +281,7 @@ const router = new Router({
         { path:"todymanage", name:"todymanage", component: todymanage },
 				{ path:"community", name:"community", component: community},
 				{ path:"service", name:"service", component: service, meta:{keepAlive: true}},
-				
+				// { path:"knowledge", name:"knowledge", component: knowledge, meta:{keepAlive: true}},
         { path:"personal", name:"personal", component: personal }
       ]
     },
@@ -334,6 +339,11 @@ const router = new Router({
     { path:"/project_description", name:"project_description", component: project_description },  //项目说明
 
 		{ path:"/makeform", name:"makeform", component: makeform },  //营养
+
+    //知识
+    // { path:"/search", name:"search", component: search },  //搜索
+    // { path:"/knowledgeDetail", name:"knowledgeDetail", component: knowledgeDetail },  //课程详情
+    
 
 
 		//商城
@@ -563,7 +573,7 @@ const router = new Router({
 const product = ['service', 'serviceDetail', 'searchProduct', 'productCategory'] // 商城模块
 const selfTestAndcomplication = ['selfTestTool', 'selfTestDetail', 'toolHome', 'selfTestSolution', 'complication', 'complicationDeatil', 'complicationResult', 'complicationHome', 'proposalDetail']  // 自测和并发症模块
 const whiteRouteList = ['home', 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'wellcome', 'inviteFriends',  'VConsole', ...product, ...selfTestAndcomplication  ]
-
+// let share
 router.beforeEach((to, from, next) => {
 
   // 重定向到哇咔咔系统首页
@@ -571,7 +581,8 @@ router.beforeEach((to, from, next) => {
   //   location.href = "https://wx12ed81f322f0f7b5.wx.wakkaa.com/appMjAzNDg1?t=1"
   //   return
   // }
-  
+  // console.log(from);
+
   // 不在白名单内，没有登录信息的情况跳转登录页面
   if ((whiteRouteList.indexOf(to.name) == -1) && !localStorage.userInfo) {
     logout(to.fullPath)
@@ -585,9 +596,9 @@ router.beforeEach((to, from, next) => {
   }
   
   // 白名单内的页面 和 完善个人信息页面，不需要判断完善个人信息
-  if ((whiteRouteList.indexOf(to.name) == -1) && (to.name != "wellcome_personInfoRegister") && localStorage.userInfo) {
-    // 判断是否需要完善个人信息
-    perfectInfo()
+  if ((whiteRouteList.indexOf(to.name) == -1) && (to.name != "personaldata") && (to.name != "wellcome_personInfoRegister") && (to.name != "personal") && (to.name != "orderindex") && localStorage.userInfo) {
+      // 判断是否需要完善个人信息
+      perfectInfo()
   }
 
   next()
@@ -607,6 +618,8 @@ async function perfectInfo(){
     flag = true
   }
 }
-
+// export {
+//   share
+// }
 export default router
 

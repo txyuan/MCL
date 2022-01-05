@@ -38,6 +38,7 @@
 
 <script>
 import { getSelfTestList } from "@/api/selfTest.js"
+import { getZphone } from "@/utils/storage.js"
 export default {
   data() {
     return {
@@ -93,7 +94,8 @@ export default {
         //   PageUrl: "actualIntake",
         //   CreateDate: ""
         // },
-      ]
+      ],
+      rphone : ''
     }
   },
   methods:{
@@ -114,6 +116,7 @@ export default {
   },
   created(){
     this.getList()
+    this.rphone = getZphone()
   }
 }
 </script>

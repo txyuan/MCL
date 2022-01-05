@@ -2,6 +2,7 @@ import axios from 'axios'
 import Qs from 'qs'
 import router from '@/router/index.js' // 路由
 import { logout } from '@/assets/js/uesr.js' // 退出登录
+import {share} from '@/router'
 // axios.defaults.timeout = 5000;
 
 axios.defaults.baseURL = '/'
@@ -21,7 +22,6 @@ axios.interceptors.request.use(
       UserKey = userInfo.UserKey
       SessionId = userInfo.SessionId
     };
-    
     // 分享页面接口不需要挂参数
     if (config.url.indexOf('UserInterface/GetQRCode.ashx') == -1) {
       config.params = {UserKey, SessionId, ...config.params}
@@ -50,6 +50,7 @@ axios.interceptors.request.use(
 // http response 拦截器
 axios.interceptors.response.use(
   response => {
+    
     if ((response.data.rspcode == 999) || (response.data.rspCode == 999)) {
       if (router.currentRoute.path != '/login') {
         logout()

@@ -12,7 +12,7 @@
           <span class="search-label"  v-for="item in bFlist" :key="item.sKey" @click="$router.push({name: 'searchProduct', query:{q: item.name}})">{{item.name}}</span>
         </div>
       </div>
-
+    
       <!-- 轮播图 -->
       <carousel class="carousel"/>
 
@@ -47,7 +47,7 @@
       <div class="huiyuanBox">
          <img src="@/assets/images/shoppingMall/huiyuan.jpg" alt="" class="huiyuan" style="width: 100%" @click="$router.push({name: 'yearCard'})">
       </div>
-
+  
       <div class="titlebt">
         <h3>精选推荐 <span class="more" @click="$router.push('/productCategory')">更多</span></h3>
       </div>
@@ -87,7 +87,13 @@ import carousel from "./modules/carousel.vue";
 import { GetIndexProductList, GetProductCategoryList } from "@/api/shopCar.js"
 import { getList } from "@/api/complication"
 import { setRhone } from "@/utils/storage"
-
+import { getWechatParm } from "@/api/wx"
+	//系统logo
+import logoImg from '@/assets/images/mclogo.png';
+/*引入微信js-sdk */
+import remoteJs from "@/components/common/remote-js.js"
+remoteJs('https://res.wx.qq.com/open/js/jweixin-1.1.0.js');
+import { getZphone } from "@/utils/storage.js"
 export default {
   name: "home2",
   data: () => ({
@@ -99,8 +105,22 @@ export default {
     list: [],  // 产品列表
     bFlist: [],  // 并发症
     typeList: [],  // 产品分类
+    rphone : '',
+    WechatParm: {}, //公众号信息
+    // shareObj: { //分享信息内容配置
+    //    title: `商城首页`,
+    //     desc: '', // 分享描述
+    //     link: `${location.origin}${location.pathname}#${this.$route.fullPath}?rphone=${getZphone()}`, //系统地址
+    //      imgUrl: ''
+    //   },
   }),
   methods: {
+    	 async getWechatParm() {
+        const data = await getWechatParm();
+        this.WechatParm = data.WechatParm
+        this.wxConfig(); // 微信配置
+			  this.wxRead(); // 微信read回调
+          },
     //触发加载更多
     startLoad() {
         this.param.pagecount = 0;
@@ -133,6 +153,63 @@ export default {
       const data = await GetProductCategoryList();
       this.typeList = data.list
     },
+     //微信配置
+        wxConfig() {
+            let WechatParm = this.WechatParm;
+            wx.config({
+                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: WechatParm.AppId, // 必填，公众号的唯一标识
+                timestamp: WechatParm.Timestamp, // 必填，生成签名的时间戳
+                nonceStr: WechatParm.NonceStr, // 必填，生成签名的随机串
+                signature: WechatParm.Signature, // 必填，签名，
+                jsApiList: ['checkJsApi', 'onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo']
+            });
+        },
+        //微信read回调
+        wxRead() {
+            wx.ready(() => {
+                this.ShareTimeline();
+                this.ShareAppMessage();
+                this.ShareQQ();
+                this.ShareWeibo();
+            })
+        },
+        // 2.3 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+        ShareTimeline() {
+            wx.onMenuShareTimeline({ //分享信息内容配置
+       title: `MCL-商城`,
+        desc: '我在医随康分享了商城，赶快来看看吧。', // 分享描述
+        link: `${location.origin}${location.pathname}#${this.$route.fullPath}?rphone=${getZphone()}`, //系统地址
+         imgUrl: (location.origin + logoImg)
+      })
+        },
+        // 2.3 监听“分享给朋友”按钮点击、自定义分享内容及分享结果接口
+        ShareAppMessage() {
+            wx.onMenuShareAppMessage({ //分享信息内容配置
+       title: `MCL-商城`,
+        desc: '我在医随康分享了商城，赶快来看看吧。', // 分享描述
+        link: `${location.origin}${location.pathname}#${this.$route.fullPath}?rphone=${getZphone()}`, //系统地址
+         imgUrl: (location.origin + logoImg)
+      })
+        },
+        // 2.3 监听“分享到QQ”按钮点击、自定义分享内容及分享结果接口
+        ShareQQ() {
+            wx.onMenuShareQQ({ //分享信息内容配置
+       title: `MCL-商城`,
+        desc: '我在医随康分享了商城，赶快来看看吧。', // 分享描述
+        link: `${location.origin}${location.pathname}#${this.$route.fullPath}?rphone=${getZphone()}`, //系统地址
+         imgUrl: (location.origin + logoImg)
+      })
+        },
+        // 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
+        ShareWeibo() {
+            wx.onMenuShareWeibo({ //分享信息内容配置
+       title: `MCL-商城`,
+        desc: '我在医随康分享了商城，赶快来看看吧。', // 分享描述
+        link: `${location.origin}${location.pathname}#${this.$route.fullPath}?rphone=${getZphone()}`, //系统地址
+         imgUrl: (location.origin + logoImg)
+      })
+        }
   },
   beforeRouteEnter (to, form, next) {
       next((vm) => {
@@ -163,6 +240,12 @@ export default {
     if(query.doctorPhone){
       setRhone(query.doctorPhone)
     }
+    this.getWechatParm()
+     if(this.$route.query.rphone) {
+       localStorage.setItem('hphone','')
+      localStorage.setItem('hphone',this.$route.query.rphone)
+    }
+    
   },
   components: {
     productItem,

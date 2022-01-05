@@ -27,7 +27,7 @@
       selected: "",
       tabList:[
         {name:"首页",path:"home",className:"home"},
-			  // {name:"诊疗",path:"todymanage",className:"mesage"},
+			  // {name:"知识",path:"knowledge",className:"community"},
 				{name:"商城",path:"service",className:"service"},
         // {name:"社区",path:"community",className:"community"},
         {name:"我的",path:"personal",className:"personal"}

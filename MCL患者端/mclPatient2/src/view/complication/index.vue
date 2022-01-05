@@ -24,9 +24,11 @@
 
 <script>
 import {getList} from "@/api/complication" 
+import { getZphone } from "@/utils/storage.js"
 export default {
     data: () => ({
-      list: []
+      list: [],
+      rphone : ''
     }),
     methods:{
       async getList(){
@@ -36,6 +38,7 @@ export default {
     },
     created(){
       this.getList()
+      this.rphone = getZphone()
     }
 }
 </script>

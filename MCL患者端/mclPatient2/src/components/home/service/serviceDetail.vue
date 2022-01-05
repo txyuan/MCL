@@ -115,6 +115,8 @@
 	remoteJs('https://res.wx.qq.com/open/js/jweixin-1.1.0.js');
 	//系统logo
 	import logoImg from '@/assets/images/mclogo.png';
+
+	import { getZphone } from "@/utils/storage.js"
 	export default {
 		name: "index",
 		data() {
@@ -134,7 +136,7 @@
 				item: {
 					goodsNum: 1
 				},
-
+				rphone : '', // 用户手机号
 				// 分享的弹出框
 				showPanel: false,
 				isSmark: false,
@@ -151,12 +153,19 @@
 				html2canavsUrl: ""
 			}
 		},
+		created() {
+			this.getinform ()
+		},
 		computed: {
 			screenWidth: function() {
 				return window.innerWidth;
 			}
 		},
 		methods: {
+			  getinform () {
+				this.rphone = getZphone()
+				this.shareObj.link = `${location.origin}${location.pathname}#${this.$route.path}?from=share&rphone=${this.rphone}`
+      },
 			//加减的输入框
 			inputChange(val){
 				this.num = val
@@ -232,10 +241,10 @@
 					goodsNum: this.num
 				};
 				this.$post(url, param).then((data) => {
-					if (data.rspcode != 1) {
-						this.$Toast(data.rspdesc);
-						return;
-					}
+					// if (data.rspcode != 1) {
+					// 	this.$Toast(data.rspdesc);
+					// 	return;
+					// }
 					this.$router.push({
 						path: "/orderindex",
 						query: {
@@ -345,6 +354,11 @@
 			await this.getDetailInfo()
 			this.wxConfig(); // 微信配置
 			this.wxRead(); // 微信read回调
+			
+			 if(this.$route.query.rphone) {
+				 localStorage.setItem('hphone','')
+      localStorage.setItem('hphone',this.$route.query.rphone)
+    }
 		},
 		destroyed() {
 			// window.removeEventListener("scroll", this.scrollBottom, false)

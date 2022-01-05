@@ -62,7 +62,7 @@
 import { DOCTORURL, CHANNELURL } from '@/configURL.js'
 import identify from '@/components/common/identify.vue'
 import logoImg from '@/assets/images/mclogo.png'
-
+import {setZphone } from "@/utils/storage.js"
 export default {
   name: 'register',
   data: () => ({
@@ -81,62 +81,41 @@ export default {
     // 渠道分享给 医生，渠道，
     roleMap: {
       // role0: '1,2',
-      role1: '2',
-      role2: '2',
-      role3: '',
+      role1: '1,4',
+      role2: '1,4',
+      role3: '1,4',
       role4: '1,4',
-      role5: '6',
-      role6: '4,1',
-      role7: '4',
-      role9: '1',
+      role5: '1,4',
+      role6: '1,4',
+      role7: '1,4',
+      role9: '1,4',
     },
-    roleList: [{
-      value: '',
-      name: '您的身份',
-      show: true
-    },
+    // roleMap: {
+    //   // role0: '1,2',
+    //   role1: '2',
+    //   role2: '2',
+    //   role3: '',
+    //   role4: '1,4',
+    //   role5: '6',
+    //   role6: '4,1',
+    //   role7: '4',
+    //   role9: '1',
+    // },
+    roleList: [
     {
       value: 1,
       name: '患者',
       show: true
     },
-    {
-      value: 2,
-      name: '患者家人',
-      show: true
-    },
-    {
-      value: 3,
-      name: '路人',
-      show: true
-    },
+   
     {
       value: 4,
       name: '医生',
       show: true
     },
-    {
-      value: 5,
-      name: '地区渠道商',
-      show: true
-    },
-    {
-      value: 6,
-      name: '推广员工',
-      show: true
-    },
-    {
-      value: 7,
-      name: '发货员工',
-      show: true
-    },
-    {
-      value: 8,
-      name: '渠道经理',
-      show: true
-    }
+    
     ],
-    role: ''
+    role: 1
   }),
   computed: {
     time: function () {
@@ -245,20 +224,30 @@ export default {
         if (this.$route.query.form) {
           this.$router.back()
         } else {
+           // 存用户手机
+				setZphone(this.phone)
+        // 将推荐人手机号清空
+        localStorage.setItem('hphone','')
           // 患者端
           if (this.role == 1 || this.role == 2 || this.role == 3) {
-            this.$router.push('/wxFollowPage') // 通过好友邀请进来 关注微信公众号
-            // location.href = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIyNTg3NjUwNg==&subscene=0#wechat_redirect'
             this.saveLoginInfo(data) // 存登录信息
+            const redirect = this.$route.query.redirect
+            if(redirect) {
+              this.$router.replace(redirect) // 通过分享来 返回分享页面
+            }else {
+               // 通过好友邀请进来 微信公众号首页
+              location.href = 'http://cli.marryhealthscience.com/patient/index.html#/wx_Entrance/home'
+            }
+           
             // 医生端
           } else if (this.role == 4) {
             // 实名认证
             if ((data.doctorflag == '1') || (!data.doctorflag)) {
-              location.href = `${DOCTORURL}#/physician1?UserKey=${data.userkey}&SessionId=${data.session_id}&parentPhone=${this.rphone}`
+              location.href = `${DOCTORURL}#/wxFollowPage`
             }
             // 医师认证
             if (data.doctorflag == '2') {
-              location.href = `${DOCTORURL}#/physician1?UserKey=${data.userkey}&SessionId=${data.session_id}&parentPhone=${this.rphone}`
+              location.href = `${DOCTORURL}#/wxFollowPage`
             }
           } else if (this.role == 5 || this.role == 6 || this.role == 7 || this.role == 8) {
             // 渠道端
@@ -281,7 +270,7 @@ export default {
   },
   mounted: function () {
     const {rphone, role} = this.$route.query
-    if (role) {
+    // if (role) {
       this.rphone = rphone
       // 地区渠道商的手机号码
       // if((role == 5) && (rphone == "15523523851")){
@@ -290,10 +279,11 @@ export default {
       // }else{
       // 这个用户可以选择注册的角色
         let JurisdictionRole = this.roleMap['role' + role].split(',') 
+        
         this.roleList = this.roleList.filter(item => JurisdictionRole.includes(String(item.value)))  // 显示用户可以选择注册的角色
         this.role = JurisdictionRole[0]
       // }
-    }
+    // }
   },
   beforeRouteEnter (to, from, next) {
 		  next(vm => {

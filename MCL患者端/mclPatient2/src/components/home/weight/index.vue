@@ -31,7 +31,7 @@
 			</div>
 		
         </div>
-
+     
         <div class="mag10 bg-white">
           <div class="jiluInfo">
 	  		<ul>
@@ -105,9 +105,26 @@
 	import echarts from 'echarts';
 	import loadMore from "@/components/common/loadMore.vue";  //加载更多组件
 	import DLRuler from './ruler.vue';
+	import { getWechatParm } from "@/api/wx"
+	//系统logo
+import logoImg from '@/assets/images/mclogo.png';
+/*引入微信js-sdk */
+import remoteJs from "@/components/common/remote-js.js"
+remoteJs('https://res.wx.qq.com/open/js/jweixin-1.1.0.js');
+
+	import { getZphone } from "@/utils/storage.js"
     export default {
         name: "weigh",
-        data:()=>({
+        data() {
+					return {
+				rphone : '', // 用户手机号
+				WechatParm: {}, //公众号信息
+				shareObj: { //分享信息内容配置
+					title: 'MCL-体重',
+					desc: '我在医随康分享了我的体重信息，赶快来看看吧。', // 分享描述
+					link: `${location.origin}${location.pathname}#${this.$route.fullPath}?rphone=${getZphone()}`, //系统地址
+					imgUrl: (location.origin + logoImg)
+				},
 			WeightContent: '',
 			dangerWeight:'',  //危险体重
 			standardWeight:'',  //标准体重
@@ -122,8 +139,10 @@
 			  pagesize: 10,
 			  pagecount: 0,
 			},
-        }),
+					}
+				},
         methods:{
+			
         	initEchart(){
         		var option = {
               tooltip: {
@@ -258,6 +277,12 @@
 					myChart.setOption(option);
 				})
         	},
+				 async getWechatParm() {
+        const data = await getWechatParm();
+        this.WechatParm = data.WechatParm
+        this.wxConfig(); // 微信配置
+			  this.wxRead(); // 微信read回调
+          },
 			//体重记录
 			shoplist(success) {
 			  let url = "UserInterface/WeightRecordInfo.ashx";
@@ -306,19 +331,59 @@
 			},
 			changeWeight(val) {
 				this.wegvale=val;
-        console.log(val)
+			},
+					//微信配置
+			wxConfig() {
+				let WechatParm = this.WechatParm;
+				wx.config({
+					debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+					appId: WechatParm.AppId, // 必填，公众号的唯一标识
+					timestamp: WechatParm.Timestamp, // 必填，生成签名的时间戳
+					nonceStr: WechatParm.NonceStr, // 必填，生成签名的随机串
+					signature: WechatParm.Signature, // 必填，签名，
+					jsApiList: ['checkJsApi', 'onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo']
+				});
+			},
+			//微信read回调
+			wxRead() {
+				wx.ready(() => {
+					this.ShareTimeline();
+					this.ShareAppMessage();
+					this.ShareQQ();
+					this.ShareWeibo();
+				})
+			},
+			// 2.3 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+			ShareTimeline() {
+				wx.onMenuShareTimeline(this.shareObj)
+			},
+			// 2.3 监听“分享给朋友”按钮点击、自定义分享内容及分享结果接口
+			ShareAppMessage() {
+				wx.onMenuShareAppMessage(this.shareObj)
+			},
+			// 2.3 监听“分享到QQ”按钮点击、自定义分享内容及分享结果接口
+			ShareQQ() {
+				wx.onMenuShareQQ(this.shareObj)
+			},
+			// 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
+			ShareWeibo() {
+				wx.onMenuShareWeibo(this.shareObj)
 			}
         },
-        mounted: function(){
-        	this.initEchart();
+
+
+       mounted() {
+       this.initEchart();
 			this.param.pagecount = 0;
 			this.$refs.loadMoreE.getList();
+			this.getWechatParm()
+		  
         },
+
+
 		components:{
 		  loadMore,
 		  DLRuler
-		},
-		created() {
 		}
     }
 </script>

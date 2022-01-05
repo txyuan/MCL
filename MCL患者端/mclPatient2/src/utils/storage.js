@@ -12,3 +12,19 @@ export function setRhone(value){
 export function removeRhone(){
   sessionStorage.removeItem(rphone)
 }
+
+
+// 用户手机号
+const zphone = "zphone";
+
+export function getZphone(){
+  return localStorage.getItem(zphone)
+}
+
+export function setZphone(value){
+  localStorage.setItem(zphone, value)
+}
+
+export function removeZphone(){
+  localStorage.removeItem(zphone)
+}

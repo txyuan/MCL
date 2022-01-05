@@ -15,6 +15,7 @@
           </header-back>
         </div>
       </mt-header>
+    
       <!-- mt-navbar -->
       <div id="navbar" class="fix_top" style="top: 0.48rem;">
         <mt-navbar v-model="ABflag">
@@ -476,7 +477,7 @@
 
 <script>
   import echarts from 'echarts'
-
+  
   export default {
     name: 'diet',
     data: () => ({
@@ -534,9 +535,11 @@
       fatProportion: '',
       proteinProportion: '',
       aleta: false,
-      aletData: {}
+      aletData: {},
+      
     }),
     methods: {
+     
       getnewdate () {
         let timer = new Date()
         let years = timer.getFullYear()
@@ -665,6 +668,7 @@
           datetime: this.datriq
         }
         this.$post(url, param).then((data) => {
+          
           if (data.rspcode != 1) {
             return
           }
@@ -832,7 +836,8 @@
       },
       ok_alert () {
         this.aleta = false
-      }
+      },
+      
     },
     mounted () {
       this.getnewdate()
@@ -844,7 +849,9 @@
       if (this.$route.query.ABflag == 2) {
         this.ABflag = 2
       }
-    }
+     
+    },
+    
   }
 </script>
 

@@ -270,7 +270,7 @@
 				VGScore: "", //积分
 				TeamNumber: "" //团队人数
 			},
-			ewmshow: false
+			ewmshow: false,
 		}),
 		methods: {
       // 测试客服跳转

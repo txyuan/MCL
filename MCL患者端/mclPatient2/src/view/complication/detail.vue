@@ -23,7 +23,7 @@
 
 <script>
 import {getList2} from "@/api/complication"
-import { setRhone } from "@/utils/storage.js"
+import { setRhone,getZphone } from "@/utils/storage.js"
 import { getWechatParm } from "@/api/wx"
 //系统logo
 import logoImg from '@/assets/images/mclogo.png';
@@ -126,7 +126,17 @@ export default {
       if(query.doctorPhone){
         setRhone(query.doctorPhone)
         this.getWechatParm()  // 设置分享链接
+      }else {
+         this.shareObj.link = `${location.origin}${location.pathname}#${this.$route.fullPath}&rphone=${getZphone()}`
+         this.getWechatParm()
       }
+    },
+    mounted() {
+       
+       if(this.$route.query.rphone) {
+         localStorage.setItem('hphone','')
+          localStorage.setItem('hphone',this.$route.query.rphone)
+        }
     }
 }
 </script>

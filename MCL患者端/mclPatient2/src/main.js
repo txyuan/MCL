@@ -4,7 +4,6 @@
   localStorage.userInfo  登录信息
   localStorage.openId   微信支付openId
 */
-
 import Vue from 'vue'
 import {post,get} from './assets/js/request.js' //ajax 请求
 import mint_ui_base from '@/assets/js/mint-ui-base.js' //mint-ui组件
@@ -36,6 +35,18 @@ Vue.component(emptyData.name, emptyData)
 Vue.use(VueBus);
 Vue.use(vueTouch);
 Vue.component(vueQr.name, vueQr)
+
+// // 导入vant组件
+// import 'vant/lib/index.css';
+// import {Tab, Tabs,List,Cell,Search,Icon,NavBar} from 'vant'
+// Vue.use(Tab)
+// Vue.use(Tabs)
+// Vue.use(List)
+// Vue.use(Cell)
+// Vue.use(Search)
+// Vue.use(Icon)
+// Vue.use(NavBar)
+
 
 //支付方式
 Vue.prototype.$pay = payType;
@@ -139,9 +150,18 @@ var vm = new Vue({
 		if((process.env.NODE_ENV == 'production') && this.isWeiXin()){
 			payType.getOpendId();
 		}
+		// 获取用户手机号
+		if(localStorage.userInfo && JSON.parse(localStorage.userInfo).UserKey) {
+			get('UserInterface/UserPhoneCheck.ashx').then((data)=> {
+				localStorage.setItem('zphone',data.LoginPhone)
+			})
+		}
 	},
 	async mounted() {
-
+		// // 关闭浏览器窗口的时候清空浏览器缓存在localStorage的数据
+		// window.onbeforeunload = function (e) {
+		// 	localStorage.setItem('hphone','')
+		// }
 		// 检测浏览器路由改变页面不刷新问题,hash模式的工作原理是hashchange事件
 		// 调用router.push并不会触发onhashchange事件，但是调用router.go()却能正常触发，
 		window.addEventListener(

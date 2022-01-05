@@ -1,157 +1,254 @@
 <template>
-   <div class="home padding-footer">
-     <div class="logo">
-       <img src="@/assets/images/home/homeLogo.png" alt="">
-     </div>
-     <div class="menu">
-       <ul>
-          <li>
-           <div class="wrap">
+  <div class="home padding-footer">
+    <div class="logo">
+      <img src="@/assets/images/home/homeLogo.png" alt="" />
+    </div>
+    <div class="menu">
+      <ul>
+        <li>
+          <div class="wrap">
             <router-link tag="div" to="/weight">
-              <img src="@/assets/images/home/weight.png" alt="">
+              <img src="@/assets/images/home/weight.png" alt="" />
               <p>体重</p>
             </router-link>
-           </div>
-          </li>
-          <li>
-           <div class="wrap">
+          </div>
+        </li>
+        <li>
+          <div class="wrap">
             <router-link tag="div" to="/diet">
-              <img src="@/assets/images/home/diet.png" alt="">
+              <img src="@/assets/images/home/diet.png" alt="" />
               <p>饮食</p>
-             </router-link>
-           </div>
-          </li>
-          <li>
-           <div>
-             <div class="wrap">
+            </router-link>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="wrap">
               <router-link tag="div" to="/selfTestTool">
-                <img src="@/assets/images/home/test.png" alt="">
+                <img src="@/assets/images/home/test.png" alt="" />
                 <p>自测</p>
               </router-link>
             </div>
-           </div>
-          </li>
-          <li>
-           <div class="wrap">
-              <router-link tag="div" to="/complication">
-               <img src="@/assets/images/home/zhengZhuang.png" alt="">
-                <p>症状</p>
-              </router-link>
-           </div>
-         </li>
-         <li>
-           <div class="wrap">
-             <router-link tag="div" to="/sport">
-              <img src="@/assets/images/home/sport.png" alt="">
-              <p>运动</p>
-             </router-link>
-           </div>
-         </li>
-         <li>
-           <div class="wrap">
-            <router-link tag="div" to="">
-            <!-- <router-link tag="div" to="/mesage"> -->
-              <div @click="kefu">
-              <img src="@/assets/images/home/keFu.png" alt="">
-              <p>客服</p>
-              </div>
-            <!-- </router-link> -->
+          </div>
+        </li>
+        <li>
+          <div class="wrap">
+            <router-link tag="div" to="/complication">
+              <img src="@/assets/images/home/zhengZhuang.png" alt="" />
+              <p>症状</p>
             </router-link>
-           </div>
-         </li>
-       </ul>
-     </div>
+          </div>
+        </li>
+        <li>
+          <div class="wrap">
+            <router-link tag="div" to="/sport">
+              <img src="@/assets/images/home/sport.png" alt="" />
+              <p>运动</p>
+            </router-link>
+          </div>
+        </li>
+        <li>
+          <div class="wrap">
+            <router-link tag="div" to="">
+              <!-- <router-link tag="div" to="/mesage"> -->
+              <div @click="kefu">
+                <img src="@/assets/images/home/keFu.png" alt="" />
+                <p>客服</p>
+              </div>
+              <!-- </router-link> -->
+            </router-link>
+          </div>
+        </li>
+      </ul>
+    </div>
 
     <!-- 首页的广告部分 -->
     <transition name="fade">
       <div class="advertisement" v-if="show">
-        <div class="countDown" @click="skipAdvertisement">{{count}}s跳过</div>
+        <div class="countDown" @click="skipAdvertisement">{{ count }}s跳过</div>
         <div class="view">
-          <img src="@/assets/images/home/advertisement.jpg" alt="">
+          <img src="@/assets/images/home/advertisement.jpg" alt="" />
         </div>
       </div>
     </transition>
-     
-   </div>
+  </div>
 </template>
 
 <script>
-import {  logout } from '@/assets/js/uesr.js'
-    export default {
-        name:"",
-        data () {
-            return {
-              count: 4,
-              show: false,
-              timer: 0  // 计时器
-            }
-        },
-        methods:{
-          kefu() {
-            if(!localStorage.userInfo) {
-               logout('/wx_Entrance/home')
-               return
-            }
-             window.location.href = 'https://work.weixin.qq.com/kfid/kfc349d1845c90759d4'
-          },
-          // 显示广告
-          showAdvertisement(){
-            if(!sessionStorage.getItem('advertisement')){
-              this.show = true
-              sessionStorage.setItem('advertisement', '是否显示广告标识')
-              // 开始倒计时
-              this.timer = setInterval(() => {
-                if(this.count <=0 ){
-                  this.show = false
-                  return
-                }
-                this.count--
-              }, 1000)
-            }
-          },
-          // 跳过广告
-          skipAdvertisement(){
-            clearInterval(this.timer)
-            this.show = false
-          }
-        },
-        created(){
-          this.showAdvertisement()
-        },
-        destroyed(){
-          clearInterval(this.timer)
-        },
-        components: {
+import { logout } from "@/assets/js/uesr.js";
+import { getWechatParm } from "@/api/wx";
+import { getUserInfo } from "@/api/person.js";
+import { setZphone } from "@/utils/storage.js";
+//系统logo
+import logoImg from "@/assets/images/mclogo.png";
+/*引入微信js-sdk */
+import remoteJs from "@/components/common/remote-js.js";
+remoteJs("https://res.wx.qq.com/open/js/jweixin-1.1.0.js");
 
-        }
+import { getZphone } from "@/utils/storage.js";
+export default {
+  name: "",
+  data() {
+    return {
+      count: 4,
+      show: false,
+      timer: 0, // 计时器
+      rphone: "", // 用户手机号
+      WechatParm: {}, //公众号信息
+      shareObj: {
+        //分享信息内容配置
+        title: "MCL",
+        desc: "我在医随康分享了MCL首页，赶快来看看吧。", // 分享描述
+        link: `${location.origin}${location.pathname}#${
+          this.$route.fullPath
+        }?rphone=${getZphone()}`, //系统地址
+        imgUrl: location.origin + logoImg,
+      },
+    };
+  },
+  methods: {
+    // 微信配置
+    async getWechatParm() {
+      const data = await getWechatParm();
+      this.WechatParm = data.WechatParm;
+      this.wxConfig(); // 微信配置
+      this.wxRead(); // 微信read回调
+    },
+
+    async kefu() {
+      if (!localStorage.userInfo) {
+        logout("/wx_Entrance/home");
+        return;
+      }
+      window.location.href =
+        "https://work.weixin.qq.com/kfid/kfc349d1845c90759d4";
+      // 请完善个人信息
+      // const data = await getUserInfo();
+      // const type_disease = data.data.type_disease
+      // if(type_disease == null){
+      // this.$MessageBox.alert('请完善个人信息').then(action => {
+      // this.$router.replace("/wellcome_personInfoRegister")
+      //  })
+
+      // }else {
+      //   window.location.href = 'https://work.weixin.qq.com/kfid/kfc349d1845c90759d4'
+      // }
+    },
+
+    // 获取用户信息
+    // async getUserInfo() {
+    //   const res = await getUserInfo();
+    //   // 存用户手机
+    //   setZphone(res.data.ContactPhone);
+    // },
+
+    // 显示广告
+    showAdvertisement() {
+      if (!sessionStorage.getItem("advertisement")) {
+        this.show = true;
+        sessionStorage.setItem("advertisement", "是否显示广告标识");
+        // 开始倒计时
+        this.timer = setInterval(() => {
+          if (this.count <= 0) {
+            this.show = false;
+            return;
+          }
+          this.count--;
+        }, 1000);
+      }
+    },
+    // 跳过广告
+    skipAdvertisement() {
+      clearInterval(this.timer);
+      this.show = false;
+    },
+    //微信配置
+    wxConfig() {
+      let WechatParm = this.WechatParm;
+      wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: WechatParm.AppId, // 必填，公众号的唯一标识
+        timestamp: WechatParm.Timestamp, // 必填，生成签名的时间戳
+        nonceStr: WechatParm.NonceStr, // 必填，生成签名的随机串
+        signature: WechatParm.Signature, // 必填，签名，
+        jsApiList: [
+          "checkJsApi",
+          "onMenuShareTimeline",
+          "onMenuShareAppMessage",
+          "onMenuShareQQ",
+          "onMenuShareWeibo",
+        ],
+      });
+    },
+    //微信read回调
+    wxRead() {
+      wx.ready(() => {
+        this.ShareTimeline();
+        this.ShareAppMessage();
+        this.ShareQQ();
+        this.ShareWeibo();
+      });
+    },
+    // 2.3 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+    ShareTimeline() {
+      wx.onMenuShareTimeline(this.shareObj);
+    },
+    // 2.3 监听“分享给朋友”按钮点击、自定义分享内容及分享结果接口
+    ShareAppMessage() {
+      wx.onMenuShareAppMessage(this.shareObj);
+    },
+    // 2.3 监听“分享到QQ”按钮点击、自定义分享内容及分享结果接口
+    ShareQQ() {
+      wx.onMenuShareQQ(this.shareObj);
+    },
+    // 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
+    ShareWeibo() {
+      wx.onMenuShareWeibo(this.shareObj);
+    },
+  },
+  created() {
+    this.showAdvertisement();
+    this.getWechatParm();
+    // if (localStorage.userInfo) {
+    //   this.getUserInfo();
+    // }
+    
+    if (this.$route.query.rphone) {
+      localStorage.setItem("hphone", "");
+      localStorage.setItem("hphone", this.$route.query.rphone);
     }
+  },
+  destroyed() {
+    clearInterval(this.timer);
+  },
+  components: {},
+};
 </script>
 
 <style lang="scss" scoped>
-.home{
+.home {
   min-height: 100vh;
   background: url("../../assets/images/home/bg.png") no-repeat -1.2rem -0.9rem;
   background-size: 4rem;
   background-color: #fff;
   box-sizing: border-box;
 
-
   .logo {
-    border-bottom: 1px solid #E0E0E0;
+    border-bottom: 1px solid #e0e0e0;
     text-align: center;
-    background: #61B1CA;
-    padding: 0.02rem  0;
+    background: #61b1ca;
+    padding: 0.02rem 0;
   }
-  .logo img{
+  .logo img {
     height: 0.5rem;
     vertical-align: middle;
   }
 
-  .menu ul{
+  .menu ul {
     overflow: hidden;
   }
 
-  li{
+  li {
     flex: 1;
     width: 50%;
     padding: 0.2rem;
@@ -160,12 +257,12 @@ import {  logout } from '@/assets/js/uesr.js'
     box-sizing: border-box;
     position: relative;
 
-    img{
+    img {
       height: 0.6rem;
       vertical-align: middle;
     }
 
-    .wrap{
+    .wrap {
       height: 1.35rem;
       background: url("../../assets/images/home/border.png") no-repeat center;
       background-size: contain;
@@ -176,65 +273,65 @@ import {  logout } from '@/assets/js/uesr.js'
       font-size: 0.18rem;
     }
 
-    .wrap p{
+    .wrap p {
       margin-top: 0.1rem;
       color: #0ac5ca;
     }
   }
 
-  li::before{
+  li::before {
     content: "";
     display: inline-block;
     width: 1px;
-    background: #E0E0E0;
+    background: #e0e0e0;
     position: absolute;
     top: 0.3rem;
     bottom: 0.3rem;
     left: 0;
   }
 
-  li::after{
+  li::after {
     content: "";
     display: inline-block;
     height: 1px;
-    background: #E0E0E0;
+    background: #e0e0e0;
     position: absolute;
     left: 0.3rem;
     right: 0.3rem;
     bottom: 0;
   }
 
-  li:nth-child(odd)::before{
+  li:nth-child(odd)::before {
     display: none;
   }
 
-  li:nth-child(5)::after,li:nth-child(6)::after{ 
+  li:nth-child(5)::after,
+  li:nth-child(6)::after {
     display: none;
   }
 }
 
 // 广告部分
-.advertisement{
+.advertisement {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: #FFF;
+  background: #fff;
   z-index: 100;
 
-  .view{
+  .view {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
-    
   }
-  img{
+  img {
     width: 100%;
   }
 
-  .countDown{
+  .countDown {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -243,10 +340,9 @@ import {  logout } from '@/assets/js/uesr.js'
     height: 30px;
     line-height: 30px;
     border-radius: 15px;
-    color: #FFF;
+    color: #fff;
     text-align: center;
     font-size: 14px;
   }
 }
-
 </style>

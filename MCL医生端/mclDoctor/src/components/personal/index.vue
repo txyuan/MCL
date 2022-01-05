@@ -28,6 +28,9 @@
 				<mt-cell title="套餐服务" is-link to="/packService" class="clickr">
 					<img slot="icon" src="../../assets/images/taocaifuwu.png" width="24" height="24">
 				</mt-cell>
+				<mt-cell title="服务业绩查看" is-link to="/packService" class="clickr">
+					<img slot="icon" src="../../assets/images/taocaifuwu.png" width="24" height="24">
+				</mt-cell>
 				<mt-cell title="邀请好友" is-link :to="`/share?title=邀请好友&UserKey=${UserKey}&SessionId=${SessionId}`" class="clickr">
 					<img slot="icon" src="../../assets/images/yaoqinghaoyou@2x.png" width="24" height="24">
 				</mt-cell>

@@ -3,6 +3,7 @@ import router from '@/router/index.js' // 路由
 // import { DOCTORURL, CHANNELURL} from '@/configURL.js'
 import {APPID} from "@/configURL.js"
 import {isWeiXin} from "@/utils/utils.js"
+import { removeZphone } from "@/utils/storage.js"
 
 // 退出登录
 export async function logout(redirectUrl){
@@ -13,6 +14,7 @@ export async function logout(redirectUrl){
 // 退出登录
 export function doLogout(redirectUrl){
     localStorage.removeItem('userInfo')
+    removeZphone()
     const redirect = router.currentRoute.name == 'login' ? '/': router.currentRoute.fullPath  // 从哪个页面跳转
     const loginRoute = {
         name: "login",
