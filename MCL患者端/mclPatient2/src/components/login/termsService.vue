@@ -62,7 +62,7 @@
 import { DOCTORURL, CHANNELURL } from '@/configURL.js'
 import identify from '@/components/common/identify.vue'
 import logoImg from '@/assets/images/mclogo.png'
-import {setZphone } from "@/utils/storage.js"
+import {setZphone,getRhone } from "@/utils/storage.js"
 export default {
   name: 'register',
   data: () => ({
@@ -213,6 +213,9 @@ export default {
         // 'userpwd': this.userpwd,
         'role': this.role,
         'openid': localStorage.openId
+      }
+      if (getRhone()) {
+        param.rphone = getRhone();
       }
       this.$post(url, param).then((data) => {
         if (data.rspcode != 1) {

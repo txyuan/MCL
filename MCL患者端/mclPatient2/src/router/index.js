@@ -596,7 +596,7 @@ router.beforeEach((to, from, next) => {
   }
   
   // 白名单内的页面 和 完善个人信息页面，不需要判断完善个人信息
-  if ((whiteRouteList.indexOf(to.name) == -1) && (to.name != "personaldata") && (to.name != "wellcome_personInfoRegister") && (to.name != "personal") && (to.name != "orderindex") && localStorage.userInfo) {
+  if ((whiteRouteList.indexOf(to.name) == -1) && (to.name != "getGoctorList") && (to.name != "forwardingGadget") && (to.name != "personaldata") && (to.name != "wellcome_personInfoRegister") && (to.name != "personal") && (to.name != "orderindex") && localStorage.userInfo) {
       // 判断是否需要完善个人信息
       perfectInfo()
   }

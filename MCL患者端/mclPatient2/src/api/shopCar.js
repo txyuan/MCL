@@ -5,7 +5,12 @@ export function GetIndexProductList(param){
     let url = "UserInterface/GetIndexProductList.ashx";
     return post(url, param)
 }
+// 所有商品列表
 
+export function GetProductShareList(){
+    let url = "UserInterface/GetProductShareList.ashx";
+    return post(url)
+}
 // 商城产品分类
 export function GetProductCategoryList(param){
     let url = "UserInterface/GetProductCategoryList.ashx";

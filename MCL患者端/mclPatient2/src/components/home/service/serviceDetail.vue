@@ -116,7 +116,7 @@
 	//系统logo
 	import logoImg from '@/assets/images/mclogo.png';
 
-	import { getZphone } from "@/utils/storage.js"
+	import { getZphone,setRhone } from "@/utils/storage.js"
 	export default {
 		name: "index",
 		data() {
@@ -154,7 +154,7 @@
 			}
 		},
 		created() {
-			this.getinform ()
+			// this.getinform ()
 		},
 		computed: {
 			screenWidth: function() {
@@ -162,10 +162,10 @@
 			}
 		},
 		methods: {
-			  getinform () {
-				this.rphone = getZphone()
-				this.shareObj.link = `${location.origin}${location.pathname}#${this.$route.path}?from=share&rphone=${this.rphone}`
-      },
+			//   getinform () {
+			// 	this.rphone = getZphone()
+			// 	this.shareObj.link = `${location.origin}${location.pathname}#${this.$route.path}?from=share&rphone=${this.rphone}`
+      // },
 			//加减的输入框
 			inputChange(val){
 				this.num = val
@@ -352,10 +352,20 @@
 			let sKey = this.$route.params.sKey;
 			this.productkey = sKey
 			await this.getDetailInfo()
-			this.wxConfig(); // 微信配置
-			this.wxRead(); // 微信read回调
-			
-			 if(this.$route.query.rphone) {
+			  // 通过转发小工具转发进来的情况，获取链接上的推荐码
+      const query = this.$route.query
+      if(query.doctorPhone){
+            setRhone(query.doctorPhone)
+						this.shareObj.link = `${location.origin}${location.pathname}#${this.$route.fullPath}`
+						this.wxConfig(); // 微信配置
+			      this.wxRead(); // 微信read回调
+      }else {
+             this.shareObj.link = `${location.origin}${location.pathname}#${this.$route.path}?from=share&rphone=${getZphone()}`
+						 this.wxConfig(); // 微信配置
+             this.wxRead(); // 微信read回调
+      }
+			// 分享进来拿手机号
+			if(this.$route.query.rphone) {
 				 localStorage.setItem('hphone','')
       localStorage.setItem('hphone',this.$route.query.rphone)
     }
