@@ -16,10 +16,10 @@
 				</div>
 			</router-link>
 			<div class="person_list">
-				<mt-cell title="咨询服务" is-link to="/consultation" class="clickr">
+				<mt-cell title="我的业绩" is-link to="/consultation" class="clickr">
 					<img slot="icon" src="../../assets/images/zixunfuwu.png" width="24" height="24">
 				</mt-cell>
-				<mt-cell title="管理服务" is-link to="/myAchieve" class="clickr">
+				<!-- <mt-cell title="管理服务" is-link to="/myAchieve" class="clickr">
 					<img slot="icon" src="../../assets/images/guanlifuwu.png" width="24" height="24">
 				</mt-cell>
 				<mt-cell title="零售服务" is-link to="/achieves" class="clickr">
@@ -33,7 +33,7 @@
 				</mt-cell>
 				<mt-cell title="邀请好友" is-link :to="`/share?title=邀请好友&UserKey=${UserKey}&SessionId=${SessionId}`" class="clickr">
 					<img slot="icon" src="../../assets/images/yaoqinghaoyou@2x.png" width="24" height="24">
-				</mt-cell>
+				</mt-cell> -->
 				<mt-cell title="我的邀请" is-link to="/myTeam">
 					<img slot="icon" src="../../assets/images/wodeyaoqing.png" width="24" height="24">
 				</mt-cell>

@@ -14,6 +14,7 @@ import filter from "@/assets/js/filter.js" //过滤器
 import { JSEncrypt } from 'jsencrypt'
 import App from './App'
 import router from './router'   //路由
+import store from './store'   //路由
 import VueBus from 'vue-bus';
 import { KFCONFIG } from '@/configURL.js'
 
@@ -25,14 +26,33 @@ Vue.prototype.$get=get;
 Vue.component(emptyData.name,emptyData)
 Vue.use(VueBus);
 
+import 'vant/lib/index.css'
+import { Tab, Tabs,Icon,DatetimePicker,Picker,Cell, CellGroup,Loading ,Tabbar, TabbarItem} from 'vant'
+Vue.use(Tab)
+Vue.use(Tabs)
+Vue.use(Icon)
+Vue.use(Picker)
+Vue.use(DatetimePicker)
+Vue.use(Cell)
+Vue.use(CellGroup)
+Vue.use(Loading )
+Vue.use(Tabbar)
+Vue.use(TabbarItem)
+// 引入echarts
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
+
 //支付方式
 Vue.prototype.$pay = payType;
 
 Vue.config.productionTip = false
 
+
+
 /* eslint-disable no-new */
 var vm = new Vue({
   el: '#app',
+  store,
   data:{
     scrollTop: 0,
     longLat:"",  //app传过来的经纬度

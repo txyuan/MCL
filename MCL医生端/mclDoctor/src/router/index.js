@@ -30,6 +30,7 @@ const personal = () => import(/* webpackChunkName: "personal" */ '@/components/p
 const personal_data = () => import(/* webpackChunkName: "personal_data" */ '@/components/personal/personal_data/index.vue')  //个人资料
 const slength = () => import(/* webpackChunkName: "slength" */ '@/components/personal/username/slength.vue')  //擅长
 const consultation = () => import(/* webpackChunkName: "consultation" */ '@/components/personal/consultation/index.vue')  //我的佣金
+const userDail = () => import(/* webpackChunkName: "userDail" */ '@/components/personal/consultation/common/userDail/index.vue')  // 选择时间
 const cardRefund = () => import(/* webpackChunkName: "cardRefund" */ '@/components/personal/consultation/cardRefund.vue')  //提现
 const myAchieve = () => import(/* webpackChunkName: "myAchieve" */ '@/components/personal/myAchieve/index.vue')  //我的业绩
 const achieves = () => import(/* webpackChunkName: "achieves" */ '@/components/personal/myAchieve/achieves.vue')  //零售服务收益
@@ -99,7 +100,8 @@ const router = new Router({
 		{ path:"/reviewDetail", name:"reviewDetail", component: reviewDetail },
 		{ path:"/addPatient", name:"addPatient", component: addPatient},
 		{ path:"/personaldata", name:"personaldata", component: personal_data },
-		{ path:"/consultation", name:"consultation", component: consultation },
+		{ path:"/consultation", name:"consultation", component: consultation , meta:{keepAlive: true} },
+		{ path:"/userDail", name:"userDail", component: userDail },
 		{ path:"/cardRefund", name:"cardRefund", component: cardRefund },
 		{ path:"/myAchieve", name:"myAchieve", component: myAchieve },
 		{ path:"/achieves", name:"achieves", component: achieves },

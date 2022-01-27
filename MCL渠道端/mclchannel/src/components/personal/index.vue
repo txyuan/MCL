@@ -99,14 +99,7 @@
 							<p class="row">购 &nbsp;物 &nbsp;车</p>
 						</div>
 					</router-link>
-					<router-link :to="'/staffManage'" v-if="(repData.userTypenum=='5')||(repData.userTypenum=='8')">
-						<div class="cell">
-							<div class="row">
-								<img src="@/assets/images/yuangongguanli@2x.png" style="width: 0.25rem;height: 0.25rem;" alt="">
-							</div>
-							<p class="row">员工管理</p>
-						</div>
-					</router-link>
+				
 
 					<router-link :to="'/custransfer'" v-if="repData.userTypenum=='5'">
 						<div class="cell">
@@ -130,6 +123,14 @@
 								<img src="@/assets/images/zijinjilu@2x.png" style="width: 0.25rem;height: 0.25rem;" alt="">
 							</div>
 							<p class="row">绩效统计</p>
+						</div>
+					</router-link>
+						<router-link to="" v-if="!docType">
+						<div class="cell">
+							<div class="row">
+								<img src="@/assets/images/yuangongguanli@2x.png" style="width: 0.25rem;height: 0.25rem;" alt="">
+							</div>
+							<p class="row">员工管理</p>
 						</div>
 					</router-link>
 					<router-link to="" style="visibility: hidden;" v-else>
@@ -161,7 +162,7 @@
 							<span>{{managementData.commission}}</span>
 						</div>
 					</router-link> -->
-					<router-link to="/personal_achievement?flag=2">
+					<router-link to="/personal_achievement">
 						<div class="person_gxz person_ye person_yj">
 							<img src="@/assets/images/wodeyeji@2x.png" />
 							<p>我的业绩</p>
@@ -194,7 +195,7 @@ export default {
   data: () => ({
     UserKey: '',
     SessionId: '',
-
+		docType :true,
     repData: {
       ImgUrl: '', // 头像地址
       ContactName: '', // 姓名

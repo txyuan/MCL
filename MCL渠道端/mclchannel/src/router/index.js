@@ -29,7 +29,8 @@ const personal_share = () => import(/* webpackChunkName: "personal_share" */ '@/
 const personal_commission = () => import(/* webpackChunkName: "personal_commission" */ '@/components/personal/commission/index.vue')  //我的佣金
 const yjcardRefund = () => import(/* webpackChunkName: "yjcardRefund" */ '@/components/personal/commission/yjcardRefund.vue')  //佣金提现
 const personal_achievement = () => import(/* webpackChunkName: "personal_achievement" */ '@/components/personal/achievement/index.vue')  //我的业绩
-const friendachieve = () => import(/* webpackChunkName: "friendachieve" */ '@/components/personal/achievement/friendachieve.vue')  //好友业绩
+const userDail = () => import(/* webpackChunkName: "userDail" */ '@/components/personal/achievement/common/userDail/index.vue')  // 业绩详情
+// const friendachieve = () => import(/* webpackChunkName: "friendachieve" */ '@/components/personal/achievement/friendachieve.vue')  //好友业绩
 //const inviteFriends = () => import(/* webpackChunkName: "inviteFriends" */ '@/components/personal/inviteFriends/index.vue')  //邀请好友
 const personal_receivingadress = () => import(/* webpackChunkName: "personal_receivingadress" */ '@/components/personal/receivingAddress/index.vue')  //管理收货地址
 const personal_addadress = () => import(/* webpackChunkName: "personal_addadress" */ '@/components/personal/addAdress/index.vue')  //添加收货地址
@@ -98,8 +99,9 @@ const router = new Router({
     { path:"/personal_commission", name:"personal_commission", component: personal_commission },
 	  { path:"/yjcardRefund", name:"yjcardRefund", component: yjcardRefund },
     { path:"/personal_achievement", name:"personal_achievement", component: personal_achievement, meta:{keepAlive: true} },
-    { path:"/achievementDetail", name:"achievementDetail", component: () => import(/* webpackChunkName: "personal_achievement" */ '@/components/personal/achievement/achievementDetail.vue') },
-    { path:"/friendachieve/:friendsKey", name:"friendachieve", component: friendachieve },
+    { path:"/userDail", name:"userDail", component: userDail },
+    // { path:"/achievementDetail", name:"achievementDetail", component: () => import(/* webpackChunkName: "personal_achievement" */ '@/components/personal/achievement/achievementDetail.vue') },
+    // { path:"/friendachieve/:friendsKey", name:"friendachieve", component: friendachieve },
 
     { path:"/personalreceivingadress", name:"personalreceivingadress", component: personal_receivingadress },
     { path:"/personaladdadress/:isType", name:"personaladdadress", component: personal_addadress },

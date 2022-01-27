@@ -13,7 +13,9 @@ module.exports = {
     proxyTable: {
       '/UserInterface': {
         // 测试环境
-        target: 'http://clidoctest.marryhealthscience.com', // 接口域名
+        // target: 'http://clidoctest.marryhealthscience.com', // 接口域名
+        // 生产环境
+        target: 'http://clidoc.marryhealthscience.com', // 接口域名
         changeOrigin: true, // 是否跨域
       }
     },

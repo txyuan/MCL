@@ -1,23 +1,87 @@
 <template>
-	<div class="padding-header">
-		<div id="class_header" class="myassets">
-			<mt-header title="咨询服务" fixed class="borderBottom">
-				<div slot="left">
-					<router-link to="/wx_Entrance/personal" style="color: initial">
-						<mt-button icon="back"></mt-button>
-					</router-link>
-				</div>
-			</mt-header>
-		</div>
-		<div class="card_money">
+<div>
+  <xuanzeTime @changeTime="changeTime" v-if="!selTime"/>
+  <div class="padding-header" v-else>
+    <div id="class_header" class="myassets">
+      <mt-header title="我的业绩" fixed class="borderBottom">
+        <div slot="left">
+          <router-link to="/wx_Entrance/personal" style="color: initial">
+            <mt-button icon="back"></mt-button>
+          </router-link>
+        </div>
+      </mt-header>
+    </div>
+    <div class="content">
+      <van-tabs v-model="active" class="guding" @change="changeTabs">
+        <van-tab title="直接业绩">
+          <div style="padding: 0.1rem 0.1rem">
+            <div class="money_card">
+              <p class="time_now" @click="selTime = !selTime">
+                {{ time }} <van-icon name="arrow-down" />
+              </p>
+              <h2>¥{{ dataZhi.achievement }}</h2>
+              <div class="bot">
+                <div style="width: 50%">
+                  <p>{{ dataZhi.purchaseCount }}</p>
+                  <p>购买人数</p>
+                </div>
+                <div style="width: 50%">
+                  <p>{{ dataZhi.noTran }}</p>
+                  <p>成交笔数</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </van-tab>
+        <van-tab title="间接业绩">
+          <div style="padding: 0.1rem 0.1rem">
+            <div class="money_card">
+              <p class="time_now" @click="selTime = !selTime">
+                {{ time3 }} <van-icon name="arrow-down" />
+              </p>
+              <h2>¥{{ dataJian.achievement }}</h2>
+              <div class="bot">
+                <div style="width: 50%">
+                  <p>{{ dataJian.purchaseCount }}</p>
+                  <p>购买人数</p>
+                </div>
+                <div style="width: 50%">
+                  <p>{{ dataJian.noTran }}</p>
+                  <p>成交笔数</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </van-tab>
+        <van-tab title="我的消费">
+          <div style="padding: 0.1rem 0.1rem">
+            <div class="money_card">
+              <!-- <p class="time_now" @click="$router.push('/selTime')"> -->
+              <p class="time_now" @click="selTime = !selTime">
+                {{ time2 }} <van-icon name="arrow-down" />
+              </p>
+              <h2>¥{{ dataZi.achievement }}</h2>
+              <div class="bot">
+                <div style="width: 50%">
+                  <p>{{ dataZi.purchaseCount }}</p>
+                  <p>购买人数</p>
+                </div>
+                <div style="width: 50%"></div>
+              </div>
+            </div>
+          </div>
+        </van-tab>
+      </van-tabs>
+    </div>
+    <!-- <div class="card_money">
 			<div class="card_num">
 				<div class="card_miy">
 					<span>{{allmoney}}</span>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
-		<!-- <div id="navbar" class="borderBottom">
+    <!-- <div id="navbar" class="borderBottom">
 			<mt-navbar v-model="selected">
 				<mt-tab-item id="tab0" @click.native="tabClick('0')">
 					<p>团队服务</p>
@@ -31,151 +95,205 @@
 			</mt-navbar>
 		</div> -->
 
-		<div class="borderpay">
-			<!-- tab-container -->
-			<loadMore :param="param" @triggerGetList="getList" ref="loadMoreE" class=""> <!-- padding-footer -->
-				<div slot="content">
-					<mt-cell v-for="(item,index) in list" :title="item.money" :label="item.create_date" :key="index" class="borderBottom">
-						<div class="right text-right">
-							<span>{{item.remarks}}</span>
-							<span class="mint-cell-label">{{item.nickname}}</span>
+    
+<zhijie @getDataZhi="getDataZhi" @getData1="getData1" @setTime="setTime" v-if="active == 0"/>
 
-						</div>
-					</mt-cell>
-				</div>
-			</loadMore>
-		</div>
-		<!-- <div class="buttons">
+  <jianjie @getDataJian='getDataJian' v-else-if="active == 1"/>
+
+    <geren @getData="getData" :time2="time2" v-else />
+    <!-- <div class="buttons">
 			<router-link to="/cardRefund">
 				<label>提现</label>
 			</router-link>
 		</div> -->
-
-	</div>
+  </div>
+  
+  </div>
 </template>
 
 <script>
-import loadMore from '@/components/common/loadMore.vue' // 加载更多组件
+import loadMore from "@/components/common/loadMore.vue"; // 加载更多组件
+
+import geren from "./common/geren.vue";
+import zhijie from "./common/zhijie.vue";
+import jianjie from "./common/jianjie.vue";
+import xuanzeTime from "./xuanzeTime.vue";
 export default {
-  name: 'commission',
+  name: "commission",
   data: () => ({
-    selected: 'tab0',
-    allmoney: 0, // 拥有数量
     list: [],
     param: {
-      'pagesize': 10,
-      'pagecount': 0
-    }
+      dateflag: 2,
+      date: "",
+      begDate: "",
+      endDate: "",
+      pagesize: 10,
+      pagecount: 0,
+    },
+    selTime : true,
+    active: 0,
+    time: "",
+    time2: "",
+    time3: "",
+    achievement: "", // 金额
+    noTran: "", // 成交笔数
+    purchaseCount: "", // 购买人数
+   
+    dataZi: {},
+    dataJian : {},
+    dataZhi : {},
   }),
-  methods: {
-    // 当前单价
-    getAdrLists () {
-
-    },
-    // tab切换
-    tabClick (val) {
-      this.$Indicator.loading()
-      this.param.type = val
-      this.param.pagecount = 0
-      this.$refs.loadMoreE.getList()
-      setTimeout(() => {
-        this.$Indicator.close()
-      }, 200)
-    },
-    // 下面流水
-    getList (success) {
-      let url = 'UserInterface/doctor/ServiceChargeInfo.ashx'
-      if (this.param.pagecount == 1) {
-        this.list = []
-      }
-      this.$post(url, this.param).then((data) => {
-        if (data.rspcode != 1) {
-          return
-        }
-        this.allmoney = data.totalservicecharge
-        let modelList = data.data
-        this.list = [...this.list, ...modelList]
-        // 加载更多组件触发回调
-        if (success) {
-          success(modelList, this.list)
-        }
-      })
+  created() {
+    if (sessionStorage.getItem("tabActive")) {
+      this.active = Number(sessionStorage.getItem("tabActive"));
     }
   },
-  mounted () {
-    this.getAdrLists()
+  methods: {
+    getData1(data) {
+      console.log(data);
+      this.dataZhi = data
+    },
+    setTime(time){
+      this.time = time
+    },
+    getData(data, times, nowTime) {
+      this.dataZi = data;
+      this.time2 = nowTime;
+    },
+    getDataJian(data, times, nowTime) {
+      this.dataJian = data;
+      this.time3 = nowTime;
+    },
+    getDataZhi(data, times, nowTime) {
+      this.dataZhi = data;
+      this.time = nowTime;
+    },
+    changeTime(val) {
+      this.selTime = val
+    },
+
+    // 当前单价
+    getAdrLists() {},
+    changeTabs() {
+      if (this.active == 1) {
+        sessionStorage.setItem("tabActive", this.active);
+      } else if (this.active == 2) {
+        sessionStorage.setItem("tabActive", this.active);
+      } else {
+        sessionStorage.setItem("tabActive", this.active);
+      }
+    },
+   
+    // echarts
+    // echartsActive() {
+    //   this.echartsAct = true
+    // }
+  },
+  mounted() {
+    this.getAdrLists();
   },
   components: {
-    loadMore
-  }
-}
+    loadMore,
+    
+    zhijie,
+    geren,
+    jianjie,
+    xuanzeTime
+  },
+};
 </script>
 <style scoped lang="scss">
-	@import "@/assets/css/base.scss";
+@import "@/assets/css/base.scss";
 
-	.mint-cell.borderBottom {
-		padding: 0.06rem 0;
-		align-items: center;
-		align-content: center;
-	}
+.mint-cell.borderBottom {
+  padding: 0.06rem 0;
+  align-items: center;
+  align-content: center;
+}
 
-	.right.text-right {
-		color: $color60;
-		font-size: 0.15rem;
+.right.text-right {
+  color: $color60;
+  font-size: 0.15rem;
 
-		&>span:nth-child(2) {
-			margin-top: 5px;
-		}
-	}
+  & > span:nth-child(2) {
+    margin-top: 5px;
+  }
+}
 
-	.card_money {
-		h4 {
-			height: 0.36rem;
-			background: #ED462F;
-			color: #fff;
-			font-size: 0.14rem;
-			font-weight: normal;
-			line-height: 0.36rem;
-			padding: 0 3%;
-		}
+.content {
+  width: 100%;
+  background-color: #fff;
+}
 
-		.card_num {
-			background: #D2E4FE;
-			overflow: hidden;
-			padding: 0.24rem 0;
+.guding {
+  position: fixed;
+  width: 100%;
+  z-index: 9;
+  background-color: #fafafa;
+}
 
-			.card_miy {
-				float: left;
-				width: 100%;
+.money_card {
+  border-radius: 0.1rem;
+  height: 1.1rem;
+  background-color: #fff;
+  padding: 0.05rem 0.1rem;
+  overflow: hidden;
 
-				span {
-					// width: ;
-					display: block;
-					text-align: center;
-					font-size: 0.36rem;
-					color: #4A8EF4;
-					padding: 0.06rem 0 0.04rem 0;
-				}
-			}
-		}
-	}
+  .time_now {
+    float: right;
+    font-size: 0.14rem;
+  }
 
-	.buttons {
-		overflow: hidden;
+  h2 {
+    text-align: center;
+    margin-top: 0.2rem;
+    font-size: 0.26rem;
+    font-weight: 500;
+  }
 
-		label {
-			width: 88%;
-			float: left;
-			height: 0.4rem;
-			display: block;
-			font-size: 0.15rem;
-			color: #fff;
-			text-align: center;
-			line-height: 0.4rem;
-			border-radius: 0.2rem;
-			background: #4A8EF4;
-			margin-top: 0.05rem;
-			margin-left: 6%;
-		}
-	}
+  .bot div {
+    text-align: center;
+    float: left;
+    margin-top: 0.1rem;
+  }
+}
+.echarts {
+  margin-top: 1.8rem;
+  background-color: #fff;
+  // height: 0.3rem;
+  i {
+    float: right;
+    font-size: 0.24rem;
+    padding: 0.1rem;
+    transform: rotate(90deg);
+    z-index: 1;
+  }
+}
+.van-cell {
+  // padding: 0.1rem;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  .operation {
+    margin-top: -0.05rem;
+  }
+  .money {
+    margin-top: 0.2rem;
+    font-size: 0.18rem;
+    font-weight: 500;
+  }
+}
+.van-cell .name {
+  font-size: 0.16rem;
+}
+.right p {
+  // margin-left: -0.7rem;
+  text-align: right;
+}
+.hui {
+  color: #8b8b8b;
+}
+.borderpay {
+  padding: 0 0.1rem;
+  background-color: #fff;
+}
 </style>

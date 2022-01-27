@@ -9,6 +9,9 @@
       <router-view  id="main_router" v-if="$route.meta.keepAlive"/>
     </keep-alive>
     <router-view  id="main_router" v-if="!$route.meta.keepAlive"/>
+    <!-- <keep-alive include="commission">
+      <router-view/>
+</keep-alive> -->
   </div>
 </template>
 
