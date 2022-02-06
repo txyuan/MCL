@@ -70,7 +70,6 @@ export default {
   },
   methods: {
     getData(data) {
-      console.log(data);
       this.$emit('getData1',data)
     },
     setTime(time) {
@@ -79,6 +78,10 @@ export default {
     },
     echartsActive() {
       this.echartsAct = !this.echartsAct;
+      this.param.pagecount = 0
+      this.$nextTick(() => {
+       this.$refs.loadMoreE.getList()
+     })
       sessionStorage.setItem('echartsAct',this.echartsAct)
     },
     // 获取日期

@@ -122,16 +122,24 @@
 					</router-link>
 				</div>
 
-				<!-- <div class="middle-cell">
-					<router-link to="/nowmoney">
+				<div class="middle-cell">
+					<router-link to="/physician">
 						<div class="cell">
 							<div class="row">
-								<img src="@/assets/images/yueb.png"  alt="">
+								<img src="@/assets/images/icons/icon-blsc.png"  alt="">
 							</div>
-							<p class="row">我的余额</p>
+							<p class="row">上传病例</p>
 						</div>
 					</router-link>
-				</div> -->
+					<router-link to="/medicatRecord">
+						<div class="cell">
+							<div class="row">
+								<img src="@/assets/images/icons/icon-yyjl.png"  alt="">
+							</div>
+							<p class="row">服药调查</p>
+						</div>
+					</router-link>
+				</div>
 			</div>
 
       <div class="person_menu">

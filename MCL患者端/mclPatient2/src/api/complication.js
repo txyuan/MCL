@@ -41,3 +41,8 @@ export function getSelfTestToolDietProteinList(param){
     let url = "UserInterface/selfTestTool/getSelfTestToolDietProteinList.ashx";
     return post(url, param)
 }
+// 查看结果
+export function getDetalData(param){
+    let url = "UserInterface/selfTestTool/CheckTestResult.ashx";
+    return post(url, param)
+}

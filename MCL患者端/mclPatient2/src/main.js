@@ -37,15 +37,11 @@ Vue.use(vueTouch);
 Vue.component(vueQr.name, vueQr)
 
 // // 导入vant组件
-// import 'vant/lib/index.css';
-// import {Tab, Tabs,List,Cell,Search,Icon,NavBar} from 'vant'
-// Vue.use(Tab)
-// Vue.use(Tabs)
-// Vue.use(List)
-// Vue.use(Cell)
-// Vue.use(Search)
-// Vue.use(Icon)
-// Vue.use(NavBar)
+import 'vant/lib/index.css';
+import {List,Button,Cell } from 'vant'
+Vue.use(List)
+Vue.use(Button )
+Vue.use(Cell )
 
 
 //支付方式

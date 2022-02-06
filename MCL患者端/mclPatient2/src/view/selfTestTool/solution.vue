@@ -37,7 +37,7 @@
 
         <div class="fix_bottom" v-if="($route.query.type != 'water') && ($route.query.type != 'weight')">
             <mt-button type="primary" class="theme-button" size="large" @click.native="proposal" v-if="$route.query.type != 'actualIntake'">查看饮食建议</mt-button>
-            <mt-button type="default" size="large" @click.native="$root.goMessage">个性化定制</mt-button>
+            <mt-button type="default" size="large" @click.native="goBack">重新检测</mt-button>
         </div>
     </div>
 </template>
@@ -70,6 +70,12 @@ export default {
         }
     },
     methods:{
+         goBack() {
+      let type = this.$route.query.type
+      let skey = this.$route.query.skey
+      let SubjectName = this.$route.query.SubjectName
+      this.$router.push(`/selfTestDetail?type=${type}&skey=${skey}&SubjectName=${SubjectName}`)
+    },
         async getInfo(){
             const query = this.$route.query
             const param = {

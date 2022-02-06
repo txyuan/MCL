@@ -214,9 +214,9 @@ export default {
         'role': this.role,
         'openid': localStorage.openId
       }
-      if (getRhone()) {
-        param.rphone = getRhone();
-      }
+      // if (getRhone()) {
+      //   param.rphone = getRhone();
+      // }
       this.$post(url, param).then((data) => {
         if (data.rspcode != 1) {
           this.$Toast(data.rspdesc)
@@ -272,8 +272,13 @@ export default {
     identify
   },
   mounted: function () {
-    const {rphone, role} = this.$route.query
+    
     // if (role) {
+      // if(this.$route.query.doctorPhone) {
+      //  this.rphone =  this.$route.query.doctorPhone
+      //  return
+      // }
+      const {rphone, role} = this.$route.query
       this.rphone = rphone
       // 地区渠道商的手机号码
       // if((role == 5) && (rphone == "15523523851")){

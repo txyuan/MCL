@@ -79,6 +79,10 @@ export default {
     },
     echartsActive() {
       this.echartsAct = !this.echartsAct;
+      this.param.pagecount = 0
+      this.$nextTick(() => {
+       this.$refs.loadMoreE.getList()
+     })
       sessionStorage.setItem('echartsAct',this.echartsAct)
     },
     // 获取日期

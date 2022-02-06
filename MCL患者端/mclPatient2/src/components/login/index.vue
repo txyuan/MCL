@@ -112,10 +112,16 @@ export default {
   created() {
     // if(localStorage.getItem('hphone') == '') return
     var str = this.$router.history.current.query.redirect;
+    
     var reg = RegExp(/rphone/);
+    var reg1 = RegExp(/doctorPhone/);
     if (str.match(reg)) {
       str = str.match(/rphone=(\S*)/)[1];
-
+      if (str != null) {
+        this.hphone = str;
+      }
+    }else if(str.match(reg1)) {
+       str = str.match(/doctorPhone=(\S*)/)[1];
       if (str != null) {
         this.hphone = str;
       }
@@ -153,11 +159,15 @@ export default {
 			// 判断通过分享来的注册 返回路由不携带推荐人手机号
       let redirect = this.$route.query.redirect;
       var reg = RegExp(/rphone=/);
+      var reg1 = RegExp(/doctorPhone=/);
       let res_redirect;
       if (redirect.match(reg)) {
         let ipos = redirect.indexOf("rphone=");
         res_redirect = redirect.substring(0, ipos);
-      } else {
+      }else if(redirect.match(reg1)) {
+        let ipos = redirect.indexOf("doctorPhone=");
+        res_redirect = redirect.substring(0, ipos);
+      }else {
         res_redirect = redirect;
       }
 			// 注册页面携带推荐人手机号

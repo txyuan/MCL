@@ -29,6 +29,7 @@
 import { getDetail } from "@/api/selfTest.js"
 import { setRhone,getZphone } from "@/utils/storage.js"
 import { getWechatParm } from "@/api/wx"
+ 
 //系统logo
 import logoImg from '@/assets/images/mclogo.png';
 /*引入微信js-sdk */

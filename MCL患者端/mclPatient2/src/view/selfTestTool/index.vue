@@ -23,10 +23,32 @@
       <div class="tool-title"><span>自测工具</span></div>
       <div class="tool-list">
         <ul>
-            <li v-for="(item, index) in list" :key="index" @click="$router.push({name: 'selfTestDetail', query:{type: item.PageUrl, skey: item.sKey, SubjectName: item.SubjectName}})">
+            <!-- <li v-for="(item, index) in list" :key="index" @click="$router.push({name: 'selfTestDetail', query:{type: item.PageUrl, skey: item.sKey, SubjectName: item.SubjectName}})"> -->
+            <li v-for="(item, index) in list" :key="index" @click="detailFN(item)">
               <div class="box">
                 <p class="item-title">{{item.SubjectName}}</p>
                 <p class="item-des">{{item.TileName}}</p>
+                <i class="item-icon">GO></i>
+              </div>
+            </li>
+             <li  @click="$router.push('/gauge_PG_SGA')">
+              <div class="box">
+                <p class="item-title">筛查评估</p>
+                <!-- <p class="item-des">{{item.TileName}}</p> -->
+                <i class="item-icon">GO></i>
+              </div>
+            </li>
+             <li  @click="$router.push('/dietarySurvey')">
+              <div class="box">
+                <p class="item-title">膳食评估</p>
+                <!-- <p class="item-des">{{item.TileName}}</p> -->
+                <i class="item-icon">GO></i>
+              </div>
+            </li>
+             <li  @click="$router.push('/otherfoodOnly')">
+              <div class="box">
+                <p class="item-title">食物查询</p>
+                <!-- <p class="item-des">{{item.TileName}}</p> -->
                 <i class="item-icon">GO></i>
               </div>
             </li>
@@ -39,6 +61,7 @@
 <script>
 import { getSelfTestList } from "@/api/selfTest.js"
 import { getZphone } from "@/utils/storage.js"
+import {getDetalData} from "@/api/complication"
 export default {
   data() {
     return {
@@ -99,6 +122,22 @@ export default {
     }
   },
   methods:{
+     async detailFN(item) {
+      //  $router.push({name: 'selfTestDetail', query:{type: item.PageUrl, skey: item.sKey, SubjectName: item.SubjectName}})
+        let params = {
+          skey : item.sKey
+        }
+        const res = await getDetalData(params)
+        if(res.rspcode != 1) {
+          return
+        }
+        if(res.ResultSkey) {
+          // selfTestSolution?ResultSkey=2918c2ce-d042-42cb-a3be-a66d55346c4b&skey=a430952c-ee99-4d07-b4b7-9ee4227d853a&type=energy
+          this.$router.push({name: 'selfTestSolution', query:{ResultSkey:res.ResultSkey,type: item.PageUrl, skey: item.sKey,SubjectName: item.SubjectName}})
+        }else {
+          this.$router.push({name: 'selfTestDetail', query:{type: item.PageUrl, skey: item.sKey, SubjectName: item.SubjectName}})
+        }
+      },
     async getList(){
       const data = await getSelfTestList();
       this.img = data.img;

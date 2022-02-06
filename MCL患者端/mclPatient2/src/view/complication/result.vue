@@ -46,9 +46,9 @@
 
     <div class="fix_bottom" v-if="data.ColorDiscriminationFlag != undefined">
         <mt-button v-if="(data.ColorDiscriminationFlag != '1') && (data.ColorDiscriminationFlag != '0')" type="primary" class="theme-button" size="large" @click.native="proposal">查看饮食建议</mt-button>
-        <mt-button type="default" size="large" @click.native="$root.goMessage">
-          <span v-if="(data.medicalAdviceFlag == '1') || (data.ColorDiscriminationFlag == '0')">联系平台医生</span>
-          <span v-else>个性化定制</span>
+        <mt-button type="default" size="large" @click.native="goBack">
+          <span>重新检测</span>
+          
         </mt-button>
     </div>
     
@@ -73,6 +73,11 @@ export default {
     }
   },
   methods:{
+    goBack() {
+      let title = this.$route.query.title
+      let skey = this.$route.query.skey
+      this.$router.push(`/complicationDeatil?title=${title}&skey=${skey}`)
+    },
     async getInfo(){
         const query = this.$route.query
         const param = {

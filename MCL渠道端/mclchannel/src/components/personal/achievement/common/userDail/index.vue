@@ -11,8 +11,8 @@
           </div>
         </mt-header>
       </div>
-      <bill v-if="active == 1"/>
-        <div class="content" v-if="active == 0">
+      <bill :params="param" v-if="active == 1"/>
+        <div class="content1" v-if="active == 0">
         <div class="con_top">
           <div class="home_img">
             <img :src="data.img" />
@@ -138,7 +138,6 @@ export default {
   methods: {
     onChange(val) {
       this.param.pagecount = 0
-      // this.$refs.loadMoreE.getList()
     },
     changeTime(val,time,type) {
       this.selTime = val
@@ -146,11 +145,13 @@ export default {
       if(time) {
         this.$store.commit('setYearInfo',time)
         this.$store.commit('setDateflagInfo',type)
+        this.$nextTick(() => {
+       this.$refs.loadMoreE.getList()
+     })
         return
       }
       this.time = time
       this.param.dateflag = type
-      
     },
     // 获取日期
     getTime() {
@@ -227,7 +228,7 @@ export default {
   }
 }
 
-.content {
+.content1 {
   position: fixed;
   z-index: 9;
   width: 100%;

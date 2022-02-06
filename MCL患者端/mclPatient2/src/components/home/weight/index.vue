@@ -315,8 +315,6 @@ remoteJs('https://res.wx.qq.com/open/js/jweixin-1.1.0.js');
 				let param={
 					Weight:this.wegvale
 				};
-
-        console.log(param)
 				this.$post(url,param).then((data)=>{
 					 if(data.rspcode != 1 ){
 					   return;

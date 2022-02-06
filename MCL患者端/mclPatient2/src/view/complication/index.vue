@@ -11,7 +11,7 @@
     <div class="content">
         <ul>
             <li v-for="(item, index) in list" :key="index">
-                <div class="li_block" @click="$router.push({name: 'complicationDeatil', query:{title: item.name, skey: item.sKey}})">
+                <div class="li_block" @click="detailFN(item)">
                     <span> {{item.name}} </span>
                     <img :src="item.ImageUrl" alt="">
                 </div>    
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import {getList} from "@/api/complication" 
+import {getList,getDetalData} from "@/api/complication" 
 import { getZphone } from "@/utils/storage.js"
 export default {
     data: () => ({
@@ -31,6 +31,21 @@ export default {
       rphone : ''
     }),
     methods:{
+      async detailFN(item) {
+        let params = {
+          skey : item.sKey
+        }
+        const res = await getDetalData(params)
+        if(res.rspcode != 1) {
+          return
+        }
+        if(res.ResultSkey) {
+          this.$router.push({name: 'complicationResult', query:{ResultSkey:res.ResultSkey, title: item.name, skey: item.sKey}})
+        }else {
+          this.$router.push({name: 'complicationDeatil', query:{title: item.name, skey: item.sKey}})
+        }
+      },
+      
       async getList(){
         const data = await getList();
         this.list = data.data

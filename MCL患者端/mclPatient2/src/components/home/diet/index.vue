@@ -32,28 +32,7 @@
         <!-- 今日饮食 -->
         <div class="yinshhi_list" :hidden="ABflag == 2">
           <!-- 今日提醒 -->
-          <div class="home-cell">
-            <!-- <p class="name">今日提醒</p> -->
-            <ul v-for="(item,index) in todynews" :key="`tip_${index}`" class="remindList" @click="hrefgg(item)">
-              <li>
-                <div class="left">
-                  <div class="rowTop">
-                    <img src="@/assets/images/yinshi@2x.png" class="icon"/>
-                    <span class="huiFont font15">{{item.takingcondition}}</span>
-                  </div>
-                  <div class="rowBottom font12">
-                    <p class="light_gray">应完成时间：<span>{{item.completiontime}}；</span> <span class="yellow">{{item.timeouttime}}</span>
-                    </p>
-                  </div>
-                </div>
-                <div class="right yellow font14">
-                  <mt-badge size="small">
-                    <span>上传饮食</span>
-                  </mt-badge>
-                </div>
-              </li>
-            </ul>
-          </div>
+          
 
           <!-- 早餐 -->
           <!-- <div class="title">

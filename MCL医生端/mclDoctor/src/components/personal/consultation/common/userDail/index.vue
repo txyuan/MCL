@@ -11,8 +11,8 @@
           </div>
         </mt-header>
       </div>
-      <bill v-if="active == 1"/>
-        <div class="content" v-if="active == 0">
+      <bill :params="param" v-if="active == 1"/>
+        <div class="content1" v-if="active == 0">
         <div class="con_top">
           <div class="home_img">
             <img :src="data.img" />
@@ -146,6 +146,9 @@ export default {
       if(time) {
         this.$store.commit('setYearInfo',time)
         this.$store.commit('setDateflagInfo',type)
+        this.$nextTick(() => {
+       this.$refs.loadMoreE.getList()
+     })
         return
       }
       this.time = time
@@ -227,7 +230,7 @@ export default {
   }
 }
 
-.content {
+.content1 {
   position: fixed;
   z-index: 9;
   width: 100%;

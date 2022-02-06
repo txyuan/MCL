@@ -21,7 +21,7 @@ export default {
                value
             }
             const res = await save(param)
-            this.$router.push({name: 'selfTestSolution', query:{ResultSkey: res.ResultSkey, skey: query.skey, type: query.type}})
+            this.$router.push({name: 'selfTestSolution', query:{ResultSkey: res.ResultSkey, skey: query.skey, type: query.type,SubjectName: query.SubjectName,}})
         }
     },
     created() {

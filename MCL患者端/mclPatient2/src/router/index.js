@@ -55,12 +55,16 @@ const weight = () => import(/* webpackChunkName: "weight" */ '@/components/home/
 const expert = () => import(/* webpackChunkName: "expert" */ '@/components/selfTest/expert.vue')  //MCL专家栏目
 const dietarySurvey = () => import(/* webpackChunkName: "dietarySurvey" */ '@/components/selfTest/dietarySurvey.vue')  //简易膳食调查
 const otherfood = () => import(/* webpackChunkName: "otherfood" */ '@/components/selfTest/otherfood.vue')  //简易膳食调查
+const otherfoodOnly = () => import(/* webpackChunkName: "otherfoodOnly" */ '@/components/selfTest/otherfoodOnly.vue')  //简易膳食调查
 const expertDetail = () => import(/* webpackChunkName: "expertDetail" */ '@/components/selfTest/expertDetail.vue')  //MCL专家栏目详情页
 const use_guide = () => import(/* webpackChunkName: "use_guide" */ '@/components/home/agree/use_guide.vue')  //MCL 使用指南
 const project_description = () => import(/* webpackChunkName: "project_description" */ '@/components/home/agree/project_description.vue')  //项目说明
 
 // 知识
-// const knowledge = () => import(/* webpackChunkName: "knowledge" */ '@/components/home/knowledge/index.vue') // 知识课程
+const knowledge = () => import(/* webpackChunkName: "knowledge" */ '@/components/home/knowledge/index.vue') // 知识课程
+const knowledgeOne = () => import(/* webpackChunkName: "knowledgeOne" */ '@/components/home/knowledge/common/knowledgeOne.vue') // 知识课程
+const knowledgeTwo = () => import(/* webpackChunkName: "knowledgeTwo" */ '@/components/home/knowledge/common/knowledgeTwo.vue') // 知识课程
+const knowledgeResult = () => import(/* webpackChunkName: "knowledge" */ '@/components/home/knowledge/common/knowledgeResult.vue') // 知识课程
 // const search = () => import(/* webpackChunkName: "search" */ '@/components/home/knowledge/search.vue') // 知识课程搜索
 // const knowledgeDetail = () => import(/* webpackChunkName: "knowledgeDetail" */ '@/components/home/knowledge/knowledgeDetail.vue') // 知识课程搜索
 
@@ -281,7 +285,7 @@ const router = new Router({
         { path:"todymanage", name:"todymanage", component: todymanage },
 				{ path:"community", name:"community", component: community},
 				{ path:"service", name:"service", component: service, meta:{keepAlive: true}},
-				// { path:"knowledge", name:"knowledge", component: knowledge, meta:{keepAlive: true}},
+				{ path:"knowledge", name:"knowledge", component: knowledge},
         { path:"personal", name:"personal", component: personal }
       ]
     },
@@ -305,7 +309,8 @@ const router = new Router({
 	  { path:"/welcomeyy", name:"welcomeyy", component: welcomeyy },
 	  { path:"/addmedicat", name:"addmedicat", component: addmedicat },
 	  { path:"/eyemedicat", name:"eyemedicat", component: eyemedicat },
-    { path:"/diet", name:"diet", component: diet },  //饮食
+    { path: "/diet", name: "diet", component: diet },  //饮食
+    
     { path:"/proposalDetail", name:"proposalDetail", component: () => import(/* webpackChunkName: "proposalDetail" */ '@/components/home/diet/detail/proposalDetail.vue') },  // 饮食建议并发性详情页面
     { path:"/dietCase", name:"dietCase", component: () => import(/* webpackChunkName: "dietCase" */ '@/components/home/diet/dietCase.vue') },  //饮食处方
 	  { path:"/buyfood/:names", name:"buyfood", component: buyfood },  //饮食
@@ -335,6 +340,7 @@ const router = new Router({
     { path:"/expertDetail/:skey", name:"expertDetail", component: expertDetail },  //MCL专家栏目  详情页
 	  { path:"/dietarySurvey", name:"dietarySurvey", component: dietarySurvey },  //
 	  { path:"/otherfood", name:"otherfood", component: otherfood },  //
+	  { path:"/otherfoodOnly", name:"otherfoodOnly", component: otherfoodOnly },  //
     { path:"/use_guide", name:"use_guide", component: use_guide },  //使用指南
     { path:"/project_description", name:"project_description", component: project_description },  //项目说明
 
@@ -343,6 +349,9 @@ const router = new Router({
     //知识
     // { path:"/search", name:"search", component: search },  //搜索
     // { path:"/knowledgeDetail", name:"knowledgeDetail", component: knowledgeDetail },  //课程详情
+    { path:"/knowledgeOne", name:"knowledgeOne", component: knowledgeOne },  //课程详情
+    { path:"/knowledgeTwo", name:"knowledgeTwo", component: knowledgeTwo },  //课程详情
+    { path:"/knowledgeResult", name:"knowledgeResult", component: knowledgeResult },  //课程详情
     
 
 
@@ -571,7 +580,7 @@ const router = new Router({
 
 // 白名单（不需要验证登录信息）
 const product = ['service', 'serviceDetail', 'searchProduct', 'productCategory'] // 商城模块
-const selfTestAndcomplication = ['selfTestTool', 'selfTestDetail', 'toolHome', 'selfTestSolution', 'complication', 'complicationDeatil', 'complicationResult', 'complicationHome', 'proposalDetail']  // 自测和并发症模块
+const selfTestAndcomplication = [ 'toolHome', 'selfTestSolution',  'complicationResult', 'complicationHome', 'proposalDetail']  // 自测和并发症模块
 const whiteRouteList = ['home', 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'wellcome', 'inviteFriends',  'VConsole', ...product, ...selfTestAndcomplication  ]
 // let share
 router.beforeEach((to, from, next) => {

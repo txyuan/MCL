@@ -12,7 +12,7 @@
             <p>新增下游: {{ data.subordinateCount }}</p>
           </div>
         </div>
-       <echartsData @getData="getData" :param="param" class="echartsData"/>
+       <echartsData @getData="getData" :param="params" class="echartsData"/>
      </div>
      
   </div>
@@ -23,6 +23,7 @@ import echartsData from "../echartsData.vue";
 import xuanzeTime from "../../xuanzeTime.vue";
 export default {
   name :'bill',
+  props : ['params'],
   data() {
     return {
       actInfo : 1,
@@ -45,25 +46,30 @@ export default {
     xuanzeTime
   },
   created(){
+     if(this.params.date) {
+      this.time = this.params.date
+      return
+    }
     this.getTime()
   },
   methods : {
      changeTime(val,time,type) {
         this.selTime = val
-       if(!time) {
-         this.time = sessionStorage.getItem('time')
-         this.param.date = sessionStorage.getItem('time')
-         this.param.dateflag = 2
+      if(!time) {
+        //  if(!this.params.date){
+
+        //  }
+         this.time = this.params.date
          return
        }
      
       this.time = time
-      this.param.date = time
-      this.param.dateflag = type
+      this.params.date = time
+      this.params.dateflag = type
       if (type == 3) {
-        this.param.begDate = this.time.split("~")[0];
-        this.param.endDate = this.time.split("~")[1];
-        this.param.date = "";
+        this.params.begDate = this.time.split("~")[0];
+        this.params.endDate = this.time.split("~")[1];
+        this.params.date = "";
       }
     },
     getData(data) {
@@ -77,7 +83,6 @@ export default {
           month: nowDate.getMonth() + 1,
         };
         this.time = date.year + "-" + 0 + date.month;
-        sessionStorage.setItem('time',this.time)
         this.param.date = this.time
     },
   }

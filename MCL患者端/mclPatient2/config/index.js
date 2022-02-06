@@ -13,7 +13,8 @@ module.exports = {
     proxyTable: {
       '/UserInterface': {
         // 测试环境
-        target: 'http://online.marryhealthscience.com', // 接口域名
+        // target: 'http://online.marryhealthscience.com', // 接口域名
+        target: 'http://cli.marryhealthscience.com', // 接口域名
         changeOrigin: true, // 是否跨域
       }
     },
