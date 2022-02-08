@@ -150,7 +150,6 @@ export default {
   },
   methods: {
     getData1(data) {
-      console.log(data);
       this.dataZhi = data
     },
     setTime(time){
@@ -204,6 +203,13 @@ export default {
 </script>
 <style scoped lang="scss">
 @import "@/assets/css/base.scss";
+
+/deep/ .van-tabs__line {
+  background-color: #3873f6;
+}
+/deep/ .mint-header.is-fixed {
+  z-index: 9 !important;
+}
 
 .mint-cell.borderBottom {
   padding: 0.06rem 0;

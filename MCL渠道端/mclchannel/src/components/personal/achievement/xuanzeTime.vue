@@ -222,7 +222,6 @@ export default {
         return;
       }
       if (sessionStorage.getItem("tabActive") == 2) {
-        console.log(222);
         if (this.active == 1) {
           this.$store.commit("setYearZi", this.year);
           this.$store.commit("setDateflagZi", this.active);

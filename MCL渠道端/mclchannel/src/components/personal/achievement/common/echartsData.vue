@@ -9,8 +9,10 @@
         </div>
         <div class="right">
           <div>
-            <p>咨询服务 <span>{{data.consultingService}}</span></p>
-            <p>¥{{data.consulting}}</p>
+            <p>
+              咨询服务 <span>{{ data.consultingService }}</span>
+            </p>
+            <p>¥{{ data.consulting }}</p>
           </div>
           <div class="jin">
             <div class="tiao" ref="consultingService"></div>
@@ -23,8 +25,10 @@
         </div>
         <div class="right">
           <div>
-            <p>管理服务 <span>{{data.managementService}}</span></p>
-            <p>¥{{data.management}}</p>
+            <p>
+              管理服务 <span>{{ data.managementService }}</span>
+            </p>
+            <p>¥{{ data.management }}</p>
           </div>
           <div class="jin">
             <div class="tiao" ref="managementService"></div>
@@ -37,8 +41,10 @@
         </div>
         <div class="right">
           <div>
-            <p>零售服务 <span>{{data.retailServices}}</span></p>
-            <p>¥{{data.retail}}</p>
+            <p>
+              零售服务 <span>{{ data.retailServices }}</span>
+            </p>
+            <p>¥{{ data.retail }}</p>
           </div>
           <div class="jin">
             <div class="tiao" ref="retailServices"></div>
@@ -51,8 +57,10 @@
         </div>
         <div class="right">
           <div>
-            <p>套餐服务 <span>{{data.packageService}}</span></p>
-            <p>¥{{data.package}}</p>
+            <p>
+              套餐服务 <span>{{ data.packageService }}</span>
+            </p>
+            <p>¥{{ data.package }}</p>
           </div>
           <div class="jin">
             <div class="tiao" ref="packageService"></div>
@@ -65,33 +73,69 @@
 
 <script>
 export default {
-  props: ["param","url"],
+  props: ["param", "url"],
   data() {
     return {
-      data : {
+      data: {
         // time:''
-      }
+      },
+      dates : []
     };
   },
   created() {
+    this.getData();
   },
-  mounted() {
-    this.getEchartsData();
-  },
+  mounted() {},
   methods: {
-    getEchartsData() {
+    getData() {
+      let url = "UserInterface/achievement/IndirectAchievementDiagram.ashx";
+      if (this.url) {
+        url = this.url;
+        this.param.date = this.$store.state.year;
+        this.$emit("setTime", this.param.date);
+        this.param.pagecount = 1;
+        if (this.$store.state.dateflag) {
+          this.param.dateflag = String(this.$store.state.dateflag);
+        }
+        if (this.$store.state.dateflag == 3) {
+          this.param.begDate = this.param.date.split("~")[0];
+          this.param.endDate = this.param.date.split("~")[1];
+          this.param.date = "";
+        }
+      } else {
+        this.param.skey = sessionStorage.getItem("sKey");
+      }
+      this.$post(url, this.param).then((data) => {
+        if (data.rspCode != 1) {
+          return;
+        }
+        this.getEchartsData(data);
+      });
+    },
+    // 折线图
+    getEchartsData(opData) {
+      var that = this
       var option = {
         tooltip: {
           trigger: "axis",
+          backgroundColor : '#3873f6',
+          axisPointer : {
+            lineStyle : {
+              color : '#5d8ad2'
+            }
+          },
           formatter: function (params) {
+            var week = opData.data.filter(function (item) {
+                return item.create_date == params[0].name;
+            });
             var d_value = params[0].value;
-            var res = params[0].name + "<br/>" + "¥" + d_value;
+            var res = "<span style=' text-align: center;'>" + params[0].name + "&nbsp" + "&nbsp" + week[0].week + "<br/>" + "¥" + d_value + "</span>";
             return res;
           },
         },
         grid: {
-          left: "-4%",
-          right: "6.5%",
+          left: "0%",
+          right: "7.5%",
           bottom: "3%",
           containLabel: true,
         },
@@ -99,13 +143,58 @@ export default {
           {
             type: "category",
             boundaryGap: false,
+            axisTick: {
+              show: false,
+            },
             data: [],
+            axisLine: {
+              lineStyle: {
+                color: "#E0E5F4",
+              },
+            },
+            axisLabel: {
+              showMaxLabel: true,
+              // interval : 0,
+              textStyle: {
+                color: "#333",
+                fontSize:10,
+              },
+              formatter:function(name){
+                let dateArr = [that.dates[0],that.dates[4],that.dates[9],that.dates[14],that.dates[19],that.dates[24],that.dates[that.dates.length -1]]
+                if(that.param.dateflag == 2) {
+                  return (dateArr.indexOf(name) == -1 ? '' : name )
+                }else  {
+                  return name
+                }
+              }
+            },
           },
         ],
-        yAxis: [
+       yAxis: [
           {
             type: "value",
-            show: false,
+            axisTick: {
+              show: false,
+            },
+             axisLine: {
+               show: false,
+              
+            },
+            axisLabel: {
+              showMaxLabel: false,
+              textStyle: {
+                color: "rgba(0,0,0,0)",
+                fontSize: 10,
+              },
+            },
+            // show: false,
+            splitLine: {
+								show:true,     //y网格线
+							lineStyle:{
+                    type:'dashed',
+                    color : 'rgba(0,0,0,0.1)'
+                }
+							},
           },
         ],
         series: [
@@ -133,65 +222,54 @@ export default {
           },
         ],
       };
+      
       var myChart = this.$echarts.init(document.getElementById("echarts_box"));
       myChart.setOption(option);
-      
-
-      let url = "UserInterface/achievement/IndirectAchievementDiagram.ashx";
-      if(this.url) {
-        url = this.url
-        this.param.date = this.$store.state.year
-        this.param.pagecount = 1
-      if (this.$store.state.dateflag) {
-        this.param.dateflag = String(this.$store.state.dateflag);
-      }
-      if (this.$store.state.dateflag == 3) {
-        this.param.begDate = this.time.split("~")[0];
-        this.param.endDate = this.time.split("~")[1];
-        this.param.date = "";
-      }
-      this.$emit('setTime',this.param.date)
-      }else {
-        this.param.skey = sessionStorage.getItem('sKey')
-      }
-      
-      this.$post(url, this.param).then((data) => {
-        if (data.rspCode != 1) {
-          return;
-        }
-        this.data = data
-        this.$refs.consultingService.style.width = data.consultingService
-        this.$refs.managementService.style.width = data.managementService
-        this.$refs.retailServices.style.width = data.retailServices
-        this.$refs.packageService.style.width = data.packageService
-        this.$emit("getData", data);
-        let times = [];
-        let money = [];
-        data.data.forEach((item) => {
-          times.push(item.create_date);
-          money.push(item.money);
-        });
-
-        option.xAxis[0].data = times;
-        option.series[0].data = money;
-        myChart.setOption(option);
+      this.data = opData;
+      this.$refs.consultingService.style.width = opData.consultingService;
+      this.$refs.managementService.style.width = opData.managementService;
+      this.$refs.retailServices.style.width = opData.retailServices;
+      this.$refs.packageService.style.width = opData.packageService;
+      this.$emit("getData", opData);
+      let times = [];
+      let money = [];
+      opData.data.forEach((item) => {
+        times.push(item.create_date);
+        money.push(item.money);
       });
+      option.xAxis[0].data = times;
+      if(this.param.dateflag == 2) {
+        option.xAxis[0].axisLabel.interval = 0
+      }
+      this.dates = times
+      option.series[0].data = money;
+      myChart.setOption(option);
+      
+      //显示提示框
+setTimeout(() => {
+  myChart.dispatchAction({
+      type: 'showTip',
+      seriesIndex: 0,
+      dataIndex: option.xAxis[0].data.length-1
+})
+}, 500);
     },
   },
 };
 </script>
 <style scoped lang='scss'>
 #echarts_box {
+ 
   width: 100%;
-  // margin: 0 0.2rem;
   background-color: #fff;
-  height: 2rem;
+  height: 1.8rem;
   border-radius: 0.1rem;
+  padding-top: 0.1rem;
 }
 .jindu {
   background-color: #fff;
   border-radius: 0.1rem;
-  margin-top: 0.05rem;
+  margin-top: 0.1rem;
   padding: 0.1rem;
 }
 .jin {
@@ -212,17 +290,18 @@ export default {
 
   .left {
     width: 0.5rem;
-    height: 0.5rem;
-    text-align: left;
+    height: 0.3rem;
+    text-align: center;
     img {
-      width: 70%;
-      height: 70%;
-      margin-top: 0.1rem;
+      width: 60%;
+      height: 100%;
+      margin-top: 0.13rem;
+      margin-right: 0.05rem;
     }
   }
   .right {
     flex: 1;
-    div > p:nth-child(2){
+    div > p:nth-child(2) {
       float: right;
       margin-top: 0.1rem;
     }

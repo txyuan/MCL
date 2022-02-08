@@ -46,16 +46,17 @@ export default {
     xuanzeTime
   },
   created(){
-     if(this.params.date) {
+    if(this.params.date) {
       this.time = this.params.date
       return
     }
     this.getTime()
+    
   },
   methods : {
      changeTime(val,time,type) {
         this.selTime = val
-      if(!time) {
+       if(!time) {
         //  if(!this.params.date){
 
         //  }
@@ -83,7 +84,7 @@ export default {
           month: nowDate.getMonth() + 1,
         };
         this.time = date.year + "-" + 0 + date.month;
-        this.param.date = this.time
+        this.params.date = this.time
     },
   }
 }
@@ -127,7 +128,7 @@ label {
     .seleTime {
       margin-top: -0.45rem;
     }
-    // .echartsData {
-    //   padding: 0.1rem;
-    // }
+    .echartsData {
+      padding: 0.1rem;
+    }
 </style>

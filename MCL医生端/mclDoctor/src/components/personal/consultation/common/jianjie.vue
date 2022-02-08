@@ -52,6 +52,7 @@ export default {
     return {
       listZi: [],
       modelList: [],
+      clists : [],
       loading : false,
       param: {
         dateflag: 2,
@@ -83,9 +84,11 @@ export default {
         item.clists = [];
         return;
       }
+      this.param.pagecount = 1
       this.getchildList(item);
+      this.scroll(item)
     },
-    getchildList(item) {
+      getchildList(item) {
       let url = "UserInterface/achievement/IndirectAchievementRecordList.ashx";
       this.param.userType = item.userType;
       this.loading = true
@@ -94,30 +97,23 @@ export default {
         if (data.rspCode != 1) {
           return;
         }
-        let that = this;
+        this.clists = data.data;
+        item.clists = [...item.clists, ...this.clists];
+        // item.clists = data.data;
+      });
+    },
+    scroll(item) {
+       let that = this;
         window.onscroll = function () {
-          console.log(1);
-          //变量scrollTop是滚动条滚动时，距离顶部的距离
-          var scrollTop =
-            document.documentElement.scrollTop || document.body.scrollTop;
-          //变量windowHeight是可视区的高度
-          var windowHeight =
-            document.documentElement.clientHeight || document.body.clientHeight;
-          //变量scrollHeight是滚动条的总高度
-          var scrollHeight =
-            document.documentElement.scrollHeight || document.body.scrollHeight;
           //滚动条到底部的条件
-          if (scrollTop + windowHeight == scrollHeight && that.$route.name == 'consultation') {
-            if (data.data.length >= 10) {
+            let bottomOfWindow = document.documentElement.offsetHeight - document.documentElement.scrollTop - window.innerHeight <= 200;
+          if (bottomOfWindow && that.loading == false) {
+            if (that.clists.length > 0) {
               that.param.pagecount++;
               that.getchildList(item);
             }
           }
         };
-        let modelList = data.data;
-        item.clists = [...item.clists, ...modelList];
-        // item.clists = data.data;
-      });
     },
     // 获取日期
     getTime() {
@@ -146,7 +142,6 @@ export default {
         this.param.date = "";
       }
       this.$post(url, this.param).then((data) => {
-        console.log(data);
         this.$emit("getDataJian", this.datas, this.param, this.time2);
         if (data.rspCode != 1) {
           return;

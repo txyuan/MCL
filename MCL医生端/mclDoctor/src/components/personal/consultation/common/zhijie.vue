@@ -70,7 +70,6 @@ export default {
   },
   methods: {
     getData(data) {
-      console.log(data);
       this.$emit('getData1',data)
     },
     setTime(time) {
@@ -159,6 +158,7 @@ export default {
 .content {
   width: 100%;
   background-color: #fff;
+  padding-top: 0.3rem;
 }
 
 .guding {
@@ -194,20 +194,25 @@ export default {
   }
 }
 .echarts {
+  position: relative;
   margin-top: 1.8rem;
   background-color: #fff;
-  // height: 0.3rem;
   i {
-    float: right;
+    position: absolute;
+    top: 0.1rem;
+    right: 0.2rem;
     font-size: 0.24rem;
-    padding: 0.1rem;
     transform: rotate(90deg);
     z-index: 1;
   }
 }
+.echarst1 {
+    background-color: #F8F8F8;
+    padding: 0 0.1rem;
+  }
 .echarst1 /deep/ canvas {
   width: 100% !important;
-    //  top: -0.5rem !important;
+     top: -0.2rem !important;
   }
 .van-cell {
   // padding: 0.1rem;
@@ -233,7 +238,7 @@ export default {
   color: #8b8b8b;
 }
 .borderpay {
-  padding: 0 0.1rem;
+  // padding: 0 0.1rem;
   background-color: #fff;
 }
 </style>

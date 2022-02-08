@@ -170,7 +170,7 @@ export default {
       display: flex;
       flex-flow: row nowrap;
       justify-content: space-between;
-      border-bottom: 1px solid #ccc;
+      // border-bottom: 1px solid #ccc;
       padding: 0.1rem;
 
       .left_text {

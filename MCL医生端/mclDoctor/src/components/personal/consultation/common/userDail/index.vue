@@ -11,8 +11,8 @@
           </div>
         </mt-header>
       </div>
-      <bill :params="param" v-if="active == 1"/>
-        <div class="content1" v-if="active == 0">
+      <bill :params="param" v-if="active == 1" />
+      <div class="content1" v-if="active == 0">
         <div class="con_top">
           <div class="home_img">
             <img :src="data.img" />
@@ -22,16 +22,22 @@
               <i>{{ data.name }} {{ data.phone }}</i>
             </span>
             <label>{{ data.userType }} </label>
-            <label class="botto">
-              <span v-show="data.userType == 5"
-                >渠道: {{ data.channelCount }}人</span
-              >
-              <span v-show="data.userType == 5"
-                >渠道员工: {{ data.staffCount }}人</span
-              >
-              <span v-show="data.userType != 1"
-                >医生: {{ data.doctorCount }}人</span
-              >
+            <label class="botto" v-if="userTypes == '5'">
+              <span>渠道: {{ data.channelCount }}人</span>
+              <span>渠道员工: {{ data.staffCount }}人</span>
+              <span>医生: {{ data.doctorCount }}人</span>
+              <span>患者: {{ data.patientCount }}人</span>
+            </label>
+            <label class="botto" v-if="userTypes == '6'">
+              <span>渠道员工: {{ data.staffCount }}人</span>
+              <span>医生: {{ data.doctorCount }}人</span>
+              <span>患者: {{ data.patientCount }}人</span>
+            </label>
+            <label class="botto" v-if="userTypes == '4'">
+              <span>医生: {{ data.doctorCount }}人</span>
+              <span>患者: {{ data.patientCount }}人</span>
+            </label>
+            <label class="botto" v-if="userTypes == '1'">
               <span>患者: {{ data.patientCount }}人</span>
             </label>
           </div>
@@ -72,7 +78,7 @@
           </div>
         </loadMore>
       </div>
-      
+
       <div class="footer">
         <van-tabbar v-model="active" @change="onChange">
           <van-tabbar-item icon="home-o">账单</van-tabbar-item>
@@ -92,7 +98,7 @@ export default {
   name: "userDail",
   data: () => ({
     list: [],
-    actInfo : 0,
+    actInfo: 0,
     selTime: true,
     param: {
       skey: "",
@@ -108,6 +114,7 @@ export default {
     achievement: "", // 金额
     noTran: "", // 成交笔数
     purchaseCount: "", // 购买人数
+    userTypes: "",
     userType: [
       {
         id: "1",
@@ -131,48 +138,46 @@ export default {
   created() {
     // this.getList();
     this.getTime();
-    if(this.$route.query.sKey) {
-      sessionStorage.setItem('sKey',this.$route.query.sKey)
+    if (this.$route.query.sKey) {
+      sessionStorage.setItem("sKey", this.$route.query.sKey);
     }
   },
   methods: {
     onChange(val) {
-      this.param.pagecount = 0
-      // this.$refs.loadMoreE.getList()
+      this.param.pagecount = 0;
     },
-    changeTime(val,time,type) {
-      this.selTime = val
-      this.param.pagecount = 0
-      if(time) {
-        this.$store.commit('setYearInfo',time)
-        this.$store.commit('setDateflagInfo',type)
+    changeTime(val, time, type) {
+      this.selTime = val;
+      this.param.pagecount = 0;
+      if (time) {
+        this.$store.commit("setYearInfo", time);
+        this.$store.commit("setDateflagInfo", type);
         this.$nextTick(() => {
-       this.$refs.loadMoreE.getList()
-     })
-        return
+          this.$refs.loadMoreE.getList();
+        });
+        return;
       }
-      this.time = time
-      this.param.dateflag = type
-      
+      this.time = time;
+      this.param.dateflag = type;
     },
     // 获取日期
     getTime() {
-        let nowDate = new Date();
-        let date = {
-          year: nowDate.getFullYear(),
-          month: nowDate.getMonth() + 1,
-        };
-        this.time = date.year + "-" + 0 + date.month;
-        this.$store.commit('setYearInfo',this.time)
-        this.$store.commit('setDateflagInfo',2)
+      let nowDate = new Date();
+      let date = {
+        year: nowDate.getFullYear(),
+        month: nowDate.getMonth() + 1,
+      };
+      this.time = date.year + "-" + 0 + date.month;
+      this.$store.commit("setYearInfo", this.time);
+      this.$store.commit("setDateflagInfo", 2);
     },
     getList(success) {
       let url = "UserInterface/achievement/IndirectAchievementDetailList.ashx";
       // this.$store.state.timeInfo.year
       this.time = this.$store.state.timeInfo.year;
       this.param.date = this.$store.state.timeInfo.year;
-      this.param.dateflag = this.$store.state.timeInfo.dateflag
-      this.param.skey = sessionStorage.getItem('sKey')
+      this.param.dateflag = this.$store.state.timeInfo.dateflag;
+      this.param.skey = sessionStorage.getItem("sKey");
 
       if (this.$store.state.timeInfo.dateflag == 3) {
         this.param.begDate = this.time.split("~")[0];
@@ -189,6 +194,7 @@ export default {
         let userTypeData = this.userType.filter(function (item) {
           return item.id == data.userType;
         });
+        this.userTypes = data.userType;
         data.userType = userTypeData[0].value;
         this.data = data;
 
@@ -208,7 +214,7 @@ export default {
   components: {
     loadMore,
     xuanzeTime,
-    bill
+    bill,
   },
 };
 </script>

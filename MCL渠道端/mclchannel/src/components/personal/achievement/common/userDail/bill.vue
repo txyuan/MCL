@@ -128,7 +128,7 @@ label {
     .seleTime {
       margin-top: -0.45rem;
     }
-    // .echartsData {
-    //   padding: 0.1rem;
-    // }
+    .echartsData {
+      padding:0 0.1rem;
+    }
 </style>
