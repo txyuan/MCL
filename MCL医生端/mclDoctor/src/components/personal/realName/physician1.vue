@@ -63,18 +63,20 @@
 					<div>医院/公司<span></span></div>
           			<div class="flex-grow-1">
 						<!-- <input type="" placeholder="请输入所属医院/公司" v-model="param.hospital" /> -->
-						<mt-cell title="" is-link @click.native="pickerToggle('show')" >
+						<!-- <mt-cell title="" is-link @click.native="pickerToggle('show')" >
 							<span>{{param.hospital || '请输入所属医院/公司'}}</span>
-						</mt-cell>
+						</mt-cell> -->
+						<div class="flex-grow-1"><input type="" placeholder="请输入所属医院/公司" v-model="param.hospital" /></div>
 					</div>
 				</div>
 				<div class="form_bname d-flex align-items-center">
 					<div>科室/部门<span></span></div>
           			<div class="flex-grow-1">
 						<!-- <input type="" placeholder="请输入所属科室/部门" v-model="param.department" /> -->
-						<mt-cell title="" is-link @click.native="param.hospital ? pickerTogglek('show') : $Toast('请输入所属医院/公司')" >
+						<!-- <mt-cell title="" is-link @click.native="param.hospital ? pickerTogglek('show') : $Toast('请输入所属医院/公司')" >
 							<span>{{param.department || '请输入所属科室/部门'}}</span>
-						</mt-cell>
+						</mt-cell> -->
+						<div class="flex-grow-1"><input type="" placeholder="请输入所属科室/部门" v-model="param.department" /></div>
 					</div>
 				</div>
 				<div class="form_bname d-flex align-items-center">

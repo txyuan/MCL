@@ -65,6 +65,8 @@ const knowledge = () => import(/* webpackChunkName: "knowledge" */ '@/components
 const knowledgeOne = () => import(/* webpackChunkName: "knowledgeOne" */ '@/components/home/knowledge/common/knowledgeOne.vue') // 知识课程
 const knowledgeTwo = () => import(/* webpackChunkName: "knowledgeTwo" */ '@/components/home/knowledge/common/knowledgeTwo.vue') // 知识课程
 const knowledgeResult = () => import(/* webpackChunkName: "knowledge" */ '@/components/home/knowledge/common/knowledgeResult.vue') // 知识课程
+const knowMore = () => import(/* webpackChunkName: "knowMore" */ '@/components/home/knowledge/knowMore.vue') // 更多知识
+const searchKonw = () => import(/* webpackChunkName: "searchKonw" */ '@/components/home/knowledge/searchKonw.vue') // 搜索知识
 // const search = () => import(/* webpackChunkName: "search" */ '@/components/home/knowledge/search.vue') // 知识课程搜索
 // const knowledgeDetail = () => import(/* webpackChunkName: "knowledgeDetail" */ '@/components/home/knowledge/knowledgeDetail.vue') // 知识课程搜索
 
@@ -350,6 +352,8 @@ const router = new Router({
     // { path:"/search", name:"search", component: search },  //搜索
     // { path:"/knowledgeDetail", name:"knowledgeDetail", component: knowledgeDetail },  //课程详情
     { path:"/knowledgeOne", name:"knowledgeOne", component: knowledgeOne },  //课程详情
+    { path:"/knowMore", name:"knowMore", component: knowMore },  //更多知识
+    { path:"/searchKonw", name:"searchKonw", component: searchKonw },  //搜索知识
     { path:"/knowledgeTwo", name:"knowledgeTwo", component: knowledgeTwo },  //课程详情
     { path:"/knowledgeResult", name:"knowledgeResult", component: knowledgeResult },  //课程详情
     
@@ -580,6 +584,7 @@ const router = new Router({
 
 // 白名单（不需要验证登录信息）
 const product = ['service', 'serviceDetail', 'searchProduct', 'productCategory'] // 商城模块
+const productNoMess = ['orderindex','mesage','shopcar','personalreceivingadress','personaladdadress']
 const selfTestAndcomplication = [ 'toolHome', 'selfTestSolution',  'complicationResult', 'complicationHome', 'proposalDetail']  // 自测和并发症模块
 const whiteRouteList = ['home', 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'wellcome', 'inviteFriends',  'VConsole', ...product, ...selfTestAndcomplication  ]
 // let share
@@ -605,7 +610,7 @@ router.beforeEach((to, from, next) => {
   }
   
   // 白名单内的页面 和 完善个人信息页面，不需要判断完善个人信息
-  if ((whiteRouteList.indexOf(to.name) == -1) && (to.name != "getGoctorList") && (to.name != "forwardingGadget") && (to.name != "personaldata") && (to.name != "wellcome_personInfoRegister") && (to.name != "personal") && (to.name != "orderindex") && localStorage.userInfo) {
+  if ((whiteRouteList.indexOf(to.name) == -1) && (productNoMess.indexOf(to.name) == -1) && (to.name != "getGoctorList") && (to.name != "forwardingGadget") && (to.name != "personaldata") && (to.name != "wellcome_personInfoRegister") && (to.name != "personal") && localStorage.userInfo) {
       // 判断是否需要完善个人信息
       perfectInfo()
   }

@@ -7,7 +7,7 @@ import { removeZphone } from "@/utils/storage.js"
 
 // 退出登录
 export async function logout(redirectUrl){
-    await Vue.prototype.$MessageBox.confirm('您还未登录，请先登录系统')
+    // await Vue.prototype.$MessageBox.confirm('您还未登录，请先登录系统')
     doLogout(redirectUrl)
 }
 

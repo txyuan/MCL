@@ -92,7 +92,6 @@ export default {
       if (this.url) {
         url = this.url;
         this.param.date = this.$store.state.year;
-        this.$emit("setTime", this.param.date);
         this.param.pagecount = 1;
         if (this.$store.state.dateflag) {
           this.param.dateflag = String(this.$store.state.dateflag);

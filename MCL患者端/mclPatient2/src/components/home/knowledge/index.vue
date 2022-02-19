@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <mt-header fixed title="知识"></mt-header>
+  <div style="background-color: #fff;">
+    <!-- <mt-header fixed title="知识"></mt-header> -->
+    <van-search v-model="value" shape="round" @click="$router.push('/searchKonw')" placeholder="请输入搜索关键词" />
     <!-- 产品分类 -->
     <div class="product_type">
       <ul>
@@ -8,12 +9,25 @@
           <img :src="item.ImageUrl" alt="" />
           <p>{{ item.name }}</p>
         </li>
+        <li v-show="!more" @click="knowMore">
+          <img src="@/assets/images/kno-more.png" alt="" />
+          <p>更多</p>
+        </li>
       </ul>
+      <!-- <ul v-else>
+        <li v-for="item in typeList" :key="item.sKey" @click="checkOut(item)">
+          <img :src="item.ImageUrl" alt="" />
+          <p>{{ item.name }}</p>
+        </li>
+      </ul> -->
     </div>
     <!-- 知识列表 -->
     <div class="content_list">
       <div class="fenlei">
-        <h4>推荐知识</h4>
+        <div class="title_kno">
+          <h4>精选推荐</h4>
+          <div class="quan"></div>
+        </div>
         <van-list
           v-model="loading"
           :finished="finished"
@@ -21,16 +35,35 @@
           @load="onLoad"
           :immediate-check="false"
         >
-          <van-cell class="ul" v-for="item in list" :key="item.sKey" @click="detailFN(item)">
-            <div class="li">
-              <div class="left_text">
-                <p>
-                  {{ item.Title }}
-                </p>
-                <p>{{ item.Subtitle }}</p>
+          <van-cell
+            class="ul"
+            v-for="item in list"
+            :key="item.sKey"
+            @click="detailFN(item)"
+          >
+            <div class="list_li">
+              <div class="li_top">
+                <div class="left_img">
+                  <img :src="item.platformLogo" alt="" />
+                  <span>{{ item.platformName }}</span>
+                </div>
+                <p>{{ item.create_time }}</p>
               </div>
-              <div class="right_img">
-                <img :src="item.ImageUrl" alt="" />
+
+              <div class="li">
+                <div class="left_text">
+                  <p>
+                    {{ item.Title }}
+                  </p>
+                  <p>
+                    <span>阅读 {{ item.readCount }}</span
+                    ><span>分享 {{ item.shareCount }}</span
+                    ><span>点赞 {{ item.followCount }}</span>
+                  </p>
+                </div>
+                <div class="right_img">
+                  <img :src="item.ImageUrl" alt="" />
+                </div>
               </div>
             </div>
           </van-cell>
@@ -54,6 +87,8 @@ export default {
       list: [],
       loading: false,
       finished: false,
+      more : true,
+      value: '', // 搜索
     };
   },
   components: {
@@ -63,11 +98,16 @@ export default {
     this.getKnowOneList();
     this.getList();
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
-    detailFN(item){
-      this.$router.push(`/knowledgeResult?sKey=${item.sKey}&Title=${item.Title}`)
+    // 更多知识
+    knowMore() {
+      this.$router.push('/knowMore')
+    },
+    detailFN(item) {
+      this.$router.push(
+        `/knowledgeResult?sKey=${item.sKey}&Title=${item.Title}`
+      );
     },
     // 触发上拉加载
     onLoad() {
@@ -89,7 +129,16 @@ export default {
     getKnowOneList() {
       let url = "UserInterface/knowledge/GetKnowledgeCategoryList.ashx";
       this.$post(url).then((res) => {
-        this.typeList = res.list;
+        if (res.list.length > 8) {
+          this.more = false
+          let list = [];
+          for (var i = 0; i < 7; i++) {
+            list.push(res.list[i])
+          }
+          this.typeList = list;
+        }else {
+          this.typeList = res.list;
+        }
       });
     },
     // 获取推荐知识列表
@@ -100,15 +149,15 @@ export default {
         this.list = [];
       }
       this.$post(url, this.params).then((res) => {
-					this.$Indicator.close();
+        this.$Indicator.close();
         if (res.rspcode != 1) {
           return;
         }
         if (res.data.length < 10) {
           this.finished = true;
           // return;
-        }else if(res.data.length == 0) {
-           this.finished = true;
+        } else if (res.data.length == 0) {
+          this.finished = true;
           return;
         }
         let modelList = res.data;
@@ -126,7 +175,7 @@ export default {
 // 产品分类
 .product_type {
   background-color: #fff;
-  margin-top: 0.5rem;
+  // margin-top: 0.4rem;
   padding: 0;
   ul {
     overflow: hidden;
@@ -153,31 +202,75 @@ export default {
 }
 .content_list {
   margin-top: 0.1rem;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.4rem;
   background-color: #fff;
   padding: 0.1rem;
   .fenlei {
+    .title_kno {
+      position: relative;
+      overflow: hidden;
+    }
     h4 {
-      font-size: 0.2rem;
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 0.18rem;
+      height: 0.3rem;
       font-weight: 500;
       margin-left: 0.1rem;
+      z-index: 1;
+      background-color: #fff;
+    }
+    .quan {
+      margin-left: 0.25rem;
+      // margin-top: 0.01rem;
+      width: 0.3rem;
+      height: 0.3rem;
+      border-radius: 50%;
+      // background-color: #ffc759;
+      border: 0.04rem solid #ffc759;
     }
   }
   .ul {
     margin-top: 0.1rem;
+    background-color: #f8f8f8;
+    border-radius: 0.1rem;
+    .li_top {
+      display: flex;
+      justify-content: space-between;
+      .left_img {
+        img {
+          width: 0.2rem;
+          height: 0.2rem;
+          display: inline-block;
+          vertical-align: middle;
+        }
+        span {
+          display: inline-block;
+        }
+      }
+      p {
+        color: #9a9a9c;
+        font-size: 0.12rem;
+      }
+    }
     .li {
-      height: 0.8rem;
+      height: 0.9rem;
       display: flex;
       flex-flow: row nowrap;
       justify-content: space-between;
       // border-bottom: 1px solid #ccc;
-      padding: 0.1rem;
+      // padding: 0.1rem;
 
       .left_text {
+        padding: 0.1rem;
         width: 55%;
         p:nth-child(1) {
           width: 100%;
-          margin-bottom: 0.2rem;
+          // margin-bottom: 0.2rem;
+          height: 0.5rem;
+          font-size: 0.16rem;
+          font-weight: 700;
           text-overflow: -o-ellipsis-lastline;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -187,12 +280,30 @@ export default {
           -webkit-box-orient: vertical;
         }
         p:nth-child(2) {
+          display: flex;
+          justify-content: space-between;
           width: 100%;
-          font-size: 0.14rem;
-          color: #aeaeae;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+          font-size: 0.12rem;
+          span:nth-child(1) {
+            // width: 0.;
+            padding: 0 0.1rem;
+            background-color: #feeee0;
+            border-radius: 30%;
+            color: #f08622;
+          }
+          span:nth-child(2) {
+            // padding: 0.04rem;
+            color: #9a9a9c;
+          }
+          span:nth-child(3) {
+            // padding: 0.04rem;
+            color: #9a9a9c;
+          }
+          // font-size: 0.14rem;
+          // color: #aeaeae;
+          // white-space: nowrap;
+          // overflow: hidden;
+          // text-overflow: ellipsis;
         }
       }
       .right_img {

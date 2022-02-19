@@ -106,36 +106,16 @@ export default {
     repData: {},
     ishsow: false,
     shareLink: "/",
-		UserKey : '',
-		SessionId : ''
+    UserKey: "",
+    SessionId: "",
+    rspcode : null
   }),
   methods: {
     getDoctorType() {
-			
       let url = "UserInterface/doctor/CheckUserDoctor.ashx";
       this.$post(url).then((res) => {
-        this.$router.beforeEach(async (to, from, next) => {
-          if (res.rspcode == 1) {
-            next();
-          } else if (res.rspcode == 0) {
-            if (to.path == "/wx_Entrance/share" || to.path == '/wx_Entrance/dynamic' ||  to.path == '/wx_Entrance/news' ||  to.path == '/wx_Entrance/personal') {
-              await Vue.prototype.$MessageBox.confirm(
-                res.rspdesc
-              );
-							next({ name: 'physician1', query: { UserKey: this.UserKey,SessionId: this.SessionId }})
-            }else {
-							next()
-						}
-          }else if(res.rspcode == 2) {
-						if (to.path == "/wx_Entrance/share" || to.path == '/wx_Entrance/dynamic' ||  to.path == '/wx_Entrance/news' ||  to.path == '/wx_Entrance/personal') {
-             this.$Toast(res.rspdesc);
-            }else {
-							next()
-						}
-						
-					}
-        });
-      });
+        this.rspcode = res.rspcode
+      })
     },
     myinform() {
       this.$router.push("/wx_Entrance/news");
@@ -223,35 +203,73 @@ export default {
       });
     },
   },
-  beforeRouteLeave(to, from, next) {
+  async beforeRouteLeave(to, from, next) {
     // 导航离开该组件的对应路由时调用
     let keepAlive = to.name == "classdetail";
     this.$route.meta.keepAlive = keepAlive;
-    next();
+    if (this.rspcode == 0) {
+            if (
+              to.path == "/wx_Entrance/share" ||
+              to.path == "/wx_Entrance/dynamic" ||
+              to.path == "/wx_Entrance/news" ||
+              to.path == "/wx_Entrance/personal"
+            ) {
+              await Vue.prototype.$MessageBox.confirm('请填写个人信息');
+              next({
+                name: "physician1",
+                query: { UserKey: this.UserKey, SessionId: this.SessionId },
+              });
+            } else {
+              next();
+            }
+            return;
+          }
+          if (this.rspcode == 2) {
+            if (
+              to.path == "/wx_Entrance/share" ||
+              to.path == "/wx_Entrance/dynamic" ||
+              to.path == "/wx_Entrance/news" ||
+              to.path == "/wx_Entrance/personal"
+            ) {
+              this.$Toast('当前用户基本信息未审核，请联系管理员！');
+            } else {
+              next();
+            }
+            return
+          }
+           if (this.rspcode == 1) {
+            next();
+          }
+    // next();
+    
   },
   mounted() {
     this.information().then(() => {
       // 获取token
       this.getToken();
     });
+    
     this.getgroup();
     if (localStorage.userInfo) {
       let UserKey = JSON.parse(localStorage.userInfo).UserKey;
       let SessionId = JSON.parse(localStorage.userInfo).SessionId;
-				this.UserKey=UserKey
-    				this.SessionId=SessionId
+      this.UserKey = UserKey;
+      this.SessionId = SessionId;
       this.shareLink = `share?title=分享&UserKey=${UserKey}&SessionId=${SessionId}`;
     }
   },
   components: {},
   created() {
     this.getDoctorType();
-    			// if(localStorage.userInfo){
-    			// 	this.UserKey=JSON.parse( localStorage.userInfo).UserKey;
-    			// 	this.SessionId=JSON.parse( localStorage.userInfo).SessionId;
-    			// }else{
-    			// 	this.$router.push('/login');
-    			// }
+    // setTimeout(() => {
+      
+    // }, 500);
+    // if(localStorage.userInfo){
+    // 	this.UserKey=JSON.parse( localStorage.userInfo).UserKey;
+    // 	this.SessionId=JSON.parse( localStorage.userInfo).SessionId;
+    // }else{
+    // 	this.$router.push('/login');
+    // }
   },
 };
 </script>

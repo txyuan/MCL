@@ -63,7 +63,7 @@
           <div slot="content">
             <div class="van-cell" v-for="(item, index) in list" :key="index">
               <div class="title">
-                <span class="name">{{ item.ContactName }}</span>
+                <span class="name">{{ item.remarks }}</span>
                 <p class="operation hui">{{ item.operationName }}</p>
                 <p class="left">
                   购买人: {{ item.ContactName }}
@@ -149,37 +149,44 @@ export default {
     changeTime(val, time, type) {
       this.selTime = val;
       this.param.pagecount = 0;
-      if (time) {
-        this.$store.commit("setYearInfo", time);
-        this.$store.commit("setDateflagInfo", type);
-        this.$nextTick(() => {
+      this.$nextTick(() => {
           this.$refs.loadMoreE.getList();
         });
-        return;
-      }
-      this.time = time;
-      this.param.dateflag = type;
+      // if (time) {
+      //   this.$store.commit("setYearInfo", time);
+      //   this.$store.commit("setDateflagInfo", type);
+        
+      //   return;
+      // }
+      // this.time = time;
+      // this.param.dateflag = type;
     },
     // 获取日期
     getTime() {
-      let nowDate = new Date();
-      let date = {
-        year: nowDate.getFullYear(),
-        month: nowDate.getMonth() + 1,
-      };
-      this.time = date.year + "-" + 0 + date.month;
-      this.$store.commit("setYearInfo", this.time);
-      this.$store.commit("setDateflagInfo", 2);
+      if (this.$store.state.year) {
+        this.time = this.$store.state.year;
+      } else {
+        let nowDate = new Date();
+        let date = {
+          year: nowDate.getFullYear(),
+          month: nowDate.getMonth() + 1,
+        };
+        this.time = date.year + "-" + 0 + date.month;
+        this.$store.commit("setYear", this.time);
+      }
+      // this.$emit('setTime',this.time)
     },
     getList(success) {
+      this.getTime()
       let url = "UserInterface/achievement/IndirectAchievementDetailList.ashx";
       // this.$store.state.timeInfo.year
-      this.time = this.$store.state.timeInfo.year;
-      this.param.date = this.$store.state.timeInfo.year;
-      this.param.dateflag = this.$store.state.timeInfo.dateflag;
+      this.param.date = this.time;
       this.param.skey = sessionStorage.getItem("sKey");
-
-      if (this.$store.state.timeInfo.dateflag == 3) {
+      if (this.$store.state.dateflag) {
+        this.param.dateflag = String(this.$store.state.dateflag);
+      }
+      
+      if (this.$store.state.dateflag == 3) {
         this.param.begDate = this.time.split("~")[0];
         this.param.endDate = this.time.split("~")[1];
         this.param.date = "";
@@ -332,6 +339,7 @@ export default {
   }
 }
 .van-cell {
+  // background-color: #fff;
   // padding: 0.1rem;
   flex-flow: row nowrap;
   justify-content: space-between;
@@ -345,6 +353,8 @@ export default {
   }
 }
 .van-cell .name {
+  display: inline-block;
+  height: 0.17rem;
   font-size: 0.16rem;
 }
 .right p {

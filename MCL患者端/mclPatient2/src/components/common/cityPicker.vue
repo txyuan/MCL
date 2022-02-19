@@ -5,7 +5,7 @@
         position="bottom"
         class="mint-popup-city">
 
-        <mt-picker :slots="slots" valueKey="name" :showToolbar="true" :visibleItemCount="3" @change="onValuesChange" ref="cityPicker" class="city-picker">
+        <mt-picker :slots="slots" valueKey="name" :showToolbar="true" :visibleItemCount="5" @change="onValuesChange" ref="cityPicker" class="city-picker">
           <div class="bar">
             <span @click="hide">取消</span>
             <span @click="confirm" class="confirm">确定</span>
@@ -119,6 +119,7 @@ export default {
 <style scoped lang="scss">
   .mint-popup-city{
     width: 100%;
+    height: 2.5rem;
   }
   .bar{
     padding: 0 20px;

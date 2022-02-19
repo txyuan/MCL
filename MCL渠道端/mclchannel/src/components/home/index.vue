@@ -65,7 +65,7 @@
 					</router-link>
 				</div>
 				<!-- 我的 -->
-				<div class="mmy_de home_user">
+				<!-- <div class="mmy_de home_user">
 					<div class="mmy_ded">
 						<span></span>
 						<p>用户管理</p>
@@ -76,25 +76,25 @@
 					<div class="home_my">
 						<div class="home_li">
 							<span>{{usermanageinfo.communitycommission}}</span>
-							<p>本月新增渠道</p>
+							<p>本月新增渠道</p> -->
 							<!--渠道人数-->
-						</div>
+						<!-- </div>
 						<div class="home_li">
 							<span>{{usermanageinfo.doctorcount}}</span>
-							<p>本月新增医生</p>
+							<p>本月新增医生</p> -->
 							<!--医生人数-->
-						</div>
+						<!-- </div>
 						<div class="home_li">
 							<span>{{usermanageinfo.usermanageinfo}}</span>
-							<p>本月新增员工</p>
+							<p>本月新增员工</p> -->
 							<!--患者人数-->
-						</div>
+						<!-- </div>
 						<div class="home_li">
 							<span style="text-align: center;width: 100%;">{{usermanageinfo.usertotalcount}}</span>
 							<p>累计用户</p>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<div class="mmy_de home_yej">
 					<div class="mmy_ded">
 						<span></span>

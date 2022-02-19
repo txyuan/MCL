@@ -3,7 +3,7 @@
     <div class="borderpay">
       <!-- tab-container -->
       <div class="echarts"><van-icon @click="echartsActive" name="sort" /></div>
-      <echartsData :param="param" @getData="getData" @setTime="setTime" :url="url" v-if="echartsAct" class="echarst1"> </echartsData>
+      <echartsData :param="param" @getData="getData"  :url="url" v-if="echartsAct" class="echarst1"> </echartsData>
       <loadMore
         v-else
         :param="param"
@@ -15,7 +15,7 @@
         <div slot="content">
           <div class="van-cell" v-for="(item, index) in list" :key="index">
             <div class="title">
-              <span class="name">{{ item.ContactName }}</span>
+              <span class="name">{{ item.remarks }}</span>
               <p class="operation hui">{{ item.operationName }}</p>
               <p class="left">
                 购买人: {{ item.ContactName }}
@@ -72,10 +72,6 @@ export default {
     getData(data) {
       this.$emit('getData1',data)
     },
-    setTime(time) {
-      this.time = time
-      this.$emit('setTime',this.time)
-    },
     echartsActive() {
       this.echartsAct = !this.echartsAct;
       this.param.pagecount = 0
@@ -97,6 +93,7 @@ export default {
         this.time = date.year + "-" + 0 + date.month;
         this.$store.commit("setYear", this.time);
       }
+      this.$emit('setTime',this.time)
     },
     // 直接分享下面流水
     getList(success) {
@@ -115,7 +112,7 @@ export default {
         this.list = [];
       }
       this.$post(url, this.param).then((data) => {
-         this.$emit('getDataZhi',this.datas,this.param,this.time)
+         this.$emit('getDataZhi',this.datas)
         if (data.rspcode != 1) {
           return;
         }
@@ -230,8 +227,22 @@ export default {
     font-size: 0.18rem;
     font-weight: 500;
   }
+  .right {
+    width: 40%;
+  }
+  .title {
+    width: 60%;
+  }
+  .title>span {
+    display: block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
 }
 .van-cell .name {
+   display: inline-block;
+  height: 0.17rem;
   font-size: 0.16rem;
 }
 .right p {

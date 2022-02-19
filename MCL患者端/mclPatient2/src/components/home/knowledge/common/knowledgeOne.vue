@@ -7,6 +7,11 @@
 				</header-back>
 			</div>
     </mt-header>
+    <!-- <van-tabs>
+  <van-tab>
+    内容 {{ index }}
+  </van-tab>
+</van-tabs> -->
     <div style="background-color: #fff;">
       <div class="content_list">
       <!-- <loadMore

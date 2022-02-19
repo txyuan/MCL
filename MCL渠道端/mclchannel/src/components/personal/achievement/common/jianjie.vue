@@ -62,7 +62,7 @@ export default {
         pagesize: 10,
         pagecount: 1,
       },
-      time2: "",
+      time: "",
       datas: {
         purchaseCount: "",
         achievement: "",
@@ -117,32 +117,33 @@ export default {
     },
     // 获取日期
     getTime() {
-      if (this.$store.state.timeZhi.year) {
-        this.time2 = this.$store.state.timeZhi.year;
+      if (this.$store.state.year) {
+        this.time = this.$store.state.year;
       } else {
         let nowDate = new Date();
         let date = {
           year: nowDate.getFullYear(),
           month: nowDate.getMonth() + 1,
         };
-        this.time2 = date.year + "-" + 0 + date.month;
-        // this.$emit('getNowTime',this.time2)
+        this.time = date.year + "-" + 0 + date.month;
+        this.$store.commit("setYear", this.time);
       }
+      this.$emit('setTime',this.time)
     },
     getAllList() {
       let url = "UserInterface/achievement/IndirectAchievementGroupList.ashx";
-      this.param.date = this.time2;
+      this.param.date = this.time;
 
-      if (this.$store.state.timeZhi.dateflag) {
-        this.param.dateflag = String(this.$store.state.timeZhi.dateflag);
+       if (this.$store.state.dateflag) {
+        this.param.dateflag = String(this.$store.state.dateflag);
       }
-      if (this.$store.state.timeZhi.dateflag == 3) {
-        this.param.begDate = this.time2.split("~")[0];
-        this.param.endDate = this.time2.split("~")[1];
+      if (this.$store.state.dateflag == 3) {
+        this.param.begDate = this.time.split("~")[0];
+        this.param.endDate = this.time.split("~")[1];
         this.param.date = "";
       }
       this.$post(url, this.param).then((data) => {
-        this.$emit("getDataJian", this.datas, this.param, this.time2);
+        this.$emit("getDataJian", this.datas);
         if (data.rspCode != 1) {
           return;
         }

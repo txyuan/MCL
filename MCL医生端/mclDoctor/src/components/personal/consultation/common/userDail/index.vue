@@ -63,7 +63,7 @@
           <div slot="content">
             <div class="van-cell" v-for="(item, index) in list" :key="index">
               <div class="title">
-                <span class="name">{{ item.ContactName }}</span>
+                <span class="name">{{ item.remarks }}</span>
                 <p class="operation hui">{{ item.operationName }}</p>
                 <p class="left">
                   购买人: {{ item.ContactName }}
@@ -345,6 +345,8 @@ export default {
   }
 }
 .van-cell .name {
+   display: inline-block;
+  height: 0.17rem;
   font-size: 0.16rem;
 }
 .right p {

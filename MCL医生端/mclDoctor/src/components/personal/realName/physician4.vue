@@ -302,7 +302,7 @@
 					if (data.rspcode != 1) {
 						return;
 					}
-					this.$router.push('/wxFollowPage');
+					this.$router.push('/wx_Entrance/home');
 					// this.$router.push('/appDown');
 				})
 				function IsCard(str) {

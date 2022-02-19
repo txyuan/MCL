@@ -11,9 +11,9 @@
       <div class="add_cont">
         <mt-field label="收货姓名" v-model="param.UserName" placeholder="请输入收货姓名"></mt-field>
         <mt-field label="手机号" type="tel" v-model="param.UserPhone"  placeholder="请输入手机号"></mt-field>
-        <mt-cell title="性别" value="说明文字" class="sex">
+        <!-- <mt-cell title="性别" value="说明文字" class="sex">
           男&nbsp <i class="check-i" @click="changeSex('1')" :class="(param.Sex == 1) && 'checked'"></i> &nbsp&nbsp   女&nbsp <i class="check-i" @click="changeSex('2')" :class="(param.Sex == 2) && 'checked'"></i>
-        </mt-cell>
+        </mt-cell> -->
         <mt-cell :title="param.UserAddress" is-link @click.native="openCityPicker"></mt-cell>
         <mt-field label="详细地址" type="textarea" rows="4" v-model="param.UserDetailsAddress" placeholder="请输入详细地址"></mt-field>
       </div>
@@ -38,7 +38,7 @@
           "UserDetailsAddress": "",
           "VLatitude": 0,
           "VLongitude": 0,
-          "Sex": ""  // 1 男 2 女
+          // "Sex": 2  // 1 男 2 女
         }
       }),
       methods:{
@@ -51,9 +51,9 @@
         openCityPicker(){
           this.$refs.cityPicker.show();
         },
-        changeSex(val){
-          this.param.Sex = val;
-        },
+        // changeSex(val){
+        //   this.param.Sex = val;
+        // },
         //获取编辑值
         geteditValue(){
           this.$Indicator.loading();
@@ -92,10 +92,10 @@
             this.$Toast('请输入格式正确手机号');
             return;
           }
-          if(param.Sex == ""){
-            this.$Toast('请输入性别');
-            return;
-          }
+          // if(param.Sex == ""){
+          //   this.$Toast('请输入性别');
+          //   return;
+          // }
           if(param.UserAddress == "请选择省、市、区"){
             this.$Toast('请选择地址');
             return;

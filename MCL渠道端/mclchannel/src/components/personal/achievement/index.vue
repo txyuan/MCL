@@ -98,9 +98,9 @@
     
 <zhijie @getDataZhi="getDataZhi" @getData1="getData1" @setTime="setTime" v-if="active == 0"/>
 
-  <jianjie @getDataJian='getDataJian' v-else-if="active == 1"/>
+  <jianjie @getDataJian='getDataJian' @setTime="setTime"  v-else-if="active == 1"/>
 
-    <geren @getData="getData" :time2="time2" v-else />
+    <geren @getData="getData" @setTime="setTime"  v-else />
     <!-- <div class="buttons">
 			<router-link to="/cardRefund">
 				<label>提现</label>
@@ -154,18 +154,18 @@ export default {
     },
     setTime(time){
       this.time = time
+      this.time2 = time;
+      this.time3 = time;
     },
-    getData(data, times, nowTime) {
+    getData(data) {
       this.dataZi = data;
-      this.time2 = nowTime;
     },
-    getDataJian(data, times, nowTime) {
+    getDataJian(data) {
       this.dataJian = data;
-      this.time3 = nowTime;
+      // this.time3 = nowTime;
     },
-    getDataZhi(data, times, nowTime) {
+    getDataZhi(data) {
       this.dataZhi = data;
-      this.time = nowTime;
     },
     changeTime(val) {
       this.selTime = val

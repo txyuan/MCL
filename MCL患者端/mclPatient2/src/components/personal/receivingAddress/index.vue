@@ -22,6 +22,7 @@
               <ul v-if="isForm == ''">
                 <li @click="edit(item)">编辑</li>
                 <li @click="del(item)">删除</li>
+                <li @click="sel(item)">选择</li>
               </ul>
             </div>
           </div>
@@ -115,6 +116,10 @@
                 }
               }
             })
+          },
+          async sel(item) {
+            await this.setDefaultAdr(item)
+            this.$router.back()
           },
           //设置默认地址
           setDefaultAdr(item){
@@ -236,6 +241,11 @@
 }
 .adress_chose ul li:nth-child(2){
   background: url("./../../../assets/images/delete_add@2x.png") no-repeat;
+  background-size: 0.2rem;
+  background-position: 0.05rem center;
+}
+.adress_chose ul li:nth-child(3){
+  background: url("./../../../assets/images/jia_ok@2x.png") no-repeat;
   background-size: 0.2rem;
   background-position: 0.05rem center;
 }

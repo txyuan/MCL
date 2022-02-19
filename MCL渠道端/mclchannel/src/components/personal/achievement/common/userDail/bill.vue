@@ -46,45 +46,63 @@ export default {
     xuanzeTime
   },
   created(){
-    if(this.params.date) {
-      this.time = this.params.date
-      return
-    }
+    // if(this.params.date) {
+    //   this.time = this.params.date
+    //   return
+    // }
     this.getTime()
     
   },
   methods : {
      changeTime(val,time,type) {
+       this.getTime()
         this.selTime = val
-       if(!time) {
-        //  if(!this.params.date){
+      //  if(!time) {
+      //   //  if(!this.params.date){
 
-        //  }
-         this.time = this.params.date
-         return
-       }
+      //   //  }
+      //    this.time = this.params.date
+      //    return
+      //  }
      
-      this.time = time
-      this.params.date = time
-      this.params.dateflag = type
-      if (type == 3) {
-        this.params.begDate = this.time.split("~")[0];
-        this.params.endDate = this.time.split("~")[1];
-        this.params.date = "";
-      }
+      // this.time = time
+      // this.params.date = time
+      // this.params.dateflag = type
+      // if (type == 3) {
+      //   this.params.begDate = this.time.split("~")[0];
+      //   this.params.endDate = this.time.split("~")[1];
+      //   this.params.date = "";
+      // }
     },
     getData(data) {
       this.data = data
     },
     // 获取日期
     getTime() {
+      console.log(1);
+      if (this.$store.state.year) {
+        this.time = this.$store.state.year;
+      } else {
         let nowDate = new Date();
         let date = {
           year: nowDate.getFullYear(),
           month: nowDate.getMonth() + 1,
         };
         this.time = date.year + "-" + 0 + date.month;
-        this.params.date = this.time
+        this.$store.commit("setYear", this.time);
+      }
+       
+      this.params.date = this.time
+      this.params.dateflag = this.$store.state.dateflag;
+       if (this.$store.state.dateflag == 3) {
+        this.params.begDate = this.time.split("~")[0];
+        this.params.endDate = this.time.split("~")[1];
+        this.params.date = "";
+      }else {
+        this.params.begDate = ''
+        this.params.endDate = ''
+      }
+      // this.$emit('setTime',this.time)
     },
   }
 }

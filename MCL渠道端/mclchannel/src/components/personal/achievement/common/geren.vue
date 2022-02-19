@@ -14,7 +14,7 @@
         <div slot="content">
           <div class="van-cell" v-for="(item, index) in listZi" :key="index">
             <div class="title">
-              <span class="name">{{ item.ContactName }}</span>
+              <span class="name">{{ item.remarks }}</span>
               <p class="operation hui">{{ item.operationName }}</p>
               <p class="left">
                 购买人: {{ item.ContactName }}
@@ -47,7 +47,7 @@ export default {
         pagesize: 10,
         pagecount: 0,
       },
-      time2 : '',
+      time : '',
       datas : {
       purchaseCount : '',
       achievement : ''
@@ -63,36 +63,37 @@ export default {
   methods: {
     // 获取日期
     getTime() {
-      if (this.$store.state.timeZi.year) {
-        this.time2 = this.$store.state.timeZi.year;
+     if (this.$store.state.year) {
+        this.time = this.$store.state.year;
       } else {
         let nowDate = new Date();
         let date = {
           year: nowDate.getFullYear(),
           month: nowDate.getMonth() + 1,
         };
-        this.time2 = date.year + "-" + 0 + date.month;
-        // this.$emit('getNowTime',this.time2)
+        this.time = date.year + "-" + 0 + date.month;
+        this.$store.commit("setYear", this.time);
       }
+      this.$emit('setTime',this.time)
     },
     // 个人业绩
     getList(success) {
       let url = "UserInterface/achievement/PersonalAchievementRecordList.ashx";
-      this.param.date = this.time2;
+      this.param.date = this.time;
 
-      if (this.$store.state.timeZi.dateflag) {
-        this.param.dateflag = String(this.$store.state.timeZi.dateflag);
+       if (this.$store.state.dateflag) {
+        this.param.dateflag = String(this.$store.state.dateflag);
       }
-      if (this.$store.state.timeZi.dateflag == 3) {
-        this.param.begDate = this.time2.split("~")[0];
-        this.param.endDate = this.time2.split("~")[1];
+      if (this.$store.state.dateflag == 3) {
+        this.param.begDate = this.time.split("~")[0];
+        this.param.endDate = this.time.split("~")[1];
         this.param.date = "";
       }
       if (this.param.pagecount == 1) {
         this.listZi = [];
       }
       this.$post(url, this.param).then((data) => {
-         this.$emit('getData',this.datas,this.param,this.time2)
+         this.$emit('getData',this.datas)
         if (data.rspCode != 1) {
           return;
         }
@@ -193,8 +194,22 @@ export default {
     font-size: 0.18rem;
     font-weight: 500;
   }
+  .right {
+    width: 40%;
+  }
+  .title {
+    width: 60%;
+  }
+  .title>span {
+    display: block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
 }
 .van-cell .name {
+   display: inline-block;
+  height: 0.17rem;
   font-size: 0.16rem;
 }
 .right p {

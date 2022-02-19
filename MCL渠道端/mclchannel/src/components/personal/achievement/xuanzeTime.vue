@@ -177,65 +177,65 @@ export default {
       this.$emit("changeTime", true, "");
     },
     confim() {
-      if (sessionStorage.getItem("tabActive") == 1) {
-        if (this.actInfo == 0) {
-          if (this.active == 1) {
-            this.$emit("changeTime", true, this.year, this.active);
-          } else if (this.active == 2) {
-            this.$emit("changeTime", true, this.yue, this.active);
-          } else {
-            this.$emit(
-              "changeTime",
-              true,
-              `${this.ristart} ~ ${this.riend}`,
-              this.active
-            );
-          }
-          return;
-        } else if (this.actInfo == 1) {
-          if (this.active == 1) {
-            this.$emit("changeTime", true, this.year, this.active);
-          } else if (this.active == 2) {
-            this.$emit("changeTime", true, this.yue, this.active);
-          } else {
-            this.$emit(
-              "changeTime",
-              true,
-              `${this.ristart} ~ ${this.riend}`,
-              this.active
-            );
-          }
-          return;
-        }
+      // if (sessionStorage.getItem("tabActive") == 1) {
+      //   if (this.actInfo == 0) {
+      //     if (this.active == 1) {
+      //       this.$emit("changeTime", true, this.year, this.active);
+      //     } else if (this.active == 2) {
+      //       this.$emit("changeTime", true, this.yue, this.active);
+      //     } else {
+      //       this.$emit(
+      //         "changeTime",
+      //         true,
+      //         `${this.ristart} ~ ${this.riend}`,
+      //         this.active
+      //       );
+      //     }
+      //     return;
+      //   } else if (this.actInfo == 1) {
+      //     if (this.active == 1) {
+      //       this.$emit("changeTime", true, this.year, this.active);
+      //     } else if (this.active == 2) {
+      //       this.$emit("changeTime", true, this.yue, this.active);
+      //     } else {
+      //       this.$emit(
+      //         "changeTime",
+      //         true,
+      //         `${this.ristart} ~ ${this.riend}`,
+      //         this.active
+      //       );
+      //     }
+      //     return;
+      //   }
 
-        if (this.active == 1) {
-          this.$store.commit("setYearZhi", this.year);
-          this.$store.commit("setDateflagZhi", this.active);
-        } else if (this.active == 2) {
-          this.$store.commit("setYearZhi", this.yue);
-          this.$store.commit("setDateflagZhi", this.active);
-        } else {
-          this.$store.commit("setYearZhi", `${this.ristart} ~ ${this.riend}`);
-          this.$store.commit("setDateflagZhi", this.active);
-        }
-        this.$emit("changeTime", true);
-        return;
-      }
-      if (sessionStorage.getItem("tabActive") == 2) {
-        if (this.active == 1) {
-          this.$store.commit("setYearZi", this.year);
-          this.$store.commit("setDateflagZi", this.active);
-        } else if (this.active == 2) {
-          this.$store.commit("setYearZi", this.yue);
-          this.$store.commit("setDateflagZi", this.active);
-        } else {
-          this.$store.commit("setYearZi", `${this.ristart} ~ ${this.riend}`);
-          this.$store.commit("setDateflagZi", this.active);
-        }
+      //   if (this.active == 1) {
+      //     this.$store.commit("setYearZhi", this.year);
+      //     this.$store.commit("setDateflagZhi", this.active);
+      //   } else if (this.active == 2) {
+      //     this.$store.commit("setYearZhi", this.yue);
+      //     this.$store.commit("setDateflagZhi", this.active);
+      //   } else {
+      //     this.$store.commit("setYearZhi", `${this.ristart} ~ ${this.riend}`);
+      //     this.$store.commit("setDateflagZhi", this.active);
+      //   }
+      //   this.$emit("changeTime", true);
+      //   return;
+      // }
+      // if (sessionStorage.getItem("tabActive") == 2) {
+      //   if (this.active == 1) {
+      //     this.$store.commit("setYearZi", this.year);
+      //     this.$store.commit("setDateflagZi", this.active);
+      //   } else if (this.active == 2) {
+      //     this.$store.commit("setYearZi", this.yue);
+      //     this.$store.commit("setDateflagZi", this.active);
+      //   } else {
+      //     this.$store.commit("setYearZi", `${this.ristart} ~ ${this.riend}`);
+      //     this.$store.commit("setDateflagZi", this.active);
+      //   }
 
-        this.$emit("changeTime", true);
-        return;
-      }
+      //   this.$emit("changeTime", true);
+      //   return;
+      // }
       if (this.active == 1) {
         this.$store.commit("setYear", this.year);
         this.$store.commit("setDateflag", this.active);

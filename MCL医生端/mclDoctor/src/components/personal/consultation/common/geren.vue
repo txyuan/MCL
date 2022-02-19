@@ -14,7 +14,7 @@
         <div slot="content">
           <div class="van-cell" v-for="(item, index) in listZi" :key="index">
             <div class="title">
-              <span class="name">{{ item.ContactName }}</span>
+              <span class="name">{{ item.remarks }}</span>
               <p class="operation hui">{{ item.operationName }}</p>
               <p class="left">
                 购买人: {{ item.ContactName }}
@@ -193,8 +193,22 @@ export default {
     font-size: 0.18rem;
     font-weight: 500;
   }
+  .right {
+    width: 40%;
+  }
+  .title {
+    width: 60%;
+  }
+  .title>span {
+    display: block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
 }
 .van-cell .name {
+   display: inline-block;
+  height: 0.17rem;
   font-size: 0.16rem;
 }
 .right p {
