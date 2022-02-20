@@ -40,6 +40,7 @@
             placeholder="输入密码"
           />
           <van-icon v-show="passwordBtn" class="question" name="question-o" />
+          
           <van-popover
             placement="bottom-start"
             class="popover"
@@ -47,9 +48,10 @@
             v-model="showPopover"
             theme="dark"
             trigger="click"
+            :actions="actions"
           >
             <template #reference>
-              <p class="qipao">默认密码123456</p>
+              <p class="qipao"></p>
               <!-- <van-icon name="question-o" /> -->
             </template>
           </van-popover>
@@ -94,9 +96,10 @@
           theme="dark"
           placement="top-start"
           :close-on-click-outside="false"
+          :actions="actions1"
         >
           <template #reference>
-            <p class="qipao">请先勾选同意</p>
+            <p class="qipao"></p>
           </template>
         </van-popover>
         <div class="conent">
@@ -146,6 +149,9 @@ export default {
     showPopover: false,
     showPopoverBom: false,
     agrn: false,
+    actions: [{ text: "默认密码123456" }],
+    actions1: [{ text: "请勾选同意" }],
+
   }),
   watch: {
     agrn: function (newVal, oldVal) {
@@ -153,6 +159,27 @@ export default {
         this.showPopoverBom = false;
       }
     },
+    // showPopover: function (newVal, oldVal) {
+    //   if (newVal == true) {
+    //     this.$nextTick(() => {
+    //        let popover__action = document.querySelector('.van-popover__action')
+    //        popover__action.style.width = '1.8rem'
+    //        popover__action.style.height = '0.3rem'
+    //   })
+    //   }
+    // },
+
+    // showPopoverBom: function (newVal, oldVal) {
+    //   console.log(newVal);
+    //   if(newVal == true) {
+    //      this.$nextTick(() => {
+    //        let popover__action = document.querySelector('.van-popover__action')
+    //        popover__action.style.width = '1.1rem'
+    //        popover__action.style.height = '0.3rem'
+    //   })
+    //   }
+    
+    // },
   },
   computed: {
     time: function () {
@@ -168,34 +195,36 @@ export default {
     },
   },
   created() {
-    this.getRphone()
+    this.getRphone();
+    
   },
   methods: {
     // 获取推荐人手机号
     getRphone() {
-    var str = this.$router.history.current.query.redirect;
-    var reg = RegExp(/rphone/);
-    var reg1 = RegExp(/doctorPhone/);
-    if (str.match(reg)) {
-      str = str.match(/rphone=(\S*)/)[1];
-      if (str != null) {
-        this.hphone = str;
+     
+      var str = this.$router.history.current.query.redirect;
+      var reg = RegExp(/rphone/);
+      var reg1 = RegExp(/doctorPhone/);
+      if (str.match(reg)) {
+        str = str.match(/rphone=(\S*)/)[1];
+        if (str != null) {
+          this.hphone = str;
+        }
+      } else if (str.match(reg1)) {
+        str = str.match(/doctorPhone=(\S*)/)[1];
+        if (str != null) {
+          this.hphone = str;
+        }
       }
-    } else if (str.match(reg1)) {
-      str = str.match(/doctorPhone=(\S*)/)[1];
-      if (str != null) {
-        this.hphone = str;
-      }
-    }
     },
     optyuup() {
-      if ((this.role == 1) || (this.role == 2) || (this.role == 3) || (this.role == '')) {
-        this.$router.push('/noticeClause')
-      } else if (this.role == 4) {
-        this.$router.push('/noticeClause2')
-      } else {
-        this.$router.push('/noticeClause3')
-      }
+      // if ((this.role == 1) || (this.role == 2) || (this.role == 3) || (this.role == '')) {
+      this.$router.push("/noticeClause");
+      // } else if (this.role == 4) {
+      // this.$router.push('/noticeClause2')
+      // } else {
+      // this.$router.push('/noticeClause3')
+      // }
     },
     agre() {
       this.agrn = !this.agrn;
@@ -277,9 +306,7 @@ export default {
         return;
       }
 
-      let param = {
-
-      };
+      let param = {};
       const userphone = this.phone,
         openid = localStorage.openId;
 
@@ -317,17 +344,17 @@ export default {
       let redirect = this.$route.query.redirect;
       // 通过扫码进入商城，在登录时候，传标识字段
       if (getRhone()) {
-        param.doctorPhone = getRhone();
-      }else if(hphone) {
+        param.rphone = getRhone();
+      } else if (hphone) {
         param.rphone = hphone;
-      }else if(redirect) {
-      var reg = RegExp(/rphone=/);
-      var reg1 = RegExp(/doctorPhone=/);
-      if (redirect.match(reg)) {
-       param.rphone = this.hphone;
-      } else if (redirect.match(reg1)) {
-       param.doctorPhone = this.hphone;
-      }
+      } else if (redirect) {
+        var reg = RegExp(/rphone=/);
+        var reg1 = RegExp(/doctorPhone=/);
+        if (redirect.match(reg)) {
+          param.rphone = this.hphone;
+        } else if (redirect.match(reg1)) {
+          param.rphone = this.hphone;
+        }
       }
       let url = "UserInterface/UserLogin.ashx";
       this.$post(url, param).then((data) => {
@@ -336,7 +363,7 @@ export default {
           return;
         }
         // 患者端
-        const roles = ["1", "2", "3", "4","5","6"]; // 允许登录的角色。患者，患者家人，路人，医生, 渠道端
+        const roles = ["1", "2", "3", "4", "5", "6"]; // 允许登录的角色。患者，患者家人，路人，医生, 渠道端
         if (roles.includes(String(data.data.userType))) {
           // 存登录信息
           this.saveLoginInfo(data.data);
@@ -346,11 +373,11 @@ export default {
           localStorage.setItem("hphone", "");
           const redirect = this.$route.query.redirect;
           this.$Toast("登录成功");
-          const userinfoflag = data.data.userinfoflag; // 1:线下，2：线上
-          if (userinfoflag == 0) {
-            this.$router.replace("/wellcome_personInfoRegister");
-            return;
-          }
+          // const userinfoflag = data.data.userinfoflag; // 1:线下，2：线上
+          // if (userinfoflag == 0) {
+          //   this.$router.replace("/wellcome_personInfoRegister");
+          //   return;
+          // }
           if (redirect) {
             // 判断通过分享来的登录 返回路由不携带推荐人手机号
             var reg = RegExp(/rphone=/);
@@ -386,7 +413,10 @@ export default {
       removeRhone();
     },
   },
-  mounted: function () {},
+  mounted: function () {
+    // document.querySelector('.van-popover__action')
+    console.log(document.querySelector('.van-popover__action'));
+  },
 };
 </script>
 
@@ -401,7 +431,7 @@ export default {
 
 .login_logo {
   text-align: center;
-  padding: 1rem 0 0.8rem 0;
+  padding: 0.5rem 0 0.3rem 0;
 }
 
 .login_logo img {
@@ -416,7 +446,7 @@ export default {
 .login_inpt li {
   width: 94%;
   overflow: hidden;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.18rem;
   height: 0.5rem;
   border-bottom: 1px solid #ccc;
   padding: 0 3%;
@@ -447,6 +477,10 @@ export default {
 }
 body .van-popover--dark .van-popover__content {
   background-color: rgba(0, 0, 0, 0.7) !important;
+}
+/deep/ .van-popover__action {
+  width: 0 !important;
+  height: 0 !important;
 }
 .qipao {
   padding: 0.05rem 0.1rem;
@@ -518,7 +552,7 @@ body .van-popover--dark .van-popover__content {
 
 .agreen {
   position: absolute;
-  bottom: 0.5rem;
+  bottom: 0.4rem;
   left: 50%;
   // right: 0;
   margin-left: -1.75rem;
@@ -544,12 +578,13 @@ body .van-popover--dark .van-popover__content {
       display: flex;
       align-items: center;
     }
-    .popover_bom {
+    
+  }
+  .popover_bom {
       position: absolute;
-      left: 0.5rem;
+      left: 0.4rem !important;
       top: 0;
     }
-  }
   .conent span {
     width: 0.3rem;
     height: 0.3rem;

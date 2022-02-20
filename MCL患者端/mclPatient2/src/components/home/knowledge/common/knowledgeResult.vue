@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #fff">
+  <div style="background-color: #fff;">
     <mt-header :title="$route.query.Title" fixed>
       <div slot="left">
         <header-back>
@@ -19,6 +19,7 @@
     <div class="content" v-html="data.Memo"></div>
     <div class="btn">
       <van-button
+      class="btn_bottom"
         v-if="this.data.LinkAddress"
         type="primary"
         size="small"
@@ -65,6 +66,7 @@ export default {
 .content {
   background-color: #fff;
   padding: 0.1rem;
+  
 }
 h5 {
   margin-top: 0.4rem;
@@ -80,11 +82,10 @@ h5 {
   line-height: 0.3rem;
 }
 .btn {
-  width: 100%;
-  padding-left: 0.5rem;
-  padding-bottom: 0.2rem;
-  margin-top: -0.3rem;
-  background-color: #fff;
+   margin-top: -0.3rem;
+}
+.btn .btn_bottom {
+  margin-left: 0.5rem;
 }
 .li_top {
   padding: 0.1rem;

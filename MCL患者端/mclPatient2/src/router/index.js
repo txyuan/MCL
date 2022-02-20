@@ -584,7 +584,7 @@ const router = new Router({
 
 // 白名单（不需要验证登录信息）
 const product = ['service', 'serviceDetail', 'searchProduct', 'productCategory'] // 商城模块
-const productNoMess = ['orderindex','mesage','shopcar','personalreceivingadress','personaladdadress']
+const productNoMess = ['orderindex', 'mesage', 'shopcar', 'personalreceivingadress', 'personaladdadress','knowledge','knowledgeOne','knowledgeTwo','knowledgeResult','searchKonw']
 const selfTestAndcomplication = [ 'toolHome', 'selfTestSolution',  'complicationResult', 'complicationHome', 'proposalDetail']  // 自测和并发症模块
 const whiteRouteList = ['home', 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'wellcome', 'inviteFriends',  'VConsole', ...product, ...selfTestAndcomplication  ]
 // let share

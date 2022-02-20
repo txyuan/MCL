@@ -301,9 +301,9 @@ export default {
         role: this.role,
         openid: localStorage.openId,
       };
-      // if (getRhone()) {
-      //   param.rphone = getRhone();
-      // }
+      if (getRhone()) {
+        param.rphone = getRhone();
+      }
       this.$post(url, param).then((data) => {
         if (data.rspcode != 1) {
           this.$Toast(data.rspdesc);
@@ -416,7 +416,7 @@ export default {
 
 .login_logo {
   text-align: center;
-  padding: 1rem 0 0.6rem 0;
+  padding: 0.5rem 0 0.3rem 0;
 }
 
 .login_logo img {
@@ -431,7 +431,7 @@ export default {
 .login_inpt li {
   width: 94%;
   overflow: hidden;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.18rem;
   height: 0.5rem;
   border-bottom: 1px solid #ccc;
   padding: 0 3%;
@@ -552,7 +552,7 @@ body .van-popover--dark .van-popover__content {
 
 .agreen {
   position: absolute;
-  bottom: 0.5rem;
+  bottom: 0.4rem;
   left: 50%;
   // right: 0;
   margin-left: -1.75rem;
