@@ -112,9 +112,10 @@
           theme="dark"
           placement="top-start"
           :close-on-click-outside="false"
+          :actions="actions1"
         >
           <template #reference>
-            <p class="qipao">请先勾选同意</p>
+            <p class="qipao"></p>
           </template>
         </van-popover>
         <div class="conent">
@@ -187,6 +188,7 @@ export default {
       },
     ],
     role: 1,
+    actions1: [{ text: "请勾选同意" }],
   }),
  watch: {
     agrn: function (newVal, oldVal) {
@@ -578,12 +580,13 @@ body .van-popover--dark .van-popover__content {
       display: flex;
       align-items: center;
     }
-    .popover_bom {
+    
+  }
+  .popover_bom {
       position: absolute;
-      left: 0.5rem;
+      left: 0.4rem !important;
       top: 0;
     }
-  }
   .conent span {
     width: 0.3rem;
     height: 0.3rem;
