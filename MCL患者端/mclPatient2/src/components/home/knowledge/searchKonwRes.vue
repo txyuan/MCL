@@ -182,6 +182,11 @@ export default {
   }
 }
 .header_top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
   height: 0.44rem;
   p {
     width: 0.5rem;
@@ -214,7 +219,7 @@ export default {
   }
 }
 .content_list {
-  // margin-top: 0.1rem;
+  margin-top: 0.35rem;
   // margin-bottom: 0.4rem;
   background-color: #fff;
   padding: 0.1rem;

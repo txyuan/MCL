@@ -98,11 +98,12 @@ export default {
   },
   watch: {
     // 监听  切换数据
-    async activeId () {
+    activeId () {
       this.paramList.pagecount = 1
       this.list = []
+      this.finished = false
       // 发送请求
-      await this.getList()
+      this.getList()
     }
   },
   components: {
@@ -126,9 +127,11 @@ export default {
     },
     // 查询列表
     getList() {
+      this.$Indicator.loading();
       this.paramList.secondSubjectType = this.activeId
       let url = "UserInterface/knowledge/GetKnowledgeList.ashx";
       this.$post(url, this.paramList).then((res) => {
+        this.$Indicator.close();
         if (res.rspcode != 1) {
           return;
         }

@@ -100,7 +100,7 @@ export default {
         desc: "我在医随康分享了MCL首页，赶快来看看吧。", // 分享描述
         link: `${location.origin}${location.pathname}#${
           this.$route.fullPath
-        }?rphone=${getZphone()}`, //系统地址
+        }&rphone=${getZphone()}`, //系统地址
         imgUrl: location.origin + logoImg,
       },
       showShare: false,
@@ -148,6 +148,7 @@ export default {
     },
     //微信read回调
     wxRead() {
+      this.onShare()
       wx.ready(() => {
         this.ShareTimeline();
         this.ShareAppMessage();
@@ -157,22 +158,18 @@ export default {
     },
     // 2.3 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
     ShareTimeline() {
-      this.onShare()
       wx.onMenuShareTimeline(this.shareObj);
     },
     // 2.3 监听“分享给朋友”按钮点击、自定义分享内容及分享结果接口
     ShareAppMessage() {
-      this.onShare()
       wx.onMenuShareAppMessage(this.shareObj);
     },
     // 2.3 监听“分享到QQ”按钮点击、自定义分享内容及分享结果接口
     ShareQQ() {
-      this.onShare()
       wx.onMenuShareQQ(this.shareObj);
     },
     // 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
     ShareWeibo() {
-      this.onShare()
       wx.onMenuShareWeibo(this.shareObj);
     },
     // 点赞
@@ -208,10 +205,7 @@ export default {
     },
     onShare() {
       let url = 'UserInterface/knowledge/UpdateKnowledgeShareCount.ashx'
-      
-      this.$post(url,this.param).then((res) => {
-       
-      });
+      this.$post(url,this.param).then((res) => {});
     },
     // 立即查看按钮跳转
     linkAddres() {
