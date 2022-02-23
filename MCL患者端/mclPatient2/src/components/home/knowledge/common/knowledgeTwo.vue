@@ -133,7 +133,6 @@ export default {
     },
     // 上拉获取更多
     async loadMore() {
-      console.log('ok');
       if (this.list.length > 0) {
         this.paramList.pagecount++
       this.getList()

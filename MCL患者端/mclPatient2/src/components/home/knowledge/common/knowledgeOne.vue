@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import loadMore from "@/components/common/loadMore.vue";
+// import loadMore from "@/components/common/loadMore.vue";
 export default {
   name: "knowledgeOne",
   data() {
@@ -107,7 +107,7 @@ export default {
     }
   },
   components: {
-    loadMore,
+    // loadMore,
   },
   methods: {
     detailFN(item) {
@@ -130,6 +130,9 @@ export default {
       this.$Indicator.loading();
       this.paramList.secondSubjectType = this.activeId
       let url = "UserInterface/knowledge/GetKnowledgeList.ashx";
+      if (this.paramList.pagecount == 1) {
+        this.list = [];
+      }
       this.$post(url, this.paramList).then((res) => {
         this.$Indicator.close();
         if (res.rspcode != 1) {
@@ -150,11 +153,10 @@ export default {
     },
     // 上拉获取更多
     async loadMore() {
-       let times = setTimeout(() => {
-        this.params.pagecount += 1; //每请求一次，页面数+1
-        this.getList();
-        clearTimeout(times);
-      }, 500);
+       if (this.list.length > 0) {
+        this.paramList.pagecount++
+      this.getList()
+      }
     },
   },
 };

@@ -38,6 +38,14 @@ export default {
   },
   mounted() {},
   methods: {
+     // 选择跳转
+    checkOut(item) {
+      if (item.PageStyle == "样式一") {
+        this.$router.push(`/knowledgeOne?sKey=${item.sKey}&name=${item.name}`);
+      } else {
+        this.$router.push(`/knowledgeTwo?sKey=${item.sKey}&name=${item.name}`);
+      }
+    },
     // 获取一级列表
     getKnowOneList() {
       let url = "UserInterface/knowledge/GetKnowledgeCategoryList.ashx";
@@ -52,7 +60,7 @@ export default {
 .know_list {
   ul {
     margin-top: 0.2rem;
-    padding: 0.2rem 0.1rem 0.2rem 0.1rem;
+    padding: 0.2rem 0.1rem 1.6rem 0.1rem;
   }
   li {
     display: flex;

@@ -125,7 +125,7 @@ export default {
     // 获取推荐知识列表
     getList() {
       this.$Indicator.loading();
-      let url = "UserInterface/knowledge/GetIndexKnowledgeList.ashx";
+      let url = "UserInterface/knowledge/GetKnowledgeList.ashx";
       if (this.paramList.pagecount == 1) {
         this.list = [];
       }
