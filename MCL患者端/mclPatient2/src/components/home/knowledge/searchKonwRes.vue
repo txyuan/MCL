@@ -1,33 +1,25 @@
 <template>
   <div style="background-color: #fff;">
-    <!-- <mt-header fixed title="知识"></mt-header> -->
-    <van-search v-model="value" shape="round" @click="$router.push('/searchKonw')" placeholder="请输入搜索关键词" />
-    <!-- 产品分类 -->
-    <div class="product_type">
-      <ul>
-        <li v-for="item in typeList" :key="item.sKey" @click="checkOut(item)">
-          <img :src="item.ImageUrl" alt="" />
-          <p>{{ item.name }}</p>
-        </li>
-        <li v-show="!more" @click="knowMore">
-          <img src="@/assets/images/kno-more.png" alt="" />
-          <p>更多</p>
-        </li>
-      </ul>
-      <!-- <ul v-else>
-        <li v-for="item in typeList" :key="item.sKey" @click="checkOut(item)">
-          <img :src="item.ImageUrl" alt="" />
-          <p>{{ item.name }}</p>
-        </li>
-      </ul> -->
+   <div class="header_top" style="background-color: #38c2d7; color: #fff">
+      <van-icon class="arrow-left" @click="$router.push('/wx_Entrance/knowledge')" name="arrow-left" />
+      <!-- <form class="right" action="/"> -->
+      <div class="right">
+        <van-search
+          class="left_search"
+          v-model="value"
+          background="#38c2d7"
+          shape="round"
+          placeholder="请输入搜索关键词"
+          @search="onSearch"
+        />
+      </div>
+      <!-- </form> -->
+      <p @click="onSearchText">搜索</p>
     </div>
     <!-- 知识列表 -->
     <div class="content_list">
       <div class="fenlei">
-        <div class="title_kno">
-          <h4>精选推荐</h4>
-          <div class="quan"></div>
-        </div>
+       
         <van-list
           v-model="loading"
           :finished="finished"
@@ -76,12 +68,16 @@
 <script>
 import loadMore from "@/components/common/loadMore.vue"; // 加载更多组件
 export default {
-  name: "knowledge",
+  name: "searchKonwRes",
   data() {
     return {
-      params: {
-        pagecount: 1,
+      
+       paramList: {
+        firstSubjectType: '',
+        name: this.$route.query.title,
+        secondSubjectType: "",
         pagesize: 10,
+        pagecount: 1,
       },
       typeList: [],
       list: [],
@@ -95,14 +91,23 @@ export default {
     loadMore,
   },
   created() {
-    this.getKnowOneList();
     this.getList();
   },
   mounted() {},
   methods: {
-    // 更多知识
-    knowMore() {
-      this.$router.push('/knowMore')
+     // 搜索
+    onSearch() {
+      this.onSearchText();
+    },
+    onSearchText() {
+      this.paramList.name = this.value
+      this.paramList.pagecount = 1
+      let url = 'UserInterface/knowledge/InsertUserKnowledgeHistory.ashx'
+      let params = {
+        Tile : this.value
+      }
+      this.$post(url,params).then((res) => {})
+      this.getList();
     },
     detailFN(item) {
       this.$router.push(
@@ -112,43 +117,19 @@ export default {
     // 触发上拉加载
     onLoad() {
       let times = setTimeout(() => {
-        this.params.pagecount += 1; //每请求一次，页面数+1
+        this.paramList.pagecount += 1; //每请求一次，页面数+1
         this.getList();
         clearTimeout(times);
       }, 500);
-    },
-    // 选择跳转
-    checkOut(item) {
-      if (item.PageStyle == "样式一") {
-        this.$router.push(`/knowledgeOne?sKey=${item.sKey}&name=${item.name}`);
-      } else {
-        this.$router.push(`/knowledgeTwo?sKey=${item.sKey}&name=${item.name}`);
-      }
-    },
-    // 获取一级列表
-    getKnowOneList() {
-      let url = "UserInterface/knowledge/GetKnowledgeCategoryList.ashx";
-      this.$post(url).then((res) => {
-        if (res.list.length > 8) {
-          this.more = false
-          let list = [];
-          for (var i = 0; i < 7; i++) {
-            list.push(res.list[i])
-          }
-          this.typeList = list;
-        }else {
-          this.typeList = res.list;
-        }
-      });
     },
     // 获取推荐知识列表
     getList() {
       this.$Indicator.loading();
       let url = "UserInterface/knowledge/GetIndexKnowledgeList.ashx";
-      if (this.params.pagecount == 1) {
+      if (this.paramList.pagecount == 1) {
         this.list = [];
       }
-      this.$post(url, this.params).then((res) => {
+      this.$post(url, this.paramList).then((res) => {
         this.$Indicator.close();
         if (res.rspcode != 1) {
           return;
@@ -200,9 +181,41 @@ export default {
     margin: 0 auto;
   }
 }
+.header_top {
+  height: 0.44rem;
+  p {
+    width: 0.5rem;
+    font-size: 0.16rem;
+    line-height: 0.44rem;
+    height: 0.44rem;
+  }
+  // height: 0.44rem;
+  display: flex;
+  justify-content: space-between;
+  .arrow-left {
+    font-size: 0.26rem;
+    margin-left: 0.2rem;
+    // margin-right: 0.1rem;
+    // width: 0.5rem;
+    line-height: 0.44rem;
+  }
+  .right {
+    flex: 1;
+  }
+  .van-cell {
+    line-height: 0.18rem;
+  }
+  .van-search {
+    padding: 0 0.12rem !important;
+    margin-top: 0.08rem;
+  }
+  .van-search__action {
+    color: #fff !important;
+  }
+}
 .content_list {
-  margin-top: 0.1rem;
-  margin-bottom: 0.4rem;
+  // margin-top: 0.1rem;
+  // margin-bottom: 0.4rem;
   background-color: #fff;
   padding: 0.1rem;
   .fenlei {

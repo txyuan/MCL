@@ -115,7 +115,7 @@
           :actions="actions1"
         >
           <template #reference>
-            <p class="qipao"></p>
+            <p class="qipao">请勾选同意</p>
           </template>
         </van-popover>
         <div class="conent">

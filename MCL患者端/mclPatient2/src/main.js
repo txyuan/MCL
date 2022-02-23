@@ -38,7 +38,7 @@ Vue.component(vueQr.name, vueQr)
 
 // // 导入vant组件
 import 'vant/lib/index.css';
-import {List,Button,Cell,Icon,Popover,Search ,Tab, Tabs} from 'vant'
+import {List,Button,Cell,Icon,Popover,Search ,Tab, Tabs,ShareSheet } from 'vant'
 Vue.use(List)
 Vue.use(Button )
 Vue.use(Cell )
@@ -47,6 +47,7 @@ Vue.use(Popover)
 Vue.use(Search)
 Vue.use(Tab)
 Vue.use(Tabs)
+Vue.use(ShareSheet)
 
 
 //支付方式

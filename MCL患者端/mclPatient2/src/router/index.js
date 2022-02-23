@@ -67,6 +67,7 @@ const knowledgeTwo = () => import(/* webpackChunkName: "knowledgeTwo" */ '@/comp
 const knowledgeResult = () => import(/* webpackChunkName: "knowledge" */ '@/components/home/knowledge/common/knowledgeResult.vue') // 知识课程
 const knowMore = () => import(/* webpackChunkName: "knowMore" */ '@/components/home/knowledge/knowMore.vue') // 更多知识
 const searchKonw = () => import(/* webpackChunkName: "searchKonw" */ '@/components/home/knowledge/searchKonw.vue') // 搜索知识
+const searchKonwRes = () => import(/* webpackChunkName: "searchKonwRes" */ '@/components/home/knowledge/searchKonwRes.vue') // 搜索知识
 // const search = () => import(/* webpackChunkName: "search" */ '@/components/home/knowledge/search.vue') // 知识课程搜索
 // const knowledgeDetail = () => import(/* webpackChunkName: "knowledgeDetail" */ '@/components/home/knowledge/knowledgeDetail.vue') // 知识课程搜索
 
@@ -354,6 +355,7 @@ const router = new Router({
     { path:"/knowledgeOne", name:"knowledgeOne", component: knowledgeOne },  //课程详情
     { path:"/knowMore", name:"knowMore", component: knowMore },  //更多知识
     { path:"/searchKonw", name:"searchKonw", component: searchKonw },  //搜索知识
+    { path:"/searchKonwRes", name:"searchKonwRes", component: searchKonwRes },  //搜索知识
     { path:"/knowledgeTwo", name:"knowledgeTwo", component: knowledgeTwo },  //课程详情
     { path:"/knowledgeResult", name:"knowledgeResult", component: knowledgeResult },  //课程详情
     
@@ -584,9 +586,10 @@ const router = new Router({
 
 // 白名单（不需要验证登录信息）
 const product = ['service', 'serviceDetail', 'searchProduct', 'productCategory'] // 商城模块
-const productNoMess = ['orderindex', 'mesage', 'shopcar', 'personalreceivingadress', 'personaladdadress','knowledge','knowledgeOne','knowledgeTwo','knowledgeResult','searchKonw']
+const productNoMess = ['orderindex', 'mesage', 'shopcar', 'personalreceivingadress', 'personaladdadress'] // 不需要填写个人信息
+const knowledgeMess = ['knowledge','knowledgeOne','knowledgeTwo','knowledgeResult','knowMore','searchKonw','searchKonwRes'] // 知识模块
 const selfTestAndcomplication = [ 'toolHome', 'selfTestSolution',  'complicationResult', 'complicationHome', 'proposalDetail']  // 自测和并发症模块
-const whiteRouteList = ['home', 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'wellcome', 'inviteFriends',  'VConsole', ...product, ...selfTestAndcomplication  ]
+const whiteRouteList = ['home', 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'wellcome', 'inviteFriends',  'VConsole', ...product, ...selfTestAndcomplication, ...knowledgeMess  ]
 // let share
 router.beforeEach((to, from, next) => {
 

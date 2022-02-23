@@ -51,7 +51,7 @@
             :actions="actions"
           >
             <template #reference>
-              <p class="qipao"></p>
+              <p class="qipao">默认密码123456</p>
               <!-- <van-icon name="question-o" /> -->
             </template>
           </van-popover>
@@ -99,7 +99,7 @@
           :actions="actions1"
         >
           <template #reference>
-            <p class="qipao"></p>
+            <p class="qipao">请勾选同意</p>
           </template>
         </van-popover>
         <div class="conent">
