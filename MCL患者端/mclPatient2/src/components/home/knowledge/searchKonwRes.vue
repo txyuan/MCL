@@ -4,14 +4,9 @@
       <van-icon class="arrow-left" @click="$router.push('/wx_Entrance/knowledge')" name="arrow-left" />
       <!-- <form class="right" action="/"> -->
       <div class="right">
-        <van-search
-          class="left_search"
-          v-model="value"
-          background="#38c2d7"
-          shape="round"
-          placeholder="请输入搜索关键词"
-          @search="onSearch"
-        />
+        <div class="search-group"  @keyup.enter="onSearch">
+          <input type="text" v-model="value" placeholder="请输入搜索关键字">
+        </div>
       </div>
       <!-- </form> -->
       <p @click="onSearchText">搜索</p>
@@ -153,6 +148,33 @@ export default {
 
 <style scoped lang="scss">
 @import "@/assets/css/base.scss";
+// 搜索框
+.search-group{
+  margin-top: 0.05rem;
+  margin-left: 0.1rem;
+  margin-right: 0.1rem;
+    padding: 0.08rem 0.2rem;
+	  padding-left: 0.45rem;
+    display: flex;
+    align-items: center;
+    // background: #f2f2f2;
+	  // border: 1px solid #e5e5e5;
+    border-radius: 0.2rem;
+    background: url(../../../assets/images/searchKow.png) no-repeat 0.2rem;
+    background-size: 0.16rem;
+    background-color: #f8f8f8;
+    input{
+        flex: 1;
+        border: none;
+        color: #666;
+        font-size: 0.14rem;
+    }
+    .search{
+        width: 0.2rem;
+        height: 0.2rem;
+        margin-left: 0.1rem;
+    }
+}
 // 产品分类
 .product_type {
   background-color: #fff;
@@ -250,7 +272,7 @@ export default {
     }
   }
   .ul {
-    margin-top: 0.1rem;
+    margin-top: 0.15rem;
     background-color: #f8f8f8;
     border-radius: 0.1rem;
     .li_top {
@@ -278,26 +300,25 @@ export default {
       flex-flow: row nowrap;
       justify-content: space-between;
       // border-bottom: 1px solid #ccc;
-      // padding: 0.1rem;
+      padding: 0.1rem 0;
 
       .left_text {
         padding: 0.1rem;
+        padding-bottom: 0;
         width: 50%;
         p:nth-child(1) {
-          width: 100%;
-          // margin-bottom: 0.2rem;
           height: 0.5rem;
+          line-height: 0.25rem;
           font-size: 0.16rem;
           font-weight: 700;
-          text-overflow: -o-ellipsis-lastline;
+           display: -webkit-box;
           overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          line-clamp: 2;
+          /*! autoprefixer: off; */
           -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
         }
         p:nth-child(2) {
+          margin-top: 0.1rem;
           display: flex;
           justify-content: space-between;
           width: 100%;
@@ -325,8 +346,9 @@ export default {
         }
       }
       .right_img {
+         margin-bottom: 0.1rem;
         height: 100%;
-        width: 40%;
+        width: 42%;
         img {
           border-radius: 0.06rem;
           width: 100%;

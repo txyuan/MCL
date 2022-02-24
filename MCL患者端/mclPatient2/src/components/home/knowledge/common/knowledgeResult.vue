@@ -1,23 +1,28 @@
 <template>
   <div style="">
-    <mt-header style="background-color: #38c2d7; color: #fff" :title="$route.query.Title" fixed>
+    <mt-header
+      style="background-color: #38c2d7; color: #fff"
+      :title="title"
+      fixed
+    >
       <div slot="left">
-        <header-back>
-          <mt-button icon="back"></mt-button>
-        </header-back>
+        <mt-button icon="back" @click="back"></mt-button>
       </div>
     </mt-header>
-    <h5>{{ data.Title }}</h5>
+    <div style="padding: 0.2rem; background-color: #fff">
+      <h5>{{ data.Title }}</h5>
+    </div>
     <div class="li_top">
       <div class="left_img">
         <img :src="data.platformLogo" alt="" />
-        <span style="font-size: 0.14rem">{{ data.platformName }}</span>
-        <span style="color: #737172; font-size: 0.14rem">{{
+        <span style="font-size: 0.16rem">{{ data.platformName }}</span>
+        <span style="color: #737172; font-size: 0.16rem">{{
           data.Subtitle
         }}</span>
       </div>
       <p>{{ data.create_time }}</p>
     </div>
+    <p class="line"></p>
     <div class="content" v-html="data.Memo"></div>
     <p class="line"></p>
     <div class="link_address">
@@ -92,21 +97,14 @@ export default {
         skey: this.$route.query.sKey,
       },
       data: {},
+      title: "", // 标题
       good: true,
       WechatParm: {}, //公众号信息
-      shareObj: {
-        //分享信息内容配置
-        title: "MCL",
-        desc: "我在医随康分享了MCL首页，赶快来看看吧。", // 分享描述
-        link: `${location.origin}${location.pathname}#${
-          this.$route.fullPath
-        }&rphone=${getZphone()}`, //系统地址
-        imgUrl: location.origin + logoImg,
-      },
+
       showShare: false,
       options: [
         { name: "微信", icon: "wechat" },
-        { name: '朋友圈', icon: 'wechat-moments' },
+        { name: "朋友圈", icon: "wechat-moments" },
         // { name: "复制链接", icon: "link" },
       ],
       isSmark: false,
@@ -114,13 +112,23 @@ export default {
   },
   created() {
     // this.onShare()
-    this.getInfoData();
+    // this.getInfoData();
     this.getWechatParm();
     if (this.$route.query.rphone) {
       localStorage.setItem("hphone", this.$route.query.rphone);
     }
   },
+  mounted () {
+    this.getInfoData();
+  },
   methods: {
+    back() {
+      if (this.$route.query.from && this.$route.query.from == "share") {
+        this.$router.push("/wx_Entrance/knowledge");
+      } else {
+        this.$router.back();
+      }
+    },
     // 微信配置
     async getWechatParm() {
       const data = await getWechatParm();
@@ -148,29 +156,74 @@ export default {
     },
     //微信read回调
     wxRead() {
-      this.onShare()
+      // this.onShare()
       wx.ready(() => {
-        this.ShareTimeline();
-        this.ShareAppMessage();
-        this.ShareQQ();
-        this.ShareWeibo();
+        var that = this;
+        this.ShareTimeline(that);
+        this.ShareAppMessage(that);
+        this.ShareQQ(that);
+        this.ShareWeibo(that);
       });
     },
     // 2.3 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
-    ShareTimeline() {
-      wx.onMenuShareTimeline(this.shareObj);
+    ShareTimeline(that) {
+      wx.onMenuShareTimeline({
+        //分享信息内容配置
+        title: "MCL-知识",
+        desc: `我在医随康分享了MCL【${that.$route.query.Title}】知识，赶快来看看吧。`, // 分享描述
+        link: `${location.origin}${location.pathname}#${
+          that.$route.fullPath
+        }&from=share&rphone=${getZphone()}`, //系统地址
+        imgUrl: location.origin + logoImg,
+        success: function () {
+          that.onShare();
+        },
+      });
     },
     // 2.3 监听“分享给朋友”按钮点击、自定义分享内容及分享结果接口
-    ShareAppMessage() {
-      wx.onMenuShareAppMessage(this.shareObj);
+    ShareAppMessage(that) {
+      wx.onMenuShareAppMessage({
+        //分享信息内容配置
+        title: "MCL-知识",
+        desc: `我在医随康分享了MCL【${that.$route.query.Title}】知识，赶快来看看吧。`, // 分享描述
+        link: `${location.origin}${location.pathname}#${
+          that.$route.fullPath
+        }&from=share&rphone=${getZphone()}`, //系统地址
+        imgUrl: location.origin + logoImg,
+        success: function () {
+          that.onShare();
+        },
+      });
     },
     // 2.3 监听“分享到QQ”按钮点击、自定义分享内容及分享结果接口
-    ShareQQ() {
-      wx.onMenuShareQQ(this.shareObj);
+    ShareQQ(that) {
+      wx.onMenuShareQQ({
+        //分享信息内容配置
+        title: "MCL-知识",
+        desc: `我在医随康分享了MCL【${that.$route.query.Title}】知识，赶快来看看吧。`, // 分享描述
+        link: `${location.origin}${location.pathname}#${
+          that.$route.fullPath
+        }&from=share&rphone=${getZphone()}`, //系统地址
+        imgUrl: location.origin + logoImg,
+        success: function () {
+          that.onShare();
+        },
+      });
     },
     // 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
-    ShareWeibo() {
-      wx.onMenuShareWeibo(this.shareObj);
+    ShareWeibo(that) {
+      wx.onMenuShareWeibo({
+        //分享信息内容配置
+        title: "MCL-知识",
+        desc: `我在医随康分享了MCL【${that.$route.query.Title}】知识，赶快来看看吧。`, // 分享描述
+        link: `${location.origin}${location.pathname}#${
+          that.$route.fullPath
+        }&from=share&rphone=${getZphone()}`, //系统地址
+        imgUrl: location.origin + logoImg,
+        success: function () {
+          that.onShare();
+        },
+      });
     },
     // 点赞
     goodCli() {
@@ -188,7 +241,7 @@ export default {
         } else if (res.flag == 2) {
           this.good = true;
         }
-        this.data.followCount = res.followCount
+        this.data.followCount = res.followCount;
         // this.getInfoData();
       });
     },
@@ -200,12 +253,12 @@ export default {
       //   this.$Toast("复制成功");
       //   return
       // }
-      this.isSmark = true
+      this.isSmark = true;
       this.showShare = false;
     },
     onShare() {
-      let url = 'UserInterface/knowledge/UpdateKnowledgeShareCount.ashx'
-      this.$post(url,this.param).then((res) => {});
+      let url = "UserInterface/knowledge/UpdateKnowledgeShareCount.ashx";
+      this.$post(url, this.param).then((res) => {});
     },
     // 立即查看按钮跳转
     linkAddres() {
@@ -215,16 +268,20 @@ export default {
     },
     // 获取详情
     getInfoData() {
+      this.$Indicator.loading();
       let url = "UserInterface/knowledge/GetKnowledgeDetails.ashx";
       this.$post(url, this.param).then((res) => {
+        this.$Indicator.close();
         if (res.rspcode != 1) {
           return;
         }
         this.data = res.data;
+        this.title = res.data.SubjectName;
         if (res.data.flag == 1) {
           this.good = false;
         } else if (res.data.flag == 2) {
           this.good = true;
+          
         }
       });
     },
@@ -233,19 +290,64 @@ export default {
 </script>
 
 <style scoped lang="scss">
+body {
+ width: 100%;
+  height: 100%;
+  
+}
+
+document {
+  width: 100%;
+  height: 100%;
+}
 .content {
+  width: 100% !important;
+  box-sizing:border-box;
   background-color: #fff;
   padding: 0.1rem;
-  padding-top: 0;
+  padding-top: 0.1rem;
   padding-bottom: 0;
+  >>> p {
+    line-height: 0.36rem !important;
+    text-indent: 0px !important;
+  }
+  >>> h2 {
+    line-height: 0.36rem !important;
+  }
+  >>> h3 {
+    line-height: 0.36rem !important;
+  }
+  >>> h4 {
+    line-height: 0.36rem !important;
+  }
+  >>> h5 {
+    line-height: 0.36rem !important;
+  }
+  >>> h6 {
+    line-height: 0.36rem !important;
+  }
+  >>> span {
+    line-height: 0.36rem !important;
+  }
 }
 h5 {
+  box-sizing:border-box;
   background-color: #fff;
   margin-top: 0.4rem;
-  padding: 0.2rem;
-  padding-bottom: 0.1rem;
-  font-size: 0.16rem;
+  font-size: 0.2rem;
+  line-height: 0.24rem;
+  display: -webkit-box;
+  overflow: hidden;
+  /*! autoprefixer: off; */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
+// .content >>> img {
+//   width: 80%;
+
+//   /* margin: 0.1rem 0; */
+//   /* height: 4rem; */
+// }
 .content >>> img {
   width: 100%;
 

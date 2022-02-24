@@ -353,7 +353,7 @@ const router = new Router({
     // { path:"/search", name:"search", component: search },  //搜索
     // { path:"/knowledgeDetail", name:"knowledgeDetail", component: knowledgeDetail },  //课程详情
     { path:"/knowledgeOne", name:"knowledgeOne", component: knowledgeOne },  //课程详情
-    { path:"/knowMore", name:"knowMore", component: knowMore },  //更多知识
+    { path:"/knowMore", name:"knowMore", component: knowMore, meta:{keepAlive: true} },  //更多知识
     { path:"/searchKonw", name:"searchKonw", component: searchKonw },  //搜索知识
     { path:"/searchKonwRes", name:"searchKonwRes", component: searchKonwRes },  //搜索知识
     { path:"/knowledgeTwo", name:"knowledgeTwo", component: knowledgeTwo },  //课程详情

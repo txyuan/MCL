@@ -4,14 +4,9 @@
       <van-icon class="arrow-left" @click="$router.back()" name="arrow-left" />
       <!-- <form class="right" action="/"> -->
       <div class="right">
-        <van-search
-          class="left_search"
-          v-model="value"
-          background="#38c2d7"
-          shape="round"
-          placeholder="请输入搜索关键词"
-          @search="onSearch"
-        />
+        <div class="search-group"  @keyup.enter="onSearch">
+          <input type="text" v-model="value" placeholder="请输入搜索关键字">
+        </div>
       </div>
       <!-- </form> -->
       <p @click="onSearchText">搜索</p>
@@ -74,6 +69,33 @@ export default {
 <style scoped lang='scss'>
 .app_content {
   // padding: 0.1rem;
+}
+// 搜索框
+.search-group{
+  margin-top: 0.05rem;
+  margin-left: 0.1rem;
+  margin-right: 0.1rem;
+    padding: 0.08rem 0.2rem;
+	  padding-left: 0.45rem;
+    display: flex;
+    align-items: center;
+    // background: #f2f2f2;
+	  // border: 1px solid #e5e5e5;
+    border-radius: 0.2rem;
+    background: url(../../../assets/images/searchKow.png) no-repeat 0.2rem;
+    background-size: 0.16rem;
+    background-color: #f8f8f8;
+    input{
+        flex: 1;
+        border: none;
+        color: #666;
+        font-size: 0.14rem;
+    }
+    .search{
+        width: 0.2rem;
+        height: 0.2rem;
+        margin-left: 0.1rem;
+    }
 }
 .header_top {
   height: 0.44rem;

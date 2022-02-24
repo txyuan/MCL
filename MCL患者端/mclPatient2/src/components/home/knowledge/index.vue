@@ -1,7 +1,12 @@
 <template>
-  <div style="background-color: #fff;">
+  <div style="background-color: #fff">
     <!-- <mt-header fixed title="知识"></mt-header> -->
-    <van-search v-model="value" shape="round" @click="$router.push('/searchKonw')" placeholder="请输入搜索关键词" />
+    <!-- <van-search v-model="value" shape="round" @click="$router.push('/searchKonw')" placeholder="请输入搜索关键词" /> -->
+    <div style="background-color: #fff; padding: 0.1rem 0.2rem 0 0.2rem">
+      <div class="search-group" @click="$router.push('/searchKonw')">
+        <input type="text" placeholder="请输入搜索关键字" disabled />
+      </div>
+    </div>
     <!-- 产品分类 -->
     <div class="product_type">
       <ul>
@@ -87,8 +92,8 @@ export default {
       list: [],
       loading: false,
       finished: false,
-      more : true,
-      value: '', // 搜索
+      more: true,
+      value: "", // 搜索
     };
   },
   components: {
@@ -102,7 +107,7 @@ export default {
   methods: {
     // 更多知识
     knowMore() {
-      this.$router.push('/knowMore')
+      this.$router.push("/knowMore");
     },
     detailFN(item) {
       this.$router.push(
@@ -130,13 +135,13 @@ export default {
       let url = "UserInterface/knowledge/GetKnowledgeCategoryList.ashx";
       this.$post(url).then((res) => {
         if (res.list.length > 8) {
-          this.more = false
+          this.more = false;
           let list = [];
           for (var i = 0; i < 7; i++) {
-            list.push(res.list[i])
+            list.push(res.list[i]);
           }
           this.typeList = list;
-        }else {
+        } else {
           this.typeList = res.list;
         }
       });
@@ -172,6 +177,30 @@ export default {
 
 <style scoped lang="scss">
 @import "@/assets/css/base.scss";
+// 搜索框
+.search-group {
+  padding: 0.08rem 0.2rem;
+  padding-left: 0.45rem;
+  display: flex;
+  align-items: center;
+  // background: #f2f2f2;
+  // border: 1px solid #e5e5e5;
+  border-radius: 0.2rem;
+  background: url(../../../assets/images/searchKow.png) no-repeat 0.2rem;
+  background-size: 0.16rem;
+  background-color: #f8f8f8;
+  input {
+    flex: 1;
+    border: none;
+    color: #666;
+    font-size: 0.14rem;
+  }
+  .search {
+    width: 0.2rem;
+    height: 0.2rem;
+    margin-left: 0.1rem;
+  }
+}
 // 产品分类
 .product_type {
   background-color: #fff;
@@ -190,7 +219,7 @@ export default {
     padding: 0.1rem 0;
     p {
       margin-top: 0.05rem;
-      font-size: 0.13rem;
+      font-size: 0.14rem;
     }
   }
   img {
@@ -232,7 +261,7 @@ export default {
     }
   }
   .ul {
-    margin-top: 0.1rem;
+    margin-top: 0.15rem;
     background-color: #f8f8f8;
     border-radius: 0.1rem;
     .li_top {
@@ -260,26 +289,28 @@ export default {
       flex-flow: row nowrap;
       justify-content: space-between;
       // border-bottom: 1px solid #ccc;
-      // padding: 0.1rem;
+      padding: 0.1rem 0;
 
       .left_text {
-        padding: 0.1rem;
-        width: 50%;
+        // padding: 0.1rem;
+        margin-left: 0.1rem;
+        margin-top: 0.1rem;
+        padding-bottom: 0;
+        width: 1.6rem;
         p:nth-child(1) {
-          width: 100%;
-          // margin-bottom: 0.2rem;
+          // width: 1.6rem;
           height: 0.5rem;
+          line-height: 0.25rem;
           font-size: 0.16rem;
           font-weight: 700;
-          text-overflow: -o-ellipsis-lastline;
-          overflow: hidden;
-          text-overflow: ellipsis;
           display: -webkit-box;
-          -webkit-line-clamp: 2;
-          line-clamp: 2;
+          overflow: hidden;
+          /*! autoprefixer: off; */
           -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
         }
         p:nth-child(2) {
+          margin-top: 0.1rem;
           display: flex;
           justify-content: space-between;
           width: 100%;
@@ -307,8 +338,9 @@ export default {
         }
       }
       .right_img {
+        margin-bottom: 0.1rem;
         height: 100%;
-        width: 40%;
+        width: 42%;
         img {
           border-radius: 0.06rem;
           width: 100%;

@@ -11,7 +11,7 @@
         </header-back>
       </div>
     </mt-header>
-    <van-tabs v-model="activeId" animated sticky offset-top="0.4rem">
+    <van-tabs v-model="activeId" animated sticky offset-top="0.37rem">
       <van-tab
         v-for="item in tabList"
         :key="item.sKey"
@@ -179,7 +179,7 @@ export default {
   margin-top: 0.5rem;
 }
 .ul {
-  margin-top: 0.1rem;
+  margin-top: 0.15rem;
   // background-color: #f8f8f8;
   border-radius: 0.1rem;
   .li_top {
@@ -207,26 +207,25 @@ export default {
     flex-flow: row nowrap;
     justify-content: space-between;
     // border-bottom: 1px solid #ccc;
-    // padding: 0.1rem;
+    padding: 0.1rem 0;
 
     .left_text {
       padding: 0.1rem;
+      padding-bottom: 0;
       width: 50%;
       p:nth-child(1) {
-        width: 100%;
-        // margin-bottom: 0.2rem;
-        height: 0.5rem;
-        font-size: 0.16rem;
-        font-weight: 700;
-        text-overflow: -o-ellipsis-lastline;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        line-clamp: 2;
-        -webkit-box-orient: vertical;
+          height: 0.5rem;
+          line-height: 0.25rem;
+          font-size: 0.16rem;
+          font-weight: 700;
+          display: -webkit-box;
+          overflow: hidden;
+          /*! autoprefixer: off; */
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
       }
       p:nth-child(2) {
+        margin-top: 0.1rem;
         display: flex;
         justify-content: space-between;
         width: 100%;
@@ -254,8 +253,9 @@ export default {
       }
     }
     .right_img {
-      height: 100%;
-      width: 40%;
+       margin-bottom: 0.1rem;
+        height: 100%;
+        width: 42%;
       img {
         border-radius: 0.06rem;
         width: 100%;
