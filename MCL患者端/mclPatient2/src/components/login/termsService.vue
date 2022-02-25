@@ -20,6 +20,8 @@
           <div class="input_warp">
             <input
               type="tel"
+              autocomplete="off"
+              maxlength="4"
               v-model.trim="code"
               @focus="$root.windowRecordScroll"
               @blur="$root.windowScrollTop"

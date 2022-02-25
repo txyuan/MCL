@@ -105,6 +105,7 @@ export default {
       this.getList();
     },
     detailFN(item) {
+      sessionStorage.setItem('share',item.ImageUrl)
       this.$router.push(
         `/knowledgeResult?sKey=${item.sKey}&Title=${item.Title}`
       );
@@ -280,18 +281,22 @@ export default {
       justify-content: space-between;
       .left_img {
         img {
+           margin-top: -0.03rem;
           width: 0.2rem;
           height: 0.2rem;
           display: inline-block;
           vertical-align: middle;
         }
         span {
+             line-height: 0.26rem;
+          font-size: 0.16rem;
           display: inline-block;
         }
       }
       p {
         color: #9a9a9c;
-        font-size: 0.12rem;
+        font-size: 0.14rem;
+      line-height: 0.26rem;
       }
     }
     .li {
@@ -303,7 +308,9 @@ export default {
       padding: 0.1rem 0;
 
       .left_text {
-        padding: 0.1rem;
+        // padding: 0.1rem;
+        margin-left: 0.1rem;
+        margin-top: 0.05rem;
         padding-bottom: 0;
         width: 50%;
         p:nth-child(1) {
@@ -318,7 +325,8 @@ export default {
           -webkit-line-clamp: 2;
         }
         p:nth-child(2) {
-          margin-top: 0.1rem;
+          margin-left: -0.1rem;
+          margin-top: 0.15rem;
           display: flex;
           justify-content: space-between;
           width: 100%;

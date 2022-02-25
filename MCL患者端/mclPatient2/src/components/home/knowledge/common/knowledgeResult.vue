@@ -108,18 +108,22 @@ export default {
         // { name: "复制链接", icon: "link" },
       ],
       isSmark: false,
+      imgUrl : ''
     };
   },
   created() {
+    this.getInfoData();
     // this.onShare()
     // this.getInfoData();
-    this.getWechatParm();
+    // if(sessionStorage.getItem('share')) {
+      this.imgUrl = sessionStorage.getItem('share')
+    // }
     if (this.$route.query.rphone) {
       localStorage.setItem("hphone", this.$route.query.rphone);
     }
   },
   mounted () {
-    this.getInfoData();
+    this.getWechatParm()
   },
   methods: {
     back() {
@@ -140,7 +144,7 @@ export default {
     wxConfig() {
       let WechatParm = this.WechatParm;
       wx.config({
-        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         appId: WechatParm.AppId, // 必填，公众号的唯一标识
         timestamp: WechatParm.Timestamp, // 必填，生成签名的时间戳
         nonceStr: WechatParm.NonceStr, // 必填，生成签名的随机串
@@ -169,12 +173,12 @@ export default {
     ShareTimeline(that) {
       wx.onMenuShareTimeline({
         //分享信息内容配置
-        title: "MCL-知识",
-        desc: `我在医随康分享了MCL【${that.$route.query.Title}】知识，赶快来看看吧。`, // 分享描述
+        title: that.data.Title,
+        desc: that.data.outline, // 分享描述
         link: `${location.origin}${location.pathname}#${
           that.$route.fullPath
         }&from=share&rphone=${getZphone()}`, //系统地址
-        imgUrl: location.origin + logoImg,
+        imgUrl: that.imgUrl ? that.imgUrl : location.origin + logoImg,
         success: function () {
           that.onShare();
         },
@@ -184,12 +188,12 @@ export default {
     ShareAppMessage(that) {
       wx.onMenuShareAppMessage({
         //分享信息内容配置
-        title: "MCL-知识",
-        desc: `我在医随康分享了MCL【${that.$route.query.Title}】知识，赶快来看看吧。`, // 分享描述
+        title: that.data.Title,
+        desc: that.data.outline, // 分享描述
         link: `${location.origin}${location.pathname}#${
           that.$route.fullPath
         }&from=share&rphone=${getZphone()}`, //系统地址
-        imgUrl: location.origin + logoImg,
+        imgUrl: that.imgUrl ? that.imgUrl : location.origin + logoImg,
         success: function () {
           that.onShare();
         },
@@ -199,12 +203,12 @@ export default {
     ShareQQ(that) {
       wx.onMenuShareQQ({
         //分享信息内容配置
-        title: "MCL-知识",
-        desc: `我在医随康分享了MCL【${that.$route.query.Title}】知识，赶快来看看吧。`, // 分享描述
+        title: that.data.Title,
+        desc: that.data.outline, // 分享描述
         link: `${location.origin}${location.pathname}#${
           that.$route.fullPath
         }&from=share&rphone=${getZphone()}`, //系统地址
-        imgUrl: location.origin + logoImg,
+        imgUrl: that.imgUrl ? that.imgUrl : location.origin + logoImg,
         success: function () {
           that.onShare();
         },
@@ -214,12 +218,12 @@ export default {
     ShareWeibo(that) {
       wx.onMenuShareWeibo({
         //分享信息内容配置
-        title: "MCL-知识",
-        desc: `我在医随康分享了MCL【${that.$route.query.Title}】知识，赶快来看看吧。`, // 分享描述
+        title: that.data.Title,
+        desc: that.data.outline, // 分享描述
         link: `${location.origin}${location.pathname}#${
           that.$route.fullPath
         }&from=share&rphone=${getZphone()}`, //系统地址
-        imgUrl: location.origin + logoImg,
+        imgUrl: that.imgUrl ? that.imgUrl : location.origin + logoImg,
         success: function () {
           that.onShare();
         },
@@ -255,6 +259,7 @@ export default {
       // }
       this.isSmark = true;
       this.showShare = false;
+      console.log(this.imgUrl);
     },
     onShare() {
       let url = "UserInterface/knowledge/UpdateKnowledgeShareCount.ashx";
@@ -308,34 +313,34 @@ document {
   padding-top: 0.1rem;
   padding-bottom: 0;
   >>> p {
-    line-height: 0.36rem !important;
+    // line-height: 0.36rem !important;
     text-indent: 0px !important;
   }
-  >>> h2 {
-    line-height: 0.36rem !important;
-  }
-  >>> h3 {
-    line-height: 0.36rem !important;
-  }
-  >>> h4 {
-    line-height: 0.36rem !important;
-  }
-  >>> h5 {
-    line-height: 0.36rem !important;
-  }
-  >>> h6 {
-    line-height: 0.36rem !important;
-  }
-  >>> span {
-    line-height: 0.36rem !important;
-  }
+  // >>> h2 {
+  //   line-height: 0.36rem !important;
+  // }
+  // >>> h3 {
+  //   line-height: 0.36rem !important;
+  // }
+  // >>> h4 {
+  //   line-height: 0.36rem !important;
+  // }
+  // >>> h5 {
+  //   line-height: 0.36rem !important;
+  // }
+  // >>> h6 {
+  //   line-height: 0.36rem !important;
+  // }
+  // >>> span {
+  //   line-height: 0.36rem !important;
+  // }
 }
 h5 {
   box-sizing:border-box;
   background-color: #fff;
   margin-top: 0.4rem;
-  font-size: 0.2rem;
-  line-height: 0.24rem;
+  font-size: 0.22rem;
+  line-height: 0.26rem;
   display: -webkit-box;
   overflow: hidden;
   /*! autoprefixer: off; */
@@ -395,12 +400,14 @@ h5 {
   justify-content: space-between;
 }
 .li_top img {
+  margin-top: -0.03rem;
   width: 0.2rem;
   height: 0.2rem;
   display: inline-block;
   vertical-align: middle;
 }
 .li_top span {
+  line-height: 0.26rem;
   display: inline-block;
 }
 .li_top p {
@@ -410,7 +417,9 @@ h5 {
 }
 .link_img {
   margin-top: 0.1rem;
+  // margin-bottom: 0.1rem;
   padding: 0.1rem 0.1rem;
+  padding-bottom: 0.2rem;
 
   background-color: #fff;
 }

@@ -93,6 +93,7 @@ export default {
   },
   methods: {
     detailFN(item) {
+      sessionStorage.setItem('share',item.ImageUrl)
       this.$router.push(
         `/knowledgeResult?sKey=${item.sKey}&Title=${item.Title}`
       );
