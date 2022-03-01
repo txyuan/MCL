@@ -1,6 +1,6 @@
 <template xmlns:v-touch="http://www.w3.org/1999/xhtml">
   <div class="ymRuler ">
-    <div class="rultitle"><strong>{{`${numberValue}cm`}}</strong><span style="font-size: 0.18rem;"></span></div>
+    <div class="rultitle"><strong>{{`${numberValue}kg`}}</strong><span style="font-size: 0.18rem;"></span></div>
     <div class="ruler " ref="testAA">
     <div class="rulltbg"></div>
     <div class="rulrtbg"></div>
@@ -140,12 +140,12 @@
     margin-bottom: 0.2rem;
   }
   .ymRuler .rultitle strong{
-    font-weight: 600;
-    font-size: 0.275rem;
-    background-color: #FFFFFF;
+    font-weight: 500;
+    font-size: 0.22rem;
+    background-color: #ebf7f5;
     color: #0ac5ca;
-    border-radius: 6px;
-    padding: 0.05rem 0.05rem 0rem 0.15rem;
+    border-radius: 0.08rem;
+    padding: 0.04rem 0.1rem ;
     display: inline-block;
     min-width: 0.625rem;
   }

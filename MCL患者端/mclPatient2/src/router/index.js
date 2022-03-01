@@ -11,6 +11,12 @@ const wxFollowPage = () => import(/* webpackChunkName: "wxFollowPage" */ '@/comp
 const home = () => import(/* webpackChunkName: "home" */ '@/components/home/main.vue')  //首页
 const wellcome = () => import(/* webpackChunkName: "wellcome" */ '@/components/home/wellcome/index.vue')  //首页  欢迎页面
 const wellcome_personInfo = () => import(/* webpackChunkName: "wellcome_personInfo" */ '@/components/home/wellcome/personInfo.vue')  //首页  完善个人信息
+const personInfo1 = () => import(/* webpackChunkName: "personInfo1" */ '@/components/home/wellcome/personInfo/personInfo1.vue')  // 完善个人信息1
+const personInfo2 = () => import(/* webpackChunkName: "personInfo2" */ '@/components/home/wellcome/personInfo/personInfo2.vue')  // 完善个人信息1
+const personInfo3 = () => import(/* webpackChunkName: "personInfo3" */ '@/components/home/wellcome/personInfo/personInfo3.vue')  // 完善个人信息1
+const personInfo4= () => import(/* webpackChunkName: "personInfo4" */ '@/components/home/wellcome/personInfo/personInfo4.vue')  // 完善个人信息1
+const personInfo5 = () => import(/* webpackChunkName: "personInfo5" */ '@/components/home/wellcome/personInfo/personInfo5.vue')  // 完善个人信息1
+const personInfo6 = () => import(/* webpackChunkName: "personInfo6" */ '@/components/home/wellcome/personInfo/personInfo6.vue')  // 完善个人信息1
 const wellcome_personInfoRegister = () => import(/* webpackChunkName: "wellcome_personInfoRegister" */ '@/components/home/wellcome/personInfoRegister.vue')  //注册时候进入 个人信息录入
 const message2 = () => import(/* webpackChunkName: "message2" */ '@/components/mesage/message2.vue')  //营养评估简介
 // const home2 = () => import(/* webpackChunkName: "home2" */ '@/components/home/index2.vue')  //首页
@@ -300,6 +306,12 @@ const router = new Router({
     //首页页面
     { path:"/wellcome", name:"wellcome", component: wellcome },  //欢迎页面
     { path:"/wellcome_personInfo", name:"wellcome_personInfo", component: wellcome_personInfo },  //首页   完善个人信息
+    { path:"/personInfo1", name:"personInfo1", component: personInfo1 },  //   完善个人信息1
+    { path:"/personInfo2", name:"personInfo2", component: personInfo2 },  //   完善个人信息1
+    { path:"/personInfo3", name:"personInfo3", component: personInfo3 },  //   完善个人信息1
+    { path:"/personInfo4", name:"personInfo4", component: personInfo4 },  //   完善个人信息1
+    { path:"/personInfo5", name:"personInfo5", component: personInfo5 },  //   完善个人信息1
+    { path:"/personInfo6", name:"personInfo6", component: personInfo6 },  //   完善个人信息1
     { path:"/wellcome_personInfoRegister", name:"wellcome_personInfoRegister", component: wellcome_personInfoRegister },  //注册成功之后  个人信息录入
     { path:"/message2", name:"message2", component: message2 },  //营养评估简介
 	  

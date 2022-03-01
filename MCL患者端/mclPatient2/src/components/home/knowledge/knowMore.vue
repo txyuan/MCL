@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #fff;">
+  <div class="home">
     <mt-header
       fixed
       title="更多知识"
@@ -57,6 +57,15 @@ export default {
 };
 </script>
 <style scoped lang='scss'>
+.home {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  background-color: #fff !important;
+}
 .know_list {
   ul {
     margin-top: 0.2rem;

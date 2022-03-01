@@ -38,7 +38,7 @@ Vue.component(vueQr.name, vueQr)
 
 // // 导入vant组件
 import 'vant/lib/index.css';
-import {List,Button,Cell,Icon,Popover,Search ,Tab, Tabs,ShareSheet,Sticky } from 'vant'
+import {List,Button,Cell,Icon,Popover,Search ,Tab, Tabs,ShareSheet,Sticky,DatetimePicker,Checkbox, CheckboxGroup  } from 'vant'
 Vue.use(List)
 Vue.use(Button )
 Vue.use(Cell )
@@ -49,6 +49,9 @@ Vue.use(Tab)
 Vue.use(Tabs)
 Vue.use(ShareSheet)
 Vue.use(Sticky)
+Vue.use(DatetimePicker )
+Vue.use(Checkbox )
+Vue.use( CheckboxGroup )
 
 
 //支付方式

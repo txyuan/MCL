@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #fff">
+  <div class="home">
     <!-- <mt-header fixed title="知识"></mt-header> -->
     <!-- <van-search v-model="value" shape="round" @click="$router.push('/searchKonw')" placeholder="请输入搜索关键词" /> -->
     <div style="background-color: #fff; padding: 0.1rem 0.2rem 0 0.2rem">
@@ -178,6 +178,15 @@ export default {
 
 <style scoped lang="scss">
 @import "@/assets/css/base.scss";
+.home {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  background-color: #fff !important;
+}
 // 搜索框
 .search-group {
   padding: 0.08rem 0.2rem;

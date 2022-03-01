@@ -1,5 +1,5 @@
 <template>
-  <div class="app_content">
+  <div class="home">
     <div class="header_top" style="background-color: #38c2d7; color: #fff">
       <van-icon class="arrow-left" @click="$router.back()" name="arrow-left" />
       <!-- <form class="right" action="/"> -->
@@ -67,8 +67,14 @@ export default {
 };
 </script>
 <style scoped lang='scss'>
-.app_content {
-  // padding: 0.1rem;
+.home {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  background-color: #fff !important;
 }
 // 搜索框
 .search-group{
@@ -145,7 +151,7 @@ export default {
       padding: 0.05rem 0.1rem;
       text-align: center;
       border-radius: 0.6rem;
-      background-color: #fff;
+      background-color: #f8f8f8;
       margin-top: 0.1rem;
     }
     ul li:nth-child(even) {
@@ -160,7 +166,7 @@ export default {
       padding: 0.05rem 0.1rem;
       text-align: center;
       border-radius: 0.6rem;
-      background-color: #fff;
+      background-color: #f8f8f8;
       margin-top: 0.1rem;
     }
   }

@@ -39,6 +39,12 @@
             <p>{{item.goodsName}}</p>
           </li>
         </ul>
+        <!-- <div class="title">诊疗</div> -->
+        <ul v-show="value == 4">
+          <li v-for="(item, w) in list4" :key="w" :class="{'active': (type == 'wellcome_personInfo' && index == w)}" @click="toggle(w, 'wellcome_personInfo')">
+            <p>{{item.goodsName}}</p>
+          </li>
+        </ul>
       </div>
 
       <div class="fix_bottom">
@@ -58,6 +64,9 @@ export default {
     list: [],
     list2: [],
     list3 : [],
+    list4 : [{
+      goodsName : '基础信息'
+    }],
     type: "",
     index: -1,
     doctor:{
@@ -82,6 +91,9 @@ export default {
        {
         value : 3,
         name : '商品列表'
+      }, {
+         value : 4,
+        name : '诊疗'
       }
     ],
     value : 0
@@ -121,6 +133,11 @@ export default {
       // this.$router.push({name: 'serviceDetail', params:{type: item.PageUrl, skey: item.sKey, SubjectName: item.SubjectName, doctorPhone: this.doctor.phone}})
       this.$router.push( `serviceDetail/${item.goodsId}?doctorPhone=${this.doctor.phone}`)
     },
+    // 跳转到自测工具
+    goWellcome_personInfo(item){
+      // this.$router.push({name: 'serviceDetail', params:{type: item.PageUrl, skey: item.sKey, SubjectName: item.SubjectName, doctorPhone: this.doctor.phone}})
+      this.$router.push('/wellcome_personInfo')
+    },
     confirm(){
       if(this.type == ""){
         this.$Toast('请选择15种并发症或者自测工具')
@@ -140,6 +157,8 @@ export default {
       }else if(this.type == "serviceDetail") {
       // 跳转到自测工具
         this.goServiceDetail(this.list3[this.index])
+      }else if(this.type == "wellcome_personInfo") {
+        this.goWellcome_personInfo()
       }
     }
   },
