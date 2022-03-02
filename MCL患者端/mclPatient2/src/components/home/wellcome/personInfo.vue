@@ -150,9 +150,9 @@ export default {
   border: 0;
 }
 .content_img {
-  padding-top: 0.7rem;
+  padding-top: 0.5rem;
   width: 100%;
-  height: 3rem;
+  height: 2.9rem;
   background-color: #fff;
   img {
     width: 100%;
@@ -163,7 +163,7 @@ export default {
   background-color: #fff;
 
   .title {
-    padding-top: 0.4rem;
+    padding-top: 0.3rem;
     text-align: center;
     line-height: 0.3rem;
     font-size: 0.14rem;
@@ -175,7 +175,7 @@ export default {
   .down {
     text-align: center;
     img {
-      margin-top: 0.4rem;
+      margin-top: 0.2rem;
       width: 0.3rem;
       height: 0.3rem;
     }

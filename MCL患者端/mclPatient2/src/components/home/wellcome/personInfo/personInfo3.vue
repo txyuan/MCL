@@ -299,7 +299,7 @@ export default {
   h3 {
     text-align: center;
     font-weight: 500;
-    margin: 0.6rem 0 0.2rem 0;
+    margin: 0.5rem 0 0.2rem 0;
   }
 }
 .illness {
@@ -315,7 +315,7 @@ export default {
       border: 1px solid #ccc;
       padding: 0.05rem 0.02rem;
       border-radius: 0.06rem;
-      margin: 0.1rem 2.32%;
+      margin: 0.08rem 2.32%;
       font-size: 0.14rem;
       color: #999;
       white-space: nowrap;

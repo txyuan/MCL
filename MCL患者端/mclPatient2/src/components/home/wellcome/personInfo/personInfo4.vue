@@ -23,7 +23,7 @@
         <h3>首次诊断日期</h3>
         <div class="picker">
           <van-datetime-picker
-            item-height="60"
+            item-height="50"
             :show-toolbar="false"
             active-calss="selectPicker"
             v-model="currentDate"
@@ -41,7 +41,7 @@
         >
       </div>
       <div class="bot_content">
-        <div style="height:2rem; background-color: #fff">
+        <div style="background-color: #fff">
           <div class="btn">
             <van-button class="btn_info" round type="info" @click="goInfo"
               >下一步</van-button
@@ -179,6 +179,7 @@ export default {
 .home {
   position: absolute;
   height: 100%;
+  // height: 10rem;
   width: 100%;
   top: 0;
   left: 0;
@@ -200,6 +201,7 @@ export default {
   width: 100%;
   display: flex;
   background-color: #fff;
+  z-index: 99999;
   .mint-button--default {
     background-color: #fff !important;
     -webkit-box-shadow: 0 0 0 !important;
@@ -261,7 +263,7 @@ export default {
   h3 {
     text-align: center;
     font-weight: 500;
-    margin: 1rem 0 0.2rem 0;
+    margin: 0.6rem 0 0.2rem 0;
   }
   .input_top {
     text-align: center;

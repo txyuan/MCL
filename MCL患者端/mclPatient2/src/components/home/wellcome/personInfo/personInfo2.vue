@@ -219,13 +219,13 @@ export default {
   h3 {
     text-align: center;
     font-weight: 500;
-    margin: 0.6rem 0 0.2rem 0;
+    margin: 0.5rem 0 0.2rem 0;
   }
   .height {
-    margin-top: 0.4rem;
+    margin-top: 0.2rem;
   }
   .weight {
-    margin-top: 0.2rem;
+    margin-top: -0.1rem;
   }
   .input_top {
     display: flex;

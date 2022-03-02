@@ -147,7 +147,7 @@
         :style="{ height: '50%' }"
       >
         <van-datetime-picker
-          item-height="60"
+          item-height="50"
           title="手术时间"
           active-calss="selectPicker"
           v-model="currentDate"
@@ -300,12 +300,12 @@ export default {
        }
        let url = 'UserInterface/AddConditionDiseaseTumourTest.ashx'
        this.$post(url,obj).then(res => {
-          if (data.rspcode != 1) {
-            this.$Toast(data.rspdesc)
+          if (res.rspcode != 1) {
+            this.$Toast(res.rspdesc)
             return
           }
           this.$Toast('保存成功')
-          this.$router.push(`/wx_Entrance/home`)
+          this.$router.push('/wx_Entrance/home')
        })
       //  this.$store.commit('setpersonInfo',obj)
 
@@ -637,7 +637,7 @@ export default {
   h3 {
     text-align: center;
     font-weight: 500;
-    margin: 0.6rem 0 0.2rem 0;
+    margin: 0.5rem 0 0.2rem 0;
   }
 }
 .illness {
@@ -653,7 +653,7 @@ export default {
       border: 1px solid #ccc;
       padding: 0.05rem 0.02rem;
       border-radius: 0.06rem;
-      margin: 0.1rem 2.32%;
+      margin: 0.08rem 2.32%;
       font-size: 0.14rem;
       color: #999;
       white-space: nowrap;
@@ -701,7 +701,7 @@ export default {
       border: 1px solid #ccc;
       padding: 0.05rem 0.02rem;
       border-radius: 0.06rem;
-      margin: 0.1rem 2.32%;
+      margin: 0.08rem 2.32%;
       font-size: 0.14rem;
       color: #999;
       white-space: nowrap;
@@ -801,7 +801,7 @@ export default {
       border: 1px solid #ccc;
       padding: 0.05rem 0.02rem;
       border-radius: 0.06rem;
-      margin: 0.1rem 2.32%;
+      margin: 0.08rem 2.32%;
       font-size: 0.14rem;
       color: #999;
       white-space: nowrap;

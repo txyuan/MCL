@@ -22,10 +22,11 @@
         <div class="input_top">
           <input type="text" v-model="valueName" placeholder="请输入性名" />
         </div>
-        <h3>出生日期</h3>
+        <h3 class="h3Two">出生日期</h3>
         <div class="picker">
           <van-datetime-picker
-            item-height="60"
+          :min-date="minDate"
+            item-height="50"
             :show-toolbar="false"
             active-calss="selectPicker"
             v-model="currentDate"
@@ -68,7 +69,8 @@ export default {
       changeDate: this.timeFormat(new Date()),
       valueName: "",
       dom : [],
-      doms : []
+      doms : [],
+       minDate: new Date(1900, 0, 1),
     };
   },
   mounted() {
@@ -216,7 +218,10 @@ export default {
   h3 {
     text-align: center;
     font-weight: 500;
-    margin: 0.6rem 0 0.2rem 0;
+    margin: 0.5rem 0 0.2rem 0;
+  }
+  .h3Two {
+    margin: 0.3rem 0 0.2rem 0;
   }
   .input_top {
     text-align: center;
