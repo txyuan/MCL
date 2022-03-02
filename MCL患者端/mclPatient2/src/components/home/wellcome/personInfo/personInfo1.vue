@@ -227,7 +227,9 @@ export default {
     input {
       border: 0;
       line-height: 0.6rem;
-      margin-left: 37%;
+      // margin-left: 37%;
+      // color: #39c4d5;
+      text-align: center;
     }
   }
   .picker {

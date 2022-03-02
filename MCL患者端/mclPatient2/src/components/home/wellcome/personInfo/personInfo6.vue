@@ -41,7 +41,7 @@
               <p>化疗</p>
               <p v-if="value_53 == 1">(第{{ value_54 }}疗程)</p>
             </li>
-            <van-popup class="popupliao" v-model="showhualiao">
+            <van-popup :close-on-click-overlay="false" class="popupliao" v-model="showhualiao">
               <h4>化疗</h4>
               <p>第<input type="text" v-model="value_54" />疗程</p>
               <div class="btn_com1">
@@ -50,12 +50,12 @@
               <div class="btn_can1">
                 <button @click="cancel54" class="btn_can">取消</button>
               </div>
-            </van-popup>
+            </van-popup >
             <li @click="selvalue_55" :class="{ checked: value_55 == 1 }">
               <p>放疗</p>
               <p v-if="value_55 == 1">(第{{ value_56 }}疗程)</p>
             </li>
-            <van-popup class="popupliao" v-model="showfangliao">
+            <van-popup :close-on-click-overlay="false" class="popupliao" v-model="showfangliao">
               <h4>放疗</h4>
               <p>第<input type="text" v-model="value_56" />疗程</p>
               <div class="btn_com1">
@@ -69,7 +69,7 @@
               <p>靶向治疗</p>
               <p v-if="value_57 == 1">(第{{ value_58 }}疗程)</p>
             </li>
-            <van-popup class="popupliao" v-model="showba">
+            <van-popup :close-on-click-overlay="false" class="popupliao" v-model="showba">
               <h4>靶向治疗</h4>
               <p>第<input type="text" v-model="value_58" />疗程</p>
               <div class="btn_com1">
@@ -83,7 +83,7 @@
               <p>介入治疗</p>
               <p v-if="value_59 == 1">(第{{ value_60 }}疗程)</p>
             </li>
-            <van-popup class="popupliao" v-model="showjieru">
+            <van-popup :close-on-click-overlay="false" class="popupliao" v-model="showjieru">
               <h4>介入治疗</h4>
               <p>第<input type="text" v-model="value_60" />疗程</p>
               <div class="btn_com1">
@@ -97,7 +97,7 @@
               <p>免疫治疗</p>
               <p v-if="value_61 == 1">(第{{ value_62 }}疗程)</p>
             </li>
-            <van-popup class="popupliao" v-model="showmianyi">
+            <van-popup :close-on-click-overlay="false" class="popupliao" v-model="showmianyi">
               <h4>免疫治疗</h4>
               <p>第<input type="text" v-model="value_62" />疗程</p>
               <div class="btn_com1">
@@ -111,7 +111,7 @@
               <p>内分泌治疗</p>
               <p v-if="value_63 == 1">(第{{ value_64 }}疗程)</p>
             </li>
-            <van-popup class="popupliao" v-model="shownei">
+            <van-popup :close-on-click-overlay="false" class="popupliao" v-model="shownei">
               <h4>内分泌治疗</h4>
               <p>第<input type="text" v-model="value_64" />疗程</p>
               <div class="btn_com1">
@@ -745,6 +745,8 @@ export default {
       border: 0;
       border-bottom: 2px solid #ccc;
       margin: 0 0.1rem;
+      // padding-left: 0.2rem;
+      text-align: center;
     }
   }
   .btn_com1 {
