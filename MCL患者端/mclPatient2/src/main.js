@@ -18,6 +18,7 @@ import vueTouch from 'vue-plugin-touch';
 import { KFCONFIG } from '@/configURL.js'
 import preventReClick from '@/directive/preventReClick.js' // 指令
 import echarts from "echarts"
+import store from './store'   //路由
 
 import '@/assets/font/iconfont.css'
 // 异步预加载省市区三级联动的数据 
@@ -38,7 +39,7 @@ Vue.component(vueQr.name, vueQr)
 
 // // 导入vant组件
 import 'vant/lib/index.css';
-import {List,Button,Cell,Icon,Popover,Search ,Tab, Tabs,ShareSheet,Sticky,DatetimePicker,Checkbox, CheckboxGroup  } from 'vant'
+import {List,Button,Cell,Icon,Popover,Search ,Tab, Tabs,ShareSheet,Sticky,DatetimePicker,Checkbox, CheckboxGroup ,Popup,Dialog  } from 'vant'
 Vue.use(List)
 Vue.use(Button )
 Vue.use(Cell )
@@ -52,6 +53,8 @@ Vue.use(Sticky)
 Vue.use(DatetimePicker )
 Vue.use(Checkbox )
 Vue.use( CheckboxGroup )
+Vue.use( Popup  )
+Vue.use(Dialog )
 
 
 //支付方式
@@ -64,6 +67,7 @@ Vue.prototype.$echarts = echarts;
 /* eslint-disable no-new */
 var vm = new Vue({
 	el: '#app',
+	store,
 	data: {
 		scrollTop: 0,
 		longLat: "", //app传过来的经纬度

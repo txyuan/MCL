@@ -61,7 +61,8 @@ export default {
       currentDate: new Date(),
       changeDate: this.timeFormat(new Date()),
       valueName: " ",
-      checked: "",
+      checked: false,
+      checkedNew : '',
       dom : [],
       doms : []
     };
@@ -110,10 +111,34 @@ export default {
       return results;
     },
     goInfo() {
+      let personInfo = this.$store.state.personInfo
+      if(this.checked == false) {
+        this.checkedNew = '0'
+      }else {
+        this.checkedNew = '1'
+      }
+      let obj = {
+        value_25 : this.changeDate,
+        value_26 : this.checkedNew
+      }
+       let obj4 = {
+         ...personInfo,
+         ...obj
+       }
+       this.$store.commit('setpersonInfo',obj4)
       this.$router.push("/personInfo5");
     },
     goInfoTo() {
-      this.changeDate = "";
+      let personInfo = this.$store.state.personInfo
+      let obj = {
+        value_25 : '',
+        value_26 : '0'
+      }
+       let obj4 = {
+         ...personInfo,
+         ...obj
+       }
+       this.$store.commit('setpersonInfo',obj4)
       this.$router.push("/personInfo5");
     },
     formatter(type, val) {

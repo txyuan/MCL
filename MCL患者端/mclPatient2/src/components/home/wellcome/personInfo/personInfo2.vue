@@ -43,21 +43,21 @@
         </div>
         <h3 class="height">身高(厘米)</h3>
         <div>
-          <DLRuler
-            :value="100.0"
+          <DLRuler1
+            :value="100"
             :min="0"
             :max="300"
             :onChange="changeHeight"
-          ></DLRuler>
+          ></DLRuler1>
         </div>
         <h3 class="weight">体重(千克)</h3>
         <div>
-          <DLRuler1
+          <DLRuler
             :value="50.0"
             :min="0"
             :max="300"
             :onChange="changeWeight"
-          ></DLRuler1>
+          ></DLRuler>
         </div>
       </div>
       <div class="bot_content">
@@ -84,8 +84,8 @@ export default {
       changeDate : this.timeFormat(new Date()),
       selnan : 1,
       selnv : false,
-      height : '',
-      weight : '',
+      height : '100',
+      weight : '50',
       sex : false
     };
   },
@@ -108,13 +108,29 @@ export default {
       this.selnv = true
     },
     changeHeight(val) {
-      this.height = val;
+      this.height = Math.round(val);
     },
     changeWeight(val) {
       this.weight = val;
     },
 
     goInfo() {
+      let personInfo = this.$store.state.personInfo
+      let obj = {}
+      if(this.selnan == 2) {
+        obj.sex = '男'
+        obj.height =this.height
+        obj.weight = this.weight
+      }else if(this.selnan == 3){
+        obj.sex = '女'
+        obj.height =this.height
+        obj.weight = this.weight
+      }
+      let obj2 = {
+        ...personInfo,
+        ...obj
+      }
+      this.$store.commit('setpersonInfo',obj2)
       this.$router.push('/personInfo3')
     },
     formatter(type, val) {

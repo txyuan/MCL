@@ -1,6 +1,6 @@
 <template xmlns:v-touch="http://www.w3.org/1999/xhtml">
   <div class="ymRuler ">
-    <div class="rultitle"><strong>{{`${numberValue}cm`}}</strong><span style="font-size: 0.18rem;"></span></div>
+    <div class="rultitle"><strong>{{`${numberValue}kg`}}</strong><span style="font-size: 0.18rem;"></span></div>
     <div class="ruler " ref="testAA">
     <div class="rulltbg"></div>
     <div class="rulrtbg"></div>

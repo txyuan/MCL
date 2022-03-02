@@ -21,16 +21,39 @@
         <h3>疾病诊断 (可多选)</h3>
         <div class="illness">
           <ul>
-            <li
+            <!-- <li
               v-for="(item, i) in list"
               :key="i"
               @click="selItem(i)"
               :class="{ checked: item.bOn == 1 }"
             >
               {{ item.value }}
-            </li>
-            <li class="input_li" v-if="input">
-              <input type="text" placeholder="请输入" name="" id="">
+            </li> -->
+            <li @click="selvalue_01" :class="{ checked: data.value_01 == 1 }" >肺癌</li>
+            <li @click="selvalue_02" :class="{ checked: data.value_02 == 1 }" >胃癌</li>
+            <li @click="selvalue_03" :class="{ checked: data.value_03 == 1 }" >贲门癌</li>
+            <li @click="selvalue_04" :class="{ checked: data.value_04 == 1 }" >肝癌</li>
+            <li @click="selvalue_05" :class="{ checked: data.value_05 == 1 }" >乳腺癌</li>
+            <li @click="selvalue_06" :class="{ checked: data.value_06 == 1 }" >食管癌</li>
+            <li @click="selvalue_07" :class="{ checked: data.value_07 == 1 }" >子宫癌颈癌</li>
+            <li @click="selvalue_08" :class="{ checked: data.value_08 == 1 }" >白血病</li>
+            <li @click="selvalue_09" :class="{ checked: data.value_09 == 1 }" >膀胱癌</li>
+            <li @click="selvalue_10" :class="{ checked: data.value_10 == 1 }" >胰腺癌</li>
+            <li @click="selvalue_11" :class="{ checked: data.value_11 == 1 }" >前列腺癌</li>
+            <li @click="selvalue_12" :class="{ checked: data.value_12 == 1 }" >卵巢癌</li>
+            <li @click="selvalue_13" :class="{ checked: data.value_13 == 1 }" >鼻咽癌</li>
+            <li @click="selvalue_14" :class="{ checked: data.value_14 == 1 }" >结/直肠癌</li>
+            <li @click="selvalue_15" :class="{ checked: data.value_15 == 1 }" >子宫内膜癌</li>
+            <li @click="selvalue_16" :class="{ checked: data.value_16 == 1 }" >恶性淋巴瘤</li>
+            <li @click="selvalue_17" :class="{ checked: data.value_17 == 1 }" >喉癌</li>
+            <li @click="selvalue_18" :class="{ checked: data.value_18 == 1 }" >脑胶质瘤</li>
+            <li @click="selvalue_19" :class="{ checked: data.value_19 == 1 }" >胃间质瘤</li>
+            <li @click="selvalue_20" :class="{ checked: data.value_20 == 1 }" >胆管癌</li>
+            <li @click="selvalue_21" :class="{ checked: data.value_21 == 1 }" >胆囊癌</li>
+            <li @click="selvalue_22" :class="{ checked: data.value_22 == 1 }" >甲状腺癌</li>
+            <li @click="selvalue_23" :class="{ checked: data.value_23 == 1 }" >其他</li>
+            <li class="input_li" v-if="data.value_23 == 1">
+              <input type="text" v-model="data.value_24" placeholder="请输入" name="" id="">
             </li>
           </ul>
         </div>
@@ -61,49 +84,143 @@ export default {
   name: "personInfo3",
   data() {
     return {
-      list: [
-        {
-          value: "肺癌",
-          bOn: 0,
-        },
-        {
-          value: "胃癌",
-          bOn: 0,
-        },
-        {
-          value: "乳腺癌",
-          bOn: 0,
-        },
-        {
-          value: "白血病白血病白血病",
-          bOn: 0,
-        },
-        {
-          value: "其他",
-          bOn: 0,
-        },
-      ],
       btnJurisdiction : false,
-      input : false
+      input : false,
+      data : {
+        value_01 : '0',
+        value_02 : '0',
+        value_03 : '0',
+        value_04 : '0',
+        value_05 : '0',
+        value_06 : '0',
+        value_07 : '0',
+        value_08 : '0',
+        value_09 : '0',
+        value_10 : '0',
+        value_11 : '0',
+        value_12 : '0',
+        value_13 : '0',
+        value_14 : '0',
+        value_15 : '0',
+        value_16 : '0',
+        value_17 : '0',
+        value_18 : '0',
+        value_19 : '0',
+        value_20 : '0',
+        value_21 : '0',
+        value_22 : '0',
+        value_23 : '0',
+        value_24 : '',
+      }
     };
   },
   components: {},
-  mounted() {},
+  mounted() {
+    this.btnquanxian()
+  },
   methods: {
-    selItem(i) {
-      
-      if (this.list[i].bOn == 0) {
-        this.list[i].bOn = 1;
-      } else if(this.list[i].bOn == 1) {
-        this.list[i].bOn = 0;
-      }
-      if(i == this.list.length-1 && this.list[i].bOn == 1) {
-        console.log(i);
-        this.input = true
+    btnquanxian() {
+      if(this.data.value_01 == 0 && this.data.value_02 == 0 && this.data.value_03 == 0 && this.data.value_04 == 0 && this.data.value_05 == 0 && this.data.value_06 == 0 && this.data.value_07 == 0 && 
+      this.data.value_08 == 0 && this.data.value_09 == 0 && this.data.value_10 == 0 && this.data.value_11 == 0 && this.data.value_12 == 0 && this.data.value_13 == 0 && 
+      this.data.value_14 == 0 && this.data.value_15 == 0 && this.data.value_16 == 0 && this.data.value_17 == 0 && this.data.value_18 == 0 && this.data.value_19 == 0 && 
+      this.data.value_20 == 0 && this.data.value_21 == 0 && this.data.value_22 == 0 && this.data.value_23 == '0' && this.data.value_24 == ''
+      ) {
+        this.btnJurisdiction = false
       }else {
-        this.input = false
+        this.btnJurisdiction = true
       }
-      this.btnSel()
+    },
+    selvalue_01() {
+      this.data.value_01 == 0 ? this.data.value_01 = '1' : this.data.value_01 = '0'
+      this.btnquanxian()
+    },
+    selvalue_02() {
+      this.data.value_02 == 0 ? this.data.value_02 = '1' : this.data.value_02 = '0'
+      this.btnquanxian()
+    },
+    selvalue_03() {
+      this.data.value_03 == 0 ? this.data.value_03 = '1' : this.data.value_03 = '0'
+      this.btnquanxian()
+    },
+    selvalue_04() {
+      this.data.value_04 == 0 ? this.data.value_04 = '1' : this.data.value_04 = '0'
+      this.btnquanxian()
+    },
+    selvalue_05() {
+      this.data.value_05 == 0 ? this.data.value_05 = '1' : this.data.value_05 = '0'
+      this.btnquanxian()
+    },
+    selvalue_06() {
+      this.data.value_06 == 0 ? this.data.value_06 = '1' : this.data.value_06 = '0'
+      this.btnquanxian()
+    },
+    selvalue_07() {
+      this.data.value_07 == 0 ? this.data.value_07 = '1' : this.data.value_07 = '0'
+      this.btnquanxian()
+    },
+    selvalue_08() {
+      this.data.value_08 == 0 ? this.data.value_08 = '1' : this.data.value_08 = '0'
+      this.btnquanxian()
+    },
+    selvalue_09() {
+      this.data.value_09 == 0 ? this.data.value_09 = '1' : this.data.value_09 = '0'
+      this.btnquanxian()
+    },
+    selvalue_10() {
+      this.data.value_10 == 0 ? this.data.value_10 = '1' : this.data.value_10 = '0'
+      this.btnquanxian()
+    },
+    selvalue_11() {
+      this.data.value_11 == 0 ? this.data.value_11 = '1' : this.data.value_11 = '0'
+      this.btnquanxian()
+    },
+    selvalue_12() {
+      this.data.value_12 == 0 ? this.data.value_12 = '1' : this.data.value_12 = '0'
+      this.btnquanxian()
+    },
+    selvalue_13() {
+      this.data.value_13 == 0 ? this.data.value_13 = '1' : this.data.value_13 = '0'
+      this.btnquanxian()
+    },
+    selvalue_14() {
+      this.data.value_14 == 0 ? this.data.value_14 = '1' : this.data.value_14 = '0'
+      this.btnquanxian()
+    },
+    selvalue_15() {
+      this.data.value_15 == 0 ? this.data.value_15 = '1' : this.data.value_15 = '0'
+      this.btnquanxian()
+    },
+    selvalue_16() {
+      this.data.value_16 == 0 ? this.data.value_16 = '1' : this.data.value_16 = '0'
+      this.btnquanxian()
+    },
+    selvalue_17() {
+      this.data.value_17 == 0 ? this.data.value_17 = '1' : this.data.value_17 = '0'
+      this.btnquanxian()
+    },
+    selvalue_18() {
+      this.data.value_18 == 0 ? this.data.value_18 = '1' : this.data.value_18 = '0'
+      this.btnquanxian()
+    },
+    selvalue_19() {
+      this.data.value_19 == 0 ? this.data.value_19 = '1' : this.data.value_19 = '0'
+      this.btnquanxian()
+    },
+    selvalue_20() {
+      this.data.value_20 == 0 ? this.data.value_20 = '1' : this.data.value_20 = '0'
+      this.btnquanxian()
+    },
+    selvalue_21() {
+      this.data.value_21 == 0 ? this.data.value_21 = '1' : this.data.value_21 = '0'
+      this.btnquanxian()
+    },
+    selvalue_22() {
+      this.data.value_22 == 0 ? this.data.value_22 = '1' : this.data.value_22 = '0'
+      this.btnquanxian()
+    },
+    selvalue_23() {
+      this.data.value_23 == 0 ? this.data.value_23 = '1' : this.data.value_23 = '0'
+      this.btnquanxian()
     },
     btnSel() {
      let arr = this.list.find((item) => {
@@ -118,6 +235,12 @@ export default {
       }
     },
     goInfo() {
+       let personInfo = this.$store.state.personInfo
+       let obj3 = {
+         ...personInfo,
+         ...this.data
+       }
+       this.$store.commit('setpersonInfo',obj3)
       this.$router.push('/personInfo4')
     }
   },

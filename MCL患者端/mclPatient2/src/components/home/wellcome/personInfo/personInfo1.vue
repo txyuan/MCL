@@ -115,6 +115,11 @@ export default {
       return results;
     },
     goInfo() {
+      let obj = {
+        name : this.valueName,
+        birth : this.changeDate
+      }
+      this.$store.commit('setpersonInfo',obj)
       this.$router.push("/personInfo2");
     },
     formatter(type, val) {

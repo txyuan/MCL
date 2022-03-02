@@ -133,10 +133,10 @@ export default {
       // this.$router.push({name: 'serviceDetail', params:{type: item.PageUrl, skey: item.sKey, SubjectName: item.SubjectName, doctorPhone: this.doctor.phone}})
       this.$router.push( `serviceDetail/${item.goodsId}?doctorPhone=${this.doctor.phone}`)
     },
-    // 跳转到自测工具
+    // 跳转到基础信息
     goWellcome_personInfo(item){
       // this.$router.push({name: 'serviceDetail', params:{type: item.PageUrl, skey: item.sKey, SubjectName: item.SubjectName, doctorPhone: this.doctor.phone}})
-      this.$router.push('/wellcome_personInfo')
+      this.$router.push(`/wellcome_personInfo?doctorPhone=${this.doctor.phone}`)
     },
     confirm(){
       if(this.type == ""){

@@ -601,7 +601,7 @@ const product = ['service', 'serviceDetail', 'searchProduct', 'productCategory']
 const productNoMess = ['orderindex', 'mesage', 'shopcar', 'personalreceivingadress', 'personaladdadress'] // 不需要填写个人信息
 const knowledgeMess = ['knowledge','knowledgeOne','knowledgeTwo','knowledgeResult','knowMore','searchKonw','searchKonwRes'] // 知识模块
 const selfTestAndcomplication = [ 'toolHome', 'selfTestSolution',  'complicationResult', 'complicationHome', 'proposalDetail']  // 自测和并发症模块
-const whiteRouteList = ['home', 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'wellcome', 'inviteFriends',  'VConsole', ...product, ...selfTestAndcomplication, ...knowledgeMess  ]
+const whiteRouteList = ['home', 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'wellcome', 'wellcome_personInfo','inviteFriends',  'VConsole', ...product, ...selfTestAndcomplication, ...knowledgeMess  ]
 // let share
 router.beforeEach((to, from, next) => {
 
@@ -625,7 +625,9 @@ router.beforeEach((to, from, next) => {
   }
   
   // 白名单内的页面 和 完善个人信息页面，不需要判断完善个人信息
-  if ((whiteRouteList.indexOf(to.name) == -1) && (productNoMess.indexOf(to.name) == -1) && (to.name != "getGoctorList") && (to.name != "forwardingGadget") && (to.name != "personaldata") && (to.name != "wellcome_personInfoRegister") && (to.name != "personal") && localStorage.userInfo) {
+  if ((whiteRouteList.indexOf(to.name) == -1) && (productNoMess.indexOf(to.name) == -1) && (to.name != "getGoctorList") && (to.name != "forwardingGadget") && (to.name != "personaldata") && (to.name != "wellcome_personInfoRegister") && (to.name != "personal") && localStorage.userInfo
+  && (to.name != "personInfo1") && (to.name != "personInfo2") && (to.name != "personInfo3") && (to.name != "personInfo4") && (to.name != "personInfo5") && (to.name != "personInfo6") 
+  ) {
       // 判断是否需要完善个人信息
       perfectInfo()
   }
@@ -641,7 +643,7 @@ async function perfectInfo(){
   const type_disease = data.data.type_disease
   if(type_disease == null){
     Vue.prototype.$MessageBox.alert('请完善个人信息').then(action => {
-      router.replace("/wellcome_personInfoRegister")
+      router.replace("/personInfo1")
     });
   }else{
     flag = true
