@@ -497,6 +497,7 @@ export default {
       this.btnqunxian()
     },
     selvalue_66() {
+      this.value_67 = ''
       if(this.value_66 == 0) {
         this.value_66 = '1'
       }else {

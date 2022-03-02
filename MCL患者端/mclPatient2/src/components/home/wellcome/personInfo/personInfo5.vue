@@ -331,6 +331,7 @@ export default {
       this.btnquanxian();
     },
     selvalue_48() {
+      this.data.value_49 = ''
       this.data.value_48 == 0
         ? (this.data.value_48 = "1")
         : (this.data.value_48 = "0");

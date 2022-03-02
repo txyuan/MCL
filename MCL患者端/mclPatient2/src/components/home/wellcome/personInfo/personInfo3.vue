@@ -219,6 +219,7 @@ export default {
       this.btnquanxian()
     },
     selvalue_23() {
+      this.data.value_24 = ''
       this.data.value_23 == 0 ? this.data.value_23 = '1' : this.data.value_23 = '0'
       this.btnquanxian()
     },
