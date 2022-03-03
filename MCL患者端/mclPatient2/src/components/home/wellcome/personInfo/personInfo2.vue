@@ -222,10 +222,10 @@ export default {
     margin: 0.5rem 0 0.2rem 0;
   }
   .height {
-    margin-top: 0.2rem;
+    margin-top: 0.4rem;
   }
   .weight {
-    margin-top: -0.1rem;
+    margin-top: 0.1rem;
   }
   .input_top {
     display: flex;
@@ -353,8 +353,9 @@ export default {
   .btn {
     width: 100%;
     background-color: #fff;
-    position: fixed;
-    bottom: 0.2rem;
+    // position: fixed;
+    margin: 0.3rem 0 0.2rem 0;
+    // bottom: 0.2rem;
     text-align: center;
     .btn_info {
       width: 80% !important;

@@ -245,7 +245,7 @@ export default {
   display: flex;
   align-items: center;
   // width: ;
-  margin: 0.3rem 0.3rem;
+  margin: 0.4rem 0.3rem;
   height: 0.4rem;
   line-height: 0.4rem;
   border: 1px solid #ccc;
@@ -278,7 +278,7 @@ export default {
     }
   }
   .picker {
-    margin: 0 0.3rem;
+    margin: 0.3rem 0.3rem;
   }
 }
 .bot_content {
@@ -305,8 +305,9 @@ export default {
   .btn {
     width: 100%;
     background-color: #fff;
-    position: fixed;
-    bottom: 0.2rem;
+    // position: fixed;
+    margin: 1rem 0 0.2rem 0;
+    // bottom: 0.2rem;
     text-align: center;
     .btn_info {
       width: 80% !important;

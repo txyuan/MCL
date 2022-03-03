@@ -451,9 +451,9 @@ export default {
       width: 27%;
       text-align: center;
       border: 1px solid #ccc;
-      padding: 0.05rem 0.02rem;
+      padding: 0.08rem 0.02rem;
       border-radius: 0.06rem;
-      margin: 0.08rem 2.32%;
+      margin: 0.1rem 2.32%;
       font-size: 0.14rem;
       color: #999;
       // white-space: nowrap;

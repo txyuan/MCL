@@ -51,6 +51,7 @@
             <li @click="selvalue_20" :class="{ checked: data.value_20 == 1 }" >胆管癌</li>
             <li @click="selvalue_21" :class="{ checked: data.value_21 == 1 }" >胆囊癌</li>
             <li @click="selvalue_22" :class="{ checked: data.value_22 == 1 }" >甲状腺癌</li>
+            <li class="kong"></li>
             <li @click="selvalue_23" :class="{ checked: data.value_23 == 1 }" >其他</li>
             <li class="input_li" v-if="data.value_23 == 1">
               <input type="text" v-model="data.value_24" placeholder="请输入" name="" id="">
@@ -314,15 +315,19 @@ export default {
       width: 27%;
       text-align: center;
       border: 1px solid #ccc;
-      padding: 0.05rem 0.02rem;
+      padding: 0.08rem 0.02rem;
       border-radius: 0.06rem;
-      margin: 0.08rem 2.32%;
+      margin: 0.1rem 2.32%;
       font-size: 0.14rem;
       color: #999;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       
+      }
+      .kong {
+        width: 60%;
+        border: 0;
       }
       .input_li {
         padding: 0.065rem 0.02rem;
@@ -363,8 +368,9 @@ export default {
   .btn {
     width: 100%;
     background-color: #fff;
-    position: fixed;
-    bottom: 0.2rem;
+    // position: fixed;
+    margin: 0.4rem 0 0.2rem 0;
+    // bottom: 0.2rem;
     text-align: center;
     .btn_info {
       width: 80% !important;

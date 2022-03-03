@@ -43,7 +43,7 @@
             </li>
             <van-popup :close-on-click-overlay="false" class="popupliao" v-model="showhualiao">
               <h4>化疗</h4>
-              <p>第<input type="text" v-model="value_54" />疗程</p>
+             <p>第 <span><input ref="inputs" type="text" v-model="value_54" /></span> 疗程</p>
               <div class="btn_com1">
                 <button @click="comfig54" class="btn_com">确定</button>
               </div>
@@ -57,7 +57,7 @@
             </li>
             <van-popup :close-on-click-overlay="false" class="popupliao" v-model="showfangliao">
               <h4>放疗</h4>
-              <p>第<input type="text" v-model="value_56" />疗程</p>
+             <p>第 <span><input ref="inputs" type="text" v-model="value_56" /></span> 疗程</p>
               <div class="btn_com1">
                 <button @click="comfig56" class="btn_com">确定</button>
               </div>
@@ -71,7 +71,7 @@
             </li>
             <van-popup :close-on-click-overlay="false" class="popupliao" v-model="showba">
               <h4>靶向治疗</h4>
-              <p>第<input type="text" v-model="value_58" />疗程</p>
+             <p>第 <span><input ref="inputs" type="text" v-model="value_58" /></span> 疗程</p>
               <div class="btn_com1">
                 <button @click="comfig58" class="btn_com">确定</button>
               </div>
@@ -85,7 +85,7 @@
             </li>
             <van-popup :close-on-click-overlay="false" class="popupliao" v-model="showjieru">
               <h4>介入治疗</h4>
-              <p>第<input type="text" v-model="value_60" />疗程</p>
+              <p>第 <span><input ref="inputs" type="text" v-model="value_60" /></span> 疗程</p>
               <div class="btn_com1">
                 <button @click="comfig60" class="btn_com">确定</button>
               </div>
@@ -99,7 +99,7 @@
             </li>
             <van-popup :close-on-click-overlay="false" class="popupliao" v-model="showmianyi">
               <h4>免疫治疗</h4>
-              <p>第<input type="text" v-model="value_62" />疗程</p>
+              <p>第 <span><input ref="inputs" type="text" v-model="value_62" /></span> 疗程</p>
               <div class="btn_com1">
                 <button @click="comfig62" class="btn_com">确定</button>
               </div>
@@ -113,7 +113,7 @@
             </li>
             <van-popup :close-on-click-overlay="false" class="popupliao" v-model="shownei">
               <h4>内分泌治疗</h4>
-              <p>第<input type="text" v-model="value_64" />疗程</p>
+              <p>第 <span><input ref="inputs" type="text" v-model="value_64" /></span> 疗程</p>
               <div class="btn_com1">
                 <button @click="comfig64" class="btn_com">确定</button>
               </div>
@@ -227,6 +227,13 @@ export default {
     this.btnqunxian()
   },
   methods: {
+     changfouce(){
+    this.$nextTick((x)=>{   //正确写法
+       this.$refs.inputs.focus();
+    })
+    //  this.$refs.inputs.focus(); //错误写法
+     
+    },
     btnqunxian() {
       if(this.value_50 == 0 && this.value_51 == '' && this.value_52 ==0 && this.value_53 ==0 && this.value_55 ==0 && this.value_57 ==0
         && this.value_59 ==0 && this.value_61 ==0 && this.value_63 ==0 && this.value_65 ==0 && this.value_66 ==0
@@ -312,6 +319,7 @@ export default {
     },
     // 放疗弹框
     selvalue_53() {
+      
       if (this.value_53 == 0) {
         this.value_53 = '1';
       } else if (this.value_53 == 1) {
@@ -323,6 +331,7 @@ export default {
       }
       this.btnqunxian()
       this.showhualiao = true;
+      this.changfouce()
     },
     comfig54() {
       if (this.value_54 == "") {
@@ -353,6 +362,7 @@ export default {
       }
       this.btnqunxian()
       this.showfangliao = true;
+      this.changfouce()
     },
     comfig56() {
       if (this.value_56 == "") {
@@ -383,6 +393,7 @@ export default {
       }
       this.btnqunxian()
       this.showba = true;
+      this.changfouce()
     },
     comfig58() {
       if (this.value_58 == "") {
@@ -413,6 +424,7 @@ export default {
       }
       this.btnqunxian()
       this.showjieru = true;
+      this.changfouce()
     },
     comfig60() {
       if (this.value_60 == "") {
@@ -443,6 +455,7 @@ export default {
       }
       this.btnqunxian()
       this.showmianyi = true;
+      this.changfouce()
     },
     comfig62() {
       if (this.value_62 == "") {
@@ -471,6 +484,7 @@ export default {
       }
       this.btnqunxian()
       this.shownei = true;
+      this.changfouce()
     },
     comfig64() {
       if (this.value_64 == "") {
@@ -652,9 +666,9 @@ export default {
       width: 27%;
       text-align: center;
       border: 1px solid #ccc;
-      padding: 0.05rem 0.02rem;
+      padding: 0.08rem 0.02rem;
       border-radius: 0.06rem;
-      margin: 0.08rem 2.32%;
+      margin: 0.1rem 2.32%;
       font-size: 0.14rem;
       color: #999;
       white-space: nowrap;
@@ -700,9 +714,9 @@ export default {
       width: 27%;
       text-align: center;
       border: 1px solid #ccc;
-      padding: 0.05rem 0.02rem;
+      padding: 0.08rem 0.02rem;
       border-radius: 0.06rem;
-      margin: 0.08rem 2.32%;
+      margin: 0.1rem 2.32%;
       font-size: 0.14rem;
       color: #999;
       white-space: nowrap;
@@ -735,16 +749,24 @@ export default {
   flex-flow: column;
   align-items: center;
   width: 70%;
-  height: 35%;
+  // height: 35%;
+  height: 2.4rem;
+  border-radius: 0.24rem;
+ 
   h4 {
   }
   p {
     text-align: center;
     margin-top: 0.2rem;
+    span {
+      width: 40%;
+      border-bottom: 2px solid #ccc;
+    }
     input {
       width: 40%;
       border: 0;
-      border-bottom: 2px solid #ccc;
+      // border-bottom: 2px solid #ccc;
+      
       margin: 0 0.1rem;
       // padding-left: 0.2rem;
       text-align: center;
@@ -763,7 +785,7 @@ export default {
     }
   }
   .btn_can1 {
-    margin-top: 0.1rem;
+    margin-top: 0.15rem;
     width: 70% !important;
     .btn_can {
       width: 100% !important;
@@ -800,9 +822,9 @@ export default {
       height: 0.5rem;
       text-align: center;
       border: 1px solid #ccc;
-      padding: 0.05rem 0.02rem;
+      padding: 0.08rem 0.02rem;
       border-radius: 0.06rem;
-      margin: 0.08rem 2.32%;
+      margin: 0.1rem 2.32%;
       font-size: 0.14rem;
       color: #999;
       white-space: nowrap;
@@ -845,8 +867,9 @@ export default {
   .btn {
     width: 100%;
     background-color: #fff;
-    position: fixed;
-    bottom: 0.2rem;
+    // position: fixed;
+    margin: 0.4rem 0 0.2rem 0;
+    // bottom: 0.2rem;
     text-align: center;
     .btn_info {
       width: 80% !important;
