@@ -133,7 +133,6 @@ export default {
      mounted() {
        
        if(this.$route.query.rphone) {
-           localStorage.setItem('hphone','')
           localStorage.setItem('hphone',this.$route.query.rphone)
         }
     }
