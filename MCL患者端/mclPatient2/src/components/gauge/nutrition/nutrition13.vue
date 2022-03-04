@@ -120,7 +120,7 @@ export default {
         ...nutrition,
         ...this.data,
       };
-      let url = 'UserInterface/PGSGASubmit.ashx'
+      let url = 'UserInterface/selfTestTool/PGSGASubmit.ashx'
       this.$post(url,obj6).then(res => {
         if (res.rspcode != 1) {
             this.$Toast(res.rspdesc)
