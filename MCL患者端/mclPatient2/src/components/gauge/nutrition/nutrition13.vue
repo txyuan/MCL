@@ -41,7 +41,7 @@
             v-for="(item, i) in list"
             :key="i"
             :class="{ checkedOne: data.attribute_value_47 == item.value }"
-            :name="item.value"
+            :name="item.id"
             >{{ item.value }}</van-radio
           >
         </van-radio-group>
@@ -78,16 +78,21 @@ export default {
       list: [
         {
           value: "肌肉发发",
+          id: '正常'
         },
         {
           value: "瘦, 有肌肉轮廓",
+          id: '轻度'
         },
         {
           value: "瘦, 肌肉轮廓模糊",
+          id: '中度'
         },
         {
           value: "瘦, 无肌肉轮廓, 肌肉松垮无力",
+          id: '严重'
         },
+        
       ],
       data: {
         attribute_value_47: "", // 肩部
@@ -175,11 +180,13 @@ h3 {
 }
 
 .gauge_3 {
-  margin-top: 0.9rem;
-  padding: 0 0.3rem;
+  margin-top: 0.95rem;
+  p {
+    padding: 0 0.23rem;
+  }
   // margin-top: 0.3rem;
   .images {
-    // padding: 0 0.2rem;
+    padding: 0 0.23rem;
     margin-top: 0.2rem;
     display: flex;
     img {
@@ -188,6 +195,7 @@ h3 {
     }
   }
   .one_gau_radio {
+    padding: 0 0.33rem;
     display: flex;
     justify-content: space-between;
   }
@@ -246,7 +254,7 @@ h3 {
   .btn {
     width: 100%;
     background-color: #fff;
-    margin: 0.3rem 0 0.2rem 0;
+    margin: 0.42rem 0 0.2rem 0;
     text-align: center;
     .btn_info {
       width: 80% !important;

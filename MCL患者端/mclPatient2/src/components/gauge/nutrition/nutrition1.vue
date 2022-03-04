@@ -51,7 +51,8 @@
           <span>白蛋白值</span>
           <input
             v-model="data.attribute_value_01"
-            type="text"
+            type="number"
+             pattern="\d*"
             placeholder="请输入白蛋白值"
             name=""
             id=""
@@ -65,6 +66,7 @@
             v-model="data.attribute_value_02"
             type="text"
             placeholder="请输入体重"
+            readonly
             name=""
             id=""
           />
@@ -121,7 +123,7 @@
       </div>
       <div class="one_gau_input">
         <div class="weight" v-if="data.value_05_flag == '是'">
-          <p>
+          <!-- <p>
             <span>目前体重</span>
             <input
               v-model="data.attribute_value_061"
@@ -131,13 +133,13 @@
               id=""
             />
             <span>千克</span>
-          </p>
+          </p> -->
           <p>
             <span>体重下降了</span>
             <input
               v-model="data.attribute_value_06"
               type="text"
-              placeholder="请输入下降体重"
+              placeholder="非必填"
               name=""
               id=""
             />
@@ -268,6 +270,7 @@ export default {
         attribute_value_04: "", // 一个月前体重
         attribute_value_05: "", // 选择下降体重
       },
+      weight : '50'
     };
   },
   components: {
@@ -292,10 +295,9 @@ export default {
           } else {
             if (
               (newVal.value_05_flag == "是" &&
-                (newVal.attribute_value_061 == "" ||
+                (
                   newVal.attribute_value_04 == "" ||
-                  newVal.attribute_value_05 == "" ||
-                  newVal.attribute_value_06 == "")) ||
+                  newVal.attribute_value_05 == "")) ||
               (newVal.value_05_flag == "否" && newVal.attribute_value_04 == "")
             ) {
               this.valueAll = false;
@@ -469,26 +471,26 @@ export default {
   }
 }
 h3 {
-  margin: 0.8rem 0 0 0;
+  margin: 0.95rem 0 0 0;
   text-align: center;
   font-weight: 500;
 }
 .gauge_1 {
-  padding: 0 0.3rem;
+  padding-left: 0.34rem;
   margin-top: 0.3rem;
   .one_gau {
     .one_gau_radio {
       display: flex;
-      justify-content: space-between;
+      justify-content: left;
     }
 
     >>> .van-radio {
       margin-top: 0.2rem;
+      margin-right: 0.2rem;
       border: 1px solid #ccc;
       border-radius: 0.06rem;
       height: 0.4rem !important;
-      width: 45% !important;
-      margin-right: 0 !important;
+      width: 1.4rem !important;
     }
 
     >>> .van-radio__icon {
@@ -513,8 +515,8 @@ h3 {
   }
 }
 .gauge_3 {
-  padding: 0 0.3rem;
-  // margin-top: 0.3rem;
+  padding-left: 0.38rem;
+  padding-right: 0.37rem;
 
   .one_gau_radio {
     display: flex;

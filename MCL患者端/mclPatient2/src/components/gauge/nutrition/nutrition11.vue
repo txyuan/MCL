@@ -41,7 +41,7 @@
             v-for="(item, i) in list"
             :key="i"
             :class="{ checkedOne: data.attribute_value_45 == item.value }"
-            :name="item.value"
+            :name="item.id"
             >{{ item.value }}</van-radio
           >
         </van-radio-group>
@@ -61,16 +61,21 @@ export default {
       list: [
         {
           value: "不凸出, 内侧不凹陷",
+          id: '正常'
         },
         {
           value: "轻度凸出, 肋, 肩胛, 肩, 脊柱间轻度凹陷",
+          id: '轻度'
         },
         {
           value: "凸出, 肋, 肩胛, 肩, 脊柱间凹陷",
+          id: '中度'
         },
         {
           value: "明显凸出, 肋, 肩胛, 肩, 脊柱间明显凹陷",
+          id: '严重'
         },
+        
       ],
       data: {
         attribute_value_45: "", // 肩部
@@ -156,11 +161,13 @@ h3 {
 }
 
 .gauge_3 {
-  margin-top: 0.9rem;
-  padding: 0 0.3rem;
+  margin-top: 0.95rem;
+  p {
+    padding: 0 0.23rem;
+  }
   // margin-top: 0.3rem;
   .images {
-    // padding: 0 0.2rem;
+    padding: 0 0.23rem;
     margin-top: 0.2rem;
     display: flex;
     img {
@@ -169,6 +176,7 @@ h3 {
     }
   }
   .one_gau_radio {
+    padding: 0 0.33rem;
     display: flex;
     justify-content: space-between;
   }
@@ -177,7 +185,7 @@ h3 {
     margin-top: 0.2rem;
     border: 1px solid #ccc;
     border-radius: 0.06rem;
-    height: 0.44rem !important;
+    height: 0.4rem !important;
     width: 100% !important;
     margin-right: 0 !important;
   }
@@ -186,9 +194,9 @@ h3 {
     margin-left: 0.15rem !important;
   }
   >>> .van-radio__label {
-    //  margin-left: -0.2rem !important;
+     margin-left: -0.2rem !important;
     padding: 0.05rem 0.05rem;
-    text-align: left;
+    text-align: center;
     width: 100%;
     color: #999 !important;
   }

@@ -41,7 +41,7 @@
             v-for="(item, i) in list"
             :key="i"
             :class="{ checkedOne: data.attribute_value_43 == item.value }"
-            :name="item.value"
+            :name="item.id"
             >{{ item.value }}</van-radio
           >
         </van-radio-group>
@@ -61,15 +61,19 @@ export default {
       list: [
         {
           value: "圆形",
+          id: '正常'
         },
         {
           value: "肩峰轻微凸出",
+          id: '轻度'
         },
         {
           value: "介于两者之间",
+          id: '中度'
         },
         {
           value: "肩锁关节方形, 骨骼凸出",
+          id: '严重'
         },
       ],
       data: {
@@ -156,11 +160,13 @@ h3 {
 }
 
 .gauge_3 {
-  margin-top: 0.9rem;
-  padding: 0 0.3rem;
+  margin-top: 0.95rem;
+  p {
+    padding: 0 0.23rem;
+  }
   // margin-top: 0.3rem;
   .images {
-    // padding: 0 0.2rem;
+    padding: 0 0.23rem;
     margin-top: 0.2rem;
     display: flex;
     img {
@@ -169,6 +175,7 @@ h3 {
     }
   }
   .one_gau_radio {
+    padding: 0 0.33rem;
     display: flex;
     justify-content: space-between;
   }

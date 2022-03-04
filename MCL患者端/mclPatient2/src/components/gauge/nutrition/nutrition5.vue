@@ -155,13 +155,14 @@ export default {
   }
 }
 h3 {
-  margin: 0.8rem 0 0 0;
+  margin: 0.95rem 0 0 0;
   text-align: center;
   font-weight: 500;
 }
 .gauge_1 {
    margin-top: 0.3rem;
-  padding: 0 0.3rem;
+  padding-left: 0.38rem;
+  padding-right: 0.37rem;
   ul {
     li {
       padding: 0.1rem;

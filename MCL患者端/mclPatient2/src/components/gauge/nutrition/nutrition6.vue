@@ -44,9 +44,9 @@
         <div class="one_gau">
           <van-radio-group  class="one_gau_radio" v-model="data.attribute_value_39" direction="horizontal">
             <van-radio  :class="{checkedOne:data.attribute_value_39=='无'}" name="无" >无</van-radio>
-            <van-radio  :class="{checkedOne:data.attribute_value_39=='≤72小时'}" name="≤72小时" >≤72小时</van-radio>
+            <van-radio  :class="{checkedOne:data.attribute_value_39=='<72小时'}" name="<72小时" ><72小时</van-radio>
             <van-radio  :class="{checkedOne:data.attribute_value_39=='72小时'}" name="72小时" >72小时</van-radio>
-            <van-radio  :class="{checkedOne:data.attribute_value_39=='≥72小时'}" name="≥72小时" >≥72小时</van-radio>
+            <van-radio  :class="{checkedOne:data.attribute_value_39=='>72小时'}" name=">72小时" >>72小时</van-radio>
           </van-radio-group>
         </div>
       </div>
@@ -54,9 +54,9 @@
          <p>3、是否用激素 (强的松)</p>
            <van-radio-group  class="one_gau_radio" v-model="data.attribute_value_40" direction="horizontal">
             <van-radio  :class="{checkedOne:data.attribute_value_40=='无'}" name="无" >无</van-radio>
-            <van-radio  :class="{checkedOne:data.attribute_value_40=='低剂量(<10m强的松或相当剂量的其他激素/d)'}" name="低剂量(<10m强的松或相当剂量的其他激素/d)" >低剂量(<10m强的松或相当剂量的其他激素/d)</van-radio>
-            <van-radio  :class="{checkedOne:data.attribute_value_40=='中剂量(10-30m强的松或相当剂量的其他激素/d)'}" name="中剂量(10-30m强的松或相当剂量的其他激素/d)" >中剂量(10-30m强的松或相当剂量的其他激素/d)</van-radio>
-            <van-radio  :class="{checkedOne:data.attribute_value_40=='高剂量(30m强的松或相当剂量的其他激素/d)'}" name="高剂量(30m强的松或相当剂量的其他激素/d)" >高剂量(30m强的松或相当剂量的其他激素/d)</van-radio>
+            <van-radio  :class="{checkedOne:data.attribute_value_40=='低剂量(<10mg强的松或相当剂量的其它激素/d)'}" name="低剂量(<10mg强的松或相当剂量的其它激素/d)" >低剂量(<10mg强的松或相当剂量的其它激素/d)</van-radio>
+            <van-radio  :class="{checkedOne:data.attribute_value_40=='中剂量(10-30mg强的松或相当剂量的其它激素/d)'}" name="中剂量(10-30mg强的松或相当剂量的其它激素/d)" >中剂量(10-30mg强的松或相当剂量的其它激素/d)</van-radio>
+            <van-radio  :class="{checkedOne:data.attribute_value_40=='高剂量(30mg强的松或相当剂量的其它激素/d)'}" name="高剂量(30mg强的松或相当剂量的其它激素/d)" >高剂量(30mg强的松或相当剂量的其它激素/d)</van-radio>
           </van-radio-group>
          </div>
     </div>
@@ -161,55 +161,53 @@ export default {
   }
 }
 h3 {
-  margin: 0.8rem 0 0 0;
+  margin: 0.95rem 0 0 0;
   text-align: center;
   font-weight: 500;
 }
 .gauge_1 {
-  padding: 0 0.3rem;
+  padding-left: 0.34rem;
   margin-top: 0.3rem;
   .one_gau {
-  .one_gau_radio {
-    display: flex;
-    justify-content: space-between;
-    
-  }
-   
-   >>> .van-radio {
-     margin-top: 0.2rem;
-     border: 1px solid #ccc;
-     border-radius: 0.06rem;
-     height: 0.4rem !important;
-     width: 45% !important;
-     margin-right: 0 !important;
-   }
-   
-   >>> .van-radio__icon {
-     margin-left: 0.15rem !important;
-   }
-   >>> .van-radio__label {
-     margin-left: -0.2rem !important;
-     text-align: center;
-     width: 100%;
-       color: #999 !important;
-     }
-   >>> .van-radio__icon--checked .van-icon {
-    background-color: #36c2d7;
-    border-color: #36c2d7;
-  }
-   .checkedOne {
+    .one_gau_radio {
+      display: flex;
+      justify-content: left;
+    }
+
+    >>> .van-radio {
+      margin-top: 0.2rem;
+      margin-right: 0.2rem;
+      border: 1px solid #ccc;
+      border-radius: 0.06rem;
+      height: 0.4rem !important;
+      width: 1.4rem !important;
+    }
+
+    >>> .van-radio__icon {
+      margin-left: 0.15rem !important;
+    }
+    >>> .van-radio__label {
+      margin-left: -0.2rem !important;
+      text-align: center;
+      width: 100%;
+      color: #999 !important;
+    }
+    >>> .van-radio__icon--checked .van-icon {
+      background-color: #36c2d7;
+      border-color: #36c2d7;
+    }
+    .checkedOne {
       border: 1px solid #36c2d7 !important;
       >>> .van-radio__label {
-       color: #36c2d7 !important;
-     } 
+        color: #36c2d7 !important;
+      }
+    }
   }
-}
-
 }
 .gauge_3 {
   margin-top: 0.3rem;
-  padding: 0 0.3rem;
-  // margin-top: 0.3rem;
+  padding-left: 0.38rem;
+  padding-right: 0.37rem;
   
   .one_gau_radio {
     display: flex;

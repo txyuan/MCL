@@ -44,7 +44,7 @@
             v-for="(item, i) in list"
             :key="i"
             :class="{ checkedOne: data.attribute_value_41 == item.value }"
-            :name="item.value"
+            :name="item.id"
             >{{ item.value }}</van-radio
           >
         </van-radio-group>
@@ -64,15 +64,19 @@ export default {
       list: [
         {
           value: "看不到明显凹陷",
+          id: '正常'
         },
         {
           value: "轻度凹陷",
+          id: '轻度'
         },
         {
           value: "凹陷",
+          id: '中度'
         },
         {
           value: "显著凹陷",
+          id: '严重'
         },
       ],
       data: {
@@ -153,17 +157,19 @@ export default {
   }
 }
 h3 {
-  margin: 0.8rem 0 0 0;
+  margin: 0.95rem 0 0 0;
   text-align: center;
   font-weight: 500;
 }
 
 .gauge_3 {
   margin-top: 0.3rem;
-  padding: 0 0.3rem;
+  p {
+    padding: 0 0.23rem;
+  }
   // margin-top: 0.3rem;
   .images {
-    // padding: 0 0.2rem;
+    padding: 0 0.23rem;
     margin-top: 0.2rem;
     display: flex;
     img {
@@ -172,6 +178,7 @@ h3 {
     }
   }
   .one_gau_radio {
+    padding: 0 0.33rem;
     display: flex;
     justify-content: space-between;
   }

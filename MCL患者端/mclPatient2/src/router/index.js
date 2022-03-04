@@ -282,6 +282,10 @@ const nutrition10 = () => import(/* webpackChunkName: "nutrition10" */ '@/compon
 const nutrition11 = () => import(/* webpackChunkName: "nutrition11" */ '@/components/gauge/nutrition/nutrition11.vue')
 const nutrition12 = () => import(/* webpackChunkName: "nutrition12" */ '@/components/gauge/nutrition/nutrition12.vue')
 const nutrition13 = () => import(/* webpackChunkName: "nutrition13" */ '@/components/gauge/nutrition/nutrition13.vue')
+
+// 心理评估
+
+const psychology1 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/psychology/psychology1.vue')
 //导入页面
 
 
@@ -435,7 +439,8 @@ const router = new Router({
     { path:"/nutrition10", name:"nutrition10", component: nutrition10 },  
     { path:"/nutrition11", name:"nutrition11", component: nutrition11 },  
     { path:"/nutrition12", name:"nutrition12", component: nutrition12 },  
-
+    // 心理评估
+    { path:"/psychology1", name:"psychology1", component: psychology1},
 
     // { path:"/panicBuyingArea", name:"panicBuyingArea", component: panicBuyingArea, meta:{keepAlive: true}},
     // { path:"/panicBuyingAreaDetail/:sKey", name:"panicBuyingAreaDetail", component: panicBuyingAreaDetail },

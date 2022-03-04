@@ -169,8 +169,9 @@ h3 {
   font-weight: 500;
 }
 .gauge_1 {
-   margin-top: 0.9rem;
-  padding: 0 0.3rem;
+   margin-top: 0.95rem;
+  padding-left: 0.38rem;
+  padding-right: 0.37rem;
   ul {
     li {
       margin-top: 0.2rem;
@@ -212,7 +213,7 @@ h3 {
   .btn {
     width: 100%;
     background-color: #fff;
-    margin: 0.3rem 0 0.2rem 0;
+    margin: 1.1rem 0 0.2rem 0;
     text-align: center;
     .btn_info {
       width: 80% !important;

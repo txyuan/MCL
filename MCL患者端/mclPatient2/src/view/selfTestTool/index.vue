@@ -38,6 +38,13 @@
                 <i class="item-icon">GO></i>
               </div>
             </li>
+             <li  @click="$router.push('/psychology1')">
+              <div class="box">
+                <p class="item-title">心理评估</p>
+                <!-- <p class="item-des">{{item.TileName}}</p> -->
+                <i class="item-icon">GO></i>
+              </div>
+            </li>
              <li  @click="$router.push('/dietarySurvey')">
               <div class="box">
                 <p class="item-title">膳食评估</p>

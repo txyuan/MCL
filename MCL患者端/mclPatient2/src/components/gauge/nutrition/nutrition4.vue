@@ -206,15 +206,19 @@ h3 {
   font-weight: 500;
 }
 .gauge_1 {
-   margin-top: 0.9rem;
-  padding: 0 0.3rem;
+   margin-top: 0.95rem;
+  padding-left: 0.35rem;
+  p {
+    padding-right: 0.35rem;
+  }
   ul {
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     flex-wrap: wrap;
     li {
-      width: 45%;
+      width: 1.4rem;
       margin-top: 0.2rem;
+      margin-right: 0.2rem;
      border: 1px solid #ccc;
      border-radius: 0.06rem;
      height: 0.4rem;
