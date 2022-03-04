@@ -268,6 +268,20 @@ const gauge_nutrition = () => import(/* webpackChunkName: "gauge_nutrition" */ '
 const sport_CF = () => import(/* webpackChunkName: "sport_CF" */ '@/components/gauge/sport_CF.vue')  //运动处方量表
 const watch_repot = () => import(/* webpackChunkName: "watch_repot" */ '@/components/personal/stageReport/watch_repot.vue')  //查看报告
 const gauge_life = () => import(/* webpackChunkName: "gauge_life" */ '@/components/gauge/gauge_life.vue')  //生活状况
+// 筛查评估-营养评估
+const nutrition1 = () => import(/* webpackChunkName: "nutrition1" */ '@/components/gauge/nutrition/nutrition1.vue')
+const nutrition2 = () => import(/* webpackChunkName: "nutrition2" */ '@/components/gauge/nutrition/nutrition2.vue')
+const nutrition3 = () => import(/* webpackChunkName: "nutrition3" */ '@/components/gauge/nutrition/nutrition3.vue')
+const nutrition4 = () => import(/* webpackChunkName: "nutrition4" */ '@/components/gauge/nutrition/nutrition4.vue')
+const nutrition5 = () => import(/* webpackChunkName: "nutrition5" */ '@/components/gauge/nutrition/nutrition5.vue')
+const nutrition6 = () => import(/* webpackChunkName: "nutrition6" */ '@/components/gauge/nutrition/nutrition6.vue')
+const nutrition7 = () => import(/* webpackChunkName: "nutrition7" */ '@/components/gauge/nutrition/nutrition7.vue')
+const nutrition8 = () => import(/* webpackChunkName: "nutrition8" */ '@/components/gauge/nutrition/nutrition8.vue')
+const nutrition9 = () => import(/* webpackChunkName: "nutrition9" */ '@/components/gauge/nutrition/nutrition9.vue')
+const nutrition10 = () => import(/* webpackChunkName: "nutrition10" */ '@/components/gauge/nutrition/nutrition10.vue')
+const nutrition11 = () => import(/* webpackChunkName: "nutrition11" */ '@/components/gauge/nutrition/nutrition11.vue')
+const nutrition12 = () => import(/* webpackChunkName: "nutrition12" */ '@/components/gauge/nutrition/nutrition12.vue')
+const nutrition13 = () => import(/* webpackChunkName: "nutrition13" */ '@/components/gauge/nutrition/nutrition13.vue')
 //导入页面
 
 
@@ -407,7 +421,20 @@ const router = new Router({
 		{ path:"/gauge_nutrition", name:"gauge_nutrition", component: gauge_nutrition },  //营养处方量表
 		{ path:"/sport_CF", name:"sport_CF", component: sport_CF },
 		{ path:"/watch_repot", name:"watch_repot", component: watch_repot },  //查看报告
-
+    // 营养评估
+    { path:"/nutrition1", name:"nutrition1", component: nutrition1 },  
+    { path:"/nutrition2", name:"nutrition2", component: nutrition2 },  
+    { path:"/nutrition3", name:"nutrition3", component: nutrition3 },  
+    { path:"/nutrition4", name:"nutrition4", component: nutrition4 },  
+    { path:"/nutrition5", name:"nutrition5", component: nutrition5 },  
+    { path:"/nutrition6", name:"nutrition6", component: nutrition6 },  
+    { path:"/nutrition7", name:"nutrition7", component: nutrition7 },  
+    { path:"/nutrition8", name:"nutrition8", component: nutrition8 },  
+    { path:"/nutrition9", name:"nutrition9", component: nutrition9 },  
+    { path:"/nutrition13", name:"nutrition13", component: nutrition13 },  
+    { path:"/nutrition10", name:"nutrition10", component: nutrition10 },  
+    { path:"/nutrition11", name:"nutrition11", component: nutrition11 },  
+    { path:"/nutrition12", name:"nutrition12", component: nutrition12 },  
 
 
     // { path:"/panicBuyingArea", name:"panicBuyingArea", component: panicBuyingArea, meta:{keepAlive: true}},

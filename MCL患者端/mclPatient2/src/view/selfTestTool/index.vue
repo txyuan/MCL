@@ -31,9 +31,9 @@
                 <i class="item-icon">GO></i>
               </div>
             </li>
-             <li  @click="$router.push('/gauge_PG_SGA')">
+             <li  @click="$router.push('/nutrition1')">
               <div class="box">
-                <p class="item-title">筛查评估</p>
+                <p class="item-title">营养评估</p>
                 <!-- <p class="item-des">{{item.TileName}}</p> -->
                 <i class="item-icon">GO></i>
               </div>
