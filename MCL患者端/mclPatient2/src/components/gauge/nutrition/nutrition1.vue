@@ -172,7 +172,7 @@
               >
             </van-radio-group>
           </div>
-          <p>
+          <!-- <p>
             <span>一个月前体重</span>
             <input
               v-model="data.attribute_value_04"
@@ -182,9 +182,9 @@
               id=""
             />
             <span>千克</span>
-          </p>
+          </p> -->
         </div>
-        <p v-if="data.value_05_flag == '否'">
+        <p>
           <span>一个月前体重</span>
           <input
             v-model="data.attribute_value_04"
@@ -241,7 +241,7 @@ import { getWechatParm } from "@/api/wx";
 import logoImg from "@/assets/images/mclogo.png";
 /*引入微信js-sdk */
 import remoteJs from "@/components/common/remote-js.js";
-remoteJs("https://res.wx.qq.com/open/js/jweixin-1.1.0.js");
+var wxData = remoteJs("https://res.wx.qq.com/open/js/jweixin-1.1.0.js");
 import Ruler from "./ruler.vue";
 export default {
   name: "nutrition1",
