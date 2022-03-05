@@ -5,7 +5,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     personInfo : {}, // 信息资料
-    nutrition : {} // 营养评估
+    nutrition : {}, // 营养评估
+    psychology : {}, // 心理评估
   },
   mutations: {
     setpersonInfo(state, obj) {
@@ -13,6 +14,9 @@ const store = new Vuex.Store({
     },
     setnutrition(state, obj) {
       state.nutrition = obj
+    },
+    setpsychology(state, obj) {
+      state.psychology = obj
     },
   }
 })

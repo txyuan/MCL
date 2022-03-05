@@ -286,6 +286,11 @@ const nutrition13 = () => import(/* webpackChunkName: "nutrition13" */ '@/compon
 // 心理评估
 
 const psychology1 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/psychology/psychology1.vue')
+const psychology2 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/psychology/psychology2.vue')
+const psychology3 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/psychology/psychology3.vue')
+const psychology4 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/psychology/psychology4.vue')
+const psychology5 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/psychology/psychology5.vue')
+const psychology6 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/psychology/psychology6.vue')
 //导入页面
 
 
@@ -441,6 +446,11 @@ const router = new Router({
     { path:"/nutrition12", name:"nutrition12", component: nutrition12 },  
     // 心理评估
     { path:"/psychology1", name:"psychology1", component: psychology1},
+    { path:"/psychology2", name:"psychology2", component: psychology2},
+    { path:"/psychology3", name:"psychology3", component: psychology3},
+    { path:"/psychology4", name:"psychology4", component: psychology4},
+    { path:"/psychology5", name:"psychology5", component: psychology5},
+    { path:"/psychology6", name:"psychology6", component: psychology6},
 
     // { path:"/panicBuyingArea", name:"panicBuyingArea", component: panicBuyingArea, meta:{keepAlive: true}},
     // { path:"/panicBuyingAreaDetail/:sKey", name:"panicBuyingAreaDetail", component: panicBuyingAreaDetail },

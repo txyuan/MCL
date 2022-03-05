@@ -20,24 +20,23 @@
       <p></p>
     </div>
     <div>
-      <h3>焦虑测试</h3>
      <div class="gauge_3">
-         <p>1、我感到紧张(或痛苦)</p>
-           <van-radio-group  class="one_gau_radio" v-model="data.value_01" direction="horizontal">
+         <p>3、我的心中充满烦恼</p>
+           <van-radio-group  class="one_gau_radio" v-model="data.value_03" direction="horizontal">
             <van-radio
             v-for="(item, i) in list1"
             :key="i"
-            :class="{ checkedOne: data.value_01 == item.value }"
+            :class="{ checkedOne: data.value_03 == item.value }"
             :name="item.value"
             >{{ item.value }}</van-radio
           >
           </van-radio-group>
-         <p style="margin-top:0.4rem;">2、我感到有点害怕，好像预感到有什么可怕的事情要发生</p>
-           <van-radio-group  class="one_gau_radio" v-model="data.value_02" direction="horizontal">
+         <p style="margin-top:0.4rem;">4、我能够安闲而轻松地坐着</p>
+           <van-radio-group  class="one_gau_radio" v-model="data.value_04" direction="horizontal">
             <van-radio
             v-for="(item, i) in list2"
             :key="i"
-            :class="{ checkedOne: data.value_02 == item.value }"
+            :class="{ checkedOne: data.value_04 == item.value }"
             :name="item.value"
             >{{ item.value }}</van-radio
           >
@@ -65,16 +64,9 @@
 </template>
 
 <script>
-import { setRhone, getZphone } from "@/utils/storage.js";
-import { getWechatParm } from "@/api/wx";
-//系统logo
-import logoImg from "@/assets/images/mclogo.png";
-/*引入微信js-sdk */
-import remoteJs from "@/components/common/remote-js.js";
-var wxData = remoteJs("https://res.wx.qq.com/open/js/jweixin-1.1.0.js");
 // import Ruler from "./ruler.vue";
 export default {
-  name: "psychology1",
+  name: "psychology2",
   data() {
     return {
       show: false,
@@ -82,15 +74,15 @@ export default {
       valueAll: false,
       list1: [
         {
-          value: "几乎所有时候",
+          value: "大多数时间",
           id: '正常'
         },
         {
-          value: "大多数时候",
+          value: "常常如此",
           id: '轻度'
         },
         {
-          value: "有时",
+          value: "时时，但并不经常",
           id: '中度'
         },
         {
@@ -100,15 +92,15 @@ export default {
       ],
       list2: [
         {
-          value: "非常肯定和十分严重",
+          value: "肯定",
           id: '正常'
         },
         {
-          value: "是的，但并不太严重",
+          value: "经常",
           id: '轻度'
         },
         {
-          value: "有一点，但并不使我苦恼",
+          value: "并不经常",
           id: '中度'
         },
         {
@@ -116,17 +108,9 @@ export default {
           id: '严重'
         },
       ],
-      WechatParm: {}, //公众号信息
-      shareObj: {
-        //分享信息内容配置
-        title: `自测工具-心理评估`,
-        desc: "", // 分享描述
-        link: `${location.origin}${location.pathname}#${this.$route.fullPath}`, //系统地址
-        imgUrl: location.origin + logoImg,
-      },
       data: {
-        value_01: "", // 
-        value_02: "", // 
+        value_03: "", // 
+        value_04: "", // 
       },
     };
   },
@@ -137,7 +121,7 @@ export default {
      aaa: {
       //深度监听，可监听到对象、数组的变化
       handler(newVal, oldVal) {
-        if (newVal.value_01 == "" || newVal.value_02 == "") {
+        if (newVal.value_03 == "" || newVal.value_04 == "") {
           this.valueAll = false
         }else {
           this.valueAll = true
@@ -146,24 +130,8 @@ export default {
       deep: true,
     },
   },
-  created() {
-    if (this.$route.query.rphone) {
-      localStorage.setItem("hphone", this.$route.query.rphone);
-    }
-  },
-  mounted() {
-    // 通过转发小工具转发进来的情况，获取链接上的推荐码
-    const query = this.$route.query;
-    if (query.doctorPhone) {
-      setRhone(query.doctorPhone);
-      this.getWechatParm(); // 设置分享链接
-    } else {
-      this.shareObj.link = `${location.origin}${location.pathname}#${
-        this.$route.fullPath
-      }?rphone=${getZphone()}`;
-      this.getWechatParm();
-    }
-  },
+  created() { },
+  mounted() {},
   computed: {
     aaa() {
       return JSON.parse(JSON.stringify(this.data)); //对象是引用类型，深拷贝一下，form变得时候就会触发计算属性，然后就会触发aaa，watch就会执行
@@ -172,60 +140,9 @@ export default {
   methods: {
     goInfo() {
       this.$store.commit("setpsychology", this.data);
-      this.$router.push("/psychology2");
+      this.$router.push("/psychology3");
     },
-    
-    // 获取微信公众号配置
-    async getWechatParm() {
-      const data = await getWechatParm();
-      this.WechatParm = data.WechatParm;
-      // this.shareObj.desc = this.getDesc(); // 分享的描述
-      this.wxConfig(); // 微信配置
-      this.wxRead(); // 微信read回调
-    },
-    //微信配置
-    wxConfig() {
-      let WechatParm = this.WechatParm;
-      wx.config({
-        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-        appId: WechatParm.AppId, // 必填，公众号的唯一标识
-        timestamp: WechatParm.Timestamp, // 必填，生成签名的时间戳
-        nonceStr: WechatParm.NonceStr, // 必填，生成签名的随机串
-        signature: WechatParm.Signature, // 必填，签名，
-        jsApiList: [
-          "checkJsApi",
-          "onMenuShareTimeline",
-          "onMenuShareAppMessage",
-          "onMenuShareQQ",
-          "onMenuShareWeibo",
-        ],
-      });
-    },
-    //微信read回调
-    wxRead() {
-      wx.ready(() => {
-        this.ShareTimeline();
-        this.ShareAppMessage();
-        this.ShareQQ();
-        this.ShareWeibo();
-      });
-    },
-    // 2.3 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
-    ShareTimeline() {
-      wx.onMenuShareTimeline(this.shareObj);
-    },
-    // 2.3 监听“分享给朋友”按钮点击、自定义分享内容及分享结果接口
-    ShareAppMessage() {
-      wx.onMenuShareAppMessage(this.shareObj);
-    },
-    // 2.3 监听“分享到QQ”按钮点击、自定义分享内容及分享结果接口
-    ShareQQ() {
-      wx.onMenuShareQQ(this.shareObj);
-    },
-    // 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
-    ShareWeibo() {
-      wx.onMenuShareWeibo(this.shareObj);
-    },
+ 
   },
 };
 </script>
@@ -260,7 +177,7 @@ export default {
     border-radius: 0.03rem;
     background-color: #ebebed;
   }
-  p:nth-child(1) {
+  p:nth-child(2) {
     background-color: #35c2db;
   }
 }
@@ -270,7 +187,7 @@ h3 {
   font-weight: 500;
 }
 .gauge_3 {
-  margin-top: 0.3rem;
+  margin-top: 0.95rem;
   padding-left: 0.38rem;
   padding-right: 0.37rem;
   
@@ -335,7 +252,7 @@ h3 {
   .btn {
     width: 100%;
     background-color: #fff;
-    margin: 0.48rem 0 0.2rem 0;
+    margin: 0.38rem 0 0.2rem 0;
     text-align: center;
     .btn_info {
       width: 80% !important;

@@ -1,8 +1,8 @@
 <template>
-  <div class="home">
+   <div class="home">
     <mt-header
       style="background-color: #36c2d7; color: #fff"
-      title="营养评估"
+      title="心理评估"
       fixed
     >
       <div slot="left">
@@ -18,34 +18,45 @@
       <p></p>
       <p></p>
       <p></p>
-      <p></p>
-      <p></p>
-      <p></p>
-      <p></p>
-      <p></p>
-      <p></p>
-      <p></p>
     </div>
     <div>
-      <h3>进食情况</h3>
-      <div class="gauge_1">
-        <p>1、在过去的1个月内, 我的进食情况与平时相比</p>
-        <div class="one_gau">
-          <van-radio-group  class="one_gau_radio" v-model="data.attribute_value_08" direction="horizontal">
-            <van-radio  :class="{checkedOne:data.attribute_value_08=='没变化'}" name="没变化" >没变化</van-radio>
-            <van-radio  :class="{checkedOne:data.attribute_value_08=='比以往多'}" name="比以往多" >比以往多</van-radio>
-            <van-radio  :class="{checkedOne:data.attribute_value_08=='比以往少'}" name="比以往少" >比以往少</van-radio>
+     <div class="gauge_1">
+         <p>5、我感到一种令人发抖的恐惧</p>
+         <div class="one_gau">
+           <van-radio-group  class="one_gau_radio" v-model="data.value_05" direction="horizontal">
+            <van-radio
+            v-for="(item, i) in list1"
+            :key="i"
+            :class="{ checkedOne: data.value_05 == item.value }"
+            :name="item.value"
+            >{{ item.value }}</van-radio
+          >
           </van-radio-group>
-        </div>
-      </div>
-      <div class="gauge_3">
-         <p>2、请评估一下, 上一周您进食的情况(设定之前是进食可以正常饮食,为100%)</p>
-           <van-radio-group  class="one_gau_radio" v-model="data.attribute_value_09" direction="horizontal">
-            <van-radio  :class="{checkedOne:data.attribute_value_09=='没变化'}" name="没变化" >没变化</van-radio>
-            <van-radio  :class="{checkedOne:data.attribute_value_09=='减少25%-50%'}" name="减少25%-50%" >减少25%-50%</van-radio>
-            <van-radio  :class="{checkedOne:data.attribute_value_09=='减少50%-75%'}" name="减少50%-75%" >减少50%-75%</van-radio>
-            <van-radio  :class="{checkedOne:data.attribute_value_09=='减少75%以上'}" name="减少75%以上" >减少75%以上</van-radio>
+         </div>
+         <p style="margin-top:0.4rem;">6、我有点坐立不安，好像感到非要活动不可</p>
+         <div class="one_gau">
+           <van-radio-group  class="one_gau_radio" v-model="data.value_06" direction="horizontal">
+            <van-radio
+            v-for="(item, i) in list2"
+            :key="i"
+            :class="{ checkedOne: data.value_06 == item.value }"
+            :name="item.value"
+            >{{ item.value }}</van-radio
+          >
           </van-radio-group>
+         </div>
+         <p style="margin-top:0.4rem;">7、我突然有恐慌感</p>
+         <div class="one_gau">
+           <van-radio-group  class="one_gau_radio" v-model="data.value_07" direction="horizontal">
+            <van-radio
+            v-for="(item, i) in list3"
+            :key="i"
+            :class="{ checkedOne: data.value_07 == item.value }"
+            :name="item.value"
+            >{{ item.value }}</van-radio
+          >
+          </van-radio-group>
+         </div>
          </div>
     </div>
     <div class="bot_content">
@@ -70,22 +81,77 @@
 
 <script>
 export default {
-  name : 'nutrition2',
+  name : 'nutrition6',
   data() {
     return {
       show : false,
       checkedOne: "",
       valueAll : false,
+      list1: [
+        {
+          value: "根本没有",
+          id: '正常'
+        },
+        {
+          value: "有时",
+          id: '轻度'
+        },
+        {
+          value: "很经常",
+          id: '中度'
+        },
+        {
+          value: "非常经常",
+          id: '严重'
+        },
+      ],
+      list2: [
+        {
+          value: "确实非常多",
+          id: '正常'
+        },
+        {
+          value: "是不少",
+          id: '轻度'
+        },
+        {
+          value: "并不很多",
+          id: '中度'
+        },
+        {
+          value: "根本没有",
+          id: '严重'
+        },
+      ],
+      list3: [
+        {
+          value: "确实很经常",
+          id: '正常'
+        },
+        {
+          value: "时常",
+          id: '轻度'
+        },
+        {
+          value: "并非经常",
+          id: '中度'
+        },
+        {
+          value: "根本没有",
+          id: '严重'
+        },
+      ],
       data : {
-        attribute_value_08 : '', 
-        attribute_value_09 : '', 
+        value_05 : '', // 
+        value_06 : '', // 
+        value_07 : '', // 
       }
     };
   },
   watch : {
      aaa:{//深度监听，可监听到对象、数组的变化
             handler(newVal, oldVal){
-               if(newVal.attribute_value_08 == "" || newVal.attribute_value_09 == "" ) {
+               if(newVal.value_05 == "" || newVal.value_06 == ""  || newVal.value_07 == "" ) {
                  this.valueAll = false
                }else {
                  this.valueAll = true
@@ -102,12 +168,12 @@ export default {
   methods : {
     goInfo() {
       let nutrition =  this.$store.state.nutrition
-      let obj2 = {
+      let obj6 = {
         ...nutrition,
         ...this.data
       }
-      this.$store.commit('setnutrition',obj2)
-      this.$router.push('/nutrition3')
+      this.$store.commit('setnutrition',obj6)
+      this.$router.push('/nutrition7')
     },
   },
 };
@@ -124,26 +190,26 @@ export default {
   background-color: #fff !important;
 }
 .center_line {
-  height: 0.3rem;
+  height: 0.4rem;
   position: fixed;
   background-color: #fff;
   z-index: 1;
- top: 0.38rem;
+  top: 0.38rem;
   left: 0;
   right: 0;
   flex: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 0.1rem;
+  padding: 0 0.5rem;
   line-height: 0.42rem;
   p {
     height: 0.06rem;
-    width: 7%;
+    width: 14%;
     border-radius: 0.03rem;
     background-color: #ebebed;
   }
-  p:nth-child(2) {
+  p:nth-child(3) {
     background-color: #35c2db;
   }
 }
@@ -154,11 +220,7 @@ h3 {
 }
 .gauge_1 {
   padding-left: 0.34rem;
-  
-  margin-top: 0.3rem;
-  p {
-    padding-right: 0.35rem;
-  }
+  margin-top: 0.95rem;
   .one_gau {
     .one_gau_radio {
       display: flex;
@@ -195,44 +257,6 @@ h3 {
     }
   }
 }
-.gauge_3 {
-  margin-top: 0.35rem;
-  padding-left: 0.38rem;
-  padding-right: 0.37rem;
-
-  .one_gau_radio {
-    display: flex;
-    justify-content: space-between;
-  }
-  >>> .van-radio {
-    margin-top: 0.2rem;
-    border: 1px solid #ccc;
-    border-radius: 0.06rem;
-    height: 0.4rem !important;
-    width: 100% !important;
-    margin-right: 0 !important;
-  }
-
-  >>> .van-radio__icon {
-    margin-left: 0.15rem !important;
-  }
-  >>> .van-radio__label {
-    margin-left: -0.2rem !important;
-    text-align: center;
-    width: 100%;
-    color: #999 !important;
-  }
-  >>> .van-radio__icon--checked .van-icon {
-    background-color: #36c2d7;
-    border-color: #36c2d7;
-  }
-  .checkedOne {
-    border: 1px solid #36c2d7 !important;
-    >>> .van-radio__label {
-      color: #36c2d7 !important;
-    }
-  }
-}
 .bot_content {
   background-color: #fff;
 
@@ -241,7 +265,7 @@ h3 {
     text-align: center;
     line-height: 0.3rem;
     font-size: 0.14rem;
-    p:nth-child(3) {
+    p:nth-child(6) {
       font-size: 0.16rem;
       color: #4ec2a5;
     }
@@ -257,7 +281,7 @@ h3 {
   .btn {
     width: 100%;
     background-color: #fff;
-    margin: 0.5rem 0 0.2rem 0;
+    margin: 0.66rem 0 0.2rem 0;
     text-align: center;
     .btn_info {
       width: 80% !important;

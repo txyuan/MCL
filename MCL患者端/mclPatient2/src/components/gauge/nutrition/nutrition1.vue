@@ -52,9 +52,9 @@
           <input
             v-model="data.attribute_value_01"
             type="number"
-             pattern="\d*"
+            pattern="\d*"
             placeholder="请输入白蛋白值"
-            name=""
+            name="请输入白蛋白值"
             id=""
           />
           <span>g/L</span>
@@ -67,7 +67,7 @@
             type="text"
             placeholder="请输入体重"
             readonly
-            name=""
+            name="请输入体重"
             id=""
           />
           <span>千克</span>

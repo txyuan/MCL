@@ -71,7 +71,12 @@ export default {
     {
       goodsName : '营养评估',
       type : 'nutrition1'
-    }],
+    },
+    {
+      goodsName : '心理评估',
+      type : 'psychology1'
+    },
+    ],
     list5 : [],
     type: "",
     index: -1,
