@@ -42,7 +42,7 @@
          <p>2、请评估一下, 上一周您进食的情况(设定之前是进食可以正常饮食,为100%)</p>
            <van-radio-group  class="one_gau_radio" v-model="data.attribute_value_09" direction="horizontal">
             <van-radio  :class="{checkedOne:data.attribute_value_09=='没变化'}" name="没变化" >没变化</van-radio>
-            <van-radio  :class="{checkedOne:data.attribute_value_09=='减少25%-75%'}" name="减少25%-75%" >减少25%-75%</van-radio>
+            <van-radio  :class="{checkedOne:data.attribute_value_09=='减少25%-50%'}" name="减少25%-75%" >减少25%-75%</van-radio>
             <van-radio  :class="{checkedOne:data.attribute_value_09=='减少50%-75%'}" name="减少50%-75%" >减少50%-75%</van-radio>
             <van-radio  :class="{checkedOne:data.attribute_value_09=='减少75%以上'}" name="减少75%以上" >减少75%以上</van-radio>
           </van-radio-group>
@@ -128,7 +128,7 @@ export default {
   position: fixed;
   background-color: #fff;
   z-index: 1;
-  top: 0.4rem;
+ top: 0.38rem;
   left: 0;
   right: 0;
   flex: 1;

@@ -38,13 +38,12 @@
                 <i class="item-icon">GO></i>
               </div>
             </li>
-             <li  @click="$router.push('/psychology1')">
+             <!-- <li  @click="$router.push('/psychology1')">
               <div class="box">
                 <p class="item-title">心理评估</p>
-                <!-- <p class="item-des">{{item.TileName}}</p> -->
                 <i class="item-icon">GO></i>
               </div>
-            </li>
+            </li> -->
              <li  @click="$router.push('/dietarySurvey')">
               <div class="box">
                 <p class="item-title">膳食评估</p>
@@ -126,6 +125,13 @@ export default {
         // },
       ],
       rphone : ''
+    }
+  },
+   beforeRouteLeave(to, from, next){
+    if(to.name == "nutrition13"){
+      this.$router.push('/wx_Entrance/home');
+    }else{
+      next();
     }
   },
   methods:{

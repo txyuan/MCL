@@ -507,8 +507,9 @@ export default {
   .btn {
     width: 100%;
     background-color: #fff;
-    position: fixed;
-    bottom: 0.2rem;
+    // position: fixed;
+    // bottom: 0.2rem;
+    margin: 0.4rem 0 0.2rem 0;
     text-align: center;
     .btn_info {
       width: 80% !important;

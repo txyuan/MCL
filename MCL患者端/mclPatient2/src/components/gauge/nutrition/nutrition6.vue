@@ -56,7 +56,7 @@
             <van-radio  :class="{checkedOne:data.attribute_value_40=='无'}" name="无" >无</van-radio>
             <van-radio  :class="{checkedOne:data.attribute_value_40=='低剂量(<10mg强的松或相当剂量的其它激素/d)'}" name="低剂量(<10mg强的松或相当剂量的其它激素/d)" >低剂量(<10mg强的松或相当剂量的其它激素/d)</van-radio>
             <van-radio  :class="{checkedOne:data.attribute_value_40=='中剂量(10-30mg强的松或相当剂量的其它激素/d)'}" name="中剂量(10-30mg强的松或相当剂量的其它激素/d)" >中剂量(10-30mg强的松或相当剂量的其它激素/d)</van-radio>
-            <van-radio  :class="{checkedOne:data.attribute_value_40=='高剂量(30mg强的松或相当剂量的其它激素/d)'}" name="高剂量(30mg强的松或相当剂量的其它激素/d)" >高剂量(30mg强的松或相当剂量的其它激素/d)</van-radio>
+            <van-radio  :class="{checkedOne:data.attribute_value_40=='大剂量(30mg强的松或相当剂量的其它激素/d)'}" name="大剂量(30mg强的松或相当剂量的其它激素/d)" >大剂量(30mg强的松或相当剂量的其它激素/d)</van-radio>
           </van-radio-group>
          </div>
     </div>
@@ -141,7 +141,7 @@ export default {
   position: fixed;
   background-color: #fff;
   z-index: 1;
-  top: 0.4rem;
+  top: 0.38rem;
   left: 0;
   right: 0;
   flex: 1;

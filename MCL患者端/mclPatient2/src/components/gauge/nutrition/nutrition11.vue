@@ -135,7 +135,7 @@ export default {
   position: fixed;
   background-color: #fff;
   z-index: 1;
-  top: 0.4rem;
+  top: 0.38rem;
   left: 0;
   right: 0;
   flex: 1;
@@ -162,6 +162,7 @@ h3 {
 
 .gauge_3 {
   margin-top: 0.95rem;
+  padding-bottom: 0.6rem;
   p {
     padding: 0 0.23rem;
   }
@@ -185,7 +186,7 @@ h3 {
     margin-top: 0.2rem;
     border: 1px solid #ccc;
     border-radius: 0.06rem;
-    height: 0.4rem !important;
+    height: 0.44rem !important;
     width: 100% !important;
     margin-right: 0 !important;
   }
@@ -194,9 +195,9 @@ h3 {
     margin-left: 0.15rem !important;
   }
   >>> .van-radio__label {
-     margin-left: -0.2rem !important;
+    //  margin-left: -0.2rem !important;
     padding: 0.05rem 0.05rem;
-    text-align: center;
+    text-align: left;
     width: 100%;
     color: #999 !important;
   }

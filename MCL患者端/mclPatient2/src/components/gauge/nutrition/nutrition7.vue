@@ -164,6 +164,7 @@ h3 {
 
 .gauge_3 {
   margin-top: 0.3rem;
+  padding-bottom: 0.6rem;
   p {
     padding: 0 0.23rem;
   }

@@ -41,7 +41,7 @@
         </ul>
         <!-- <div class="title">诊疗</div> -->
         <ul v-show="value == 4">
-          <li v-for="(item, w) in list4" :key="w" :class="{'active': (type == 'wellcome_personInfo' && index == w)}" @click="toggle(w, 'wellcome_personInfo')">
+          <li v-for="(item, w) in list4" :key="w" :class="{'active': index == w}" @click="toggle4(w, item)">
             <p>{{item.goodsName}}</p>
           </li>
         </ul>
@@ -65,10 +65,17 @@ export default {
     list2: [],
     list3 : [],
     list4 : [{
-      goodsName : '基础信息'
+      goodsName : '基础信息',
+      type : 'wellcome_personInfo'
+    },
+    {
+      goodsName : '营养评估',
+      type : 'nutrition1'
     }],
+    list5 : [],
     type: "",
     index: -1,
+    item : {},
     doctor:{
       name: "",
       phone: ""
@@ -120,6 +127,11 @@ export default {
       this.index = index;
       this.type = type;
     },
+    toggle4(index, item){
+      this.index = index;
+      this.type = item.type;
+    },
+    
     // 跳转到并发症
     goComplication(item){
       this.$router.push({name: 'complicationDeatil', query:{title: item.name, skey: item.sKey, doctorPhone: this.doctor.phone}})
@@ -128,7 +140,7 @@ export default {
     goSelfTest(item){
       this.$router.push({name: 'selfTestDetail', query:{type: item.PageUrl, skey: item.sKey, SubjectName: item.SubjectName, doctorPhone: this.doctor.phone}})
     },
-    // 跳转到自测工具
+    // 跳转到商城
     goServiceDetail(item){
       // this.$router.push({name: 'serviceDetail', params:{type: item.PageUrl, skey: item.sKey, SubjectName: item.SubjectName, doctorPhone: this.doctor.phone}})
       this.$router.push( `serviceDetail/${item.goodsId}?doctorPhone=${this.doctor.phone}`)
@@ -137,6 +149,10 @@ export default {
     goWellcome_personInfo(item){
       // this.$router.push({name: 'serviceDetail', params:{type: item.PageUrl, skey: item.sKey, SubjectName: item.SubjectName, doctorPhone: this.doctor.phone}})
       this.$router.push(`/wellcome_personInfo?doctorPhone=${this.doctor.phone}`)
+    },
+    // 跳转到营养评估
+    goNutrition1(item){
+      this.$router.push(`/nutrition1?doctorPhone=${this.doctor.phone}`)
     },
     confirm(){
       if(this.type == ""){
@@ -159,6 +175,8 @@ export default {
         this.goServiceDetail(this.list3[this.index])
       }else if(this.type == "wellcome_personInfo") {
         this.goWellcome_personInfo()
+      }else if(this.type == "nutrition1") {
+        this.goNutrition1()
       }
     }
   },

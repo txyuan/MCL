@@ -134,7 +134,7 @@ export default {
   position: fixed;
   background-color: #fff;
   z-index: 1;
-  top: 0.4rem;
+  top: 0.38rem;
   left: 0;
   right: 0;
   flex: 1;
@@ -161,6 +161,7 @@ h3 {
 
 .gauge_3 {
   margin-top: 0.95rem;
+  padding-bottom: 0.6rem;
   p {
     padding: 0 0.23rem;
   }
