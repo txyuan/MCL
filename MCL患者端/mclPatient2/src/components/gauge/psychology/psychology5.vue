@@ -20,24 +20,23 @@
       <p></p>
     </div>
     <div>
-      <h3>焦虑测试</h3>
      <div class="gauge_3">
-         <p>1、我感到紧张(或痛苦)</p>
-           <van-radio-group  class="one_gau_radio" v-model="data.value_01" direction="horizontal">
+         <p>3、我感到愉快</p>
+           <van-radio-group  class="one_gau_radio" v-model="data.value_10" direction="horizontal">
             <van-radio
             v-for="(item, i) in list1"
             :key="i"
-            :class="{ checkedOne: data.value_01 == item.value }"
+            :class="{ checkedOne: data.value_10 == item.value }"
             :name="item.value"
             >{{ item.value }}</van-radio
           >
           </van-radio-group>
-         <p style="margin-top:0.4rem;">2、我感到有点害怕，好像预感到有什么可怕的事情要发生</p>
-           <van-radio-group  class="one_gau_radio" v-model="data.value_02" direction="horizontal">
+         <p style="margin-top:0.4rem;">4、我好像感到自己变迟钝了</p>
+           <van-radio-group  class="one_gau_radio" v-model="data.value_11" direction="horizontal">
             <van-radio
             v-for="(item, i) in list2"
             :key="i"
-            :class="{ checkedOne: data.value_02 == item.value }"
+            :class="{ checkedOne: data.value_11 == item.value }"
             :name="item.value"
             >{{ item.value }}</van-radio
           >
@@ -67,7 +66,7 @@
 <script>
 // import Ruler from "./ruler.vue";
 export default {
-  name: "psychology2",
+  name: "psychology5",
   data() {
     return {
       show: false,
@@ -75,11 +74,29 @@ export default {
       valueAll: false,
       list1: [
         {
-          value: "几乎所有时候",
+          value: "根本没有",
           id: '正常'
         },
         {
-          value: "大多数时候",
+          value: "并不经常",
+          id: '轻度'
+        },
+        {
+          value: "有时",
+          id: '中度'
+        },
+        {
+          value: "大多数时间",
+          id: '严重'
+        },
+      ],
+      list2: [
+        {
+          value: "几乎所有时间",
+          id: '正常'
+        },
+        {
+          value: "经常",
           id: '轻度'
         },
         {
@@ -91,27 +108,9 @@ export default {
           id: '严重'
         },
       ],
-      list2: [
-        {
-          value: "非常肯定和十分严重",
-          id: '正常'
-        },
-        {
-          value: "是的，但并不太严重",
-          id: '轻度'
-        },
-        {
-          value: "有一点，但并不使我苦恼",
-          id: '中度'
-        },
-        {
-          value: "根本没有",
-          id: '严重'
-        },
-      ],
       data: {
-        value_01: "", // 
-        value_02: "", // 
+        value_10: "", // 
+        value_11: "", // 
       },
     };
   },
@@ -122,7 +121,7 @@ export default {
      aaa: {
       //深度监听，可监听到对象、数组的变化
       handler(newVal, oldVal) {
-        if (newVal.value_01 == "" || newVal.value_02 == "") {
+        if (newVal.value_10 == "" || newVal.value_11 == "") {
           this.valueAll = false
         }else {
           this.valueAll = true
@@ -140,8 +139,13 @@ export default {
   },
   methods: {
     goInfo() {
-      this.$store.commit("setpsychology", this.data);
-      this.$router.push("/psychology2");
+      let psychology =  this.$store.state.psychology
+      let obj6 = {
+        ...psychology,
+        ...this.data
+      }
+      this.$store.commit("setpsychology", obj6);
+      this.$router.push("/psychology6");
     },
  
   },
@@ -178,7 +182,7 @@ export default {
     border-radius: 0.03rem;
     background-color: #ebebed;
   }
-  p:nth-child(2) {
+  p:nth-child(5) {
     background-color: #35c2db;
   }
 }
@@ -188,7 +192,7 @@ h3 {
   font-weight: 500;
 }
 .gauge_3 {
-  margin-top: 0.3rem;
+  margin-top: 0.95rem;
   padding-left: 0.38rem;
   padding-right: 0.37rem;
   
@@ -237,7 +241,7 @@ h3 {
     text-align: center;
     line-height: 0.3rem;
     font-size: 0.14rem;
-    p:nth-child(5) {
+    p:nth-child(4) {
       font-size: 0.16rem;
       color: #4ec2a5;
     }
@@ -253,7 +257,7 @@ h3 {
   .btn {
     width: 100%;
     background-color: #fff;
-    margin: 0.48rem 0 0.2rem 0;
+    margin: 0.38rem 0 0.2rem 0;
     text-align: center;
     .btn_info {
       width: 80% !important;

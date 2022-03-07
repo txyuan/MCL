@@ -671,7 +671,7 @@ router.beforeEach((to, from, next) => {
   && (to.name != "personInfo1") && (to.name != "personInfo2") && (to.name != "personInfo3") && (to.name != "personInfo4") && (to.name != "personInfo5") && (to.name != "personInfo6") 
   ) {
       // 判断是否需要完善个人信息
-      perfectInfo()
+      perfectInfo(to.fullPath)
   }
 
   next()
@@ -679,11 +679,12 @@ router.beforeEach((to, from, next) => {
 
 // 判断是否需要完善个人信息
 let flag = false
-async function perfectInfo(){
+async function perfectInfo(fullPath){
   if(flag){ return }
   const data = await getUserInfo();
   const type_disease = data.data.type_disease
-  if(type_disease == null){
+  if (type_disease == null) {
+    localStorage.setItem('fullPath',fullPath)
     Vue.prototype.$MessageBox.alert('请完善个人信息').then(action => {
       router.replace("/personInfo1")
     });

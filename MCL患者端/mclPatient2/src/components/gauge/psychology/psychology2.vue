@@ -139,7 +139,12 @@ export default {
   },
   methods: {
     goInfo() {
-      this.$store.commit("setpsychology", this.data);
+       let psychology =  this.$store.state.psychology
+      let obj6 = {
+        ...psychology,
+        ...this.data
+      }
+      this.$store.commit("setpsychology", obj6);
       this.$router.push("/psychology3");
     },
  

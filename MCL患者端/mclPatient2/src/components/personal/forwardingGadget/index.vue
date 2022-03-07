@@ -41,7 +41,7 @@
         </ul>
         <!-- <div class="title">诊疗</div> -->
         <ul v-show="value == 4">
-          <li v-for="(item, w) in list4" :key="w" :class="{'active': index == w}" @click="toggle4(w, item)">
+          <li v-for="(item, w) in list4" :key="w" :class="{'active': (type == 'treatment' && index == w)}" @click="toggle(w, 'treatment')">
             <p>{{item.goodsName}}</p>
           </li>
         </ul>
@@ -77,7 +77,6 @@ export default {
       type : 'psychology1'
     },
     ],
-    list5 : [],
     type: "",
     index: -1,
     item : {},
@@ -111,9 +110,6 @@ export default {
     value : 0
   }),
   methods:{
-    fn() {
-      // console.log(this.value);
-    },
     // 并发症
     async getList(){
       const data = await getList();
@@ -132,11 +128,6 @@ export default {
       this.index = index;
       this.type = type;
     },
-    toggle4(index, item){
-      this.index = index;
-      this.type = item.type;
-    },
-    
     // 跳转到并发症
     goComplication(item){
       this.$router.push({name: 'complicationDeatil', query:{title: item.name, skey: item.sKey, doctorPhone: this.doctor.phone}})
@@ -150,14 +141,10 @@ export default {
       // this.$router.push({name: 'serviceDetail', params:{type: item.PageUrl, skey: item.sKey, SubjectName: item.SubjectName, doctorPhone: this.doctor.phone}})
       this.$router.push( `serviceDetail/${item.goodsId}?doctorPhone=${this.doctor.phone}`)
     },
-    // 跳转到基础信息
-    goWellcome_personInfo(item){
+    // 跳转到诊疗
+    gotreatment(item){
       // this.$router.push({name: 'serviceDetail', params:{type: item.PageUrl, skey: item.sKey, SubjectName: item.SubjectName, doctorPhone: this.doctor.phone}})
-      this.$router.push(`/wellcome_personInfo?doctorPhone=${this.doctor.phone}`)
-    },
-    // 跳转到营养评估
-    goNutrition1(item){
-      this.$router.push(`/nutrition1?doctorPhone=${this.doctor.phone}`)
+      this.$router.push(`/${item.type}?doctorPhone=${this.doctor.phone}`)
     },
     confirm(){
       if(this.type == ""){
@@ -176,12 +163,11 @@ export default {
       // 跳转到自测工具
         this.goSelfTest(this.list2[this.index])
       }else if(this.type == "serviceDetail") {
-      // 跳转到自测工具
+      // 跳转到商城
         this.goServiceDetail(this.list3[this.index])
-      }else if(this.type == "wellcome_personInfo") {
-        this.goWellcome_personInfo()
-      }else if(this.type == "nutrition1") {
-        this.goNutrition1()
+      }else if(this.type == "treatment") {
+        // 跳转到诊疗
+        this.gotreatment(this.list4[this.index])
       }
     }
   },

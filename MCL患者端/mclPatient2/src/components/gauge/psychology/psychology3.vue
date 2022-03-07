@@ -81,7 +81,7 @@
 
 <script>
 export default {
-  name : 'nutrition6',
+  name : 'psychology3',
   data() {
     return {
       show : false,
@@ -167,13 +167,13 @@ export default {
   },
   methods : {
     goInfo() {
-      let nutrition =  this.$store.state.nutrition
+      let psychology =  this.$store.state.psychology
       let obj6 = {
-        ...nutrition,
+        ...psychology,
         ...this.data
       }
-      this.$store.commit('setnutrition',obj6)
-      this.$router.push('/nutrition7')
+      this.$store.commit('setpsychology',obj6)
+      this.$router.push('/psychology4')
     },
   },
 };

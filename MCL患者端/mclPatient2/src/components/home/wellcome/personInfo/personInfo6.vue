@@ -312,7 +312,12 @@ export default {
             return
           }
           this.$Toast('保存成功')
-          this.$router.push('/wx_Entrance/home')
+          if(localStorage.getItem('fullPath')) {
+            this.$router.push(localStorage.getItem('fullPath'))
+          }else {
+            this.$router.push('/wx_Entrance/home')
+          }
+          localStorage.removeItem('fullPath')
        })
       //  this.$store.commit('setpersonInfo',obj)
 

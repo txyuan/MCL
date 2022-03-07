@@ -20,29 +20,46 @@
       <p></p>
     </div>
     <div>
-      <h3>焦虑测试</h3>
-     <div class="gauge_3">
-         <p>1、我感到紧张(或痛苦)</p>
-           <van-radio-group  class="one_gau_radio" v-model="data.value_01" direction="horizontal">
+      <div class="gauge_1">
+         <p style="margin-top:0.95rem;">5、我对自己的外表(打扮自己)失去兴趣</p>
+         <div class="one_gau">
+           <van-radio-group  class="one_gau_radio" v-model="data.value_12" direction="horizontal">
             <van-radio
             v-for="(item, i) in list1"
             :key="i"
-            :class="{ checkedOne: data.value_01 == item.value }"
-            :name="item.value"
-            >{{ item.value }}</van-radio
-          >
-          </van-radio-group>
-         <p style="margin-top:0.4rem;">2、我感到有点害怕，好像预感到有什么可怕的事情要发生</p>
-           <van-radio-group  class="one_gau_radio" v-model="data.value_02" direction="horizontal">
-            <van-radio
-            v-for="(item, i) in list2"
-            :key="i"
-            :class="{ checkedOne: data.value_02 == item.value }"
+            :class="{ checkedOne: data.value_12 == item.value }"
             :name="item.value"
             >{{ item.value }}</van-radio
           >
           </van-radio-group>
          </div>
+         </div>
+     <div class="gauge_3">
+         <p>6、我怀着愉快的心情憧憬未来</p>
+           <van-radio-group  class="one_gau_radio" v-model="data.value_13" direction="horizontal">
+            <van-radio
+            v-for="(item, i) in list2"
+            :key="i"
+            :class="{ checkedOne: data.value_13 == item.value }"
+            :name="item.value"
+            >{{ item.value }}</van-radio
+          >
+          </van-radio-group>
+         </div>
+     <div class="gauge_1">
+         <p style="margin-top:0.4rem;">7、我能欣赏一本好书或一段好的广播或电视节目</p>
+         <div class="one_gau">
+           <van-radio-group  class="one_gau_radio" v-model="data.value_14" direction="horizontal">
+            <van-radio
+            v-for="(item, i) in list3"
+            :key="i"
+            :class="{ checkedOne: data.value_14 == item.value }"
+            :name="item.value"
+            >{{ item.value }}</van-radio
+          >
+          </van-radio-group>
+         </div>
+     </div>
     </div>
     <div class="bot_content">
         <div style="background-color: #fff">
@@ -53,10 +70,10 @@
               round
               type="info"
               @click="goInfo"
-              >下一步</van-button
+              >提交</van-button
             >
             <van-button v-else class="btn_info1" round type="info"
-              >下一步</van-button
+              >提交</van-button
             >
           </div>
         </div>
@@ -67,7 +84,7 @@
 <script>
 // import Ruler from "./ruler.vue";
 export default {
-  name: "psychology2",
+  name: "psychology6",
   data() {
     return {
       show: false,
@@ -75,15 +92,15 @@ export default {
       valueAll: false,
       list1: [
         {
-          value: "几乎所有时候",
+          value: "肯定",
           id: '正常'
         },
         {
-          value: "大多数时候",
+          value: "经常",
           id: '轻度'
         },
         {
-          value: "有时",
+          value: "并不经常",
           id: '中度'
         },
         {
@@ -93,15 +110,33 @@ export default {
       ],
       list2: [
         {
-          value: "非常肯定和十分严重",
+          value: "差不多是这样做的",
           id: '正常'
         },
         {
-          value: "是的，但并不太严重",
+          value: "并不完全是这样做的",
           id: '轻度'
         },
         {
-          value: "有一点，但并不使我苦恼",
+          value: "很少这样做",
+          id: '中度'
+        },
+        {
+          value: "几乎从来不这样做",
+          id: '严重'
+        },
+      ],
+      list3: [
+        {
+          value: "常常",
+          id: '正常'
+        },
+        {
+          value: "有时",
+          id: '轻度'
+        },
+        {
+          value: "并非经常",
           id: '中度'
         },
         {
@@ -110,8 +145,9 @@ export default {
         },
       ],
       data: {
-        value_01: "", // 
-        value_02: "", // 
+        value_12: "", // 
+        value_13: "", // 
+        value_14: "", // 
       },
     };
   },
@@ -122,7 +158,7 @@ export default {
      aaa: {
       //深度监听，可监听到对象、数组的变化
       handler(newVal, oldVal) {
-        if (newVal.value_01 == "" || newVal.value_02 == "") {
+        if (newVal.value_12 == "" || newVal.value_13 == "" || newVal.value_14 == "") {
           this.valueAll = false
         }else {
           this.valueAll = true
@@ -140,8 +176,20 @@ export default {
   },
   methods: {
     goInfo() {
-      this.$store.commit("setpsychology", this.data);
-      this.$router.push("/psychology2");
+      let psychology =  this.$store.state.psychology
+      let obj6 = {
+        ...psychology,
+        ...this.data,
+      };
+      let url = 'UserInterface/selfTestTool/AddEmotionDetermination.ashx'
+        this.$post(url,obj6).then(res => {
+        if (res.rspcode != 1) {
+            this.$Toast(res.rspdesc)
+            return
+          }
+          this.$Toast(res.rspdesc)
+          this.$router.push('/selfTestTool')
+      })
     },
  
   },
@@ -178,7 +226,7 @@ export default {
     border-radius: 0.03rem;
     background-color: #ebebed;
   }
-  p:nth-child(2) {
+  p:nth-child(6) {
     background-color: #35c2db;
   }
 }
@@ -186,6 +234,50 @@ h3 {
   margin: 0.95rem 0 0 0;
   text-align: center;
   font-weight: 500;
+}
+.gauge_1 {
+  padding-left: 0.34rem;
+  
+  margin-top: 0.3rem;
+  p {
+    padding-right: 0.35rem;
+  }
+  .one_gau {
+    .one_gau_radio {
+      display: flex;
+      justify-content: left;
+    }
+
+    >>> .van-radio {
+      margin-top: 0.2rem;
+      margin-right: 0.2rem;
+      border: 1px solid #ccc;
+      border-radius: 0.06rem;
+      height: 0.4rem !important;
+      width: 1.4rem !important;
+    }
+
+    >>> .van-radio__icon {
+      margin-left: 0.15rem !important;
+    }
+    >>> .van-radio__label {
+      margin-left: -0.2rem !important;
+    padding: 0.05rem 0.05rem;
+    text-align: center;
+      width: 100%;
+      color: #999 !important;
+    }
+    >>> .van-radio__icon--checked .van-icon {
+      background-color: #36c2d7;
+      border-color: #36c2d7;
+    }
+    .checkedOne {
+      border: 1px solid #36c2d7 !important;
+      >>> .van-radio__label {
+        color: #36c2d7 !important;
+      }
+    }
+  }
 }
 .gauge_3 {
   margin-top: 0.3rem;
@@ -253,7 +345,7 @@ h3 {
   .btn {
     width: 100%;
     background-color: #fff;
-    margin: 0.48rem 0 0.2rem 0;
+    margin: 0.45rem 0 0.2rem 0;
     text-align: center;
     .btn_info {
       width: 80% !important;

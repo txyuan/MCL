@@ -38,12 +38,12 @@
                 <i class="item-icon">GO></i>
               </div>
             </li>
-             <!-- <li  @click="$router.push('/psychology1')">
+             <li  @click="$router.push('/psychology1')">
               <div class="box">
                 <p class="item-title">心理评估</p>
                 <i class="item-icon">GO></i>
               </div>
-            </li> -->
+            </li>
              <li  @click="$router.push('/dietarySurvey')">
               <div class="box">
                 <p class="item-title">膳食评估</p>

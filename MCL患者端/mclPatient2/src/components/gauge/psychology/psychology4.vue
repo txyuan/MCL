@@ -20,24 +20,24 @@
       <p></p>
     </div>
     <div>
-      <h3>焦虑测试</h3>
+      <h3>抑郁测试</h3>
      <div class="gauge_3">
-         <p>1、我感到紧张(或痛苦)</p>
-           <van-radio-group  class="one_gau_radio" v-model="data.value_01" direction="horizontal">
+         <p>1、我对以往感兴趣的事情还是有兴趣</p>
+           <van-radio-group  class="one_gau_radio" v-model="data.value_08" direction="horizontal">
             <van-radio
             v-for="(item, i) in list1"
             :key="i"
-            :class="{ checkedOne: data.value_01 == item.value }"
+            :class="{ checkedOne: data.value_08 == item.value }"
             :name="item.value"
             >{{ item.value }}</van-radio
           >
           </van-radio-group>
-         <p style="margin-top:0.4rem;">2、我感到有点害怕，好像预感到有什么可怕的事情要发生</p>
-           <van-radio-group  class="one_gau_radio" v-model="data.value_02" direction="horizontal">
+         <p style="margin-top:0.4rem;">2、我能够哈哈大笑，并看到事物有趣的一面</p>
+           <van-radio-group  class="one_gau_radio" v-model="data.value_09" direction="horizontal">
             <van-radio
             v-for="(item, i) in list2"
             :key="i"
-            :class="{ checkedOne: data.value_02 == item.value }"
+            :class="{ checkedOne: data.value_09 == item.value }"
             :name="item.value"
             >{{ item.value }}</van-radio
           >
@@ -67,7 +67,7 @@
 <script>
 // import Ruler from "./ruler.vue";
 export default {
-  name: "psychology2",
+  name: "psychology4",
   data() {
     return {
       show: false,
@@ -75,33 +75,33 @@ export default {
       valueAll: false,
       list1: [
         {
-          value: "几乎所有时候",
+          value: "肯定一样",
           id: '正常'
         },
         {
-          value: "大多数时候",
+          value: "不像以前那样多",
           id: '轻度'
         },
         {
-          value: "有时",
+          value: "只有一点儿",
           id: '中度'
         },
         {
-          value: "根本没有",
+          value: "基本上没有了",
           id: '严重'
         },
       ],
       list2: [
         {
-          value: "非常肯定和十分严重",
+          value: "我经常这样",
           id: '正常'
         },
         {
-          value: "是的，但并不太严重",
+          value: "现在已经不大这样了",
           id: '轻度'
         },
         {
-          value: "有一点，但并不使我苦恼",
+          value: "现在肯定是不太多了",
           id: '中度'
         },
         {
@@ -110,8 +110,8 @@ export default {
         },
       ],
       data: {
-        value_01: "", // 
-        value_02: "", // 
+        value_08: "", // 
+        value_09: "", // 
       },
     };
   },
@@ -122,7 +122,7 @@ export default {
      aaa: {
       //深度监听，可监听到对象、数组的变化
       handler(newVal, oldVal) {
-        if (newVal.value_01 == "" || newVal.value_02 == "") {
+        if (newVal.value_08 == "" || newVal.value_09 == "") {
           this.valueAll = false
         }else {
           this.valueAll = true
@@ -140,8 +140,13 @@ export default {
   },
   methods: {
     goInfo() {
-      this.$store.commit("setpsychology", this.data);
-      this.$router.push("/psychology2");
+      let psychology =  this.$store.state.psychology
+      let obj6 = {
+        ...psychology,
+        ...this.data
+      }
+      this.$store.commit("setpsychology", obj6);
+      this.$router.push("/psychology5");
     },
  
   },
@@ -178,7 +183,7 @@ export default {
     border-radius: 0.03rem;
     background-color: #ebebed;
   }
-  p:nth-child(2) {
+  p:nth-child(4) {
     background-color: #35c2db;
   }
 }
@@ -253,7 +258,7 @@ h3 {
   .btn {
     width: 100%;
     background-color: #fff;
-    margin: 0.48rem 0 0.2rem 0;
+    margin: 0.75rem 0 0.2rem 0;
     text-align: center;
     .btn_info {
       width: 80% !important;
