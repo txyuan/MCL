@@ -16,7 +16,7 @@
           <span v-else>请选择医生</span>
         </mt-cell>
 
-        <select name="role" class="select" @change="fn" v-model="value" style="appearance: menulist-button;">
+        <select name="role" class="select"  v-model="value" style="appearance: menulist-button;">
 						<option v-for="item in roleList" :disabled="item.disabled" :value="item.value" :key="item.value" :style="item.color">{{item.name}}</option>
 					</select>
 
