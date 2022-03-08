@@ -44,15 +44,15 @@
                 <i class="item-icon">GO></i>
               </div>
             </li>
-             <li  @click="$router.push('/psychology1')">
+             <li  @click="$router.push('/physicalGauge1')">
               <div class="box">
-                <p class="item-title">心理评估</p>
+                <p class="item-title">体能评估</p>
                 <i class="item-icon">GO></i>
               </div>
             </li>
-             <li  @click="$router.push('/psychology1')">
+             <li  @click="$router.push('/weightGauge1')">
               <div class="box">
-                <p class="item-title">心理评估</p>
+                <p class="item-title">体重监测</p>
                 <i class="item-icon">GO></i>
               </div>
             </li>
