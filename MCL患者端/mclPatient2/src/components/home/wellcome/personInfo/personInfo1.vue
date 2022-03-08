@@ -20,7 +20,7 @@
       <div class="content">
         <h3>患者姓名</h3>
         <div class="input_top">
-          <input type="text" v-model="valueName" placeholder="请输入性名" />
+          <input type="text" v-model="valueName" placeholder="请输入姓名" />
         </div>
         <h3 class="h3Two">出生日期</h3>
         <div class="picker">

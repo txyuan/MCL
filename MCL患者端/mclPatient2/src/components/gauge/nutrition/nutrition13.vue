@@ -77,7 +77,7 @@ export default {
       valueAll: false,
       list: [
         {
-          value: "肌肉发发",
+          value: "肌肉发达",
           id: '正常'
         },
         {
