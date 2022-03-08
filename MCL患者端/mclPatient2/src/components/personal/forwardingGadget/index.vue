@@ -76,6 +76,15 @@ export default {
       goodsName : '心理评估',
       type : 'psychology1'
     },
+     {
+      goodsName : '体能评估',
+      type : 'physicalGauge1'
+    },
+    {
+      goodsName : '体重监测',
+      type : 'weightGauge1'
+    },
+   
     ],
     type: "",
     index: -1,

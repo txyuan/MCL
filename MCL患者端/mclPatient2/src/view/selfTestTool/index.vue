@@ -44,6 +44,19 @@
                 <i class="item-icon">GO></i>
               </div>
             </li>
+            <li  @click="$router.push('/physicalGauge1')">
+              <div class="box">
+                <p class="item-title">体能评估</p>
+                <i class="item-icon">GO></i>
+              </div>
+            </li>
+             <li  @click="$router.push('/weightGauge1')">
+              <div class="box">
+                <p class="item-title">体重监测</p>
+                <i class="item-icon">GO></i>
+              </div>
+            </li>
+             
              <li  @click="$router.push('/dietarySurvey')">
               <div class="box">
                 <p class="item-title">膳食评估</p>

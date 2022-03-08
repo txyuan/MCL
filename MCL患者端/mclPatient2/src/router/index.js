@@ -284,13 +284,20 @@ const nutrition12 = () => import(/* webpackChunkName: "nutrition12" */ '@/compon
 const nutrition13 = () => import(/* webpackChunkName: "nutrition13" */ '@/components/gauge/nutrition/nutrition13.vue')
 
 // 心理评估
-
 const psychology1 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/psychology/psychology1.vue')
 const psychology2 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/psychology/psychology2.vue')
 const psychology3 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/psychology/psychology3.vue')
 const psychology4 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/psychology/psychology4.vue')
 const psychology5 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/psychology/psychology5.vue')
 const psychology6 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/psychology/psychology6.vue')
+
+// 体重检测
+const weightGauge = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/weightGauge/weightGauge.vue')
+const weightGauge1 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/weightGauge/weightGauge1.vue')
+
+// 体能检测
+const physicalGauge1 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/physicalGauge/physicalGauge1.vue')
+const physicalGauge2 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/physicalGauge/physicalGauge2.vue')
 //导入页面
 
 
@@ -450,8 +457,14 @@ const router = new Router({
     { path:"/psychology3", name:"psychology3", component: psychology3},
     { path:"/psychology4", name:"psychology4", component: psychology4},
     { path:"/psychology5", name:"psychology5", component: psychology5},
-    { path:"/psychology6", name:"psychology6", component: psychology6},
-
+    { path: "/psychology6", name: "psychology6", component: psychology6 },
+    // 体重检测
+    //  
+    { path:"/weightGauge", name:"weightGauge", component: weightGauge},
+    { path: "/weightGauge1", name: "weightGauge1", component: weightGauge1 },
+    // 体能检测
+    { path: "/physicalGauge1", name: "physicalGauge1", component: physicalGauge1 },
+    { path: "/physicalGauge2", name: "physicalGauge2", component: physicalGauge2 },
     // { path:"/panicBuyingArea", name:"panicBuyingArea", component: panicBuyingArea, meta:{keepAlive: true}},
     // { path:"/panicBuyingAreaDetail/:sKey", name:"panicBuyingAreaDetail", component: panicBuyingAreaDetail },
     // { path:"/panicBuyingAreaPaySuccess", name:"panicBuyingAreaPaySuccess", component: panicBuyingAreaPaySuccess },
