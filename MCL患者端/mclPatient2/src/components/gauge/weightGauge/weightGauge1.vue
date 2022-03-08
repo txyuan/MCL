@@ -16,7 +16,7 @@
         <div class="date">
           <p>
             <span>手术时间</span>
-            <input readonly @click="changeTime" type="text" v-model="data.value_01" placeholder="请选择日期" />
+            <input readonly  type="text" v-model="changeDate" placeholder="请选择日期" />
             <img src="@/assets/images/date.png" alt="">
           </p>
         </div>
@@ -91,34 +91,14 @@
         :style="{ height: '53%' }"
       >
         <h3 style="margin-top: 0.4rem; text-align:center">身高 (厘米)</h3>
-        <Ruler1 :value="100" :min="0" :max="300" :onChange="changeHeight" />
+        <Ruler1 :value="160" :min="0" :max="300" :onChange="changeHeight" />
         <div class="weight_btn">
           <van-button class="btn_info1" @click="submitHeight" round type="info"
             >保存</van-button
           >
         </div>
       </van-popup>
-      <van-popup
-        v-model="showTime"
-        round
-        position="bottom"
-        :style="{ height: '53%' }"
-      >
-        <van-datetime-picker
-          item-height="50"
-          title="手术时间"
-          active-calss="selectPicker"
-          v-model="currentDate"
-          confirm-button-text="完成"
-          type="date"
-          :columns-order="['year', 'month', 'day']"
-          :formatter="formatter"
-          @change="onShift"
-          visible-item-count="5"
-          @confirm="confirm"
-          @cancel="cancel"
-        />
-      </van-popup>
+      
     </div>
   </div>
 </template>
@@ -139,7 +119,6 @@ export default {
   data() {
     return {
       show: false,
-      showTime: false,
       showHeight: false,
       checkedOne: "",
       valueAll: false,
@@ -172,7 +151,7 @@ export default {
         },
       ],
       weight: "50",
-      height : '100',
+      height : '160',
       currentDate: new Date(),
       changeDate: this.timeFormat(new Date()),
     };
@@ -184,7 +163,7 @@ export default {
   watch: {
       aaa:{//深度监听，可监听到对象、数组的变化
             handler(newVal, oldVal){
-               if(newVal.value_01 == "" || newVal.value_02 == ""  || newVal.value_03 == "" || newVal.value_04 == "") {
+               if(newVal.value_02 == ""  || newVal.value_03 == "" || newVal.value_04 == "") {
                  this.valueAll = false
                }else {
                  this.valueAll = true
@@ -294,23 +273,23 @@ export default {
         return year + "-" + month + "-" + day;
       }
     },
-     changeTime() {
-      this.showTime = true;
-      this.$nextTick(() => {
-        this.getDoms();
-        this.setDom();
-      });
-    },
-     // 时间确定按钮
-    confirm() {
-      this.data.value_01 = this.changeDate;
-      this.showTime = false;
-    },
-    // 时间取消按钮
-    cancel() {
-      this.changeDate = this.timeFormat(new Date());
-      this.showTime = false;
-    },
+    //  changeTime() {
+    //   this.showTime = true;
+    //   this.$nextTick(() => {
+    //     this.getDoms();
+    //     this.setDom();
+    //   });
+    // },
+    //  // 时间确定按钮
+    // confirm() {
+    //   this.data.value_01 = this.changeDate;
+    //   this.showTime = false;
+    // },
+    // // 时间取消按钮
+    // cancel() {
+    //   this.changeDate = this.timeFormat(new Date());
+    //   this.showTime = false;
+    // },
     goInfo() {
       let url = 'UserInterface/selfTestTool/AddWeightMonitoring.ashx'
       this.$post(url,this.data).then(res => {

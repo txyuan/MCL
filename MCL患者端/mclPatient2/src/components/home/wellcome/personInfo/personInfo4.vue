@@ -2,9 +2,9 @@
   <div class="home">
     <div class="header_top">
       <div slot="left">
-        <header-back>
-          <mt-button icon="back"></mt-button>
-        </header-back>
+        <!-- <header-back> -->
+          <mt-button icon="back" @click="$router.replace('/personInfo3')"></mt-button>
+        <!-- </header-back> -->
       </div>
       <div class="center_line">
         <p></p>
@@ -126,7 +126,7 @@ export default {
          ...obj
        }
        this.$store.commit('setpersonInfo',obj4)
-      this.$router.push("/personInfo5");
+      this.$router.replace("/personInfo5");
     },
     goInfoTo() {
       let personInfo = this.$store.state.personInfo
@@ -139,7 +139,7 @@ export default {
          ...obj
        }
        this.$store.commit('setpersonInfo',obj4)
-      this.$router.push("/personInfo5");
+      this.$router.replace("/personInfo5");
     },
     formatter(type, val) {
       if (type === "year") {

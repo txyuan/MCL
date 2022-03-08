@@ -2,9 +2,9 @@
   <div class="home">
     <div class="header_top">
       <div slot="left">
-        <header-back>
-          <mt-button icon="back"></mt-button>
-        </header-back>
+        <!-- <header-back> -->
+          <mt-button icon="back" @click="$router.replace('/personInfo4')"></mt-button>
+        <!-- </header-back> -->
       </div>
       <div class="center_line">
         <p></p>
@@ -358,7 +358,7 @@ export default {
         ...this.data,
       };
       this.$store.commit("setpersonInfo", obj);
-      this.$router.push("/personInfo6");
+      this.$router.replace("/personInfo6");
     },
     goInfoTo() {
       let personInfo = this.$store.state.personInfo;
@@ -369,7 +369,7 @@ export default {
         ...this.data,
       };
       this.$store.commit("setpersonInfo", obj5);
-      this.$router.push("/personInfo6");
+      this.$router.replace("/personInfo6");
     },
   },
 };

@@ -2,9 +2,9 @@
   <div class="home">
     <div class="header_top">
       <div slot="left">
-        <header-back>
-          <mt-button icon="back"></mt-button>
-        </header-back>
+        <!-- <header-back> -->
+          <mt-button icon="back" @click="$router.replace('/personInfo5')"></mt-button>
+        <!-- </header-back> -->
       </div>
       <div class="center_line">
         <p></p>
@@ -313,7 +313,7 @@ export default {
           }
           this.$Toast('保存成功')
           if(localStorage.getItem('fullPath')) {
-            this.$router.push(localStorage.getItem('fullPath'))
+            this.$router.replace(localStorage.getItem('fullPath'))
           }else {
             this.$router.push('/wx_Entrance/home')
           }

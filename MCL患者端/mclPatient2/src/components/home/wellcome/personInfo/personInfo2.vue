@@ -2,9 +2,9 @@
   <div class="home">
     <div class="header_top">
       <div slot="left">
-        <header-back>
-          <mt-button icon="back"></mt-button>
-        </header-back>
+        <!-- <header-back> -->
+          <mt-button icon="back" @click="$router.replace('/personInfo1')"></mt-button>
+        <!-- </header-back> -->
       </div>
       <div class="center_line">
         <p></p>
@@ -44,7 +44,7 @@
         <h3 class="height">身高(厘米)</h3>
         <div>
           <DLRuler1
-            :value="100"
+            :value="160"
             :min="0"
             :max="300"
             :onChange="changeHeight"
@@ -84,7 +84,7 @@ export default {
       changeDate : this.timeFormat(new Date()),
       selnan : 1,
       selnv : false,
-      height : '100',
+      height : '160',
       weight : '50',
       sex : false
     };
@@ -131,7 +131,7 @@ export default {
         ...obj
       }
       this.$store.commit('setpersonInfo',obj2)
-      this.$router.push('/personInfo3')
+      this.$router.replace('/personInfo3')
     },
     formatter(type, val) {
       if (type === "year") {

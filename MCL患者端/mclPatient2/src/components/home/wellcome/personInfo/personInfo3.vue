@@ -2,9 +2,9 @@
   <div class="home">
     <div class="header_top">
       <div slot="left">
-        <header-back>
-          <mt-button icon="back"></mt-button>
-        </header-back>
+        <!-- <header-back> -->
+          <mt-button icon="back" @click="$router.replace('/personInfo2')"></mt-button>
+        <!-- </header-back> -->
       </div>
       <div class="center_line">
         <p></p>
@@ -243,7 +243,7 @@ export default {
          ...this.data
        }
        this.$store.commit('setpersonInfo',obj3)
-      this.$router.push('/personInfo4')
+      this.$router.replace('/personInfo4')
     }
   },
 };

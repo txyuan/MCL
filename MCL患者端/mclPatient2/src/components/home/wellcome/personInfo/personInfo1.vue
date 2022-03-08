@@ -3,7 +3,7 @@
     <div class="header_top">
       <div slot="left">
         <header-back>
-          <mt-button icon="back"></mt-button>
+          <mt-button icon="back" @click="$router.go(-0)"></mt-button>
         </header-back>
       </div>
       <div class="center_line">
@@ -122,7 +122,7 @@ export default {
         birth : this.changeDate
       }
       this.$store.commit('setpersonInfo',obj)
-      this.$router.push("/personInfo2");
+      this.$router.replace("/personInfo2");
     },
     formatter(type, val) {
       if (type === "year") {
