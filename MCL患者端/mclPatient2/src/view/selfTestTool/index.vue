@@ -2,9 +2,9 @@
   <div class="padding-header page-bg-hui">
     <mt-header title="自测工具" fixed>
       <div slot="left">
-        <header-back>
-          <mt-button icon="back" @click="$router.push('/selfTestTool')"></mt-button>
-        </header-back>
+        <!-- <header-back> -->
+          <mt-button icon="back" @click="$router.push('/wx_Entrance/home')"></mt-button>
+        <!-- </header-back> -->
       </div>
     </mt-header>
 
@@ -139,13 +139,13 @@ export default {
       rphone : ''
     }
   },
-   beforeRouteLeave(to, from, next){
-    if(to.name == "nutrition13"){
-      this.$router.push('/wx_Entrance/home');
-    }else{
-      next();
-    }
-  },
+  //  beforeRouteLeave(to, from, next){
+  //   if(to.name != "/wx_Entrance/home"){
+  //     this.$router.push('/wx_Entrance/home');
+  //   }else{
+  //     next();
+  //   }
+  // },
   methods:{
      async detailFN(item) {
       //  $router.push({name: 'selfTestDetail', query:{type: item.PageUrl, skey: item.sKey, SubjectName: item.SubjectName}})
