@@ -102,6 +102,7 @@
         >
           <template #reference>
             <p class="qipao">请勾选同意</p>
+            <!-- <p class="qipao"></p> -->
           </template>
         </van-popover>
         <div class="conent">
@@ -382,12 +383,17 @@ export default {
           // }
           if (redirect) {
             // 判断通过分享来的登录 返回路由不携带推荐人手机号
-            var reg = RegExp(/rphone=/);
-            if (redirect.match(reg)) {
-              let ipos = redirect.indexOf("rphone=");
-              let res_redirect = redirect.substring(0, ipos);
-              this.$router.replace(res_redirect);
-            } else {
+            // var reg = RegExp(/rphone=/);
+            // if (redirect.match(reg)) {
+            //   let ipos = redirect.indexOf("rphone=");
+            //   let res_redirect = redirect.substring(0, ipos);
+            //   this.$router.replace(res_redirect);
+            // } else {
+            //   this.$router.replace(redirect);
+            // }
+            if(redirect == '/wellcome_personInfo') {
+              this.$router.replace('/personInfo1');
+            }else {
               this.$router.replace(redirect);
             }
             // 报告查询页面

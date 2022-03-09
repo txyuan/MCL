@@ -162,7 +162,7 @@
         />
       </van-popup>
       <div class="bot_content">
-        <div style="background-color: #fff">
+        <div >
           <div class="btn">
             <van-button
               v-if="btnJurisdiction"
@@ -651,6 +651,7 @@ export default {
 .content_all {
   background-color: #fff;
   overflow: hidden;
+  margin-bottom: 1.3rem;
 }
 .content {
   background-color: #fff;
@@ -849,10 +850,14 @@ export default {
   margin: 0.1rem 0.2rem;
 }
 .bot_content {
-  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  // background-color: #fff;
 
   .title {
-    padding-top: 0.4rem;
+    // padding-top: 0.4rem;
     text-align: center;
     line-height: 0.3rem;
     font-size: 0.14rem;
@@ -861,20 +866,10 @@ export default {
       color: #4ec2a5;
     }
   }
-  .down {
-    text-align: center;
-    img {
-      margin-top: 0.4rem;
-      width: 0.3rem;
-      height: 0.3rem;
-    }
-  }
   .btn {
     width: 100%;
-    background-color: #fff;
-    // position: fixed;
-    margin: 0.4rem 0 0.2rem 0;
-    // bottom: 0.2rem;
+    // background-color: transparent;
+    margin: 0 0 0.2rem 0;
     text-align: center;
     .btn_info {
       width: 80% !important;

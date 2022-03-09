@@ -160,12 +160,14 @@ h3 {
   margin: 0.95rem 0 0 0;
   text-align: center;
   font-weight: 500;
+  font-size: 0.2rem;
 }
 
 .gauge_3 {
   margin-top: 0.3rem;
   padding-bottom: 0.6rem;
   p {
+    font-size: 0.18rem;
     padding: 0 0.23rem;
   }
   // margin-top: 0.3rem;

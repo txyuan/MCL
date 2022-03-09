@@ -164,6 +164,7 @@ h3 {
   margin-top: 0.95rem;
   padding-bottom: 0.6rem;
   p {
+    font-size: 0.18rem;
     padding: 0 0.23rem;
   }
   // margin-top: 0.3rem;

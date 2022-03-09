@@ -84,6 +84,10 @@ export default {
       goodsName : '体重监测',
       type : 'weightGauge1'
     },
+    // {
+    //   goodsName : '症状管理',
+    //   type : 'symptom1'
+    // },
    
     ],
     type: "",

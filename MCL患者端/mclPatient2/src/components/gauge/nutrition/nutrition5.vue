@@ -28,19 +28,25 @@
     </div>
     <div>
       <h3>活动和身体机能</h3>
-      <div class="gauge_1">
-        <p>1、在过去1月内, 我的活动 (可多选)</p>
-        <ul>
-          <li @click="selValue_33" :class="{checkedOne:data.attribute_value_33=='1'}">正常, 无限制</li>
-          <li @click="selValue_34" :class="{checkedOne:data.attribute_value_34=='1'}">不像往常, 但还能起床进行轻微的活动</li>
-          <li @click="selValue_35" :class="{checkedOne:data.attribute_value_35=='1'}">多数时候不想起床活动, 但卧床或座椅时间不超过半天</li>
-          <li @click="selValue_36" :class="{checkedOne:data.attribute_value_36=='1'}">几乎干不了什么, 一天大多数时候都卧床或在椅子上</li>
-          <li @click="selValue_37" :class="{checkedOne:data.attribute_value_37=='1'}">几乎完全卧床, 无法起床</li>
-        </ul>
+      <div class="gauge_3">
+        <p>1、在过去1月内, 我的活动</p>
+         <van-radio-group
+          class="one_gau_radio"
+          v-model="data.attribute_value_59"
+          direction="horizontal"
+        >
+          <van-radio
+            v-for="(item, i) in list"
+            :key="i"
+            :class="{ checkedOne: data.attribute_value_59 == item.value }"
+            :name="item.id"
+            >{{ item.value }}</van-radio
+          >
+        </van-radio-group>
       </div>
     </div>
     <div class="bot_content">
-        <div style="background-color: #fff">
+        <div>
           <div class="btn">
             <van-button
               v-if="valueAll"
@@ -66,18 +72,36 @@ export default {
     return {
       valueAll : false,
       data : {
-        attribute_value_33 : '0', 
-        attribute_value_34 : '0', 
-        attribute_value_35 : '0', 
-        attribute_value_36 : '0', 
-        attribute_value_37 : '0', 
-      }
+        attribute_value_59 : '',
+      },
+      list : [
+        {
+          value : '正常, 无限制',
+          id: '0'
+        },
+        {
+          value : '不像往常, 但还能起床进行轻微的活动',
+          id: '1'
+        },
+        {
+          value : '多数时候不想起床活动, 但卧床或座椅时间不超过半天',
+          id: '2'
+        },
+        {
+          value : '几乎干不了什么, 一天大多数时候都卧床或在椅子上',
+          id: '3'
+        },
+        {
+          value : '几乎完全卧床, 无法起床',
+          id: '4'
+        },
+      ]
     };
   },
   watch : {
      aaa:{//深度监听，可监听到对象、数组的变化
             handler(newVal, oldVal){
-               if(newVal.attribute_value_33 == "0" && newVal.attribute_value_34 == "0" && newVal.attribute_value_35 == "0"&& newVal.attribute_value_36 == "0"&& newVal.attribute_value_37 == "0") {
+               if(newVal.attribute_value_59 == "") {
                  this.valueAll = false
                }else {
                  this.valueAll = true
@@ -100,22 +124,7 @@ export default {
       }
       this.$store.commit('setnutrition',obj5)
       this.$router.push('/nutrition6')
-    },
-    selValue_33() {
-      this.data.attribute_value_33 == '0' ? this.data.attribute_value_33 = '1' : this.data.attribute_value_33 = '0'
-    },
-    selValue_34() {
-      this.data.attribute_value_34 == '0' ? this.data.attribute_value_34 = '1' : this.data.attribute_value_34 = '0'
-    },
-    selValue_35() {
-      this.data.attribute_value_35 == '0' ? this.data.attribute_value_35 = '1' : this.data.attribute_value_35 = '0'
-    },
-    selValue_36() {
-      this.data.attribute_value_36 == '0' ? this.data.attribute_value_36 = '1' : this.data.attribute_value_36 = '0'
-    },
-    selValue_37() {
-      this.data.attribute_value_37 == '0' ? this.data.attribute_value_37 = '1' : this.data.attribute_value_37 = '0'
-    },
+    }
   },
 };
 </script>
@@ -158,57 +167,84 @@ h3 {
   margin: 0.95rem 0 0 0;
   text-align: center;
   font-weight: 500;
+  font-size: 0.2rem;
 }
-.gauge_1 {
-   margin-top: 0.3rem;
-  padding-left: 0.38rem;
-  padding-right: 0.37rem;
-  ul {
-    li {
-      padding: 0.1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 0.2rem;
-     border: 1px solid #ccc;
-     border-radius: 0.06rem;
-    //  height: 0.4rem;
-     text-align: center;
-    //  line-height: 0.4rem;
-     color: #999;
+
+.gauge_3 {
+  margin-top: 0.3rem;
+  padding-bottom: 0.6rem;
+   margin-bottom: 1.3rem;
+  p {
+    font-size: 0.18rem;
+    padding: 0 0.23rem;
+  }
+  // margin-top: 0.3rem;
+  .images {
+    padding: 0 0.23rem;
+    margin-top: 0.2rem;
+    display: flex;
+    img {
+      width: 100%;
+      border-radius: 0.04rem;
     }
-    .checkedOne {
-      border: 1px solid #36c2d7 !important;
-       color: #36c2d7 !important;
-  
-}
+  }
+  .one_gau_radio {
+    padding: 0 0.33rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  >>> .van-radio {
+    margin-top: 0.2rem;
+    border: 1px solid #ccc;
+    border-radius: 0.06rem;
+    // height: 0.4rem !important;
+    width: 100% !important;
+    margin-right: 0 !important;
+  }
+
+  >>> .van-radio__icon {
+    margin-left: 0.15rem !important;
+  }
+  >>> .van-radio__label {
+     margin-left: 0.15rem !important;
+    padding: 0.05rem 0.05rem;
+    text-align: left;
+    width: 100%;
+    color: #999 !important;
+  }
+  >>> .van-radio__icon--checked .van-icon {
+    background-color: #36c2d7;
+    border-color: #36c2d7;
+  }
+  .checkedOne {
+    border: 1px solid #36c2d7 !important;
+    >>> .van-radio__label {
+      color: #36c2d7 !important;
+    }
   }
 }
 .bot_content {
-  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  // background-color: #fff;
 
   .title {
-    padding-top: 0.4rem;
+    // padding-top: 0.4rem;
     text-align: center;
     line-height: 0.3rem;
     font-size: 0.14rem;
-    p:nth-child(5) {
+    p:nth-child(3) {
       font-size: 0.16rem;
       color: #4ec2a5;
     }
   }
-  .down {
-    text-align: center;
-    img {
-      margin-top: 0.4rem;
-      width: 0.3rem;
-      height: 0.3rem;
-    }
-  }
   .btn {
     width: 100%;
-    background-color: #fff;
-    margin: 0.3rem 0 0.2rem 0;
+    // background-color: transparent;
+    margin: 0 0 0.2rem 0;
     text-align: center;
     .btn_info {
       width: 80% !important;

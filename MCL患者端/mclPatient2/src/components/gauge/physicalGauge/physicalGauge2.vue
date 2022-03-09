@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="bot_content">
-      <div style="background-color: #fff">
+      <div >
         <div class="btn">
           <van-button
             v-if="valueAll"
@@ -175,12 +175,17 @@ h3 {
   margin: 0.95rem 0 0 0;
   text-align: center;
   font-weight: 500;
+  font-size: 0.2rem;
 }
 .gauge_3 {
   margin-top: 0.2rem;
   padding-left: 0.38rem;
   padding-right: 0.37rem;
-  margin-bottom: 0.4rem;
+  // margin-bottom: 0.4rem;
+  margin-bottom: 1.3rem;
+  p {
+    font-size: 0.18rem;
+  }
   .one_gau_radio {
     display: flex;
     justify-content: space-between;
@@ -228,30 +233,26 @@ h3 {
   }
 }
 .bot_content {
-  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  // background-color: #fff;
 
   .title {
-    padding-top: 0.4rem;
+    // padding-top: 0.4rem;
     text-align: center;
     line-height: 0.3rem;
     font-size: 0.14rem;
-    p:nth-child(6) {
+    p:nth-child(3) {
       font-size: 0.16rem;
       color: #4ec2a5;
     }
   }
-  .down {
-    text-align: center;
-    img {
-      margin-top: 0.4rem;
-      width: 0.3rem;
-      height: 0.3rem;
-    }
-  }
   .btn {
     width: 100%;
-    background-color: #fff;
-    margin: 0.9rem 0 0.2rem 0;
+    // background-color: transparent;
+    margin: 0 0 0.2rem 0;
     text-align: center;
     .btn_info {
       width: 80% !important;

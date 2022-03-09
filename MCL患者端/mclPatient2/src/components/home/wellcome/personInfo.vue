@@ -21,7 +21,7 @@
       <div class="down">
         <img src="@/assets/images/home/downInfo.png" alt="" />
       </div>
-      <div style="background-color: #fff">
+      <div >
         <div class="btn">
           <van-button class="btn_info" round type="info" @click="goInfo"
             >开始填写</van-button
@@ -160,7 +160,8 @@ export default {
   }
 }
 .bot_content {
-  background-color: #fff;
+  
+  // background-color: #fff;
 
   .title {
     padding-top: 0.3rem;
@@ -182,7 +183,11 @@ export default {
   }
   .btn {
     width: 100%;
-    background-color: #fff;
+    // background-color: #fff;
+    position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
     // position: fixed;
     margin: 0.8rem 0 0.2rem 0;
     // bottom: 0.2rem;

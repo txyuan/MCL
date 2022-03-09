@@ -1,0 +1,35 @@
+<template>
+   <div>6
+    <button @click="go">ann</button>
+  </div>
+</template>
+
+<script>
+export default {
+ methods: {
+    go() {
+     let symptom = this.$store.state.symptom;
+     let str = this.$route.path.match(/symptom(\S*)/)[1];
+    let i = symptom.findIndex( item => item.sKey == str)
+    console.log(symptom);
+    console.log(str);
+    console.log(i);
+     if(symptom.length -1 ==  i) {
+        // this.$router.push(`/symptom${symptom[i+1].sKey}`)
+        console.log('end');
+        // this.$store.commit("setsymptom", symptom);
+      }else {
+         this.$router.push(`/symptom${symptom[i+1].sKey}`)
+      }
+      // if(symptom.length > 0) {
+       
+        // this.$store.commit("setsymptom", symptom);
+      // }
+    }
+  }
+}
+</script>
+
+<style>
+
+</style>

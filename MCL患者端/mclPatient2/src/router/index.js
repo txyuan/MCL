@@ -298,6 +298,20 @@ const weightGauge1 = () => import(/* webpackChunkName: "psychology" */ '@/compon
 // 体能检测
 const physicalGauge1 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/physicalGauge/physicalGauge1.vue')
 const physicalGauge2 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/physicalGauge/physicalGauge2.vue')
+
+// 症状管理
+const symptom1 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom1.vue')
+const symptom2 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom2.vue')
+const symptom3 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom3.vue')
+const symptom4 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom4.vue')
+const symptom5 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom5.vue')
+const symptom6 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom6.vue')
+const symptom7 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom7.vue')
+const symptom8 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom8.vue')
+const symptom9 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom9.vue')
+const symptom13 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom13.vue')
+const symptom15 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom15.vue')
+const symptom121 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom121.vue')
 //导入页面
 
 
@@ -465,6 +479,19 @@ const router = new Router({
     // 体能检测
     { path: "/physicalGauge1", name: "physicalGauge1", component: physicalGauge1 },
     { path: "/physicalGauge2", name: "physicalGauge2", component: physicalGauge2 },
+    // 症状管理
+    { path: "/symptom1", name: "symptom1", component: symptom1 },
+    { path: "/symptom2", name: "symptom2", component: symptom2 },
+    { path: "/symptom3", name: "symptom3", component: symptom3 },
+    { path: "/symptom4", name: "symptom4", component: symptom4 },
+    { path: "/symptom5", name: "symptom5", component: symptom5 },
+    { path: "/symptom6", name: "symptom6", component: symptom6 },
+    { path: "/symptom7", name: "symptom7", component: symptom7 },
+    { path: "/symptom8", name: "symptom8", component: symptom8 },
+    { path: "/symptom9", name: "symptom9", component: symptom9 },
+    { path: "/symptom13", name: "symptom13", component: symptom13 },
+    { path: "/symptom15", name: "symptom15", component: symptom15 },
+    { path: "/symptom121", name: "symptom121", component: symptom121 },
     // { path:"/panicBuyingArea", name:"panicBuyingArea", component: panicBuyingArea, meta:{keepAlive: true}},
     // { path:"/panicBuyingAreaDetail/:sKey", name:"panicBuyingAreaDetail", component: panicBuyingAreaDetail },
     // { path:"/panicBuyingAreaPaySuccess", name:"panicBuyingAreaPaySuccess", component: panicBuyingAreaPaySuccess },

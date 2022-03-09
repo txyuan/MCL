@@ -531,6 +531,10 @@ export default {
   }
 }
 .bot_content {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   margin-top: 1rem;
   height: 0.88rem;
   background-color: #fff;
