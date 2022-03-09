@@ -3,7 +3,7 @@
     <mt-header title="自测工具" fixed>
       <div slot="left">
         <header-back>
-          <mt-button icon="back"></mt-button>
+          <mt-button icon="back" @click="$router.push('/selfTestTool')"></mt-button>
         </header-back>
       </div>
     </mt-header>
