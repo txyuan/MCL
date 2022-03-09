@@ -15,7 +15,7 @@
       <div class="one_gau_input">
         <div class="date">
           <p>
-            <span>手术时间</span>
+            <span>日期</span>
             <input readonly  type="text" v-model="changeDate" placeholder="请选择日期" />
             <img src="@/assets/images/date.png" alt="">
           </p>
