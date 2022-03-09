@@ -95,7 +95,7 @@ export default {
       WechatParm: {}, //公众号信息
       shareObj: {
         //分享信息内容配置
-        title: `自测工具-心理评估`,
+        title: `自测工具-体能评估`,
         desc: "", // 分享描述
         link: `${location.origin}${location.pathname}#${this.$route.fullPath}`, //系统地址
         imgUrl: location.origin + logoImg,
