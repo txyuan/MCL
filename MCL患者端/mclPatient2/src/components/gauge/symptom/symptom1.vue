@@ -11,7 +11,7 @@
         </header-back>
       </div>
     </mt-header>
-    <h3>请记录您现有症状 (多选)</h3>
+    <h3><span></span>请记录您现有症状 (多选)</h3>
     <div class="content">
       <div class="one">
         <p>一、全身症状</p>
@@ -271,7 +271,7 @@ export default {
 
 <style scoped lang="scss">
 .padding-header {
-  padding: 0.2rem 0.1rem;
+  padding: 0.2rem 0.13rem;
   background-color: #F5F6FA ;
 }
 h3 {
@@ -280,23 +280,31 @@ h3 {
   font-weight: 500;
   height: 0.21rem;
   line-height: 0.2rem;
-  border-left: 4px solid #36C2D9;
-  margin-top: 0.4rem;
-  padding-left: 0.1rem;
+  margin-top: 0.5rem;
+  span {
+    box-sizing: border-box;
+    border: 2px solid #36C2D9;
+    margin-right: 0.1rem;
+    border-radius: 0.02rem;
+  }
 }
 .content {
-  margin-top: 0.19rem;
+  margin-top: 0.25rem;
   margin-bottom: 1.3rem;
   .one {
+    position: relative;
     background-color: #fff;
     border-radius: 0.08rem;
     padding: 0.12rem 0 0 0;
     margin-bottom: 0.1rem;
     p {
+      position: absolute;
+      left: -0.04rem;
+      top: 0.1rem;
       width: 1.15rem;
       height: 0.25rem;
       line-height: 0.26rem;
-      padding-left: 0.2rem;
+      padding-left: 0.15rem;
       font-size: 0.14rem;
       color: #fff;
       background: url('~@/assets/images/symptom/oneTitle.png')no-repeat;
@@ -307,7 +315,7 @@ h3 {
   }
   >>> .van-cell-group {
     border-radius: 0.08rem;
-    margin-top: 0.15rem;
+    margin-top: 0.38rem;
     overflow: hidden;
     padding: 0 0.11rem;
     // height: 0.7rem;
@@ -328,7 +336,7 @@ h3 {
       margin-bottom: 0.18rem;
       .van-cell__title {
         font-size: 0.18rem;
-        margin-left: 0.4rem;
+        margin-left: 0.35rem;
       }
       .van-cell__value {
         position: absolute;
@@ -368,15 +376,19 @@ h3 {
   
   }
   .two {
+     position: relative;
     background-color: #fff;
     border-radius: 0.08rem;
     padding: 0.12rem 0 0 0;
     margin-bottom: 0.1rem;
     p {
+       position: absolute;
+      left: -0.04rem;
+      top: 0.1rem;
       width: 1.15rem;
       height: 0.25rem;
       line-height: 0.26rem;
-      padding-left: 0.2rem;
+       padding-left: 0.15rem;
       font-size: 0.14rem;
       color: #fff;
       background: url('~@/assets/images/symptom/twoTitle.png')no-repeat;
@@ -387,7 +399,7 @@ h3 {
   }
   >>> .van-cell-group {
     border-radius: 0.08rem;
-    margin-top: 0.15rem;
+    margin-top: 0.38rem;
     overflow: hidden;
     padding: 0 0.11rem;
     // height: 0.7rem;
@@ -408,7 +420,7 @@ h3 {
       margin-bottom: 0.18rem;
       .van-cell__title {
         font-size: 0.18rem;
-        margin-left: 0.4rem;
+        margin-left: 0.35rem;
       }
       .van-cell__value {
         position: absolute;
@@ -448,15 +460,19 @@ h3 {
   
   }
   .three {
+    position: relative;
     background-color: #fff;
     border-radius: 0.08rem;
     padding: 0.12rem 0 0 0;
     margin-bottom: 0.1rem;
     p {
+       position: absolute;
+      left: -0.04rem;
+      top: 0.1rem;
       width: 1.15rem;
       height: 0.25rem;
       line-height: 0.26rem;
-      padding-left: 0.2rem;
+       padding-left: 0.15rem;
       font-size: 0.14rem;
       color: #fff;
       background: url('~@/assets/images/symptom/threeTitle.png')no-repeat;
@@ -467,7 +483,7 @@ h3 {
   }
   >>> .van-cell-group {
     border-radius: 0.08rem;
-    margin-top: 0.15rem;
+    margin-top: 0.38rem;
     overflow: hidden;
     padding: 0 0.11rem;
     // height: 0.7rem;
@@ -488,7 +504,7 @@ h3 {
       margin-bottom: 0.18rem;
       .van-cell__title {
         font-size: 0.18rem;
-        margin-left: 0.4rem;
+        margin-left: 0.35rem;
       }
       .van-cell__value {
         position: absolute;
@@ -528,14 +544,18 @@ h3 {
   
   }
   .four {
+    position: relative;
     background-color: #fff;
     border-radius: 0.08rem;
     padding: 0.12rem 0 0 0;
     p {
+       position: absolute;
+      left: -0.04rem;
+      top: 0.1rem;
       width: 1.15rem;
       height: 0.25rem;
       line-height: 0.26rem;
-      padding-left: 0.2rem;
+       padding-left: 0.15rem;
       font-size: 0.14rem;
       color: #fff;
       background: url('~@/assets/images/symptom/fourTitle.png')no-repeat;
@@ -546,7 +566,7 @@ h3 {
   }
   >>> .van-cell-group {
     border-radius: 0.08rem;
-    margin-top: 0.15rem;
+    margin-top: 0.38rem;
     overflow: hidden;
     padding: 0 0.11rem;
     // height: 0.7rem;
@@ -567,7 +587,7 @@ h3 {
       margin-bottom: 0.18rem;
       .van-cell__title {
         font-size: 0.18rem;
-        margin-left: 0.4rem;
+        margin-left: 0.35rem;
       }
       .van-cell__value {
         position: absolute;

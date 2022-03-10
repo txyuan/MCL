@@ -488,6 +488,7 @@ export default {
     }
   }
 .gauge_3 {
+  margin-bottom: 1.3rem;
   overflow: hidden;
   margin-top: 0.1rem;
   background-color: #fff;
