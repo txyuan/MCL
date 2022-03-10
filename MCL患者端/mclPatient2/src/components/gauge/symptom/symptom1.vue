@@ -332,7 +332,7 @@ h3 {
       height: 0.8rem;
       border-radius: 0.1rem;
       background-color: #f5f5f5 ;
-      width: 1.6rem !important;
+      width: 1.58rem !important;
       margin-bottom: 0.18rem;
       .van-cell__title {
         font-size: 0.18rem;
@@ -416,7 +416,7 @@ h3 {
       height: 0.8rem;
       border-radius: 0.1rem;
       background-color: #f5f5f5 ;
-      width: 1.6rem !important;
+      width: 1.58rem !important;
       margin-bottom: 0.18rem;
       .van-cell__title {
         font-size: 0.18rem;
@@ -500,7 +500,7 @@ h3 {
       height: 0.8rem;
       border-radius: 0.1rem;
       background-color: #f5f5f5 ;
-      width: 1.6rem !important;
+      width: 1.58rem !important;
       margin-bottom: 0.18rem;
       .van-cell__title {
         font-size: 0.18rem;
@@ -583,7 +583,7 @@ h3 {
       height: 0.8rem;
       border-radius: 0.1rem;
       background-color: #f5f5f5 ;
-      width: 1.6rem !important;
+      width: 1.58rem !important;
       margin-bottom: 0.18rem;
       .van-cell__title {
         font-size: 0.18rem;

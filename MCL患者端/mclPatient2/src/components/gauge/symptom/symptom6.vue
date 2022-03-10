@@ -187,8 +187,11 @@ export default {
      let str = this.$route.path.match(/symptom(\S*)/)[1];
     let i = this.stopLine.findIndex( item => item.sKey == str)
      if(this.stopLine.length -1 ==  i) {
+      //  this.stopLine[i].value = this.data.value_01 + ',' + this.data.value_02 + ',' + this.data.value_03
         console.log('end');
       }else {
+        this.stopLine[i].value = this.data.value_01 + ',' + this.data.value_02 + ',' + this.data.value_03
+        this.$store.commit("setsymptom", this.stopLine);
          this.$router.push(`/symptom${this.stopLine[i+1].sKey}`)
       }
       // this.$store.commit("setpsychology", this.data);

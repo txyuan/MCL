@@ -56,12 +56,12 @@
                 <i class="item-icon">GO></i>
               </div>
             </li>
-             <!-- <li  @click="$router.push('/symptom1')">
+             <li  @click="$router.push('/symptom1')">
               <div class="box">
                 <p class="item-title">症状管理</p>
                 <i class="item-icon">GO></i>
               </div>
-            </li> -->
+            </li>
              <li  @click="$router.push('/dietarySurvey')">
               <div class="box">
                 <p class="item-title">膳食评估</p>
