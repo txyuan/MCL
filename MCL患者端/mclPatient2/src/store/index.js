@@ -8,7 +8,8 @@ const store = new Vuex.Store({
     nutrition : {}, // 营养评估
     psychology : {}, // 心理评估
     physicalGauge : {}, // 体能评估
-    symptom : [], // 症状监测
+    symptom : [], // 症状管理组件
+    symptomData : [],// 症状管理数据 
   },
   mutations: {
     setpersonInfo(state, obj) {
@@ -25,6 +26,9 @@ const store = new Vuex.Store({
     },
     setsymptom(state, arr) {
       state.symptom = arr
+    },
+    setsymptomData(state, arr) {
+      state.symptomData = arr
     },
   }
 })

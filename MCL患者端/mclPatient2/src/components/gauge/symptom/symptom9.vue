@@ -17,19 +17,19 @@
     <div>
       <h3>消化不良</h3>
      <div class="gauge_1">
-        <p>4、近两周来, 我有一下问题, 影响我的饮食 (可多选)</p>
+        <p>4、近两周来,我有以下问题, 影响我的饮食 (可多选)</p>
         <ul>
-          <li @click="selValue_01" :class="{checkedOne:data.value_01=='1'}">吃饭没有问题</li>
+          <li @click="selValue_01" :class="{checkedOne:data.value_01=='0'}">吃饭没有问题</li>
           <li @click="selValue_02" :class="{checkedOne:data.value_02=='1'}">没有食欲, 不想吃</li>
-          <li @click="selValue_03" :class="{checkedOne:data.value_03=='1'}">恶心</li>
-          <li @click="selValue_04" :class="{checkedOne:data.value_04=='1'}">呕吐</li>
-          <li @click="selValue_05" :class="{checkedOne:data.value_05=='1'}">口腔溃疡</li>
-          <li @click="selValue_06" :class="{checkedOne:data.value_06=='1'}">便秘</li>
-          <li @click="selValue_07" :class="{checkedOne:data.value_07=='1'}">腹泻</li>
-          <li @click="selValue_08" :class="{checkedOne:data.value_08=='1'}">口干</li>
-          <li @click="selValue_09" :class="{checkedOne:data.value_09=='1'}">食品没味</li>
-          <li @click="selValue_10" :class="{checkedOne:data.value_10=='1'}">食品气味不好</li>
-          <li @click="selValue_11" :class="{checkedOne:data.value_11=='1'}">吞咽困难</li>
+          <li @click="selValue_03" :class="{checkedOne:data.value_03=='2'}">恶心</li>
+          <li @click="selValue_04" :class="{checkedOne:data.value_04=='3'}">呕吐</li>
+          <li @click="selValue_05" :class="{checkedOne:data.value_05=='4'}">口腔溃疡</li>
+          <li @click="selValue_06" :class="{checkedOne:data.value_06=='5'}">便秘</li>
+          <li @click="selValue_07" :class="{checkedOne:data.value_07=='6'}">腹泻</li>
+          <li @click="selValue_08" :class="{checkedOne:data.value_08=='7'}">口干</li>
+          <li @click="selValue_09" :class="{checkedOne:data.value_09=='8'}">食品没味</li>
+          <li @click="selValue_10" :class="{checkedOne:data.value_10=='9'}">食品气味不好</li>
+          <li @click="selValue_11" :class="{checkedOne:data.value_11=='10'}">吞咽困难</li>
         </ul>
       </div>
     </div>
@@ -66,17 +66,17 @@ export default {
       i : null,
       btnValue: '下一步',
       data: {
-        value_01: "0", // 
-        value_02: "0", // 
-        value_03: "0", // 
-        value_04: "0", // 
-        value_05: "0", // 
-        value_06: "0", // 
-        value_07: "0", // 
-        value_08: "0", // 
-        value_09: "0", // 
-        value_10: "0", // 
-        value_11: "0", // 
+        value_01: "", // 
+        value_02: "", // 
+        value_03: "", // 
+        value_04: "", // 
+        value_05: "", // 
+        value_06: "", // 
+        value_07: "", // 
+        value_08: "", // 
+        value_09: "", // 
+        value_10: "", // 
+        value_11: "", // 
       },
     };
   },
@@ -87,8 +87,8 @@ export default {
      aaa: {
       //深度监听，可监听到对象、数组的变化
       handler(newVal, oldVal) {
-        if (newVal.value_01 == "0" && newVal.value_02 == "0" && newVal.value_03 == "0" && newVal.value_04 == "0" && newVal.value_05 == "0" && newVal.value_06 == "0" && newVal.value_07 == "0" && newVal.value_08 == "0"
-         && newVal.value_09 == "0" && newVal.value_10 == "0" && newVal.value_11 == "0") {
+        if (newVal.value_01 == "" && newVal.value_02 == "" && newVal.value_03 == "" && newVal.value_04 == "" && newVal.value_05 == "" && newVal.value_06 == "" && newVal.value_07 == "" && newVal.value_08 == ""
+         && newVal.value_09 == "" && newVal.value_10 == "" && newVal.value_11 == "") {
           this.valueAll = false
         }else {
           this.valueAll = true
@@ -121,49 +121,71 @@ export default {
          this.btnValue = '下一步'
       }
     },
+      // 下一步/提交
     goInfo() {
-     let str = this.$route.path.match(/symptom(\S*)/)[1];
+    let str = this.$route.path.match(/symptom(\S*)/)[1];
     let i = this.stopLine.findIndex( item => item.sKey == str)
      if(this.stopLine.length -1 ==  i) {
-        console.log('end');
+        let arrValue = []
+        Object.values(this.data).forEach(item => {
+          if(item) {
+            arrValue.push(item)
+          }
+        })
+        this.stopLine[i].value = arrValue.join(',')
+        let url = 'UserInterface/complication/AddSymptomManagement.ashx'
+        this.$post(url,{value : JSON.stringify(this.stopLine)}).then(res => {
+           if (res.rspcode != 1) {
+            this.$Toast(res.rspdesc)
+            return
+          }
+          this.$Toast(res.rspdesc)
+          this.$router.push('/selfTestTool')
+        })
       }else {
-         this.$router.push(`/symptom${this.stopLine[i+1].sKey}`)
+        let arrValue = []
+        Object.values(this.data).forEach(item => {
+          if(item) {
+            arrValue.push(item)
+          }
+        })
+        this.stopLine[i].value = arrValue.join(',')
+        this.$store.commit("setsymptom", this.stopLine);
+        this.$router.push(`/symptom${this.stopLine[i+1].sKey}`)
       }
-      // this.$store.commit("setpsychology", this.data);
-      // this.$router.push("/psychology2");
     },
      selValue_01() {
-      this.data.value_01 == '0' ? this.data.value_01 = '1' : this.data.value_01 = '0'
+      this.data.value_01 == '' ? this.data.value_01 = '0' : this.data.value_01 = ''
     },
     selValue_02() {
-      this.data.value_02 == '0' ? this.data.value_02 = '1' : this.data.value_02 = '0'
+      this.data.value_02 == '' ? this.data.value_02 = '1' : this.data.value_02 = ''
     },
     selValue_03() {
-      this.data.value_03 == '0' ? this.data.value_03 = '1' : this.data.value_03 = '0'
+      this.data.value_03 == '' ? this.data.value_03 = '2' : this.data.value_03 = ''
     },
     selValue_04() {
-      this.data.value_04 == '0' ? this.data.value_04 = '1' : this.data.value_04 = '0'
+      this.data.value_04 == '' ? this.data.value_04 = '3' : this.data.value_04 = ''
     },
     selValue_05() {
-      this.data.value_05 == '0' ? this.data.value_05 = '1' : this.data.value_05 = '0'
+      this.data.value_05 == '' ? this.data.value_05 = '4' : this.data.value_05 = ''
     },
     selValue_06() {
-      this.data.value_06 == '0' ? this.data.value_06 = '1' : this.data.value_06 = '0'
+      this.data.value_06 == '' ? this.data.value_06 = '5' : this.data.value_06 = ''
     },
     selValue_07() {
-      this.data.value_07== '0' ? this.data.value_06 = '1' : this.data.value_06 = '0'
+      this.data.value_07== '' ? this.data.value_07 = '6' : this.data.value_07 = ''
     },
     selValue_08() {
-      this.data.value_08== '0' ? this.data.value_08 = '1' : this.data.value_08 = '0'
+      this.data.value_08== '' ? this.data.value_08 = '7' : this.data.value_08 = ''
     },
     selValue_09() {
-      this.data.value_09== '0' ? this.data.value_09 = '1' : this.data.value_09 = '0'
+      this.data.value_09== '' ? this.data.value_09 = '8' : this.data.value_09 = ''
     },
     selValue_10() {
-      this.data.value_10== '0' ? this.data.value_10 = '1' : this.data.value_10 = '0'
+      this.data.value_10== '' ? this.data.value_10 = '9' : this.data.value_10 = ''
     },
     selValue_11() {
-      this.data.value_11== '0' ? this.data.value_11 = '1' : this.data.value_11 = '0'
+      this.data.value_11== '' ? this.data.value_11 = '10' : this.data.value_11 = ''
     },
    
   },

@@ -22,8 +22,8 @@
             <van-radio
             v-for="(item, i) in list1"
             :key="i"
-            :class="{ checkedOne: data.value_01 == item.value }"
-            :name="item.value"
+            :class="{ checkedOne: data.value_01 == item.id }"
+            :name="item.id"
             >{{ item.value }}</van-radio
           >
           </van-radio-group>
@@ -32,8 +32,8 @@
             <van-radio
             v-for="(item, i) in list2"
             :key="i"
-            :class="{ checkedOne: data.value_02 == item.value }"
-            :name="item.value"
+            :class="{ checkedOne: data.value_02 == item.id }"
+            :name="item.id"
             >{{ item.value }}</van-radio
           >
           </van-radio-group>
@@ -42,8 +42,8 @@
             <van-radio
             v-for="(item, i) in list3"
             :key="i"
-            :class="{ checkedOne: data.value_03 == item.value }"
-            :name="item.value"
+            :class="{ checkedOne: data.value_03 == item.id }"
+            :name="item.id"
             >{{ item.value }}</van-radio
           >
           </van-radio-group>
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-
+import axios from 'axios'
 export default {
   name: "symptom6",
   data() {
@@ -84,55 +84,55 @@ export default {
       list1: [
         {
           value: "不需要",
-          id: '正常'
+          id: '1'
         },
         {
           value: "活动后需要休息半小时才能恢复",
-          id: '轻度'
+          id: '2'
         },
         {
           value: "活动10分钟就不想动了",
-          id: '中度'
+          id: '3'
         },
         {
           value: "太累，不想活动",
-          id: '严重'
+          id: '4'
         },
       ],
       list2: [
         {
           value: "不需要",
-          id: '正常'
+          id: '1'
         },
         {
           value: "白天在床上或坐椅时间很少",
-          id: '轻度'
+          id: '2'
         },
         {
           value: "多数情况下不想起床活动，但卧床或坐椅时间不超过半天",
-          id: '中度'
+          id: '3'
         },
         {
           value: "一天大多数时间都卧床或在椅子上",
-          id: '严重'
+          id: '4'
         },
       ],
       list3: [
         {
           value: "行走30分钟后需要休息",
-          id: '正常'
+          id: '1'
         },
         {
           value: "行走20分钟后需要休息",
-          id: '轻度'
+          id: '2'
         },
         {
           value: "行走10分钟后需要休息",
-          id: '中度'
+          id: '3'
         },
         {
           value: "不想行走",
-          id: '严重'
+          id: '4'
         },
       ],
      
@@ -184,18 +184,24 @@ export default {
       }
     },
     goInfo() {
-     let str = this.$route.path.match(/symptom(\S*)/)[1];
+    let str = this.$route.path.match(/symptom(\S*)/)[1];
     let i = this.stopLine.findIndex( item => item.sKey == str)
      if(this.stopLine.length -1 ==  i) {
-      //  this.stopLine[i].value = this.data.value_01 + ',' + this.data.value_02 + ',' + this.data.value_03
-        console.log('end');
+        this.stopLine[i].value = this.data.value_01 + ',' + this.data.value_02 + ',' + this.data.value_03
+        let url = 'UserInterface/complication/AddSymptomManagement.ashx'
+        this.$post(url,{value : JSON.stringify(this.stopLine)}).then(res => {
+           if (res.rspcode != 1) {
+            this.$Toast(res.rspdesc)
+            return
+          }
+          this.$Toast(res.rspdesc)
+          this.$router.push('/selfTestTool')
+        })
       }else {
         this.stopLine[i].value = this.data.value_01 + ',' + this.data.value_02 + ',' + this.data.value_03
         this.$store.commit("setsymptom", this.stopLine);
-         this.$router.push(`/symptom${this.stopLine[i+1].sKey}`)
+        this.$router.push(`/symptom${this.stopLine[i+1].sKey}`)
       }
-      // this.$store.commit("setpsychology", this.data);
-      // this.$router.push("/psychology2");
     },
     
    
@@ -272,23 +278,14 @@ h3 {
      margin-left: 0.15rem !important;
    }
    >>> .van-radio__label {
-     margin-left: -0.2rem !important;
-    padding: 0.09rem 0.05rem;
+    margin-left: 0.13rem !important;
+    padding: 0.09rem 0.2rem 0.09rem 0.05rem;
     line-height: 0.22rem;
-    text-align: center;
+    text-align: left;
     width: 100%;
        color: #999 !important;
      }
-    >>> .gebie_radio {
-    .van-radio:nth-child(3) .van-radio__label {
-     margin-left: 0.15rem !important;
-    text-align: left;
-     }
-    .van-radio:nth-child(4) .van-radio__label {
-     margin-left: 0.1rem !important;
-    text-align: left;
-     }
-  }
+    
    >>> .van-radio__icon--checked .van-icon {
     background-color: #36c2d7;
     border-color: #36c2d7;

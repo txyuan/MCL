@@ -18,17 +18,17 @@
       <h3>放射性肺炎（多选）</h3>
      <div class="gauge_1">
         <ul>
-          <li @click="selValue_01" :class="{checkedOne:data.value_01=='1'}">有诊断，但较轻微无明显症状</li>
+          <li @click="selValue_01" :class="{checkedOne:data.value_01=='0'}">有诊断，但较轻微无明显症状</li>
           <li @click="selValue_02" :class="{checkedOne:data.value_02=='1'}">偶有刺激性干咳</li>
-          <li @click="selValue_03" :class="{checkedOne:data.value_03=='1'}">干咳，活动后加重（多数在放射治疗2～3个月后出现）</li>
-          <li @click="selValue_04" :class="{checkedOne:data.value_04=='1'}">干咳频繁</li>
-          <li @click="selValue_05" :class="{checkedOne:data.value_05=='1'}">伴有气喘、气急</li>
-          <li @click="selValue_06" :class="{checkedOne:data.value_06=='1'}">伴有胸痛</li>
-          <li @click="selValue_07" :class="{checkedOne:data.value_07=='1'}">伴有心悸、心慌</li>
-          <li @click="selValue_08" :class="{checkedOne:data.value_08=='1'}">伴有发热</li>
-          <li @click="selValue_09" :class="{checkedOne:data.value_09=='1'}">呼吸困难，或伴有低氧血症</li>
-          <li @click="selValue_10" :class="{checkedOne:data.value_10=='1'}">并发支气管炎</li>
-          <li @click="selValue_11" :class="{checkedOne:data.value_11=='1'}">并发肺气肿</li>
+          <li @click="selValue_03" :class="{checkedOne:data.value_03=='2'}">干咳，活动后加重（多数在放射治疗2～3个月后出现）</li>
+          <li @click="selValue_04" :class="{checkedOne:data.value_04=='3'}">干咳频繁</li>
+          <li @click="selValue_05" :class="{checkedOne:data.value_05=='4'}">伴有气喘、气急</li>
+          <li @click="selValue_06" :class="{checkedOne:data.value_06=='5'}">伴有胸痛</li>
+          <li @click="selValue_07" :class="{checkedOne:data.value_07=='6'}">伴有心悸、心慌</li>
+          <li @click="selValue_08" :class="{checkedOne:data.value_08=='7'}">伴有发热</li>
+          <li @click="selValue_09" :class="{checkedOne:data.value_09=='8'}">呼吸困难，或伴有低氧血症</li>
+          <li @click="selValue_10" :class="{checkedOne:data.value_10=='9'}">并发支气管炎</li>
+          <li @click="selValue_11" :class="{checkedOne:data.value_11=='10'}">并发肺气肿</li>
         </ul>
       </div>
     </div>
@@ -65,17 +65,17 @@ export default {
       i : null,
       btnValue: '下一步',
       data: {
-        value_01: "0", // 
-        value_02: "0", // 
-        value_03: "0", // 
-        value_04: "0", // 
-        value_05: "0", // 
-        value_06: "0", // 
-        value_07: "0", // 
-        value_08: "0", // 
-        value_09: "0", // 
-        value_10: "0", // 
-        value_11: "0", // 
+        value_01: "", // 
+        value_02: "", // 
+        value_03: "", // 
+        value_04: "", // 
+        value_05: "", // 
+        value_06: "", // 
+        value_07: "", // 
+        value_08: "", // 
+        value_09: "", // 
+        value_10: "", // 
+        value_11: "", // 
       },
     };
   },
@@ -85,9 +85,9 @@ export default {
   watch: {
      aaa: {
       //深度监听，可监听到对象、数组的变化
-      handler(newVal, oldVal) {
-        if (newVal.value_01 == "0" && newVal.value_02 == "0" && newVal.value_03 == "0" && newVal.value_04 == "0" && newVal.value_05 == "0" && newVal.value_06 == "0" && newVal.value_07 == "0" && newVal.value_08 == "0"
-         && newVal.value_09 == "0" && newVal.value_10 == "0" && newVal.value_11 == "0") {
+       handler(newVal, oldVal) {
+        if (newVal.value_01 == "" && newVal.value_02 == "" && newVal.value_03 == "" && newVal.value_04 == "" && newVal.value_05 == "" && newVal.value_06 == "" && newVal.value_07 == "" && newVal.value_08 == ""
+         && newVal.value_09 == "" && newVal.value_10 == "" && newVal.value_11 == "") {
           this.valueAll = false
         }else {
           this.valueAll = true
@@ -120,49 +120,71 @@ export default {
          this.btnValue = '下一步'
       }
     },
+      // 下一步/提交
     goInfo() {
-     let str = this.$route.path.match(/symptom(\S*)/)[1];
+    let str = this.$route.path.match(/symptom(\S*)/)[1];
     let i = this.stopLine.findIndex( item => item.sKey == str)
      if(this.stopLine.length -1 ==  i) {
-        console.log('end');
+        let arrValue = []
+        Object.values(this.data).forEach(item => {
+          if(item) {
+            arrValue.push(item)
+          }
+        })
+        this.stopLine[i].value = arrValue.join(',')
+        let url = 'UserInterface/complication/AddSymptomManagement.ashx'
+        this.$post(url,{value : JSON.stringify(this.stopLine)}).then(res => {
+           if (res.rspcode != 1) {
+            this.$Toast(res.rspdesc)
+            return
+          }
+          this.$Toast(res.rspdesc)
+          this.$router.push('/selfTestTool')
+        })
       }else {
-         this.$router.push(`/symptom${this.stopLine[i+1].sKey}`)
+        let arrValue = []
+        Object.values(this.data).forEach(item => {
+          if(item) {
+            arrValue.push(item)
+          }
+        })
+        this.stopLine[i].value = arrValue.join(',')
+        this.$store.commit("setsymptom", this.stopLine);
+        this.$router.push(`/symptom${this.stopLine[i+1].sKey}`)
       }
-      // this.$store.commit("setpsychology", this.data);
-      // this.$router.push("/psychology2");
     },
-     selValue_01() {
-      this.data.value_01 == '0' ? this.data.value_01 = '1' : this.data.value_01 = '0'
+      selValue_01() {
+      this.data.value_01 == '' ? this.data.value_01 = '0' : this.data.value_01 = ''
     },
     selValue_02() {
-      this.data.value_02 == '0' ? this.data.value_02 = '1' : this.data.value_02 = '0'
+      this.data.value_02 == '' ? this.data.value_02 = '1' : this.data.value_02 = ''
     },
     selValue_03() {
-      this.data.value_03 == '0' ? this.data.value_03 = '1' : this.data.value_03 = '0'
+      this.data.value_03 == '' ? this.data.value_03 = '2' : this.data.value_03 = ''
     },
     selValue_04() {
-      this.data.value_04 == '0' ? this.data.value_04 = '1' : this.data.value_04 = '0'
+      this.data.value_04 == '' ? this.data.value_04 = '3' : this.data.value_04 = ''
     },
     selValue_05() {
-      this.data.value_05 == '0' ? this.data.value_05 = '1' : this.data.value_05 = '0'
+      this.data.value_05 == '' ? this.data.value_05 = '4' : this.data.value_05 = ''
     },
     selValue_06() {
-      this.data.value_06 == '0' ? this.data.value_06 = '1' : this.data.value_06 = '0'
+      this.data.value_06 == '' ? this.data.value_06 = '5' : this.data.value_06 = ''
     },
     selValue_07() {
-      this.data.value_07== '0' ? this.data.value_06 = '1' : this.data.value_06 = '0'
+      this.data.value_07== '' ? this.data.value_07 = '6' : this.data.value_07 = ''
     },
     selValue_08() {
-      this.data.value_08== '0' ? this.data.value_08 = '1' : this.data.value_08 = '0'
+      this.data.value_08== '' ? this.data.value_08 = '7' : this.data.value_08 = ''
     },
     selValue_09() {
-      this.data.value_09== '0' ? this.data.value_09 = '1' : this.data.value_09 = '0'
+      this.data.value_09== '' ? this.data.value_09 = '8' : this.data.value_09 = ''
     },
     selValue_10() {
-      this.data.value_10== '0' ? this.data.value_10 = '1' : this.data.value_10 = '0'
+      this.data.value_10== '' ? this.data.value_10 = '9' : this.data.value_10 = ''
     },
     selValue_11() {
-      this.data.value_11== '0' ? this.data.value_11 = '1' : this.data.value_11 = '0'
+      this.data.value_11== '' ? this.data.value_11 = '10' : this.data.value_11 = ''
     },
    
   },
@@ -220,12 +242,12 @@ h3 {
   }
   ul {
     li {
-      padding: 0.09rem 0.05rem;
+      padding: 0.09rem 0.2rem 0.09rem 0.18rem;
       margin-top: 0.2rem;
      border: 1px solid #ccc;
      border-radius: 0.06rem;
     //  height: 0.4rem;
-     text-align: center;
+     text-align: left;
      line-height: 0.22rem;
      color: #999;
     }

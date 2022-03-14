@@ -30,8 +30,8 @@
           <van-radio
             v-for="(item, i) in list1"
             :key="i"
-            :class="{ checkedOne: data.value_01 == item.value }"
-            :name="item.value"
+            :class="{ checkedOne: data.value_01 == item.id }"
+            :name="item.id"
             >{{ item.value }}</van-radio
           >
         </van-radio-group>
@@ -72,23 +72,23 @@ export default {
       list1: [
         {
           value: "无症状",
-          id: "正常",
+          id: "0",
         },
         {
           value: "红斑/疼痛，不影响进食",
-          id: "轻度",
+          id: "1",
         },
         {
           value:"溃疡/红斑，仍能进食",
-          id: "中度",
+          id: "2",
         },
         {
           value: "溃疡及严重红斑，不能进食",
-          id: "严重",
+          id: "3",
         },
         {
           value: "溃疡融合成片，有坏死，不能进食",
-          id: "严重",
+          id: "4",
         },
       ],
 
@@ -112,8 +112,10 @@ export default {
             let str = this.$route.path.match(/symptom(\S*)/)[1];
             let i = this.stopLine.findIndex((item) => item.sKey == str);
             setTimeout(() => {
+              this.stopLine[i].value = this.data.value_01
+              this.$store.commit("setsymptom", this.stopLine);
               this.$router.push(`/symptom${this.stopLine[i + 1].sKey}`);
-            }, 500);
+            }, 300);
           }
         }
       },
@@ -143,16 +145,22 @@ export default {
         this.lastBtn = false;
       }
     },
+    // 下一步/提交
     goInfo() {
-      let str = this.$route.path.match(/symptom(\S*)/)[1];
-      let i = this.stopLine.findIndex((item) => item.sKey == str);
-      if (this.stopLine.length - 1 == i) {
-        console.log("end");
-      } else {
-        this.$router.push(`/symptom${this.stopLine[i + 1].sKey}`);
+    let str = this.$route.path.match(/symptom(\S*)/)[1];
+    let i = this.stopLine.findIndex( item => item.sKey == str)
+     if(this.stopLine.length -1 ==  i) {
+        this.stopLine[i].value = this.data.value_01
+        let url = 'UserInterface/complication/AddSymptomManagement.ashx'
+        this.$post(url,{value : JSON.stringify(this.stopLine)}).then(res => {
+           if (res.rspcode != 1) {
+            this.$Toast(res.rspdesc)
+            return
+          }
+          this.$Toast(res.rspdesc)
+          this.$router.push('/selfTestTool')
+        })
       }
-      // this.$store.commit("setpsychology", this.data);
-      // this.$router.push("/psychology2");
     },
   },
 };
@@ -225,21 +233,12 @@ h3 {
     margin-left: 0.15rem !important;
   }
   >>> .van-radio__label {
-    margin-left: -0.2rem !important;
-    text-align: center;
-    padding: 0.09rem 0.05rem;
+    margin-left: 0.13rem !important;
+    padding: 0.09rem 0.2rem 0.09rem 0.05rem;
     line-height: 0.22rem;
-    // text-align: left;
+    text-align: left;
     width: 100%;
     color: #999 !important;
-  }
-  // >>> .van-radio:nth-child(1) .van-radio__label {
-  //   margin-left: -0.2rem !important;
-  //   text-align: center;
-  // }
-  >>> .van-radio:nth-child(5) .van-radio__label {
-    margin-left: -0.1rem !important;
-    text-align: center;
   }
   >>> .van-radio__icon--checked .van-icon {
     background-color: #36c2d7;

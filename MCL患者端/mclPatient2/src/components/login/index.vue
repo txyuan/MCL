@@ -423,7 +423,7 @@ export default {
   },
   mounted: function () {
     // document.querySelector('.van-popover__action')
-    console.log(document.querySelector('.van-popover__action'));
+    // console.log(document.querySelector('.van-popover__action'));
   },
 };
 </script>

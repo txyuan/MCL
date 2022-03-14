@@ -204,8 +204,8 @@ h3 {
     margin-left: 0.15rem !important;
   }
   >>> .van-radio__label {
-    margin-left: 0.12rem !important;
-    padding: 0.09rem 0.08rem;
+     margin-left: 0.13rem !important;
+    padding: 0.1rem 0.2rem 0.1rem 0.05rem;
     line-height: 0.22rem;
     text-align: left;
     width: 100%;

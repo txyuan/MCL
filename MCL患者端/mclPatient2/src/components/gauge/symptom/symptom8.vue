@@ -22,8 +22,8 @@
             <van-radio
             v-for="(item, i) in list1"
             :key="i"
-            :class="{ checkedOne: data.value_01 == item.value }"
-            :name="item.value"
+            :class="{ checkedOne: data.value_01 == item.id }"
+            :name="item.id"
             >{{ item.value }}</van-radio
           >
           </van-radio-group>
@@ -32,8 +32,8 @@
             <van-radio
             v-for="(item, i) in list2"
             :key="i"
-            :class="{ checkedOne: data.value_02 == item.value }"
-            :name="item.value"
+            :class="{ checkedOne: data.value_02 == item.id }"
+            :name="item.id"
             >{{ item.value }}</van-radio
           >
           </van-radio-group>
@@ -74,37 +74,37 @@ export default {
       list1: [
         {
           value: " 没有",
-          id: '正常'
+          id: '1'
         },
         {
           value: "有轻微恶心，食欲不振，但正常三餐，不影响进食和日常生活 ",
-          id: '轻度'
+          id: '2'
         },
         {
           value: "影响进食及正常生活，但无明显的体重降低、脱水",
-          id: '中度'
+          id: '3'
         },
         {
           value: "因恶心而卧床，进食不足，明显的体重降低或脱水",
-          id: '严重'
+          id: '4'
         },
       ],
       list2: [
         {
           value: "没有呕吐",
-          id: '正常'
+          id: '1'
         },
         {
           value: "1-2次/日",
-          id: '轻度'
+          id: '2'
         },
         {
           value: "3-5次/日",
-          id: '中度'
+          id: '3'
         },
         {
           value: "呕吐6次以上/日",
-          id: '严重'
+          id: '4'
         },
       ],
      
@@ -154,16 +154,26 @@ export default {
          this.btnValue = '下一步'
       }
     },
+     // 下一步/提交
     goInfo() {
-     let str = this.$route.path.match(/symptom(\S*)/)[1];
+    let str = this.$route.path.match(/symptom(\S*)/)[1];
     let i = this.stopLine.findIndex( item => item.sKey == str)
      if(this.stopLine.length -1 ==  i) {
-        console.log('end');
+        this.stopLine[i].value = this.data.value_01 + ',' + this.data.value_02
+        let url = 'UserInterface/complication/AddSymptomManagement.ashx'
+        this.$post(url,{value : JSON.stringify(this.stopLine)}).then(res => {
+           if (res.rspcode != 1) {
+            this.$Toast(res.rspdesc)
+            return
+          }
+          this.$Toast(res.rspdesc)
+          this.$router.push('/selfTestTool')
+        })
       }else {
-         this.$router.push(`/symptom${this.stopLine[i+1].sKey}`)
+        this.stopLine[i].value = this.data.value_01 + ',' + this.data.value_02
+        this.$store.commit("setsymptom", this.stopLine);
+        this.$router.push(`/symptom${this.stopLine[i+1].sKey}`)
       }
-      // this.$store.commit("setpsychology", this.data);
-      // this.$router.push("/psychology2");
     },
     
    
@@ -240,27 +250,13 @@ h3 {
      margin-left: 0.15rem !important;
    }
    >>> .van-radio__label {
-     margin-left: -0.2rem !important;
-    padding: 0.09rem 0.05rem;
+     margin-left: 0.13rem !important;
+    padding: 0.09rem 0.2rem 0.09rem 0.05rem;
+    text-align: left;
     line-height: 0.22rem;
-    text-align: center;
     width: 100%;
        color: #999 !important;
      }
-  >>> .gebie_radio {
-    .van-radio:nth-child(2) .van-radio__label {
-     margin-left: 0.15rem !important;
-    text-align: left;
-     }
-    .van-radio:nth-child(3) .van-radio__label {
-     margin-left: 0.1rem !important;
-    text-align: left;
-     }
-    .van-radio:nth-child(4) .van-radio__label {
-     margin-left: 0.1rem !important;
-    text-align: left;
-     }
-  }
    >>> .van-radio__icon--checked .van-icon {
     background-color: #36c2d7;
     border-color: #36c2d7;

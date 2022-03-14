@@ -69,14 +69,15 @@
     </div>
     <div>
       <van-popup
+      class="popup"
         :closeable="true"
         v-model="show"
         round
         position="bottom"
-        :style="{ height: '53%' }"
+        :style="{ height: '53%'}"
       >
         <h3 style="margin-top: 0.4rem; text-align:center">体重 (千克)</h3>
-        <Ruler :value="50" :min="0" :max="300" :onChange="changeWeight" />
+        <Ruler class="ruler" :value="50" :min="0" :max="300" :onChange="changeWeight" />
         <div class="weight_btn">
           <van-button class="btn_info1" @click="submitWeight" round type="info"
             >保存</van-button
@@ -84,6 +85,7 @@
         </div>
       </van-popup>
       <van-popup
+      class="popup"
         :closeable="true"
         v-model="showHeight"
         round
@@ -393,6 +395,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.popup {
+  overflow: hidden;
+}
 >>> [class*="van-hairline"]::after {
   border: 1px solid #39c4d5 !important;
   border-radius: 3rem;
@@ -515,8 +520,9 @@ export default {
     margin-left: 0.15rem !important;
   }
   >>> .van-radio__label {
-    margin-left: -0.2rem !important;
-    text-align: center;
+    margin-left: 0.13rem !important;
+    padding: 0.1rem 0.2rem 0.1rem 0.05rem;
+    text-align: left;
     width: 100%;
     color: #999 !important;
   }

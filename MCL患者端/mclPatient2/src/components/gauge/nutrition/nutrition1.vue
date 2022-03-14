@@ -220,6 +220,7 @@
     </div>
     <div>
       <van-popup
+      class="popup"
         :closeable="true"
         v-model="show"
         round
@@ -429,6 +430,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.popup {
+  overflow: hidden;
+}
 .weight_btn {
   width: 100%;
   margin: 0.3rem 15%;
@@ -503,8 +507,9 @@ h3 {
       margin-left: 0.15rem !important;
     }
     >>> .van-radio__label {
-      margin-left: -0.2rem !important;
-      text-align: center;
+     margin-left: 0.13rem !important;
+    padding: 0.09rem 0.2rem 0.09rem 0.05rem;
+    text-align: left;
       width: 100%;
       color: #999 !important;
     }
@@ -543,8 +548,9 @@ h3 {
     margin-left: 0.15rem !important;
   }
   >>> .van-radio__label {
-    margin-left: -0.2rem !important;
-    text-align: center;
+    margin-left: 0.13rem !important;
+    padding: 0.09rem 0.2rem 0.09rem 0.05rem;
+    text-align: left;
     width: 100%;
     color: #999 !important;
   }

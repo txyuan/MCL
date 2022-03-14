@@ -179,11 +179,12 @@ h3 {
   }
   ul {
     li {
+      padding: 0 0.2rem 0 0.18rem;
       margin-top: 0.2rem;
      border: 1px solid #ccc;
      border-radius: 0.06rem;
      height: 0.4rem;
-     text-align: center;
+     text-align: left;
      line-height: 0.4rem;
      color: #999;
     }

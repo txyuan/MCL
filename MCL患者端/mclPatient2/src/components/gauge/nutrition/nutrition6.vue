@@ -191,8 +191,9 @@ h3 {
       margin-left: 0.15rem !important;
     }
     >>> .van-radio__label {
-      margin-left: -0.2rem !important;
-      text-align: center;
+      margin-left: 0.13rem !important;
+    padding: 0.09rem 0 0.09rem 0.05rem;
+    text-align: left;
       width: 100%;
       color: #999 !important;
     }
@@ -235,8 +236,8 @@ h3 {
      margin-left: 0.15rem !important;
    }
    >>> .van-radio__label {
-    //  margin-left: -0.2rem !important;
-    padding: 0.05rem 0.05rem;
+    margin-left: 0.13rem !important;
+    padding: 0.09rem 0.2rem 0.09rem 0.05rem;
     text-align: left;
     width: 100%;
        color: #999 !important;
