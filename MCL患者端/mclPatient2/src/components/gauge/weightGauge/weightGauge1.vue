@@ -127,8 +127,8 @@ export default {
       WechatParm: {}, //公众号信息
       shareObj: {
         //分享信息内容配置
-        title: `自测工具-体重监测`,
-        desc: "", // 分享描述
+        title: `医随康—体重监测`,
+        desc: "快来记录您的体重是否在健康体重范围内，对后续的治疗及康复影响非常大哟！", // 分享描述
         link: `${location.origin}${location.pathname}#${this.$route.fullPath}`, //系统地址
         imgUrl: location.origin + logoImg,
       },

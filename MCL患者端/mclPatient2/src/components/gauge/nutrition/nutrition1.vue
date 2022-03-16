@@ -258,8 +258,8 @@ export default {
       WechatParm: {}, //公众号信息
       shareObj: {
         //分享信息内容配置
-        title: `自测工具-营养评估`,
-        desc: "", // 分享描述
+        title: `医随康—营养评估`,
+        desc: "营养治疗是一切治疗的基础，快去评估一下自己的营养状况吧。", // 分享描述
         link: `${location.origin}${location.pathname}#${this.$route.fullPath}`, //系统地址
         imgUrl: location.origin + logoImg,
       },

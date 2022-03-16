@@ -95,8 +95,8 @@ export default {
       WechatParm: {}, //公众号信息
       shareObj: {
         //分享信息内容配置
-        title: `自测工具-体能评估`,
-        desc: "", // 分享描述
+        title: `医随康—体力评估`,
+        desc: "一个好的体力很大程度的辅助到后续的治疗康复，快来评估一下自己体力状况吧。", // 分享描述
         link: `${location.origin}${location.pathname}#${this.$route.fullPath}`, //系统地址
         imgUrl: location.origin + logoImg,
       },

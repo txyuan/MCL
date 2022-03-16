@@ -119,8 +119,8 @@ export default {
       WechatParm: {}, //公众号信息
       shareObj: {
         //分享信息内容配置
-        title: `自测工具-心理评估`,
-        desc: "", // 分享描述
+        title: `医随康—心理评估`,
+        desc: "良好的身心健康、无压力会让康复治疗事半功倍，快来评估一下自己的心理情况吧。", // 分享描述
         link: `${location.origin}${location.pathname}#${this.$route.fullPath}`, //系统地址
         imgUrl: location.origin + logoImg,
       },

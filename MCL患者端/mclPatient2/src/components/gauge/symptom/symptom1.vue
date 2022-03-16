@@ -365,8 +365,8 @@ export default {
     this.getList();
     this.shareObj = {
       //分享信息内容配置
-      title: `自测工具-症状管理`,
-      desc: "", // 分享描述
+      title: `医随康—并发症状`,
+      desc: "降低在治疗过程中并发症的发生率，及时发现并干预，减少治疗过程中的痛苦，对后续的康复很重要。", // 分享描述
       link: `${location.origin}${location.pathname}#${this.$route.fullPath}`, //系统地址
       imgUrl: location.origin + logoImg,
     };

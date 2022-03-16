@@ -116,9 +116,9 @@ export default {
   justify-content: space-between;
   .arrow-left {
     font-size: 0.26rem;
-    margin-left: 0.2rem;
+   margin-left: 0.12rem;
     // margin-right: 0.1rem;
-    // width: 0.5rem;
+    width: 0.36rem;
     line-height: 0.44rem;
   }
   .right {

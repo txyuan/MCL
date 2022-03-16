@@ -35,15 +35,13 @@
             >分享 {{ data.shareCount }}</span
           >
         </p>
-        <p>
+        <p  @click="goodCli">
           <van-icon
             v-if="good"
-            @click="goodCli"
             class="good"
             name="good-job-o"
           /><van-icon
             v-else
-            @click="goodCli"
             class="good1"
             name="good-job"
           />&nbsp;<span>点赞 {{ data.followCount }}</span>
@@ -366,13 +364,14 @@ h5 {
 }
 .link_address .left_text {
   background-color: #fff;
-  padding: 0.1rem 0.15rem;
+  padding: 0 0.15rem;
   /* margin-top: -0.3rem; */
   display: flex;
   justify-content: space-between;
 }
 
 .left_text p {
+  padding: 0.1rem 0;
   line-height: 0.2rem;
   font-size: 0.14rem;
 }

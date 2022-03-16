@@ -47,8 +47,8 @@ export default {
       WechatParm: {}, //公众号信息
       shareObj: {
         //分享信息内容配置
-        title: "MCL",
-        desc: "我在医随康分享了MCL首页，赶快来看看吧。", // 分享描述
+        title: "医随康—个人信息",
+        desc: "填写您的信息后，方便给您建立档案。", // 分享描述
         link: ``, //系统地址
         imgUrl: location.origin + logoImg,
       },

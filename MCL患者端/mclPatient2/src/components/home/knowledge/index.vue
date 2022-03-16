@@ -273,6 +273,7 @@ export default {
   .ul {
     margin-top: 0.15rem;
     background-color: #f8f8f8;
+    height: 1.46rem;
     border-radius: 0.1rem;
     .li_top {
       display: flex;
@@ -310,7 +311,7 @@ export default {
         margin-left: 0.1rem;
         margin-top: 0.05rem;
         padding-bottom: 0;
-        width: 1.6rem;
+        width: 1.65rem;
         p:nth-child(1) {
           // width: 1.6rem;
           height: 0.5rem;
@@ -325,10 +326,10 @@ export default {
         }
         p:nth-child(2) {
           margin-left: -0.1rem;
-          margin-top: 0.15rem;
+          margin-top: 0.08rem;
           display: flex;
           justify-content: space-between;
-          width: 100%;
+          width: 1.8rem;
           font-size: 0.12rem;
           span:nth-child(1) {
             // width: 0.;
@@ -354,8 +355,8 @@ export default {
       }
       .right_img {
         margin-bottom: 0.1rem;
-        height: 100%;
-        width: 42%;
+        height: 0.8rem;
+        width: 1.2rem;
         img {
           border-radius: 0.06rem;
           width: 100%;

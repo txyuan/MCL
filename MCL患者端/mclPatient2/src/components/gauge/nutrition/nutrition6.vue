@@ -33,9 +33,9 @@
         <div class="one_gau">
           <van-radio-group  class="one_gau_radio" v-model="data.attribute_value_38" direction="horizontal">
             <van-radio  :class="{checkedOne:data.attribute_value_38=='无'}" name="无" >无</van-radio>
-            <van-radio  :class="{checkedOne:data.attribute_value_38=='37.2-38.3'}" name="37.2-38.3" >37.2-38.3</van-radio>
-            <van-radio  :class="{checkedOne:data.attribute_value_38=='38.3-38.8'}" name="38.3-38.8" >38.3-38.8</van-radio>
-            <van-radio  :class="{checkedOne:data.attribute_value_38=='≥38.8'}" name="≥38.8" >≥38.8</van-radio>
+            <van-radio  :class="{checkedOne:data.attribute_value_38=='37.2°-38.3°'}" name="37.2°-38.3°" >37.2°-38.3°</van-radio>
+            <van-radio  :class="{checkedOne:data.attribute_value_38=='38.3°-38.8°'}" name="38.3°-38.8°" >38.3°-38.8°</van-radio>
+            <van-radio  :class="{checkedOne:data.attribute_value_38=='≥38.8°'}" name="≥38.8°" >≥38.8°</van-radio>
           </van-radio-group>
         </div>
       </div>

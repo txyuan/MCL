@@ -222,9 +222,9 @@ export default {
   justify-content: space-between;
   .arrow-left {
     font-size: 0.26rem;
-    margin-left: 0.2rem;
+    margin-left: 0.12rem;
     // margin-right: 0.1rem;
-    // width: 0.5rem;
+    width: 0.36rem;
     line-height: 0.44rem;
   }
   .right {
@@ -275,6 +275,7 @@ export default {
   .ul {
     margin-top: 0.15rem;
     background-color: #f8f8f8;
+    height: 1.46rem;
     border-radius: 0.1rem;
     .li_top {
       display: flex;
@@ -312,13 +313,14 @@ export default {
         margin-left: 0.1rem;
         margin-top: 0.05rem;
         padding-bottom: 0;
-        width: 50%;
+        width: 1.65rem;
         p:nth-child(1) {
+          // width: 1.6rem;
           height: 0.5rem;
           line-height: 0.25rem;
           font-size: 0.16rem;
           font-weight: 700;
-           display: -webkit-box;
+          display: -webkit-box;
           overflow: hidden;
           /*! autoprefixer: off; */
           -webkit-box-orient: vertical;
@@ -326,10 +328,10 @@ export default {
         }
         p:nth-child(2) {
           margin-left: -0.1rem;
-          margin-top: 0.15rem;
+          margin-top: 0.08rem;
           display: flex;
           justify-content: space-between;
-          width: 100%;
+          width: 1.8rem;
           font-size: 0.12rem;
           span:nth-child(1) {
             // width: 0.;
@@ -354,9 +356,9 @@ export default {
         }
       }
       .right_img {
-         margin-bottom: 0.1rem;
-        height: 100%;
-        width: 42%;
+        margin-bottom: 0.1rem;
+        height: 0.8rem;
+        width: 1.2rem;
         img {
           border-radius: 0.06rem;
           width: 100%;
