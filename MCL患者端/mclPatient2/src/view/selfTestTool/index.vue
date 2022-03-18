@@ -62,6 +62,12 @@
                 <i class="item-icon">GO></i>
               </div>
             </li>
+             <li  @click="$router.push('/dietRecord1')">
+              <div class="box">
+                <p class="item-title">饮食记录</p>
+                <i class="item-icon">GO></i>
+              </div>
+            </li>
              <li  @click="$router.push('/dietarySurvey')">
               <div class="box">
                 <p class="item-title">膳食评估</p>

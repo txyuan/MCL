@@ -292,26 +292,29 @@ const psychology5 = () => import(/* webpackChunkName: "psychology" */ '@/compone
 const psychology6 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/psychology/psychology6.vue')
 
 // 体重检测
-const weightGauge = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/weightGauge/weightGauge.vue')
-const weightGauge1 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/weightGauge/weightGauge1.vue')
+const weightGauge = () => import(/* webpackChunkName: "weightGauge" */ '@/components/gauge/weightGauge/weightGauge.vue')
+const weightGauge1 = () => import(/* webpackChunkName: "weightGauge" */ '@/components/gauge/weightGauge/weightGauge1.vue')
 
 // 体能检测
-const physicalGauge1 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/physicalGauge/physicalGauge1.vue')
-const physicalGauge2 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/physicalGauge/physicalGauge2.vue')
+const physicalGauge1 = () => import(/* webpackChunkName: "physicalGauge" */ '@/components/gauge/physicalGauge/physicalGauge1.vue')
+const physicalGauge2 = () => import(/* webpackChunkName: "physicalGauge" */ '@/components/gauge/physicalGauge/physicalGauge2.vue')
 
 // 症状管理
-const symptom1 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom1.vue')
-const symptom2 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom2.vue')
-const symptom3 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom3.vue')
-const symptom4 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom4.vue')
-const symptom5 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom5.vue')
-const symptom6 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom6.vue')
-const symptom7 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom7.vue')
-const symptom8 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom8.vue')
-const symptom9 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom9.vue')
-const symptom13 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom13.vue')
-const symptom15 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom15.vue')
-const symptom121 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/symptom/symptom121.vue')
+const symptom1 = () => import(/* webpackChunkName: "symptom" */ '@/components/gauge/symptom/symptom1.vue')
+const symptom2 = () => import(/* webpackChunkName: "symptom" */ '@/components/gauge/symptom/symptom2.vue')
+const symptom3 = () => import(/* webpackChunkName: "symptom" */ '@/components/gauge/symptom/symptom3.vue')
+const symptom4 = () => import(/* webpackChunkName: "symptom" */ '@/components/gauge/symptom/symptom4.vue')
+const symptom5 = () => import(/* webpackChunkName: "symptom" */ '@/components/gauge/symptom/symptom5.vue')
+const symptom6 = () => import(/* webpackChunkName: "symptom" */ '@/components/gauge/symptom/symptom6.vue')
+const symptom7 = () => import(/* webpackChunkName: "symptom" */ '@/components/gauge/symptom/symptom7.vue')
+const symptom8 = () => import(/* webpackChunkName: "symptom" */ '@/components/gauge/symptom/symptom8.vue')
+const symptom9 = () => import(/* webpackChunkName: "symptom" */ '@/components/gauge/symptom/symptom9.vue')
+const symptom13 = () => import(/* webpackChunkName: "symptom" */ '@/components/gauge/symptom/symptom13.vue')
+const symptom15 = () => import(/* webpackChunkName: "symptom" */ '@/components/gauge/symptom/symptom15.vue')
+const symptom121 = () => import(/* webpackChunkName: "symptom" */ '@/components/gauge/symptom/symptom121.vue')
+
+// 饮食记录
+const dietRecord1 = () => import(/* webpackChunkName: "dietRecord" */ '@/components/gauge/dietRecord/dietRecord1.vue')
 //导入页面
 
 
@@ -492,6 +495,9 @@ const router = new Router({
     { path: "/symptom13", name: "symptom13", component: symptom13 },
     { path: "/symptom15", name: "symptom15", component: symptom15 },
     { path: "/symptom121", name: "symptom121", component: symptom121 },
+    // 饮食记录
+    { path: "/dietRecord1", name: "dietRecord1", component: dietRecord1 },
+    
     // { path:"/panicBuyingArea", name:"panicBuyingArea", component: panicBuyingArea, meta:{keepAlive: true}},
     // { path:"/panicBuyingAreaDetail/:sKey", name:"panicBuyingAreaDetail", component: panicBuyingAreaDetail },
     // { path:"/panicBuyingAreaPaySuccess", name:"panicBuyingAreaPaySuccess", component: panicBuyingAreaPaySuccess },
