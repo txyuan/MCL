@@ -64,7 +64,7 @@
             </li>
              <li  @click="$router.push('/dietRecord1')">
               <div class="box">
-                <p class="item-title">饮食记录</p>
+                <p class="item-title">饮食监测</p>
                 <i class="item-icon">GO></i>
               </div>
             </li>
