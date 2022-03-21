@@ -316,6 +316,7 @@ const symptom121 = () => import(/* webpackChunkName: "symptom" */ '@/components/
 // 饮食记录
 const dietRecord1 = () => import(/* webpackChunkName: "dietRecord" */ '@/components/gauge/dietRecord/dietRecord1.vue')
 const otherdietRecord = () => import(/* webpackChunkName: "dietRecord" */ '@/components/gauge/dietRecord/otherdietRecord.vue')
+const foodPhoto = () => import(/* webpackChunkName: "dietRecord" */ '@/components/gauge/dietRecord/foodPhoto.vue')
 //导入页面
 
 
@@ -498,7 +499,8 @@ const router = new Router({
     { path: "/symptom121", name: "symptom121", component: symptom121 },
     // 饮食记录
     { path: "/dietRecord1", name: "dietRecord1", component: dietRecord1 },
-    { path: "/otherdietRecord", name: "otherdietRecord", component: otherdietRecord },
+    { path: "/otherdietRecord", name: "otherdietRecord", component: otherdietRecord ,  meta:{keepAlive: true}},
+    { path: "/foodPhoto", name: "foodPhoto", component: foodPhoto},
     
     // { path:"/panicBuyingArea", name:"panicBuyingArea", component: panicBuyingArea, meta:{keepAlive: true}},
     // { path:"/panicBuyingAreaDetail/:sKey", name:"panicBuyingAreaDetail", component: panicBuyingAreaDetail },

@@ -41,7 +41,7 @@ Vue.component(vueQr.name, vueQr)
 import 'vant/lib/index.css';
 import {
 	List, Button, Cell, Icon, Popover, Search, Tab, Tabs, ShareSheet, Sticky, DatetimePicker, Checkbox, CheckboxGroup, Popup, Dialog,
-	RadioGroup, Radio, CellGroup
+	RadioGroup, Radio, CellGroup,Field
 } from 'vant'
 Vue.use(List)
 Vue.use(Button )
@@ -61,6 +61,7 @@ Vue.use(Dialog )
 Vue.use(RadioGroup)
 Vue.use(Radio )
 Vue.use(CellGroup )
+Vue.use(Field)
 
 
 //支付方式

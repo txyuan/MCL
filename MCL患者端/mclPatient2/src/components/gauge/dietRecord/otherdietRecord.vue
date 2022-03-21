@@ -162,7 +162,7 @@ import DLRuler from "@/components/home/diet/ruler"; //加载更多组件
 import DLRuler1 from "@/components/home/diet/ruler"; //加载更多组件
 	import pic from "@/assets/images/syyx.png"; //跟新购物车数量
 	import loadMore from "@/components/common/loadMore.vue";
-
+import axios from 'axios'
 	export default {
 		name: "otherdietRecord",
 		data: () => ({
@@ -225,6 +225,19 @@ import DLRuler1 from "@/components/home/diet/ruler"; //加载更多组件
 					}
 				},
 				deep : true
+			},
+			'$store.state.foodPhotoData.length' : {
+				handler(newValue,oldValue) {
+					if(newValue == 0) {
+						
+						this.currentList = this.currentList
+					}else {
+						this.$store.state.foodPhotoData.forEach(item => {
+							this.currentList.push(item)
+						})
+						//  = [...this.currentList,...]
+					}
+				}
 			}
 		},
 		created() {
@@ -239,21 +252,123 @@ import DLRuler1 from "@/components/home/diet/ruler"; //加载更多组件
 			}
 		},
 		methods: {
-			 takePhoto(e){//拍照功能---上传头像
-            var file=e.target.files[0]//获取文件对象
-            var fd=new FormData()//构造formdata对象
-            fd.append('file',file)//向formdata里面存放键值对
-            fd.append('uid',this.$store.getters.getUid)//向formdata里面存放键值对，this.$store.getters.getUid是用户的uid
-            // this.axios.post("http://127.0.0.1:7000/me/upAvatar",fd).then(res=>{
-            //     if(res.data.code===1){
-            //         //如果上传成功，则获取图片的地址
-            //       //  this.getAvatar()
-            //     }
-            // })
-						setTimeout(() => {
-							
-						}, 500);
-        },
+				//上传文件
+			takePhoto(e){
+				let file = e.target.files[0];
+				if( e.target.files.length == 0){
+					return
+				}
+				let url = URL.createObjectURL(file);
+				let config = {
+				  headers:{'Content-Type':'multipart/form-data'}
+				};  //添加请求头
+				resizeImage(file).then(function (result) {
+					return typeof result === 'string' ? convertToBlob(result, file.type) : result;
+				}).then( blob => {
+					let params = new FormData(); //创建form对象
+				  params.append('uploadedFile',file);//通过append向form对象添加数据
+					//注意：此处第3个参数最好传入一个带后缀名的文件名，否则很有可能被后台认为不是有效的图片文件
+					params.append("uploadedFile", blob, "uploadedFile");
+					axios.post('UserInterface/UploadFile.ashx', params, config).then(response => {
+						if (response.data.rspcode != 1) {
+						  return;
+						}
+
+						let responseUrl = response.data.url;
+						this.responseUrl = responseUrl;
+						// 创建url
+		        var imgUrl = window.URL.createObjectURL(file);
+						this.$router.push(`/foodPhoto?mealType=${this.mealType}&url=${responseUrl}`)
+					})
+				})
+
+
+
+				/**
+				 * 压缩裁剪图片
+				 */
+				function resizeImage(file) {
+					return new Promise(function (resolve, reject) {
+						var reader = new FileReader();
+
+						reader.onload = function () {
+							var img = new Image();
+
+							img.onload = function () {
+								var w = this.naturalWidth;
+								var h = this.naturalHeight;
+								var maxW = 500;
+								var maxH = 500;
+
+								// 如果图片尺寸小于最大限制，则不压缩直接上传
+								if (w <= maxW && h <= maxH) {
+									resolve(file);
+									return;
+								}
+
+								var level = 0.6;
+								var multiple = Math.max(w / maxW, h / maxH);
+								var resizeW = w / multiple;
+								var resizeH = h / multiple;
+
+								var canvas = document.createElement("canvas");
+
+								canvas.width = resizeW;
+								canvas.height = resizeH;
+
+								var ctx = canvas.getContext("2d");
+
+								ctx.drawImage(img, 0, 0, resizeW, resizeH);
+
+								var base64Img = canvas.toDataURL(file.type, level);
+								var arr = base64Img.split(",");
+
+								resolve(arr[1]);
+							};
+
+							img.src = this.result;
+						};
+
+						reader.readAsDataURL(file);
+					});
+				}
+
+				/**
+				 * 将图片的base64字符串转换为Blob对象
+				 */
+				function convertToBlob(base64Str, fileType) {
+					var base64 = window.atob(base64Str);
+					var len = base64.length;
+					var buff = new ArrayBuffer(len);
+					var uarr = new Uint8Array(buff);
+
+					for (var i = 0; i < len; i++) {
+						uarr[i] = base64.charCodeAt(i);
+					}
+
+					var blob = null;
+
+					try {
+						blob = new Blob([buff], { type: fileType });
+					} catch (e) {
+						var BlobBuilder = window.BlobBuilder = (
+							window.BlobBuilder ||
+							window.WebKitBlobBuilder ||
+							window.MozBlobBuilder ||
+							window.MSBlobBuilder
+						);
+
+						if (e.name === "TypeError" && BlobBuilder) {
+							var builder = new BlobBuilder();
+							builder.append(buff);
+							blob = builder.getBlob(fileType);
+						}
+					}
+
+					return blob;
+				}
+			},
+				// 清空按钮
 			qingkList() {
 				this.currentList = []
 			},
@@ -265,9 +380,6 @@ import DLRuler1 from "@/components/home/diet/ruler"; //加载更多组件
 				this.currentList.forEach(item => {
 						Bus.$emit("addDishes", item)
 				})
-		
-				// this.currentList.push(JSON.parse(JSON.stringify(this.currentItem)))
-				// this.show =false
 				this.$router.back()
 			},
 			carList() {
@@ -286,6 +398,7 @@ import DLRuler1 from "@/components/home/diet/ruler"; //加载更多组件
 					this.$Indicator.close();
 				}, 200)
 			},
+			// 点击遮罩层外区域关闭
 			hidePanel(event) {
     let dom = document.querySelector('.modal');
     if (dom) {
@@ -310,6 +423,7 @@ changeFood(val) {
 			//显示和隐藏键盘
 			showModal(item) {
 				this.currentItem = item;
+				this.foodgram = '100'
 				this.foodkcal = Number(item.foodkcal) * 2
         this.show = true;
         if( this.currentItem.gramunit=="ml"){
@@ -760,11 +874,13 @@ span.colF7{
   /* 弹出层 */
   #mark {
     z-index: 9999;
+		
   }
 
   .modal.show {
     transform: translateY(0);
     min-height: 50%;
+		overflow: hidden;
   }
 
   .modal {
@@ -992,7 +1108,7 @@ span.colF7{
 				margin-right: 0.2rem;
 			}
 			.info {
-				margin-top: 0.24rem;
+			margin-top: 0.24rem;
       padding: 0px 10px;
       h3 {
         text-align: center;

@@ -10,6 +10,7 @@ const store = new Vuex.Store({
     physicalGauge : {}, // 体能评估
     symptom : [], // 症状管理组件
     symptomData : [],// 症状管理数据 
+    foodPhotoData : [], // 饮食检测图片formdata
   },
   mutations: {
     setpersonInfo(state, obj) {
@@ -29,6 +30,9 @@ const store = new Vuex.Store({
     },
     setsymptomData(state, arr) {
       state.symptomData = arr
+    },
+    setfoodPhotoData(state, arr) {
+      state.foodPhotoData = arr
     },
   }
 })

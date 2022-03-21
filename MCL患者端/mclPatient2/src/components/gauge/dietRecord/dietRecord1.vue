@@ -39,7 +39,7 @@
               <div slot="title" class="titleWrap">
                 <span class="mint-cell-text">{{ item.foodname }}</span>
                 <span class="mint-cell-label font12 huiFont99"
-                  >{{ item.foodconsumption }}{{ item.gramunit }} <span class="line"></span> <span style="color: #fc605b;">{{item.resultKcal}}</span>kcal</span
+                  >{{ item.foodconsumption }}{{ item.gramunit }} <span class="line"></span> <span style="color: #fc605b;">{{item.foodkcalReslut}}</span>kcal</span
                 >
               </div>
               <div class="font14 huiFont99">
@@ -77,7 +77,7 @@
               <div slot="title" class="titleWrap">
                 <span class="mint-cell-text">{{ item.foodname }}</span>
                <span class="mint-cell-label font12 huiFont99"
-                  >{{ item.foodconsumption }}{{ item.gramunit }} <span class="line"></span> <span style="color: #fc605b;">{{item.resultKcal}}</span>kcal</span
+                  >{{ item.foodconsumption }}{{ item.gramunit }} <span class="line"></span> <span style="color: #fc605b;">{{item.foodkcalReslut}}</span>kcal</span
                 >
               </div>
               <div class="font14 huiFont99">
@@ -114,7 +114,7 @@
               <div slot="title" class="titleWrap">
                 <span class="mint-cell-text">{{ item.foodname }}</span>
                 <span class="mint-cell-label font12 huiFont99"
-                  >{{ item.foodconsumption }}{{ item.gramunit }} <span class="line"></span> <span style="color: #fc605b;">{{item.resultKcal}}</span>kcal</span
+                  >{{ item.foodconsumption }}{{ item.gramunit }} <span class="line"></span> <span style="color: #fc605b;">{{item.foodkcalReslut}}</span>kcal</span
                 >
               </div>
               <div class="font14 huiFont99">
@@ -148,7 +148,7 @@
               <div slot="title" class="titleWrap">
                 <span class="mint-cell-text">{{ item.foodname }}</span>
                 <span class="mint-cell-label font12 huiFont99"
-                  >{{ item.foodconsumption }}{{ item.gramunit }} <span class="line"></span> <span style="color: #fc605b;">{{item.resultKcal}}</span>kcal</span
+                  >{{ item.foodconsumption }}{{ item.gramunit }} <span class="line"></span> <span style="color: #fc605b;">{{item.foodkcalReslut}}</span>kcal</span
                 >
               </div>
               <div class="font14 huiFont99">
@@ -331,8 +331,13 @@ export default {
 		},
 	},
   methods: {
+    // 选择饮食结构
 		checkJiegou() {
 			this.show = true
+      let url = 'UserInterface/selfTestTool/GetDietarystructureList.ashx'
+      this.$post(url).then(res => {
+        console.log(res);
+      })
 		},
 		// 单选
 		checkeData(item,i) {
@@ -416,28 +421,16 @@ export default {
     this.nutritionskey = id;
     //早餐
     const breakfastList = Bus.$data.breakfastList || [];
-		breakfastList.forEach(item => {
-			item.resultKcal = ((item.foodkcal / item.foodgram)*item.foodconsumption).toFixed(2)
-		})
     this.breakfastList = breakfastList;
 
     //午餐
     const lunchList = Bus.$data.lunchList || [];
-			lunchList.forEach(item => {
-			item.resultKcal = ((item.foodkcal / item.foodgram)*item.foodconsumption).toFixed(2)
-		})
     this.lunchList = lunchList;
     //晚餐
     const dinnerList = Bus.$data.dinnerList || [];
-			dinnerList.forEach(item => {
-			item.resultKcal = ((item.foodkcal / item.foodgram)*item.foodconsumption).toFixed(2)
-		})
     this.dinnerList = dinnerList;
     //加餐
     const mealAdditionList = Bus.$data.mealAdditionList || [];
-			mealAdditionList.forEach(item => {
-			item.resultKcal = ((item.foodkcal / item.foodgram)*item.foodconsumption).toFixed(2)
-		})
     this.mealAdditionList = mealAdditionList;
     //获取早中晚加的数据
 		this.getFoodData()
