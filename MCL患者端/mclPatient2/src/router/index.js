@@ -269,6 +269,7 @@ const sport_CF = () => import(/* webpackChunkName: "sport_CF" */ '@/components/g
 const watch_repot = () => import(/* webpackChunkName: "watch_repot" */ '@/components/personal/stageReport/watch_repot.vue')  //查看报告
 const gauge_life = () => import(/* webpackChunkName: "gauge_life" */ '@/components/gauge/gauge_life.vue')  //生活状况
 // 筛查评估-营养评估
+const wellcom_nutrition = () => import(/* webpackChunkName: "wellcom_nutrition" */ '@/components/gauge/nutrition/wellcom_nutrition.vue')
 const nutrition1 = () => import(/* webpackChunkName: "nutrition1" */ '@/components/gauge/nutrition/nutrition1.vue')
 const nutrition2 = () => import(/* webpackChunkName: "nutrition2" */ '@/components/gauge/nutrition/nutrition2.vue')
 const nutrition3 = () => import(/* webpackChunkName: "nutrition3" */ '@/components/gauge/nutrition/nutrition3.vue')
@@ -284,6 +285,7 @@ const nutrition12 = () => import(/* webpackChunkName: "nutrition12" */ '@/compon
 const nutrition13 = () => import(/* webpackChunkName: "nutrition13" */ '@/components/gauge/nutrition/nutrition13.vue')
 
 // 心理评估
+const wellcom_psychology = () => import(/* webpackChunkName: "wellcom_psychology" */ '@/components/gauge/psychology/wellcom_psychology.vue')
 const psychology1 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/psychology/psychology1.vue')
 const psychology2 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/psychology/psychology2.vue')
 const psychology3 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/psychology/psychology3.vue')
@@ -292,14 +294,16 @@ const psychology5 = () => import(/* webpackChunkName: "psychology" */ '@/compone
 const psychology6 = () => import(/* webpackChunkName: "psychology" */ '@/components/gauge/psychology/psychology6.vue')
 
 // 体重检测
-const weightGauge = () => import(/* webpackChunkName: "weightGauge" */ '@/components/gauge/weightGauge/weightGauge.vue')
+const wellcom_weightGauge = () => import(/* webpackChunkName: "wellcom_weightGauge" */ '@/components/gauge/weightGauge/wellcom_weightGauge.vue')
 const weightGauge1 = () => import(/* webpackChunkName: "weightGauge" */ '@/components/gauge/weightGauge/weightGauge1.vue')
 
 // 体能检测
+const wellcom_physicalGauge = () => import(/* webpackChunkName: "physicalGauge" */ '@/components/gauge/physicalGauge/wellcom_physicalGauge.vue')
 const physicalGauge1 = () => import(/* webpackChunkName: "physicalGauge" */ '@/components/gauge/physicalGauge/physicalGauge1.vue')
 const physicalGauge2 = () => import(/* webpackChunkName: "physicalGauge" */ '@/components/gauge/physicalGauge/physicalGauge2.vue')
 
 // 症状管理
+const wellcom_symptom = () => import(/* webpackChunkName: "wellcom_symptom" */ '@/components/gauge/symptom/wellcom_symptom.vue')
 const symptom1 = () => import(/* webpackChunkName: "symptom" */ '@/components/gauge/symptom/symptom1.vue')
 const symptom2 = () => import(/* webpackChunkName: "symptom" */ '@/components/gauge/symptom/symptom2.vue')
 const symptom3 = () => import(/* webpackChunkName: "symptom" */ '@/components/gauge/symptom/symptom3.vue')
@@ -314,6 +318,7 @@ const symptom15 = () => import(/* webpackChunkName: "symptom" */ '@/components/g
 const symptom121 = () => import(/* webpackChunkName: "symptom" */ '@/components/gauge/symptom/symptom121.vue')
 
 // 饮食记录
+const wellcom_dietRecord = () => import(/* webpackChunkName: "wellcom_dietRecord" */ '@/components/gauge/dietRecord/wellcom_dietRecord.vue')
 const dietRecord1 = () => import(/* webpackChunkName: "dietRecord" */ '@/components/gauge/dietRecord/dietRecord1.vue')
 const otherdietRecord = () => import(/* webpackChunkName: "dietRecord" */ '@/components/gauge/dietRecord/otherdietRecord.vue')
 const foodPhoto = () => import(/* webpackChunkName: "dietRecord" */ '@/components/gauge/dietRecord/foodPhoto.vue')
@@ -457,6 +462,7 @@ const router = new Router({
 		{ path:"/sport_CF", name:"sport_CF", component: sport_CF },
 		{ path:"/watch_repot", name:"watch_repot", component: watch_repot },  //查看报告
     // 营养评估
+    { path:"/wellcom_nutrition", name:"wellcom_nutrition", component: wellcom_nutrition },  
     { path:"/nutrition1", name:"nutrition1", component: nutrition1 },  
     { path:"/nutrition2", name:"nutrition2", component: nutrition2 },  
     { path:"/nutrition3", name:"nutrition3", component: nutrition3 },  
@@ -471,6 +477,7 @@ const router = new Router({
     { path:"/nutrition11", name:"nutrition11", component: nutrition11 },  
     { path:"/nutrition12", name:"nutrition12", component: nutrition12 },  
     // 心理评估
+    { path:"/wellcom_psychology", name:"wellcom_psychology", component: wellcom_psychology},
     { path:"/psychology1", name:"psychology1", component: psychology1},
     { path:"/psychology2", name:"psychology2", component: psychology2},
     { path:"/psychology3", name:"psychology3", component: psychology3},
@@ -478,13 +485,14 @@ const router = new Router({
     { path:"/psychology5", name:"psychology5", component: psychology5},
     { path: "/psychology6", name: "psychology6", component: psychology6 },
     // 体重检测
-    //  
-    { path:"/weightGauge", name:"weightGauge", component: weightGauge},
+    { path:"/wellcom_weightGauge", name:"wellcom_weightGauge", component: wellcom_weightGauge},
     { path: "/weightGauge1", name: "weightGauge1", component: weightGauge1 },
     // 体能检测
+    { path: "/wellcom_physicalGauge", name: "wellcom_physicalGauge", component: wellcom_physicalGauge },
     { path: "/physicalGauge1", name: "physicalGauge1", component: physicalGauge1 },
     { path: "/physicalGauge2", name: "physicalGauge2", component: physicalGauge2 },
     // 症状管理
+    { path: "/wellcom_symptom", name: "wellcom_symptom", component: wellcom_symptom },
     { path: "/symptom1", name: "symptom1", component: symptom1 },
     { path: "/symptom2", name: "symptom2", component: symptom2 },
     { path: "/symptom3", name: "symptom3", component: symptom3 },
@@ -498,7 +506,9 @@ const router = new Router({
     { path: "/symptom15", name: "symptom15", component: symptom15 },
     { path: "/symptom121", name: "symptom121", component: symptom121 },
     // 饮食记录
-    { path: "/dietRecord1", name: "dietRecord1", component: dietRecord1 },
+
+    { path: "/wellcom_dietRecord", name: "wellcom_dietRecord", component: wellcom_dietRecord},
+    { path: "/dietRecord1", name: "dietRecord1", component: dietRecord1 ,  meta:{keepAlive: true}},
     { path: "/otherdietRecord", name: "otherdietRecord", component: otherdietRecord ,  meta:{keepAlive: true}},
     { path: "/foodPhoto", name: "foodPhoto", component: foodPhoto},
     
@@ -690,10 +700,11 @@ const router = new Router({
 
 // 白名单（不需要验证登录信息）
 const product = ['service', 'serviceDetail', 'searchProduct', 'productCategory'] // 商城模块
+const gauge = ['wellcom_dietRecord', 'wellcom_nutrition', 'wellcom_physicalGauge', 'wellcom_psychology', 'wellcom_symptom', 'wellcom_weightGauge']
 const productNoMess = ['orderindex', 'mesage', 'shopcar', 'personalreceivingadress', 'personaladdadress'] // 不需要填写个人信息
 const knowledgeMess = ['knowledge','knowledgeOne','knowledgeTwo','knowledgeResult','knowMore','searchKonw','searchKonwRes'] // 知识模块
 const selfTestAndcomplication = [ 'toolHome', 'selfTestSolution',  'complicationResult', 'complicationHome', 'proposalDetail']  // 自测和并发症模块
-const whiteRouteList = ['home', 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'wellcome', 'wellcome_personInfo','inviteFriends',  'VConsole', ...product, ...selfTestAndcomplication, ...knowledgeMess  ]
+const whiteRouteList = ['home', 'login', 'changePass', 'selectRegister', 'termsService', 'noticeClause', 'noticeClause2', 'noticeClause3', 'wxFollowPage', 'wellcome', 'wellcome_personInfo','inviteFriends',  'VConsole', ...product, ...selfTestAndcomplication, ...knowledgeMess, ...gauge  ]
 // let share
 router.beforeEach((to, from, next) => {
 

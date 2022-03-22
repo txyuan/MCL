@@ -11,6 +11,11 @@ const store = new Vuex.Store({
     symptom : [], // 症状管理组件
     symptomData : [],// 症状管理数据 
     foodPhotoData : [], // 饮食检测图片formdata
+    breakfastList : [], // 早餐
+    lunchList : [], // 中餐
+    dinnerList : [], // 晚餐
+    mealAdditionList : [], // 加餐
+    mealType : '', // 餐名
   },
   mutations: {
     setpersonInfo(state, obj) {
@@ -33,6 +38,21 @@ const store = new Vuex.Store({
     },
     setfoodPhotoData(state, arr) {
       state.foodPhotoData = arr
+    },
+    setbreakfastList(state, arr) {
+      state.breakfastList = arr
+    },
+    setlunchList(state, arr) {
+      state.lunchList = arr
+    },
+    setdinnerList(state, arr) {
+      state.dinnerList = arr
+    },
+    setmealAdditionList(state, arr) {
+      state.mealAdditionList = arr
+    },
+    setmealType(state, str) {
+      state.mealType = str
     },
   }
 })

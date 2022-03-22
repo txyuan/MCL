@@ -17,7 +17,7 @@
       <div class="dsuv_title">
         <h3> <span></span> 请选择您每天的饮食结构</h3>
         <p @click="checkJiegou">
-          <input readonly v-model="foodJiegou" type="text" placeholder="请选择" />
+          <input readonly v-model="foodJiegou" type="text" placeholder="请选择饮食结构" />
           <van-icon class="arrow" name="arrow" />
         </p>
         <div class="lineBar"></div>
@@ -39,7 +39,7 @@
               <div slot="title" class="titleWrap">
                 <span class="mint-cell-text">{{ item.foodname }}</span>
                 <span class="mint-cell-label font12 huiFont99"
-                  >{{ item.foodconsumption }}{{ item.gramunit }} <span class="line"></span> <span style="color: #fc605b;">{{item.foodkcalReslut}}</span>kcal</span
+                  >{{ item.foodconsumption }}{{ item.gramunit }} <span class="line"></span> <span style="color: #fc605b;">{{item.foodkcalReslut}}</span>千卡</span
                 >
               </div>
               <div class="font14 huiFont99">
@@ -64,7 +64,7 @@
         </div>
         <div class="dsuv_list">
           <div class="leftText">
-            <p>中餐</p>
+            <p>午餐</p>
             <p class="line"></p>
           </div>
           <div>
@@ -77,7 +77,7 @@
               <div slot="title" class="titleWrap">
                 <span class="mint-cell-text">{{ item.foodname }}</span>
                <span class="mint-cell-label font12 huiFont99"
-                  >{{ item.foodconsumption }}{{ item.gramunit }} <span class="line"></span> <span style="color: #fc605b;">{{item.foodkcalReslut}}</span>kcal</span
+                  >{{ item.foodconsumption }}{{ item.gramunit }} <span class="line"></span> <span style="color: #fc605b;">{{item.foodkcalReslut}}</span>千卡</span
                 >
               </div>
               <div class="font14 huiFont99">
@@ -93,7 +93,7 @@
             <van-cell @click="otherfood('02')">
              <img slot="icon" src="@/assets/images/dietRecord/addFood.png" width="40" height="40" />
               <div slot="title" class="titleWrap">
-                <span style="font-size: 0.16rem">添加中餐</span>
+                <span style="font-size: 0.16rem">添加午餐</span>
               </div>
             </van-cell>
           </div>
@@ -114,7 +114,7 @@
               <div slot="title" class="titleWrap">
                 <span class="mint-cell-text">{{ item.foodname }}</span>
                 <span class="mint-cell-label font12 huiFont99"
-                  >{{ item.foodconsumption }}{{ item.gramunit }} <span class="line"></span> <span style="color: #fc605b;">{{item.foodkcalReslut}}</span>kcal</span
+                  >{{ item.foodconsumption }}{{ item.gramunit }} <span class="line"></span> <span style="color: #fc605b;">{{item.foodkcalReslut}}</span>千卡</span
                 >
               </div>
               <div class="font14 huiFont99">
@@ -148,7 +148,7 @@
               <div slot="title" class="titleWrap">
                 <span class="mint-cell-text">{{ item.foodname }}</span>
                 <span class="mint-cell-label font12 huiFont99"
-                  >{{ item.foodconsumption }}{{ item.gramunit }} <span class="line"></span> <span style="color: #fc605b;">{{item.foodkcalReslut}}</span>kcal</span
+                  >{{ item.foodconsumption }}{{ item.gramunit }} <span class="line"></span> <span style="color: #fc605b;">{{item.foodkcalReslut}}</span>千卡</span
                 >
               </div>
               <div class="font14 huiFont99">
@@ -210,8 +210,8 @@
 </template>
 
 <script>
-import Bus from "@/assets/js/updateShopCar.js"; //bus
 import DLRuler from "@/components/home/diet/ruler"; //加载更多组件
+
 export default {
   name: "dietRecord1",
   data: () => ({
@@ -246,47 +246,22 @@ export default {
 		changeRed : -1,
     //保存接口的参数
     param: {
+      DietRangeSkey : '',
       DeviceList: { data: [] },
     },
     nutritionskey: "",
 		jiegouList : [
 			{
-			 title : '三餐清流食，无肉、缺油',
-			 value1 : '早餐（豆浆200ml）+加餐果汁200ml',
-				value2 : '午餐(排骨汤200ml）+加餐牛奶200ml',
-				value3 : '晚餐（米汤200ml）',
-				id : 1
-			},
-			{
-			 title : '三餐正常普食，主食，肉，蛋，奶，菜，油脂充足',
-			 value1 : '早餐（豆浆200ml）+加餐果汁200ml',
-				value2 : '午餐(排骨汤200ml）+加餐牛奶200ml',
-				value3 : '晚餐（米汤200ml）',
-				id : 1
-			},
-			{
-			 title : '三餐清流食，无肉、缺油',
-			 value1 : '早餐（豆浆200ml）+加餐果汁200ml',
-				value2 : '午餐(排骨汤200ml）+加餐牛奶200ml',
-				value3 : '晚餐（米汤200ml）',
-				id : 1
-			},
-			{
-			 title : '三餐清流食，无肉、缺油',
-			 value1 : '早餐（豆浆200ml）+加餐果汁200ml',
-				value2 : '午餐(排骨汤200ml）+加餐牛奶200ml',
-				value3 : '晚餐（米汤200ml）',
-				id : 1
-			},
-			{
-			 title : '三餐清流食，无肉、缺油',
-			 value1 : '早餐（豆浆200ml）+加餐果汁200ml',
-				value2 : '午餐(排骨汤200ml）+加餐牛奶200ml',
-				value3 : '晚餐（米汤200ml）',
-				id : 1
-			},
+        skey : '',
+			 title : '',
+			 value1 : '',
+			 value2 : '',
+			 value3 : '',
+			}
 		],
-		foodJiegou : '' // 饮食结构
+		foodJiegou : '', // 饮食结构
+    skey : '',
+     
   }),
 	watch : {
 		'breakfastList.length' : {
@@ -329,29 +304,102 @@ export default {
 			},
 			deep :true
 		},
+    '$store.state.breakfastList.length' : {
+     	handler(newValue,oldValue) {
+					this.breakfastList = this.$store.state.breakfastList
+			},
+			deep :true
+    },
+    '$store.state.lunchList.length' : {
+     	handler(newValue,oldValue) {
+					this.lunchList = this.$store.state.lunchList
+			},
+			deep :true
+    },
+    '$store.state.dinnerList.length' : {
+     	handler(newValue,oldValue) {
+					this.dinnerList = this.$store.state.dinnerList
+			},
+			deep :true
+    },
+    '$store.state.mealAdditionList.length' : {
+     	handler(newValue,oldValue) {
+					this.mealAdditionList = this.$store.state.mealAdditionList
+			},
+			deep :true
+    },
 	},
   methods: {
     // 选择饮食结构
 		checkJiegou() {
-			this.show = true
+      this.show = true
+		},
+    // 饮食结构
+    getFoodJieG() {
       let url = 'UserInterface/selfTestTool/GetDietarystructureList.ashx'
       this.$post(url).then(res => {
-        console.log(res);
+        let jiegouList = []
+        res.data.forEach((item,index) => {
+          let obj = {}
+          obj.title = item.value
+          obj.skey = item.skey
+          obj.value1 = item.diet[0].values
+          obj.value2 = item.diet[1].values
+          obj.value3 = item.diet[2].values
+          jiegouList.push(obj)
+        })
+        this.jiegouList = jiegouList
+
       })
-		},
+    },
 		// 单选
 		checkeData(item,i) {
 			this.foodJiegou = item.title
+      this.breakfastList = [] 
+      this.lunchList = []
+       this.dinnerList = []
+       this.mealAdditionList = []
+      let data = {
+        skey : item.skey
+      }
+      let url = 'UserInterface/selfTestTool/GetDietRecipesList.ashx'
+      this.$post(url,data).then(res => {
+        res.data.forEach(item => {
+        let data1 = {}
+         data1.foodimg = item.foodImg
+         data1.foodname = item.foodName
+         data1.foodconsumption = item.foodQuantity
+         data1.gramunit = item.foodNnit
+         data1.mealtype = item.mealType
+         data1.foodkcalReslut = item.foodEnergy.split('K')[0]
+          if(item.mealType == '01') {
+            this.breakfastList.push(data1)
+          }else if(item.mealType == '02') {
+            this.lunchList.push(data1)
+          }else if(item.mealType == '03') {
+            this.dinnerList.push(data1)
+          }else {
+            this.mealAdditionList.push(data1)
+          }
+          
+        })
+      this.$store.commit('setbreakfastList',this.breakfastList)
+      this.$store.commit('setlunchList',this.lunchList)
+      this.$store.commit('setdinnerList',this.dinnerList)
+      this.$store.commit('setmealAdditionList',this.mealAdditionList)
+      // this.getFoodData()
+      })
 			this.changeRed = i;
 			if(item) {
 				this.show = false
 			}
+      
 		},
     //饮食方案 删除
     delDietCase(obj, index) {
       this[obj].splice(index, 1);
       //获取早中晚加的数据
-			this.getFoodData()
+			// this.getFoodData()
     },
     // 其他菜式页面
     otherfood(type) {
@@ -364,35 +412,26 @@ export default {
       let url = "UserInterface/InsertDietarySurvey.ashx";
       this.$post(url, {
         ...this.param,
-        DietarySurveySkey: this.$route.query.DietarySurveySkey,
+        DietRangeSkey: this.skey,
       }).then((data) => {
         this.$Toast(data.rspdesc);
         if (data.rspcode != 1) {
           return;
         }
-        this.getMsgInfo();
+        this.$router.push("/selfTestTool");
+        // this.getMsgInfo();
       });
     },
 			//获取早中晚加的数据
 			getFoodData(){
 				//早餐的列表  午餐的列表    晚餐的列表  加餐的列表
 				let list = [...this.breakfastList, ...this.lunchList, ...this.dinnerList, ...this.mealAdditionList];
-				let foodList = [], allFoodenergy = 0, allProtein = 0, allFat = 0, allCarbohydrate = 0;
+        console.log(list);
+				let foodList = []
 				list.forEach((item,index)=>{
-					const resultObj = item.resultObj;
-					allFoodenergy+= Number(resultObj.foodkcal); //总能量
-					allProtein+= Number(resultObj.protein); //总蛋白质
-					allFat+= Number(resultObj.fat);  //脂肪
-					allCarbohydrate+= Number(resultObj.carbohydrate);  //碳水化合物
-					foodList.push({mealtype: item.mealtype,foodname: item.foodname,foodenergy: resultObj.foodkcal,foodweight: item.foodconsumption});
+					foodList.push({mealtype: item.mealtype,foodname: item.foodname,foodenergy: item.foodkcalReslut,foodweight: item.foodconsumption});
 				})
-				allProtein=allProtein.toFixed(1);
-				this.allObj = {
-					allFoodenergy,
-					allProtein,
-					allFat,
-					allCarbohydrate
-				}
+        
 				this.param.DeviceList = JSON.stringify({data: foodList});
 			},
     // 基本信息
@@ -413,36 +452,30 @@ export default {
         }
       });
     },
+
   },
   created() {},
   mounted() {
-    console.log(Bus.$data);
+    this.getFoodJieG()
     const id = this.$route.query.id;
     this.nutritionskey = id;
-    //早餐
-    const breakfastList = Bus.$data.breakfastList || [];
-    this.breakfastList = breakfastList;
-
-    //午餐
-    const lunchList = Bus.$data.lunchList || [];
-    this.lunchList = lunchList;
-    //晚餐
-    const dinnerList = Bus.$data.dinnerList || [];
-    this.dinnerList = dinnerList;
-    //加餐
-    const mealAdditionList = Bus.$data.mealAdditionList || [];
-    this.mealAdditionList = mealAdditionList;
     //获取早中晚加的数据
-		this.getFoodData()
+		// this.getFoodData()
+    
   },
   beforeRouteLeave(to, from, next) {
     // 导航离开该组件的对应路由时调用
     // 不是去搜索菜单的页面，要置空菜单列表
     if (to.name != "otherdietRecord") {
-      Bus.$data.breakfastList = [];
-      Bus.$data.lunchList = [];
-      Bus.$data.dinnerList = [];
-      Bus.$data.mealAdditionList = [];
+      this.foodJiegou = ''
+      this.breakfastList = []
+      this.lunchList = []
+      this.dinnerList = []
+      this.mealAdditionList = []
+     this.$store.state.breakfastList = []
+     this.$store.state.lunchList = []
+     this.$store.state.dinnerList = []
+     this.$store.state.mealAdditionList = []
     }
     next();
   },
@@ -516,7 +549,7 @@ export default {
   }
 }
 .popup {
-	
+    padding: 0 0 0.3rem 0;
 	h3 {
 		text-align: center;
 		font-size: 0.2rem;
@@ -534,7 +567,7 @@ export default {
 		// left: 0;
 		// right: 0;
 		padding: 0 0.35rem;
-		margin-bottom: 0.3rem;
+		padding-bottom: 0.3rem;
 		li {
 			margin-top: 0.18rem;
 			.title {

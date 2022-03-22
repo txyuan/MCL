@@ -70,23 +70,27 @@ export default {
     },
     {
       goodsName : '营养评估',
-      type : 'nutrition1'
+      type : 'wellcom_nutrition'
     },
     {
       goodsName : '心理评估',
-      type : 'psychology1'
+      type : 'wellcom_psychology'
     },
      {
       goodsName : '体能评估',
-      type : 'physicalGauge1'
+      type : 'wellcom_physicalGauge'
     },
     {
       goodsName : '体重监测',
-      type : 'weightGauge1'
+      type : 'wellcom_weightGauge'
     },
     {
       goodsName : '症状管理',
-      type : 'symptom1'
+      type : 'wellcom_symptom'
+    },
+    {
+      goodsName : '饮食监测',
+      type : 'wellcom_dietRecord'
     },
    
     ],

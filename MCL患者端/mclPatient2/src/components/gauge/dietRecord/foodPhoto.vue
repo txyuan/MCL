@@ -53,6 +53,7 @@ export default {
       valueAll  :false,
       foodName : '',
       imgUrl : '',
+      mealType:''
     }
   },
   watch: {
@@ -67,6 +68,15 @@ export default {
     }
   },
   created() {
+    if (this.$route.query.mealType == "01") {
+      this.mealType = "早餐";
+    } else if (this.$route.query.mealType == "02") {
+      this.mealType = "午餐";
+    } else if (this.$route.query.mealType == "03") {
+      this.mealType = "晚餐";
+    } else if (this.$route.query.mealType == "04") {
+      this.mealType = "加餐";
+    }
     this.getPhotoData()
     
   },
@@ -74,7 +84,7 @@ export default {
     // 获取页面信息
     getPhotoData() {
     let time = this.timeFormat(new Date())
-    this.title = time + ' ' + this.$route.query.mealType
+    this.title = time + ' ' + this.mealType
     this.imgUrl = this.$route.query.url
     // this.formData = this.$store.state.foodPhotoData
     },
@@ -86,21 +96,20 @@ export default {
         foodImg : this.imgUrl,
         mealName : this.$route.query.mealType
       }
-      let foodPhotoData = []
-      let data = {
-        foodconsumption : 100,
-        foodkcalReslut : '277.00',
-        foodname : '包子',
-        foodimg : "http://adm.marryhealthscience.com/Upload/CarouselLigure/674ac5b2-84b3-428f-9fbd-af4deddc46b1.jpg"
-      }
+      
+      this.$post(url,foodData).then(res => {
+        let data = {
+          foodname : res.foodName,
+          foodimg : res.foodImg,
+          foodconsumption : res.foodQuantity,
+          foodkcalReslut : res.foodEnergy,
+          mealtype : this.$route.query.mealType
+        }
+        let foodPhotoData = this.$store.state.foodPhotoData
       foodPhotoData.push(data)
-      // let foodList = [...foodPhotoData,data]
       this.$store.commit('setfoodPhotoData',foodPhotoData)
       this.$router.back()
-      // this.$post(url,foodData).then(res => {
-
-      //   console.log(res);
-      // })
+      })
     },
      // 格式化时间
     timeFormat(time) {
