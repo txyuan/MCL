@@ -98,6 +98,9 @@ export default {
       }
       
       this.$post(url,foodData).then(res => {
+        if (res.rspcode != 1) {
+          return
+        }
         let data = {
           foodname : res.foodName,
           foodimg : res.foodImg,
@@ -168,6 +171,7 @@ export default {
       line-height: 0.46rem;
       padding-left: 0.15rem;
       >>> .van-cell {
+        margin-top: 0.15rem;
         background-color: #F8F8FA;
         input {
         border: 0;

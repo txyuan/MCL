@@ -50,7 +50,7 @@ export default {
       shareObj: {
         //分享信息内容配置
         title: `医随康—饮食监测`,
-        desc: "快来记录您的饮食哟！", // 分享描述
+        desc: "一个良好的饮食方式更有利于维护健康，快来测一测自己的饮食是否均衡。", // 分享描述
         link: `${location.origin}${location.pathname}#${this.$route.fullPath}`, //系统地址
         imgUrl: location.origin + logoImg,
       },

@@ -338,6 +338,9 @@ export default {
     getFoodJieG() {
       let url = 'UserInterface/selfTestTool/GetDietarystructureList.ashx'
       this.$post(url).then(res => {
+        if (res.data.rspcode != 1) {
+          return
+        }
         let jiegouList = []
         res.data.forEach((item,index) => {
           let obj = {}
