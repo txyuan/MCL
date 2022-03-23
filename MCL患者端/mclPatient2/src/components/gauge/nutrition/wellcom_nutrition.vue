@@ -1,5 +1,12 @@
 <template>
   <div class="home">
+     <mt-header title="营养评估" fixed class="mt_header">
+      <div slot="left">
+        <header-back>
+          <mt-button icon="back"></mt-button>
+        </header-back>
+      </div>
+    </mt-header>
     <div class="title_img">
       <img src="@/assets/images/gauge_wellom/nutrition/title.png" alt="" />
     </div>
@@ -147,6 +154,7 @@ export default {
   background-color: #fff !important;
 }
 .title_img {
+  margin-top: 0.43rem;
   img {
     width: 100%;
   }

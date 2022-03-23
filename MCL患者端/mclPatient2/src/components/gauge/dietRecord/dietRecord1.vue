@@ -338,7 +338,7 @@ export default {
     getFoodJieG() {
       let url = 'UserInterface/selfTestTool/GetDietarystructureList.ashx'
       this.$post(url).then(res => {
-        if (res.data.rspcode != 1) {
+        if (res.rspcode != 1) {
           return
         }
         let jiegouList = []
@@ -482,6 +482,13 @@ export default {
     }
     next();
   },
+  //  beforeRouteEnter(to, from, next) {
+  //    if(from.name != "otherdietRecord") {
+  //      next(vm => {
+  //        vm.getFoodJieG()
+  //      })
+  //    }
+  //  },
   components: {
     DLRuler,
   },

@@ -32,17 +32,20 @@
               @focus="toggleMenu('show')"
             />
           </div>
-          <p>
+          <p @click="clilkPhoto">
+            
             <img
               src="@/assets/images/dietRecord/foodphoto.png"
               alt=""
               width="25"
               height="21"
+              style="margin-top:0.04rem"
             />
             <input
               class="fileInput"
               type="file"
               accept="image/*"
+              ref="userImg"
               @change="takePhoto($event)"
               name="file"
             />
@@ -105,7 +108,7 @@
                     style="border-left: 1px solid #999999; margin: 0 0.05rem"
                   ></span
                   ><span style="color: #fc605b">{{ item.foodkcal }}</span>
-                  千卡</span
+                  <span>千卡</span></span
                 >
               </div>
             </van-cell>
@@ -140,7 +143,7 @@
                   style="border-left: 1px solid #999999; margin: 0 0.05rem"
                 ></span
                 ><span style="color: #fc605b">{{ currentItem.foodkcal }}</span>
-                千卡
+                <span>千卡</span>
               </span>
             </div>
           </mt-cell>
@@ -152,7 +155,7 @@
                 <span
                   style="border-left: 1px solid #999999; margin: 0 0.05rem"
                 ></span>
-                {{ foodkcal }}千卡
+                {{ foodkcal }}<span>千卡</span>
               </p>
               <p></p>
             </div>
@@ -311,7 +314,7 @@
                 style="border-left: 1px solid #999999; margin: 0 0.05rem"
               ></span
               ><span style="color: #fc605b">{{ item.foodkcalReslut }}</span>
-              千卡
+              <span>千卡</span>
             </span>
           </div>
           <!-- <div slot="value"> -->
@@ -438,6 +441,9 @@ export default {
     
   },
   methods: {
+    clilkPhoto() {
+      this.$refs.userImg.click()
+    },
     //上传文件
     takePhoto(e) {
       let file = e.target.files[0];
@@ -836,11 +842,7 @@ export default {
 
 <style scoped lang="scss">
 .fileInput {
-  position: absolute;
-  top: 0.1rem;
-  right: -2.5rem;
-  opacity: 0;
-  z-index: 1;
+  display: none;
 }
 // 搜索框
 .search-group {
@@ -1102,7 +1104,7 @@ span.colF7 {
   transition: transform ease 0.7s;
   transform: translateY(1000px);
   padding-bottom: 0.84rem;
-  animation: window-open 0.5s 1;
+  animation: window-open 0.6s 1;
   .btnConfirm {
     border: 1px solid #e8e8e8;
     text-align: center;
@@ -1113,6 +1115,7 @@ span.colF7 {
     z-index: 999;
 
     span {
+      background-color: #fff !important;
       box-sizing: border-box;
       display: inline-block;
       width: 50%;
@@ -1185,9 +1188,9 @@ span.colF7 {
     margin: 0.2rem 0 0 0;
     .dw_btn {
       margin: 0 0.2rem;
-      font-size: 0.18rem;
+      font-size: 0.17rem;
       display: inline-block;
-      width: 0.5rem;
+      width: 0.6rem;
       padding: 0 0.05rem;
       background: none;
       color: #666666;

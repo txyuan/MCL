@@ -1,5 +1,12 @@
 <template>
   <div class="home">
+     <mt-header title="症状记录" fixed class="mt_header">
+      <div slot="left">
+        <header-back>
+          <mt-button icon="back"></mt-button>
+        </header-back>
+      </div>
+    </mt-header>
     <div class="title_img">
       <img src="@/assets/images/gauge_wellom/symptom/title.png" alt="" />
     </div>
@@ -148,6 +155,7 @@ export default {
   background-color: #fff !important;
 }
 .title_img {
+  margin-top: 0.43rem;
   img {
     width: 100%;
   }

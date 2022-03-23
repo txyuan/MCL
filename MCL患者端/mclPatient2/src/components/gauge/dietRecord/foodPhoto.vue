@@ -168,7 +168,7 @@ export default {
     p {
       height: 0.5rem;
       background-color: #F8F8FA;
-      line-height: 0.46rem;
+      line-height: 0.5rem;
       padding-left: 0.15rem;
       >>> .van-cell {
         margin-top: 0.15rem;
