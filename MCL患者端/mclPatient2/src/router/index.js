@@ -268,6 +268,7 @@ const gauge_nutrition = () => import(/* webpackChunkName: "gauge_nutrition" */ '
 const sport_CF = () => import(/* webpackChunkName: "sport_CF" */ '@/components/gauge/sport_CF.vue')  //运动处方量表
 const watch_repot = () => import(/* webpackChunkName: "watch_repot" */ '@/components/personal/stageReport/watch_repot.vue')  //查看报告
 const gauge_life = () => import(/* webpackChunkName: "gauge_life" */ '@/components/gauge/gauge_life.vue')  //生活状况
+const gauge_main = () => import(/* webpackChunkName: "gauge_main" */ '@/components/gauge/gauge_main.vue')  //生活状况
 // 筛查评估-营养评估
 const wellcom_nutrition = () => import(/* webpackChunkName: "wellcom_nutrition" */ '@/components/gauge/nutrition/wellcom_nutrition.vue')
 const nutrition1 = () => import(/* webpackChunkName: "nutrition1" */ '@/components/gauge/nutrition/nutrition1.vue')
@@ -625,6 +626,7 @@ const router = new Router({
     { path:"/shareLink", name:"shareLink", component: shareLink},
     { path:"/appDown", name:"appDown", component: appDown},
 	  { path:"/gauge_life", name:"gauge_life", component: gauge_life},
+	  { path:"/gauge_main", name:"gauge_main", component: gauge_main},
     // { path:"/merchantCert", name:"merchantCert", component: merchantCert},
     // { path:"/merchantsubmit", name:"merchantsubmit", component: merchantsubmit},
     // { path:"/comManage", name:"comManage", component: comManage},
